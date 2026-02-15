@@ -19,9 +19,7 @@ class ATShortcut {
     }
 
     func matches(_ id: Int?, _ shortcutState: ShortcutState?, _ keyCode: UInt32?, _ modifiers: NSEvent.ModifierFlags?) -> Bool {
-        if let id, let shortcutState {
-            let shortcutIndex = id
-            let shortcutId = KeyboardEventsTestable.globalShortcutsIds.first { $0.value == shortcutIndex }!.key
+        if let id, let shortcutState, let shortcutId = KeyboardEventsTestable.globalShortcutsIds.first(where: { $0.value == id })?.key {
             if shortcutId == self.id {
                 state = shortcutState
                 if (triggerPhase == .down && state == .down) || (triggerPhase == .up && state == .up) {

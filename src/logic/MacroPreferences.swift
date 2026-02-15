@@ -23,10 +23,10 @@ enum GesturePreference: CaseIterable, MacroPreference {
     var localizedString: LocalizedString {
         switch self {
             case .disabled: return NSLocalizedString("Disabled", comment: "")
-            case .threeFingerHorizontalSwipe: return NSLocalizedString("Horizontal Swipe with Three Fingers", comment: "")
-            case .threeFingerVerticalSwipe: return NSLocalizedString("Vertical Swipe with Three Fingers", comment: "")
-            case .fourFingerHorizontalSwipe: return NSLocalizedString("Horizontal Swipe with Four Fingers", comment: "")
-            case .fourFingerVerticalSwipe: return NSLocalizedString("Vertical Swipe with Four Fingers", comment: "")
+            case .threeFingerHorizontalSwipe: return NSLocalizedString("3-finger Horizontal Swipe", comment: "")
+            case .threeFingerVerticalSwipe: return NSLocalizedString("3-finger Vertical Swipe", comment: "")
+            case .fourFingerHorizontalSwipe: return NSLocalizedString("4-finger Horizontal Swipe", comment: "")
+            case .fourFingerVerticalSwipe: return NSLocalizedString("4-finger Vertical Swipe", comment: "")
         }
     }
 

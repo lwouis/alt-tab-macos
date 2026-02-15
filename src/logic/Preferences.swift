@@ -4,13 +4,13 @@ import ShortcutRecorder
 
 class Preferences {
     // default values
-    static var defaultValues: [String: String] = [
+    static var defaultValues: [String: String] = {
+        var values: [String: String] = [
+        "shortcutCount": "2",
         "holdShortcut": "⌥",
         "holdShortcut2": "⌥",
-        "holdShortcut3": "⌥",
         "nextWindowShortcut": "⇥",
         "nextWindowShortcut2": keyAboveTabDependingOnInputSource(),
-        "nextWindowShortcut3": "",
         "nextWindowGesture": GesturePreference.disabled.indexAsString,
         "focusWindowShortcut": returnKeyEquivalent(),
         "previousWindowShortcut": "⇧",
@@ -28,24 +28,14 @@ class Preferences {
         "cursorFollowFocus": CursorFollowFocus.never.indexAsString,
         "showMinimizedWindows": ShowHowPreference.show.indexAsString,
         "showMinimizedWindows2": ShowHowPreference.show.indexAsString,
-        "showMinimizedWindows3": ShowHowPreference.show.indexAsString,
-        "showMinimizedWindows4": ShowHowPreference.show.indexAsString,
         "showHiddenWindows": ShowHowPreference.show.indexAsString,
         "showHiddenWindows2": ShowHowPreference.show.indexAsString,
-        "showHiddenWindows3": ShowHowPreference.show.indexAsString,
-        "showHiddenWindows4": ShowHowPreference.show.indexAsString,
         "showFullscreenWindows": ShowHowPreference.show.indexAsString,
         "showFullscreenWindows2": ShowHowPreference.show.indexAsString,
-        "showFullscreenWindows3": ShowHowPreference.show.indexAsString,
-        "showFullscreenWindows4": ShowHowPreference.show.indexAsString,
         "showWindowlessApps": ShowHowPreference.showAtTheEnd.indexAsString,
         "showWindowlessApps2": ShowHowPreference.showAtTheEnd.indexAsString,
-        "showWindowlessApps3": ShowHowPreference.showAtTheEnd.indexAsString,
-        "showWindowlessApps4": ShowHowPreference.showAtTheEnd.indexAsString,
         "windowOrder": WindowOrderPreference.recentlyFocused.indexAsString,
         "windowOrder2": WindowOrderPreference.recentlyFocused.indexAsString,
-        "windowOrder3": WindowOrderPreference.recentlyFocused.indexAsString,
-        "windowOrder4": WindowOrderPreference.recentlyFocused.indexAsString,
         "showTabsAsWindows": "false",
         "hideColoredCircles": "false",
         "windowDisplayDelay": "100",
@@ -60,16 +50,10 @@ class Preferences {
         "showTitles": ShowTitlesPreference.windowTitle.indexAsString,
         "appsToShow": AppsToShowPreference.all.indexAsString,
         "appsToShow2": AppsToShowPreference.active.indexAsString,
-        "appsToShow3": AppsToShowPreference.nonActive.indexAsString,
-        "appsToShow4": AppsToShowPreference.all.indexAsString,
         "spacesToShow": SpacesToShowPreference.all.indexAsString,
         "spacesToShow2": SpacesToShowPreference.all.indexAsString,
-        "spacesToShow3": SpacesToShowPreference.all.indexAsString,
-        "spacesToShow4": SpacesToShowPreference.all.indexAsString,
         "screensToShow": ScreensToShowPreference.all.indexAsString,
         "screensToShow2": ScreensToShowPreference.all.indexAsString,
-        "screensToShow3": ScreensToShowPreference.all.indexAsString,
-        "screensToShow4": ScreensToShowPreference.all.indexAsString,
         "fadeOutAnimation": "false",
         "previewFadeInAnimation": "true",
         "hideSpaceNumberLabels": "false",
@@ -83,22 +67,37 @@ class Preferences {
         "crashPolicy": CrashPolicyPreference.ask.indexAsString,
         "shortcutStyle": ShortcutStylePreference.focusOnRelease.indexAsString,
         "shortcutStyle2": ShortcutStylePreference.focusOnRelease.indexAsString,
-        "shortcutStyle3": ShortcutStylePreference.focusOnRelease.indexAsString,
-        "shortcutStyle4": ShortcutStylePreference.focusOnRelease.indexAsString,
         "hideAppBadges": "false",
         "hideThumbnails": "false",
         "previewFocusedWindow": "false",
         "screenRecordingPermissionSkipped": "false",
         "trackpadHapticFeedbackEnabled": "true",
         "settingsWindowShownOnFirstLaunch": "false",
-    ]
+        ]
+        (0..<maxShortcutCount).forEach { index in
+            values[indexToName("holdShortcut", index)] = "⌥"
+            values[indexToName("nextWindowShortcut", index)] = index == 0 ? "⇥" : (index == 1 ? keyAboveTabDependingOnInputSource() : "")
+        }
+        (0...maxShortcutCount).forEach { index in
+            values[indexToName("appsToShow", index)] = index == 1 ? AppsToShowPreference.active.indexAsString : (index == 2 ? AppsToShowPreference.nonActive.indexAsString : AppsToShowPreference.all.indexAsString)
+            values[indexToName("spacesToShow", index)] = SpacesToShowPreference.all.indexAsString
+            values[indexToName("screensToShow", index)] = ScreensToShowPreference.all.indexAsString
+            values[indexToName("showMinimizedWindows", index)] = ShowHowPreference.show.indexAsString
+            values[indexToName("showHiddenWindows", index)] = ShowHowPreference.show.indexAsString
+            values[indexToName("showFullscreenWindows", index)] = ShowHowPreference.show.indexAsString
+            values[indexToName("showWindowlessApps", index)] = ShowHowPreference.showAtTheEnd.indexAsString
+            values[indexToName("windowOrder", index)] = WindowOrderPreference.recentlyFocused.indexAsString
+            values[indexToName("shortcutStyle", index)] = ShortcutStylePreference.focusOnRelease.indexAsString
+        }
+        return values
+    }()
 
     // system preferences
     static var finderShowsQuitMenuItem: Bool { UserDefaults(suiteName: "com.apple.Finder")?.bool(forKey: "QuitMenuItem") ?? false }
 
     // persisted values
-    static var holdShortcut: [String] { ["holdShortcut", "holdShortcut2", "holdShortcut3"].map { CachedUserDefaults.string($0) } }
-    static var nextWindowShortcut: [String] { ["nextWindowShortcut", "nextWindowShortcut2", "nextWindowShortcut3"].map { CachedUserDefaults.string($0) } }
+    static var holdShortcut: [String] { (0..<shortcutCount).map { CachedUserDefaults.string(indexToName("holdShortcut", $0)) } }
+    static var nextWindowShortcut: [String] { (0..<shortcutCount).map { CachedUserDefaults.string(indexToName("nextWindowShortcut", $0)) } }
     static var nextWindowGesture: GesturePreference { CachedUserDefaults.macroPref("nextWindowGesture", GesturePreference.allCases) }
     static var focusWindowShortcut: String { CachedUserDefaults.string("focusWindowShortcut") }
     static var previousWindowShortcut: String { CachedUserDefaults.string("previousWindowShortcut") }
@@ -145,20 +144,26 @@ class Preferences {
     static var showTitles: ShowTitlesPreference { CachedUserDefaults.macroPref("showTitles", ShowTitlesPreference.allCases) }
     static var updatePolicy: UpdatePolicyPreference { CachedUserDefaults.macroPref("updatePolicy", UpdatePolicyPreference.allCases) }
     static var crashPolicy: CrashPolicyPreference { CachedUserDefaults.macroPref("crashPolicy", CrashPolicyPreference.allCases) }
-    static var appsToShow: [AppsToShowPreference] { ["appsToShow", "appsToShow2", "appsToShow3", "appsToShow4"].map { CachedUserDefaults.macroPref($0, AppsToShowPreference.allCases) } }
-    static var spacesToShow: [SpacesToShowPreference] { ["spacesToShow", "spacesToShow2", "spacesToShow3", "spacesToShow4"].map { CachedUserDefaults.macroPref($0, SpacesToShowPreference.allCases) } }
-    static var screensToShow: [ScreensToShowPreference] { ["screensToShow", "screensToShow2", "screensToShow3", "screensToShow4"].map { CachedUserDefaults.macroPref($0, ScreensToShowPreference.allCases) } }
-    static var showMinimizedWindows: [ShowHowPreference] { ["showMinimizedWindows", "showMinimizedWindows2", "showMinimizedWindows3", "showMinimizedWindows4"].map { CachedUserDefaults.macroPref($0, ShowHowPreference.allCases) } }
-    static var showHiddenWindows: [ShowHowPreference] { ["showHiddenWindows", "showHiddenWindows2", "showHiddenWindows3", "showHiddenWindows4"].map { CachedUserDefaults.macroPref($0, ShowHowPreference.allCases) } }
-    static var showFullscreenWindows: [ShowHowPreference] { ["showFullscreenWindows", "showFullscreenWindows2", "showFullscreenWindows3", "showFullscreenWindows4"].map { CachedUserDefaults.macroPref($0, ShowHowPreference.allCases) } }
-    static var showWindowlessApps: [ShowHowPreference] { ["showWindowlessApps", "showWindowlessApps2", "showWindowlessApps3", "showWindowlessApps4"].map { CachedUserDefaults.macroPref($0, ShowHowPreference.allCases) } }
-    static var windowOrder: [WindowOrderPreference] { ["windowOrder", "windowOrder2", "windowOrder3", "windowOrder4"].map { CachedUserDefaults.macroPref($0, WindowOrderPreference.allCases) } }
+    static var appsToShow: [AppsToShowPreference] { (0...maxShortcutCount).map { CachedUserDefaults.macroPref(indexToName("appsToShow", $0), AppsToShowPreference.allCases) } }
+    static var spacesToShow: [SpacesToShowPreference] { (0...maxShortcutCount).map { CachedUserDefaults.macroPref(indexToName("spacesToShow", $0), SpacesToShowPreference.allCases) } }
+    static var screensToShow: [ScreensToShowPreference] { (0...maxShortcutCount).map { CachedUserDefaults.macroPref(indexToName("screensToShow", $0), ScreensToShowPreference.allCases) } }
+    static var showMinimizedWindows: [ShowHowPreference] { (0...maxShortcutCount).map { CachedUserDefaults.macroPref(indexToName("showMinimizedWindows", $0), ShowHowPreference.allCases) } }
+    static var showHiddenWindows: [ShowHowPreference] { (0...maxShortcutCount).map { CachedUserDefaults.macroPref(indexToName("showHiddenWindows", $0), ShowHowPreference.allCases) } }
+    static var showFullscreenWindows: [ShowHowPreference] { (0...maxShortcutCount).map { CachedUserDefaults.macroPref(indexToName("showFullscreenWindows", $0), ShowHowPreference.allCases) } }
+    static var showWindowlessApps: [ShowHowPreference] { (0...maxShortcutCount).map { CachedUserDefaults.macroPref(indexToName("showWindowlessApps", $0), ShowHowPreference.allCases) } }
+    static var windowOrder: [WindowOrderPreference] { (0...maxShortcutCount).map { CachedUserDefaults.macroPref(indexToName("windowOrder", $0), WindowOrderPreference.allCases) } }
     static var shortcutStyle: ShortcutStylePreference { CachedUserDefaults.macroPref("shortcutStyle", ShortcutStylePreference.allCases) }
     static var menubarIcon: MenubarIconPreference { CachedUserDefaults.macroPref("menubarIcon", MenubarIconPreference.allCases) }
     static var menubarIconShown: Bool { CachedUserDefaults.bool("menubarIconShown") }
     static var language: LanguagePreference { CachedUserDefaults.macroPref("language", LanguagePreference.allCases) }
 
-    static let gestureIndex = 3
+    static let minShortcutCount = 1
+    static let maxShortcutCount = 9
+    static var shortcutCount: Int {
+        max(minShortcutCount, min(maxShortcutCount, CachedUserDefaults.int("shortcutCount")))
+    }
+
+    static let gestureIndex = maxShortcutCount
 
     static func initialize() {
         PreferencesMigrations.removeCorruptedPreferences()
@@ -238,7 +243,8 @@ class Preferences {
     }
 
     static func nameToIndex(_ name: String) -> Int {
-        guard let number = name.last?.wholeNumberValue else { return 0 }
+        let digits = String(name.reversed().prefix { $0.isNumber }.reversed())
+        guard !digits.isEmpty, let number = Int(digits) else { return 0 }
         return number - 1
     }
 }

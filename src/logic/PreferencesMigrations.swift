@@ -21,39 +21,42 @@ class PreferencesMigrations {
     private static func updateToNewPreferences(_ versionInPlist: String) {
         Logger.debug { "App-version:\(App.version), Plist-version:\(versionInPlist)" }
         // x.compare(y) is .orderedDescending if x > y
-        if versionInPlist.compare("7.27.0", options: .numeric) != .orderedDescending {
-            migrateCursorFollowFocus()
-            if versionInPlist.compare("7.26.0", options: .numeric) != .orderedDescending {
-                migrateShowWindowlessApps()
-                if versionInPlist.compare("7.25.0", options: .numeric) != .orderedDescending {
-                    migrateHideWindowlessApps()
-                    if versionInPlist.compare("7.13.1", options: .numeric) != .orderedDescending {
-                        migrateGestures()
-                        if versionInPlist.compare("7.8.0", options: .numeric) != .orderedDescending {
-                            migrateMenubarIconWithNewShownToggle()
-                            if versionInPlist.compare("7.0.0", options: .numeric) != .orderedDescending {
-                                migratePreferencesIndexes()
-                                if versionInPlist.compare("6.43.0", options: .numeric) != .orderedDescending {
-                                    migrateBlacklists()
-                                    if versionInPlist.compare("6.28.1", options: .numeric) != .orderedDescending {
-                                        migrateMinMaxWindowsWidthInRow()
-                                        if versionInPlist.compare("6.27.1", options: .numeric) != .orderedDescending {
-                                            // "Start at login" new implem doesn't use Login Items; we remove the entry from previous versions
-                                            (PreferencesMigrations.self as AvoidDeprecationWarnings.Type).migrateLoginItem()
-                                            if versionInPlist.compare("6.23.0", options: .numeric) != .orderedDescending {
-                                                // "Show windows from:" got the "Active Space" option removed
-                                                migrateShowWindowsFrom()
-                                                if versionInPlist.compare("6.18.1", options: .numeric) != .orderedDescending {
-                                                    // nextWindowShortcut used to be able to have modifiers already present in holdShortcut; we remove these
-                                                    migrateNextWindowShortcuts()
-                                                    // dropdowns preferences used to store English text; now they store indexes
-                                                    migrateDropdownsFromTextToIndexes()
-                                                    // the "Hide menubar icon" checkbox was replaced with a dropdown of: icon1, icon2, hidden
-                                                    migrateMenubarIconFromCheckboxToDropdown()
-                                                    // "Show minimized/hidden/fullscreen windows" checkboxes were replaced with dropdowns
-                                                    migrateShowWindowsCheckboxToDropdown()
-                                                    // "Max size on screen" was split into max width and max height
-                                                    migrateMaxSizeOnScreenToWidthAndHeight()
+        if versionInPlist.compare("9.0.0", options: .numeric) != .orderedDescending {
+            migrateShortcutIndexes()
+            if versionInPlist.compare("7.27.0", options: .numeric) != .orderedDescending {
+                migrateCursorFollowFocus()
+                if versionInPlist.compare("7.26.0", options: .numeric) != .orderedDescending {
+                    migrateShowWindowlessApps()
+                    if versionInPlist.compare("7.25.0", options: .numeric) != .orderedDescending {
+                        migrateHideWindowlessApps()
+                        if versionInPlist.compare("7.13.1", options: .numeric) != .orderedDescending {
+                            migrateGestures()
+                            if versionInPlist.compare("7.8.0", options: .numeric) != .orderedDescending {
+                                migrateMenubarIconWithNewShownToggle()
+                                if versionInPlist.compare("7.0.0", options: .numeric) != .orderedDescending {
+                                    migratePreferencesIndexes()
+                                    if versionInPlist.compare("6.43.0", options: .numeric) != .orderedDescending {
+                                        migrateBlacklists()
+                                        if versionInPlist.compare("6.28.1", options: .numeric) != .orderedDescending {
+                                            migrateMinMaxWindowsWidthInRow()
+                                            if versionInPlist.compare("6.27.1", options: .numeric) != .orderedDescending {
+                                                // "Start at login" new implem doesn't use Login Items; we remove the entry from previous versions
+                                                (PreferencesMigrations.self as AvoidDeprecationWarnings.Type).migrateLoginItem()
+                                                if versionInPlist.compare("6.23.0", options: .numeric) != .orderedDescending {
+                                                    // "Show windows from:" got the "Active Space" option removed
+                                                    migrateShowWindowsFrom()
+                                                    if versionInPlist.compare("6.18.1", options: .numeric) != .orderedDescending {
+                                                        // nextWindowShortcut used to be able to have modifiers already present in holdShortcut; we remove these
+                                                        migrateNextWindowShortcuts()
+                                                        // dropdowns preferences used to store English text; now they store indexes
+                                                        migrateDropdownsFromTextToIndexes()
+                                                        // the "Hide menubar icon" checkbox was replaced with a dropdown of: icon1, icon2, hidden
+                                                        migrateMenubarIconFromCheckboxToDropdown()
+                                                        // "Show minimized/hidden/fullscreen windows" checkboxes were replaced with dropdowns
+                                                        migrateShowWindowsCheckboxToDropdown()
+                                                        // "Max size on screen" was split into max width and max height
+                                                        migrateMaxSizeOnScreenToWidthAndHeight()
+                                                    }
                                                 }
                                             }
                                         }
@@ -64,6 +67,28 @@ class PreferencesMigrations {
                     }
                 }
             }
+        }
+    }
+
+    // gesture index moved from 3 (suffix "4") to 9 (suffix "10"); set shortcutCount for users who had a 3rd shortcut
+    private static func migrateShortcutIndexes() {
+        let gesturePrefs = [
+            "nextWindowGesture", "appsToShow", "spacesToShow", "screensToShow",
+            "showMinimizedWindows", "showHiddenWindows", "showFullscreenWindows",
+            "showWindowlessApps", "windowOrder", "shortcutStyle",
+        ]
+        for baseName in gesturePrefs {
+            if let old = UserDefaults.standard.string(forKey: baseName + "4") {
+                UserDefaults.standard.set(old, forKey: baseName + "10")
+                UserDefaults.standard.removeObject(forKey: baseName + "4")
+            }
+        }
+        let allPerShortcutPrefs = gesturePrefs + ["holdShortcut", "nextWindowShortcut"]
+        let hasThirdShortcut = allPerShortcutPrefs.contains {
+            UserDefaults.standard.string(forKey: $0 + "3") != nil
+        }
+        if hasThirdShortcut {
+            UserDefaults.standard.set("3", forKey: "shortcutCount")
         }
     }
 

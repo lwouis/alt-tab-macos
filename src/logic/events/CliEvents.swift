@@ -84,7 +84,7 @@ class CliServer {
             return noOutput
         }
         if rawValue.hasPrefix("--show="),
-           let shortcutIndex = Int(rawValue.dropFirst("--show=".count)), (0...3).contains(shortcutIndex) {
+           let shortcutIndex = Int(rawValue.dropFirst("--show=".count)), (0..<Preferences.shortcutCount).contains(shortcutIndex) {
             App.app.showUi(shortcutIndex)
             return noOutput
         }

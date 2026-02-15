@@ -1,14 +1,12 @@
 import ShortcutRecorder
 
 class KeyboardEventsTestable {
-    static let globalShortcutsIds = [
-        "nextWindowShortcut": 0,
-        "nextWindowShortcut2": 1,
-        "nextWindowShortcut3": 2,
-        "holdShortcut": 5,
-        "holdShortcut2": 6,
-        "holdShortcut3": 7,
-    ]
+    static var globalShortcutsIds: [String: Int] {
+        var ids = [String: Int]()
+        (0..<Preferences.maxShortcutCount).forEach { ids[Preferences.indexToName("nextWindowShortcut", $0)] = $0 }
+        (0..<Preferences.maxShortcutCount).forEach { ids[Preferences.indexToName("holdShortcut", $0)] = Preferences.maxShortcutCount + $0 }
+        return ids
+    }
 }
 
 @discardableResult

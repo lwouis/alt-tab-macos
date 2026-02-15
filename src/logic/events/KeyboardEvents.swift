@@ -58,14 +58,16 @@ class KeyboardEvents {
 
     private static func unregisterHotKeyIfNeeded(_ controlId: String, _ shortcut: Shortcut) {
         if shortcut.keyCode != .none {
-            UnregisterEventHotKey(eventHotKeyRefs[controlId]!)
-            eventHotKeyRefs[controlId] = nil
+            if let ref = eventHotKeyRefs[controlId] {
+                UnregisterEventHotKey(ref)
+                eventHotKeyRefs[controlId] = nil
+            }
         }
     }
 
     private static func registerHotKeyIfNeeded(_ controlId: String, _ shortcut: Shortcut) {
         if shortcut.keyCode != .none {
-            let id = KeyboardEventsTestable.globalShortcutsIds[controlId]!
+            guard let id = KeyboardEventsTestable.globalShortcutsIds[controlId] else { return }
             let hotkeyId = EventHotKeyID(signature: signature, id: UInt32(id))
             let key = shortcut.carbonKeyCode
             let mods = shortcut.carbonModifierFlags

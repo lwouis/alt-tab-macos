@@ -20,15 +20,39 @@ class BlacklistView: NSScrollView {
             super.scrollWheel(with: event)
             return
         }
-        let y = contentView.bounds.origin.y
-        super.scrollWheel(with: event)
-        if abs(contentView.bounds.origin.y - y) < 0.5 {
+        if canScrollInEventDirection(event) {
+            super.scrollWheel(with: event)
+        } else {
             parentScrollView()?.scrollWheel(with: event)
         }
     }
 
     private func shouldHandleVerticalScroll(_ event: NSEvent) -> Bool {
         abs(event.scrollingDeltaY) > abs(event.scrollingDeltaX) && abs(event.scrollingDeltaY) > 0.1
+    }
+
+    private func canScrollInEventDirection(_ event: NSEvent) -> Bool {
+        let maxOffset = maxVerticalOffset()
+        guard maxOffset > 0 else { return false }
+        let y = contentView.bounds.origin.y
+        let dy = normalizedVerticalDelta(event)
+        if dy > 0 {
+            return y > 0.5
+        }
+        if dy < 0 {
+            return y < maxOffset - 0.5
+        }
+        return false
+    }
+
+    private func maxVerticalOffset() -> CGFloat {
+        guard let content = documentView else { return 0 }
+        return max(0, content.fittingSize.height - contentView.bounds.height)
+    }
+
+    private func normalizedVerticalDelta(_ event: NSEvent) -> CGFloat {
+        let delta = event.hasPreciseScrollingDeltas ? event.scrollingDeltaY : event.deltaY
+        return event.isDirectionInvertedFromDevice ? -delta : delta
     }
 
     private func parentScrollView() -> NSScrollView? {
