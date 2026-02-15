@@ -20,6 +20,7 @@
 "Also select windows using:" = "এটা ব্যবহার করেও উইন্ডো নির্বাচন করুন:";
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "আপনি শেষবার ব্যবহার করার সময় AltTab ক্র্যাশ হয়েছে। একটি ক্র্যাশ রিপোর্ট পাঠালে সেই সমস্যার সমাধান পেতে সাহায্য করবে";
 "AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "আল্টব বর্তমানে অ্যাপ্লিকেশনগুলি দেখানোর জন্য প্রস্তুত রয়েছে।এই সেটিংটি কেবল তখনই পাওয়া যায় যখন আল্টব উইন্ডো দেখানোর জন্য সেট করা থাকে।";
+"AltTab is running without Screen Recording permissions. Thumbnails won’t show." = "AltTab “স্ক্রিন রেকর্ডিং” অনুমতি ছাড়া চলতেছে, থাম্বনেল দেখাবে না";
 "AltTab needs some permissions" = "AltTab-এর কিছু অনুমতি প্রয়োজন";
 "AltTab will show if the window is currently minimized or fullscreen with a status icon." = "উইন্ডোটি বর্তমানে ন্যূনতম করা হয়েছে বা স্ট্যাটাস আইকন সহ ফুলস্ক্রিন রয়েছে কিনা তা দেখাবে।";
 "Always" = "সর্বদা";
@@ -73,6 +74,7 @@
 "Fullscreen windows:" = "ফুলস্ক্রিন উইন্ডোজ:";
 "Fullscreen/Defullscreen window" = "ফুলস্ক্রিন/ডিফুলস্ক্রিন উইন্ডো";
 "General" = "সাধারন";
+"Grant permission" = "অনুমতি দিন";
 "Hidden windows:" = "লুকানো উইন্ডোজ:";
 "Hide" = "লুকান";
 "Hide app badges" = "অ্যাপ ব্যাজ লুকান";
@@ -94,7 +96,10 @@
 "I think the app could be improved with…" = "আমি মনে করি অ্যাপটি আরো উন্নত করা যেতে পারে...";
 "Ignore shortcuts when active" = "সক্রিয় থাকাকালীন শর্টকাট উপেক্ষা করুন";
 "Ignore shortcuts while a window from these apps is active" = "এই অ্যাপগুলির একটি উইন্ডো সক্রিয় থাকাকালীন শর্টকাটগুলি উপেক্ষা করুন৷";
+"Language" = "ভাষা";
+"Language Change" = "ভাষা পরিবর্তন";
 "Large" = "বড়";
+"Later" = "পরে";
 "Latest releases" = "সর্বশেষ রিলিজ";
 "Leading" = "নেতৃত্ব";
 "Left" = "বাম";
@@ -126,11 +131,14 @@
 "Quit" = "প্রস্থান করুন";
 "Quit %@" = "প্রস্থান করুন %@";
 "Quit app" = "অ্যাপ বন্ধ করুন";
+"Recently Created" = "সম্প্রতি বানানো";
 "Recently Created First" = "সম্প্রতি প্রথম তৈরি";
+"Recently Focused" = "সম্প্রতি মনোযোগ";
 "Recently Focused First" = "সম্প্রতি প্রথমে ফোকাস করা";
 "Remember my choice" = "আমার পছন্দ মনে রেখো";
 "Reset preferences and restart" = "সেটিং রিসেট করুন এবং পুনরায় চালু করুন";
 "Reset preferences and restart…" = "পছন্দগুলি পুনরায় সেট করুন এবং পুনরায় চালু করুন ...";
+"Restart Now" = "এখন রিস্টার্ট করুন";
 "Rows of thumbnails:" = "থাম্বনেইলের সারি:";
 "Screen including menu bar" = "মেনু বার সহ স্ক্রীন";
 "Screen including mouse" = "মাউস সহ স্ক্রীন";
@@ -184,6 +192,8 @@
 "Support this project" = "এই প্রকল্প সমর্থন";
 "Switch between 3 different styles. You can customize them." = "3 টি বিভিন্ন শৈলীর মধ্যে স্যুইচ করুন।আপনি তাদের কাস্টমাইজ করতে পারেন।";
 "System" = "সিস্টেম";
+"The ⎋ (escape) key is reserved by some macOS shortcuts (e.g. ⌘⌥⎋ will show the Force Quit Applications window).\n\nIf you want to use ⎋, make sure that Hold modifiers are neither: ⌘⌥, ⌘⌥⇧, or ⌘⌥⇧⌃" = "⎋ (এস্কেপ) কি তা কয়েকটা macOS শর্টকাট দিয়ে সংরক্ষিত (উদাহরণ: ⌘⌥⎋ Force Quit Applications উইন্ডো তা দেখাবে)\n\n⎋ যদি ব্যবহার করতে চান, নিশ্চিত করুন যে Hold মডিফাইয়ের যেন ⌘⌥, ⌘⌥⇧, অথবা না থাকে ⌘⌥⇧⌃";
+"The application needs to restart to apply the language change." = "এপ্লিকেশন রিস্টার্ট করা লাগবে ভাষা পরিবর্তন করার জন্য";
 "Theme" = "থিম";
 "Theme:" = "থিম:";
 "Then release:" = "তারপর মুক্তি:";
@@ -198,6 +208,7 @@
 "Updates policy:" = "আপডেট নীতি:";
 "Version" = "সংস্করণ";
 "View existing discussions" = "বিদ্যমান আলোচনা দেখুন";
+"Vim keys" = "ভীম কিস";
 "Vim keys already assigned to other actions:\n%@" = "ভিম কীগুলি ইতিমধ্যে অন্যান্য ক্রিয়াকলাপে নির্ধারিত: \\ n%@";
 "Visibility" = "দৃশ্যমানতা";
 "Visible Spaces" = "দৃশ্যমান স্থান";
