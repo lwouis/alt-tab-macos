@@ -42,7 +42,7 @@ class Window {
     var swBestSimilarity = 0.0
 
     init(_ axUiElement: AXUIElement, _ application: Application, _ wid: CGWindowID, _ title: String?, _ isFullscreen: Bool?, _ isMinimized: Bool?, _ position: CGPoint?, _ size: CGSize?) {
-        id = "\(wid)"
+        id = "wid-\(wid)"
         self.axUiElement = axUiElement
         self.application = application
         cgWindowId = wid
@@ -61,7 +61,7 @@ class Window {
     }
 
     init(_ application: Application) {
-        id = "\(application.pid)"
+        id = "pid-\(application.pid)"
         self.application = application
         title = bestEffortTitle(nil)
         Window.globalCreationCounter += 1
