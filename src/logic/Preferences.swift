@@ -180,7 +180,7 @@ class Preferences {
 
     static func set<T>(_ key: String, _ value: T, _ notify: Bool = true) where T: Encodable {
         UserDefaults.standard.set(key == "blacklist" ? jsonEncode(value) : value, forKey: key)
-        CachedUserDefaults.cache.removeValue(forKey: key)
+        CachedUserDefaults.removeFromCache(key)
         if notify {
             PreferencesEvents.preferenceChanged(key)
         }
@@ -188,7 +188,7 @@ class Preferences {
 
     static func remove(_ key: String, _ notify: Bool = true) {
         UserDefaults.standard.removeObject(forKey: key)
-        CachedUserDefaults.cache.removeValue(forKey: key)
+        CachedUserDefaults.removeFromCache(key)
         if notify {
             PreferencesEvents.preferenceChanged(key)
         }
@@ -244,26 +244,30 @@ class Preferences {
 }
 
 class CachedUserDefaults {
-    static var cache = [String: Any]()
+    static var cache = AXUIElement.ConcurrentMap<String, Any>()
+
+    static func removeFromCache(_ key: String) {
+        cache.withLock { $0.removeValue(forKey: key) }
+    }
 
     /// retrieve strings in the globalDomain (e.g. defaults read -g KeyRepeat)
     /// these may be nil since we they don't have default values from AltTab
     static func globalString(_ key: String) -> String? {
-        if let cached = CachedUserDefaults.cache[key] {
+        if let cached = cache.withLock({ $0[key] }) {
             return cached as? String
         }
         if let string = UserDefaults.standard.string(forKey: key) {
-            CachedUserDefaults.cache[key] = string
+            cache.withLock { $0[key] = string }
         }
         return nil
     }
 
     static func string(_ key: String) -> String {
-        if let cachedFinalValue = CachedUserDefaults.cache[key] {
+        if let cachedFinalValue = cache.withLock({ $0[key] }) {
             return cachedFinalValue as! String
         }
         let finalValue = UserDefaults.standard.string(forKey: key)!
-        CachedUserDefaults.cache[key] = finalValue
+        cache.withLock { $0[key] = finalValue }
         return finalValue
     }
 
@@ -294,19 +298,19 @@ class CachedUserDefaults {
     }
 
     private static func getThenConvertOrReset<T>(_ key: String, _ getterFn: (String) -> T?) -> T {
-        if let cachedFinalValue = CachedUserDefaults.cache[key] {
+        if let cachedFinalValue = cache.withLock({ $0[key] }) {
             return cachedFinalValue as! T
         }
         let stringValue = UserDefaults.standard.string(forKey: key)!
         if let finalValue = getterFn(stringValue) {
-            CachedUserDefaults.cache[key] = finalValue
+            cache.withLock { $0[key] = finalValue }
             return finalValue
         }
         // value couldn't be read properly; we remove it and work with the default
         UserDefaults.standard.removeObject(forKey: key)
         let defaultStringValue = UserDefaults.standard.string(forKey: key)!
         let defaultFinalValue = getterFn(defaultStringValue)!
-        CachedUserDefaults.cache[key] = defaultFinalValue
+        cache.withLock { $0[key] = defaultFinalValue }
         return defaultFinalValue
     }
 
