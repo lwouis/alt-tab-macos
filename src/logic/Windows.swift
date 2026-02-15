@@ -5,6 +5,8 @@ class Windows {
     static var selectedWindowIndex = Int(0)
     static var selectedWindowTarget: String?
     static var hoveredWindowIndex: Int?
+    // we use this to track if the focused window changed while alt-tab was open
+    private static var lastFocusedWindowTarget: String?
     private static var lastWindowActivityType = WindowActivityType.none
     static var searchQuery = ""
     private static var shouldSelectBestMatchOnSearchChange = false
@@ -241,12 +243,14 @@ class Windows {
     }
 
     static func updateSelectedWindow() {
+        let focusedWindowTarget = currentFocusedWindowTarget()
+        defer { lastFocusedWindowTarget = focusedWindowTarget }
         if shouldRestoreDefaultSelectionOnSearchClear {
             shouldRestoreDefaultSelectionOnSearchClear = false
             setInitialSelectedAndHoveredWindowIndex()
             return
         }
-        let visibleIndexes = list.indices.filter { shouldDisplay(list[$0]) }
+        let visibleIndexes = visibleWindowIndexes()
         guard let firstVisibleIndex = visibleIndexes.first else {
             selectedWindowTarget = nil
             hoveredWindowIndex = nil
@@ -257,11 +261,41 @@ class Windows {
             updateSelectedAndHoveredWindowIndex(firstVisibleIndex)
             return
         }
-        if let index = list.firstIndex(where: { $0.id == selectedWindowTarget && shouldDisplay($0) }) {
-            updateSelectedAndHoveredWindowIndex(index)
+        if shouldSelectFromScratch(focusedWindowTarget) {
+            setInitialSelectedAndHoveredWindowIndex()
             return
         }
-        let lastVisibleIndex = visibleIndexes.last!
+        if restoreSelectionTargetIfVisible() { return }
+        adaptSelectionToVisibleIndexes(visibleIndexes, firstVisibleIndex)
+    }
+
+    private static func visibleWindowIndexes() -> [Int] {
+        list.indices.filter { shouldDisplay(list[$0]) }
+    }
+
+    private static func currentFocusedWindowTarget() -> String? {
+        getLastFocusedOrderWindowIndex().map { list[$0].id }
+    }
+
+    private static func shouldSelectFromScratch(_ focusedWindowTarget: String?) -> Bool {
+        selectedWindowTarget == nil || focusedWindowChangedWhileShowing(focusedWindowTarget)
+    }
+
+    private static func focusedWindowChangedWhileShowing(_ focusedWindowTarget: String?) -> Bool {
+        guard App.app.appIsBeingUsed, Search.normalizedQuery(searchQuery).isEmpty else { return false }
+        guard let lastFocusedWindowTarget, let focusedWindowTarget else { return false }
+        return focusedWindowTarget != lastFocusedWindowTarget
+    }
+
+    private static func restoreSelectionTargetIfVisible() -> Bool {
+        guard let selectedWindowTarget else { return false }
+        guard let index = list.firstIndex(where: { $0.id == selectedWindowTarget && shouldDisplay($0) }) else { return false }
+        updateSelectedAndHoveredWindowIndex(index)
+        return true
+    }
+
+    private static func adaptSelectionToVisibleIndexes(_ visibleIndexes: [Int], _ firstVisibleIndex: Int) {
+        guard let lastVisibleIndex = visibleIndexes.last else { return }
         if !visibleIndexes.contains(selectedWindowIndex) {
             updateSelectedAndHoveredWindowIndex(firstVisibleIndex)
             return
@@ -270,11 +304,12 @@ class Windows {
             updateSelectedAndHoveredWindowIndex(lastVisibleIndex)
             return
         }
-        if selectedWindowTarget == nil {
-            selectedWindowTarget = list[selectedWindowIndex].id
-        }
         if selectedWindowIndex < firstVisibleIndex {
             updateSelectedAndHoveredWindowIndex(firstVisibleIndex)
+            return
+        }
+        if selectedWindowTarget == nil {
+            selectedWindowTarget = list[selectedWindowIndex].id
         }
     }
 
