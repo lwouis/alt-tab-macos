@@ -11,7 +11,7 @@ class Applications {
     }
 
     static func addInitialRunningApplications() {
-        addRunningApplications(NSWorkspace.shared.runningApplications)
+        addRunningApplications(NSWorkspace.shared.runningApplications, false)
     }
 
     static func manuallyRefreshAllWindows() {
@@ -54,7 +54,7 @@ class Applications {
         }
     }
 
-    static func addRunningApplications(_ runningApps: [NSRunningApplication]) {
+    static func addRunningApplications(_ runningApps: [NSRunningApplication], _ needToVerifyFrontmostPid: Bool) {
         runningApps.forEach {
             let bundleIdentifier = $0.bundleIdentifier
             let processIdentifier = $0.processIdentifier
@@ -63,7 +63,7 @@ class Applications {
             }
             // com.apple.universalcontrol always fails subscribeToNotification. We blacklist it to save resources on everyone's machines
             if bundleIdentifier != "com.apple.universalcontrol" {
-                findOrCreate(processIdentifier)
+                findOrCreate(processIdentifier, needToVerifyFrontmostPid)
             }
         }
     }
@@ -103,7 +103,7 @@ class Applications {
     static func refreshBadges_(_ items: [(URL?, String?)]) {
         Windows.list.enumerated().forEach { (i, window) in
             let view = TilesView.recycledViews[i]
-            if let app = findOrCreate(window.application.pid) {
+            if let app = findOrCreate(window.application.pid, false) {
                 if app.runningApplication.activationPolicy == .regular,
                    let matchingItem = (items.first { $0.0 == app.bundleURL }),
                    let label = matchingItem.1 {
@@ -118,7 +118,7 @@ class Applications {
     }
 
     @discardableResult
-    static func findOrCreate(_ pid: pid_t) -> Application? {
+    static func findOrCreate(_ pid: pid_t, _ needToVerifyFrontmostPid: Bool) -> Application? {
         if let app = (list.first { $0.pid == pid }) {
             return app
         }
@@ -126,6 +126,8 @@ class Applications {
         guard ApplicationDiscriminator.isActualApplication(pid, runningApp.bundleIdentifier) else { return nil }
         let app = Application(runningApp)
         list.append(app)
+        // apps don't always create kAXApplicationActivatedNotification upon launch. We need to update frontmostPid in case it has changed
+        frontmostPid = NSWorkspace.shared.frontmostApplication?.processIdentifier
         return app
     }
 

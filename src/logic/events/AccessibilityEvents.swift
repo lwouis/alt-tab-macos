@@ -30,7 +30,7 @@ class AccessibilityEvents {
         let appFocusedWindow = try element.attributes([kAXFocusedWindowAttribute]).focusedWindow
         let wid = try appFocusedWindow?.cgWindowId()
         DispatchQueue.main.async {
-            guard let app = Applications.findOrCreate(pid) else { return }
+            guard let app = Applications.findOrCreate(pid, false) else { return }
             Logger.info { "\(type) app:\(app.debugId)" }
             if type == kAXApplicationActivatedNotification {
                 applicationActivated(app, pid, type, appFocusedWindow, wid)
@@ -79,7 +79,7 @@ class AccessibilityEvents {
         let level = wid.level()
         let a = try element.attributes([kAXTitleAttribute, kAXSubroleAttribute, kAXRoleAttribute, kAXSizeAttribute, kAXPositionAttribute, kAXFullscreenAttribute, kAXMinimizedAttribute])
         DispatchQueue.main.async {
-            guard let app = Applications.findOrCreate(pid) else { return }
+            guard let app = Applications.findOrCreate(pid, false) else { return }
             Logger.info { "\(type) wid:\(wid) app:\(app.debugId)" }
             if type == kAXUIElementDestroyedNotification {
                 windowDestroyed(element, pid, wid)

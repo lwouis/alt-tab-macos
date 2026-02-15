@@ -14,7 +14,7 @@ class SpacesEvents {
             // for such cases, we refresh isFullscreen on Space change
             Windows.updateIsFullscreenOnCurrentSpace()
             if let frontmostPid = Applications.frontmostPid,
-               let frontmostApp = Applications.findOrCreate(frontmostPid),
+               let frontmostApp = Applications.findOrCreate(frontmostPid, false),
                let focusedWindow = frontmostApp.focusedWindow {
                 App.app.checkIfShortcutsShouldBeDisabled(focusedWindow, nil)
             }

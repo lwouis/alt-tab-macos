@@ -228,7 +228,7 @@ class Windows {
             TilesView.highlight(oldIndex)
         }
         if let frontmostPid = Applications.frontmostPid,
-           let frontmostApp = Applications.findOrCreate(frontmostPid),
+           let frontmostApp = Applications.findOrCreate(frontmostPid, false),
            (frontmostApp.focusedWindow == nil || Preferences.windowOrder[App.app.shortcutIndex] != .recentlyFocused),
            let lastFocusedOrderWindowIndex = getLastFocusedOrderWindowIndex() {
             updateSelectedAndHoveredWindowIndex(lastFocusedOrderWindowIndex)
