@@ -1,10 +1,21 @@
 import ShortcutRecorder
 
+class TilesViewMock {
+    var isSearchEditing = false
+    func handleSearchEditingKeyDown(_ event: NSEvent) -> Bool { return false }
+}
+
+class TilesPanelMock {
+    var tilesView = TilesViewMock()
+    var isKeyWindow = false
+}
+
 class App {
     class AppMock {
         var appIsBeingUsed = false
         var shortcutIndex = 0
         var forceDoNothingOnRelease = false
+        var tilesPanel = TilesPanelMock()
     }
     static let app = AppMock()
 }
@@ -63,8 +74,10 @@ class Logger {
 }
 
 class Preferences {
-    static var shortcutStyle: [ShortcutStylePreference] = [.focusOnRelease, .focusOnRelease, .focusOnRelease, .focusOnRelease]
+    static var shortcutStyle: ShortcutStylePreference = .focusOnRelease
     static var holdShortcut = ["⌥", "⌥", "⌥"]
+    static let minShortcutCount = 1
+    static let maxShortcutCount = 9
 
     static func indexToName(_ baseName: String, _ index: Int) -> String {
         return baseName + (index == 0 ? "" : String(index + 1))
