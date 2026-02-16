@@ -12,7 +12,7 @@ class KeyboardEventsTestable {
 @discardableResult
 func handleKeyboardEvent(_ globalId: Int?, _ shortcutState: ShortcutState?, _ keyCode: UInt32?, _ modifiers: NSEvent.ModifierFlags?, _ isARepeat: Bool, _ event: NSEvent? = nil) -> Bool {
     let shouldAbsorbEvent = shouldAbsorbSearchEditingKeyDown(event)
-    if let event, shouldAbsorbEvent, App.app.thumbnailsPanel.tilesView.handleSearchEditingKeyDown(event) {
+    if let event, shouldAbsorbEvent, App.app.tilesPanel.tilesView.handleSearchEditingKeyDown(event) {
         return true
     }
     logKeyboardEvent(globalId, shortcutState, keyCode, modifiers, isARepeat)
@@ -37,7 +37,7 @@ private func logKeyboardEvent(_ globalId: Int?, _ shortcutState: ShortcutState?,
 }
 
 private func shouldAbsorbSearchEditingKeyDown(_ event: NSEvent?) -> Bool {
-    guard let event, event.type == .keyDown, App.app.appIsBeingUsed, App.app.thumbnailsPanel.isKeyWindow, App.app.thumbnailsPanel.tilesView.isSearchEditing else {
+    guard let event, event.type == .keyDown, App.app.appIsBeingUsed, App.app.tilesPanel.isKeyWindow, App.app.tilesPanel.tilesView.isSearchEditing else {
         return false
     }
     return true

@@ -117,21 +117,21 @@ class CursorEvents {
     private static func handleMouseMoved(_ cgEvent: CGEvent) -> Unmanaged<CGEvent>? {
         updateDeadzoneSituation(cgEvent)
         if isAllowedToMouseHover {
-            App.app.thumbnailsPanel.tilesView.thumbnailOverView.updateHover()
+            App.app.tilesPanel.tilesView.thumbnailOverView.updateHover()
         }
         return Unmanaged.passUnretained(cgEvent)
     }
 
     private static func pointerLocationInWindow() -> NSPoint {
-        App.app.thumbnailsPanel.mouseLocationOutsideOfEventStream
+        App.app.tilesPanel.mouseLocationOutsideOfEventStream
     }
 
     private static func isPointerInsideUi() -> Bool {
-        App.app.thumbnailsPanel.contentLayoutRect.contains(pointerLocationInWindow())
+        App.app.tilesPanel.contentLayoutRect.contains(pointerLocationInWindow())
     }
 
     private static func isPointerInsideSearchField() -> Bool {
-        let searchField = App.app.thumbnailsPanel.tilesView.searchField
+        let searchField = App.app.tilesPanel.tilesView.searchField
         if searchField.isHidden { return false }
         let point = searchField.convert(pointerLocationInWindow(), from: nil)
         return searchField.bounds.contains(point)
@@ -142,7 +142,7 @@ class CursorEvents {
     }
 
     private static func pointerInOverlay() -> (TileOverView, NSPoint) {
-        let overlay = App.app.thumbnailsPanel.tilesView.thumbnailOverView
+        let overlay = App.app.tilesPanel.tilesView.thumbnailOverView
         return (overlay, overlay.convert(pointerLocationInWindow(), from: nil))
     }
 

@@ -19,7 +19,7 @@ class App: AppCenterApplication {
     static var supportProjectAction: Selector { #selector(App.app.supportProject) }
     static var app: App!
     var isTerminating = false
-    var thumbnailsPanel: TilesPanel!
+    var tilesPanel: TilesPanel!
     var previewPanel: PreviewPanel!
     var appIsBeingUsed = false
     var shortcutIndex = 0
@@ -50,7 +50,7 @@ class App: AppCenterApplication {
 
     /// we put application code here which should be executed on init() and Preferences change
     func resetPreferencesDependentComponents() {
-        thumbnailsPanel.tilesView.reset()
+        tilesPanel.tilesView.reset()
     }
 
     func restart() {
@@ -67,7 +67,7 @@ class App: AppCenterApplication {
         appIsBeingUsed = false
         isFirstSummon = true
         forceDoNothingOnRelease = false
-        thumbnailsPanel.tilesView.endSearchSession()
+        tilesPanel.tilesView.endSearchSession()
         CursorEvents.toggle(false)
         TrackpadEvents.reset()
         hideTilesPanelWithoutChangingKeyWindow()
@@ -89,7 +89,7 @@ class App: AppCenterApplication {
     /// we don't want another window to become key when the TilesPanel is hidden
     func hideTilesPanelWithoutChangingKeyWindow() {
         allSecondaryWindowsCanBecomeKey(false)
-        thumbnailsPanel.orderOut(nil)
+        tilesPanel.orderOut(nil)
         allSecondaryWindowsCanBecomeKey(true)
     }
 
@@ -123,18 +123,18 @@ class App: AppCenterApplication {
 
     func toggleSearchMode() {
         guard appIsBeingUsed else { return }
-        thumbnailsPanel.tilesView.toggleSearchModeFromShortcut()
+        tilesPanel.tilesView.toggleSearchModeFromShortcut()
     }
 
     func lockSearchMode() {
-        guard appIsBeingUsed, thumbnailsPanel.tilesView.isSearchModeOn else { return }
-        thumbnailsPanel.tilesView.lockSearchMode()
+        guard appIsBeingUsed, tilesPanel.tilesView.isSearchModeOn else { return }
+        tilesPanel.tilesView.lockSearchMode()
     }
 
     func cancelSearchModeOrHideUi() {
         guard appIsBeingUsed else { return }
-        if thumbnailsPanel.tilesView.isSearchModeOn {
-            thumbnailsPanel.tilesView.disableSearchMode()
+        if tilesPanel.tilesView.isSearchModeOn {
+            tilesPanel.tilesView.disableSearchMode()
         } else {
             hideUi()
         }
@@ -248,7 +248,7 @@ class App: AppCenterApplication {
 
     func cycleSelection(_ direction: Direction, allowWrap: Bool = true) {
         if direction == .up || direction == .down {
-            thumbnailsPanel.tilesView.navigateUpOrDown(direction, allowWrap: allowWrap)
+            tilesPanel.tilesView.navigateUpOrDown(direction, allowWrap: allowWrap)
         } else {
             Windows.cycleSelectedWindowIndex(direction.step(), allowWrap: allowWrap)
         }
@@ -291,10 +291,10 @@ class App: AppCenterApplication {
 
     func refreshUi(_ preserveScrollPosition: Bool = false) {
         guard self.appIsBeingUsed else { return }
-        let preservedScrollOrigin = preserveScrollPosition ? thumbnailsPanel.tilesView.currentScrollOrigin() : nil
+        let preservedScrollOrigin = preserveScrollPosition ? tilesPanel.tilesView.currentScrollOrigin() : nil
         Windows.updateSelectedWindow()
         guard self.appIsBeingUsed else { return }
-        self.thumbnailsPanel.updateContents(preservedScrollOrigin)
+        self.tilesPanel.updateContents(preservedScrollOrigin)
         guard self.appIsBeingUsed else { return }
         Windows.voiceOverWindow() // at this point TileViews are assigned to the window, and ready
         guard self.appIsBeingUsed else { return }
@@ -332,7 +332,7 @@ class App: AppCenterApplication {
             isFirstSummon = false
             self.shortcutIndex = shortcutIndex
             let shouldStartInSearchMode = Preferences.shortcutStyle == .searchOnRelease
-            thumbnailsPanel.tilesView.startSearchSession(shouldStartInSearchMode)
+            tilesPanel.tilesView.startSearchSession(shouldStartInSearchMode)
             if shouldStartInSearchMode {
                 forceDoNothingOnRelease = true
             }
@@ -361,9 +361,9 @@ class App: AppCenterApplication {
         guard appIsBeingUsed else { return }
         refreshUi()
         guard appIsBeingUsed else { return }
-        thumbnailsPanel.show()
-        if thumbnailsPanel.tilesView.isSearchEditing {
-            thumbnailsPanel.tilesView.enableSearchEditing()
+        tilesPanel.show()
+        if tilesPanel.tilesView.isSearchEditing {
+            tilesPanel.tilesView.enableSearchEditing()
         }
         KeyRepeatTimer.startRepeatingKeyNextWindow()
         Windows.refreshThumbnailsAsync(Windows.list, .refreshOnlyThumbnailsAfterShowUi)
@@ -412,7 +412,7 @@ extension App: NSApplicationDelegate {
         TilesPanel.updateMaxPossibleAppIconSize()
         Menubar.initialize()
         MainMenu.loadFromXib()
-        self.thumbnailsPanel = TilesPanel()
+        self.tilesPanel = TilesPanel()
         self.previewPanel = PreviewPanel()
         Spaces.refresh()
         Screens.refresh()

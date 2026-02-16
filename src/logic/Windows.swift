@@ -60,15 +60,15 @@ class Windows {
     }
 
     static func voiceOverWindow(_ windowIndex: Int = selectedWindowIndex) {
-        guard App.app.appIsBeingUsed && App.app.thumbnailsPanel.isKeyWindow else { return }
-        if App.app.thumbnailsPanel.tilesView.isSearchEditing { return }
+        guard App.app.appIsBeingUsed && App.app.tilesPanel.isKeyWindow else { return }
+        if App.app.tilesPanel.tilesView.isSearchEditing { return }
         // it seems that sometimes makeFirstResponder is called before the view is visible
         // and it creates a delay in showing the main window; calling it with some delay seems to work around this
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(10)) {
-            if App.app.thumbnailsPanel.tilesView.isSearchEditing { return }
+            if App.app.tilesPanel.tilesView.isSearchEditing { return }
             let window = TilesView.recycledViews[windowIndex]
             if window.window_ != nil && window.window != nil {
-                App.app.thumbnailsPanel.makeFirstResponder(window)
+                App.app.tilesPanel.makeFirstResponder(window)
             }
         }
     }
@@ -76,7 +76,7 @@ class Windows {
     static func previewSelectedWindowIfNeeded() {
         if App.app.appIsBeingUsed && ScreenRecordingPermission.status == .granted
                && Preferences.previewSelectedWindow && !Preferences.onlyShowApplications()
-               && App.app.thumbnailsPanel.isKeyWindow,
+               && App.app.tilesPanel.isKeyWindow,
            let window = selectedWindow(),
            let id = window.cgWindowId,
            let thumbnail = window.thumbnail,
@@ -339,7 +339,7 @@ class Windows {
         guard let index else { return }
         TilesView.highlight(index)
         let focusedView = TilesView.recycledViews[index]
-        App.app.thumbnailsPanel.tilesView.scrollView.contentView.scrollToVisible(focusedView.frame)
+        App.app.tilesPanel.tilesView.scrollView.contentView.scrollToVisible(focusedView.frame)
         voiceOverWindow(index)
     }
 

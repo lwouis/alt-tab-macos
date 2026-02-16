@@ -34,7 +34,7 @@ class KeyRepeatTimer {
     }
 
     private static func isSearchEditing() -> Bool {
-        App.app.appIsBeingUsed && App.app.thumbnailsPanel.isKeyWindow && App.app.thumbnailsPanel.tilesView.isSearchEditing
+        App.app.appIsBeingUsed && App.app.tilesPanel.isKeyWindow && App.app.tilesPanel.tilesView.isSearchEditing
     }
 
     private static func startTimerForRepeatingKey(_ atShortcut: ATShortcut, _ block: @escaping () -> Void) {

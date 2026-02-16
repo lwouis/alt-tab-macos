@@ -94,7 +94,7 @@ class TilesView: NSObject {
         if wasOff {
             App.app.refreshUi(true)
         }
-        App.app.thumbnailsPanel.makeFirstResponder(searchField)
+        App.app.tilesPanel.makeFirstResponder(searchField)
         placeSearchCaretAtEnd()
     }
 
@@ -210,13 +210,13 @@ class TilesView: NSObject {
 
     private func focusSelectedTileIfPossible() {
         guard Windows.selectedWindowIndex >= 0, Windows.selectedWindowIndex < TilesView.recycledViews.count else { return }
-        App.app.thumbnailsPanel.makeFirstResponder(TilesView.recycledViews[Windows.selectedWindowIndex])
+        App.app.tilesPanel.makeFirstResponder(TilesView.recycledViews[Windows.selectedWindowIndex])
     }
 
     private func placeSearchCaretAtEnd() {
         guard searchMode == .editing else { return }
-        if App.app.thumbnailsPanel.firstResponder !== searchField.currentEditor() {
-            App.app.thumbnailsPanel.makeFirstResponder(searchField)
+        if App.app.tilesPanel.firstResponder !== searchField.currentEditor() {
+            App.app.tilesPanel.makeFirstResponder(searchField)
         }
         guard let editor = searchField.currentEditor() else { return }
         let end = searchField.stringValue.utf16.count
@@ -290,7 +290,7 @@ class TilesView: NSObject {
             Applications.updateAppIcons()
         }
         updateBackgroundView()
-        App.app.thumbnailsPanel.contentView = contentView
+        App.app.tilesPanel.contentView = contentView
         for i in 0..<TilesView.recycledViews.count {
             TilesView.recycledViews[i] = TileView()
         }
@@ -307,7 +307,7 @@ class TilesView: NSObject {
         view.indexInRecycledViews = indexInRecycledViews
         guard view.frame != .zero else { return }
         view.drawHighlight()
-        let underLayer = App.app.thumbnailsPanel.tilesView.thumbnailUnderLayer
+        let underLayer = App.app.tilesPanel.tilesView.thumbnailUnderLayer
         guard Windows.selectedWindowIndex >= 0, Windows.selectedWindowIndex < recycledViews.count else { return }
         let focusedView = recycledViews[Windows.selectedWindowIndex]
         let hoveredView = Windows.hoveredWindowIndex.flatMap { $0 >= 0 && $0 < recycledViews.count ? recycledViews[$0] : nil }

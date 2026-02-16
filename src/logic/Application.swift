@@ -178,7 +178,7 @@ class Application: NSObject {
     }
 
     func manuallyUpdateWindow(_ axWindow: AXUIElement, _ wid: CGWindowID) throws {
-        guard wid != 0 && wid != App.app.thumbnailsPanel.windowNumber else { return } // some bogus "windows" have wid 0
+        guard wid != 0 && wid != App.app.tilesPanel.windowNumber else { return } // some bogus "windows" have wid 0
         let level = wid.level()
         let a = try axWindow.attributes([kAXTitleAttribute, kAXSubroleAttribute, kAXRoleAttribute, kAXSizeAttribute, kAXPositionAttribute, kAXFullscreenAttribute, kAXMinimizedAttribute])
         DispatchQueue.main.async { [weak self] in

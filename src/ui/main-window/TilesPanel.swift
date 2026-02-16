@@ -114,7 +114,7 @@ extension TilesPanel: NSWindowDelegate {
         // dispatching to the main queue is necessary to introduce a delay in scheduling the makeKey; otherwise it is ignored
         DispatchQueue.main.async {
             if App.app.appIsBeingUsed {
-                App.app.thumbnailsPanel.makeKeyAndOrderFront(nil)
+                App.app.tilesPanel.makeKeyAndOrderFront(nil)
             }
             MainMenu.toggle(enabled: true)
         }
