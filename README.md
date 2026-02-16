@@ -6,7 +6,7 @@
 
 **AltTab** brings the power of Windows alt-tab to macOS
 
-[Official website](https://alt-tab-macos.netlify.app/)<br/><sub>15K stars</sub> | [Download](https://github.com/lwouis/alt-tab-macos/releases/download/v9.0.0/AltTab-9.0.0.zip)<br/><sub>6.8M downloads</sub>
+[Official website](https://alt-tab-macos.netlify.app/)<br/><sub>15K stars</sub> | [Download](https://github.com/lwouis/alt-tab-macos/releases/download/v10.0.0/AltTab-10.0.0.zip)<br/><sub>6.9M downloads</sub>
 -|-
 
 <div align="right">

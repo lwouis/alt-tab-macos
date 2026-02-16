@@ -1,3 +1,28 @@
+# [10.0.0](https://github.com/lwouis/alt-tab-macos/compare/v9.0.0...v10.0.0) (2026-02-16)
+
+
+### Bug Fixes
+
+* app could crash in rare scenarios ([3de0276](https://github.com/lwouis/alt-tab-macos/commit/3de0276))
+* launched app may not be seen as active (closes [#5291](https://github.com/lwouis/alt-tab-macos/issues/5291)) ([3e47ebe](https://github.com/lwouis/alt-tab-macos/commit/3e47ebe))
+* quick switches could sometimes do nothing (closes [#5289](https://github.com/lwouis/alt-tab-macos/issues/5289)) ([82795d8](https://github.com/lwouis/alt-tab-macos/commit/82795d8))
+
+
+### Features
+
+* add debug tools ([07e4024](https://github.com/lwouis/alt-tab-macos/commit/07e4024))
+* add fuzzy search mode (closes [#590](https://github.com/lwouis/alt-tab-macos/issues/590)) ([4e986f3](https://github.com/lwouis/alt-tab-macos/commit/4e986f3))
+* allow up to 9 shortcuts ([#3882](https://github.com/lwouis/alt-tab-macos/issues/3882)) ([8cab3e1](https://github.com/lwouis/alt-tab-macos/commit/8cab3e1))
+* new settings experience (closes [#5287](https://github.com/lwouis/alt-tab-macos/issues/5287)) ([3890beb](https://github.com/lwouis/alt-tab-macos/commit/3890beb))
+* support app-icon badges with large numbers ([ceed334](https://github.com/lwouis/alt-tab-macos/commit/ceed334))
+* support showing only non-visible spaces (closes [#1274](https://github.com/lwouis/alt-tab-macos/issues/1274)) ([51db0cb](https://github.com/lwouis/alt-tab-macos/commit/51db0cb))
+* update bn localization ([3f1617c](https://github.com/lwouis/alt-tab-macos/commit/3f1617c))
+
+
+### BREAKING CHANGES
+
+* a whole new alt-tab experience by pressing "s". You can also set search as the default style in the settings
+
 # [9.0.0](https://github.com/lwouis/alt-tab-macos/compare/v8.3.4...v9.0.0) (2026-02-11)
 
 
