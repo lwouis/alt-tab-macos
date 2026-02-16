@@ -227,6 +227,7 @@
 		D04BA2A6FF9DDDC5A1A68E36 /* Applications.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA282BB16C1554595A968 /* Applications.swift */; };
 		D04BA2D8099594E1593EC8EF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BA88EDDDD6CB3FBE71FC5 /* InfoPlist.strings */; };
 		D04BA2E64C59D96F6EB27D9D /* FeedbackWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA26C75F76C277653C932 /* FeedbackWindow.swift */; };
+		D04BA2F0A1B2C3D4E5F60003 /* DebugWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA2F0A1B2C3D4E5F60004 /* DebugWindow.swift */; };
 		D04BA328F7C85DD1A6C1C7ED /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BAB163FDEE79F096A410A /* Localizable.strings */; };
 		D04BA34AC850A273AB288B1E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BA3B51D05213404938366 /* Localizable.strings */; };
 		D04BA3744F48116DF4252B19 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BA02355EB28D639F854DF /* Localizable.strings */; };
@@ -604,6 +605,7 @@
 		D04BA2D022B64A876CCA6BB7 /* apple-touch-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "apple-touch-icon.png"; sourceTree = "<group>"; };
 		D04BA2E723062A1DAC58618F /* setup_ci_pr.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = setup_ci_pr.sh; sourceTree = "<group>"; };
 		D04BA2E8D5D5CC23456BC8F7 /* tr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = tr; path = Localizable.strings; sourceTree = "<group>"; };
+		D04BA2F0A1B2C3D4E5F60004 /* DebugWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugWindow.swift; sourceTree = "<group>"; };
 		D04BA32F25860B686DFE818A /* 3 windows - 1 line.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "3 windows - 1 line.jpg"; sourceTree = "<group>"; };
 		D04BA3632A2EB5C64A3FEE59 /* hu */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = hu; path = InfoPlist.strings; sourceTree = "<group>"; };
 		D04BA369B4D9FD6A13936F53 /* changelog-bare.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "changelog-bare.html"; sourceTree = "<group>"; };
@@ -1471,6 +1473,7 @@
 				D04BABCD12CA72B06290C248 /* settings-window */,
 				D04BAD905546AA93E5117B0A /* Menubar.swift */,
 				D04BA26C75F76C277653C932 /* FeedbackWindow.swift */,
+				D04BA2F0A1B2C3D4E5F60004 /* DebugWindow.swift */,
 				D04BA2CBF267F267225CA671 /* generic-components */,
 				D04BA1C271F0DA573345B860 /* permission-window */,
 				D04BAAF79737A0673502FEB5 /* AppCenterApplication.h */,
@@ -2511,6 +2514,7 @@
 				D04BA8092885B40CE3527370 /* PoliciesTab.swift in Sources */,
 				D04BAD451966B43720120D2E /* Menubar.swift in Sources */,
 				D04BA2E64C59D96F6EB27D9D /* FeedbackWindow.swift in Sources */,
+				D04BA2F0A1B2C3D4E5F60003 /* DebugWindow.swift in Sources */,
 				D04BA76A74267B1346D23687 /* GridView.swift in Sources */,
 				D04BAB4EB890853B5B9B2C61 /* BoldLabel.swift in Sources */,
 				D04BAABE804F3769CE22BEB6 /* HyperlinkLabel.swift in Sources */,

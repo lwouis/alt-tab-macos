@@ -172,6 +172,9 @@
 /* No comment provided by engineer. */
 "Dark" = "Dark";
 
+/* Menubar option */
+"Debug tools" = "Debug tools";
+
 /* No comment provided by engineer. */
 "Disabled" = "Disabled";
 

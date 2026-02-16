@@ -21,13 +21,14 @@ class App: AppCenterApplication {
     var isTerminating = false
     var thumbnailsPanel: TilesPanel!
     var previewPanel: PreviewPanel!
-    var settingsWindow: SettingsWindow!
-    var aboutWindow: AboutWindow!
-    var permissionsWindow: PermissionsWindow?
     var appIsBeingUsed = false
     var shortcutIndex = 0
     var forceDoNothingOnRelease = false
+    var settingsWindow: SettingsWindow!
+    var aboutWindow: AboutWindow!
+    var permissionsWindow: PermissionsWindow?
     private var feedbackWindow: FeedbackWindow!
+    private var debugWindow: DebugWindow!
     private var isFirstSummon = true
     private var isVeryFirstSummon = true
     // periphery:ignore
@@ -95,8 +96,9 @@ class App: AppCenterApplication {
     private func allSecondaryWindowsCanBecomeKey(_ canBecomeKey_: Bool) {
         settingsWindow?.canBecomeKey_ = canBecomeKey_
         aboutWindow?.canBecomeKey_ = canBecomeKey_
-        feedbackWindow?.canBecomeKey_ = canBecomeKey_
         permissionsWindow?.canBecomeKey_ = canBecomeKey_
+        feedbackWindow?.canBecomeKey_ = canBecomeKey_
+        debugWindow?.canBecomeKey_ = canBecomeKey_
     }
 
     func closeSelectedWindow() {
@@ -161,6 +163,10 @@ class App: AppCenterApplication {
         showSecondaryWindow(getOrCreateFeedbackWindow())
     }
 
+    @objc func showDebugWindow() {
+        showSecondaryWindow(getOrCreateDebugWindow())
+    }
+
     @objc func showSettingsWindow() {
         showSecondaryWindow(getOrCreateSettingsWindow())
         if settingsWindow?.isVisible != true {
@@ -204,6 +210,13 @@ class App: AppCenterApplication {
             feedbackWindow = FeedbackWindow()
         }
         return feedbackWindow
+    }
+
+    private func getOrCreateDebugWindow() -> DebugWindow {
+        if debugWindow == nil {
+            debugWindow = DebugWindow()
+        }
+        return debugWindow
     }
 
     private func getOrCreatePermissionsWindow() -> PermissionsWindow {

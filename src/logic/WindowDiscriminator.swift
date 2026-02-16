@@ -5,7 +5,7 @@ class WindowDiscriminator {
         // Minimized windows or windows of a hidden app have subrole "AXDialog"
         // Activity Monitor main window subrole is "AXDialog" for a brief moment at launch; it then becomes "AXStandardWindow"
         // Some non-windows have cgWindowId == 0 (e.g. windows of apps starting at login with the checkbox "Hidden" checked)
-        // Logger.error { (app.bundleIdentifier, level, title, subrole, role, size) }
+        Logger.debug { (app.debugId, wid, level, title, subrole, role, size) }
         return wid != 0
             // Finder's file copy dialogs are wide but < 100 height (see https://github.com/lwouis/alt-tab-macos/issues/1466)
             // Sonoma introduced a bug: a caps-lock & language indicators shows as a small window.

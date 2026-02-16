@@ -29,6 +29,7 @@ class Menubar {
         addMenuItem(NSLocalizedString("Check permissions…", comment: "Menubar option"), #selector(App.app.checkPermissions), "", "hand.raised")
         menu.addItem(NSMenuItem.separator())
         addMenuItem(String(format: NSLocalizedString("About %@", comment: "Menubar option. %@ is AltTab"), App.name), #selector(App.app.showAboutWindow), "", "info.circle")
+        addMenuItem(NSLocalizedString("Debug tools", comment: "Menubar option"), #selector(App.app.showDebugWindow), "", "scope")
         addMenuItem(NSLocalizedString("Send feedback…", comment: "Menubar option"), #selector(App.app.showFeedbackPanel), "", "text.bubble")
         addMenuItem(NSLocalizedString("Support this project", comment: "Menubar option"), App.supportProjectAction, "", "heart.fill", .red)
         menu.addItem(NSMenuItem.separator())
