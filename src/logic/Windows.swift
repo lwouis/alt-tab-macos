@@ -235,9 +235,14 @@ class Windows {
            let lastFocusedOrderWindowIndex = getLastFocusedOrderWindowIndex() {
             updateSelectedAndHoveredWindowIndex(lastFocusedOrderWindowIndex)
         } else {
-            cycleSelectedWindowIndex(1)
-            if selectedWindowIndex == 0 {
+            // edge-case: when the 2 most recently focused windows are both minimized, select the first
+            if list.count >= 2 && list[0].isMinimized && list[1].isMinimized {
                 updateSelectedAndHoveredWindowIndex(0)
+            } else {
+                cycleSelectedWindowIndex(1)
+                if selectedWindowIndex == 0 {
+                    updateSelectedAndHoveredWindowIndex(0)
+                }
             }
         }
     }
