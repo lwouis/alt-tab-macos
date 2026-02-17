@@ -421,17 +421,17 @@ extension App: NSApplicationDelegate {
         SystemAppearanceEvents.observe()
         SystemScrollerStyleEvents.observe()
         Applications.initialDiscovery()
-        PreferencesEvents.initialize()
         KeyboardEvents.addEventHandlers()
         CursorEvents.observe()
         TrackpadEvents.observe()
         CliEvents.observe()
-        Logger.info { "Finished launching AltTab" }
+        PreferencesEvents.initialize()
         BenchmarkRunner.startIfNeeded()
         showSettingsWindowOnFirstLaunchIfNeeded()
         #if DEBUG
 //            self.showSettingsWindow()
         #endif
+        Logger.info { "Finished launching AltTab" }
     }
 
     func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
