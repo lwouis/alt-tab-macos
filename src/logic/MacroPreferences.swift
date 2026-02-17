@@ -424,12 +424,14 @@ enum AppearanceSizePreference: CaseIterable, SfSymbolMacroPreference {
     case small
     case medium
     case large
+    case auto
 
     var localizedString: LocalizedString {
         switch self {
             case .small: return NSLocalizedString("Small", comment: "")
             case .medium: return NSLocalizedString("Medium", comment: "")
             case .large: return NSLocalizedString("Large", comment: "")
+            case .auto: return NSLocalizedString("Auto", comment: "")
         }
     }
 
@@ -438,6 +440,7 @@ enum AppearanceSizePreference: CaseIterable, SfSymbolMacroPreference {
             case .small: return "moonphase.waning.gibbous.inverse"
             case .medium: return "moonphase.last.quarter.inverse"
             case .large: return "moonphase.waning.crescent.inverse"
+            case .auto: return "sparkles"
         }
     }
 }

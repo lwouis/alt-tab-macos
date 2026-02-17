@@ -2,6 +2,7 @@ import Cocoa
 
 class Appearance {
     // size
+    static var resolvedSize = AppearanceSizePreference.medium
     static var hideThumbnails = Bool(false)
     static var windowPadding = CGFloat(1000)
     static var windowCornerRadius = CGFloat(1000)
@@ -54,14 +55,27 @@ class Appearance {
     private static func updateSize() {
         let isHorizontalScreen = NSScreen.preferred.isHorizontal()
         maxWidthOnScreen = AppearanceTestable.comfortableWidth(NSScreen.preferred.physicalSize().map { $0.width })
-        if currentStyle == .appIcons {
-            appIconsSize()
-        } else if currentStyle == .titles {
-            titlesSize(isHorizontalScreen)
-        } else {
-            thumbnailsSize(isHorizontalScreen)
-        }
+        let sizeToApply: AppearanceSizePreference = currentSize == .auto ? .large : currentSize
+        resolvedSize = sizeToApply
+        applyConcreteSize(sizeToApply, isHorizontalScreen)
         updateFont()
+    }
+
+    static func applySize(_ size: AppearanceSizePreference) {
+        let isHorizontalScreen = NSScreen.preferred.isHorizontal()
+        resolvedSize = size
+        applyConcreteSize(size, isHorizontalScreen)
+        updateFont()
+    }
+
+    private static func applyConcreteSize(_ size: AppearanceSizePreference, _ isHorizontalScreen: Bool) {
+        if currentStyle == .appIcons {
+            appIconsSize(size)
+        } else if currentStyle == .titles {
+            titlesSize(isHorizontalScreen, size)
+        } else {
+            thumbnailsSize(isHorizontalScreen, size)
+        }
     }
 
     private static func updateTheme() {
@@ -79,7 +93,7 @@ class Appearance {
         }
     }
 
-    private static func thumbnailsSize(_ isHorizontalScreen: Bool) {
+    private static func thumbnailsSize(_ isHorizontalScreen: Bool, _ size: AppearanceSizePreference) {
         hideThumbnails = false
         windowPadding = 18
         windowCornerRadius = 23
@@ -90,7 +104,7 @@ class Appearance {
             windowCornerRadius = 43
             cellCornerRadius = 18
         }
-        switch currentSize {
+        switch size {
             case .small:
                 rowsCount = isHorizontalScreen ? 5 : 8
                 iconSize = 16
@@ -99,7 +113,7 @@ class Appearance {
                 rowsCount = isHorizontalScreen ? 4 : 7
                 iconSize = 26
                 fontHeight = 14
-            case .large:
+            case .large, .auto:
                 rowsCount = isHorizontalScreen ? 3 : 6
                 iconSize = 28
                 fontHeight = 16
@@ -108,7 +122,7 @@ class Appearance {
         (windowMinWidthInRow, windowMaxWidthInRow) = AppearanceTestable.goodValuesForThumbnailsWidthMinMax(tilesPanelRatio, rowsCount)
     }
 
-    private static func appIconsSize() {
+    private static func appIconsSize(_ size: AppearanceSizePreference) {
         hideThumbnails = true
         windowPadding = 25
         windowCornerRadius = 23
@@ -120,7 +134,7 @@ class Appearance {
         windowMinWidthInRow = 0.04
         windowMaxWidthInRow = 0.3
         rowsCount = 1
-        switch currentSize {
+        switch size {
             case .small:
                 iconSize = 70
                 fontHeight = 13
@@ -135,7 +149,7 @@ class Appearance {
                     windowCornerRadius = 55
                     cellCornerRadius = 35
                 }
-            case .large:
+            case .large, .auto:
                 windowPadding = 28
                 iconSize = 150
                 fontHeight = 16
@@ -146,7 +160,7 @@ class Appearance {
         }
     }
 
-    private static func titlesSize(_ isHorizontalScreen: Bool) {
+    private static func titlesSize(_ isHorizontalScreen: Bool, _ size: AppearanceSizePreference) {
         hideThumbnails = true
         windowPadding = 18
         windowCornerRadius = 23
@@ -155,14 +169,14 @@ class Appearance {
         windowMinWidthInRow = 0.6
         windowMaxWidthInRow = 0.9
         rowsCount = 1
-        switch currentSize {
+        switch size {
             case .small:
                 iconSize = 18
                 fontHeight = 13
             case .medium:
                 iconSize = 24
                 fontHeight = 14
-            case .large:
+            case .large, .auto:
                 iconSize = 30
                 fontHeight = 16
         }

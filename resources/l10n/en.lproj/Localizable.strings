@@ -26,6 +26,7 @@
 "AltTab will show if the window is currently minimized or fullscreen with a status icon." = "AltTab will show if the window is currently minimized or fullscreen with a status icon.";
 "Always" = "Always";
 "Always send crash reports" = "Always send crash reports";
+"Auto" = "Auto";
 "and press" = "and press";
 "and press:" = "and press:";
 "Animations" = "Animations";

@@ -40,7 +40,7 @@ class Preferences {
         "hideColoredCircles": "false",
         "windowDisplayDelay": "100",
         "appearanceStyle": AppearanceStylePreference.thumbnails.indexAsString,
-        "appearanceSize": AppearanceSizePreference.medium.indexAsString,
+        "appearanceSize": AppearanceSizePreference.auto.indexAsString,
         "appearanceTheme": AppearanceThemePreference.system.indexAsString,
         "theme": ThemePreference.macOs.indexAsString,
         "showOnScreen": ShowOnScreenPreference.active.indexAsString,

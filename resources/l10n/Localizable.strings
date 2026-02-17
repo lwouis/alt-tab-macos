@@ -122,6 +122,9 @@
 "Ask whether to send crash reports" = "Ask whether to send crash reports";
 
 /* No comment provided by engineer. */
+"Auto" = "Auto";
+
+/* No comment provided by engineer. */
 "Auto-install updates periodically" = "Auto-install updates periodically";
 
 /* No comment provided by engineer. */
