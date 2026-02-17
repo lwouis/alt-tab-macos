@@ -598,7 +598,7 @@ class ControlsTab {
         let holdShortcut = UserDefaults.standard.string(forKey: Preferences.indexToName("holdShortcut", index)) ?? ""
         let nextWindowShortcut = UserDefaults.standard.string(forKey: Preferences.indexToName("nextWindowShortcut", index)) ?? ""
         if nextWindowShortcut.isEmpty {
-            return holdShortcut.isEmpty ? NSLocalizedString("Not set", comment: "") : holdShortcut
+            return holdShortcut
         }
         return holdShortcut + " + " + nextWindowShortcut
     }
