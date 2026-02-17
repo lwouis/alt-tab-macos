@@ -331,6 +331,9 @@ class Windows {
             index = hoveredWindowIndex
             lastWindowActivityType = .hover
         }
+        if !fromMouse {
+            App.app.tilesPanel.tilesView.thumbnailOverView.resetHoveredWindow()
+        }
         if (!fromMouse || Preferences.mouseHoverEnabled)
                && (newIndex != selectedWindowIndex || lastWindowActivityType == .hover) {
             let oldIndex = selectedWindowIndex
