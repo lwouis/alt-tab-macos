@@ -490,8 +490,8 @@ class SettingsWindow: NSWindow {
     var canBecomeKey_ = true
     override var canBecomeKey: Bool { canBecomeKey_ }
 
-    private let splitView = NSSplitView()
-    private let sidebarContainer = NSVisualEffectView()
+    private let splitViewController = NSSplitViewController()
+    private let sidebarContainer = NSView()
     private let contentContainer = NSView()
     private let searchField = NSSearchField(frame: .zero)
     private let sidebarScrollView = NSScrollView()
@@ -526,7 +526,11 @@ class SettingsWindow: NSWindow {
         titleVisibility = .hidden
         titlebarAppearsTransparent = true
         isMovableByWindowBackground = true
+        let toolbar = NSToolbar(identifier: "SettingsToolbar")
+        toolbar.showsBaselineSeparator = false
+        self.toolbar = toolbar
         if #available(macOS 11.0, *) {
+            toolbarStyle = .unified
             titlebarSeparatorStyle = .none
         }
     }
@@ -541,31 +545,18 @@ class SettingsWindow: NSWindow {
     }
 
     private func setupSplitView() {
-        guard let windowContentView = contentView else { return }
-        splitView.translatesAutoresizingMaskIntoConstraints = false
-        splitView.isVertical = true
-        splitView.dividerStyle = .thin
-        sidebarContainer.translatesAutoresizingMaskIntoConstraints = false
-        sidebarContainer.material = .sidebar
-        sidebarContainer.blendingMode = .withinWindow
-        sidebarContainer.state = .active
-        contentContainer.translatesAutoresizingMaskIntoConstraints = false
-        splitView.addArrangedSubview(sidebarContainer)
-        splitView.addArrangedSubview(contentContainer)
-        windowContentView.addSubview(splitView)
-        let sidebarWidthConstraint = sidebarContainer.widthAnchor.constraint(equalToConstant: Self.sidebarWidth)
-        sidebarWidthConstraint.priority = .required
-        NSLayoutConstraint.activate([
-            splitView.leadingAnchor.constraint(equalTo: windowContentView.leadingAnchor),
-            splitView.trailingAnchor.constraint(equalTo: windowContentView.trailingAnchor),
-            splitView.topAnchor.constraint(equalTo: windowContentView.topAnchor),
-            splitView.bottomAnchor.constraint(equalTo: windowContentView.bottomAnchor),
-            sidebarWidthConstraint,
-        ])
-        sidebarContainer.setContentCompressionResistancePriority(.required, for: .horizontal)
-        sidebarContainer.setContentHuggingPriority(.required, for: .horizontal)
-        contentContainer.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-        contentContainer.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        let sidebarVC = NSViewController()
+        sidebarVC.view = sidebarContainer
+        let contentVC = NSViewController()
+        contentVC.view = contentContainer
+        let sidebarItem = NSSplitViewItem(sidebarWithViewController: sidebarVC)
+        sidebarItem.canCollapse = false
+        sidebarItem.minimumThickness = Self.sidebarWidth
+        sidebarItem.maximumThickness = Self.sidebarWidth
+        let contentItem = NSSplitViewItem(viewController: contentVC)
+        splitViewController.splitViewItems = [sidebarItem, contentItem]
+        splitViewController.splitView.dividerStyle = .thin
+        contentViewController = splitViewController
     }
 
     private func setupSidebar() {
