@@ -126,8 +126,6 @@ class Applications {
         guard ApplicationDiscriminator.isActualApplication(pid, runningApp.bundleIdentifier) else { return nil }
         let app = Application(runningApp)
         list.append(app)
-        // apps don't always create kAXApplicationActivatedNotification upon launch. We need to update frontmostPid in case it has changed
-        frontmostPid = NSWorkspace.shared.frontmostApplication?.processIdentifier
         return app
     }
 
