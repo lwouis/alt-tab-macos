@@ -1,3 +1,17 @@
+# [10.1.0](https://github.com/lwouis/alt-tab-macos/compare/v10.0.0...v10.1.0) (2026-02-17)
+
+
+### Bug Fixes
+
+* better flow when last 2 windows are minimized (closes [#2159](https://github.com/lwouis/alt-tab-macos/issues/2159)) ([da6be20](https://github.com/lwouis/alt-tab-macos/commit/da6be20))
+* issue with link drag-and-drop over the switcher (closes [#5292](https://github.com/lwouis/alt-tab-macos/issues/5292)) ([4e6361f](https://github.com/lwouis/alt-tab-macos/commit/4e6361f))
+* trackpad gesture active when disabled (closes [#5301](https://github.com/lwouis/alt-tab-macos/issues/5301)) ([d074faa](https://github.com/lwouis/alt-tab-macos/commit/d074faa))
+
+
+### Features
+
+* allow settings export/import (closes [#4514](https://github.com/lwouis/alt-tab-macos/issues/4514)) ([69a9dfa](https://github.com/lwouis/alt-tab-macos/commit/69a9dfa))
+
 # [10.0.0](https://github.com/lwouis/alt-tab-macos/compare/v9.0.0...v10.0.0) (2026-02-16)
 
 
