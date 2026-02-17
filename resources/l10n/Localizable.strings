@@ -191,10 +191,16 @@
 "End" = "End";
 
 /* No comment provided by engineer. */
+"Export…" = "Export…";
+
+/* No comment provided by engineer. */
 "Fade in animation of Preview" = "Fade in animation of Preview";
 
 /* No comment provided by engineer. */
 "Fade out animation of Switcher" = "Fade out animation of Switcher";
+
+/* No comment provided by engineer. */
+"Failed to import settings" = "Failed to import settings";
 
 /* No comment provided by engineer. */
 "Focus selected window" = "Focus selected window";
@@ -240,6 +246,9 @@
 
 /* No comment provided by engineer. */
 "Ignore shortcuts when active" = "Ignore shortcuts when active";
+
+/* No comment provided by engineer. */
+"Import…" = "Import…";
 
 /* No comment provided by engineer. */
 "Keep open" = "Keep open";
@@ -410,6 +419,9 @@
 /* Menubar option */
 "Send feedback…" = "Send feedback…";
 
+/* No comment provided by engineer. */
+"Settings imported" = "Settings imported";
+
 /* Menubar option */
 "Settings…" = "Settings…";
 
@@ -508,6 +520,9 @@
 
 /* No comment provided by engineer. */
 "System Default" = "System Default";
+
+/* No comment provided by engineer. */
+"The application needs to restart to apply the imported settings." = "The application needs to restart to apply the imported settings.";
 
 /* No comment provided by engineer. */
 "The application needs to restart to apply the language change." = "The application needs to restart to apply the language change.";
