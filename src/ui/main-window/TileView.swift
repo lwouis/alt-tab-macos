@@ -58,6 +58,7 @@ class TileView: FlippedView {
     override func draggingExited(_ sender: NSDraggingInfo?) {
         dragAndDropTimer?.invalidate()
         dragAndDropTimer = nil
+        App.app.tilesPanel.tilesView.thumbnailOverView.resetHoveredWindow()
     }
 
     override func performDragOperation(_ sender: NSDraggingInfo) -> Bool {

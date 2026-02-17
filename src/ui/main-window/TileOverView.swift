@@ -106,7 +106,8 @@ class TileOverView: FlippedView {
         return nil
     }
 
-    private func resetHoveredWindow() {
+    func resetHoveredWindow() {
+        previousTarget = nil
         if let oldIndex = Windows.hoveredWindowIndex {
             Windows.hoveredWindowIndex = nil
             TilesView.highlight(oldIndex)
