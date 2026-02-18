@@ -31,6 +31,7 @@ class DebugWindow: NSPanel {
                   backing: .buffered, defer: false)
         setupWindow()
         setupView()
+        setFrameAutosaveName("DebugWindow")
     }
 
     private func setupWindow() {

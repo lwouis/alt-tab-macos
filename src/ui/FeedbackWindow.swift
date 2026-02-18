@@ -19,6 +19,7 @@ class FeedbackWindow: NSWindow {
         self.init(contentRect: .zero, styleMask: [.titled, .miniaturizable, .closable], backing: .buffered, defer: false)
         setupWindow()
         setupView()
+        setFrameAutosaveName("FeedbackWindow")
     }
 
     private func setupWindow() {

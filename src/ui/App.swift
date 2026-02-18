@@ -183,11 +183,15 @@ class App: AppCenterApplication {
     func showSecondaryWindow(_ window: NSWindow?) {
         if let window {
             NSScreen.updatePreferred()
-            NSScreen.preferred.repositionPanel(window)
             App.shared.activate(ignoringOtherApps: true)
             window.makeKeyAndOrderFront(nil)
-            // Use the center function to continue to center, the `repositionPanel` function cannot center, it may be a system bug
-            window.center()
+            // if the window was resized/repositioned by the user, restore the window the way it was
+            let restored = window.setFrameUsingName(window.frameAutosaveName)
+            if !restored {
+                NSScreen.preferred.repositionPanel(window)
+                // Use the center function to continue to center, the `repositionPanel` function cannot center, it may be a system bug
+                window.center()
+            }
         }
     }
 

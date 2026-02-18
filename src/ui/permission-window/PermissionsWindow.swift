@@ -11,6 +11,7 @@ class PermissionsWindow: NSWindow {
         delegate = self
         setupWindow()
         setupView()
+        setFrameAutosaveName("PermissionsWindow")
     }
 
     func show() {

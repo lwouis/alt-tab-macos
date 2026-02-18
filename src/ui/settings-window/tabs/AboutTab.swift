@@ -73,6 +73,7 @@ class AboutWindow: NSPanel {
         self.init(contentRect: NSRect(x: 0, y: 0, width: 600, height: 450), styleMask: [.utilityWindow, .titled, .closable], backing: .buffered, defer: false)
         setupWindow()
         setupView()
+        setFrameAutosaveName("AboutWindow")
     }
 
     private func setupWindow() {

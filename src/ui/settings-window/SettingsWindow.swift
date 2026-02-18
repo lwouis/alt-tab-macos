@@ -517,6 +517,7 @@ class SettingsWindow: NSWindow {
         maxSize = NSSize(width: windowWidth, height: CGFloat.greatestFiniteMagnitude)
         setupWindow()
         setupView()
+        setFrameAutosaveName("SettingsWindow")
     }
 
     private func setupWindow() {
