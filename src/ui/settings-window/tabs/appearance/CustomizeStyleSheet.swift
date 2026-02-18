@@ -32,7 +32,7 @@ class CustomizeStyleSheet: SheetWindow {
             NSLocalizedString("Advanced", comment: "")
         ], trackingMode: .selectOne, target: self, action: #selector(switchTab(_:)))
         control.selectedSegment = 0
-        control.segmentStyle = .automatic
+        LabelAndControl.applySystemSelectedSegmentStyle(control)
         control.widthAnchor.constraint(equalToConstant: CustomizeStyleSheet.width).isActive = true
         let view = TableGroupSetView(originalViews: [illustratedImageView, control, showHideView, advancedView], padding: 0)
         return view

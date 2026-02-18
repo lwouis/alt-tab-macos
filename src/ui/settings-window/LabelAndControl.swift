@@ -245,7 +245,7 @@ class LabelAndControl: NSObject {
             $0.localizedString
         }, trackingMode: .selectOne, target: nil, action: nil)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.segmentStyle = .automatic
+        applySystemSelectedSegmentStyle(button)
         for (i, preference) in macroPreferences.enumerated() {
             if segmentWidth > 0 {
                 button.setWidth(segmentWidth, forSegment: i)
@@ -264,6 +264,14 @@ class LabelAndControl: NSObject {
             _ = setupControl(button, rawName, String(i), extraAction: extraAction)
         }
         return button
+    }
+
+    static func applySystemSelectedSegmentStyle(_ control: NSSegmentedControl) {
+        if #available(macOS 10.14, *) {
+            control.segmentStyle = .automatic
+        } else {
+            control.segmentStyle = .texturedRounded
+        }
     }
 
     static func makeLabelWithSlider(_ labelText: String, _ rawName: String, _ minValue: Double, _ maxValue: Double,

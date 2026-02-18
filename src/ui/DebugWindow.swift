@@ -82,6 +82,7 @@ class DebugWindow: NSPanel {
         filterControl = NSSegmentedControl(labels: ["Debug", "Info", "Warning", "Error"],
                                            trackingMode: .selectOne, target: nil, action: nil)
         filterControl.translatesAutoresizingMaskIntoConstraints = false
+        LabelAndControl.applySystemSelectedSegmentStyle(filterControl)
         filterControl.selectedSegment = 0
         filterControl.onAction = { [weak self] _ in self?.filterChanged() }
         for i in 0..<Self.levels.count {
