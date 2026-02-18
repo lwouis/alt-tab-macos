@@ -38,7 +38,7 @@ class WindowCaptureScreenshots {
                     if let cachedWindow = (cachedSCWindows.first { $0.windowID == notCachedWindow }) {
                         oneTimeCapture(cachedWindow, source)
                     } else {
-                        Logger.error { "wid:\(notCachedWindow) was not found in SCShareableContent windows" }
+                        Logger.debug { "wid:\(notCachedWindow) was not found in SCShareableContent windows" }
                     }
                 }
             }

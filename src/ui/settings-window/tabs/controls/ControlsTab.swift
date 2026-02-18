@@ -69,41 +69,36 @@ private class ShortcutSidebarRow: ClickHoverStackView {
 }
 
 private class ControlsSidebarScrollView: NSScrollView {
-    override class var isCompatibleWithResponsiveScrolling: Bool { true }
+    override func wantsForwardedScrollEvents(for axis: NSEvent.GestureAxis) -> Bool {
+        axis == .vertical
+    }
 
     override func scrollWheel(with event: NSEvent) {
-        guard shouldHandleVerticalScroll(event) else {
-            super.scrollWheel(with: event)
-            return
-        }
-        if canScrollInEventDirection(event) {
-            super.scrollWheel(with: event)
-        } else {
-            parentScrollView()?.scrollWheel(with: event)
+        let before = contentView.bounds.origin
+        super.scrollWheel(with: event)
+        DispatchQueue.main.async { [weak self] in
+            guard let self, self.shouldForwardToParent(event, before) else { return }
+            self.parentScrollView()?.scrollWheel(with: event)
         }
     }
 
-    private func shouldHandleVerticalScroll(_ event: NSEvent) -> Bool {
+    private func shouldForwardToParent(_ event: NSEvent, _ before: CGPoint) -> Bool {
+        guard isVerticalScroll(event) else { return false }
+        guard abs(contentView.bounds.origin.y - before.y) < 0.01 else { return false }
+        return isAtVerticalBoundary(event)
+    }
+
+    private func isVerticalScroll(_ event: NSEvent) -> Bool {
         abs(event.scrollingDeltaY) > abs(event.scrollingDeltaX) && abs(event.scrollingDeltaY) > 0.1
     }
 
-    private func canScrollInEventDirection(_ event: NSEvent) -> Bool {
-        let maxOffset = maxVerticalOffset()
-        guard maxOffset > 0 else { return false }
-        let y = contentView.bounds.origin.y
+    private func isAtVerticalBoundary(_ event: NSEvent) -> Bool {
+        guard let content = documentView else { return false }
+        let visible = contentView.documentVisibleRect
         let dy = normalizedVerticalDelta(event)
-        if dy > 0 {
-            return y > 0.5
-        }
-        if dy < 0 {
-            return y < maxOffset - 0.5
-        }
+        if dy > 0 { return visible.minY <= content.bounds.minY + 0.5 }
+        if dy < 0 { return visible.maxY >= content.bounds.maxY - 0.5 }
         return false
-    }
-
-    private func maxVerticalOffset() -> CGFloat {
-        guard let content = documentView?.subviews.first else { return 0 }
-        return max(0, content.fittingSize.height - contentView.bounds.height)
     }
 
     private func normalizedVerticalDelta(_ event: NSEvent) -> CGFloat {
@@ -114,12 +109,16 @@ private class ControlsSidebarScrollView: NSScrollView {
     private func parentScrollView() -> NSScrollView? {
         var parent = superview
         while let view = parent {
-            if let scrollView = view as? NSScrollView {
-                return scrollView
-            }
+            if let scrollView = view as? NSScrollView { return scrollView }
             parent = view.superview
         }
         return nil
+    }
+}
+
+private class ControlsSidebarDocumentView: FlippedView {
+    override func wantsForwardedScrollEvents(for axis: NSEvent.GestureAxis) -> Bool {
+        axis == .vertical
     }
 }
 
@@ -314,9 +313,8 @@ class ControlsTab {
         rowsScrollView.hasVerticalScroller = true
         rowsScrollView.hasHorizontalScroller = false
         rowsScrollView.scrollerStyle = .overlay
-        rowsScrollView.verticalScrollElasticity = .none
         rowsScrollView.usesPredominantAxisScrolling = true
-        let documentView = FlippedView(frame: .zero)
+        let documentView = ControlsSidebarDocumentView(frame: .zero)
         documentView.translatesAutoresizingMaskIntoConstraints = false
         rowsScrollView.documentView = documentView
         documentView.addSubview(rows)
