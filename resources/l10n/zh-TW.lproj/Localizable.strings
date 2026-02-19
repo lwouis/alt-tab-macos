@@ -1,3 +1,7 @@
+"3-finger Horizontal Swipe" = "三指水平滑動";
+"3-finger Vertical Swipe" = "三指垂直滑動";
+"4-finger Horizontal Swipe" = "四指水平滑動";
+"4-finger Vertical Swipe" = "四指垂直滑動";
 "About" = "關於";
 "About %@" = "關於 %@";
 "Accessibility" = "補助使用";
@@ -8,6 +12,7 @@
 "Additional controls" = "額外設定";
 "Additional controls…" = "額外設定⋯";
 "Advanced" = "進階";
+"After keys are released" = "按鍵放開後";
 "After release" = "按鍵釋放後";
 "Align windows" = "對齊視窗";
 "Align windows:" = "排列視窗：";
@@ -44,6 +49,7 @@
 "Are you sure you don’t want a response?" = "您確定不想收到回覆嗎？";
 "Arrow keys" = "方向鍵";
 "Ask whether to send crash reports" = "詢問是否送出當機報告";
+"Auto" = "自動";
 "Auto-install updates periodically" = "定期自動安裝更新";
 "Blacklists" = "阻擋清單";
 "Cancel" = "取消";
@@ -63,6 +69,7 @@
 "Customize Thumbnails style…" = "設定縮圖樣式⋯";
 "Customize Titles style…" = "設定標題樣式⋯";
 "Dark" = "深色";
+"Debug tools" = "除錯工具";
 "Disabled" = "關閉";
 "Do nothing" = "什麼都別做";
 "Don’t check for updates periodically" = "不要定期自動檢查更新";
@@ -70,10 +77,12 @@
 "Don’t show windows from these apps" = "不要顯示這些程式的視窗";
 "Done" = "完成";
 "End" = "尾端";
+"Export…" = "輸出…";
 "Fade in animation of Preview" = "開啟時使用淡入動畫";
 "Fade out animation" = "淡出動畫";
 "Fade out animation of Switcher" = "離開時使用淡出動畫";
 "Fade out animation:" = "淡出動畫：";
+"Failed to import settings" = "無法輸入設定";
 "Focus selected window" = "聚焦選擇的視窗";
 "Fullscreen window" = "全螢幕視窗";
 "Fullscreen windows:" = "全螢幕視窗：";
@@ -104,6 +113,9 @@
 "I think the app could be improved with…" = "我覺得這個程式可以改善⋯";
 "Ignore shortcuts when active" = "活躍時忽略快速鍵";
 "Ignore shortcuts while a window from these apps is active" = "當這些程式的視窗活躍時，忽略快速鍵";
+"Import…" = "輸入…";
+"Keep open" = "保持開啟";
+"Keep open and search" = "保持開啟並搜尋";
 "Language" = "語言";
 "Language Change" = "選擇語言";
 "Large" = "大";
@@ -112,6 +124,7 @@
 "Leading" = "靠前";
 "Left" = "靠左";
 "Light" = "淺色";
+"Lock search" = "鎖定搜尋";
 "Max height on screen:" = "最大螢幕佔用高度";
 "Max width on screen:" = "最大螢幕佔用寬度";
 "Medium" = "中等";
@@ -127,6 +140,7 @@
 "Never" = "永不";
 "Never send crash reports" = "永不送出當機報告";
 "Non-active apps" = "非活躍應用程式";
+"Non-visible Spaces" = "非可見空間";
 "Normal" = "一般";
 "Not allowed" = "不允許";
 "NSHumanReadableCopyright" = "GPL-3.0 授權";
@@ -136,6 +150,7 @@
 "Open Accessibility Settings…" = "開啟補助使用⋯";
 "Open Screen Recording Preferences…" = "打開螢幕錄影偏好設定⋯";
 "Open Screen Recording Settings…" = "開啟螢幕與系統錄音設定⋯";
+"Open System Settings to confirm, and continue" = "開啟「系統設定」以確認並繼續";
 "Open Trackpad Preferences…" = "開啟觸控式軌跡板設定";
 "Open Trackpad Settings…" = "開啟觸控式軌跡板設定⋯";
 "Optional: email (if you want a reply)" = "電子信箱（選填，如果你想要收到回覆）";
@@ -164,6 +179,7 @@
 "Screen including mouse" = "滑鼠所在的顯示器";
 "Screen Recording" = "螢幕錄影";
 "Screen showing AltTab" = "顯示 AltTab 的顯示器";
+"Search" = "搜尋";
 "Select next window" = "選擇下一個視窗";
 "Select previous window" = "選擇前一個視窗";
 "Select windows on mouse hover" = "選擇滑鼠懸停在上面的視窗";
@@ -175,8 +191,10 @@
 "Send debug profile (CPU, memory, etc)" = "送出 debug 資訊（包括處理器、記憶體⋯等）";
 "Send feedback" = "送出回饋";
 "Send feedback…" = "送出回饋⋯";
+"Settings imported" = "設定已輸入";
 "Settings…" = "設定⋯";
 "Share improvement ideas, or report bugs" = "分享建議，或是回報問題";
+"Shortcut" = "快速鍵";
 "Shortcut 1" = "快速鍵 1";
 "Shortcut 2" = "快速鍵 2";
 "Shortcut 3" = "快速鍵 3";
@@ -219,7 +237,10 @@
 "Switch between 3 different styles. You can customize them." = "在 3 種不同樣式之間切換。您可以客製化它們。";
 "System" = "系統";
 "System Default" = "系統預設";
+"The ⌘⎋ (command+escape) shortcut may be used by macOS for GameOverlay.\n\nYour change would assign it to: %@.\n\nIf you want to continue, make sure that the GameOverlay shortcut is disabled.\nAlso note that macOS has reported bugs where the shortcut may still interfere while disabled." = "⌘⎋ (command+escape) 快速鍵可能被 macOS 用於 GameOverlay。\n\n您的變更將會指派給：%@。\n\n如果您想繼續，請確保 GameOverlay 快速鍵已停用。\n另請注意，macOS 曾報告錯誤，即使停用快速鍵仍可能發生干擾。";
 "The ⎋ (escape) key is reserved by some macOS shortcuts (e.g. ⌘⌥⎋ will show the Force Quit Applications window).\n\nIf you want to use ⎋, make sure that Hold modifiers are neither: ⌘⌥, ⌘⌥⇧, or ⌘⌥⇧⌃" = "⎋ (Escape) 鍵已被部分 macOS 系統快捷鍵保留使用。 (例如 ⌘⌥⎋ 會顯示強制結束程式視窗。）\n若您想使用 ⎋ 鍵，請確保長按輔助鍵設定的組合不是下列任一：\n⌘⌥、⌘⌥⇧ 或 ⌘⌥⇧⌃。";
+"The ⎋ (escape) key is reserved by some macOS shortcuts (e.g. ⌘⌥⎋ will show the Force Quit Applications window).\n\nYour change would assign it to: %@.\n\nIf you want to use ⎋, make sure that Hold modifiers are neither: ⌘⌥, ⌘⌥⇧, or ⌘⌥⇧⌃" = "⎋ (escape) 鍵已被部分 macOS 快速鍵保留 (例如 ⌘⌥⎋ 將會顯示「強制結束應用程式」視窗)。\n\n您的變更將會指派給：%@。\n\n如果您想使用 ⎋，請確保按住修飾鍵既不是：⌘⌥、⌘⌥⇧，也不是 ⌘⌥⇧⌃";
+"The application needs to restart to apply the imported settings." = "應用程式需要重新啟動以套用輸入的設定。";
 "The application needs to restart to apply the language change." = "應用程式需要重新啟動來套用語言設定。";
 "Theme" = "主題";
 "Theme:" = "主題：";
@@ -231,6 +252,8 @@
 "Title" = "標題";
 "Title truncation" = "標題截斷";
 "Titles" = "標題";
+"Trackpad haptic feedback" = "觸控式軌跡板震動回饋";
+"Trigger" = "觸發";
 "Trigger shortcut" = "觸發快捷方式";
 "Unassign existing shortcut and continue" = "取消現有快速鍵並繼續";
 "Updates policy" = "更新策略";

@@ -90,6 +90,7 @@ enum LanguagePreference: CaseIterable, MacroPreference {
     case kannada
     case malayalam
     case thai
+    case burmese
     case japanese
     case chineseSimplified
     case chineseTraditional
@@ -123,6 +124,7 @@ enum LanguagePreference: CaseIterable, MacroPreference {
             case .indonesian: return "Bahasa Indonesia"
             case .icelandic: return "Íslenska"
             case .italian: return "Italiano"
+            case .burmese: return "မြန်မာဘာသာ"
             case .japanese: return "日本語"
             case .javanese: return "Basa Jawa"
             case .kannada: return "ಕನ್ನಡ"
@@ -183,6 +185,7 @@ enum LanguagePreference: CaseIterable, MacroPreference {
             case .indonesian: return "id"
             case .icelandic: return "is"
             case .italian: return "it"
+            case .burmese: return "my"
             case .japanese: return "ja"
             case .javanese: return "jv"
             case .kannada: return "kn"

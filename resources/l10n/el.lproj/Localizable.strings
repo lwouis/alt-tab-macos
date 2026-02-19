@@ -50,7 +50,7 @@
 "Cancel and hide" = "Ακύρωση και απόκρυψη";
 "Center" = "Κεντράρισμα";
 "Check for updates now…" = "Έλεγχος για ενημερώσεις τώρα...";
-"Check for updates periodically" = "Να γίνεται περιοδικός έλεγχος ενημερώσεων";
+"Check for updates periodically" = "Περιοδικός έλεγχος ενημερώσεων";
 "Check for updates…" = "Έλεγχος για ενημερώσεις...";
 "Check permissions…" = "Έλεγχος για δικαιώματα...";
 "Close window" = "Κλείσιμο παραθύρου";
@@ -91,7 +91,7 @@
 "Hide colored circles on mouse hover:" = "Απόκρυψη χρωματιστών κύκλων κατά την αιώρηση ποντικιού:";
 "Hide in %@" = "Απόκρυψη σε %@";
 "Hide Space number labels" = "Απόκρυψη αριθμού Γραφείου εργασίας";
-"Hide Space number labels:" = "Απόκρυψη αριθμού Γραφείου εργασίας:";
+"Hide Space number labels:" = "Απόκρυψη ετικετών αριθμού κενού χώρου:";
 "Hide status icons" = "Απόκρυψη εικονιδίων κατάστασης";
 "Hide status icons:" = "Απόκρυψη εικονιδίων κατάστασης:";
 "Hide window thumbnails:" = "Απόκρυψη μικρογραφιών παραθύρων:";

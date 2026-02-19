@@ -1,3 +1,7 @@
+"3-finger Horizontal Swipe" = "Fregament horitzontal amb 3 dits";
+"3-finger Vertical Swipe" = "Fregament vertical amb 3 dits";
+"4-finger Horizontal Swipe" = "Fregament horitzontal amb 4 dits";
+"4-finger Vertical Swipe" = "Fregament vertical amb 4 dits";
 "About" = "Sobre l'AltTab";
 "About %@" = "Sobre l'%@";
 "Accessibility" = "Accessibilitat";
@@ -8,6 +12,7 @@
 "Additional controls" = "Controls addicionals";
 "Additional controls…" = "Controls addicionals…";
 "Advanced" = "Avançat";
+"After keys are released" = "Després d'alliberar les tecles";
 "After release" = "En deixar anar";
 "Align windows" = "Alinear finestres";
 "Align windows:" = "Alinear finestres:";
@@ -44,6 +49,7 @@
 "Are you sure you don’t want a response?" = "Estás segur que no vols rebre resposta?";
 "Arrow keys" = "Amb les tecles de fletxa";
 "Ask whether to send crash reports" = "Preguntar cada vegada";
+"Auto" = "Auto";
 "Auto-install updates periodically" = "Comprovar i instal·lar periòdicament";
 "Blacklists" = "Excepcions";
 "Cancel" = "Cancel·lar";
@@ -63,6 +69,7 @@
 "Customize Thumbnails style…" = "Estil de les miniatures…";
 "Customize Titles style…" = "Estil dels títols…";
 "Dark" = "Fosc";
+"Debug tools" = "Eines de depuració";
 "Disabled" = "Desactivat";
 "Do nothing" = "No fer res";
 "Don’t check for updates periodically" = "No comprovar";
@@ -70,10 +77,12 @@
 "Don’t show windows from these apps" = "No mostrar les finestres de les següents aplicacions";
 "Done" = "Fet";
 "End" = "Final";
+"Export…" = "Exporta…";
 "Fade in animation of Preview" = "Animar l'aparició de la previsualització";
 "Fade out animation" = "En ocultar";
 "Fade out animation of Switcher" = "Animar la ocultació del selector";
 "Fade out animation:" = "Animació en desaparèixer:";
+"Failed to import settings" = "No s'han pogut importar els ajustos";
 "Focus selected window" = "Activar finestra seleccionada";
 "Fullscreen window" = "L'aplicació es veu a pantalla completa";
 "Fullscreen windows:" = "Finestres a pantalla completa:";
@@ -104,6 +113,9 @@
 "I think the app could be improved with…" = "Crec que l'aplicació milloraria si…";
 "Ignore shortcuts when active" = "Ignorar dreceres quan està activa";
 "Ignore shortcuts while a window from these apps is active" = "Ignorar dreceres si una finestra d'aquestes aplicacions està activa";
+"Import…" = "Importa…";
+"Keep open" = "Mantén obert";
+"Keep open and search" = "Mantén obert i cerca";
 "Language" = "Idioma";
 "Language Change" = "Canvi d'idioma";
 "Large" = "Gran";
@@ -112,6 +124,7 @@
 "Leading" = "Inici";
 "Left" = "Esquerra";
 "Light" = "Clar";
+"Lock search" = "Bloqueja la cerca";
 "Max height on screen:" = "Alçada màxima a la pantalla:";
 "Max width on screen:" = "Amplada màxima a la pantalla:";
 "Medium" = "Mitjana";
@@ -127,6 +140,7 @@
 "Never" = "Mai";
 "Never send crash reports" = "No enviar mai";
 "Non-active apps" = "Aplicacions inactives";
+"Non-visible Spaces" = "Espais no visibles";
 "Normal" = "Normal";
 "Not allowed" = "No permès";
 "NSHumanReadableCopyright" = "Llicència GPL-3.0";
@@ -165,6 +179,7 @@
 "Screen including mouse" = "Pantalla on es troba el cursor";
 "Screen Recording" = "Gravació de pantalla";
 "Screen showing AltTab" = "Pantalla on es mostra l'AltTab";
+"Search" = "Cerca";
 "Select next window" = "Seleccionar finestra següent";
 "Select previous window" = "Seleccionar finestra anterior";
 "Select windows on mouse hover" = "Seleccionar finestra en passar el cursor";
@@ -176,8 +191,10 @@
 "Send debug profile (CPU, memory, etc)" = "Enviar perfil de diagnòstic (CPU, memòria, etc.)";
 "Send feedback" = "Enviar comentaris";
 "Send feedback…" = "Enviar comentaris…";
+"Settings imported" = "Ajustos importats";
 "Settings…" = "Configuració";
 "Share improvement ideas, or report bugs" = "Proposa millores o informa de problemes";
+"Shortcut" = "Drecera";
 "Shortcut 1" = "Drecera 1";
 "Shortcut 2" = "Drecera 2";
 "Shortcut 3" = "Drecera 3";
@@ -223,6 +240,7 @@
 "The ⌘⎋ (command+escape) shortcut may be used by macOS for GameOverlay.\n\nYour change would assign it to: %@.\n\nIf you want to continue, make sure that the GameOverlay shortcut is disabled.\nAlso note that macOS has reported bugs where the shortcut may still interfere while disabled." = "macOS sol reservar la drecera ⌘⎋ (Ordre+Esc) per la superposició de pantalla durant els jocs.\n\nEl teu canvi la reassignaria a: %@.\n\nSi vols continuar, assegura’t que la drecera nativa per la superposició per jocs està desactivada.\nmacOS ha informat de problemes en què aquesta drecera nativa pot continuar interferint tot i estar desactivada.";
 "The ⎋ (escape) key is reserved by some macOS shortcuts (e.g. ⌘⌥⎋ will show the Force Quit Applications window).\n\nIf you want to use ⎋, make sure that Hold modifiers are neither: ⌘⌥, ⌘⌥⇧, or ⌘⌥⇧⌃" = "La tecla ⎋ (Esc) està reservada per algunes dreceres natives de macOS (ex. ⌘⌥⎋ obre la finestra per forçar la sortida d'aplicacions).\n\nSi vols fer servir ⎋, assegura't que el modificador \"Mantenir\" no sigui ⌘⌥, ⌘⌥⇧ ni ⌘⌥⇧⌃";
 "The ⎋ (escape) key is reserved by some macOS shortcuts (e.g. ⌘⌥⎋ will show the Force Quit Applications window).\n\nYour change would assign it to: %@.\n\nIf you want to use ⎋, make sure that Hold modifiers are neither: ⌘⌥, ⌘⌥⇧, or ⌘⌥⇧⌃" = "La tecla ⎋ (Esc) està reservada per algunes dreceres natives de macOS (ex. ⌘⌥⎋ obre la finestra per forçar la sortida d'aplicacions).\n\nEl teu canvi les reassignaria a: %@.\n\nSi vols fer servir ⎋, assegura't que el modificador \"Mantenir\" no sigui ⌘⌥, ⌘⌥⇧ ni ⌘⌥⇧⌃";
+"The application needs to restart to apply the imported settings." = "L'aplicació ha de reiniciar-se per aplicar els ajustos importats.";
 "The application needs to restart to apply the language change." = "Cal reiniciar l'AltTab per tal d'aplicar el canvi d'idioma.";
 "Theme" = "Tema";
 "Theme:" = "Tema:";
@@ -235,6 +253,7 @@
 "Title truncation" = "Escurçar el títol";
 "Titles" = "Títols";
 "Trackpad haptic feedback" = "Resposta hàpitca";
+"Trigger" = "Activador";
 "Trigger shortcut" = "Drecera del selector";
 "Unassign existing shortcut and continue" = "Eliminar drecera ja existent i continuar";
 "Updates policy" = "Política d'actualitzacions";

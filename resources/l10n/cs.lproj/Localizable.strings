@@ -1,3 +1,7 @@
+"3-finger Horizontal Swipe" = "3 prsty vodorovně";
+"3-finger Vertical Swipe" = "3 prsty svisle";
+"4-finger Horizontal Swipe" = "4 prsty vodorovně";
+"4-finger Vertical Swipe" = "4 prsty svisle";
 "About" = "O AltTab";
 "About %@" = "O %@u";
 "Accessibility" = "Zpřístupnění";
@@ -8,6 +12,7 @@
 "Additional controls" = "Další ovládací prvky";
 "Additional controls…" = "Další ovládací prvky…";
 "Advanced" = "Pokročilé";
+"After keys are released" = "Po uvolnění kláves";
 "After release" = "Po vydání";
 "Align windows" = "Zarovnat okna";
 "Align windows:" = "Zarovnat okna:";
@@ -44,6 +49,7 @@
 "Are you sure you don’t want a response?" = "Opravdu nechcete odpověď?";
 "Arrow keys" = "Směrové šipky";
 "Ask whether to send crash reports" = "Zeptat se, zda odesílat hlášení o pádu";
+"Auto" = "Auto";
 "Auto-install updates periodically" = "Automaticky pravidelně instalovat aktualizace";
 "Blacklists" = "Seznamy vyloučených";
 "Cancel" = "Zrušit";
@@ -63,6 +69,7 @@
 "Customize Thumbnails style…" = "Přizpůsobte si styl náhledů…";
 "Customize Titles style…" = "Přizpůsobit styl názvů…";
 "Dark" = "Tmavý";
+"Debug tools" = "Nástroje pro ladění";
 "Disabled" = "Deaktivováno";
 "Do nothing" = "Nedělat nic";
 "Don’t check for updates periodically" = "Neprovádět pravidelnou kontrolu aktualizací";
@@ -70,10 +77,12 @@
 "Don’t show windows from these apps" = "Nezobrazovat okna těchto aplikací";
 "Done" = "Hotovo";
 "End" = "Na konci";
+"Export…" = "Exportovat…";
 "Fade in animation of Preview" = "Animace pozvolného zobrazení náhledu";
 "Fade out animation" = "Animace pozvolného zmizení";
 "Fade out animation of Switcher" = "Animace pozvolného zmizení přepínače";
 "Fade out animation:" = "Animace pozvolného zmizení:";
+"Failed to import settings" = "Nepodařilo se importovat nastavení";
 "Focus selected window" = "Přepnout do vybraného okna";
 "Fullscreen window" = "Okno na celou obrazovku";
 "Fullscreen windows:" = "Okna na celou obrazovku:";
@@ -104,6 +113,9 @@
 "I think the app could be improved with…" = "Myslím, že aplikace by mohla být vylepšena tak, že…";
 "Ignore shortcuts when active" = "Ignorovat klávesové zkratky, když jsou aktivní";
 "Ignore shortcuts while a window from these apps is active" = "Ignorovat zkratky, pokud je aktivní okno některé z těchto aplikací";
+"Import…" = "Importovat…";
+"Keep open" = "Ponechat otevřené";
+"Keep open and search" = "Ponechat otevřené a hledat";
 "Language" = "Jazyk";
 "Language Change" = "Změna jazyka";
 "Large" = "Velká";
@@ -112,6 +124,7 @@
 "Leading" = "Vlevo";
 "Left" = "Vlevo";
 "Light" = "Světlý";
+"Lock search" = "Uzamknout vyhledávání";
 "Max height on screen:" = "Maximální výška na obrazovce";
 "Max width on screen:" = "Maximální šířka na obrazovce";
 "Medium" = "Střední";
@@ -127,6 +140,7 @@
 "Never" = "Nikdy";
 "Never send crash reports" = "Nikdy neposílat hlášení o pádu";
 "Non-active apps" = "Neaktivní appky";
+"Non-visible Spaces" = "Neviditelné plochy";
 "Normal" = "Normální";
 "Not allowed" = "Nepovoleno";
 "NSHumanReadableCopyright" = "Licence GPL-3.0";
@@ -165,6 +179,7 @@
 "Screen including mouse" = "Obrazovka včetně kurzoru myši";
 "Screen Recording" = "Nahrávání obrazovky";
 "Screen showing AltTab" = "Obrazovka zobrazující AltTab";
+"Search" = "Hledat";
 "Select next window" = "Vybrat následující okno";
 "Select previous window" = "Vybrat předchozí okno";
 "Select windows on mouse hover" = "Vybrat okna při najetí myší";
@@ -176,8 +191,10 @@
 "Send debug profile (CPU, memory, etc)" = "Odeslat diagnostická data (CPU, paměť atd.)";
 "Send feedback" = "Odeslat zpětnou vazbu";
 "Send feedback…" = "Odeslat zpětnou vazbu…";
+"Settings imported" = "Nastavení importována";
 "Settings…" = "Nastavení";
 "Share improvement ideas, or report bugs" = "Navrhněte vylepšení nebo nahlaste chybu";
+"Shortcut" = "Zkratka";
 "Shortcut 1" = "Zkratka 1";
 "Shortcut 2" = "Zkratka 2";
 "Shortcut 3" = "Zkratka 3";
@@ -223,6 +240,7 @@
 "The ⌘⎋ (command+escape) shortcut may be used by macOS for GameOverlay.\n\nYour change would assign it to: %@.\n\nIf you want to continue, make sure that the GameOverlay shortcut is disabled.\nAlso note that macOS has reported bugs where the shortcut may still interfere while disabled." = "Zkratka ⌘⎋ (command+escape) může být použita macOS pro GameOverlay.\n\nVaŠe změna jí nastaví na : %@.\n\nPro pokračování, se ujistěte, že zkratka GameOverlay je vypnuta.\nDbejte také, že macOS hlásí chyby kdy zkratka GameOverlay může stále ovlivňovat chování i při jejím vypnutí.";
 "The ⎋ (escape) key is reserved by some macOS shortcuts (e.g. ⌘⌥⎋ will show the Force Quit Applications window).\n\nIf you want to use ⎋, make sure that Hold modifiers are neither: ⌘⌥, ⌘⌥⇧, or ⌘⌥⇧⌃" = "Klávesa ⎋ (escape) je rezervována některými macOS zkratkami (např. ⌘⌥⎋ zobrazí okno vynuceného ukončení aplikací).\n\nPokud chcete použít ⎋, ujistěte se, že modifikátory Přidržení nejsou: ⌘⌥, ⌘⌥⇧, or ⌘⌥⇧⌃";
 "The ⎋ (escape) key is reserved by some macOS shortcuts (e.g. ⌘⌥⎋ will show the Force Quit Applications window).\n\nYour change would assign it to: %@.\n\nIf you want to use ⎋, make sure that Hold modifiers are neither: ⌘⌥, ⌘⌥⇧, or ⌘⌥⇧⌃" = "Klávesa ⎋ (escape) je rezervována některými macOS zkratkami (např. ⌘⌥⎋ zobrazí okno vynuceného ukončení aplikací).\n\nVaŠe změna jí nastaví na : %@.\n\nPokud chcete použít ⎋, ujistěte se, že modifikátory Přidržení nejsou: ⌘⌥, ⌘⌥⇧, or ⌘⌥⇧⌃";
+"The application needs to restart to apply the imported settings." = "Aplikace musí být restartována, aby se aplikovala importovaná nastavení.";
 "The application needs to restart to apply the language change." = "Aplikace se musí restartovat, aby se změna jazyka projevila.";
 "Theme" = "Motiv";
 "Theme:" = "Motiv:";
@@ -235,6 +253,7 @@
 "Title truncation" = "Zkrácení názvu";
 "Titles" = "Názvy";
 "Trackpad haptic feedback" = "Haptická zpětná vazba trackpadu";
+"Trigger" = "Spouštěč";
 "Trigger shortcut" = "Spouštěcí zkratka";
 "Unassign existing shortcut and continue" = "Odebrat existující zkratku a pokračovat";
 "Updates policy" = "Zásady aktualizací";
