@@ -163,12 +163,27 @@ class Windows {
         }
     }
 
+    private static func shouldHideWindow(_ window: Window, _ entry: BlacklistEntry) -> Bool {
+        switch entry.hide {
+        case .none:
+            return false
+        case .always:
+            return true
+        case .whenNoOpenWindow:
+            return window.isWindowlessApp
+        case .windowTitleContains:
+            guard let titleFilter = entry.windowTitleContains, !titleFilter.isEmpty else {
+                return false
+            }
+            return window.title.contains(titleFilter)
+        }
+    }
+
     private static func refreshIfWindowShouldBeShownToTheUser(_ window: Window) {
         window.shouldShowTheUser =
             !(window.application.bundleIdentifier.flatMap { id in
                 Preferences.blacklist.contains {
-                    id.hasPrefix($0.bundleIdentifier) &&
-                        ($0.hide == .always || (window.isWindowlessApp && $0.hide != .none))
+                    id.hasPrefix($0.bundleIdentifier) && shouldHideWindow(window, $0)
                 }
             } ?? false) &&
             !(Preferences.appsToShow[App.app.shortcutIndex] == .active && window.application.pid != Applications.frontmostPid) &&

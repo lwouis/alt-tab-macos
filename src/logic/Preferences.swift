@@ -329,4 +329,5 @@ struct BlacklistEntry: Codable {
     var bundleIdentifier: String
     var hide: BlacklistHidePreference
     var ignore: BlacklistIgnorePreference
+    var windowTitleContains: String?
 }
