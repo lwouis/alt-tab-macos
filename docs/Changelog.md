@@ -1,3 +1,22 @@
+# [10.2.0](https://github.com/lwouis/alt-tab-macos/compare/v10.1.0...v10.2.0) (2026-02-19)
+
+
+### Bug Fixes
+
+* improve settings ui on macos 10.13 ([#5255](https://github.com/lwouis/alt-tab-macos/issues/5255)) ([75347ad](https://github.com/lwouis/alt-tab-macos/commit/75347ad))
+* rare crash when a window was opened ([28c4b12](https://github.com/lwouis/alt-tab-macos/commit/28c4b12))
+* small issues when mouse hover is set to select (closes [#5292](https://github.com/lwouis/alt-tab-macos/issues/5292)) ([b9e0344](https://github.com/lwouis/alt-tab-macos/commit/b9e0344))
+* sometimes the active app was not up-to-date (closes [#5291](https://github.com/lwouis/alt-tab-macos/issues/5291)) ([ea51d57](https://github.com/lwouis/alt-tab-macos/commit/ea51d57))
+
+
+### Features
+
+* add burmese + update all localizations ([f5e1014](https://github.com/lwouis/alt-tab-macos/commit/f5e1014))
+* add new setting for auto size (closes [#3669](https://github.com/lwouis/alt-tab-macos/issues/3669)) ([c51376f](https://github.com/lwouis/alt-tab-macos/commit/c51376f))
+* add setting to blacklist window by title (closes [#5299](https://github.com/lwouis/alt-tab-macos/issues/5299)) ([35eae11](https://github.com/lwouis/alt-tab-macos/commit/35eae11))
+* can add running apps into blacklist (closes [#5268](https://github.com/lwouis/alt-tab-macos/issues/5268)) ([d5d6996](https://github.com/lwouis/alt-tab-macos/commit/d5d6996))
+* remember position/size of secondary windows (closes [#5305](https://github.com/lwouis/alt-tab-macos/issues/5305)) ([4b85fb8](https://github.com/lwouis/alt-tab-macos/commit/4b85fb8))
+
 # [10.1.0](https://github.com/lwouis/alt-tab-macos/compare/v10.0.0...v10.1.0) (2026-02-17)
 
 
