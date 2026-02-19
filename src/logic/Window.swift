@@ -320,11 +320,15 @@ class Window {
     /// some apps will not trigger AXApplicationActivated, where we usually update application.focusedWindow
     /// workaround: we check and possibly do it here
     private func checkIfFocused() {
-        AXUIElement.retryAxCallUntilTimeout(context: debugId, pid: application.pid, wid: cgWindowId, callType: .updateAppFocusedWindow) { [weak self] in
-            guard let self,
-                  let focusedWindow = try self.application.axUiElement?.attributes([kAXFocusedWindowAttribute]).focusedWindow,
-                  let window = try (Windows.list.first { $0.isEqualRobust(focusedWindow, (try focusedWindow.cgWindowId())) }) else { return }
-            self.application.focusedWindow = window
+        let app = application
+        guard let appAxUiElement = app.axUiElement else { return }
+        AXUIElement.retryAxCallUntilTimeout(context: debugId, pid: app.pid, wid: cgWindowId, callType: .updateAppFocusedWindow) { [weak app] in
+            guard let app, let focusedWindow = try appAxUiElement.attributes([kAXFocusedWindowAttribute]).focusedWindow else { return }
+            let focusedWid = try focusedWindow.cgWindowId()
+            DispatchQueue.main.async {
+                guard let window = (Windows.list.first { $0.isEqualRobust(focusedWindow, focusedWid) }) else { return }
+                app.focusedWindow = window
+            }
         }
     }
 }
