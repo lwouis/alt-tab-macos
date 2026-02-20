@@ -456,6 +456,10 @@ private final class SettingsSidebarCellView: NSTableCellView {
     }
 }
 
+private final class SettingsFlippedView: NSView {
+    override var isFlipped: Bool { true }
+}
+
 class SettingsWindow: NSWindow {
     static let contentWidth = CGFloat(620)
     static let width = contentWidth
@@ -497,7 +501,7 @@ class SettingsWindow: NSWindow {
     private let sidebarScrollView = NSScrollView()
     private let sidebarTableView = NSTableView()
     private let rightScrollView = NSScrollView()
-    private let sectionsDocumentView = FlippedView(frame: .zero)
+    private let sectionsDocumentView = SettingsFlippedView(frame: .zero)
     private let sectionsStack = NSStackView()
     private let supportButton = AboutTab.makeSupportProjectButton()
     private let resetButton = NSButton(title: NSLocalizedString("Reset settings and restart…", comment: ""), target: nil, action: nil)
