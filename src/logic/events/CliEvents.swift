@@ -51,7 +51,12 @@ class CliServer {
             )
         }
         if rawValue == "--detailed-list" {
-            return JsonWindowFullList(windows: Windows.list
+            // refresh space/screen assignments so CLI returns fresh data
+            Spaces.refresh()
+            for window in Windows.list {
+                window.updateSpacesAndScreen()
+            }
+            let windows = Windows.list
                 .filter { !$0.isWindowlessApp }
                 .map {
                     JsonWindowFull(
@@ -68,9 +73,61 @@ class CliServer {
                         isMinimized: $0.isMinimized,
                         isOnAllSpaces: $0.isOnAllSpaces,
                         position: $0.position,
-                        size: $0.size
+                        size: $0.size,
+                        screenId: $0.screenId as String?,
+                        appPid: $0.application.pid,
+                        dockLabel: $0.application.dockLabel
                     )
                 }
+
+            let primaryScreenHeight = NSScreen.screens.first?.frame.height ?? 0
+            let screens = NSScreen.screens.compactMap { screen -> JsonScreen? in
+                guard let uuid = screen.cachedUuid() else { return nil }
+                let f = screen.frame
+                let quartzY = primaryScreenHeight - f.origin.y - f.height
+                let vf = screen.visibleFrame
+                let quartzVisibleY = primaryScreenHeight - vf.origin.y - vf.height
+                return JsonScreen(
+                    id: uuid as String,
+                    frame: [Double(f.origin.x), quartzY, Double(f.width), Double(f.height)],
+                    visibleFrame: [Double(vf.origin.x), quartzVisibleY, Double(vf.width), Double(vf.height)]
+                )
+            }
+
+            let visibleSpaceIndexes = Spaces.visibleSpaces.compactMap { spaceId in
+                Spaces.idsAndIndexes.first { $0.0 == spaceId }?.1
+            }
+
+            let screenSpacesMap = Dictionary(uniqueKeysWithValues: Spaces.screenSpacesMap.map { (key, value) in
+                (key as String, value.compactMap { spaceId in
+                    Spaces.idsAndIndexes.first { $0.0 == spaceId }?.1
+                })
+            })
+
+            let blacklistEntries = Preferences.blacklist
+            let blacklist: [[String: String]]? = blacklistEntries.isEmpty ? nil : blacklistEntries.map { entry in
+                var dict: [String: String] = [
+                    "bundleIdentifier": entry.bundleIdentifier,
+                    "hide": entry.hide.rawValue,
+                    "ignore": entry.ignore.rawValue,
+                ]
+                if let title = entry.windowTitleContains {
+                    dict["windowTitleContains"] = title
+                }
+                return dict
+            }
+
+            let mouseScreenId = NSScreen.withMouse()?.cachedUuid() as String?
+
+            return JsonDetailedList(
+                windows: windows,
+                screens: screens,
+                currentSpaceIndex: Spaces.currentSpaceIndex,
+                visibleSpaceIndexes: visibleSpaceIndexes,
+                screenSpacesMap: screenSpacesMap,
+                frontmostAppPid: Applications.frontmostPid,
+                mouseScreenId: mouseScreenId,
+                blacklist: blacklist
             )
         }
         if rawValue.hasPrefix("--focus="),
@@ -100,8 +157,21 @@ class CliServer {
         var title: String
     }
 
-    private struct JsonWindowFullList: Codable {
+    private struct JsonDetailedList: Codable {
         var windows: [JsonWindowFull]
+        var screens: [JsonScreen]
+        var currentSpaceIndex: SpaceIndex
+        var visibleSpaceIndexes: [SpaceIndex]
+        var screenSpacesMap: [String: [SpaceIndex]]
+        var frontmostAppPid: Int32?
+        var mouseScreenId: String?
+        var blacklist: [[String: String]]?
+    }
+
+    private struct JsonScreen: Codable {
+        var id: String
+        var frame: [Double]
+        var visibleFrame: [Double]
     }
 
     private struct JsonWindowFull: Codable {
@@ -120,6 +190,9 @@ class CliServer {
         var isOnAllSpaces: Bool
         var position: CGPoint?
         var size: CGSize?
+        var screenId: String?
+        var appPid: Int32?
+        var dockLabel: String?
     }
 }
 
