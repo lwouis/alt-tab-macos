@@ -112,6 +112,8 @@ class CliServer {
                 return dict
             }
 
+            let mouseScreenId = NSScreen.withMouse()?.cachedUuid() as String?
+
             return JsonDetailedList(
                 windows: windows,
                 screens: screens,
@@ -119,6 +121,7 @@ class CliServer {
                 visibleSpaceIndexes: visibleSpaceIndexes,
                 screenSpacesMap: screenSpacesMap,
                 frontmostAppPid: Applications.frontmostPid,
+                mouseScreenId: mouseScreenId,
                 blacklist: blacklist
             )
         }
@@ -156,6 +159,7 @@ class CliServer {
         var visibleSpaceIndexes: [SpaceIndex]
         var screenSpacesMap: [String: [SpaceIndex]]
         var frontmostAppPid: Int32?
+        var mouseScreenId: String?
         var blacklist: [[String: String]]?
     }
 
