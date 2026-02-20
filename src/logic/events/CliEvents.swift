@@ -51,6 +51,11 @@ class CliServer {
             )
         }
         if rawValue == "--detailed-list" {
+            // refresh space/screen assignments so CLI returns fresh data
+            Spaces.refresh()
+            for window in Windows.list {
+                window.updateSpacesAndScreen()
+            }
             let windows = Windows.list
                 .filter { !$0.isWindowlessApp }
                 .map {
