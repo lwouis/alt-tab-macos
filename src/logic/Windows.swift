@@ -163,7 +163,7 @@ class Windows {
         }
     }
 
-    private static func shouldHideWindow(_ window: Window, _ entry: BlacklistEntry) -> Bool {
+    private static func shouldHideWindow(_ window: Window, _ entry: ExceptionEntry) -> Bool {
         switch entry.hide {
         case .none:
             return false
@@ -182,7 +182,7 @@ class Windows {
     private static func refreshIfWindowShouldBeShownToTheUser(_ window: Window) {
         window.shouldShowTheUser =
             !(window.application.bundleIdentifier.flatMap { id in
-                Preferences.blacklist.contains {
+                Preferences.exceptions.contains {
                     id.hasPrefix($0.bundleIdentifier) && shouldHideWindow(window, $0)
                 }
             } ?? false) &&

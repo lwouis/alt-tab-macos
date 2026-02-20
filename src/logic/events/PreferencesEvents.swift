@@ -67,11 +67,11 @@ class PreferencesEvents {
     }
 
     private static func applyUpdatePolicyPreference() {
-        PoliciesTab.policyLock = true
+        GeneralTab.policyLock = true
         let policy = Preferences.updatePolicy
         SUUpdater.shared().automaticallyDownloadsUpdates = policy == .autoInstall
         SUUpdater.shared().automaticallyChecksForUpdates = policy == .autoInstall || policy == .autoCheck
-        PoliciesTab.policyLock = false
+        GeneralTab.policyLock = false
     }
 
     private static func applyStartAtLoginPreference() {

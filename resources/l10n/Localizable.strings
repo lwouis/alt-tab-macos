@@ -134,9 +134,6 @@
 "Auto-install updates periodically" = "Auto-install updates periodically";
 
 /* No comment provided by engineer. */
-"Blacklists" = "Blacklists";
-
-/* No comment provided by engineer. */
 "Cancel" = "Cancel";
 
 /* No comment provided by engineer. */
@@ -200,7 +197,10 @@
 "End" = "End";
 
 /* No comment provided by engineer. */
-"Export…" = "Export…";
+"Exceptions" = "Exceptions";
+
+/* No comment provided by engineer. */
+"Export settings…" = "Export settings…";
 
 /* No comment provided by engineer. */
 "Fade in animation of Preview" = "Fade in animation of Preview";
@@ -257,7 +257,7 @@
 "Ignore shortcuts when active" = "Ignore shortcuts when active";
 
 /* No comment provided by engineer. */
-"Import…" = "Import…";
+"Import settings…" = "Import settings…";
 
 /* No comment provided by engineer. */
 "Keep open" = "Keep open";
@@ -345,9 +345,6 @@
 
 /* No comment provided by engineer. */
 "Please fill in the form" = "Please fill in the form";
-
-/* No comment provided by engineer. */
-"Policies" = "Policies";
 
 /* No comment provided by engineer. */
 "Preview selected window" = "Preview selected window";

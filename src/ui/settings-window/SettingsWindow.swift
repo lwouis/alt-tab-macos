@@ -694,8 +694,7 @@ class SettingsWindow: NSWindow {
             SettingsSectionDefinition(id: "appearance", title: NSLocalizedString("Appearance", comment: ""), imageName: "appearance", systemSymbolName: "paintpalette", view: AppearanceTab.initTab()),
             SettingsSectionDefinition(id: "controls", title: NSLocalizedString("Controls", comment: ""), imageName: "controls", systemSymbolName: "command", view: ControlsTab.initTab()),
             SettingsSectionDefinition(id: "general", title: NSLocalizedString("General", comment: ""), imageName: "general", systemSymbolName: "gearshape", view: GeneralTab.initTab()),
-            SettingsSectionDefinition(id: "policies", title: NSLocalizedString("Policies", comment: ""), imageName: "policies", systemSymbolName: "antenna.radiowaves.left.and.right", view: PoliciesTab.initTab()),
-            SettingsSectionDefinition(id: "blacklists", title: NSLocalizedString("Blacklists", comment: ""), imageName: "blacklists", systemSymbolName: "hand.raised", view: BlacklistsTab.initTab()),
+            SettingsSectionDefinition(id: "exceptions", title: NSLocalizedString("Exceptions", comment: ""), imageName: "exceptions", systemSymbolName: "hand.raised", view: ExceptionsTab.initTab()),
         ]
     }
 
@@ -1149,7 +1148,6 @@ class SettingsWindow: NSWindow {
 
     private func refreshControlsFromSettings() {
         GeneralTab.refreshControlsFromPreferences()
-        PoliciesTab.refreshControlsFromPreferences()
     }
 
     func beginSheetWithSearchHighlight(_ sheet: SheetWindow) {

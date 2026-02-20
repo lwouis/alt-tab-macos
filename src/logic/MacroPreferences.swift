@@ -525,7 +525,7 @@ enum CrashPolicyPreference: CaseIterable, MacroPreference {
     }
 }
 
-enum BlacklistHidePreference: String/* required for jsonEncode */, CaseIterable, MacroPreference, Codable {
+enum ExceptionHidePreference: String/* required for jsonEncode */, CaseIterable, MacroPreference, Codable {
     case none = "0"
     case always = "1"
     case whenNoOpenWindow = "2"
@@ -541,7 +541,7 @@ enum BlacklistHidePreference: String/* required for jsonEncode */, CaseIterable,
     }
 }
 
-enum BlacklistIgnorePreference: String/* required for jsonEncode */, CaseIterable, MacroPreference, Codable {
+enum ExceptionIgnorePreference: String/* required for jsonEncode */, CaseIterable, MacroPreference, Codable {
     case none = "0"
     case always = "1"
     case whenFullscreen = "2"

@@ -148,7 +148,7 @@ class App: AppCenterApplication {
     }
 
     @objc func checkForUpdatesNow(_ sender: NSMenuItem) {
-        PoliciesTab.checkForUpdatesNow(sender)
+        GeneralTab.checkForUpdatesNow(sender)
     }
 
     @objc func checkPermissions(_ sender: NSMenuItem) {
@@ -375,10 +375,10 @@ class App: AppCenterApplication {
 
     func checkIfShortcutsShouldBeDisabled(_ activeWindow: Window?, _ activeApp: Application?) {
         let app = activeWindow?.application ?? activeApp!
-        let shortcutsShouldBeDisabled = Preferences.blacklist.contains { blacklistedId in
+        let shortcutsShouldBeDisabled = Preferences.exceptions.contains { exception in
             if let id = app.bundleIdentifier {
-                return id.hasPrefix(blacklistedId.bundleIdentifier) &&
-                    (blacklistedId.ignore == .always || (blacklistedId.ignore == .whenFullscreen && (activeWindow?.isFullscreen ?? false)))
+                return id.hasPrefix(exception.bundleIdentifier) &&
+                    (exception.ignore == .always || (exception.ignore == .whenFullscreen && (activeWindow?.isFullscreen ?? false)))
             }
             return false
         }

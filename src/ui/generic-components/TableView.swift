@@ -1,6 +1,6 @@
 import Cocoa
 
-class BlacklistView: NSScrollView {
+class ExceptionsView: NSScrollView {
     convenience init(width: CGFloat = 500, height: CGFloat = 378) {
         self.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
@@ -66,7 +66,7 @@ class BlacklistView: NSScrollView {
 }
 
 class TableView: NSTableView {
-    var items = Preferences.blacklist
+    var items = Preferences.exceptions
 
     override func wantsForwardedScrollEvents(for axis: NSEvent.GestureAxis) -> Bool {
         axis == .vertical
@@ -94,7 +94,7 @@ class TableView: NSTableView {
 
     func insertRow(_ bundleId: String) {
         if !(items.contains { $0.bundleIdentifier == bundleId }) {
-            items.append(BlacklistEntry(bundleIdentifier: bundleId, hide: .always, ignore: .none, windowTitleContains: nil))
+            items.append(ExceptionEntry(bundleIdentifier: bundleId, hide: .always, ignore: .none, windowTitleContains: nil))
             insertRows(at: [numberOfRows])
             savePreferences()
         }
@@ -127,20 +127,20 @@ class TableView: NSTableView {
         if colId == "col1" {
             items[row].bundleIdentifier = LabelAndControl.getControlValue(control, nil)!
         } else if colId == "col2" {
-            items[row].hide = BlacklistHidePreference.allCases[Int(LabelAndControl.getControlValue(control, nil)!)!]
+            items[row].hide = ExceptionHidePreference.allCases[Int(LabelAndControl.getControlValue(control, nil)!)!]
         } else if colId == "col3" {
             items[row].windowTitleContains = LabelAndControl.getControlValue(control, nil)
         } else {
-            items[row].ignore = BlacklistIgnorePreference.allCases[Int(LabelAndControl.getControlValue(control, nil)!)!]
+            items[row].ignore = ExceptionIgnorePreference.allCases[Int(LabelAndControl.getControlValue(control, nil)!)!]
         }
         savePreferences()
     }
 
     private func savePreferences() {
-        Preferences.set("blacklist", items)
+        Preferences.set("exceptions", items)
     }
 
-    private func text(_ item: BlacklistEntry) -> NSView {
+    private func text(_ item: ExceptionEntry) -> NSView {
         let text = TextField(item.bundleIdentifier)
         text.isEditable = true
         text.allowsExpansionToolTips = true
@@ -157,7 +157,7 @@ class TableView: NSTableView {
         return parent
     }
 
-    private func titleText(_ item: BlacklistEntry) -> NSView {
+    private func titleText(_ item: ExceptionEntry) -> NSView {
         let text = TextField(item.windowTitleContains ?? "")
         text.isEditable = true
         text.allowsExpansionToolTips = true
@@ -174,7 +174,7 @@ class TableView: NSTableView {
         return parent
     }
 
-    private func dropdown(_ item: BlacklistEntry, _ colId: String) -> NSView {
+    private func dropdown(_ item: ExceptionEntry, _ colId: String) -> NSView {
         let isHidePref = colId == "col2"
         let button = NSPopUpButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -184,7 +184,7 @@ class TableView: NSTableView {
         cell.bezelStyle = .regularSquare
         cell.arrowPosition = .arrowAtBottom
         cell.imagePosition = .imageOverlaps
-        let cases: [MacroPreference] = isHidePref ? BlacklistHidePreference.allCases : BlacklistIgnorePreference.allCases
+        let cases: [MacroPreference] = isHidePref ? ExceptionHidePreference.allCases : ExceptionIgnorePreference.allCases
         button.addItems(withTitles: cases.map { $0.localizedString })
         button.selectItem(at: isHidePref ? item.hide.index : item.ignore.index)
         button.onAction = { self.wasUpdated(colId, $0) }

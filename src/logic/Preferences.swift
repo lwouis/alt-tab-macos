@@ -62,7 +62,7 @@ class Preferences {
         "menubarIcon": MenubarIconPreference.outlined.indexAsString,
         "menubarIconShown": "true",
         "language": LanguagePreference.systemDefault.indexAsString,
-        "blacklist": defaultBlacklist(),
+        "exceptions": defaultExceptions(),
         "updatePolicy": UpdatePolicyPreference.autoCheck.indexAsString,
         "crashPolicy": CrashPolicyPreference.ask.indexAsString,
         "shortcutStyle": ShortcutStylePreference.focusOnRelease.indexAsString,
@@ -126,7 +126,7 @@ class Preferences {
     static var hideAppBadges: Bool { CachedUserDefaults.bool("hideAppBadges") }
     // periphery:ignore
     static var startAtLogin: Bool { CachedUserDefaults.bool("startAtLogin") }
-    static var blacklist: [BlacklistEntry] { CachedUserDefaults.json("blacklist", [BlacklistEntry].self) }
+    static var exceptions: [ExceptionEntry] { CachedUserDefaults.json("exceptions", [ExceptionEntry].self) }
     static var previewSelectedWindow: Bool { CachedUserDefaults.bool("previewFocusedWindow") }
     static var screenRecordingPermissionSkipped: Bool { CachedUserDefaults.bool("screenRecordingPermissionSkipped") }
     static var settingsWindowShownOnFirstLaunch: Bool { CachedUserDefaults.bool("settingsWindowShownOnFirstLaunch") }
@@ -184,7 +184,7 @@ class Preferences {
     }
 
     static func set<T>(_ key: String, _ value: T, _ notify: Bool = true) where T: Encodable {
-        UserDefaults.standard.set(key == "blacklist" ? jsonEncode(value) : value, forKey: key)
+        UserDefaults.standard.set(key == "exceptions" ? jsonEncode(value) : value, forKey: key)
         CachedUserDefaults.removeFromCache(key)
         if notify {
             PreferencesEvents.preferenceChanged(key)
@@ -214,10 +214,10 @@ class Preferences {
         return LiteralKeyCodeTransformer.shared.transformedValue(NSNumber(value: kVK_Return)) ?? "↩"
     }
 
-    static func defaultBlacklist() -> String {
+    static func defaultExceptions() -> String {
         return jsonEncode([
-            BlacklistEntry(bundleIdentifier: "com.McAfee.McAfeeSafariHost", hide: .always, ignore: .none),
-            BlacklistEntry(bundleIdentifier: "com.apple.finder", hide: .whenNoOpenWindow, ignore: .none),
+            ExceptionEntry(bundleIdentifier: "com.McAfee.McAfeeSafariHost", hide: .always, ignore: .none),
+            ExceptionEntry(bundleIdentifier: "com.apple.finder", hide: .whenNoOpenWindow, ignore: .none),
         ] + [
             "com.microsoft.rdc.macos",
             "com.teamviewer.TeamViewer",
@@ -230,7 +230,7 @@ class Preferences {
             "com.apple.ScreenSharing",
             "com.utmapp.UTM",
         ].map {
-            BlacklistEntry(bundleIdentifier: $0, hide: .none, ignore: .whenFullscreen)
+            ExceptionEntry(bundleIdentifier: $0, hide: .none, ignore: .whenFullscreen)
         })
     }
 
@@ -325,9 +325,9 @@ class CachedUserDefaults {
     }
 }
 
-struct BlacklistEntry: Codable {
+struct ExceptionEntry: Codable {
     var bundleIdentifier: String
-    var hide: BlacklistHidePreference
-    var ignore: BlacklistIgnorePreference
+    var hide: ExceptionHidePreference
+    var ignore: ExceptionIgnorePreference
     var windowTitleContains: String?
 }
