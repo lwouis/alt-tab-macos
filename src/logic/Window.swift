@@ -225,6 +225,18 @@ class Window {
                 self.makeKeyWindow(&psn)
                 try? self.axUiElement!.focusWindow()
                 DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) {
+                    // Best-effort: some focus paths don't reliably emit kAXFocusedWindowChangedNotification. Avoid
+                    // "forcing" focus state in AltTab; instead, query the actual focused window and update ordering
+                    // only if it matches a known Window.
+                    if let appAxUiElement = self.application.axUiElement,
+                       let focusedAxWindow = try? appAxUiElement.attributes([kAXFocusedWindowAttribute]).focusedWindow,
+                       let focusedAxWid = try? focusedAxWindow.cgWindowId(),
+                       let focusedWindow = Windows.list.first(where: { $0.isEqualRobust(focusedAxWindow, focusedAxWid) }) {
+                        self.application.focusedWindow = focusedWindow
+                        if let windows = Windows.updateLastFocusOrder(focusedWindow) {
+                            App.app.refreshOpenUi(windows, .refreshUiAfterExternalEvent)
+                        }
+                    }
                     Windows.previewSelectedWindowIfNeeded()
                 }
             }
