@@ -20,57 +20,41 @@ class PreferencesMigrations {
 
     private static func updateToNewPreferences(_ versionInPlist: String) {
         Logger.debug { "App-version:\(App.version), Plist-version:\(versionInPlist)" }
-        // x.compare(y) is .orderedDescending if x > y
-        if versionInPlist.compare("10.2.0", options: .numeric) != .orderedDescending {
-            migrateBlacklistToExceptions()
-            if versionInPlist.compare("9.0.0", options: .numeric) != .orderedDescending {
-                migrateShortcutIndexes()
-                if versionInPlist.compare("7.27.0", options: .numeric) != .orderedDescending {
-                    migrateCursorFollowFocus()
-                    if versionInPlist.compare("7.26.0", options: .numeric) != .orderedDescending {
-                        migrateShowWindowlessApps()
-                        if versionInPlist.compare("7.25.0", options: .numeric) != .orderedDescending {
-                            migrateHideWindowlessApps()
-                            if versionInPlist.compare("7.13.1", options: .numeric) != .orderedDescending {
-                                migrateGestures()
-                                if versionInPlist.compare("7.8.0", options: .numeric) != .orderedDescending {
-                                    migrateMenubarIconWithNewShownToggle()
-                                    if versionInPlist.compare("7.0.0", options: .numeric) != .orderedDescending {
-                                        migratePreferencesIndexes()
-                                        if versionInPlist.compare("6.43.0", options: .numeric) != .orderedDescending {
-                                            migrateExceptions()
-                                            if versionInPlist.compare("6.28.1", options: .numeric) != .orderedDescending {
-                                                migrateMinMaxWindowsWidthInRow()
-                                                if versionInPlist.compare("6.27.1", options: .numeric) != .orderedDescending {
-                                                    // "Start at login" new implem doesn't use Login Items; we remove the entry from previous versions
-                                                    (PreferencesMigrations.self as AvoidDeprecationWarnings.Type).migrateLoginItem()
-                                                    if versionInPlist.compare("6.23.0", options: .numeric) != .orderedDescending {
-                                                        // "Show windows from:" got the "Active Space" option removed
-                                                        migrateShowWindowsFrom()
-                                                        if versionInPlist.compare("6.18.1", options: .numeric) != .orderedDescending {
-                                                            // nextWindowShortcut used to be able to have modifiers already present in holdShortcut; we remove these
-                                                            migrateNextWindowShortcuts()
-                                                            // dropdowns preferences used to store English text; now they store indexes
-                                                            migrateDropdownsFromTextToIndexes()
-                                                            // the "Hide menubar icon" checkbox was replaced with a dropdown of: icon1, icon2, hidden
-                                                            migrateMenubarIconFromCheckboxToDropdown()
-                                                            // "Show minimized/hidden/fullscreen windows" checkboxes were replaced with dropdowns
-                                                            migrateShowWindowsCheckboxToDropdown()
-                                                            // "Max size on screen" was split into max width and max height
-                                                            migrateMaxSizeOnScreenToWidthAndHeight()
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+        for (version, migration) in [
+            ("10.2.0", migrateBlacklistToExceptions),
+            ("9.0.0", migrateShortcutIndexes),
+            ("7.27.0", migrateCursorFollowFocus),
+            ("7.26.0", migrateShowWindowlessApps),
+            ("7.25.0", migrateHideWindowlessApps),
+            ("7.13.1", migrateGestures),
+            ("7.8.0", migrateMenubarIconWithNewShownToggle),
+            ("7.0.0", migratePreferencesIndexes),
+            ("6.43.0", migrateExceptions),
+            ("6.28.1", migrateMinMaxWindowsWidthInRow),
+            // "Start at login" new implem doesn't use Login Items; we remove the entry from previous versions
+            ("6.27.1", { (PreferencesMigrations.self as AvoidDeprecationWarnings.Type).migrateLoginItem() }),
+            // "Show windows from:" got the "Active Space" option removed
+            ("6.23.0", migrateShowWindowsFrom),
+            // nextWindowShortcut used to be able to have modifiers already present in holdShortcut; we remove these
+            ("6.18.1", migrateNextWindowShortcuts),
+            // dropdowns preferences used to store English text; now they store indexes
+            ("6.18.1", migrateDropdownsFromTextToIndexes),
+            // the "Hide menubar icon" checkbox was replaced with a dropdown of: icon1, icon2, hidden
+            ("6.18.1", migrateMenubarIconFromCheckboxToDropdown),
+            // "Show minimized/hidden/fullscreen windows" checkboxes were replaced with dropdowns
+            ("6.18.1", migrateShowWindowsCheckboxToDropdown),
+            // "Max size on screen" was split into max width and max height
+            ("6.18.1", migrateMaxSizeOnScreenToWidthAndHeight),
+        ] {
+            if shouldRun(versionInPlist, version) {
+                migration()
             }
         }
+    }
+
+    private static func shouldRun(_ versionInPlist: String, _ versionThreshold: String) -> Bool {
+        // x.compare(y) is .orderedDescending if x > y
+        versionInPlist.compare(versionThreshold, options: .numeric) != .orderedDescending
     }
 
     private static func migrateBlacklistToExceptions() {
