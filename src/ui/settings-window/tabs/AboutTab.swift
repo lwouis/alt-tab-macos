@@ -47,7 +47,6 @@ class AboutTab {
     private static func styleSupportProjectButton(_ button: NSButton) {
         button.bezelStyle = .rounded
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.heightAnchor.constraint(equalToConstant: SettingsWindow.sidebarActionButtonHeight).isActive = true
     }
 
     private static func makeButtonWithIcon(_ title: String, _ selector: Selector, _ symbolName: String?, _ color: NSColor? = nil, _ target: AnyObject? = nil) -> NSButton {

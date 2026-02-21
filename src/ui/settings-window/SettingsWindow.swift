@@ -657,20 +657,23 @@ class SettingsWindow: NSWindow {
         ])
     }
 
+    @objc private func resetPreferences() {
+        GeneralTab.resetPreferences()
+    }
+
     private func setupSupportButton(_ parent: NSView) {
+        supportButton.toolTip = supportButton.title
         supportButton.translatesAutoresizingMaskIntoConstraints = false
         parent.addSubview(supportButton)
         NSLayoutConstraint.activate([
             supportButton.centerXAnchor.constraint(equalTo: parent.centerXAnchor),
             supportButton.bottomAnchor.constraint(equalTo: resetButton.topAnchor, constant: -20),
+            supportButton.widthAnchor.constraint(lessThanOrEqualTo: parent.widthAnchor, constant: -Self.sidebarHorizontalPadding * 2),
         ])
     }
 
-    @objc private func resetPreferences() {
-        GeneralTab.resetPreferences()
-    }
-
     private func setupResetButton(_ parent: NSView) {
+        resetButton.toolTip = resetButton.title
         resetButton.bezelStyle = .rounded
         if #available(macOS 11.0, *) { resetButton.hasDestructiveAction = true }
         resetButton.target = self
@@ -680,18 +683,19 @@ class SettingsWindow: NSWindow {
         NSLayoutConstraint.activate([
             resetButton.centerXAnchor.constraint(equalTo: parent.centerXAnchor),
             resetButton.bottomAnchor.constraint(equalTo: quitButton.topAnchor, constant: -20),
-            resetButton.heightAnchor.constraint(equalToConstant: Self.sidebarActionButtonHeight),
+            resetButton.widthAnchor.constraint(lessThanOrEqualTo: parent.widthAnchor, constant: -Self.sidebarHorizontalPadding * 2),
         ])
     }
 
     private func setupQuitButton(_ parent: NSView) {
+        quitButton.toolTip = quitButton.title
         quitButton.bezelStyle = .rounded
         quitButton.translatesAutoresizingMaskIntoConstraints = false
         parent.addSubview(quitButton)
         NSLayoutConstraint.activate([
             quitButton.centerXAnchor.constraint(equalTo: parent.centerXAnchor),
             quitButton.bottomAnchor.constraint(equalTo: parent.bottomAnchor, constant: -10),
-            quitButton.heightAnchor.constraint(equalToConstant: Self.sidebarActionButtonHeight),
+            quitButton.widthAnchor.constraint(lessThanOrEqualTo: parent.widthAnchor, constant: -Self.sidebarHorizontalPadding * 2),
         ])
     }
 
