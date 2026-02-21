@@ -33,14 +33,15 @@ extension AXUIElement {
     }
 
     /// if the window server is busy, it may not reply to AX calls. We retry right before the call times-out and returns a bogus value
-    static func retryAxCallUntilTimeout(file: String = #file, function: String = #function, line: Int = #line, context: String = "", after: DispatchTime? = nil, pid: pid_t? = nil, wid: CGWindowID? = nil, retriesQueue: Bool = false, startTimeInNanoseconds: UInt64 = DispatchTime.now().uptimeNanoseconds, callType: AXCallType, block: @escaping () throws -> Void) {
-        let closure = { retryAxCallUntilTimeout_(file: file, function: function, line: line, context: context, after: after, pid: pid, wid: wid, retriesQueue: retriesQueue, startTimeInNanoseconds: startTimeInNanoseconds, callType: callType, block: block) }
+    static func retryAxCallUntilTimeout(file: String = #file, function: String = #function, line: Int = #line, context: String = "", after: DispatchTime? = nil, pid: pid_t? = nil, wid: CGWindowID? = nil, retriesQueue: Bool = false, startTimeInNanoseconds: UInt64 = DispatchTime.now().uptimeNanoseconds, isWindowDestroyedEvent: Bool = false, callType: AXCallType, block: @escaping () throws -> Void) {
+        let closure = { retryAxCallUntilTimeout_(file: file, function: function, line: line, context: context, after: after, pid: pid, wid: wid, retriesQueue: retriesQueue, startTimeInNanoseconds: startTimeInNanoseconds, isWindowDestroyedEvent: isWindowDestroyedEvent, callType: callType, block: block) }
         let queue = (callType == .updateAppWindows ? BackgroundWork.axCallsManualDiscoveryQueue
             : (retriesQueue ? BackgroundWork.axCallsRetriesQueue
                 : BackgroundWork.axCallsFirstAttemptQueue))!
         if callType == .updateWindowFromAxEvent || callType == .updateWindowFromManualDiscovery {
             guard let wid else { Logger.error { (callType, context, file, function, line) }; return }
-            if throttleOrProceed(key: "\(callType.rawValue)-wid-\(wid)", queue: queue, closure: closure) { return }
+            // we don't throttle windowDestroyedEvent as these are key events to process
+            if !isWindowDestroyedEvent && throttleOrProceed(key: "\(callType.rawValue)-wid-\(wid)", queue: queue, closure: closure) { return }
         }
         if callType == .updateApp || callType == .updateAppWindows || callType == .updateAppFocusedWindow {
             guard let pid else { Logger.error { (callType, context, file, function, line) }; return }
@@ -53,7 +54,7 @@ extension AXUIElement {
         }
     }
 
-    private static func retryAxCallUntilTimeout_(file: String, function: String, line: Int, context: String, after: DispatchTime?, pid: pid_t?, wid: CGWindowID?, retriesQueue: Bool, startTimeInNanoseconds: UInt64, callType: AXCallType, block: @escaping () throws -> Void) {
+    private static func retryAxCallUntilTimeout_(file: String, function: String, line: Int, context: String, after: DispatchTime?, pid: pid_t?, wid: CGWindowID?, retriesQueue: Bool, startTimeInNanoseconds: UInt64, isWindowDestroyedEvent: Bool, callType: AXCallType, block: @escaping () throws -> Void) {
         // attempt the AX call
         if (try? block()) != nil {
             return
@@ -66,7 +67,7 @@ extension AXUIElement {
         }
         // retry
         Logger.debug { "(pid:\(pid) wid:\(wid)) \(logFromContext(file, function, line, context, callType))" }
-        retryAxCallUntilTimeout(file: file, function: function, line: line, context: context, after: .now() + humanPerceptionDelay, pid: pid, wid: wid, retriesQueue: true, startTimeInNanoseconds: startTimeInNanoseconds, callType: callType, block: block)
+        retryAxCallUntilTimeout(file: file, function: function, line: line, context: context, after: .now() + humanPerceptionDelay, pid: pid, wid: wid, retriesQueue: true, startTimeInNanoseconds: startTimeInNanoseconds, isWindowDestroyedEvent: isWindowDestroyedEvent, callType: callType, block: block)
     }
 
     private static func logFromContext(_ file: String, _ function: String, _ line: Int, _ context: String, _ callType: AXCallType) -> String {
@@ -82,7 +83,6 @@ extension AXUIElement {
                 if elapsed < windowNs {
                     if !state.tailScheduled {
                         map[key] = ThrottleState(time: state.time, tailScheduled: true)
-
                         let remaining = windowNs - elapsed
                         queue.addOperationAfter(deadline: .now() + .nanoseconds(Int(remaining))) {
                             throttleMap.withLock { $0[key] = nil }

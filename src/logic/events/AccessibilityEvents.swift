@@ -19,8 +19,8 @@ class AccessibilityEvents {
                 try handleEventApp(type, pid, element)
             }
         } else {
-            let wid = try element.cgWindowId()
-            AXUIElement.retryAxCallUntilTimeout(context: "(pid:\(pid))", pid: pid, wid: wid, callType: .updateWindowFromAxEvent) {
+            let wid = (try? element.cgWindowId()) ?? 0
+            AXUIElement.retryAxCallUntilTimeout(context: "(pid:\(pid))", pid: pid, wid: wid, isWindowDestroyedEvent: type == kAXUIElementDestroyedNotification, callType: .updateWindowFromAxEvent) {
                 try handleEventWindow(type, wid, pid, element)
             }
         }
@@ -76,15 +76,18 @@ class AccessibilityEvents {
     static func handleEventWindow(_ type: String, _ wid: CGWindowID, _ pid: pid_t, _ element: AXUIElement) throws {
         guard wid != 0 || type == kAXUIElementDestroyedNotification,
               wid != TilesPanel.shared.windowNumber else { return } // don't process events for the thumbnails panel
+        if type == kAXUIElementDestroyedNotification {
+            DispatchQueue.main.async {
+                Logger.info { "\(type) wid:\(wid) pid:\(pid)" }
+                windowDestroyed(element, pid, wid)
+            }
+            return
+        }
         let level = wid.level()
         let a = try element.attributes([kAXTitleAttribute, kAXSubroleAttribute, kAXRoleAttribute, kAXSizeAttribute, kAXPositionAttribute, kAXFullscreenAttribute, kAXMinimizedAttribute])
         DispatchQueue.main.async {
             guard let app = Applications.findOrCreate(pid, false) else { return }
             Logger.info { "\(type) wid:\(wid) app:\(app.debugId)" }
-            if type == kAXUIElementDestroyedNotification {
-                windowDestroyed(element, pid, wid)
-                return
-            }
             let findOrCreate = Windows.findOrCreate(element, wid, app, level, a.title, a.subrole, a.role, a.size, a.position, a.isFullscreen, a.isMinimized)
             guard let window = findOrCreate.0 else {
                 // we don't know this window, but it got focused, so let's update app.focusedWindow with nil
