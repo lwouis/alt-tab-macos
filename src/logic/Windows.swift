@@ -310,6 +310,7 @@ class Windows {
     private static func restoreSelectionTargetIfVisible() -> Bool {
         guard let selectedWindowTarget else { return false }
         guard let index = list.firstIndex(where: { $0.id == selectedWindowTarget && shouldDisplay($0) }) else { return false }
+        if index == selectedWindowIndex { return true }
         updateSelectedAndHoveredWindowIndex(index)
         return true
     }
