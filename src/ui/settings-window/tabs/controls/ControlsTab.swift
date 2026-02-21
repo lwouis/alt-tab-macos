@@ -68,60 +68,6 @@ private class ShortcutSidebarRow: ClickHoverStackView {
     }
 }
 
-private class ControlsSidebarScrollView: NSScrollView {
-    override func wantsForwardedScrollEvents(for axis: NSEvent.GestureAxis) -> Bool {
-        axis == .vertical
-    }
-
-    override func scrollWheel(with event: NSEvent) {
-        let before = contentView.bounds.origin
-        super.scrollWheel(with: event)
-        DispatchQueue.main.async { [weak self] in
-            guard let self, self.shouldForwardToParent(event, before) else { return }
-            self.parentScrollView()?.scrollWheel(with: event)
-        }
-    }
-
-    private func shouldForwardToParent(_ event: NSEvent, _ before: CGPoint) -> Bool {
-        guard isVerticalScroll(event) else { return false }
-        guard abs(contentView.bounds.origin.y - before.y) < 0.01 else { return false }
-        return isAtVerticalBoundary(event)
-    }
-
-    private func isVerticalScroll(_ event: NSEvent) -> Bool {
-        abs(event.scrollingDeltaY) > abs(event.scrollingDeltaX) && abs(event.scrollingDeltaY) > 0.1
-    }
-
-    private func isAtVerticalBoundary(_ event: NSEvent) -> Bool {
-        guard let content = documentView else { return false }
-        let visible = contentView.documentVisibleRect
-        let dy = normalizedVerticalDelta(event)
-        if dy > 0 { return visible.minY <= content.bounds.minY + 0.5 }
-        if dy < 0 { return visible.maxY >= content.bounds.maxY - 0.5 }
-        return false
-    }
-
-    private func normalizedVerticalDelta(_ event: NSEvent) -> CGFloat {
-        let delta = event.hasPreciseScrollingDeltas ? event.scrollingDeltaY : event.deltaY
-        return event.isDirectionInvertedFromDevice ? -delta : delta
-    }
-
-    private func parentScrollView() -> NSScrollView? {
-        var parent = superview
-        while let view = parent {
-            if let scrollView = view as? NSScrollView { return scrollView }
-            parent = view.superview
-        }
-        return nil
-    }
-}
-
-private class ControlsSidebarDocumentView: FlippedView {
-    override func wantsForwardedScrollEvents(for axis: NSEvent.GestureAxis) -> Bool {
-        axis == .vertical
-    }
-}
-
 class ControlsTab {
     static var shortcuts = [String: ATShortcut]()
     static var shortcutControls = [String: (CustomRecorderControl, String)]()
@@ -307,14 +253,14 @@ class ControlsTab {
         rows.spacing = 0
         rows.translatesAutoresizingMaskIntoConstraints = false
         shortcutRowsStackView = rows
-        let rowsScrollView = ControlsSidebarScrollView()
+        let rowsScrollView = ForwardingVerticalScrollView()
         rowsScrollView.translatesAutoresizingMaskIntoConstraints = false
         rowsScrollView.drawsBackground = false
         rowsScrollView.hasVerticalScroller = true
         rowsScrollView.hasHorizontalScroller = false
         rowsScrollView.scrollerStyle = .overlay
         rowsScrollView.usesPredominantAxisScrolling = true
-        let documentView = ControlsSidebarDocumentView(frame: .zero)
+        let documentView = ForwardingVerticalDocumentView(frame: .zero)
         documentView.translatesAutoresizingMaskIntoConstraints = false
         rowsScrollView.documentView = documentView
         documentView.addSubview(rows)

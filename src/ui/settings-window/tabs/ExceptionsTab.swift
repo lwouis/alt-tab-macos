@@ -104,3 +104,22 @@ class ExceptionsTab {
         tableView.insertRow(bundleId)
     }
 }
+
+class ExceptionsView: ForwardingVerticalScrollView {
+    convenience init(width: CGFloat = 500, height: CGFloat = 378) {
+        self.init(frame: .zero)
+        translatesAutoresizingMaskIntoConstraints = false
+        borderType = .noBorder
+        hasHorizontalScroller = false
+        hasVerticalScroller = true
+        usesPredominantAxisScrolling = true
+        documentView = TableView(nil)
+        fit(width, height)
+        wantsLayer = true
+        layer!.cornerRadius = TableGroupView.cornerRadius
+        layer!.masksToBounds = true
+        contentView.wantsLayer = true
+        contentView.layer!.cornerRadius = TableGroupView.cornerRadius
+        contentView.layer!.masksToBounds = true
+    }
+}

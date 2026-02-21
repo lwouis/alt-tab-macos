@@ -1,23 +1,6 @@
 import Cocoa
 
-class ExceptionsView: NSScrollView {
-    convenience init(width: CGFloat = 500, height: CGFloat = 378) {
-        self.init(frame: .zero)
-        translatesAutoresizingMaskIntoConstraints = false
-        borderType = .noBorder
-        hasHorizontalScroller = false
-        hasVerticalScroller = true
-        usesPredominantAxisScrolling = true
-        documentView = TableView(nil)
-        fit(width, height)
-        wantsLayer = true
-        layer!.cornerRadius = TableGroupView.cornerRadius
-        layer!.masksToBounds = true
-        contentView.wantsLayer = true
-        contentView.layer!.cornerRadius = TableGroupView.cornerRadius
-        contentView.layer!.masksToBounds = true
-    }
-
+class ForwardingVerticalScrollView: NSScrollView {
     override func wantsForwardedScrollEvents(for axis: NSEvent.GestureAxis) -> Bool {
         axis == .vertical
     }
@@ -62,6 +45,12 @@ class ExceptionsView: NSScrollView {
             parent = view.superview
         }
         return nil
+    }
+}
+
+class ForwardingVerticalDocumentView: FlippedView {
+    override func wantsForwardedScrollEvents(for axis: NSEvent.GestureAxis) -> Bool {
+        axis == .vertical
     }
 }
 
@@ -140,8 +129,8 @@ class TableView: NSTableView {
         Preferences.set("exceptions", items)
     }
 
-    private func text(_ item: ExceptionEntry) -> NSView {
-        let text = TextField(item.bundleIdentifier)
+    private func editableTextCell(_ value: String, _ colId: String) -> NSView {
+        let text = TextField(value)
         text.isEditable = true
         text.allowsExpansionToolTips = true
         text.drawsBackground = false
@@ -149,7 +138,7 @@ class TableView: NSTableView {
         text.lineBreakMode = .byTruncatingTail
         text.usesSingleLineMode = true
         text.cell!.sendsActionOnEndEditing = true
-        text.onAction = { self.wasUpdated("col1", $0) }
+        text.onAction = { self.wasUpdated(colId, $0) }
         let parent = NSView()
         parent.addSubview(text)
         text.centerYAnchor.constraint(equalTo: parent.centerYAnchor).isActive = true
@@ -157,21 +146,12 @@ class TableView: NSTableView {
         return parent
     }
 
+    private func text(_ item: ExceptionEntry) -> NSView {
+        editableTextCell(item.bundleIdentifier, "col1")
+    }
+
     private func titleText(_ item: ExceptionEntry) -> NSView {
-        let text = TextField(item.windowTitleContains ?? "")
-        text.isEditable = true
-        text.allowsExpansionToolTips = true
-        text.drawsBackground = false
-        text.isBordered = false
-        text.lineBreakMode = .byTruncatingTail
-        text.usesSingleLineMode = true
-        text.cell!.sendsActionOnEndEditing = true
-        text.onAction = { self.wasUpdated("col3", $0) }
-        let parent = NSView()
-        parent.addSubview(text)
-        text.centerYAnchor.constraint(equalTo: parent.centerYAnchor).isActive = true
-        text.widthAnchor.constraint(equalTo: parent.widthAnchor).isActive = true
-        return parent
+        editableTextCell(item.windowTitleContains ?? "", "col3")
     }
 
     private func dropdown(_ item: ExceptionEntry, _ colId: String) -> NSView {
