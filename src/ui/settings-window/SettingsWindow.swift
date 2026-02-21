@@ -490,9 +490,10 @@ class SettingsWindow: NSWindow {
     private static let controlHighlightInset = CGFloat(1)
     private static let controlHighlightMinCornerRadius = CGFloat(4)
     private static let controlHighlightMaxCornerRadius = CGFloat(9)
+    static var shared: SettingsWindow!
 
-    var canBecomeKey_ = true
-    override var canBecomeKey: Bool { canBecomeKey_ }
+    static var canBecomeKey_ = true
+    override var canBecomeKey: Bool { Self.canBecomeKey_ }
 
     private let splitViewController = NSSplitViewController()
     private let sidebarContainer = NSView()
@@ -522,6 +523,7 @@ class SettingsWindow: NSWindow {
         setupWindow()
         setupView()
         setFrameAutosaveName("SettingsWindow")
+        Self.shared = self
     }
 
     private func setupWindow() {

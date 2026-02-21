@@ -70,7 +70,7 @@ class ExceptionsTab {
         dialog.allowsMultipleSelection = false
         dialog.allowedFileTypes = ["app"]
         dialog.canChooseDirectories = false
-        dialog.beginSheetModal(for: App.app.settingsWindow) {
+        dialog.beginSheetModal(for: SettingsWindow.shared) {
             if $0 == .OK, let url = dialog.url, let bundleId = Bundle(url: url)?.bundleIdentifier {
                 tableView.insertRow(bundleId)
             }

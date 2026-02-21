@@ -1,10 +1,10 @@
 import Cocoa
 
 class TilesPanel: NSPanel {
-    var tilesView = TilesView()
     override var canBecomeKey: Bool { true }
     static var maxPossibleThumbnailSize = NSSize.zero
     static var maxPossibleAppIconSize = NSSize.zero
+    static var shared: TilesPanel!
 
     convenience init() {
         self.init(contentRect: .zero, styleMask: .nonactivatingPanel, backing: .buffered, defer: false)
@@ -14,7 +14,8 @@ class TilesPanel: NSPanel {
         hidesOnDeactivate = false
         titleVisibility = .hidden
         backgroundColor = .clear
-        contentView! = tilesView.contentView
+        TilesView.initialize()
+        contentView! = TilesView.contentView
         // triggering AltTab before or during Space transition animation brings the window on the Space post-transition
         collectionBehavior = .canJoinAllSpaces
         // 2nd highest level possible; this allows the app to go on top of context menus
@@ -25,6 +26,7 @@ class TilesPanel: NSPanel {
         // for VoiceOver
         setAccessibilityLabel(App.name)
         updateAppearance()
+        Self.shared = self
     }
 
     func updateAppearance() {
@@ -34,18 +36,18 @@ class TilesPanel: NSPanel {
 
     func updateContents(_ preservedScrollOrigin: CGPoint?) {
         caTransaction {
-            tilesView.updateItemsAndLayout(preservedScrollOrigin)
-            guard App.app.appIsBeingUsed else { return }
-            setContentSize(tilesView.contentView.frame.size)
-            guard App.app.appIsBeingUsed else { return }
+            TilesView.updateItemsAndLayout(preservedScrollOrigin)
+            guard App.appIsBeingUsed else { return }
+            setContentSize(TilesView.contentView.frame.size)
+            guard App.appIsBeingUsed else { return }
             NSScreen.preferred.repositionPanel(self)
         }
         // prevent further AppKit work
-        tilesView.clearNeedsLayout()
+        TilesView.clearNeedsLayout()
     }
 
     override func orderOut(_ sender: Any?) {
-        tilesView.clearNeedsLayout()
+        TilesView.clearNeedsLayout()
         if Preferences.fadeOutAnimation {
             NSAnimationContext.runAnimationGroup(
                 { _ in animator().alphaValue = 0 },
@@ -63,7 +65,7 @@ class TilesPanel: NSPanel {
         alphaValue = 1
         makeKeyAndOrderFront(nil)
         CursorEvents.toggle(true)
-        DispatchQueue.main.async { self.tilesView.scrollView.flashScrollers() }
+        DispatchQueue.main.async { TilesView.scrollView.flashScrollers() }
     }
 
     static func maxThumbnailsWidth(_ screen: NSScreen = NSScreen.preferred) -> CGFloat {
@@ -113,8 +115,8 @@ extension TilesPanel: NSWindowDelegate {
         // other windows can steal key focus from alt-tab; we make sure that if it's active, if keeps key focus
         // dispatching to the main queue is necessary to introduce a delay in scheduling the makeKey; otherwise it is ignored
         DispatchQueue.main.async {
-            if App.app.appIsBeingUsed {
-                App.app.tilesPanel.makeKeyAndOrderFront(nil)
+            if App.appIsBeingUsed {
+                TilesPanel.shared.makeKeyAndOrderFront(nil)
             }
             MainMenu.toggle(enabled: true)
         }

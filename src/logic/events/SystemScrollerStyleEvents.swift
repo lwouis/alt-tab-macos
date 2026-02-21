@@ -7,8 +7,8 @@ class SystemScrollerStyleEvents {
 
     @objc private static func handleEvent(_ notification: Notification) {
         Logger.debug { notification.name.rawValue }
-        Logger.info { App.app.tilesPanel.tilesView.scrollView.scrollerStyle == .overlay ? "overlay" : "legacy" }
+        Logger.info { TilesView.scrollView.scrollerStyle == .overlay ? "overlay" : "legacy" }
         // force overlay style after a change in System Preference > General > Show scroll bars
-        App.app.tilesPanel?.tilesView.scrollView.scrollerStyle = .overlay
+        TilesView.scrollView.scrollerStyle = .overlay
     }
 }

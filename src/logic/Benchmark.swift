@@ -27,14 +27,14 @@ final class BenchmarkRunner {
     private static func scheduleShow(after delay: Int) {
         guard remainingCycles > 0 else { scheduleTerminate(after: hideDuration); return }
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(delay)) {
-            App.app.showUi(shortcutIndex)
+            App.showUi(shortcutIndex)
             scheduleHide(after: showDuration)
         }
     }
 
     private static func scheduleHide(after delay: Int) {
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(delay)) {
-            App.app.hideUi()
+            App.hideUi()
             remainingCycles -= 1
             scheduleShow(after: hideDuration)
         }

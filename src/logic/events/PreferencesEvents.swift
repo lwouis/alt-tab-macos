@@ -56,7 +56,7 @@ class PreferencesEvents {
         case "nextWindowGesture": TrackpadEvents.toggle(Preferences.nextWindowGesture != .disabled)
         case "startAtLogin": applyStartAtLoginPreference()
         case "updatePolicy": applyUpdatePolicyPreference()
-        case let k where preferencesRequiringUiReset.contains(k) && App.app.tilesPanel != nil: App.app.resetPreferencesDependentComponents()
+        case let k where preferencesRequiringUiReset.contains(k) && TilesPanel.shared != nil: App.resetPreferencesDependentComponents()
         default: break
         }
     }

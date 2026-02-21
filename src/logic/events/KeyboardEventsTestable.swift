@@ -12,7 +12,7 @@ class KeyboardEventsTestable {
 @discardableResult
 func handleKeyboardEvent(_ globalId: Int?, _ shortcutState: ShortcutState?, _ keyCode: UInt32?, _ modifiers: NSEvent.ModifierFlags?, _ isARepeat: Bool, _ event: NSEvent? = nil) -> Bool {
     let shouldAbsorbEvent = shouldAbsorbSearchEditingKeyDown(event)
-    if let event, shouldAbsorbEvent, App.app.tilesPanel.tilesView.handleSearchEditingKeyDown(event) {
+    if let event, shouldAbsorbEvent, TilesView.handleSearchEditingKeyDown(event) {
         return true
     }
     logKeyboardEvent(globalId, shortcutState, keyCode, modifiers, isARepeat)
@@ -37,7 +37,7 @@ private func logKeyboardEvent(_ globalId: Int?, _ shortcutState: ShortcutState?,
 }
 
 private func shouldAbsorbSearchEditingKeyDown(_ event: NSEvent?) -> Bool {
-    guard let event, event.type == .keyDown, App.app.appIsBeingUsed, App.app.tilesPanel.isKeyWindow, App.app.tilesPanel.tilesView.isSearchEditing else {
+    guard let event, event.type == .keyDown, App.appIsBeingUsed, TilesPanel.shared.isKeyWindow, TilesView.isSearchEditing else {
         return false
     }
     return true
@@ -58,6 +58,6 @@ private func triggerMatchingShortcuts(_ globalId: Int?, _ shortcutState: Shortcu
     // TODO if we manage to move all keyboard listening to the background thread, we'll have issues returning this boolean
     // this function uses many objects that are also used on the main-thread. It also executes the actions
     // we'll have to rework this whole approach. Today we rely on somewhat in-order events/actions
-    // special attention should be given to App.app.appIsBeingUsed which is being set to true when executing the nextWindowShortcut action
+    // special attention should be given to App.appIsBeingUsed which is being set to true when executing the nextWindowShortcut action
     return someShortcutTriggered
 }

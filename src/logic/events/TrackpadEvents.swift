@@ -41,7 +41,7 @@ class TrackpadEvents {
             let runLoopSource = CFMachPortCreateRunLoopSource(nil, eventTap, 0)
             CFRunLoopAddSource(BackgroundWork.keyboardAndMouseAndTrackpadEventsThread.runLoop, runLoopSource, .commonModes)
         } else {
-            App.app.restart()
+            App.restart()
         }
     }
 
@@ -68,7 +68,7 @@ class TrackpadEvents {
         let activeTouches = touches.filter { !$0.isResting && ($0.phase == .began || $0.phase == .moved) }
         let fingersDown = touches.count { $0.phase == .began || $0.phase == .moved || $0.phase == .stationary }
         let requiredFingers = Preferences.nextWindowGesture.isThreeFinger() ? 3 : 4
-        if App.app.appIsBeingUsed {
+        if App.appIsBeingUsed {
             handleEventIfAppIsBeingUsed(fingersDown, activeTouches, requiredFingers)
             return true // absorb the touch event
         }
@@ -77,9 +77,9 @@ class TrackpadEvents {
 
     private static func handleEventIfAppIsBeingUsed(_ fingersDown: Int, _ activeTouches: Set<NSTouch>, _ requiredFingers: Int) {
         if fingersDown <= TriggerSwipeDetector.maxFingersDownDuringTrigger - requiredFingers {
-            if App.app.shortcutIndex == Preferences.gestureIndex && !App.app.forceDoNothingOnRelease && Preferences.shortcutStyle == .focusOnRelease {
+            if App.shortcutIndex == Preferences.gestureIndex && !App.forceDoNothingOnRelease && Preferences.shortcutStyle == .focusOnRelease {
                 DispatchQueue.main.async {
-                    App.app.focusTarget()
+                    App.focusTarget()
                 }
             }
             return
@@ -158,7 +158,7 @@ class TriggerSwipeDetector {
         DispatchQueue.main.async {
             ScrollwheelEvents.toggle(true)
             performHapticFeedback()
-            App.app.showUiOrCycleSelection(Preferences.gestureIndex, false)
+            App.showUiOrCycleSelection(Preferences.gestureIndex, false)
         }
         return true
     }
@@ -184,7 +184,7 @@ class NavigationSwipeDetector {
         let direction: Direction = maxIsX ? (averageDistance.x < 0 ? .left : .right) : (averageDistance.y < 0 ? .down : .up)
         DispatchQueue.main.async {
             performHapticFeedback()
-            App.app.cycleSelection(direction, allowWrap: false)
+            App.cycleSelection(direction, allowWrap: false)
         }
     }
 

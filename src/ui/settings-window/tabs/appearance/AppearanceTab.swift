@@ -485,10 +485,10 @@ class AppearanceTab: NSObject {
     }
 
     @objc static func showCustomizeStyleSheet() {
-        App.app.settingsWindow.beginSheetWithSearchHighlight(customizeStyleSheet)
+        SettingsWindow.shared.beginSheetWithSearchHighlight(customizeStyleSheet)
     }
 
     @objc static func showAnimationsSheet() {
-        App.app.settingsWindow.beginSheetWithSearchHighlight(animationsSheet)
+        SettingsWindow.shared.beginSheetWithSearchHighlight(animationsSheet)
     }
 }

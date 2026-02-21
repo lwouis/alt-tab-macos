@@ -2,8 +2,9 @@ import Cocoa
 import SwiftyBeaver
 
 class DebugWindow: NSPanel {
-    var canBecomeKey_ = true
-    override var canBecomeKey: Bool { canBecomeKey_ }
+    static var shared: DebugWindow?
+    static var canBecomeKey_ = true
+    override var canBecomeKey: Bool { Self.canBecomeKey_ }
     private var scrollView: NSScrollView!
     private var textView: NSTextView!
     private var filterControl: NSSegmentedControl!
@@ -32,6 +33,7 @@ class DebugWindow: NSPanel {
         setupWindow()
         setupView()
         setFrameAutosaveName("DebugWindow")
+        Self.shared = self
     }
 
     private func setupWindow() {

@@ -158,7 +158,7 @@ class Application: NSObject {
                 DispatchQueue.main.async { [weak self] in
                     guard let self else { return }
                     if self.addWindowlessWindowIfNeeded() != nil {
-                        App.app.refreshOpenUiAfterExternalEvent([])
+                        App.refreshOpenUiAfterExternalEvent([])
                     }
                 }
                 // workaround: some apps launch but take a while to create their window(s)
@@ -181,7 +181,7 @@ class Application: NSObject {
     }
 
     func manuallyUpdateWindow(_ axWindow: AXUIElement, _ wid: CGWindowID) throws {
-        guard wid != 0 && wid != App.app.tilesPanel.windowNumber else { return } // some bogus "windows" have wid 0
+        guard wid != 0 && wid != TilesPanel.shared.windowNumber else { return } // some bogus "windows" have wid 0
         let level = wid.level()
         let a = try axWindow.attributes([kAXTitleAttribute, kAXSubroleAttribute, kAXRoleAttribute, kAXSizeAttribute, kAXPositionAttribute, kAXFullscreenAttribute, kAXMinimizedAttribute])
         DispatchQueue.main.async { [weak self] in
@@ -190,7 +190,7 @@ class Application: NSObject {
             guard let window = findOrCreate.0 else { return }
             if findOrCreate.1 {
                 Logger.info { "manuallyUpdateWindows found a new window:\(window.debugId)" }
-                App.app.refreshOpenUiAfterExternalEvent([window])
+                App.refreshOpenUiAfterExternalEvent([window])
             }
         }
     }
@@ -202,14 +202,14 @@ class Application: NSObject {
         let window = Window(self)
         Windows.appendWindow(window)
         focusedWindow = nil
-        App.app.refreshOpenUiAfterExternalEvent([])
+        App.refreshOpenUiAfterExternalEvent([])
         return window
     }
 
     func removeWindowlessAppWindow() {
         guard let windowlessAppWindow = (Windows.list.first { $0.isWindowlessApp == true && $0.application.pid == pid }) else { return }
         Windows.removeWindows([windowlessAppWindow], false)
-        App.app.refreshOpenUiAfterExternalEvent([])
+        App.refreshOpenUiAfterExternalEvent([])
     }
 
     func hideOrShow() {

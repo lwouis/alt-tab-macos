@@ -16,7 +16,7 @@ class SystemPermissions {
 
     private static func checkPermissionsOnTimer() {
         AccessibilityPermission.update()
-        let isPermissionsWindowVisible = App.app.permissionsWindow?.isVisible ?? false
+        let isPermissionsWindowVisible = PermissionsWindow.shared?.isVisible ?? false
         if !preStartupPermissionsPassed || isPermissionsWindowVisible {
             ScreenRecordingPermission.update()
         }
@@ -33,7 +33,9 @@ class SystemPermissions {
         }
         DispatchQueue.main.async {
             Menubar.togglePermissionCallout(ScreenRecordingPermission.status != .granted)
-            App.app.permissionsWindow?.updatePermissionViews()
+            if PermissionsWindow.shared != nil {
+                PermissionsWindow.updatePermissionViews()
+            }
         }
     }
 
@@ -41,13 +43,13 @@ class SystemPermissions {
         if AccessibilityPermission.status != .notGranted && ScreenRecordingPermission.status != .notGranted {
             DispatchQueue.main.async {
                 preStartupPermissionsPassed = true
-                App.app.permissionsWindow?.close()
+                PermissionsWindow.shared?.close()
                 setInfrequentTimer()
-                App.app.continueAppLaunchAfterPermissionsAreGranted()
+                App.continueAppLaunchAfterPermissionsAreGranted()
             }
         } else {
             DispatchQueue.main.async {
-                App.app.showPermissionsWindow()
+                App.showPermissionsWindow()
             }
         }
     }
@@ -55,7 +57,7 @@ class SystemPermissions {
     private static func checkPermissionsPostStartup() {
         if AccessibilityPermission.status == .notGranted {
             Logger.error { "Accessibility permission revoked while AltTab was running; restarting" }
-            DispatchQueue.main.async { App.app.restart() }
+            DispatchQueue.main.async { App.restart() }
         }
     }
 

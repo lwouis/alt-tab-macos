@@ -51,10 +51,10 @@ class AccessibilityEvents {
                 try handleEventWindow(kAXFocusedWindowChangedNotification, wid, pid, appFocusedWindow)
             }
         } else {
-            App.app.checkIfShortcutsShouldBeDisabled(nil, app)
+            App.checkIfShortcutsShouldBeDisabled(nil, app)
             if let windowless = (Windows.list.first { $0.isWindowlessApp && $0.application.pid == pid }) {
                 if let windows = Windows.updateLastFocusOrder(windowless) {
-                    App.app.refreshOpenUiAfterExternalEvent(windows)
+                    App.refreshOpenUiAfterExternalEvent(windows)
                 }
             }
         }
@@ -69,13 +69,13 @@ class AccessibilityEvents {
         // if we process the "shown" event too fast, the window won't be listed by CGSCopyWindowsWithOptionsAndTags
         // it will thus be detected as isTabbed. We add a delay to work around this scenario
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)) {
-            App.app.refreshOpenUiAfterExternalEvent(windows)
+            App.refreshOpenUiAfterExternalEvent(windows)
         }
     }
 
     static func handleEventWindow(_ type: String, _ wid: CGWindowID, _ pid: pid_t, _ element: AXUIElement) throws {
         guard wid != 0 || type == kAXUIElementDestroyedNotification,
-              wid != App.app.tilesPanel.windowNumber else { return } // don't process events for the thumbnails panel
+              wid != TilesPanel.shared.windowNumber else { return } // don't process events for the thumbnails panel
         let level = wid.level()
         let a = try element.attributes([kAXTitleAttribute, kAXSubroleAttribute, kAXRoleAttribute, kAXSizeAttribute, kAXPositionAttribute, kAXFullscreenAttribute, kAXMinimizedAttribute])
         DispatchQueue.main.async {
@@ -95,14 +95,14 @@ class AccessibilityEvents {
             }
             Logger.debug { "\(type) win:\(window.debugId)" }
             if findOrCreate.1 {
-                App.app.refreshOpenUiAfterExternalEvent([window])
+                App.refreshOpenUiAfterExternalEvent([window])
             }
             if type == kAXMainWindowChangedNotification || type == kAXFocusedWindowChangedNotification {
                 focusedWindowChanged(window)
             } else if type == kAXWindowResizedNotification || type == kAXWindowMovedNotification {
                 windowResizedOrMoved(window)
             } else if !findOrCreate.1 {
-                App.app.refreshOpenUiAfterExternalEvent([window])
+                App.refreshOpenUiAfterExternalEvent([window])
             }
         }
     }
@@ -120,14 +120,14 @@ class AccessibilityEvents {
         // if the window is shown by alt-tab, we mark it as focused for this app
         // this avoids issues with dialogs, quicklook, etc (see scenarios from #1044 and #2003)
         window.application.focusedWindow = window
-        App.app.checkIfShortcutsShouldBeDisabled(window, nil)
+        App.checkIfShortcutsShouldBeDisabled(window, nil)
         if let windows = Windows.updateLastFocusOrder(window) {
-            App.app.refreshOpenUiAfterExternalEvent(windows)
+            App.refreshOpenUiAfterExternalEvent(windows)
         }
     }
 
     private static func windowResizedOrMoved(_ window: Window) {
         window.updateSpacesAndScreen()
-        App.app.refreshOpenUiAfterExternalEvent([window])
+        App.refreshOpenUiAfterExternalEvent([window])
     }
 }

@@ -11,6 +11,6 @@ class SystemAppearanceEvents {
         Logger.debug { notification.name.rawValue }
         Logger.info { UserDefaults.standard.string(forKey: "AppleInterfaceStyle") ?? "Light" }
         // fix layout issues by resetting components
-        App.app.resetPreferencesDependentComponents()
+        App.resetPreferencesDependentComponents()
     }
 }

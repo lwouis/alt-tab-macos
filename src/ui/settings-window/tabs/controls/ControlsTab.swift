@@ -126,30 +126,30 @@ class ControlsTab {
     static var shortcuts = [String: ATShortcut]()
     static var shortcutControls = [String: (CustomRecorderControl, String)]()
     static var shortcutsActions = [
-        "holdShortcut": { App.app.focusTarget() },
-        "holdShortcut2": { App.app.focusTarget() },
-        "holdShortcut3": { App.app.focusTarget() },
-        "focusWindowShortcut": { App.app.focusTarget() },
-        "nextWindowShortcut": { App.app.showUiOrCycleSelection(0, false) },
-        "nextWindowShortcut2": { App.app.showUiOrCycleSelection(1, false) },
-        "nextWindowShortcut3": { App.app.showUiOrCycleSelection(2, false) },
-        "previousWindowShortcut": { App.app.previousWindowShortcutWithRepeatingKey() },
-        "→": { App.app.cycleSelection(.right) },
-        "←": { App.app.cycleSelection(.left) },
-        "↑": { App.app.cycleSelection(.up) },
-        "↓": { App.app.cycleSelection(.down) },
-        "vimCycleRight": { App.app.cycleSelection(.right) },
-        "vimCycleLeft": { App.app.cycleSelection(.left) },
-        "vimCycleUp": { App.app.cycleSelection(.up) },
-        "vimCycleDown": { App.app.cycleSelection(.down) },
-        "cancelShortcut": { App.app.cancelSearchModeOrHideUi() },
-        "closeWindowShortcut": { App.app.closeSelectedWindow() },
-        "minDeminWindowShortcut": { App.app.minDeminSelectedWindow() },
-        "toggleFullscreenWindowShortcut": { App.app.toggleFullscreenSelectedWindow() },
-        "quitAppShortcut": { App.app.quitSelectedApp() },
-        "hideShowAppShortcut": { App.app.hideShowSelectedApp() },
-        "searchShortcut": { App.app.toggleSearchMode() },
-        "lockSearchShortcut": { App.app.lockSearchMode() },
+        "holdShortcut": { App.focusTarget() },
+        "holdShortcut2": { App.focusTarget() },
+        "holdShortcut3": { App.focusTarget() },
+        "focusWindowShortcut": { App.focusTarget() },
+        "nextWindowShortcut": { App.showUiOrCycleSelection(0, false) },
+        "nextWindowShortcut2": { App.showUiOrCycleSelection(1, false) },
+        "nextWindowShortcut3": { App.showUiOrCycleSelection(2, false) },
+        "previousWindowShortcut": { App.previousWindowShortcutWithRepeatingKey() },
+        "→": { App.cycleSelection(.right) },
+        "←": { App.cycleSelection(.left) },
+        "↑": { App.cycleSelection(.up) },
+        "↓": { App.cycleSelection(.down) },
+        "vimCycleRight": { App.cycleSelection(.right) },
+        "vimCycleLeft": { App.cycleSelection(.left) },
+        "vimCycleUp": { App.cycleSelection(.up) },
+        "vimCycleDown": { App.cycleSelection(.down) },
+        "cancelShortcut": { App.cancelSearchModeOrHideUi() },
+        "closeWindowShortcut": { App.closeSelectedWindow() },
+        "minDeminWindowShortcut": { App.minDeminSelectedWindow() },
+        "toggleFullscreenWindowShortcut": { App.toggleFullscreenSelectedWindow() },
+        "quitAppShortcut": { App.quitSelectedApp() },
+        "hideShowAppShortcut": { App.hideShowSelectedApp() },
+        "searchShortcut": { App.toggleSearchMode() },
+        "lockSearchShortcut": { App.lockSearchMode() },
     ]
     static var arrowKeysCheckbox: Switch!
     static var vimKeysCheckbox: Switch!
@@ -642,11 +642,11 @@ class ControlsTab {
     }
 
     @objc static func showShortcutsSettings() {
-        App.app.settingsWindow.beginSheetWithSearchHighlight(shortcutsWhenActiveSheet)
+        SettingsWindow.shared.beginSheetWithSearchHighlight(shortcutsWhenActiveSheet)
     }
 
     @objc static func showAdditionalControlsSettings() {
-        App.app.settingsWindow.beginSheetWithSearchHighlight(additionalControlsSheet)
+        SettingsWindow.shared.beginSheetWithSearchHighlight(additionalControlsSheet)
     }
 
     private static func addShortcut(_ triggerPhase: ShortcutTriggerPhase, _ scope: ShortcutScope, _ shortcut: Shortcut, _ controlId: String, _ index: Int?) {
@@ -756,7 +756,7 @@ class ControlsTab {
             }
         }
         if !conflicts.isEmpty {
-            if App.app.settingsWindow == nil || !shouldClearConflictingShortcuts(conflicts.map { $0.value }) {
+            if SettingsWindow.shared == nil || !shouldClearConflictingShortcuts(conflicts.map { $0.value }) {
                 return false
             }
             conflicts.forEach {
@@ -891,11 +891,11 @@ class ControlsTab {
             return
         }
         if action.hasPrefix("holdShortcut") {
-            App.app.focusTarget()
+            App.focusTarget()
             return
         }
         if action.hasPrefix("nextWindowShortcut") {
-            App.app.showUiOrCycleSelection(Preferences.nameToIndex(action), false)
+            App.showUiOrCycleSelection(Preferences.nameToIndex(action), false)
         }
     }
 }

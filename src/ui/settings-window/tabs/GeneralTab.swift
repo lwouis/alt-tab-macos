@@ -82,7 +82,7 @@ class GeneralTab {
         if #available(macOS 11.0, *) { resetButton.hasDestructiveAction = true }
         if alert.runModal() == .alertSecondButtonReturn {
             Preferences.resetAll()
-            App.app.restart()
+            App.restart()
         }
     }
 
@@ -119,7 +119,7 @@ class GeneralTab {
         alert.addButton(withTitle: NSLocalizedString("Restart Now", comment: ""))
         alert.addButton(withTitle: NSLocalizedString("Later", comment: ""))
         if alert.runModal() == .alertFirstButtonReturn {
-            App.app.restart()
+            App.restart()
         }
     }
 
@@ -137,7 +137,7 @@ class GeneralTab {
         alert.addButton(withTitle: NSLocalizedString("Restart Now", comment: ""))
         alert.addButton(withTitle: NSLocalizedString("Later", comment: ""))
         if alert.runModal() == .alertFirstButtonReturn {
-            App.app.restart()
+            App.restart()
         }
     }
 }

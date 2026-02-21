@@ -77,11 +77,11 @@ class Applications {
             // comparing pid here can fail here, as it can be already nil; we use isEqual here to avoid the issue
             list.removeAll { $0.runningApplication.isEqual(tApp) }
         }
-        App.app.refreshOpenUiAfterExternalEvent([])
+        App.refreshOpenUiAfterExternalEvent([])
     }
 
     static func refreshBadgesAsync() {
-        guard App.app.appIsBeingUsed && !Preferences.hideAppBadges else { return }
+        guard App.appIsBeingUsed && !Preferences.hideAppBadges else { return }
         AXUIElement.retryAxCallUntilTimeout(callType: .updateDockBadges) {
             guard let dockPid = (list.first { $0.bundleIdentifier == "com.apple.dock" }?.pid),
                 let axDockChildren = try AXUIElementCreateApplication(dockPid).attributes([kAXChildrenAttribute]).children,
@@ -94,7 +94,7 @@ class Applications {
             }
             guard !axAppDockItemUrlAndLabel.isEmpty else { return }
             DispatchQueue.main.async {
-                guard App.app.appIsBeingUsed && !Preferences.hideAppBadges else { return }
+                guard App.appIsBeingUsed && !Preferences.hideAppBadges else { return }
                 refreshBadges_(axAppDockItemUrlAndLabel)
             }
         }

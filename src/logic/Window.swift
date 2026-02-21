@@ -108,7 +108,7 @@ class Window {
 
     func refreshThumbnail(_ screenshot: CALayerContents) {
         thumbnail = screenshot
-        if !App.app.appIsBeingUsed || !shouldShowTheUser { return }
+        if !App.appIsBeingUsed || !shouldShowTheUser { return }
         if let position, let size,
            let view = (TilesView.recycledViews.first { $0.window_?.cgWindowId == cgWindowId }) {
             if !view.thumbnail.isHidden {
@@ -117,10 +117,10 @@ class Window {
                 view.thumbnail.updateContents(screenshot, thumbnailSize)
                 // if the thumbnail size has changed, we need to refresh the open UI
                 if newSize {
-                    App.app.refreshOpenUiAfterExternalEvent([])
+                    App.refreshOpenUiAfterExternalEvent([])
                 }
             }
-            App.app.previewPanel.updateIfShowing(cgWindowId, screenshot, position, size)
+            PreviewPanel.updateIfShowing(cgWindowId, screenshot, position, size)
         }
     }
 
@@ -312,7 +312,7 @@ class Window {
 
     private func altTabWindow() -> NSWindow? {
         if application.bundleURL == App.bundleURL, let cgWindowId {
-            return App.app.window(withWindowNumber: Int(cgWindowId))
+            return App.shared.window(withWindowNumber: Int(cgWindowId))
         }
         return nil
     }

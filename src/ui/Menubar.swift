@@ -5,8 +5,9 @@ class Menubar {
     static var menu: NSMenu!
     static var permissionCalloutMenuItems: [NSMenuItem]?
 
-    static func addMenuItem(_ title: String, _ action: Selector, _ keyEquivalent: String, _ symbolName: String?, _ color: NSColor? = nil) {
+    static func addMenuItem(_ title: String, _ action: Selector, _ keyEquivalent: String, _ symbolName: String?, _ color: NSColor? = nil, _ target: AnyObject? = nil) {
         let item = menu.addItem(withTitle: title, action: action, keyEquivalent: keyEquivalent)
+        item.target = target
         if #available(macOS 26.0, *), let symbolName {
             item.image = NSImage(systemSymbolName: symbolName, accessibilityDescription: nil)
             if let color {
@@ -22,16 +23,16 @@ class Menubar {
         permissionCalloutMenuItem.view = PermissionCallout()
         let calloutSeparator = NSMenuItem.separator()
         permissionCalloutMenuItems = [permissionCalloutMenuItem, calloutSeparator]
-        addMenuItem(NSLocalizedString("Show", comment: "Menubar option"), #selector(App.app.showUiFromShortcut0), "", "eye")
+        addMenuItem(NSLocalizedString("Show", comment: "Menubar option"), #selector(App.showUiFromShortcut0), "", "eye", nil, App.self)
         menu.addItem(NSMenuItem.separator())
-        addMenuItem(NSLocalizedString("Settings…", comment: "Menubar option"), #selector(App.app.showSettingsWindow), ",", "gear")
-        addMenuItem(NSLocalizedString("Check for updates…", comment: "Menubar option"), #selector(App.app.checkForUpdatesNow), "", "checkmark.arrow.trianglehead.clockwise")
-        addMenuItem(NSLocalizedString("Check permissions…", comment: "Menubar option"), #selector(App.app.checkPermissions), "", "hand.raised")
+        addMenuItem(NSLocalizedString("Settings…", comment: "Menubar option"), #selector(App.showSettingsWindow), ",", "gear", nil, App.self)
+        addMenuItem(NSLocalizedString("Check for updates…", comment: "Menubar option"), #selector(App.checkForUpdatesNow), "", "checkmark.arrow.trianglehead.clockwise", nil, App.self)
+        addMenuItem(NSLocalizedString("Check permissions…", comment: "Menubar option"), #selector(App.checkPermissions), "", "hand.raised", nil, App.self)
         menu.addItem(NSMenuItem.separator())
-        addMenuItem(String(format: NSLocalizedString("About %@", comment: "Menubar option. %@ is AltTab"), App.name), #selector(App.app.showAboutWindow), "", "info.circle")
-        addMenuItem(NSLocalizedString("Debug tools", comment: "Menubar option"), #selector(App.app.showDebugWindow), "", "scope")
-        addMenuItem(NSLocalizedString("Send feedback…", comment: "Menubar option"), #selector(App.app.showFeedbackPanel), "", "text.bubble")
-        addMenuItem(NSLocalizedString("Support this project", comment: "Menubar option"), App.supportProjectAction, "", "heart.fill", .red)
+        addMenuItem(String(format: NSLocalizedString("About %@", comment: "Menubar option. %@ is AltTab"), App.name), #selector(App.showAboutWindow), "", "info.circle", nil, App.self)
+        addMenuItem(NSLocalizedString("Debug tools", comment: "Menubar option"), #selector(App.showDebugWindow), "", "scope", nil, App.self)
+        addMenuItem(NSLocalizedString("Send feedback…", comment: "Menubar option"), #selector(App.showFeedbackPanel), "", "text.bubble", nil, App.self)
+        addMenuItem(NSLocalizedString("Support this project", comment: "Menubar option"), App.supportProjectAction, "", "heart.fill", .red, App.self)
         menu.addItem(NSMenuItem.separator())
         addMenuItem(String(format: NSLocalizedString("Quit %@", comment: "Menubar option. %@ is AltTab"), App.name), #selector(NSApplication.terminate(_:)), "q", nil) // "xmark.rectangle" is not necessary; macos automatically recognizes Quit
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
@@ -55,7 +56,7 @@ class Menubar {
     @objc static func statusItemOnClick() {
         // NSApp.currentEvent == nil if the icon is "clicked" through VoiceOver
         if let type = NSApp.currentEvent?.type, type != .leftMouseDown {
-            App.app.showUiFromShortcut0()
+            App.showUiFromShortcut0()
         } else {
             statusItem.popUpMenu(Menubar.menu)
         }
@@ -95,7 +96,7 @@ class PermissionCallout: StackView {
         button.attributedTitle = NSAttributedString(string: NSLocalizedString("Grant permission", comment: "Menubar callout button"), attributes: [NSAttributedString.Key.foregroundColor: NSColor.white])
         button.onAction = { _ in
             Preferences.remove("screenRecordingPermissionSkipped")
-            App.app.restart()
+            App.restart()
         }
         self.init([label, button], .vertical, true, top: 8, right: 15, bottom: 10, left: 15)
         wantsLayer = true

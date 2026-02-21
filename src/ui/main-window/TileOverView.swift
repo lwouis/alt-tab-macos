@@ -37,7 +37,7 @@ class TileOverView: FlippedView {
 
     func updateHover() {
         guard let scrollView, !scrollView.isCurrentlyScrolling else { return }
-        let location = convert(App.app.tilesPanel.mouseLocationOutsideOfEventStream, from: nil)
+        let location = convert(TilesPanel.shared.mouseLocationOutsideOfEventStream, from: nil)
         updateButtonHover(location)
         let newTarget = findTarget(location)
         if let target = newTarget ?? previousTarget {

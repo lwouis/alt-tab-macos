@@ -8,48 +8,50 @@ enum SearchMode {
     case locked
 }
 
-class TilesView: NSObject {
-    var scrollView: ScrollView!
-    var contentView: EffectView!
-    var searchField = NSSearchField(frame: .zero)
-    private(set) var searchMode: SearchMode = .off
-    var rows = [[TileView]]()
-    private var lastRowSignature = [Int]()
+class TilesView {
+    static var scrollView: ScrollView!
+    static var contentView: EffectView!
+    static var searchField = NSSearchField(frame: .zero)
+    private(set) static var searchMode: SearchMode = .off
+    static var rows = [[TileView]]()
+    private static var lastRowSignature = [Int]()
     static var recycledViews = [TileView]()
     static var thumbnailsWidth = CGFloat(0.0)
     static var thumbnailsHeight = CGFloat(0.0)
     static var layoutCache = LayoutCache()
-    var thumbnailUnderLayer = TileUnderLayer()
-    var thumbnailOverView = TileOverView()
+    static var thumbnailUnderLayer = TileUnderLayer()
+    static var thumbnailOverView = TileOverView()
+    private static var initialized = false
 
-    override init() {
-        super.init()
+    static func initialize() {
+        guard !initialized else { return }
         configureSearchField()
         updateBackgroundView()
         // TODO: think about this optimization more
         (1...20).forEach { _ in TilesView.recycledViews.append(TileView()) }
         Self.updateCachedSizes()
+        initialized = true
     }
 
-    var isSearchModeOn: Bool { searchMode != .off }
-    var isSearchEditing: Bool { searchMode == .editing }
-    var isSearchLocked: Bool { searchMode == .locked }
+    static var isSearchModeOn: Bool { searchMode != .off }
+    static var isSearchEditing: Bool { searchMode == .editing }
+    static var isSearchLocked: Bool { searchMode == .locked }
 
-    func startSearchSession(_ startInSearchMode: Bool) {
+    static func startSearchSession(_ startInSearchMode: Bool) {
         searchField.stringValue = ""
         Windows.updateSearchQuery("")
         searchMode = startInSearchMode ? .editing : .off
         updateSearchFieldEditability()
     }
 
-    func endSearchSession() {
+    static func endSearchSession() {
         searchField.stringValue = ""
         Windows.updateSearchQuery("")
         searchMode = .off
         updateSearchFieldEditability()
     }
 
-    func toggleSearchModeFromShortcut() {
+    static func toggleSearchModeFromShortcut() {
         if searchMode == .off {
             enableSearchEditing()
         } else if searchMode == .editing {
@@ -59,18 +61,18 @@ class TilesView: NSObject {
         }
     }
 
-    func disableSearchMode() {
+    static func disableSearchMode() {
         guard searchMode != .off else { return }
         searchMode = .off
         updateSearchFieldEditability()
         searchField.stringValue = ""
         clearHover()
         Windows.updateSearchQuery("")
-        App.app.refreshUi(true)
+        App.refreshUi(true)
         focusSelectedTileIfPossible()
     }
 
-    func lockSearchMode() {
+    static func lockSearchMode() {
         if searchMode == .editing {
             searchMode = .locked
             updateSearchFieldEditability()
@@ -80,7 +82,7 @@ class TilesView: NSObject {
         }
     }
 
-    func enableSearchEditing() {
+    static func enableSearchEditing() {
         guard searchMode != .editing else {
             placeSearchCaretAtEnd()
             return
@@ -88,22 +90,22 @@ class TilesView: NSObject {
         let wasOff = searchMode == .off
         searchMode = .editing
         updateSearchFieldEditability()
-        App.app.forceDoNothingOnRelease = true
+        App.forceDoNothingOnRelease = true
         clearHover()
         stopKeyRepeatTimers()
         if wasOff {
-            App.app.refreshUi(true)
+            App.refreshUi(true)
         }
-        App.app.tilesPanel.makeFirstResponder(searchField)
+        TilesPanel.shared.makeFirstResponder(searchField)
         placeSearchCaretAtEnd()
     }
 
-    func handleSearchEditingKeyDown(_ event: NSEvent) -> Bool {
+    static func handleSearchEditingKeyDown(_ event: NSEvent) -> Bool {
         let keyCode = event.keyCode
-        if keyCode == UInt16(kVK_LeftArrow) { App.app.cycleSelection(.left); return true }
-        if keyCode == UInt16(kVK_RightArrow) { App.app.cycleSelection(.right); return true }
-        if keyCode == UInt16(kVK_UpArrow) { App.app.cycleSelection(.up); return true }
-        if keyCode == UInt16(kVK_DownArrow) { App.app.cycleSelection(.down); return true }
+        if keyCode == UInt16(kVK_LeftArrow) { App.cycleSelection(.left); return true }
+        if keyCode == UInt16(kVK_RightArrow) { App.cycleSelection(.right); return true }
+        if keyCode == UInt16(kVK_UpArrow) { App.cycleSelection(.up); return true }
+        if keyCode == UInt16(kVK_DownArrow) { App.cycleSelection(.down); return true }
         if keyCode == UInt16(kVK_Space) { return false }
         if keyCode == UInt16(kVK_Delete) || keyCode == UInt16(kVK_ForwardDelete) {
             deleteSearchCharacter(keyCode)
@@ -114,7 +116,7 @@ class TilesView: NSObject {
             return true
         }
         if matchesShortcut(event, "cancelShortcut") {
-            App.app.cancelSearchModeOrHideUi()
+            App.cancelSearchModeOrHideUi()
             return true
         }
         if matchesSearchShortcut(event) {
@@ -124,7 +126,7 @@ class TilesView: NSObject {
         return false
     }
 
-    private func configureSearchField() {
+    private static func configureSearchField() {
         searchField.placeholderString = NSLocalizedString("Search", comment: "")
         searchField.sendsSearchStringImmediately = true
         searchField.sendsWholeSearchString = true
@@ -137,24 +139,24 @@ class TilesView: NSObject {
             searchField.controlSize = .regular
         }
         searchField.usesSingleLineMode = true
-        searchField.target = self
-        searchField.action = #selector(searchFieldChanged(_:))
+        searchField.target = Self.self
+        searchField.action = #selector(Self.searchFieldChanged(_:))
         updateSearchFieldEditability()
     }
 
-    @objc private func searchFieldChanged(_ sender: NSSearchField) {
+    @objc private static func searchFieldChanged(_ sender: NSSearchField) {
         updateSearchQuery(sender.stringValue)
     }
 
-    private func updateSearchQuery(_ query: String) {
+    private static func updateSearchQuery(_ query: String) {
         if Windows.searchQuery == query { return }
         clearHover()
         Windows.updateSearchQuery(query)
         stopKeyRepeatTimers()
-        App.app.refreshUi(true)
+        App.refreshUi(true)
     }
 
-    private func appendSearchText(_ text: String) {
+    private static func appendSearchText(_ text: String) {
         guard !text.isEmpty else { return }
         if let editor = searchField.currentEditor() {
             let current = searchField.stringValue as NSString
@@ -167,7 +169,7 @@ class TilesView: NSObject {
         updateSearchQuery(searchField.stringValue)
     }
 
-    private func deleteSearchCharacter(_ keyCode: UInt16) {
+    private static func deleteSearchCharacter(_ keyCode: UInt16) {
         guard !searchField.stringValue.isEmpty else { return }
         if let editor = searchField.currentEditor() {
             let current = searchField.stringValue as NSString
@@ -189,13 +191,13 @@ class TilesView: NSObject {
         updateSearchQuery(searchField.stringValue)
     }
 
-    private func clampedSelectionRange(_ stringLength: Int, _ selectedRange: NSRange) -> NSRange {
+    private static func clampedSelectionRange(_ stringLength: Int, _ selectedRange: NSRange) -> NSRange {
         let location = max(0, min(selectedRange.location, stringLength))
         let length = max(0, min(selectedRange.length, stringLength - location))
         return NSRange(location: location, length: length)
     }
 
-    private func clearHover() {
+    private static func clearHover() {
         if let oldHoveredWindowIndex = Windows.hoveredWindowIndex {
             Windows.hoveredWindowIndex = nil
             TilesView.highlight(oldHoveredWindowIndex)
@@ -203,27 +205,27 @@ class TilesView: NSObject {
         }
     }
 
-    private func stopKeyRepeatTimers() {
-        KeyRepeatTimer.stopTimerForRepeatingKey(Preferences.indexToName("nextWindowShortcut", App.app.shortcutIndex))
+    private static func stopKeyRepeatTimers() {
+        KeyRepeatTimer.stopTimerForRepeatingKey(Preferences.indexToName("nextWindowShortcut", App.shortcutIndex))
         KeyRepeatTimer.stopTimerForRepeatingKey("previousWindowShortcut")
     }
 
-    private func focusSelectedTileIfPossible() {
+    private static func focusSelectedTileIfPossible() {
         guard Windows.selectedWindowIndex >= 0, Windows.selectedWindowIndex < TilesView.recycledViews.count else { return }
-        App.app.tilesPanel.makeFirstResponder(TilesView.recycledViews[Windows.selectedWindowIndex])
+        TilesPanel.shared.makeFirstResponder(TilesView.recycledViews[Windows.selectedWindowIndex])
     }
 
-    private func placeSearchCaretAtEnd() {
+    private static func placeSearchCaretAtEnd() {
         guard searchMode == .editing else { return }
-        if App.app.tilesPanel.firstResponder !== searchField.currentEditor() {
-            App.app.tilesPanel.makeFirstResponder(searchField)
+        if TilesPanel.shared.firstResponder !== searchField.currentEditor() {
+            TilesPanel.shared.makeFirstResponder(searchField)
         }
         guard let editor = searchField.currentEditor() else { return }
         let end = searchField.stringValue.utf16.count
         editor.selectedRange = NSRange(location: end, length: 0)
     }
 
-    private func insertedSearchText(from event: NSEvent) -> String? {
+    private static func insertedSearchText(from event: NSEvent) -> String? {
         if event.modifierFlags.contains(.command) || event.modifierFlags.contains(.control) || event.modifierFlags.contains(.function) {
             return nil
         }
@@ -239,20 +241,20 @@ class TilesView: NSObject {
         return String(value)
     }
 
-    private func matchesSearchShortcut(_ event: NSEvent) -> Bool {
+    private static func matchesSearchShortcut(_ event: NSEvent) -> Bool {
         matchesShortcut(event, "searchShortcut")
     }
 
-    private func updateSearchFieldEditability() {
+    private static func updateSearchFieldEditability() {
         let editable = searchMode == .editing
         searchField.isEditable = editable
         searchField.isSelectable = editable
     }
 
-    private func matchesShortcut(_ event: NSEvent, _ shortcutId: String) -> Bool {
+    private static func matchesShortcut(_ event: NSEvent, _ shortcutId: String) -> Bool {
         guard let shortcut = ControlsTab.shortcuts[shortcutId]?.shortcut else { return false }
         if shortcut.keyCode == .none || shortcut.carbonKeyCode != UInt32(event.keyCode) { return false }
-        let holdModifiers = ControlsTab.shortcuts[Preferences.indexToName("holdShortcut", App.app.shortcutIndex)]?.shortcut.carbonModifierFlags.cleaned() ?? 0
+        let holdModifiers = ControlsTab.shortcuts[Preferences.indexToName("holdShortcut", App.shortcutIndex)]?.shortcut.carbonModifierFlags.cleaned() ?? 0
         let eventModifiers = cocoaToCarbonFlags(event.modifierFlags).cleaned()
         let shortcutModifiers = shortcut.carbonModifierFlags.cleaned()
         return eventModifiers == shortcutModifiers || eventModifiers == (shortcutModifiers | holdModifiers)
@@ -268,7 +270,7 @@ class TilesView: NSObject {
         TileFontIconView.warmCaches(symbols: [.circledPlusSign, .circledMinusSign, .circledSlashSign, .circledNumber0, .circledNumber10, .circledStar], size: Appearance.fontHeight, color: Appearance.fontColor)
     }
 
-    func updateBackgroundView() {
+    static func updateBackgroundView() {
         contentView = makeAppropriateEffectView()
         scrollView = ScrollView()
         searchField.isHidden = searchMode == .off
@@ -276,7 +278,7 @@ class TilesView: NSObject {
         contentView.addSubview(scrollView)
     }
 
-    func reset() {
+    static func reset() {
         // it would be nicer to remove this whole "reset" logic, and instead update each component to check Appearance properties before showing
         // Maybe in some Appkit willDraw() function that triggers before drawing it
         NSScreen.updatePreferred()
@@ -290,7 +292,7 @@ class TilesView: NSObject {
             Applications.updateAppIcons()
         }
         updateBackgroundView()
-        App.app.tilesPanel.contentView = contentView
+        TilesPanel.shared.contentView = contentView
         for i in 0..<TilesView.recycledViews.count {
             TilesView.recycledViews[i] = TileView()
         }
@@ -307,7 +309,7 @@ class TilesView: NSObject {
         view.indexInRecycledViews = indexInRecycledViews
         guard view.frame != .zero else { return }
         view.drawHighlight()
-        let underLayer = App.app.tilesPanel.tilesView.thumbnailUnderLayer
+        let underLayer = TilesView.thumbnailUnderLayer
         guard Windows.selectedWindowIndex >= 0, Windows.selectedWindowIndex < recycledViews.count else { return }
         let focusedView = recycledViews[Windows.selectedWindowIndex]
         let hoveredView = Windows.hoveredWindowIndex.flatMap { $0 >= 0 && $0 < recycledViews.count ? recycledViews[$0] : nil }
@@ -317,7 +319,7 @@ class TilesView: NSObject {
         )
     }
 
-    func nextRow(_ direction: Direction, allowWrap: Bool = true) -> [TileView]? {
+    static func nextRow(_ direction: Direction, allowWrap: Bool = true) -> [TileView]? {
         let step = direction == .down ? 1 : -1
         if let currentRow = Windows.selectedWindow()?.rowIndex {
             var nextRow = currentRow + step
@@ -343,7 +345,7 @@ class TilesView: NSObject {
         return nil
     }
 
-    func navigateUpOrDown(_ direction: Direction, allowWrap: Bool = true) {
+    static func navigateUpOrDown(_ direction: Direction, allowWrap: Bool = true) {
         guard Windows.selectedWindowIndex < TilesView.recycledViews.count else { return }
         let focusedViewFrame = TilesView.recycledViews[Windows.selectedWindowIndex].frame
         let originCenter = NSMidX(focusedViewFrame)
@@ -361,7 +363,7 @@ class TilesView: NSObject {
         Windows.updateSelectedAndHoveredWindowIndex(targetIndex)
     }
 
-    func updateItemsAndLayout(_ preservedScrollOrigin: CGPoint?) {
+    static func updateItemsAndLayout(_ preservedScrollOrigin: CGPoint?) {
         let widthMax = TilesPanel.maxThumbnailsWidth().rounded()
         if Preferences.appearanceSize == .auto {
             resolveAutoSize(widthMax)
@@ -390,11 +392,11 @@ class TilesView: NSObject {
         }
     }
 
-    func currentScrollOrigin() -> CGPoint {
-        scrollView.contentView.bounds.origin
+    static func currentScrollOrigin() -> CGPoint {
+        return scrollView.contentView.bounds.origin
     }
 
-    private func restoreScrollOrigin(_ scrollOrigin: CGPoint) {
+    private static func restoreScrollOrigin(_ scrollOrigin: CGPoint) {
         guard let documentView = scrollView.documentView else { return }
         let visibleSize = scrollView.contentView.bounds.size
         let documentSize = documentView.frame.size
@@ -405,7 +407,7 @@ class TilesView: NSObject {
         scrollView.reflectScrolledClipView(scrollView.contentView)
     }
 
-    private func resolveAutoSize(_ widthMax: CGFloat) {
+    private static func resolveAutoSize(_ widthMax: CGFloat) {
         let searchReservedHeight: CGFloat = searchMode == .off ? 0 : searchBarHeight() + 10
         let heightMax = max(0, TilesPanel.maxThumbnailsHeight() - searchReservedHeight)
         for size in [AppearanceSizePreference.large, .medium, .small] {
@@ -416,7 +418,7 @@ class TilesView: NSObject {
         }
     }
 
-    private func dryRunLayoutTileViews(_ widthMax: CGFloat) -> CGFloat {
+    private static func dryRunLayoutTileViews(_ widthMax: CGFloat) -> CGFloat {
         let labelHeight = Self.layoutCache.labelHeight
         let height = TileView.height(labelHeight)
         let isLeftToRight = App.shared.userInterfaceLayoutDirection == .leftToRight
@@ -426,7 +428,7 @@ class TilesView: NSObject {
         var maxY = currentY + height + Appearance.interCellPadding
         var index = 0
         while index < TilesView.recycledViews.count {
-            guard App.app.appIsBeingUsed else { return maxY }
+            guard App.appIsBeingUsed else { return maxY }
             defer { index += 1 }
             let view = TilesView.recycledViews[index]
             guard index < Windows.list.count else { break }
@@ -447,7 +449,7 @@ class TilesView: NSObject {
         return maxY
     }
 
-    private func layoutTileViews(_ widthMax: CGFloat) -> (CGFloat, CGFloat, CGFloat, [Int])? {
+    private static func layoutTileViews(_ widthMax: CGFloat) -> (CGFloat, CGFloat, CGFloat, [Int])? {
         let labelHeight = Self.layoutCache.labelHeight
         let height = TileView.height(labelHeight)
         let isLeftToRight = App.shared.userInterfaceLayoutDirection == .leftToRight
@@ -462,7 +464,7 @@ class TilesView: NSObject {
         rows.append([TileView]())
         var index = 0
         while index < TilesView.recycledViews.count {
-            guard App.app.appIsBeingUsed else { return nil }
+            guard App.appIsBeingUsed else { return nil }
             defer { index = index + 1 }
             let view = TilesView.recycledViews[index]
             if index < Windows.list.count {
@@ -506,25 +508,25 @@ class TilesView: NSObject {
         return (maxX, maxY, labelHeight, rowSignature)
     }
 
-    private func needNewLine(_ projectedX: CGFloat, _ widthMax: CGFloat) -> Bool {
+    private static func needNewLine(_ projectedX: CGFloat, _ widthMax: CGFloat) -> Bool {
         if App.shared.userInterfaceLayoutDirection == .leftToRight {
             return projectedX > widthMax
         }
         return projectedX < 0
     }
 
-    private func projectedWidth(_ currentX: CGFloat, _ width: CGFloat) -> CGFloat {
+    private static func projectedWidth(_ currentX: CGFloat, _ width: CGFloat) -> CGFloat {
         if App.shared.userInterfaceLayoutDirection == .leftToRight {
             return currentX + width + Appearance.interCellPadding
         }
         return currentX - width - Appearance.interCellPadding
     }
 
-    private func localizedCurrentX(_ currentX: CGFloat, _ width: CGFloat) -> CGFloat {
+    private static func localizedCurrentX(_ currentX: CGFloat, _ width: CGFloat) -> CGFloat {
         App.shared.userInterfaceLayoutDirection == .leftToRight ? currentX : currentX - width
     }
 
-    private func layoutParentViews(_ maxX: CGFloat, _ widthMax: CGFloat, _ maxY: CGFloat, _ labelHeight: CGFloat) {
+    private static func layoutParentViews(_ maxX: CGFloat, _ widthMax: CGFloat, _ maxY: CGFloat, _ labelHeight: CGFloat) {
         let searchBarHeight = searchBarHeight()
         let searchBottomPadding = CGFloat(10)
         let searchReservedHeight = searchMode == .off ? 0 : searchBarHeight + searchBottomPadding
@@ -562,7 +564,7 @@ class TilesView: NSObject {
         thumbnailUnderLayer.frame = CGRect(origin: .zero, size: docSize)
     }
 
-    private func searchBarHeight() -> CGFloat {
+    private static func searchBarHeight() -> CGFloat {
         let fitting = searchField.fittingSize.height
         if fitting > 0 {
             return ceil(fitting)
@@ -570,14 +572,14 @@ class TilesView: NSObject {
         return ceil(searchField.cell?.cellSize.height ?? 30)
     }
 
-    private func appIconsBottomViewportPadding(_ maxY: CGFloat, _ heightMax: CGFloat, _ labelHeight: CGFloat) -> CGFloat {
+    private static func appIconsBottomViewportPadding(_ maxY: CGFloat, _ heightMax: CGFloat, _ labelHeight: CGFloat) -> CGFloat {
         guard Preferences.appearanceStyle == .appIcons, maxY > heightMax else { return 0 }
         return max(0, Appearance.windowPadding - labelHeight)
     }
 
-    func centerRows(_ maxX: CGFloat) {
+    static func centerRows(_ maxX: CGFloat) {
         for row in rows where !row.isEmpty {
-            guard App.app.appIsBeingUsed else { return }
+            guard App.appIsBeingUsed else { return }
             let rowWidth = Appearance.interCellPadding + row.reduce(CGFloat(0)) { $0 + $1.frame.size.width + Appearance.interCellPadding }
             let offset = ((maxX - rowWidth) / 2).rounded()
             if offset > 0 {
@@ -588,7 +590,7 @@ class TilesView: NSObject {
         }
     }
 
-    private func highlightStartView() {
+    private static func highlightStartView() {
         if Windows.selectedWindow() != nil {
             TilesView.highlight(Windows.selectedWindowIndex)
         } else {
@@ -608,7 +610,7 @@ class TilesView: NSObject {
         }
     }
 
-    func clearNeedsLayout() {
+    static func clearNeedsLayout() {
         var views = [NSView]()
         if let contentView { views.append(contentView as NSView) }
         views.append(searchField)

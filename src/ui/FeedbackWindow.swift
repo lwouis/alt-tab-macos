@@ -7,19 +7,21 @@ class FeedbackWindow: NSWindow {
         let base64Token = Bundle.main.object(forInfoDictionaryKey: "FeedbackToken") as! String
         return String(data: Data(base64Encoded: base64Token)!, encoding: .utf8)!
     }()
+    static var shared: FeedbackWindow?
     var issueTitle: TextArea!
     var body: TextArea!
     var email: TextArea!
     var sendButton: NSButton!
     var debugProfile: NSButton!
-    var canBecomeKey_ = true
-    override var canBecomeKey: Bool { canBecomeKey_ }
+    static var canBecomeKey_ = true
+    override var canBecomeKey: Bool { Self.canBecomeKey_ }
 
     convenience init() {
         self.init(contentRect: .zero, styleMask: [.titled, .miniaturizable, .closable], backing: .buffered, defer: false)
         setupWindow()
         setupView()
         setFrameAutosaveName("FeedbackWindow")
+        Self.shared = self
     }
 
     private func setupWindow() {
@@ -70,7 +72,7 @@ class FeedbackWindow: NSWindow {
         checkEmptyFields()
     }
 
-    func checkEmptyFields() {
+    private func checkEmptyFields() {
         sendButton.isEnabled = !body.stringValue.isEmpty && !issueTitle.stringValue.isEmpty
         sendButton.toolTip = sendButton.isEnabled ? "" : NSLocalizedString("Please fill in the form", comment: "")
     }
@@ -87,7 +89,7 @@ class FeedbackWindow: NSWindow {
         openTicket()
     }
 
-    func openTicket() {
+    private func openTicket() {
         URLSession.shared.dataTask(with: prepareRequest(), completionHandler: { data, response, error in
             if error != nil || response == nil || (response as! HTTPURLResponse).statusCode != 201 {
                 Logger.error { "HTTP call failed. response:\(response) error:\(error) data:\(data.flatMap { String(data: $0, encoding: .utf8) })" }
@@ -98,7 +100,7 @@ class FeedbackWindow: NSWindow {
         close()
     }
 
-    func warnAboutNoEmail() -> Bool {
+    private func warnAboutNoEmail() -> Bool {
         let alert = NSAlert()
         alert.alertStyle = .warning
         alert.messageText = NSLocalizedString("Are you sure you don’t want a response?", comment: "")

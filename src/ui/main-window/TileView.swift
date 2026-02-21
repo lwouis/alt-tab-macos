@@ -70,7 +70,7 @@ class TileView: FlippedView {
         lastDragLocation = nil
         dragAndDropTimer?.invalidate()
         dragAndDropTimer = nil
-        App.app.tilesPanel.tilesView.thumbnailOverView.resetHoveredWindow()
+        TilesView.thumbnailOverView.resetHoveredWindow()
     }
 
     override func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
@@ -79,7 +79,7 @@ class TileView: FlippedView {
         let urls = sender.draggingPasteboard.readObjects(forClasses: [NSURL.self]) as! [URL]
         let appUrl = window_!.application.bundleURL!
         let open = try? NSWorkspace.shared.open(urls, withApplicationAt: appUrl, options: [], configuration: [:])
-        App.app.hideUi()
+        App.hideUi()
         return open != nil
     }
 
@@ -253,8 +253,8 @@ class TileView: FlippedView {
             isFullscreen: element.isFullscreen && !Preferences.hideStatusIcons,
             isMinimized: element.isMinimized && !Preferences.hideStatusIcons,
             showSpace: !(element.isWindowlessApp || Spaces.isSingleSpace() || Preferences.hideSpaceNumberLabels || (
-                Preferences.spacesToShow[App.app.shortcutIndex] == .visible && (
-                    NSScreen.screens.count < 2 || Preferences.screensToShow[App.app.shortcutIndex] == .showingAltTab
+                Preferences.spacesToShow[App.shortcutIndex] == .visible && (
+                    NSScreen.screens.count < 2 || Preferences.screensToShow[App.shortcutIndex] == .showingAltTab
                 )
             ))
         )
@@ -288,7 +288,7 @@ class TileView: FlippedView {
         updateAppIcon(element, title)
         updateDockLabelIcon(element.dockLabel)
         setAccessibilityHelp(getAccessibilityHelp(element.application.localizedName, element.dockLabel))
-        mouseUpCallback = { () -> Void in App.app.focusSelectedWindow(element) }
+        mouseUpCallback = { () -> Void in App.focusSelectedWindow(element) }
         mouseMovedCallback = { () -> Void in Windows.updateSelectedAndHoveredWindowIndex(index, true) }
     }
 

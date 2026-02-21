@@ -39,7 +39,7 @@ fileprivate func emergencyExit(_ logs: Any?...) {
 }
 
 func makeSureAllCapturesAreFinished() {
-    App.app.isTerminating = true
+    App.isTerminating = true
     let timeout = 5.0
     let startTime = DispatchTime.now()
     var elapsedTime = 0.0

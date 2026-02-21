@@ -15,7 +15,7 @@ class ScreensEvents {
             Spaces.refresh()
             Screens.refresh()
             // a screen added or removed, or screen resolution change can mess up layout; we reset components
-            App.app.resetPreferencesDependentComponents()
+            App.resetPreferencesDependentComponents()
         }
     }
 }
@@ -38,7 +38,7 @@ final class Debouncer {
             }
             // ScreensEvents: a screen added or removed can shuffle windows around Spaces; we refresh them
             // SpacesEvents: if UI was kept open during Space transition, the Spaces may be obsolete; we refresh them
-            App.app.refreshOpenUiAfterExternalEvent(Windows.list)
+            App.refreshOpenUiAfterExternalEvent(Windows.list)
             Logger.info { "screens:\(NSScreen.screens.map { ($0.cachedUuid() ?? "nil" as CFString, $0.frame) })" }
             Logger.info { "currentSpace:\(Spaces.currentSpaceIndex) (id:\(Spaces.currentSpaceId)) spaces:\(Spaces.screenSpacesMap)" }
         })

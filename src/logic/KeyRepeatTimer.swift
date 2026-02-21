@@ -11,15 +11,15 @@ class KeyRepeatTimer {
            // events already repeat when using a shortcut with a keycode; no need for artificial repeat
            shortcut.shortcut.keyCode == .none {
             startTimerForRepeatingKey(shortcut) {
-                App.app.previousWindowShortcutWithRepeatingKey()
+                App.previousWindowShortcutWithRepeatingKey()
             }
         }
     }
 
     static func startRepeatingKeyNextWindow() {
-        if let shortcut = ControlsTab.shortcuts[Preferences.indexToName("nextWindowShortcut", App.app.shortcutIndex)] {
+        if let shortcut = ControlsTab.shortcuts[Preferences.indexToName("nextWindowShortcut", App.shortcutIndex)] {
             startTimerForRepeatingKey(shortcut) {
-                ControlsTab.executeAction(Preferences.indexToName("nextWindowShortcut", App.app.shortcutIndex))
+                ControlsTab.executeAction(Preferences.indexToName("nextWindowShortcut", App.shortcutIndex))
             }
         }
     }
@@ -34,7 +34,7 @@ class KeyRepeatTimer {
     }
 
     private static func isSearchEditing() -> Bool {
-        App.app.appIsBeingUsed && App.app.tilesPanel.isKeyWindow && App.app.tilesPanel.tilesView.isSearchEditing
+        App.appIsBeingUsed && TilesPanel.shared.isKeyWindow && TilesView.isSearchEditing
     }
 
     private static func startTimerForRepeatingKey(_ atShortcut: ATShortcut, _ block: @escaping () -> Void) {

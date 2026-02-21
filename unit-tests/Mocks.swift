@@ -18,6 +18,37 @@ class App {
         var tilesPanel = TilesPanelMock()
     }
     static let app = AppMock()
+    static var appIsBeingUsed: Bool {
+        get { app.appIsBeingUsed }
+        set { app.appIsBeingUsed = newValue }
+    }
+    static var shortcutIndex: Int {
+        get { app.shortcutIndex }
+        set { app.shortcutIndex = newValue }
+    }
+    static var forceDoNothingOnRelease: Bool {
+        get { app.forceDoNothingOnRelease }
+        set { app.forceDoNothingOnRelease = newValue }
+    }
+}
+
+class TilesPanel {
+    static let shared = TilesPanel()
+    var isKeyWindow: Bool {
+        get { App.app.tilesPanel.isKeyWindow }
+        set { App.app.tilesPanel.isKeyWindow = newValue }
+    }
+}
+
+class TilesView {
+    static var isSearchEditing: Bool {
+        get { App.app.tilesPanel.tilesView.isSearchEditing }
+        set { App.app.tilesPanel.tilesView.isSearchEditing = newValue }
+    }
+
+    static func handleSearchEditingKeyDown(_ event: NSEvent) -> Bool {
+        return App.app.tilesPanel.tilesView.handleSearchEditingKeyDown(event)
+    }
 }
 
 class ControlsTab {

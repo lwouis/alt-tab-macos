@@ -41,7 +41,7 @@ class CursorEvents {
             // we run on main-thread directly since all we do is check NSEvent and UI coordinates, which we must do on main-thread
             CFRunLoopAddSource(CFRunLoopGetMain(), runLoopSource, .commonModes)
         } else {
-            App.app.restart()
+            App.restart()
         }
     }
 
@@ -81,7 +81,7 @@ class CursorEvents {
             return Unmanaged.passUnretained(cgEvent)
         }
         guard isPointerInsideUi() else {
-            App.app.hideUi()
+            App.hideUi()
             return nil
         }
         if let button = mouseDownButton {
@@ -117,21 +117,21 @@ class CursorEvents {
     private static func handleMouseMoved(_ cgEvent: CGEvent) -> Unmanaged<CGEvent>? {
         updateDeadzoneSituation(cgEvent)
         if isAllowedToMouseHover {
-            App.app.tilesPanel.tilesView.thumbnailOverView.updateHover()
+            TilesView.thumbnailOverView.updateHover()
         }
         return Unmanaged.passUnretained(cgEvent)
     }
 
     private static func pointerLocationInWindow() -> NSPoint {
-        App.app.tilesPanel.mouseLocationOutsideOfEventStream
+        TilesPanel.shared.mouseLocationOutsideOfEventStream
     }
 
     private static func isPointerInsideUi() -> Bool {
-        App.app.tilesPanel.contentLayoutRect.contains(pointerLocationInWindow())
+        TilesPanel.shared.contentLayoutRect.contains(pointerLocationInWindow())
     }
 
     private static func isPointerInsideSearchField() -> Bool {
-        let searchField = App.app.tilesPanel.tilesView.searchField
+        let searchField = TilesView.searchField
         if searchField.isHidden { return false }
         let point = searchField.convert(pointerLocationInWindow(), from: nil)
         return searchField.bounds.contains(point)
@@ -142,7 +142,7 @@ class CursorEvents {
     }
 
     private static func pointerInOverlay() -> (TileOverView, NSPoint) {
-        let overlay = App.app.tilesPanel.tilesView.thumbnailOverView
+        let overlay = TilesView.thumbnailOverView
         return (overlay, overlay.convert(pointerLocationInWindow(), from: nil))
     }
 
