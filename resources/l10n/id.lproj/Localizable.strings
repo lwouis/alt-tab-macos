@@ -212,6 +212,7 @@
 "Window max width in row:" = "Lebar maks jendela dalam baris:";
 "Window min width in row:" = "Lebar minimal jendela dalam baris:";
 "Window Title" = "Judul jendela";
+"Window Title - Application Name" = "Judul Jendela - Nama Aplikasi";
 "Window title font size:" = "Ukuran font judul jendela:";
 "Window title truncation:" = "Pemotongan judul jendela:";
 "Windows" = "Windows";

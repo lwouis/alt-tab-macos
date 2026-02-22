@@ -210,6 +210,7 @@
 "Window max width in row:" = "Ancho maximo de ventá en fila";
 "Window min width in row:" = "Ancho mínimo de ventá en fila";
 "Window Title" = "Título da xanela";
+"Window Title - Application Name" = "Título da xanela - Nome da aplicación";
 "Window title font size:" = "Tamaño de fonte do título da ventá:";
 "Window title truncation:" = "Truncado de título de ventá:";
 "Windows" = "Windows";

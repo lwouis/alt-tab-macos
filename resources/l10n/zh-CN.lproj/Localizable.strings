@@ -279,6 +279,7 @@
 "Window min width in row:" = "每行窗口最小宽度：";
 "Window order:" = "窗口顺序：";
 "Window Title" = "窗口标题";
+"Window Title - Application Name" = "窗口标题 - 应用名称";
 "Window title font size:" = "窗口标题字号：";
 "Window title truncation:" = "窗口标题删节：";
 "Windows" = "窗口";

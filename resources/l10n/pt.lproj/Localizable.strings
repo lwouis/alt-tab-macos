@@ -260,6 +260,7 @@
 "Window min width in row:" = "Largura mínima da janela na linha:";
 "Window order:" = "Ordem das janelas:";
 "Window Title" = "Título da janela";
+"Window Title - Application Name" = "Título da janela - Nome da aplicação";
 "Window title font size:" = "Tamanho da fonte do título da aplicação:";
 "Window title truncation:" = "Truncamento do título da janela:";
 "Windows" = "Janelas";

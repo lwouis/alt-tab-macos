@@ -219,6 +219,7 @@
 "Window min width in row:" = "Maxbredd för fönster i rad:";
 "Window order:" = "Sortera fönster:";
 "Window Title" = "Fönstertitel";
+"Window Title - Application Name" = "fönstertitel - Applikationsnamn";
 "Window title font size:" = "Storlek för fönstertitel:";
 "Window title truncation:" = "Förkortning av fönstertitel:";
 "Windows" = "Fönster";

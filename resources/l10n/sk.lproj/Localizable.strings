@@ -209,6 +209,7 @@
 "Window max width in row:" = "Maximálna šírka okna v rade:";
 "Window min width in row:" = "Minimálna šírka okna v rade:";
 "Window Title" = "Názov okna";
+"Window Title - Application Name" = "Názov okna - Názov aplikácie";
 "Window title font size:" = "Veľkosť písma názvu okna:";
 "Window title truncation:" = "Skrátenie názvu okna:";
 "Windows" = "Okná";

@@ -244,6 +244,7 @@
 "Window min width in row:" = "Lățime minimă a ferestrei pe rând:";
 "Window order:" = "Ordonare ferestre:";
 "Window Title" = "Titlu fereastră";
+"Window Title - Application Name" = "titlul ferestrei - Numele aplicației";
 "Window title font size:" = "Dimensiunea fontului titlului ferestrei:";
 "Window title truncation:" = "Trunchierea titlului din fereastră:";
 "Windows" = "Ferestre";

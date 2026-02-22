@@ -259,6 +259,7 @@
 "Window min width in row:" = "Мінімальна ширина вікна в рядку:";
 "Window order:" = "Порядок вікон:";
 "Window Title" = "Заголовок вікна";
+"Window Title - Application Name" = "Назва вікна - Назва програми";
 "Window title font size:" = "Розмір шрифту заголовку вікна:";
 "Window title truncation:" = "Скорочення заголовку вікна:";
 "Windows" = "Вікна";

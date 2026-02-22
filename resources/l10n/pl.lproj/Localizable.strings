@@ -260,6 +260,7 @@
 "Window min width in row:" = "Minimalna szerokość okna w rzędzie:";
 "Window order:" = "Porządek okien:";
 "Window Title" = "Tytuł okna";
+"Window Title - Application Name" = "tytuł okna - Nazwa aplikacji";
 "Window title font size:" = "Rozmiar czcionki tytułu okna:";
 "Window title truncation:" = "Obcięcie tytułu okna:";
 "Windows" = "Okna";

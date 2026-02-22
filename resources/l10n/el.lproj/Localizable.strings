@@ -260,6 +260,7 @@
 "Window min width in row:" = "Ελάχιστο πλάτος παραθύρου στη σειρά:";
 "Window order:" = "Σειρά παραθύρων:";
 "Window Title" = "Τίτλος παραθύρου";
+"Window Title - Application Name" = "Τίτλος παραθύρου - Όνομα εφαρμογής";
 "Window title font size:" = "Μέγεθος γραμματοσειράς τίτλου παραθύρου:";
 "Window title truncation:" = "Περικοπή τίτλου παραθύρου:";
 "Windows" = "Παράθυρα";

@@ -279,6 +279,7 @@
 "Window min width in row:" = "Amplada mínima de finestra dins d'una fila:";
 "Window order:" = "Mostrar en ordre:";
 "Window Title" = "Títol de la finestra";
+"Window Title - Application Name" = "Títol de la finestra - Nom de l'aplicació";
 "Window title font size:" = "Mida dels títols:";
 "Window title truncation:" = "Escurçament dels títols:";
 "Windows" = "Finestres";

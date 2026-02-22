@@ -173,6 +173,7 @@
 "Window is on every Space" = "Window is on every Space";
 "Window is on Space %d" = "Window is on Space %d";
 "Window Title" = "Window Title";
+"Window Title - Application Name" = "Window Title - Application Name";
 "Windows" = "Windows";
 "You can’t undo this action." = "You can’t undo this action.";
 "You didn’t write your email, thus can’t receive any response." = "You didn’t write your email, thus can’t receive any response.";

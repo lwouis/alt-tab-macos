@@ -260,6 +260,7 @@
 "Window min width in row:" = "Минимальная ширина эскиза в ряду:";
 "Window order:" = "Порядок окон:";
 "Window Title" = "Заголовок окна";
+"Window Title - Application Name" = "заголовок окна - Имя приложения";
 "Window title font size:" = "Размер заголовка:";
 "Window title truncation:" = "Обрезка заголовка окна:";
 "Windows" = "Окна";

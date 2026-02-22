@@ -279,6 +279,7 @@
 "Window min width in row:" = "每列視窗的最小寬度：";
 "Window order:" = "視窗順序：";
 "Window Title" = "視窗標題";
+"Window Title - Application Name" = "視窗標題 - 應用程式名稱";
 "Window title font size:" = "視窗標題字體大小：";
 "Window title truncation:" = "視窗標題截斷：";
 "Windows" = "視窗";

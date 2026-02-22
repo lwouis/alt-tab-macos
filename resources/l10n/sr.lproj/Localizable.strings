@@ -212,6 +212,7 @@
 "Window max width in row:" = "Maksimalna širina prozora u redu:";
 "Window min width in row:" = "Minimalna širina prozora u redu:";
 "Window Title" = "Назив прозора";
+"Window Title - Application Name" = "Назив прозора - Назив апликације";
 "Window title font size:" = "Veličina naslova u prozoru:";
 "Window title truncation:" = "Odsecanje naslova prozora:";
 "Windows" = "Прозори";

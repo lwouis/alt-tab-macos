@@ -219,6 +219,7 @@
 "Window min width in row:" = "Ablak minimum szélessége a sorban:";
 "Window order:" = "Ablakok sorrendje:";
 "Window Title" = "Ablak címe";
+"Window Title - Application Name" = "Ablak címe - Alkalmazás neve";
 "Window title font size:" = "Ablak címének betű mérete:";
 "Window title truncation:" = "Ablak címsor rövidítése:";
 "Windows" = "Ablakok";
