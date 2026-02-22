@@ -86,6 +86,7 @@ class Preferences {
         }
         (0...maxShortcutCount).forEach { index in
             values[indexToName("appsToShow", index)] = index == 1 ? AppsToShowPreference.active.indexAsString : (index == 2 ? AppsToShowPreference.nonActive.indexAsString : AppsToShowPreference.all.indexAsString)
+            values[indexToName("tabsToShow", index)] = index == 1 ? WindowTabsShowPreference.always.indexAsString : WindowTabsShowPreference.never.indexAsString
             values[indexToName("spacesToShow", index)] = SpacesToShowPreference.all.indexAsString
             values[indexToName("screensToShow", index)] = ScreensToShowPreference.all.indexAsString
             values[indexToName("showMinimizedWindows", index)] = ShowHowPreference.show.indexAsString
