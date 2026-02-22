@@ -362,12 +362,14 @@ enum ShowTitlesPreference: CaseIterable, MacroPreference {
     case windowTitle
     case appName
     case appNameAndWindowTitle
+    case windowTitleAndAppName
 
     var localizedString: LocalizedString {
         switch self {
             case .windowTitle: return NSLocalizedString("Window Title", comment: "")
             case .appName: return NSLocalizedString("Application Name", comment: "")
             case .appNameAndWindowTitle: return NSLocalizedString("Application Name - Window Title", comment: "")
+            case .windowTitleAndAppName: return NSLocalizedString("Window Title  - Application Name", comment: "")
         }
     }
 
@@ -376,6 +378,7 @@ enum ShowTitlesPreference: CaseIterable, MacroPreference {
             case .windowTitle: return WidthHeightImage(name: "show_running_windows")
             case .appName: return WidthHeightImage(name: "show_running_applications")
             case .appNameAndWindowTitle: return WidthHeightImage(name: "show_running_applications_windows")
+            case .windowTitleAndAppName: return WidthHeightImage(name: "show_running_applications_windows")
         }
     }
 }

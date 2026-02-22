@@ -260,6 +260,7 @@
 "Window min width in row:" = "Ancho mínimo de ventana en fila";
 "Window order:" = "Orden de la ventana:";
 "Window Title" = "Título de ventana";
+"Window Title - Application Name" = "Título de la ventana - Nombre de la aplicación";
 "Window title font size:" = "Tamaño de fuente del título de la ventana:";
 "Window title truncation:" = "Truncado de título de ventana:";
 "Windows" = "Windows";

@@ -279,6 +279,7 @@
 "Window min width in row:" = "Минимална част от реда за един прозорец:";
 "Window order:" = "Подредба на прозорци:";
 "Window Title" = "Заглавие на прозореца";
+"Window Title - Application Name" = "заглавие на прозореца - Име на приложението";
 "Window title font size:" = "Размер на шрифта на заглавието:";
 "Window title truncation:" = "Съкрати заглавието на прозореца";
 "Windows" = "Windows";

@@ -279,6 +279,7 @@
 "Window min width in row:" = "Gjerësia minimale e dritares në rresht";
 "Window order:" = "Renditja e dritareve:";
 "Window Title" = "Titull dritaresh";
+"Window Title - Application Name" = "Titulli i dritares - Emri i Aplikimit";
 "Window title font size:" = "Madhësia e fontit të titullit të dritares:";
 "Window title truncation:" = "Titulli i kthesës së dritares:";
 "Windows" = "Dritare";

@@ -174,6 +174,7 @@
 "Window is on every Space" = "پنجره در هر فضایی است";
 "Window is on Space %d" = "پنجره در فضا ٪ D است";
 "Window Title" = "عنوان پنجره";
+"Window Title - Application Name" = "عنوان پنجره - نام برنامه";
 "Windows" = "پنجره ها";
 "You can’t undo this action." = "شما نمی توانید این عمل را خنثیسازی کنید.";
 "You didn’t write your email, thus can’t receive any response." = "شما ایمیل خود را ننوشتید ، بنابراین نمی توانید پاسخی دریافت کنید.";

@@ -244,6 +244,7 @@
 "Window min width in row:" = "ความกว้างต่ำสุดของหน้าต่างในแถว:";
 "Window order:" = "ลำดับหน้าต่าง:";
 "Window Title" = "ชื่อหน้าต่าง";
+"Window Title - Application Name" = "ชื่อหน้าต่าง - ชื่อแอปพลิเคชัน";
 "Window title font size:" = "ขนาดชื่อของหน้าต่าง:";
 "Window title truncation:" = "ตัดทอนชื่อหน้าต่าง:";
 "Windows" = "หน้าต่าง";

@@ -191,6 +191,7 @@
 "Window is on Space %d" = "Gluggi er á Space %D";
 "Window order:" = "Gluggaröð:";
 "Window Title" = "Gluggatitill";
+"Window Title - Application Name" = "gluggatitill - Nafn umsóknar";
 "Windows" = "Gluggar";
 "You can’t undo this action." = "Þú getur ekki afturkallað þessa aðgerð.";
 "You didn’t write your email, thus can’t receive any response." = "Þú gafst ekki upp netfang, því færðu ekki svar.";

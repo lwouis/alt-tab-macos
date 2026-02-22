@@ -279,6 +279,7 @@
 "Window min width in row:" = "Minimalna širina prozora u redu:";
 "Window order:" = "Redoslijed prozora:";
 "Window Title" = "Prozor";
+"Window Title - Application Name" = "Naslov prozora - Naziv aplikacije";
 "Window title font size:" = "Veličina fonta naslova prozora:";
 "Window title truncation:" = "Skraćivanje naslova prozora:";
 "Windows" = "Prozori";

@@ -193,6 +193,7 @@
 "Window is on every Space" = "Pencere li her deverê ye";
 "Window is on Space %d" = "Pencere li ser cîhê% d e";
 "Window Title" = "Sernavê Windowê";
+"Window Title - Application Name" = "Sernavê Windowê - Navê Serlêdanê";
 "Window title font size:" = "Mezinahîya fontên sernav ên paceya";
 "Window title truncation:" = "Birîna sernavê pacê:";
 "Windows" = "Windows";

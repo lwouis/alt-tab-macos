@@ -260,6 +260,7 @@
 "Window min width in row:" = "한 줄 내의 윈도우 최소 너비:";
 "Window order:" = "윈도우 정렬:";
 "Window Title" = "윈도우 제목";
+"Window Title - Application Name" = "윈도우 제목 - 앱 이름";
 "Window title font size:" = "윈도우 제목 서체 크기:";
 "Window title truncation:" = "윈도우 제목 생략 위치:";
 "Windows" = "윈도우";

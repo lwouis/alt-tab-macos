@@ -181,6 +181,7 @@
 "Window is on every Space" = "Okno je na vsakem prostoru";
 "Window is on Space %d" = "Okno je na prostoru %d";
 "Window Title" = "Naslov okna";
+"Window Title - Application Name" = "naslov okna - Ime aplikacije";
 "Window title font size:" = "Velikost črk v nazivu okna:";
 "Windows" = "Okna";
 "You can’t undo this action." = "Tega dejanja ne morete razveljaviti.";

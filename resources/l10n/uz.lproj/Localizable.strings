@@ -173,6 +173,7 @@
 "Window is on every Space" = "Oyna har bir joyda";
 "Window is on Space %d" = "Deraza kosmosda% d";
 "Window Title" = "Oyna nomi";
+"Window Title - Application Name" = "oyna nomi - Ilova nomi";
 "Windows" = "Derazalar";
 "You can’t undo this action." = "Siz ushbu harakatni bekor qila olmaysiz.";
 "You didn’t write your email, thus can’t receive any response." = "Siz elektron pochtangizni yozmadingiz, shuning uchun hech qanday javob ololmaysiz.";

@@ -279,6 +279,7 @@
 "Window min width in row:" = "列に表示される最小ウィンドウ幅：";
 "Window order:" = "ウインドウの並び：";
 "Window Title" = "ウィンドウタイトル";
+"Window Title - Application Name" = "ウィンドウタイトル - アプリケーション名";
 "Window title font size:" = "ウィンドウに表示されるタイトルフォントサイズ：";
 "Window title truncation:" = "ウィンドウタイトル短縮：";
 "Windows" = "ウィンドウ";

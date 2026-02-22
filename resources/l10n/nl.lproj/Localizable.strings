@@ -279,6 +279,7 @@
 "Window min width in row:" = "Minimale vensterbreedte in rij:";
 "Window order:" = "Scherm volgorde:";
 "Window Title" = "Raamtitel";
+"Window Title - Application Name" = "Window -titel - Applicatienaam";
 "Window title font size:" = "Tekstgrootte venstertitel:";
 "Window title truncation:" = "Afkappen venstertitel:";
 "Windows" = "ramen";

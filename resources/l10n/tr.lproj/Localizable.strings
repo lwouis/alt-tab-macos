@@ -260,6 +260,7 @@
 "Window min width in row:" = "Asgari pencere genişliği:";
 "Window order:" = "Pencere sırası:";
 "Window Title" = "Pencere başlığı";
+"Window Title - Application Name" = "Pencere Başlığı - Uygulama Adı";
 "Window title font size:" = "Pencere başlığı yazı boyutu:";
 "Window title truncation:" = "Pencere başlığını kısaltma:";
 "Windows" = "Pencereler";

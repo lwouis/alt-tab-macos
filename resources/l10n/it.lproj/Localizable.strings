@@ -236,6 +236,7 @@
 "Window min width in row:" = "Larghezza minima finestra in riga:";
 "Window order:" = "Ordine delle finestre:";
 "Window Title" = "Titolo della finestra";
+"Window Title - Application Name" = "Titolo della finestra - Nome dell'applicazione";
 "Window title font size:" = "Dimensioni del titolo della finestra:";
 "Window title truncation:" = "Troncamento titolo:";
 "Windows" = "finestre";

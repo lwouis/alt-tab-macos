@@ -279,6 +279,7 @@
 "Window min width in row:" = "Độ rộng cửa sổ tối thiểu trong dòng:";
 "Window order:" = "Thứ tự cửa sổ:";
 "Window Title" = "Tiêu đề cửa sổ";
+"Window Title - Application Name" = "Tiêu đề cửa sổ - Tên ứng dụng";
 "Window title font size:" = "Kích cỡ tiêu đề cửa sổ:";
 "Window title truncation:" = "Ẩn bớt tiêu đề cửa sổ:";
 "Windows" = "các cửa sổ";

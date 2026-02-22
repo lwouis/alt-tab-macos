@@ -244,6 +244,7 @@
 "Window min width in row:" = "Ikkunan minimileveys rivillä:";
 "Window order:" = "Ikkunoiden järjestys:";
 "Window Title" = "Ikkunan otsikko";
+"Window Title - Application Name" = "ikkunan otsikko - Apin nimi";
 "Window title font size:" = "Otsikkotekstin koko:";
 "Window title truncation:" = "Ikkunaotsikoiden lyhennys:";
 "Windows" = "Ikkunat";

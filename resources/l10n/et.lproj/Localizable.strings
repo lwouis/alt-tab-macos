@@ -246,6 +246,7 @@
 "Window min width in row:" = "Akna minimaalne laius reas:";
 "Window order:" = "Akende järjestus:";
 "Window Title" = "Akna pealkiri";
+"Window Title - Application Name" = "akna pealkiri - Rakenduse nimi";
 "Window title font size:" = "Akna pealkirja fondi suurus:";
 "Window title truncation:" = "Akna pealkirja kärpimine:";
 "Windows" = "Aknad";

@@ -279,6 +279,7 @@
 "Window min width in row:" = "أصغر عرض للنافذة بالأعمدة:";
 "Window order:" = "ترتيب النوافذ:";
 "Window Title" = "عنوان النافذة";
+"Window Title - Application Name" = "عنوان النافذة - اسم التطبيق";
 "Window title font size:" = "حجم خط عنوان النافذة:";
 "Window title truncation:" = "اقتطاع عنوان النافذة:";
 "Windows" = "نوافذ";

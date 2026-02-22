@@ -279,6 +279,7 @@
 "Window min width in row:" = "Minimální šířka okna v řádku:";
 "Window order:" = "Pořadí oken:";
 "Window Title" = "Název okna";
+"Window Title - Application Name" = "název okna - Název aplikace";
 "Window title font size:" = "Velikost písma v titulku okna:";
 "Window title truncation:" = "Zkrácení názvu okna:";
 "Windows" = "Okna";

@@ -279,6 +279,7 @@
 "Window min width in row:" = "Largeur minimum des aperçus :";
 "Window order:" = "Affichage des fenêtres par ordre :";
 "Window Title" = "Titre de fenêtre";
+"Window Title - Application Name" = "Titre de la fenêtre - Nom de l'application";
 "Window title font size:" = "Taille du titre des fenêtres :";
 "Window title truncation:" = "Troncature du titre des fenêtres :";
 "Windows" = "les fenêtres";

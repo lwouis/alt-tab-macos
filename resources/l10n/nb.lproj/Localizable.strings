@@ -260,6 +260,7 @@
 "Window min width in row:" = "Minimum vindusbredde på rad:";
 "Window order:" = "Vindusrekkefølge:";
 "Window Title" = "Vindustittel";
+"Window Title - Application Name" = "Vindustittel - Applikasjonsnavn";
 "Window title font size:" = "Skriftstørrelse på vindutittel:";
 "Window title truncation:" = "Forkortelse av vindustittel:";
 "Windows" = "Vinduer";
