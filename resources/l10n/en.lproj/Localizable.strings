@@ -1,3 +1,7 @@
+"3-finger Horizontal Swipe" = "3-finger Horizontal Swipe";
+"3-finger Vertical Swipe" = "3-finger Vertical Swipe";
+"4-finger Horizontal Swipe" = "4-finger Horizontal Swipe";
+"4-finger Vertical Swipe" = "4-finger Vertical Swipe";
 "About" = "About";
 "About %@" = "About %@";
 "Accessibility" = "Accessibility";
@@ -8,6 +12,7 @@
 "Additional controls" = "Additional controls";
 "Additional controls…" = "Additional controls…";
 "Advanced" = "Advanced";
+"After keys are released" = "After keys are released";
 "After release" = "After release";
 "Align windows" = "Align windows";
 "Align windows:" = "Align windows:";
@@ -44,6 +49,7 @@
 "Are you sure you don’t want a response?" = "Are you sure you don’t want a response?";
 "Arrow keys" = "Arrow keys";
 "Ask whether to send crash reports" = "Ask whether to send crash reports";
+"Auto" = "Auto";
 "Auto-install updates periodically" = "Auto-install updates periodically";
 "Blacklists" = "Blacklists";
 "Cancel" = "Cancel";
@@ -63,6 +69,7 @@
 "Customize Thumbnails style…" = "Customize Thumbnails style…";
 "Customize Titles style…" = "Customize Titles style…";
 "Dark" = "Dark";
+"Debug tools" = "Debug tools";
 "Disabled" = "Disabled";
 "Do nothing" = "Do nothing";
 "Don’t check for updates periodically" = "Don’t check for updates periodically";
@@ -70,10 +77,12 @@
 "Don’t show windows from these apps" = "Don’t show windows from these apps";
 "Done" = "Done";
 "End" = "End";
+"Export…" = "Export…";
 "Fade in animation of Preview" = "Fade in animation of Preview";
 "Fade out animation" = "Fade out animation";
 "Fade out animation of Switcher" = "Fade out animation of Switcher";
 "Fade out animation:" = "Fade out animation:";
+"Failed to import settings" = "Failed to import settings";
 "Focus selected window" = "Focus selected window";
 "Fullscreen window" = "Fullscreen window";
 "Fullscreen windows:" = "Fullscreen windows:";
@@ -104,6 +113,9 @@
 "I think the app could be improved with…" = "I think the app could be improved with…";
 "Ignore shortcuts when active" = "Ignore shortcuts when active";
 "Ignore shortcuts while a window from these apps is active" = "Ignore shortcuts while a window from these apps is active";
+"Import…" = "Import…";
+"Keep open" = "Keep open";
+"Keep open and search" = "Keep open and search";
 "Language" = "Language";
 "Language Change" = "Language Change";
 "Large" = "Large";
@@ -112,6 +124,7 @@
 "Leading" = "Leading";
 "Left" = "Left";
 "Light" = "Light";
+"Lock search" = "Lock search";
 "Max height on screen:" = "Max height on screen:";
 "Max width on screen:" = "Max width on screen:";
 "Medium" = "Medium";
@@ -127,6 +140,7 @@
 "Never" = "Never";
 "Never send crash reports" = "Never send crash reports";
 "Non-active apps" = "Non-active apps";
+"Non-visible Spaces" = "Non-visible Spaces";
 "Normal" = "Normal";
 "Not allowed" = "Not allowed";
 "NSHumanReadableCopyright" = "GPL-3.0 license";
@@ -136,6 +150,7 @@
 "Open Accessibility Settings…" = "Open Accessibility Settings…";
 "Open Screen Recording Preferences…" = "Open Screen Recording Preferences…";
 "Open Screen Recording Settings…" = "Open Screen Recording Settings…";
+"Open System Settings to confirm, and continue" = "Open System Settings to confirm, and continue";
 "Open Trackpad Preferences…" = "Open Trackpad Preferences…";
 "Open Trackpad Settings…" = "Open Trackpad Settings…";
 "Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
@@ -164,6 +179,7 @@
 "Screen including mouse" = "Screen including mouse";
 "Screen Recording" = "Screen Recording";
 "Screen showing AltTab" = "Screen showing AltTab";
+"Search" = "Search";
 "Select next window" = "Select next window";
 "Select previous window" = "Select previous window";
 "Select windows on mouse hover" = "Select windows on mouse hover";
@@ -175,8 +191,10 @@
 "Send debug profile (CPU, memory, etc)" = "Send debug profile (CPU, memory, etc)";
 "Send feedback" = "Send feedback";
 "Send feedback…" = "Send feedback…";
+"Settings imported" = "Settings imported";
 "Settings…" = "Settings";
 "Share improvement ideas, or report bugs" = "Share improvement ideas, or report bugs";
+"Shortcut" = "Shortcut";
 "Shortcut 1" = "Shortcut 1";
 "Shortcut 2" = "Shortcut 2";
 "Shortcut 3" = "Shortcut 3";
@@ -219,7 +237,10 @@
 "Switch between 3 different styles. You can customize them." = "Switch between 3 different styles. You can customize them.";
 "System" = "System";
 "System Default" = "System Default";
+"The ⌘⎋ (command+escape) shortcut may be used by macOS for GameOverlay.\n\nYour change would assign it to: %@.\n\nIf you want to continue, make sure that the GameOverlay shortcut is disabled.\nAlso note that macOS has reported bugs where the shortcut may still interfere while disabled." = "The ⌘⎋ (command+escape) shortcut may be used by macOS for GameOverlay.\n\nYour change would assign it to: %@.\n\nIf you want to continue, make sure that the GameOverlay shortcut is disabled.\nAlso note that macOS has reported bugs where the shortcut may still interfere while disabled.";
 "The ⎋ (escape) key is reserved by some macOS shortcuts (e.g. ⌘⌥⎋ will show the Force Quit Applications window).\n\nIf you want to use ⎋, make sure that Hold modifiers are neither: ⌘⌥, ⌘⌥⇧, or ⌘⌥⇧⌃" = "The ⎋ (escape) key is reserved by some macOS shortcuts (e.g. ⌘⌥⎋ will show the Force Quit Applications window).\n\nIf you want to use ⎋, make sure that Hold modifiers are neither: ⌘⌥, ⌘⌥⇧, or ⌘⌥⇧⌃";
+"The ⎋ (escape) key is reserved by some macOS shortcuts (e.g. ⌘⌥⎋ will show the Force Quit Applications window).\n\nYour change would assign it to: %@.\n\nIf you want to use ⎋, make sure that Hold modifiers are neither: ⌘⌥, ⌘⌥⇧, or ⌘⌥⇧⌃" = "The ⎋ (escape) key is reserved by some macOS shortcuts (e.g. ⌘⌥⎋ will show the Force Quit Applications window).\n\nYour change would assign it to: %@.\n\nIf you want to use ⎋, make sure that Hold modifiers are neither: ⌘⌥, ⌘⌥⇧, or ⌘⌥⇧⌃";
+"The application needs to restart to apply the imported settings." = "The application needs to restart to apply the imported settings.";
 "The application needs to restart to apply the language change." = "The application needs to restart to apply the language change.";
 "Theme" = "Theme";
 "Theme:" = "Theme:";
@@ -231,6 +252,8 @@
 "Title" = "Title";
 "Title truncation" = "Title truncation";
 "Titles" = "Titles";
+"Trackpad haptic feedback" = "Trackpad haptic feedback";
+"Trigger" = "Trigger";
 "Trigger shortcut" = "Trigger shortcut";
 "Unassign existing shortcut and continue" = "Unassign existing shortcut and continue";
 "Updates policy" = "Updates policy";

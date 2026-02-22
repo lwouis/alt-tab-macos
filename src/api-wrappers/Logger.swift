@@ -10,14 +10,29 @@ class Logger {
     static func initialize() {
         let console = ConsoleDestination()
         console.useTerminalColors = true
-        console.levelString.verbose = "VERB"
-        console.levelString.debug = "DEBG"
-        console.levelString.info = "INFO"
-        console.levelString.warning = "WARN"
-        console.levelString.error = "ERRO"
-        console.format = "$C$D\(longDateTimeFormat)$d $L$c $N.swift:$l $F $M"
+        configureDestination(console)
+        console.format = "$C$D\(shortDateTimeFormat)$d $L$c $N.swift:$l $F $M"
         console.minLevel = decideLevel()
         logger.addDestination(console)
+    }
+
+    static func configureDestination(_ dest: BaseDestination) {
+        dest.levelString.verbose = "VERB"
+        dest.levelString.debug = "DEBG"
+        dest.levelString.info = "INFO"
+        dest.levelString.warning = "WARN"
+        dest.levelString.error = "ERRO"
+        dest.format = "$D\(shortDateTimeFormat)$d $L $N.swift:$l $F $M"
+    }
+
+    @discardableResult
+    static func addDestination(_ dest: BaseDestination) -> Bool {
+        logger.addDestination(dest)
+    }
+
+    @discardableResult
+    static func removeDestination(_ dest: BaseDestination) -> Bool {
+        logger.removeDestination(dest)
     }
 
     static func decideLevel() -> SwiftyBeaver.Level {
@@ -64,5 +79,28 @@ class Logger {
             let name = __dispatch_queue_get_label(nil)
             return String(cString: name, encoding: .utf8) ?? Thread.current.description
         }
+    }
+}
+
+/// custom destination to display logs in the debug window
+class DebugWindowDestination: BaseDestination {
+    var onNewEntry: ((SwiftyBeaver.Level, String) -> Void)?
+
+    override var defaultHashValue: Int { return 2 }
+
+    override init() {
+        super.init()
+        Logger.configureDestination(self)
+        minLevel = .debug
+    }
+
+    override func send(_ level: SwiftyBeaver.Level, msg: String, thread: String,
+                       file: String, function: String, line: Int, context: Any? = nil) -> String? {
+        let formattedString = super.send(level, msg: msg, thread: thread,
+                                         file: file, function: function, line: line, context: context)
+        guard let formatted = formattedString else { return nil }
+        let callback = onNewEntry
+        DispatchQueue.main.async { callback?(level, formatted) }
+        return formattedString
     }
 }

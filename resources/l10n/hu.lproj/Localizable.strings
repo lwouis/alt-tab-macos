@@ -1,5 +1,5 @@
 "About" = "Az App-ról";
-"About %@" = "Körülbelül %@";
+"About %@" = "Az %@ról";
 "Accessibility" = "Kisegítő lehetőségek";
 "Acknowledgments" = "Köszönetnyílvánítás";
 "Active app" = "Aktív alkalmazás";
@@ -126,7 +126,7 @@
 "Preview selected window:" = "Választott ablak előnézete:";
 "Preview the selected window." = "A kiválasztott ablak előnézete";
 "Quit" = "Kilépés";
-"Quit %@" = "Kilépés %@";
+"Quit %@" = "Kilépés az %@ból";
 "Quit app" = "Kilépés az alkalmazásból";
 "Recently Created" = "Nemrég Elindított";
 "Recently Created First" = "Mostanában megnyitott";

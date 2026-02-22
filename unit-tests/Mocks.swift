@@ -1,10 +1,21 @@
 import ShortcutRecorder
 
+class TilesViewMock {
+    var isSearchEditing = false
+    func handleSearchEditingKeyDown(_ event: NSEvent) -> Bool { return false }
+}
+
+class TilesPanelMock {
+    var tilesView = TilesViewMock()
+    var isKeyWindow = false
+}
+
 class App {
     class AppMock {
         var appIsBeingUsed = false
         var shortcutIndex = 0
         var forceDoNothingOnRelease = false
+        var tilesPanel = TilesPanelMock()
     }
     static let app = AppMock()
 }
@@ -27,6 +38,7 @@ class ControlsTab {
         "focusWindowShortcut": ATShortcut(Shortcut(keyEquivalent: " ")!, "focusWindowShortcut", .local, .down),
         "previousWindowShortcut": ATShortcut(Shortcut(keyEquivalent: "⇧")!, "previousWindowShortcut", .local, .down),
         "cancelShortcut": ATShortcut(Shortcut(keyEquivalent: "⎋")!, "cancelShortcut", .local, .down),
+        "searchShortcut": ATShortcut(Shortcut(keyEquivalent: "s")!, "searchShortcut", .local, .down),
         "closeWindowShortcut": ATShortcut(Shortcut(keyEquivalent: "w")!, "closeWindowShortcut", .local, .down),
         "minDeminWindowShortcut": ATShortcut(Shortcut(keyEquivalent: "m")!, "minDeminWindowShortcut", .local, .down),
         "toggleFullscreenWindowShortcut": ATShortcut(Shortcut(keyEquivalent: "f")!, "toggleFullscreenWindowShortcut", .local, .down),
@@ -62,8 +74,10 @@ class Logger {
 }
 
 class Preferences {
-    static var shortcutStyle: [ShortcutStylePreference] = [.focusOnRelease, .focusOnRelease, .focusOnRelease, .focusOnRelease]
+    static var shortcutStyle: ShortcutStylePreference = .focusOnRelease
     static var holdShortcut = ["⌥", "⌥", "⌥"]
+    static let minShortcutCount = 1
+    static let maxShortcutCount = 9
 
     static func indexToName(_ baseName: String, _ index: Int) -> String {
         return baseName + (index == 0 ? "" : String(index + 1))
@@ -78,6 +92,7 @@ class Preferences {
 enum ShortcutStylePreference: CaseIterable {
     case focusOnRelease
     case doNothingOnRelease
+    case searchOnRelease
 }
 
 class ModifierFlags {

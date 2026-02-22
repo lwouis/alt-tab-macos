@@ -1,3 +1,7 @@
+"3-finger Horizontal Swipe" = "Horizontales 3-Finger-Wischen";
+"3-finger Vertical Swipe" = "Vertikales 3-Finger-Wischen";
+"4-finger Horizontal Swipe" = "Horizontales 4-Finger-Wischen";
+"4-finger Vertical Swipe" = "Vertikales 4-Finger-Wischen";
 "About" = "Über";
 "About %@" = "Über %@";
 "Accessibility" = "Bedienungshilfen";
@@ -8,6 +12,7 @@
 "Additional controls" = "Zusätzliche Bedienelemente";
 "Additional controls…" = "Zusätzliche Bedienelemente…";
 "Advanced" = "Erweitert";
+"After keys are released" = "Nach Loslassen der Tasten";
 "After release" = "Nach dem Loslassen";
 "Align windows" = "Fenster ausrichten";
 "Align windows:" = "Fenster ausrichten:";
@@ -44,6 +49,7 @@
 "Are you sure you don’t want a response?" = "Möchten Sie wirklich keine Antwort?";
 "Arrow keys" = "Pfeiltasten";
 "Ask whether to send crash reports" = "Vor dem Senden nachfragen";
+"Auto" = "Auto";
 "Auto-install updates periodically" = "Regelmäßig nach Updates suchen und automatisch installieren";
 "Blacklists" = "Sperrlisten";
 "Cancel" = "Abbrechen";
@@ -63,6 +69,7 @@
 "Customize Thumbnails style…" = "Passen Sie den Stil der Vorschaubilder an…";
 "Customize Titles style…" = "Anpassen des Stils von Titeln…";
 "Dark" = "Dunkel";
+"Debug tools" = "Debug-Tools";
 "Disabled" = "Deaktiviert";
 "Do nothing" = "Nichts tun";
 "Don’t check for updates periodically" = "Nicht regelmäßig nach Updates suchen";
@@ -70,10 +77,12 @@
 "Don’t show windows from these apps" = "Fenster dieser Apps nicht anzeigen";
 "Done" = "Erledigt";
 "End" = "Ende";
+"Export…" = "Exportieren…";
 "Fade in animation of Preview" = "Einblende-Animation der Vorschau";
 "Fade out animation" = "Animation zum Ausblenden";
 "Fade out animation of Switcher" = "Ausblende-Animation des Switchers";
 "Fade out animation:" = "Ausblenden animieren:";
+"Failed to import settings" = "Fehler beim Importieren der Einstellungen";
 "Focus selected window" = "Ausgewähltes Fenster aktivieren";
 "Fullscreen window" = "Vollbildfenster";
 "Fullscreen windows:" = "Vollbildfenster:";
@@ -104,6 +113,9 @@
 "I think the app could be improved with…" = "Ich denke, die Anwendung könnte wie folgt verbessert werden…";
 "Ignore shortcuts when active" = "Kurzbefehle ignorieren, wenn aktiv";
 "Ignore shortcuts while a window from these apps is active" = "Kurzbefehle ignorieren, wenn ein Fenster dieser App aktiv ist";
+"Import…" = "Importieren…";
+"Keep open" = "Offen halten";
+"Keep open and search" = "Offen halten und suchen";
 "Language" = "Sprache";
 "Language Change" = "Sprache ändern";
 "Large" = "Groß";
@@ -112,6 +124,7 @@
 "Leading" = "Führend";
 "Left" = "Links";
 "Light" = "Hell";
+"Lock search" = "Suche sperren";
 "Max height on screen:" = "Maximale Höhe auf dem Bildschirm:";
 "Max width on screen:" = "Maximale Breite auf dem Bildschirm:";
 "Medium" = "Mittel";
@@ -127,6 +140,7 @@
 "Never" = "Nie";
 "Never send crash reports" = "Niemals Fehlerberichte senden";
 "Non-active apps" = "Nicht-aktive Apps";
+"Non-visible Spaces" = "Nicht sichtbare Spaces";
 "Normal" = "Normal";
 "Not allowed" = "Nicht erlaubt";
 "NSHumanReadableCopyright" = "GPL-3.0 Lizenz";
@@ -136,6 +150,7 @@
 "Open Accessibility Settings…" = "Barrierefreiheit-Einstellungen öffnen";
 "Open Screen Recording Preferences…" = "Einstellungen zu Bildschirmaufnahme öffnen…";
 "Open Screen Recording Settings…" = "Bildschirmaufzeichnung-Einstellungen öffnen";
+"Open System Settings to confirm, and continue" = "Systemeinstellungen öffnen, um zu bestätigen und fortzufahren";
 "Open Trackpad Preferences…" = "Trackpad-Einstellungen öffnen";
 "Open Trackpad Settings…" = "Trackpad-Einstellungen öffnen";
 "Optional: email (if you want a reply)" = "Optional: E-Mail-Adresse (wenn Sie eine Antwort wünschen)";
@@ -164,6 +179,7 @@
 "Screen including mouse" = "Bildschirm mit Maus";
 "Screen Recording" = "Bildschirmaufnahme";
 "Screen showing AltTab" = "Bildschirm mit AltTab";
+"Search" = "Suchen";
 "Select next window" = "Nächstes Fenster auswählen";
 "Select previous window" = "Vorheriges Fenster auswählen";
 "Select windows on mouse hover" = "Fenster beim Überfahren mit der Maus wählen";
@@ -175,8 +191,10 @@
 "Send debug profile (CPU, memory, etc)" = "Debug-Profil senden (CPU, Speicher, etc)";
 "Send feedback" = "Feedback senden";
 "Send feedback…" = "Feedback senden…";
+"Settings imported" = "Einstellungen importiert";
 "Settings…" = "Einstellungen";
 "Share improvement ideas, or report bugs" = "Teilen Sie uns Ihre Vorschläge mit oder melden Sie einen Fehler";
+"Shortcut" = "Tastenkombination";
 "Shortcut 1" = "Kurzbefehl 1";
 "Shortcut 2" = "Kurzbefehl 2";
 "Shortcut 3" = "Kurzbefehl 3";
@@ -219,7 +237,10 @@
 "Switch between 3 different styles. You can customize them." = "Wechseln Sie zwischen 3 verschiedenen Stilen. Sie können sie anpassen.";
 "System" = "System";
 "System Default" = "Systemstandard";
+"The ⌘⎋ (command+escape) shortcut may be used by macOS for GameOverlay.\n\nYour change would assign it to: %@.\n\nIf you want to continue, make sure that the GameOverlay shortcut is disabled.\nAlso note that macOS has reported bugs where the shortcut may still interfere while disabled." = "Die Tastenkombination ⌘⎋ (Befehl+Escape) kann von macOS für GameOverlay verwendet werden.\n\nIhre Änderung würde sie zuweisen an: %@.\n\nWenn Sie fortfahren möchten, stellen Sie sicher, dass die GameOverlay-Tastenkombination deaktiviert ist.\nBeachten Sie auch, dass macOS Fehler gemeldet hat, bei denen die Tastenkombination weiterhin stören kann, auch wenn sie deaktiviert ist.";
 "The ⎋ (escape) key is reserved by some macOS shortcuts (e.g. ⌘⌥⎋ will show the Force Quit Applications window).\n\nIf you want to use ⎋, make sure that Hold modifiers are neither: ⌘⌥, ⌘⌥⇧, or ⌘⌥⇧⌃" = "Die ⎋ (Escape) Taste ist für einige macOS-Tastenkombinationen reserviert (z.B. zeigt ⌘⌥⎋ das Fenster Programme Sofort Beenden an).\n\nWenn Sie ⎋ verwenden möchten, stellen Sie sicher, dass die Modifikatortasten weder: ⌘⌥, ⌘⌥⇧, noch ⌘⌥⇧⌃ sind";
+"The ⎋ (escape) key is reserved by some macOS shortcuts (e.g. ⌘⌥⎋ will show the Force Quit Applications window).\n\nYour change would assign it to: %@.\n\nIf you want to use ⎋, make sure that Hold modifiers are neither: ⌘⌥, ⌘⌥⇧, or ⌘⌥⇧⌃" = "Die ⎋ (Escape)-Taste ist für einige macOS-Tastenkombinationen reserviert (z. B. ⌘⌥⎋ zeigt das Fenster „Programme sofort beenden“ an).\n\nIhre Änderung würde sie zuweisen an: %@.\n\nWenn Sie ⎋ verwenden möchten, stellen Sie sicher, dass die Zusatztasten nicht ⌘⌥, ⌘⌥⇧ oder ⌘⌥⇧⌃ sind.";
+"The application needs to restart to apply the imported settings." = "Die Anwendung muss neu gestartet werden, um die importierten Einstellungen anzuwenden.";
 "The application needs to restart to apply the language change." = "Die Anwendung muss neu gestartet werden, um die Spracheinstellungen anzuwenden.";
 "Theme" = "Thema";
 "Theme:" = "Thema:";
@@ -231,6 +252,8 @@
 "Title" = "Titel";
 "Title truncation" = "Titelkürzung";
 "Titles" = "Titel";
+"Trackpad haptic feedback" = "Haptisches Feedback des Trackpads";
+"Trigger" = "Auslöser";
 "Trigger shortcut" = "Kurzbefehl auslösen";
 "Unassign existing shortcut and continue" = "Bestehenden Kurzbefehl löschen und fortfahren";
 "Updates policy" = "Richtlinie für Aktualisierungen";

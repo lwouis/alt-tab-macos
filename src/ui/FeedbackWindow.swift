@@ -19,6 +19,7 @@ class FeedbackWindow: NSWindow {
         self.init(contentRect: .zero, styleMask: [.titled, .miniaturizable, .closable], backing: .buffered, defer: false)
         setupWindow()
         setupView()
+        setFrameAutosaveName("FeedbackWindow")
     }
 
     private func setupWindow() {
@@ -29,6 +30,7 @@ class FeedbackWindow: NSWindow {
 
     private func setupView() {
         let appIcon = LightImageView()
+        appIcon.translatesAutoresizingMaskIntoConstraints = false
         appIcon.updateContents(.cgImage(App.appIcon), NSSize(width: 80, height: 80))
         appIcon.fit(80, 80)
         let appText = StackView([

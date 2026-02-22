@@ -11,7 +11,7 @@ class Window {
     ]
     private static var globalCreationCounter = Int.zero
 
-    var id: String!
+    var id: String
     var cgWindowId: CGWindowID?
     var lastFocusOrder = Int.zero
     var creationOrder = Int.zero
@@ -35,18 +35,20 @@ class Window {
     var application: Application
     var axObserver: AXObserver?
     var rowIndex: Int?
-
-    func debugId() -> String {
-        return "\(application.debugId()) (wid:\(cgWindowId) title:\(title))"
-    }
+    var debugId: String!
+    var lastSearchQuery: String?
+    var swAppResults: [SWResult] = []
+    var swTitleResults: [SWResult] = []
+    var swBestSimilarity = 0.0
 
     init(_ axUiElement: AXUIElement, _ application: Application, _ wid: CGWindowID, _ title: String?, _ isFullscreen: Bool?, _ isMinimized: Bool?, _ position: CGPoint?, _ size: CGSize?) {
-        id = "\(wid)"
+        id = "wid-\(wid)"
         self.axUiElement = axUiElement
         self.application = application
         cgWindowId = wid
         self.updateSpacesAndScreen()
         updateFromAxAttributes(title, size, position, isFullscreen, isMinimized)
+        debugId = "\(self.application.debugId) (wid:\(cgWindowId) title:\(self.title))"
         Window.globalCreationCounter += 1
         creationOrder = Window.globalCreationCounter
         application.removeWindowlessAppWindow()
@@ -54,21 +56,22 @@ class Window {
         // It may be responsive now since it has a window; we attempt again
         application.observeEventsIfEligible()
         checkIfFocused()
-        Logger.info { self.debugId() }
+        Logger.info { self.debugId }
         observeEvents()
     }
 
     init(_ application: Application) {
-        id = "\(application.pid)"
+        id = "pid-\(application.pid)"
         self.application = application
         title = bestEffortTitle(nil)
         Window.globalCreationCounter += 1
         creationOrder = Window.globalCreationCounter
-        Logger.debug { self.debugId() }
+        debugId = "\(application.debugId) (title:\(title))"
+        Logger.debug { self.debugId }
     }
 
     deinit {
-        Logger.info { self.debugId() }
+        Logger.info { self.debugId }
     }
 
     func updateFromAxAttributes(_ title: String?, _ size: CGSize?, _ position: CGPoint?, _ isFullscreen: Bool?, _ isMinimized: Bool?) {
@@ -77,6 +80,7 @@ class Window {
         self.position = position
         self.isFullscreen = isFullscreen ?? false
         self.isMinimized = isMinimized ?? false
+        lastSearchQuery = nil
     }
 
     func isEqualRobust(_ otherWindowAxUiElement: AXUIElement, _ otherWindowWid: CGWindowID?) -> Bool {
@@ -88,12 +92,12 @@ class Window {
     private func observeEvents() {
         AXObserverCreate(application.pid, AccessibilityEvents.axObserverCallback, &axObserver)
         guard let axObserver else { return }
-        AXUIElement.retryAxCallUntilTimeout(context: debugId(), pid: application.pid, callType: .subscribeToWindowNotification) { [weak self] in
+        AXUIElement.retryAxCallUntilTimeout(context: debugId, pid: application.pid, wid: cgWindowId, callType: .subscribeToWindowNotification) { [weak self] in
             guard let self else { return }
             if try self.axUiElement!.subscribeToNotification(axObserver, Window.notifications.first!) {
-                Logger.debug { "Subscribed to window: \(self.debugId())" }
+                Logger.debug { "Subscribed to window: \(self.debugId)" }
                 for notification in Window.notifications.dropFirst() {
-                    AXUIElement.retryAxCallUntilTimeout(context: self.debugId(), pid: self.application.pid, callType: .subscribeToWindowNotification) { [weak self] in
+                    AXUIElement.retryAxCallUntilTimeout(context: self.debugId, pid: self.application.pid, wid: cgWindowId, callType: .subscribeToWindowNotification) { [weak self] in
                         try self?.axUiElement!.subscribeToNotification(axObserver, notification)
                     }
                 }
@@ -106,14 +110,14 @@ class Window {
         thumbnail = screenshot
         if !App.app.appIsBeingUsed || !shouldShowTheUser { return }
         if let position, let size,
-           let view = (ThumbnailsView.recycledViews.first { $0.window_?.cgWindowId == cgWindowId }) {
+           let view = (TilesView.recycledViews.first { $0.window_?.cgWindowId == cgWindowId }) {
             if !view.thumbnail.isHidden {
-                let thumbnailSize = ThumbnailView.thumbnailSize(screenshot.size(), false)
+                let thumbnailSize = TileView.thumbnailSize(screenshot.size(), false)
                 let newSize = thumbnailSize.width != view.thumbnail.frame.width || thumbnailSize.height != view.thumbnail.frame.height
                 view.thumbnail.updateContents(screenshot, thumbnailSize)
                 // if the thumbnail size has changed, we need to refresh the open UI
                 if newSize {
-                    App.app.refreshOpenUi([], .refreshOnlyThumbnailsAfterShowUi)
+                    App.app.refreshOpenUiAfterExternalEvent([])
                 }
             }
             App.app.previewPanel.updateIfShowing(cgWindowId, screenshot, position, size)
@@ -268,13 +272,13 @@ class Window {
     }
 
     private func updateScreenId() {
-        screenId = NSScreen.screens.first { isOnScreen($0) }?.uuid()
+        screenId = NSScreen.screens.first { isOnScreen($0) }?.cachedUuid()
     }
 
     /// window may not be visible on that screen (e.g. the window is not on the current Space)
     func isOnScreen(_ screen: NSScreen) -> Bool {
         if NSScreen.screensHaveSeparateSpaces {
-            if let screenUuid = screen.uuid(), let screenSpaces = Spaces.screenSpacesMap[screenUuid] {
+            if let screenUuid = screen.cachedUuid(), let screenSpaces = Spaces.screenSpacesMap[screenUuid] {
                 return screenSpaces.contains { screenSpace in spaceIds.contains { $0 == screenSpace } }
             }
         } else {
@@ -316,11 +320,15 @@ class Window {
     /// some apps will not trigger AXApplicationActivated, where we usually update application.focusedWindow
     /// workaround: we check and possibly do it here
     private func checkIfFocused() {
-        AXUIElement.retryAxCallUntilTimeout(context: debugId(), pid: application.pid, callType: .updateWindow) { [weak self] in
-            guard let self,
-                  let focusedWindow = try self.application.axUiElement?.attributes([kAXFocusedWindowAttribute]).focusedWindow,
-                  let window = try (Windows.list.first { $0.isEqualRobust(focusedWindow, (try focusedWindow.cgWindowId())) }) else { return }
-            self.application.focusedWindow = window
+        let app = application
+        guard let appAxUiElement = app.axUiElement else { return }
+        AXUIElement.retryAxCallUntilTimeout(context: debugId, pid: app.pid, wid: cgWindowId, callType: .updateAppFocusedWindow) { [weak app] in
+            guard let app, let focusedWindow = try appAxUiElement.attributes([kAXFocusedWindowAttribute]).focusedWindow else { return }
+            let focusedWid = try focusedWindow.cgWindowId()
+            DispatchQueue.main.async {
+                guard let window = (Windows.list.first { $0.isEqualRobust(focusedWindow, focusedWid) }) else { return }
+                app.focusedWindow = window
+            }
         }
     }
 }

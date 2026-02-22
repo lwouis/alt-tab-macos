@@ -23,10 +23,10 @@ enum GesturePreference: CaseIterable, MacroPreference {
     var localizedString: LocalizedString {
         switch self {
             case .disabled: return NSLocalizedString("Disabled", comment: "")
-            case .threeFingerHorizontalSwipe: return NSLocalizedString("Horizontal Swipe with Three Fingers", comment: "")
-            case .threeFingerVerticalSwipe: return NSLocalizedString("Vertical Swipe with Three Fingers", comment: "")
-            case .fourFingerHorizontalSwipe: return NSLocalizedString("Horizontal Swipe with Four Fingers", comment: "")
-            case .fourFingerVerticalSwipe: return NSLocalizedString("Vertical Swipe with Four Fingers", comment: "")
+            case .threeFingerHorizontalSwipe: return NSLocalizedString("3-finger Horizontal Swipe", comment: "")
+            case .threeFingerVerticalSwipe: return NSLocalizedString("3-finger Vertical Swipe", comment: "")
+            case .fourFingerHorizontalSwipe: return NSLocalizedString("4-finger Horizontal Swipe", comment: "")
+            case .fourFingerVerticalSwipe: return NSLocalizedString("4-finger Vertical Swipe", comment: "")
         }
     }
 
@@ -90,6 +90,7 @@ enum LanguagePreference: CaseIterable, MacroPreference {
     case kannada
     case malayalam
     case thai
+    case burmese
     case japanese
     case chineseSimplified
     case chineseTraditional
@@ -123,6 +124,7 @@ enum LanguagePreference: CaseIterable, MacroPreference {
             case .indonesian: return "Bahasa Indonesia"
             case .icelandic: return "Íslenska"
             case .italian: return "Italiano"
+            case .burmese: return "မြန်မာဘာသာ"
             case .japanese: return "日本語"
             case .javanese: return "Basa Jawa"
             case .kannada: return "ಕನ್ನಡ"
@@ -183,6 +185,7 @@ enum LanguagePreference: CaseIterable, MacroPreference {
             case .indonesian: return "id"
             case .icelandic: return "is"
             case .italian: return "it"
+            case .burmese: return "my"
             case .japanese: return "ja"
             case .javanese: return "jv"
             case .kannada: return "kn"
@@ -220,11 +223,13 @@ enum LanguagePreference: CaseIterable, MacroPreference {
 enum ShortcutStylePreference: CaseIterable, MacroPreference {
     case focusOnRelease
     case doNothingOnRelease
+    case searchOnRelease
 
     var localizedString: LocalizedString {
         switch self {
             case .focusOnRelease: return NSLocalizedString("Focus selected window", comment: "")
-            case .doNothingOnRelease: return NSLocalizedString("Do nothing", comment: "")
+            case .doNothingOnRelease: return NSLocalizedString("Keep open", comment: "")
+            case .searchOnRelease: return NSLocalizedString("Keep open and search", comment: "")
         }
     }
 }
@@ -276,11 +281,13 @@ enum AppsToShowPreference: CaseIterable, MacroPreference {
 enum SpacesToShowPreference: CaseIterable, MacroPreference {
     case all
     case visible
+    case nonVisible
 
     var localizedString: LocalizedString {
         switch self {
             case .all: return NSLocalizedString("All Spaces", comment: "")
             case .visible: return NSLocalizedString("Visible Spaces", comment: "")
+            case .nonVisible: return NSLocalizedString("Non-visible Spaces", comment: "")
         }
     }
 }
@@ -432,12 +439,14 @@ enum AppearanceSizePreference: CaseIterable, SfSymbolMacroPreference {
     case small
     case medium
     case large
+    case auto
 
     var localizedString: LocalizedString {
         switch self {
             case .small: return NSLocalizedString("Small", comment: "")
             case .medium: return NSLocalizedString("Medium", comment: "")
             case .large: return NSLocalizedString("Large", comment: "")
+            case .auto: return NSLocalizedString("Auto", comment: "")
         }
     }
 
@@ -446,6 +455,7 @@ enum AppearanceSizePreference: CaseIterable, SfSymbolMacroPreference {
             case .small: return "moonphase.waning.gibbous.inverse"
             case .medium: return "moonphase.last.quarter.inverse"
             case .large: return "moonphase.waning.crescent.inverse"
+            case .auto: return "sparkles"
         }
     }
 }
@@ -531,12 +541,14 @@ enum BlacklistHidePreference: String/* required for jsonEncode */, CaseIterable,
     case none = "0"
     case always = "1"
     case whenNoOpenWindow = "2"
+    case windowTitleContains = "3"
 
     var localizedString: LocalizedString {
         switch self {
             case .none: return ""
             case .always: return NSLocalizedString("Always", comment: "")
             case .whenNoOpenWindow: return NSLocalizedString("When no open window", comment: "")
+            case .windowTitleContains: return NSLocalizedString("Window title contains", comment: "")
         }
     }
 }

@@ -77,7 +77,7 @@ class TrackpadEvents {
 
     private static func handleEventIfAppIsBeingUsed(_ fingersDown: Int, _ activeTouches: Set<NSTouch>, _ requiredFingers: Int) {
         if fingersDown <= TriggerSwipeDetector.maxFingersDownDuringTrigger - requiredFingers {
-            if App.app.shortcutIndex == Preferences.gestureIndex && !App.app.forceDoNothingOnRelease && Preferences.shortcutStyle[App.app.shortcutIndex] == .focusOnRelease {
+            if App.app.shortcutIndex == Preferences.gestureIndex && !App.app.forceDoNothingOnRelease && Preferences.shortcutStyle == .focusOnRelease {
                 DispatchQueue.main.async {
                     App.app.focusTarget()
                 }

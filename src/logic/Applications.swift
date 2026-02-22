@@ -3,6 +3,7 @@ import ApplicationServices
 
 class Applications {
     static var list = [Application]()
+    static var frontmostPid = NSWorkspace.shared.frontmostApplication?.processIdentifier
 
     static func initialDiscovery() {
         addInitialRunningApplications()
@@ -10,7 +11,7 @@ class Applications {
     }
 
     static func addInitialRunningApplications() {
-        addRunningApplications(NSWorkspace.shared.runningApplications)
+        addRunningApplications(NSWorkspace.shared.runningApplications, false)
     }
 
     static func manuallyRefreshAllWindows() {
@@ -47,13 +48,13 @@ class Applications {
         let zombies = believedAlive.subtracting(confirmedAlive)
         for window in Windows.list.reversed() {
             if let wid = window.cgWindowId, zombies.contains(wid) {
-                Logger.debug { window.debugId() }
+                Logger.debug { window.debugId }
                 Windows.removeWindows([window], true)
             }
         }
     }
 
-    static func addRunningApplications(_ runningApps: [NSRunningApplication]) {
+    static func addRunningApplications(_ runningApps: [NSRunningApplication], _ needToVerifyFrontmostPid: Bool) {
         runningApps.forEach {
             let bundleIdentifier = $0.bundleIdentifier
             let processIdentifier = $0.processIdentifier
@@ -62,7 +63,7 @@ class Applications {
             }
             // com.apple.universalcontrol always fails subscribeToNotification. We blacklist it to save resources on everyone's machines
             if bundleIdentifier != "com.apple.universalcontrol" {
-                findOrCreate(processIdentifier)
+                findOrCreate(processIdentifier, needToVerifyFrontmostPid)
             }
         }
     }
@@ -76,7 +77,7 @@ class Applications {
             // comparing pid here can fail here, as it can be already nil; we use isEqual here to avoid the issue
             list.removeAll { $0.runningApplication.isEqual(tApp) }
         }
-        App.app.refreshOpenUi([], .refreshUiAfterExternalEvent)
+        App.app.refreshOpenUiAfterExternalEvent([])
     }
 
     static func refreshBadgesAsync() {
@@ -101,8 +102,8 @@ class Applications {
 
     static func refreshBadges_(_ items: [(URL?, String?)]) {
         Windows.list.enumerated().forEach { (i, window) in
-            let view = ThumbnailsView.recycledViews[i]
-            if let app = findOrCreate(window.application.pid) {
+            let view = TilesView.recycledViews[i]
+            if let app = findOrCreate(window.application.pid, false) {
                 if app.runningApplication.activationPolicy == .regular,
                    let matchingItem = (items.first { $0.0 == app.bundleURL }),
                    let label = matchingItem.1 {
@@ -117,7 +118,7 @@ class Applications {
     }
 
     @discardableResult
-    static func findOrCreate(_ pid: pid_t) -> Application? {
+    static func findOrCreate(_ pid: pid_t, _ needToVerifyFrontmostPid: Bool) -> Application? {
         if let app = (list.first { $0.pid == pid }) {
             return app
         }

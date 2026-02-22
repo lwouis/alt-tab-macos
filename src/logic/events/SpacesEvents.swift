@@ -13,8 +13,8 @@ class SpacesEvents {
             // this window doesn't emit resize/move events. It doesn't pass isActualWindow on creation. It's added on focusedWindowChanged
             // for such cases, we refresh isFullscreen on Space change
             Windows.updateIsFullscreenOnCurrentSpace()
-            if let frontmostPid = NSWorkspace.shared.frontmostApplication?.processIdentifier,
-               let frontmostApp = Applications.findOrCreate(frontmostPid),
+            if let frontmostPid = Applications.frontmostPid,
+               let frontmostApp = Applications.findOrCreate(frontmostPid, false),
                let focusedWindow = frontmostApp.focusedWindow {
                 App.app.checkIfShortcutsShouldBeDisabled(focusedWindow, nil)
             }

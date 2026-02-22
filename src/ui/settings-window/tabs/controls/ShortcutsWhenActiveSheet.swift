@@ -6,8 +6,12 @@ class ShortcutsWhenActiveSheet: SheetWindow {
             rightViews: [LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Focus selected window", comment: ""), "focusWindowShortcut", Preferences.focusWindowShortcut, labelPosition: .right)[0]])
         let previousWindowShortcut = TableGroupView.Row(leftTitle: NSLocalizedString("Select previous window", comment: ""),
             rightViews: [LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Select previous window", comment: ""), "previousWindowShortcut", Preferences.previousWindowShortcut, labelPosition: .right)[0]])
-        let cancelShortcut = TableGroupView.Row(leftTitle: NSLocalizedString("Cancel and hide", comment: ""),
-            rightViews: [LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Cancel and hide", comment: ""), "cancelShortcut", Preferences.cancelShortcut, labelPosition: .right)[0]])
+        let cancelShortcut = TableGroupView.Row(leftTitle: NSLocalizedString("Cancel", comment: ""),
+            rightViews: [LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Cancel", comment: ""), "cancelShortcut", Preferences.cancelShortcut, labelPosition: .right)[0]])
+        let searchShortcut = TableGroupView.Row(leftTitle: NSLocalizedString("Search", comment: ""),
+            rightViews: [LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Search", comment: ""), "searchShortcut", Preferences.searchShortcut, labelPosition: .right)[0]])
+        let lockSearchShortcut = TableGroupView.Row(leftTitle: NSLocalizedString("Lock search", comment: ""),
+            rightViews: [LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Lock search", comment: ""), "lockSearchShortcut", Preferences.lockSearchShortcut, labelPosition: .right)[0]])
         let closeWindowShortcut = TableGroupView.Row(leftTitle: NSLocalizedString("Close window", comment: ""),
             rightViews: [LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Close window", comment: ""), "closeWindowShortcut", Preferences.closeWindowShortcut, labelPosition: .right)[0]])
         let minDeminWindowShortcut = TableGroupView.Row(leftTitle: NSLocalizedString("Minimize/Deminimize window", comment: ""),
@@ -22,6 +26,8 @@ class ShortcutsWhenActiveSheet: SheetWindow {
         _ = table.addRow(focusWindowShortcut)
         _ = table.addRow(previousWindowShortcut)
         _ = table.addRow(cancelShortcut)
+        _ = table.addRow(searchShortcut)
+        _ = table.addRow(lockSearchShortcut)
         _ = table.addRow(closeWindowShortcut)
         _ = table.addRow(minDeminWindowShortcut)
         _ = table.addRow(toggleFullscreenWindowShortcut)

@@ -1,3 +1,116 @@
+# [10.2.0](https://github.com/lwouis/alt-tab-macos/compare/v10.1.0...v10.2.0) (2026-02-19)
+
+
+### Bug Fixes
+
+* improve settings ui on macos 10.13 ([#5255](https://github.com/lwouis/alt-tab-macos/issues/5255)) ([75347ad](https://github.com/lwouis/alt-tab-macos/commit/75347ad))
+* rare crash when a window was opened ([28c4b12](https://github.com/lwouis/alt-tab-macos/commit/28c4b12))
+* small issues when mouse hover is set to select (closes [#5292](https://github.com/lwouis/alt-tab-macos/issues/5292)) ([b9e0344](https://github.com/lwouis/alt-tab-macos/commit/b9e0344))
+* sometimes the active app was not up-to-date (closes [#5291](https://github.com/lwouis/alt-tab-macos/issues/5291)) ([ea51d57](https://github.com/lwouis/alt-tab-macos/commit/ea51d57))
+
+
+### Features
+
+* add burmese + update all localizations ([f5e1014](https://github.com/lwouis/alt-tab-macos/commit/f5e1014))
+* add new setting for auto size (closes [#3669](https://github.com/lwouis/alt-tab-macos/issues/3669)) ([c51376f](https://github.com/lwouis/alt-tab-macos/commit/c51376f))
+* add setting to blacklist window by title (closes [#5299](https://github.com/lwouis/alt-tab-macos/issues/5299)) ([35eae11](https://github.com/lwouis/alt-tab-macos/commit/35eae11))
+* can add running apps into blacklist (closes [#5268](https://github.com/lwouis/alt-tab-macos/issues/5268)) ([d5d6996](https://github.com/lwouis/alt-tab-macos/commit/d5d6996))
+* remember position/size of secondary windows (closes [#5305](https://github.com/lwouis/alt-tab-macos/issues/5305)) ([4b85fb8](https://github.com/lwouis/alt-tab-macos/commit/4b85fb8))
+
+# [10.1.0](https://github.com/lwouis/alt-tab-macos/compare/v10.0.0...v10.1.0) (2026-02-17)
+
+
+### Bug Fixes
+
+* better flow when last 2 windows are minimized (closes [#2159](https://github.com/lwouis/alt-tab-macos/issues/2159)) ([da6be20](https://github.com/lwouis/alt-tab-macos/commit/da6be20))
+* issue with link drag-and-drop over the switcher (closes [#5292](https://github.com/lwouis/alt-tab-macos/issues/5292)) ([4e6361f](https://github.com/lwouis/alt-tab-macos/commit/4e6361f))
+* trackpad gesture active when disabled (closes [#5301](https://github.com/lwouis/alt-tab-macos/issues/5301)) ([d074faa](https://github.com/lwouis/alt-tab-macos/commit/d074faa))
+
+
+### Features
+
+* allow settings export/import (closes [#4514](https://github.com/lwouis/alt-tab-macos/issues/4514)) ([69a9dfa](https://github.com/lwouis/alt-tab-macos/commit/69a9dfa))
+
+# [10.0.0](https://github.com/lwouis/alt-tab-macos/compare/v9.0.0...v10.0.0) (2026-02-16)
+
+
+### Bug Fixes
+
+* app could crash in rare scenarios ([3de0276](https://github.com/lwouis/alt-tab-macos/commit/3de0276))
+* launched app may not be seen as active (closes [#5291](https://github.com/lwouis/alt-tab-macos/issues/5291)) ([3e47ebe](https://github.com/lwouis/alt-tab-macos/commit/3e47ebe))
+* quick switches could sometimes do nothing (closes [#5289](https://github.com/lwouis/alt-tab-macos/issues/5289)) ([82795d8](https://github.com/lwouis/alt-tab-macos/commit/82795d8))
+
+
+### Features
+
+* add debug tools ([07e4024](https://github.com/lwouis/alt-tab-macos/commit/07e4024))
+* add fuzzy search mode (closes [#590](https://github.com/lwouis/alt-tab-macos/issues/590)) ([4e986f3](https://github.com/lwouis/alt-tab-macos/commit/4e986f3))
+* allow up to 9 shortcuts ([#3882](https://github.com/lwouis/alt-tab-macos/issues/3882)) ([8cab3e1](https://github.com/lwouis/alt-tab-macos/commit/8cab3e1))
+* new settings experience (closes [#5287](https://github.com/lwouis/alt-tab-macos/issues/5287)) ([3890beb](https://github.com/lwouis/alt-tab-macos/commit/3890beb))
+* support app-icon badges with large numbers ([ceed334](https://github.com/lwouis/alt-tab-macos/commit/ceed334))
+* support showing only non-visible spaces (closes [#1274](https://github.com/lwouis/alt-tab-macos/issues/1274)) ([51db0cb](https://github.com/lwouis/alt-tab-macos/commit/51db0cb))
+* update bn localization ([3f1617c](https://github.com/lwouis/alt-tab-macos/commit/3f1617c))
+
+
+### BREAKING CHANGES
+
+* a whole new alt-tab experience by pressing "s". You can also set search as the default style in the settings
+
+# [9.0.0](https://github.com/lwouis/alt-tab-macos/compare/v8.3.4...v9.0.0) (2026-02-11)
+
+
+### Bug Fixes
+
+* missing thumbnails in rare cases ([3142590](https://github.com/lwouis/alt-tab-macos/commit/3142590))
+* preserve scroll position in switcher if windows change ([fa9e4d0](https://github.com/lwouis/alt-tab-macos/commit/fa9e4d0))
+* prevent macos 10.13 crash (closes [#5255](https://github.com/lwouis/alt-tab-macos/issues/5255)) ([d525d35](https://github.com/lwouis/alt-tab-macos/commit/d525d35))
+
+
+### Features
+
+* improve performance when many windows are open (closes [#5177](https://github.com/lwouis/alt-tab-macos/issues/5177)) ([5d0a92f](https://github.com/lwouis/alt-tab-macos/commit/5d0a92f))
+* new thumbnails shadows in macos 26 style ([26d46e3](https://github.com/lwouis/alt-tab-macos/commit/26d46e3))
+* update cs/el/fr/ru localizations ([2681218](https://github.com/lwouis/alt-tab-macos/commit/2681218))
+
+
+### Performance Improvements
+
+* better caanimation batching ([016052c](https://github.com/lwouis/alt-tab-macos/commit/016052c))
+* cache expensive layout values ([904bd17](https://github.com/lwouis/alt-tab-macos/commit/904bd17))
+* cache expensive layout values 2 ([13ed78b](https://github.com/lwouis/alt-tab-macos/commit/13ed78b))
+* cache font from appearance ([305870b](https://github.com/lwouis/alt-tab-macos/commit/305870b))
+* cache screen uuids and frontmost app ([a5135c5](https://github.com/lwouis/alt-tab-macos/commit/a5135c5))
+* capture samplebuffer directly ([2bce0d2](https://github.com/lwouis/alt-tab-macos/commit/2bce0d2))
+* create overlay view to optimize view count ([ec5802a](https://github.com/lwouis/alt-tab-macos/commit/ec5802a))
+* do all mouse interactions globally instead of local tracking ([d89bc29](https://github.com/lwouis/alt-tab-macos/commit/d89bc29))
+* have views under and over the thumbnailview ([b9637e5](https://github.com/lwouis/alt-tab-macos/commit/b9637e5))
+* improve hiding the ui ([4f5e325](https://github.com/lwouis/alt-tab-macos/commit/4f5e325))
+* merge mouseevents into cursorevents ([9edf312](https://github.com/lwouis/alt-tab-macos/commit/9edf312))
+* move app icon capture to background queue ([5a35aa9](https://github.com/lwouis/alt-tab-macos/commit/5a35aa9))
+* optim hangs from DebugMenu ([4b830e6](https://github.com/lwouis/alt-tab-macos/commit/4b830e6))
+* prevent appkit work ([fefc491](https://github.com/lwouis/alt-tab-macos/commit/fefc491))
+* prevent costly window recursive views update ([41e0e7c](https://github.com/lwouis/alt-tab-macos/commit/41e0e7c))
+* prevent possible frequent permissions check ([216563b](https://github.com/lwouis/alt-tab-macos/commit/216563b))
+* remove normalize-subview to avoid appkit work ([ce2dfc1](https://github.com/lwouis/alt-tab-macos/commit/ce2dfc1))
+* simplify and combine views for better perf ([3a8c0f3](https://github.com/lwouis/alt-tab-macos/commit/3a8c0f3))
+* small optimizations from profiling ([db314c9](https://github.com/lwouis/alt-tab-macos/commit/db314c9))
+* throttle all window/app ax calls ([337e2fb](https://github.com/lwouis/alt-tab-macos/commit/337e2fb))
+* update windows manually after 250s ([52530b2](https://github.com/lwouis/alt-tab-macos/commit/52530b2))
+* use calayer instead of nsview for lightimageview ([7dec9da](https://github.com/lwouis/alt-tab-macos/commit/7dec9da))
+
+
+### BREAKING CHANGES
+
+* major performance improvements
+
+## [8.3.4](https://github.com/lwouis/alt-tab-macos/compare/v8.3.3...v8.3.4) (2026-01-31)
+
+
+### Bug Fixes
+
+* app could sometimes crash in the background ([ab704dc](https://github.com/lwouis/alt-tab-macos/commit/ab704dc)), closes [#5260](https://github.com/lwouis/alt-tab-macos/issues/5260)
+* quitting apps by pressing q multiple times (closes [#5247](https://github.com/lwouis/alt-tab-macos/issues/5247)) ([21aeafd](https://github.com/lwouis/alt-tab-macos/commit/21aeafd))
+
 ## [8.3.3](https://github.com/lwouis/alt-tab-macos/compare/v8.3.2...v8.3.3) (2026-01-25)
 
 

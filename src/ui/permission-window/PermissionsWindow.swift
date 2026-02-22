@@ -7,19 +7,20 @@ class PermissionsWindow: NSWindow {
     override var canBecomeKey: Bool { canBecomeKey_ }
 
     convenience init() {
-        self.init(contentRect: .zero, styleMask: [.titled, .miniaturizable, .closable], backing: .buffered, defer: false)
+        self.init(contentRect: .zero, styleMask: [.titled, .closable], backing: .buffered, defer: false)
         delegate = self
         setupWindow()
         setupView()
+        setFrameAutosaveName("PermissionsWindow")
     }
 
     func show() {
         guard !isVisible else { return }
         Logger.debug { "" }
-        SystemPermissions.setFrequentTimer()
         center()
         App.shared.activate(ignoringOtherApps: true)
         makeKeyAndOrderFront(nil)
+        SystemPermissions.setFrequentTimer()
     }
 
     func updatePermissionViews() {
@@ -33,11 +34,12 @@ class PermissionsWindow: NSWindow {
         title = NSLocalizedString("AltTab needs some permissions", comment: "")
         hidesOnDeactivate = false
         isReleasedWhenClosed = false
-        styleMask.insert([.miniaturizable, .closable])
+        styleMask.insert([.closable])
     }
 
     private func setupView() {
         let appIcon = LightImageView()
+        appIcon.translatesAutoresizingMaskIntoConstraints = false
         appIcon.updateContents(.cgImage(App.appIcon), NSSize(width: 80, height: 80))
         appIcon.fit(80, 80)
         let appText = TitleLabel(NSLocalizedString("AltTab needs some permissions", comment: ""))
@@ -52,7 +54,6 @@ class PermissionsWindow: NSWindow {
             NSLocalizedString("This permission is needed to focus windows after you release the shortcut", comment: ""),
             NSLocalizedString("Open Accessibility Settings…", comment: ""),
             "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility",
-            AccessibilityPermission.update
         )
         var rows = [
             [header],
@@ -65,7 +66,6 @@ class PermissionsWindow: NSWindow {
                 NSLocalizedString("This permission is needed to show thumbnails and preview of open windows", comment: ""),
                 NSLocalizedString("Open Screen Recording Settings…", comment: ""),
                 "x-apple.systempreferences:com.apple.preference.security?Privacy_ScreenCapture",
-                ScreenRecordingPermission.update,
                 StackView(LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Use the app without this permission. Thumbnails won’t show.", comment: ""), "screenRecordingPermissionSkipped", labelPosition: .right))
             )
             rows.append([screenRecordingView])
@@ -100,7 +100,6 @@ extension PermissionsWindow: NSWindowDelegate {
                 return false // prevent the close; termination will close everything once
             }
         }
-        SystemPermissions.setInfrequentTimer()
         return true
     }
 }

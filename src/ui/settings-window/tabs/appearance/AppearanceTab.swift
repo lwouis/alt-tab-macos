@@ -135,7 +135,6 @@ class ShowHideIllustratedView {
         table.onMouseExited = { event, view in
             IllustratedImageThemeView.resetImage(self.illustratedImageView, event, view)
         }
-        table.fit()
         let view = TableGroupSetView(originalViews: [table], padding: 0)
         return view
     }
@@ -158,7 +157,7 @@ class ShowHideIllustratedView {
         hideStatusIcons.supportedStyles = [.thumbnails, .titles]
         hideStatusIcons.leftViews = [TableGroupView.makeText(NSLocalizedString("Hide status icons", comment: ""))]
         hideStatusIcons.subTitle = NSLocalizedString("AltTab will show if the window is currently minimized or fullscreen with a status icon.", comment: "")
-        hideStatusIcons.rightViews.append(LabelAndControl.makeInfoButton(onMouseEntered: { event, view in
+        hideStatusIcons.rightViews.append(LabelAndControl.makeInfoButton(searchableTooltipTexts: [hideStatusIcons.subTitle!], onMouseEntered: { event, view in
             Popover.shared.show(event: event, positioningView: view, message: hideStatusIcons.subTitle!)
         }, onMouseExited: { event, view in
             Popover.shared.hide()
@@ -195,7 +194,7 @@ class ShowHideIllustratedView {
         showTabsAsWindows.supportedStyles = [.thumbnails, .appIcons, .titles]
         showTabsAsWindows.leftViews = [TableGroupView.makeText(NSLocalizedString("Show standard tabs as windows", comment: ""))]
         showTabsAsWindows.subTitle = NSLocalizedString("Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately.", comment: "")
-        showTabsAsWindows.rightViews.append(LabelAndControl.makeInfoButton(onMouseEntered: { event, view in
+        showTabsAsWindows.rightViews.append(LabelAndControl.makeInfoButton(searchableTooltipTexts: [featureUnavailable, showTabsAsWindows.subTitle!], onMouseEntered: { event, view in
             if ShowHideIllustratedView.isDisabledOnApplications(showTabsAsWindows) {
                 Popover.shared.show(event: event, positioningView: view, message: featureUnavailable)
             } else {
@@ -210,32 +209,10 @@ class ShowHideIllustratedView {
             }
         }))
         showHideRows.append(showTabsAsWindows)
-        var previewSelectedWindow = ShowHideRowInfo()
-        previewSelectedWindow.rowId = "previewFocusedWindow"
-        previewSelectedWindow.uncheckedImage = "hide_preview_focused_window"
-        previewSelectedWindow.checkedImage = "show_preview_focused_window"
-        previewSelectedWindow.supportedStyles = [.thumbnails, .appIcons, .titles]
-        previewSelectedWindow.leftViews = [TableGroupView.makeText(NSLocalizedString("Preview selected window", comment: ""))]
-        previewSelectedWindow.subTitle = NSLocalizedString("Preview the selected window.", comment: "")
-        previewSelectedWindow.rightViews.append(LabelAndControl.makeInfoButton(onMouseEntered: { event, view in
-            if ShowHideIllustratedView.isDisabledOnApplications(previewSelectedWindow) {
-                Popover.shared.show(event: event, positioningView: view, message: featureUnavailable)
-            } else {
-                Popover.shared.show(event: event, positioningView: view, message: previewSelectedWindow.subTitle!)
-            }
-        }, onMouseExited: { event, view in
-            Popover.shared.hide()
-        }))
-        previewSelectedWindow.rightViews.append(LabelAndControl.makeSwitch(previewSelectedWindow.rowId, extraAction: { sender in
-            if !ShowHideIllustratedView.isDisabledOnApplications(previewSelectedWindow) {
-                self.onCheckboxClicked(sender: sender, rowId: previewSelectedWindow.rowId)
-            }
-        }))
-        showHideRows.append(previewSelectedWindow)
     }
 
     static func isDisabledOnApplications(_ row: ShowHideRowInfo) -> Bool {
-        let contains = ["showTabsAsWindows", "previewFocusedWindow"].contains(where: { $0 == row.rowId })
+        let contains = ["showTabsAsWindows"].contains(where: { $0 == row.rowId })
         return contains && Preferences.onlyShowApplications()
     }
 
@@ -312,6 +289,10 @@ class ShowHideIllustratedView {
 class Popover: NSPopover {
     static let shared = Popover()
     private var hidingInitiated = true
+    private var searchQuery = ""
+    private var searchMatchRanges: ((String, String) -> [Range<Int>])?
+    private var currentMessage = ""
+    private weak var currentMessageLabel: NSTextField?
 
     override init() {
         super.init()
@@ -326,6 +307,12 @@ class Popover: NSPopover {
 
     func hide() {
         performClose(nil)
+    }
+
+    func updateSearchContext(_ query: String, _ searchMatchRanges: @escaping (String, String) -> [Range<Int>]) {
+        searchQuery = query
+        self.searchMatchRanges = searchMatchRanges
+        applySearchHighlightToCurrentMessage()
     }
 
     func show(event: NSEvent, positioningView: NSView, message: String, extraView: NSView? = nil) {
@@ -348,6 +335,9 @@ class Popover: NSPopover {
             actualView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             actualView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
         ])
+        currentMessage = message
+        currentMessageLabel = label
+        applySearchHighlightToCurrentMessage()
         contentViewController?.view = view
         // Convert the mouse location to the positioning view's coordinate system
         let locationInWindow = event.locationInWindow
@@ -355,11 +345,45 @@ class Popover: NSPopover {
         let rect = CGRect(origin: locationInPositioningView, size: .zero)
         show(relativeTo: rect, of: positioningView, preferredEdge: .minX)
     }
+
+    private func applySearchHighlightToCurrentMessage() {
+        guard let label = currentMessageLabel else { return }
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: label.font ?? NSFont.systemFont(ofSize: 12),
+            .foregroundColor: label.textColor ?? NSColor.labelColor
+        ]
+        let attributed = NSMutableAttributedString(string: currentMessage, attributes: attributes)
+        guard let searchMatchRanges, !currentMessage.isEmpty else {
+            label.attributedStringValue = attributed
+            return
+        }
+        let ranges = searchMatchRanges(searchQuery, currentMessage)
+        guard !ranges.isEmpty else {
+            label.attributedStringValue = attributed
+            return
+        }
+        ranges.compactMap {
+            characterRangeToNSRange($0, in: currentMessage)
+        }.forEach {
+            attributed.addAttribute(.backgroundColor, value: NSColor.systemYellow.withAlphaComponent(0.5), range: $0)
+            attributed.addAttribute(.foregroundColor, value: NSColor(calibratedWhite: 0.12, alpha: 1), range: $0)
+        }
+        label.attributedStringValue = attributed
+    }
+
+    private func characterRangeToNSRange(_ range: Range<Int>, in text: String) -> NSRange? {
+        if range.lowerBound < 0 || range.upperBound > text.count || range.isEmpty { return nil }
+        let start = text.index(text.startIndex, offsetBy: range.lowerBound)
+        let end = text.index(text.startIndex, offsetBy: range.upperBound)
+        return NSRange(start..<end, in: text)
+    }
 }
 
 extension Popover: NSPopoverDelegate {
     func popoverWillClose(_ notification: Notification) {
         hidingInitiated = true
+        currentMessage = ""
+        currentMessageLabel = nil
     }
 }
 
@@ -368,6 +392,7 @@ class AppearanceTab: NSObject {
     static var animationsButton: NSButton!
     static var customizeStyleSheet: CustomizeStyleSheet!
     static var animationsSheet: AnimationsSheet!
+    static var previewSelectedWindowRowInfo: TableGroupView.RowInfo!
 
     static func initTab() -> NSView {
         customizeStyleButton = NSButton(title: getCustomizeStyleButtonTitle(), target: self, action: #selector(showCustomizeStyleSheet))
@@ -380,33 +405,63 @@ class AppearanceTab: NSObject {
     private static func makeView() -> NSStackView {
         let appearanceView = makeAppearanceView()
         let multipleScreensView = makeMultipleScreensView()
-        let view = TableGroupSetView(originalViews: [appearanceView, multipleScreensView, animationsButton])
+        let view = TableGroupSetView(originalViews: [appearanceView, multipleScreensView, animationsButton], titleTableGroupSpacing: 15, bottomPadding: 0)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.widthAnchor.constraint(equalToConstant: view.fittingSize.width).isActive = true
         return view
     }
 
     private static func makeAppearanceView() -> NSView {
-        let table = TableGroupView(title: NSLocalizedString("Appearance", comment: ""),
-            subTitle: NSLocalizedString("Switch between 3 different styles. You can customize them.", comment: ""),
-            width: PreferencesWindow.width)
+        let table = TableGroupView(subTitle: NSLocalizedString("Switch between 3 different styles. You can customize them.", comment: ""),
+            width: SettingsWindow.contentWidth)
         table.addRow(secondaryViews: [LabelAndControl.makeImageRadioButtons("appearanceStyle", AppearanceStylePreference.allCases, extraAction: { _ in
             toggleCustomizeStyleButton()
+            updatePreviewSelectedWindowState()
         }, buttonSpacing: 10)], secondaryViewsAlignment: .centerX)
         table.addRow(leftText: NSLocalizedString("Size", comment: ""),
             rightViews: [LabelAndControl.makeSegmentedControl("appearanceSize", AppearanceSizePreference.allCases, segmentWidth: 100)])
         table.addRow(leftText: NSLocalizedString("Theme", comment: ""),
             rightViews: [LabelAndControl.makeSegmentedControl("appearanceTheme", AppearanceThemePreference.allCases, segmentWidth: 100)])
+        addAfterKeysReleasedRow(table)
+        addPreviewSelectedWindowRow(table)
         table.addRow(rightViews: customizeStyleButton)
-        table.fit()
         return table
     }
 
+    private static func addAfterKeysReleasedRow(_ table: TableGroupView) {
+        table.addRow(leftText: NSLocalizedString("After keys are released", comment: ""),
+            rightViews: [LabelAndControl.makeDropdown("shortcutStyle", ShortcutStylePreference.allCases)])
+    }
+
+    private static func addPreviewSelectedWindowRow(_ table: TableGroupView) {
+        previewSelectedWindowRowInfo = table.addRow(leftText: NSLocalizedString("Preview selected window", comment: ""),
+            rightViews: [LabelAndControl.makeSwitch("previewFocusedWindow")])
+        updatePreviewSelectedWindowState()
+    }
+
+    static func updatePreviewSelectedWindowState() {
+        guard let rowInfo = previewSelectedWindowRowInfo else { return }
+        let isEnabled = !isPreviewSelectedWindowDisabled()
+        rowInfo.leftViews?.forEach { view in
+            if let textField = view as? NSTextField {
+                textField.textColor = isEnabled ? .textColor : .gray
+            }
+        }
+        rowInfo.rightViews?.forEach { view in
+            if let switchControl = view as? Switch {
+                switchControl.isEnabled = isEnabled
+            }
+        }
+    }
+
+    private static func isPreviewSelectedWindowDisabled() -> Bool {
+        return Preferences.onlyShowApplications()
+    }
+
     private static func makeMultipleScreensView() -> NSView {
-        let table = TableGroupView(title: NSLocalizedString("Multiple screens", comment: ""), width: PreferencesWindow.width)
+        let table = TableGroupView(title: NSLocalizedString("Multiple screens", comment: ""), width: SettingsWindow.contentWidth)
         _ = table.addRow(leftText: NSLocalizedString("Show on", comment: ""),
             rightViews: LabelAndControl.makeDropdown("showOnScreen", ShowOnScreenPreference.allCases))
-        table.fit()
         return table
     }
 
@@ -430,10 +485,10 @@ class AppearanceTab: NSObject {
     }
 
     @objc static func showCustomizeStyleSheet() {
-        App.app.preferencesWindow.beginSheet(customizeStyleSheet)
+        App.app.settingsWindow.beginSheetWithSearchHighlight(customizeStyleSheet)
     }
 
     @objc static func showAnimationsSheet() {
-        App.app.preferencesWindow.beginSheet(animationsSheet)
+        App.app.settingsWindow.beginSheetWithSearchHighlight(animationsSheet)
     }
 }

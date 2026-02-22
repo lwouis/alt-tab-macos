@@ -4,6 +4,9 @@ import Carbon.HIToolbox.Events
 class CursorEvents {
     private static var eventTap: CFMachPort!
     private static var shouldBeEnabled: Bool!
+    private static var mouseDownTileView: TileView?
+    private static var mouseDownButton: TrafficLightButton?
+    private static var mouseDownInsideSearchField = false
     static var deadZoneInitialPosition: CGPoint?
     static var isAllowedToMouseHover = true
 
@@ -23,7 +26,7 @@ class CursorEvents {
     }
 
     private static func observe_() {
-        let eventMask = [CGEventType.mouseMoved].reduce(CGEventMask(0), { $0 | (1 << $1.rawValue) })
+        let eventMask = [CGEventType.leftMouseDown, CGEventType.leftMouseUp, CGEventType.otherMouseUp, CGEventType.mouseMoved].reduce(CGEventMask(0), { $0 | (1 << $1.rawValue) })
         // CGEvent.tapCreate returns nil if ensureAccessibilityCheckboxIsChecked() didn't pass
         eventTap = CGEvent.tapCreate(
             tap: .cgSessionEventTap,
@@ -35,7 +38,7 @@ class CursorEvents {
         if let eventTap {
             toggle(false)
             let runLoopSource = CFMachPortCreateRunLoopSource(nil, eventTap, 0)
-            // we run on main-thread directly since all we do is check NSEvent data, which we must do on main-thread
+            // we run on main-thread directly since all we do is check NSEvent and UI coordinates, which we must do on main-thread
             CFRunLoopAddSource(CFRunLoopGetMain(), runLoopSource, .commonModes)
         } else {
             App.app.restart()
@@ -43,12 +46,114 @@ class CursorEvents {
     }
 
     private static let handleEvent: CGEventTapCallBack = { _, type, cgEvent, _ in
-        if type == .mouseMoved {
-            updateDeadzoneSituation(cgEvent)
-        } else if (type == .tapDisabledByUserInput || type == .tapDisabledByTimeout) && shouldBeEnabled {
-            CGEvent.tapEnable(tap: eventTap!, enable: true)
+        switch type {
+            case .leftMouseDown: return handleLeftMouseDown(cgEvent)
+            case .leftMouseUp where cgEvent.getIntegerValueField(.mouseEventClickState) >= 1: return handleLeftMouseUp(cgEvent)
+            case .otherMouseUp: return handleOtherMouseUp(cgEvent)
+            case .mouseMoved: return handleMouseMoved(cgEvent)
+            case .tapDisabledByUserInput, .tapDisabledByTimeout:
+                if shouldBeEnabled { CGEvent.tapEnable(tap: eventTap!, enable: true) }
+                return Unmanaged.passUnretained(cgEvent)
+            default: return Unmanaged.passUnretained(cgEvent)
         }
-        return Unmanaged.passUnretained(cgEvent) // focused app will receive the event
+    }
+
+    private static func handleLeftMouseDown(_ cgEvent: CGEvent) -> Unmanaged<CGEvent>? {
+        if isPointerInsideSearchField() {
+            mouseDownInsideSearchField = true
+            return Unmanaged.passUnretained(cgEvent)
+        }
+        mouseDownInsideSearchField = false
+        guard isPointerInsideUi() else { return nil }
+        if let button = findButtonUnderPointer() {
+            mouseDownButton = button
+            button.isHighlighted = true
+            button.setNeedsDisplay()
+        } else {
+            mouseDownTileView = findTileViewUnderPointer()
+        }
+        return nil
+    }
+
+    private static func handleLeftMouseUp(_ cgEvent: CGEvent) -> Unmanaged<CGEvent>? {
+        if mouseDownInsideSearchField || isPointerInsideSearchField() {
+            mouseDownInsideSearchField = false
+            return Unmanaged.passUnretained(cgEvent)
+        }
+        guard isPointerInsideUi() else {
+            App.app.hideUi()
+            return nil
+        }
+        if let button = mouseDownButton {
+            mouseDownButton = nil
+            button.isHighlighted = false
+            button.setNeedsDisplay()
+            if findButtonUnderPointer() === button {
+                button.onClick()
+            }
+            return nil
+        }
+        if let target = mouseDownTileView {
+            mouseDownTileView = nil
+            if isPointerOver(target) {
+                target.mouseUpCallback()
+            }
+            return nil
+        }
+        return nil
+    }
+
+    private static func handleOtherMouseUp(_ cgEvent: CGEvent) -> Unmanaged<CGEvent>? {
+        guard isPointerInsideUi(),
+              cgEvent.getIntegerValueField(.mouseEventButtonNumber) == 2,
+              let target = findTileViewUnderPointer(),
+              let window = target.window_ else {
+            return Unmanaged.passUnretained(cgEvent)
+        }
+        window.isWindowlessApp ? window.application.quit() : window.close()
+        return nil
+    }
+
+    private static func handleMouseMoved(_ cgEvent: CGEvent) -> Unmanaged<CGEvent>? {
+        updateDeadzoneSituation(cgEvent)
+        if isAllowedToMouseHover {
+            App.app.tilesPanel.tilesView.thumbnailOverView.updateHover()
+        }
+        return Unmanaged.passUnretained(cgEvent)
+    }
+
+    private static func pointerLocationInWindow() -> NSPoint {
+        App.app.tilesPanel.mouseLocationOutsideOfEventStream
+    }
+
+    private static func isPointerInsideUi() -> Bool {
+        App.app.tilesPanel.contentLayoutRect.contains(pointerLocationInWindow())
+    }
+
+    private static func isPointerInsideSearchField() -> Bool {
+        let searchField = App.app.tilesPanel.tilesView.searchField
+        if searchField.isHidden { return false }
+        let point = searchField.convert(pointerLocationInWindow(), from: nil)
+        return searchField.bounds.contains(point)
+    }
+
+    private static func isPointerOver(_ view: NSView) -> Bool {
+        view.bounds.contains(view.convert(pointerLocationInWindow(), from: nil))
+    }
+
+    private static func pointerInOverlay() -> (TileOverView, NSPoint) {
+        let overlay = App.app.tilesPanel.tilesView.thumbnailOverView
+        return (overlay, overlay.convert(pointerLocationInWindow(), from: nil))
+    }
+
+    private static func findButtonUnderPointer() -> TrafficLightButton? {
+        let (overlay, point) = pointerInOverlay()
+        return overlay.findButton(point)
+    }
+
+    private static func findTileViewUnderPointer() -> TileView? {
+        let (overlay, point) = pointerInOverlay()
+        return overlay.findTarget(point)
     }
 
     /// when using the trackpad, the user may swipe with a slight mistake. This will create a small cursor movement
@@ -62,7 +167,6 @@ class CursorEvents {
         }
         let deltaX = event.locationInWindow.x - deadZoneInitialPosition.x
         let deltaY = event.locationInWindow.y - deadZoneInitialPosition.y
-        let d = hypot(deltaX, deltaY)
-        isAllowedToMouseHover = d > 25
+        if hypot(deltaX, deltaY) > 25 { isAllowedToMouseHover = true }
     }
 }

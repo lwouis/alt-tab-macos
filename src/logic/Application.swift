@@ -19,10 +19,7 @@ class Application: NSObject {
     var dockLabel: String?
     var focusedWindow: Window? = nil
     var alreadyRequestedToQuit = false
-
-    func debugId() -> String {
-        return "(pid:\(pid) \(bundleIdentifier ?? bundleURL?.absoluteString ?? executableURL?.absoluteString ?? localizedName))"
-    }
+    var debugId: String
 
     static let notifications = [
         kAXApplicationActivatedNotification,
@@ -54,14 +51,16 @@ class Application: NSObject {
     /// MacOS Big Sur also introduced a constant padding around app icons. It was later increased with Tahoe. We have to crop it
     static func appIconWithoutPadding(_ icon: NSImage?) -> CGImage? {
         guard let icon else { return nil }
-        let finalWidth = max(ThumbnailsPanel.maxPossibleAppIconSize.width, ThumbnailsPanel.maxPossibleAppIconSize.height)
+        let finalWidth = max(TilesPanel.maxPossibleAppIconSize.width, TilesPanel.maxPossibleAppIconSize.height)
         // we hardcode cropping values based on a reference 1024 icon, and depending on the macOS version
         let padding = appIconPadding * (finalWidth / (1024 - appIconPadding * 2))
         // we need a bigger image size, since we'll crop to reach finalWidth
         let sourceWidth = finalWidth + padding * 2
         // we ask the NSImage for the closest image it has to our desired size. It's likely to return a 1024x1024 or 512x512 image; whichever is closest
         var proposedRect = CGRect(origin: .zero, size: NSSize(width: sourceWidth, height: sourceWidth))
-        guard let cgImage = icon.cgImage(forProposedRect: &proposedRect, context: nil, hints: [.interpolation: NSImageInterpolation.high]) else { return nil }
+        // this convoluted style avoids a crash on macOS 10.13 (see #5255)
+        let hints : [NSImageRep.HintKey : NSNumber] = [.interpolation : NSNumber(value: NSImageInterpolation.high.rawValue)]
+        guard let cgImage = icon.cgImage(forProposedRect: &proposedRect, context: nil, hints: hints) else { return nil }
         // we have to crop this image; let's scale our intended padding, given the image size we got
         let paddingScaled = padding * (CGFloat(cgImage.width) / sourceWidth)
         guard let image = cgImage.cropping(to: CGRect(x: paddingScaled, y: paddingScaled, width: CGFloat(cgImage.width) - paddingScaled * 2, height: CGFloat(cgImage.height) - paddingScaled * 2).integral),
@@ -76,13 +75,20 @@ class Application: NSObject {
         pid = runningApplication.processIdentifier
         isHidden = runningApplication.isHidden
         hasBeenActiveOnce = runningApplication.isActive
-        icon = Application.appIconWithoutPadding(runningApplication.icon)
         localizedName = runningApplication.localizedName
         bundleIdentifier = runningApplication.bundleIdentifier
         bundleURL = runningApplication.bundleURL
         executableURL = runningApplication.executableURL
+        debugId = "(pid:\(pid) \(bundleIdentifier ?? bundleURL?.absoluteString ?? executableURL?.absoluteString ?? localizedName))"
         super.init()
-        Logger.info { self.debugId() }
+        BackgroundWork.screenshotsQueue.addOperation { [weak self] in
+            guard let self else { return }
+            let r = Application.appIconWithoutPadding(runningApplication.icon)
+            DispatchQueue.main.async { [weak self] in
+                self?.icon = r
+            }
+        }
+        Logger.info { self.debugId }
         observeEventsIfEligible()
         kvObservers = [
             runningApplication.observe(\.isFinishedLaunching, options: [.new]) { [weak self] _, _ in
@@ -100,7 +106,7 @@ class Application: NSObject {
     }
 
     deinit {
-        Logger.info { self.debugId() }
+        Logger.info { self.debugId }
     }
 
 
@@ -118,21 +124,24 @@ class Application: NSObject {
 
     private func observeEvents() {
         guard let axObserver else { return }
-        AXUIElement.retryAxCallUntilTimeout(context: debugId(), pid: pid, callType: .subscribeToAppNotification) { [weak self] in
+        AXUIElement.retryAxCallUntilTimeout(context: debugId, pid: pid, callType: .subscribeToAppNotification) { [weak self] in
             guard let self, !self.isReallyFinishedLaunching else { return }
             if try self.axUiElement!.subscribeToNotification(axObserver, Application.notifications.first!) {
-                Logger.debug { "Subscribed to app: \(self.debugId())" }
+                Logger.debug { "Subscribed to app: \(self.debugId)" }
                 if !self.isReallyFinishedLaunching {
                     // some apps have `isFinishedLaunching == true` but are actually not finished, and will return .cannotComplete
                     // we consider them ready when the first subscription succeeds
                     // windows opened before that point won't send a notification, so check those windows manually here
                     self.isReallyFinishedLaunching = true
                     for notification in Application.notifications.dropFirst() {
-                        AXUIElement.retryAxCallUntilTimeout(context: self.debugId(), pid: self.pid, callType: .subscribeToAppNotification) { [weak self] in
+                        AXUIElement.retryAxCallUntilTimeout(context: self.debugId, pid: self.pid, callType: .subscribeToAppNotification) { [weak self] in
                             try self?.axUiElement!.subscribeToNotification(axObserver, notification)
                         }
                     }
                     DispatchQueue.main.async { [weak self] in
+                        // apps don't always create kAXApplicationActivatedNotification upon launch; we update frontmostPid in case it has changed
+                        Applications.frontmostPid = NSWorkspace.shared.frontmostApplication?.processIdentifier
+                        // apps don't always send kAXWindowCreatedNotification upon launch; we manually check to prevent missing windows
                         self?.manuallyUpdateWindows()
                     }
                 }
@@ -142,14 +151,14 @@ class Application: NSObject {
     }
 
     func manuallyUpdateWindows() {
-        AXUIElement.retryAxCallUntilTimeout(context: debugId(), pid: pid, callType: .updateAppWindows) { [weak self] in
+        AXUIElement.retryAxCallUntilTimeout(context: debugId, pid: pid, callType: .updateAppWindows) { [weak self] in
             guard let self, let axUiElement = self.axUiElement else { return }
             let axWindows = try axUiElement.allWindows(self.pid)
             guard !axWindows.isEmpty else {
                 DispatchQueue.main.async { [weak self] in
                     guard let self else { return }
                     if self.addWindowlessWindowIfNeeded() != nil {
-                        App.app.refreshOpenUi([], .refreshUiAfterExternalEvent)
+                        App.app.refreshOpenUiAfterExternalEvent([])
                     }
                 }
                 // workaround: some apps launch but take a while to create their window(s)
@@ -163,9 +172,25 @@ class Application: NSObject {
                 return
             }
             for axWindow in axWindows {
-                let wid = try axWindow.cgWindowId()
-                guard wid != 0 else { continue } // some bogus "windows" have wid 0
-                try AccessibilityEvents.handleEventWindow(kAXWindowCreatedNotification, wid, pid, axWindow)
+                guard let wid = try? axWindow.cgWindowId() else { continue }
+                AXUIElement.retryAxCallUntilTimeout(context: debugId, pid: pid, wid: wid, callType: .updateWindowFromManualDiscovery) { [weak self] in
+                    try self?.manuallyUpdateWindow(axWindow, wid)
+                }
+            }
+        }
+    }
+
+    func manuallyUpdateWindow(_ axWindow: AXUIElement, _ wid: CGWindowID) throws {
+        guard wid != 0 && wid != App.app.tilesPanel.windowNumber else { return } // some bogus "windows" have wid 0
+        let level = wid.level()
+        let a = try axWindow.attributes([kAXTitleAttribute, kAXSubroleAttribute, kAXRoleAttribute, kAXSizeAttribute, kAXPositionAttribute, kAXFullscreenAttribute, kAXMinimizedAttribute])
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            let findOrCreate = Windows.findOrCreate(axWindow, wid, self, level, a.title, a.subrole, a.role, a.size, a.position, a.isFullscreen, a.isMinimized)
+            guard let window = findOrCreate.0 else { return }
+            if findOrCreate.1 {
+                Logger.info { "manuallyUpdateWindows found a new window:\(window.debugId)" }
+                App.app.refreshOpenUiAfterExternalEvent([window])
             }
         }
     }
@@ -177,14 +202,14 @@ class Application: NSObject {
         let window = Window(self)
         Windows.appendWindow(window)
         focusedWindow = nil
-        App.app.refreshOpenUi([], .refreshUiAfterExternalEvent)
+        App.app.refreshOpenUiAfterExternalEvent([])
         return window
     }
 
     func removeWindowlessAppWindow() {
         guard let windowlessAppWindow = (Windows.list.first { $0.isWindowlessApp == true && $0.application.pid == pid }) else { return }
         Windows.removeWindows([windowlessAppWindow], false)
-        App.app.refreshOpenUi([], .refreshUiAfterExternalEvent)
+        App.app.refreshOpenUiAfterExternalEvent([])
     }
 
     func hideOrShow() {

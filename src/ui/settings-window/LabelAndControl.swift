@@ -34,6 +34,7 @@ class MouseHoverView: NSView {
 class ClickHoverImageView: MouseHoverView {
     var infoCircle: NSView!
     var onClick: EventClosure?
+    var searchableStrings = [String]()
 
     init(infoCircle: NSView) {
         super.init(frame: .zero)
@@ -92,9 +93,16 @@ class LabelAndControl: NSObject {
         }
         let view = NSStackView(views: buttonViews)
         view.orientation = .horizontal
+        view.distribution = .fillEqually
         view.spacing = buttonSpacing
         view.alignment = .centerY
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        view.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        buttonViews.forEach {
+            $0.setContentHuggingPriority(.defaultLow, for: .horizontal)
+            $0.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        }
         return view
     }
 
@@ -130,11 +138,18 @@ class LabelAndControl: NSObject {
     }
 
     static func makeInfoButton(size: CGFloat = 16,
+                               searchableTooltipTexts: [String] = [],
                                onClick: EventClosure? = nil,
                                onMouseEntered: EventClosure? = nil,
                                onMouseExited: EventClosure? = nil) -> ClickHoverImageView {
-        let imageView = ThumbnailFontIconView(symbol: .circledInfo, size: size, color: .labelColor)
+        let imageView = TileFontIconView(symbol: .circledInfo, size: size, color: .labelColor)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         let view = ClickHoverImageView(infoCircle: imageView)
+        view.searchableStrings = Array(Set(searchableTooltipTexts.map {
+            $0.trimmingCharacters(in: .whitespacesAndNewlines)
+        }.filter {
+            !$0.isEmpty
+        }))
         view.onClick = onClick
         view.onMouseEntered = onMouseEntered
         view.onMouseExited = onMouseExited
@@ -230,7 +245,7 @@ class LabelAndControl: NSObject {
             $0.localizedString
         }, trackingMode: .selectOne, target: nil, action: nil)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.segmentStyle = .automatic
+        applySystemSelectedSegmentStyle(button)
         for (i, preference) in macroPreferences.enumerated() {
             if segmentWidth > 0 {
                 button.setWidth(segmentWidth, forSegment: i)
@@ -249,6 +264,14 @@ class LabelAndControl: NSObject {
             _ = setupControl(button, rawName, String(i), extraAction: extraAction)
         }
         return button
+    }
+
+    static func applySystemSelectedSegmentStyle(_ control: NSSegmentedControl) {
+        if #available(macOS 10.14, *) {
+            control.segmentStyle = .automatic
+        } else {
+            control.segmentStyle = .texturedRounded
+        }
     }
 
     static func makeLabelWithSlider(_ labelText: String, _ rawName: String, _ minValue: Double, _ maxValue: Double,
@@ -310,13 +333,6 @@ class LabelAndControl: NSObject {
                 updateSuffixWithValue(senderControl as! NSSlider, newValue)
             }
             Preferences.set(senderControl.identifier!.rawValue, newValue)
-        }
-        // some preferences require re-creating some components
-        if (!(senderControl is NSSlider) || (NSEvent.pressedMouseButtons & (1 << 0)) == 0) &&
-               (["appearanceStyle", "appearanceSize", "appearanceTheme", "showOnScreen", "showAppsOrWindows"].contains { (pref: String) -> Bool in
-                   pref == senderControl.identifier!.rawValue
-               }) {
-            (App.shared as! App).resetPreferencesDependentComponents()
         }
     }
 

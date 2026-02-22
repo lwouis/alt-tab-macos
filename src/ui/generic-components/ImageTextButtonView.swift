@@ -26,7 +26,7 @@ class ImageTextButtonView: NSStackView {
     static let spacing = CGFloat(5)
     static let cornerRadius = CGFloat(7)
     static let borderWidth = CGFloat(3)
-    static let padding = CGFloat(2)
+    static let padding = CGFloat(0)
 
     var onClick: ActionClosure?
     var button: NSButton!
@@ -81,22 +81,22 @@ class ImageTextButtonView: NSStackView {
         imageView.layer?.cornerRadius = cornerRadius - 3
         imageContainer.addSubview(imageView)
         NSLayoutConstraint.activate([
-            imageView.widthAnchor.constraint(equalToConstant: image.width),
-            imageView.heightAnchor.constraint(equalToConstant: image.height),
             imageView.topAnchor.constraint(equalTo: imageContainer.topAnchor, constant: padding),
             imageView.bottomAnchor.constraint(equalTo: imageContainer.bottomAnchor, constant: -padding),
             imageView.leadingAnchor.constraint(equalTo: imageContainer.leadingAnchor, constant: padding),
             imageView.trailingAnchor.constraint(equalTo: imageContainer.trailingAnchor, constant: -padding),
         ])
         button.addSubview(imageContainer)
+        let imageAspectRatio = image.height / image.width
         NSLayoutConstraint.activate([
-            imageContainer.centerXAnchor.constraint(equalTo: button.centerXAnchor),
-            imageContainer.centerYAnchor.constraint(equalTo: button.centerYAnchor),
-            imageContainer.widthAnchor.constraint(equalTo: button.widthAnchor),
-            imageContainer.heightAnchor.constraint(equalTo: button.heightAnchor),
+            imageContainer.topAnchor.constraint(equalTo: button.topAnchor),
+            imageContainer.bottomAnchor.constraint(equalTo: button.bottomAnchor),
+            imageContainer.leadingAnchor.constraint(equalTo: button.leadingAnchor),
+            imageContainer.trailingAnchor.constraint(equalTo: button.trailingAnchor),
             button.topAnchor.constraint(equalTo: topAnchor, constant: ImageTextButtonView.borderWidth),
             button.leadingAnchor.constraint(equalTo: leadingAnchor, constant: ImageTextButtonView.borderWidth),
             button.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -ImageTextButtonView.borderWidth),
+            button.heightAnchor.constraint(equalTo: button.widthAnchor, multiplier: imageAspectRatio),
         ])
         button.identifier = NSUserInterfaceItemIdentifier(rawName)
         button.onAction = { control in

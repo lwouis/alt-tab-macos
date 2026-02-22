@@ -2,6 +2,24 @@ import Cocoa
 import Darwin
 import Carbon.HIToolbox.Events
 
+class NoAnimationDelegate: NSObject, CALayerDelegate {
+    static let shared = NoAnimationDelegate()
+    func action(for layer: CALayer, forKey event: String) -> (any CAAction)? { NSNull() }
+}
+
+func noAnimation<T: CALayer>(_ make: () -> T) -> T {
+    let layer = make()
+    layer.delegate = NoAnimationDelegate.shared
+    return layer
+}
+
+func caTransaction(_ body: () -> Void) {
+    CATransaction.begin()
+    defer { CATransaction.commit() }
+    CATransaction.setDisableActions(true)
+    body()
+}
+
 extension NSAppearance {
     func getThemeName() -> AppearanceThemePreference {
         if #available(macOS 10.14, *) {
@@ -71,6 +89,22 @@ extension NSColor {
     }
 }
 
+extension CALayer {
+    func centerInSuperlayer(x: Bool = false, y: Bool = false) {
+        guard let superlayer else { return }
+        if x { frame.origin.x = ((superlayer.bounds.width - frame.width) / 2).rounded() }
+        if y { frame.origin.y = ((superlayer.bounds.height - frame.height) / 2).rounded() }
+    }
+
+    func applyShadow(_ shadow: NSShadow?) {
+        guard let shadow else { shadowOpacity = 0; return }
+        shadowColor = shadow.shadowColor?.cgColor
+        shadowOffset = shadow.shadowOffset
+        shadowRadius = shadow.shadowBlurRadius
+        shadowOpacity = 1.0
+    }
+}
+
 extension NSView {
     // constrain size to fittingSize
     func fit() {
@@ -105,26 +139,15 @@ extension NSView {
     }
 
     func setSubviews(_ views: [NSView]) {
-        for view in views {
-            normalizeSubview(view)
-        }
         subviews = views
     }
 
     func addSubviews(_ views: [NSView]) {
-        for view in views {
-            normalizeSubview(view)
-        }
         subviews = subviews + views
     }
 
     func setSubviewAbove(_ view: NSView) {
-        normalizeSubview(view)
         addSubview(view, positioned: .above, relativeTo: nil)
-    }
-
-    private func normalizeSubview(_ view: NSView) {
-        view.translatesAutoresizingMaskIntoConstraints = false
     }
 }
 
@@ -223,7 +246,7 @@ extension CGImage {
         return NSSize(width: width, height: height)
     }
 
-    func iFullyTransparent() -> Bool {
+    func isFullyTransparent() -> Bool {
         guard ![.none, .noneSkipFirst, .noneSkipLast].contains(alphaInfo),
               let provider = dataProvider, let data = provider.data, let ptr = CFDataGetBytePtr(data)
         else { return false }

@@ -17,8 +17,8 @@
     <meta name="theme-color" content="#ffffff">
 
     <title>
-        {% if page.title == "Introduction" %} {{ site.title }} - {{ site.description }}
-        {% else %} {{ site.title }} - {{ page.title }} {% endif %}
+        {% if page.name == "Introduction.md" %} {{ site.title }} - {{ site.description }}
+        {% else %} {{ site.title }} - {{ page.name | remove: ".md" }} {% endif %}
     </title>
 
     <style type="text/css">
@@ -63,7 +63,7 @@
                 </div>
                 <div id="download-section">
                     <a class="button rainbow" href="{{ site.github.latest_release.assets[0].browser_download_url }}">Download</a>
-                    <div id="downloads">6.6M downloads</div>
+                    <div id="downloads">6.9M downloads</div>
                 </div>
             </div>
 

@@ -1,7 +1,7 @@
 import Foundation
 
 class AppearanceTestable {
-    /// How wide should the ThumbnailsPanel be, for comfortable viewing?
+    /// How wide should the TilesPanel be, for comfortable viewing?
     /// * a comfortable field-of-view is 50-60 degrees
     /// * people sit at various distances from the screen. We can't know how far they sit
     /// * most people will seat far enough so that they can view the whole width of the screen

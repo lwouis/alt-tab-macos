@@ -17,12 +17,12 @@ class AdditionalControlsSheet: SheetWindow {
         ControlsTab.arrowKeysEnabledCallback(ControlsTab.arrowKeysCheckbox)
         ControlsTab.vimKeysEnabledCallback(ControlsTab.vimKeysCheckbox)
         let table1 = TableGroupView(title: NSLocalizedString("Additional controls", comment: ""),
-            width: PreferencesWindow.width)
+            width: SheetWindow.width)
         _ = table1.addRow(enableArrows)
         _ = table1.addRow(enableVimKeys)
         _ = table1.addRow(enableMouse)
         let table2 = TableGroupView(title: NSLocalizedString("Miscellaneous", comment: ""),
-            width: PreferencesWindow.width)
+            width: SheetWindow.width)
         _ = table2.addRow(enableCursorFollowFocus)
         _ = table2.addRow(enableTrackpadHapticFeedback)
         let view = TableGroupSetView(originalViews: [table1, table2], padding: 0)

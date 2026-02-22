@@ -16,22 +16,27 @@ class App: AppCenterApplication {
     static let repository = "https://github.com/lwouis/alt-tab-macos"
     static let website = "https://alt-tab-macos.netlify.app"
     static let appIcon = CGImage.named("app.icns")
+    static var supportProjectAction: Selector { #selector(App.app.supportProject) }
     static var app: App!
     var isTerminating = false
-    var thumbnailsPanel: ThumbnailsPanel!
+    var tilesPanel: TilesPanel!
     var previewPanel: PreviewPanel!
-    var preferencesWindow: PreferencesWindow!
-    var permissionsWindow: PermissionsWindow!
     var appIsBeingUsed = false
     var shortcutIndex = 0
     var forceDoNothingOnRelease = false
+    var settingsWindow: SettingsWindow!
+    var aboutWindow: AboutWindow!
+    var permissionsWindow: PermissionsWindow?
     private var feedbackWindow: FeedbackWindow!
+    private var debugWindow: DebugWindow!
     private var isFirstSummon = true
     private var isVeryFirstSummon = true
     // periphery:ignore
     private var appCenterDelegate: AppCenterCrash?
     // don't queue multiple delayed rebuildUi() calls
     private var delayedDisplayScheduled = 0
+    private var lastRefreshTimeInNanoseconds = DispatchTime.now().uptimeNanoseconds
+    private var nextRefreshScheduled = false
 
     override init() {
         super.init()
@@ -45,7 +50,7 @@ class App: AppCenterApplication {
 
     /// we put application code here which should be executed on init() and Preferences change
     func resetPreferencesDependentComponents() {
-        thumbnailsPanel.thumbnailsView.reset()
+        tilesPanel.tilesView.reset()
     }
 
     func restart() {
@@ -62,10 +67,10 @@ class App: AppCenterApplication {
         appIsBeingUsed = false
         isFirstSummon = true
         forceDoNothingOnRelease = false
-        MouseEvents.toggle(false)
+        tilesPanel.tilesView.endSearchSession()
         CursorEvents.toggle(false)
         TrackpadEvents.reset()
-        hideThumbnailPanelWithoutChangingKeyWindow()
+        hideTilesPanelWithoutChangingKeyWindow()
         if !keepPreview {
             previewPanel.orderOut(nil)
         }
@@ -81,17 +86,19 @@ class App: AppCenterApplication {
         }
     }
 
-    /// we don't want another window to become key when the thumbnailPanel is hidden
-    func hideThumbnailPanelWithoutChangingKeyWindow() {
+    /// we don't want another window to become key when the TilesPanel is hidden
+    func hideTilesPanelWithoutChangingKeyWindow() {
         allSecondaryWindowsCanBecomeKey(false)
-        thumbnailsPanel.orderOut(nil)
+        tilesPanel.orderOut(nil)
         allSecondaryWindowsCanBecomeKey(true)
     }
 
     private func allSecondaryWindowsCanBecomeKey(_ canBecomeKey_: Bool) {
-        preferencesWindow.canBecomeKey_ = canBecomeKey_
-        feedbackWindow.canBecomeKey_ = canBecomeKey_
-        permissionsWindow.canBecomeKey_ = canBecomeKey_
+        settingsWindow?.canBecomeKey_ = canBecomeKey_
+        aboutWindow?.canBecomeKey_ = canBecomeKey_
+        permissionsWindow?.canBecomeKey_ = canBecomeKey_
+        feedbackWindow?.canBecomeKey_ = canBecomeKey_
+        debugWindow?.canBecomeKey_ = canBecomeKey_
     }
 
     func closeSelectedWindow() {
@@ -114,10 +121,29 @@ class App: AppCenterApplication {
         Windows.selectedWindow()?.application.hideOrShow()
     }
 
+    func toggleSearchMode() {
+        guard appIsBeingUsed else { return }
+        tilesPanel.tilesView.toggleSearchModeFromShortcut()
+    }
+
+    func lockSearchMode() {
+        guard appIsBeingUsed, tilesPanel.tilesView.isSearchModeOn else { return }
+        tilesPanel.tilesView.lockSearchMode()
+    }
+
+    func cancelSearchModeOrHideUi() {
+        guard appIsBeingUsed else { return }
+        if tilesPanel.tilesView.isSearchModeOn {
+            tilesPanel.tilesView.disableSearchMode()
+        } else {
+            hideUi()
+        }
+    }
+
     func focusTarget() {
         guard appIsBeingUsed else { return } // already hidden
         let selectedWindow = Windows.selectedWindow()
-        Logger.info { selectedWindow?.debugId() }
+        Logger.info { selectedWindow?.debugId }
         focusSelectedWindow(selectedWindow)
     }
 
@@ -126,7 +152,7 @@ class App: AppCenterApplication {
     }
 
     @objc func checkPermissions(_ sender: NSMenuItem) {
-        permissionsWindow.show()
+        showPermissionsWindow()
     }
 
     @objc func supportProject() {
@@ -134,22 +160,86 @@ class App: AppCenterApplication {
     }
 
     @objc func showFeedbackPanel() {
-        showSecondaryWindow(feedbackWindow)
+        showSecondaryWindow(getOrCreateFeedbackWindow())
     }
 
-    @objc func showPreferencesWindow() {
-        showSecondaryWindow(preferencesWindow)
+    @objc func showDebugWindow() {
+        showSecondaryWindow(getOrCreateDebugWindow())
+    }
+
+    @objc func showSettingsWindow() {
+        showSecondaryWindow(getOrCreateSettingsWindow())
+        if settingsWindow?.isVisible != true {
+            settingsWindow = SettingsWindow()
+            showSecondaryWindow(settingsWindow)
+            settingsWindow?.orderFrontRegardless()
+        }
+    }
+
+    @objc func showAboutWindow() {
+        showSecondaryWindow(getOrCreateAboutWindow())
     }
 
     func showSecondaryWindow(_ window: NSWindow?) {
         if let window {
             NSScreen.updatePreferred()
-            NSScreen.preferred.repositionPanel(window)
             App.shared.activate(ignoringOtherApps: true)
             window.makeKeyAndOrderFront(nil)
-            // Use the center function to continue to center, the `repositionPanel` function cannot center, it may be a system bug
-            window.center()
+            // if the window was resized/repositioned by the user, restore the window the way it was
+            let restored = window.setFrameUsingName(window.frameAutosaveName)
+            if !restored {
+                NSScreen.preferred.repositionPanel(window)
+                // Use the center function to continue to center, the `repositionPanel` function cannot center, it may be a system bug
+                window.center()
+            }
         }
+    }
+
+    private func getOrCreateSettingsWindow() -> SettingsWindow {
+        if settingsWindow == nil {
+            settingsWindow = SettingsWindow()
+        }
+        return settingsWindow
+    }
+
+    private func getOrCreateAboutWindow() -> AboutWindow {
+        if aboutWindow == nil {
+            aboutWindow = AboutWindow()
+        }
+        return aboutWindow
+    }
+
+    private func getOrCreateFeedbackWindow() -> FeedbackWindow {
+        if feedbackWindow == nil {
+            feedbackWindow = FeedbackWindow()
+        }
+        return feedbackWindow
+    }
+
+    private func getOrCreateDebugWindow() -> DebugWindow {
+        if debugWindow == nil {
+            debugWindow = DebugWindow()
+        }
+        return debugWindow
+    }
+
+    private func getOrCreatePermissionsWindow() -> PermissionsWindow {
+        if permissionsWindow == nil {
+            permissionsWindow = PermissionsWindow()
+        }
+        return permissionsWindow!
+    }
+
+    @discardableResult
+    private func showSettingsWindowOnFirstLaunchIfNeeded() -> Bool {
+        guard !Preferences.settingsWindowShownOnFirstLaunch else { return false }
+        showSettingsWindow()
+        Preferences.markSettingsWindowShownOnFirstLaunch()
+        return true
+    }
+
+    func showPermissionsWindow() {
+        getOrCreatePermissionsWindow().show()
     }
 
     func showUi(_ shortcutIndex: Int) {
@@ -160,14 +250,9 @@ class App: AppCenterApplication {
         showUi(0)
     }
 
-    @objc func showAboutTab() {
-        preferencesWindow.selectTab("about")
-        showPreferencesWindow()
-    }
-
     func cycleSelection(_ direction: Direction, allowWrap: Bool = true) {
         if direction == .up || direction == .down {
-            thumbnailsPanel.thumbnailsView.navigateUpOrDown(direction, allowWrap: allowWrap)
+            tilesPanel.tilesView.navigateUpOrDown(direction, allowWrap: allowWrap)
         } else {
             Windows.cycleSelectedWindowIndex(direction.step(), allowWrap: allowWrap)
         }
@@ -184,7 +269,7 @@ class App: AppCenterApplication {
         if let window = selectedWindow, MissionControl.state() == .inactive || MissionControl.state() == .showDesktop {
             window.focus()
             if Preferences.cursorFollowFocus == .always || (
-                Preferences.cursorFollowFocus == .differentScreen && (Spaces.screenSpacesMap.first { $0.value.contains { space in window.spaceIds.contains(space) } })?.key != NSScreen.active()?.uuid()) {
+                Preferences.cursorFollowFocus == .differentScreen && (Spaces.screenSpacesMap.first { $0.value.contains { space in window.spaceIds.contains(space) } })?.key != NSScreen.active()?.cachedUuid()) {
                 moveCursorToSelectedWindow(window)
             }
         } else {
@@ -199,22 +284,43 @@ class App: AppCenterApplication {
         CGWarpMouseCursorPosition(point)
     }
 
-    func refreshOpenUi(_ windowsToScreenshot: [Window], _ source: RefreshCausedBy, windowRemoved: Bool = false) {
-        Windows.refreshThumbnailsAsync(windowsToScreenshot, source, windowRemoved: windowRemoved)
-        guard appIsBeingUsed else { return }
-        if source == .refreshUiAfterExternalEvent {
-            if !Windows.updatesBeforeShowing() { hideUi(); return }
+    func refreshOpenUiAfterExternalEvent(_ windowsToScreenshot: [Window], windowRemoved: Bool = false) {
+        Windows.refreshThumbnailsAsync(windowsToScreenshot, .refreshUiAfterExternalEvent, windowRemoved: windowRemoved)
+        refreshOpenUiWithThrottling {
+            guard self.appIsBeingUsed else { return }
+            if !Windows.updatesBeforeShowing() { self.hideUi(); return }
+            self.refreshUi(true)
         }
-        guard appIsBeingUsed else { return }
+    }
+
+    func refreshUi(_ preserveScrollPosition: Bool = false) {
+        guard self.appIsBeingUsed else { return }
+        let preservedScrollOrigin = preserveScrollPosition ? tilesPanel.tilesView.currentScrollOrigin() : nil
         Windows.updateSelectedWindow()
-        guard appIsBeingUsed else { return }
-        thumbnailsPanel.updateContents()
-        guard appIsBeingUsed else { return }
-        Windows.voiceOverWindow() // at this point ThumbnailViews are assigned to the window, and ready
-        guard appIsBeingUsed else { return }
+        guard self.appIsBeingUsed else { return }
+        self.tilesPanel.updateContents(preservedScrollOrigin)
+        guard self.appIsBeingUsed else { return }
+        Windows.voiceOverWindow() // at this point TileViews are assigned to the window, and ready
+        guard self.appIsBeingUsed else { return }
         Windows.previewSelectedWindowIfNeeded()
-        guard appIsBeingUsed else { return }
+        guard self.appIsBeingUsed else { return }
         Applications.refreshBadgesAsync()
+    }
+
+    func refreshOpenUiWithThrottling( _ block: @escaping () -> Void) {
+        let throttleDelayInMs = 200
+        let timeSinceLastRefreshInSeconds = Float(DispatchTime.now().uptimeNanoseconds - lastRefreshTimeInNanoseconds) / 1_000_000
+        if timeSinceLastRefreshInSeconds >= Float(throttleDelayInMs) {
+            lastRefreshTimeInNanoseconds = DispatchTime.now().uptimeNanoseconds
+            block()
+            return
+        }
+        guard !nextRefreshScheduled else { return }
+        nextRefreshScheduled = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(throttleDelayInMs + 10)) {
+            self.nextRefreshScheduled = false
+            self.refreshOpenUiWithThrottling(block)
+        }
     }
 
     func showUiOrCycleSelection(_ shortcutIndex: Int, _ forceDoNothingOnRelease_: Bool) {
@@ -229,6 +335,11 @@ class App: AppCenterApplication {
             }
             isFirstSummon = false
             self.shortcutIndex = shortcutIndex
+            let shouldStartInSearchMode = Preferences.shortcutStyle == .searchOnRelease
+            tilesPanel.tilesView.startSearchSession(shouldStartInSearchMode)
+            if shouldStartInSearchMode {
+                forceDoNothingOnRelease = true
+            }
             if !Windows.updatesBeforeShowing() { hideUi(); return }
             Windows.setInitialSelectedAndHoveredWindowIndex()
             if Preferences.windowDisplayDelay == DispatchTimeInterval.milliseconds(0) {
@@ -252,9 +363,12 @@ class App: AppCenterApplication {
         guard appIsBeingUsed else { return }
         Appearance.update()
         guard appIsBeingUsed else { return }
-        refreshOpenUi([], .showUi)
+        refreshUi()
         guard appIsBeingUsed else { return }
-        thumbnailsPanel.show()
+        tilesPanel.show()
+        if tilesPanel.tilesView.isSearchEditing {
+            tilesPanel.tilesView.enableSearchEditing()
+        }
         KeyRepeatTimer.startRepeatingKeyNextWindow()
         Windows.refreshThumbnailsAsync(Windows.list, .refreshOnlyThumbnailsAfterShowUi)
     }
@@ -289,7 +403,6 @@ extension App: NSApplicationDelegate {
         #endif
         AXUIElement.setGlobalTimeout()
         Preferences.initialize()
-        permissionsWindow = PermissionsWindow()
         BackgroundWork.preStart()
         SystemPermissions.ensurePermissionsAreGranted()
     }
@@ -299,11 +412,11 @@ extension App: NSApplicationDelegate {
         BackgroundWork.start()
         NSScreen.updatePreferred()
         Appearance.update()
-        ThumbnailsPanel.updateMaxPossibleThumbnailSize()
-        ThumbnailsPanel.updateMaxPossibleAppIconSize()
+        TilesPanel.updateMaxPossibleThumbnailSize()
+        TilesPanel.updateMaxPossibleAppIconSize()
         Menubar.initialize()
         MainMenu.loadFromXib()
-        self.thumbnailsPanel = ThumbnailsPanel()
+        self.tilesPanel = TilesPanel()
         self.previewPanel = PreviewPanel()
         Spaces.refresh()
         Screens.refresh()
@@ -312,23 +425,21 @@ extension App: NSApplicationDelegate {
         SystemAppearanceEvents.observe()
         SystemScrollerStyleEvents.observe()
         Applications.initialDiscovery()
-        self.preferencesWindow = PreferencesWindow()
-        self.feedbackWindow = FeedbackWindow()
         KeyboardEvents.addEventHandlers()
-        MouseEvents.observe()
         CursorEvents.observe()
         TrackpadEvents.observe()
         CliEvents.observe()
-        // login item and plist updates can be done a bit later, to accelerate launch
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { GeneralTab.startAtLoginCallback() }
-        Logger.info { "Finished launching AltTab" }
+        PreferencesEvents.initialize()
+        BenchmarkRunner.startIfNeeded()
+        showSettingsWindowOnFirstLaunchIfNeeded()
         #if DEBUG
-//            self.showPreferencesWindow()
+//            self.showSettingsWindow()
         #endif
+        Logger.info { "Finished launching AltTab" }
     }
 
     func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
-        showPreferencesWindow()
+        showSettingsWindow()
         return true
     }
 
@@ -345,8 +456,6 @@ extension App: NSApplicationDelegate {
 }
 
 enum RefreshCausedBy {
-    case showUi
     case refreshOnlyThumbnailsAfterShowUi
-    case refreshUiAfterThumbnailsHaveBeenRefreshed
     case refreshUiAfterExternalEvent
 }
