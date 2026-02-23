@@ -95,7 +95,7 @@ class KeyboardEvents {
         eventTap = CGEvent.tapCreate(
             tap: .cgSessionEventTap,
             place: .headInsertEventTap,
-            options: .defaultTap,
+            options: .listenOnly,
             eventsOfInterest: eventMask,
             callback: cgEventFlagsChangedHandler,
             userInfo: nil)

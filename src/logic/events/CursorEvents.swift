@@ -159,14 +159,14 @@ class CursorEvents {
     /// when using the trackpad, the user may swipe with a slight mistake. This will create a small cursor movement
     /// we ignore those, as they are not intended. Intended movements will be larger and not ignored
     private static func updateDeadzoneSituation(_ cgEvent: CGEvent) {
-        guard let event = cgEvent.toNSEvent() else { return }
+        let location = cgEvent.location
         guard let deadZoneInitialPosition else {
-            deadZoneInitialPosition = event.locationInWindow
+            deadZoneInitialPosition = location
             isAllowedToMouseHover = false
             return
         }
-        let deltaX = event.locationInWindow.x - deadZoneInitialPosition.x
-        let deltaY = event.locationInWindow.y - deadZoneInitialPosition.y
+        let deltaX = location.x - deadZoneInitialPosition.x
+        let deltaY = location.y - deadZoneInitialPosition.y
         if hypot(deltaX, deltaY) > 25 { isAllowedToMouseHover = true }
     }
 }
