@@ -854,22 +854,35 @@ class SettingsWindow: NSWindow {
     }
 
     private func highlightTarget(_ textField: NSTextField) -> SettingsSearchHighlightTarget? {
-        let text = textField.stringValue
-        guard !text.isEmpty else { return nil }
-        let baseAttributedString = textField.attributedStringValue
+        guard !textField.stringValue.isEmpty else { return nil }
+        var baseAttributedString: NSAttributedString?
+        var highlightedText = ""
+        var isHighlighted = false
         return SettingsSearchHighlightTarget({ query in
-            SettingsSearch.match(query, in: text)?.ranges ?? []
+            SettingsSearch.match(query, in: textField.stringValue)?.ranges ?? []
         }, { ranges in
-            let mutable = NSMutableAttributedString(attributedString: baseAttributedString)
+            let text = textField.stringValue
+            if !isHighlighted || highlightedText != text {
+                baseAttributedString = textField.attributedStringValue
+                highlightedText = text
+            }
+            let mutable = NSMutableAttributedString(attributedString: baseAttributedString ?? textField.attributedStringValue)
             let nsRanges = ranges.compactMap { SettingsWindow.characterRangeToNSRange($0, in: text) }
             nsRanges.forEach {
                 mutable.addAttribute(.foregroundColor, value: Appearance.searchMatchForegroundColor, range: $0)
             }
             textField.attributedStringValue = mutable
             SettingsWindow.applyRoundedHighlights(to: textField, attributedString: mutable, ranges: nsRanges)
+            isHighlighted = true
         }, {
-            textField.attributedStringValue = baseAttributedString
+            guard isHighlighted else { return }
+            if let baseAttributedString {
+                textField.attributedStringValue = baseAttributedString
+            }
             SettingsWindow.clearRoundedHighlights(from: textField)
+            baseAttributedString = nil
+            highlightedText = ""
+            isHighlighted = false
         })
     }
 
