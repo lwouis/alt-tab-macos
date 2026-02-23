@@ -23,7 +23,7 @@ class DebugWindow: NSPanel {
     private var isInspecting = false
     private static let logFont = NSFont.userFixedPitchFont(ofSize: 11)!
     private static let levels: [SwiftyBeaver.Level] = [.debug, .info, .warning, .error]
-    private static let defaultAttrs: [NSAttributedString.Key: Any] = [.font: logFont, .foregroundColor: NSColor.textColor]
+    private static let defaultAttrs: [NSAttributedString.Key: Any] = [.font: logFont, .foregroundColor: NSColor.labelColor]
     private static let levelWords: [SwiftyBeaver.Level: String] = [.debug: "DEBG", .info: "INFO", .warning: "WARN", .error: "ERRO"]
 
     convenience init() {
@@ -102,6 +102,7 @@ class DebugWindow: NSPanel {
         scrollView.hasHorizontalScroller = true
         scrollView.autohidesScrollers = true
         scrollView.drawsBackground = true
+        scrollView.backgroundColor = .textBackgroundColor
         textView = NSTextView()
         textView.isEditable = false
         textView.isSelectable = true
@@ -112,7 +113,7 @@ class DebugWindow: NSPanel {
         textView.textContainer?.widthTracksTextView = false
         textView.textContainer?.containerSize = NSSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude)
         textView.drawsBackground = true
-        textView.backgroundColor = NSColor(calibratedWhite: 0.95, alpha: 1.0)
+        textView.backgroundColor = .textBackgroundColor
         scrollView.documentView = textView
         scrollView.contentView.postsBoundsChangedNotifications = true
         NotificationCenter.default.addObserver(self, selector: #selector(scrollViewDidScroll),
