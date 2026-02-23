@@ -137,6 +137,8 @@ class ControlsTab {
     private static var gestureSidebarRow: ShortcutSidebarRow?
     private static var gestureEditorView: TableGroupView?
     private static var shortcutCountButtons: NSSegmentedControl?
+    private static var shortcutRowsScrollView: NSScrollView?
+    private static var shortcutRowsScrollObserver: NSObjectProtocol?
 
     static func initializePreferencesDependentState() {
         applyActiveShortcutPreferences()
@@ -260,18 +262,21 @@ class ControlsTab {
         rowsScrollView.hasHorizontalScroller = false
         rowsScrollView.scrollerStyle = .overlay
         rowsScrollView.usesPredominantAxisScrolling = true
+        rowsScrollView.contentView.postsBoundsChangedNotifications = true
         let documentView = ForwardingVerticalDocumentView(frame: .zero)
         documentView.translatesAutoresizingMaskIntoConstraints = false
         rowsScrollView.documentView = documentView
         documentView.addSubview(rows)
+        shortcutRowsScrollView = rowsScrollView
+        installShortcutSidebarHoverObserver(rowsScrollView)
         let gestureSeparator = NSView()
         gestureSeparator.translatesAutoresizingMaskIntoConstraints = false
         gestureSeparator.wantsLayer = true
         gestureSeparator.layer?.backgroundColor = NSColor.tableSeparatorColor.cgColor
         let gestureRow = ShortcutSidebarRow()
         gestureRow.onClick = { _, _ in selectGesture() }
-        gestureRow.onMouseEntered = { _, _ in gestureRow.setHovered(true) }
-        gestureRow.onMouseExited = { _, _ in gestureRow.setHovered(false) }
+        gestureRow.onMouseEntered = { _, _ in setHoveredShortcutRow(gestureRow) }
+        gestureRow.onMouseExited = { _, _ in setHoveredShortcutRow(nil) }
         gestureSidebarRow = gestureRow
         listContainer.addSubview(rowsScrollView)
         listContainer.addSubview(gestureSeparator)
@@ -382,6 +387,7 @@ class ControlsTab {
 
     private static func refreshShortcutRows() {
         guard let rows = shortcutRowsStackView else { return }
+        setHoveredShortcutRow(nil)
         clearArrangedSubviews(rows)
         shortcutRows.removeAll(keepingCapacity: true)
         for index in 0..<Preferences.shortcutCount {
@@ -389,8 +395,8 @@ class ControlsTab {
             row.setContent(shortcutTitle(index), shortcutSummary(index))
             row.setSelected(index == selectedShortcutIndex && selectedShortcutIndex != gestureSelectionIndex)
             row.onClick = { _, _ in selectShortcut(index) }
-            row.onMouseEntered = { _, _ in row.setHovered(true) }
-            row.onMouseExited = { _, _ in row.setHovered(false) }
+            row.onMouseEntered = { _, _ in setHoveredShortcutRow(row) }
+            row.onMouseExited = { _, _ in setHoveredShortcutRow(nil) }
             rows.addArrangedSubview(row)
             row.widthAnchor.constraint(equalTo: rows.widthAnchor).isActive = true
             row.heightAnchor.constraint(equalToConstant: sidebarRowHeight).isActive = true
@@ -405,6 +411,7 @@ class ControlsTab {
                 separator.heightAnchor.constraint(equalToConstant: TableGroupView.borderWidth).isActive = true
             }
         }
+        syncShortcutSidebarHoverState()
     }
 
     private static func refreshShortcutSelection() {
@@ -559,6 +566,47 @@ class ControlsTab {
         guard let gestureSidebarRow else { return }
         gestureSidebarRow.setContent(gestureTitle(), gestureSummary())
         gestureSidebarRow.setSelected(selectedShortcutIndex == gestureSelectionIndex)
+    }
+
+    private static func installShortcutSidebarHoverObserver(_ scrollView: NSScrollView) {
+        if let shortcutRowsScrollObserver {
+            NotificationCenter.default.removeObserver(shortcutRowsScrollObserver)
+        }
+        shortcutRowsScrollObserver = NotificationCenter.default.addObserver(forName: NSView.boundsDidChangeNotification, object: scrollView.contentView, queue: .main) { _ in
+            syncShortcutSidebarHoverState()
+        }
+    }
+
+    private static func setHoveredShortcutRow(_ row: ShortcutSidebarRow?) {
+        shortcutRows.forEach { $0.setHovered($0 === row) }
+        if let gestureSidebarRow {
+            gestureSidebarRow.setHovered(gestureSidebarRow === row)
+        }
+    }
+
+    private static func syncShortcutSidebarHoverState() {
+        guard let shortcutRowsScrollView else { return }
+        setHoveredShortcutRow(hoveredShortcutRowAtCursor(shortcutRowsScrollView))
+    }
+
+    private static func hoveredShortcutRowAtCursor(_ scrollView: NSScrollView) -> ShortcutSidebarRow? {
+        guard let window = scrollView.window else { return nil }
+        let cursorInScrollView = scrollView.convert(window.mouseLocationOutsideOfEventStream, from: nil)
+        guard scrollView.bounds.contains(cursorInScrollView) else { return nil }
+        guard let documentView = scrollView.documentView else { return nil }
+        let cursorInDocumentView = documentView.convert(window.mouseLocationOutsideOfEventStream, from: nil)
+        return enclosingShortcutSidebarRow(documentView.hitTest(cursorInDocumentView))
+    }
+
+    private static func enclosingShortcutSidebarRow(_ view: NSView?) -> ShortcutSidebarRow? {
+        var current = view
+        while let candidate = current {
+            if let row = candidate as? ShortcutSidebarRow {
+                return row
+            }
+            current = candidate.superview
+        }
+        return nil
     }
 
     private static func clearArrangedSubviews(_ stackView: NSStackView) {
