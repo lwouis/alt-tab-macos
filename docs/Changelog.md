@@ -1,3 +1,21 @@
+# [10.3.0](https://github.com/lwouis/alt-tab-macos/compare/v10.2.0...v10.3.0) (2026-02-24)
+
+
+### Bug Fixes
+
+* avoid clipping long settings window buttons (closes [#5320](https://github.com/lwouis/alt-tab-macos/issues/5320)) ([402b6f6](https://github.com/lwouis/alt-tab-macos/commit/402b6f6))
+* closing a window would remove the thumbnail (closes [#5324](https://github.com/lwouis/alt-tab-macos/issues/5324)) ([451bbbe](https://github.com/lwouis/alt-tab-macos/commit/451bbbe))
+* fade-out speed could show wrong value in rare cases ([f5e81fe](https://github.com/lwouis/alt-tab-macos/commit/f5e81fe))
+* improve settings window on macos 10.13 ([5ce48c1](https://github.com/lwouis/alt-tab-macos/commit/5ce48c1))
+* mouse hover would sometimes disappear ([8c7263e](https://github.com/lwouis/alt-tab-macos/commit/8c7263e))
+
+
+### Features
+
+* add ur/mr localizations + update all localizations ([dc538dc](https://github.com/lwouis/alt-tab-macos/commit/dc538dc))
+* consolidate settings (closes [#1732](https://github.com/lwouis/alt-tab-macos/issues/1732)) ([219098d](https://github.com/lwouis/alt-tab-macos/commit/219098d))
+* reduce app disk size ([3c95c6c](https://github.com/lwouis/alt-tab-macos/commit/3c95c6c))
+
 # [10.2.0](https://github.com/lwouis/alt-tab-macos/compare/v10.1.0...v10.2.0) (2026-02-19)
 
 
