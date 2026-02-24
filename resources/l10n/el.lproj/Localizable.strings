@@ -1,3 +1,7 @@
+"3-finger Horizontal Swipe" = "Σάρωση 3 δαχτύλων οριζόντια";
+"3-finger Vertical Swipe" = "Σάρωση 3 δαχτύλων κάθετα";
+"4-finger Horizontal Swipe" = "Σάρωση 4 δαχτύλων οριζόντια";
+"4-finger Vertical Swipe" = "Σάρωση 4 δαχτύλων κάθετα";
 "About" = "Σχετικά";
 "About %@" = "Σχετικά με %@";
 "Accessibility" = "Προσβασιμότητα";
@@ -8,6 +12,7 @@
 "Additional controls" = "Πρόσθετα στοιχεία ελέγχου";
 "Additional controls…" = "Πρόσθετα στοιχεία ελέγχου";
 "Advanced" = "Προχωρημένα";
+"After keys are released" = "Αφού αφεθούν τα πλήκτρα";
 "After release" = "Μετά την απελευθέρωση";
 "Align windows" = "Ευθυγράμμιση παραθύρων";
 "Align windows:" = "Στοίχιση παραθύρων:";
@@ -44,6 +49,7 @@
 "Are you sure you don’t want a response?" = "Είστε βέβαιοι ότι δεν θέλετε απάντηση;";
 "Arrow keys" = "Πλήκτρα βέλους";
 "Ask whether to send crash reports" = "Ερώτηση για αποστολή αναφορών συντριβής";
+"Auto" = "Αυτόματο";
 "Auto-install updates periodically" = "Αυτόματη εγκατάσταση ενημερώσεων";
 "Blacklists" = "Μαύρες λίστες";
 "Cancel" = "Ακύρωση";
@@ -63,6 +69,7 @@
 "Customize Thumbnails style…" = "Προσαρμογή στυλ μικρογραφιών…";
 "Customize Titles style…" = "Προσαρμογή στυλ τίτλων…";
 "Dark" = "Σκοτεινό";
+"Debug tools" = "Εργαλεία εντοπισμού σφαλμάτων";
 "Disabled" = "Απενεργοποιημένο";
 "Do nothing" = "Μην κάνεις τίποτα";
 "Don’t check for updates periodically" = "Να μη γίνεται έλεγχος για ενημερώσεις";
@@ -70,10 +77,12 @@
 "Don’t show windows from these apps" = "Απόκρυψη παραθύρων από αυτές τις εφαρμογές";
 "Done" = "Εντάξει";
 "End" = "Τέλος";
+"Export…" = "Εξαγωγή…";
 "Fade in animation of Preview" = "Εμφάνιση με εξασθένηση της προεπισκόπησης";
 "Fade out animation" = "Εφέ ξεθωριάσματος";
 "Fade out animation of Switcher" = "Εξαφάνιση του Switcher με εξασθένηση";
 "Fade out animation:" = "Εφέ ξεθωριάσματος:";
+"Failed to import settings" = "Αποτυχία εισαγωγής ρυθμίσεων";
 "Focus selected window" = "Εστίαση στο επιλεγμένο παράθυρο";
 "Fullscreen window" = "Πλήρης οθόνη";
 "Fullscreen windows:" = "Παράθυρα σε πλήρη οθόνη:";
@@ -104,6 +113,9 @@
 "I think the app could be improved with…" = "Πιστεύω ότι η εφαρμογή θα μπορούσε να βελτιωθεί με...";
 "Ignore shortcuts when active" = "Αγνόησε τις συντομεύσεις όταν ενεργό";
 "Ignore shortcuts while a window from these apps is active" = "Να αγνοούνται οι συντομεύσεις ενόσω κάποιο παράθυρο από αυτές τις εφαρμογές είναι ενεργό";
+"Import…" = "Εισαγωγή…";
+"Keep open" = "Διατήρηση ανοιχτού";
+"Keep open and search" = "Διατήρηση ανοιχτού και αναζήτηση";
 "Language" = "Γλώσσα";
 "Language Change" = "Αλλαγή γλώσσας";
 "Large" = "Μεγάλο";
@@ -112,6 +124,7 @@
 "Leading" = "Αριστερά";
 "Left" = "Αριστερά";
 "Light" = "Φωτεινό";
+"Lock search" = "Κλείδωμα αναζήτησης";
 "Max height on screen:" = "Μέγιστο ύψος στην οθόνη:";
 "Max width on screen:" = "Μέγιστο πλάτος στην οθόνη:";
 "Medium" = "Μεσαίο";
@@ -127,6 +140,7 @@
 "Never" = "Ποτέ";
 "Never send crash reports" = "Να μην αποστέλλονται αναφορές συντριβής";
 "Non-active apps" = "Εφαρμογές που δεν είναι ενεργές";
+"Non-visible Spaces" = "Μη ορατοί χώροι";
 "Normal" = "Κανονική";
 "Not allowed" = "Δεν επιτρέπεται";
 "NSHumanReadableCopyright" = "Άδεια χρήσης GPL-3.0";
@@ -165,6 +179,7 @@
 "Screen including mouse" = "Οθόνη όπου βρίσκεται το ποντίκι";
 "Screen Recording" = "Καταγραφή οθόνης";
 "Screen showing AltTab" = "Οθόνη που δείχνει AltTab";
+"Search" = "Αναζήτηση";
 "Select next window" = "Επιλογή επόμενου παραθύρου";
 "Select previous window" = "Επιλογή προηγούμενου παραθύρου";
 "Select windows on mouse hover" = "Επιλογή παραθύρων με αιώρηση ποντικιού";
@@ -176,8 +191,10 @@
 "Send debug profile (CPU, memory, etc)" = "Αποστολή διαγνωστικού προφίλ (επεξεργαστής, μνήμη, κλπ)";
 "Send feedback" = "Αποστολή σχολίων";
 "Send feedback…" = "Αποστολή σχολίων...";
+"Settings imported" = "Οι ρυθμίσεις εισήχθησαν";
 "Settings…" = "Ρυθμίσεις";
 "Share improvement ideas, or report bugs" = "Μοιραστείτε ιδέες για βελτίωση ή αναφορά σφαλμάτων";
+"Shortcut" = "Συντόμευση";
 "Shortcut 1" = "Συντόμευση 1";
 "Shortcut 2" = "Συντόμευση 2";
 "Shortcut 3" = "Συντόμευση 3";
@@ -223,6 +240,7 @@
 "The ⌘⎋ (command+escape) shortcut may be used by macOS for GameOverlay.\n\nYour change would assign it to: %@.\n\nIf you want to continue, make sure that the GameOverlay shortcut is disabled.\nAlso note that macOS has reported bugs where the shortcut may still interfere while disabled." = "Η συντόμευση ⌘⎋ (command+escape) μπορεί να χρησιμοποιείται από το macOS για το GameOverlay.\n\nΗ αλλαγή σας θα την αναθέσει σε: %@.\n\nΑν θέλετε να συνεχίσετε, βεβαιωθείτε ότι η συντόμευση του GameOverlay είναι απενεργοποιημένη.\nΣημειώστε επίσης ότι το macOS έχει αναφέρει σφάλματα όπου η συντόμευση μπορεί να επηρεάζει ακόμα και όταν είναι απενεργοποιημένη.";
 "The ⎋ (escape) key is reserved by some macOS shortcuts (e.g. ⌘⌥⎋ will show the Force Quit Applications window).\n\nIf you want to use ⎋, make sure that Hold modifiers are neither: ⌘⌥, ⌘⌥⇧, or ⌘⌥⇧⌃" = "Το κλειδί ⎋ (escape) είναι δεσμευμένο από μερικά macOS shortcuts (π.χ. ⌘⌥⎋ θα εμφανίσει το Force Quit Applications window).\n\nΑν θέλετε να χρησιμοποιήσετε το ⎋, βεβαιωθείτε ότι τα Hold modifiers δεν είναι ούτε: ⌘⌥, ⌘⌥⇧, or ⌘⌥⇧⌃";
 "The ⎋ (escape) key is reserved by some macOS shortcuts (e.g. ⌘⌥⎋ will show the Force Quit Applications window).\n\nYour change would assign it to: %@.\n\nIf you want to use ⎋, make sure that Hold modifiers are neither: ⌘⌥, ⌘⌥⇧, or ⌘⌥⇧⌃" = "Το πλήκτρο ⎋ (escape) προορίζεται για ορισμένες συντομεύσεις του macOS (π.χ. ⌘⌥⎋ ανοίγει το παράθυρο Τερματισμός εφαρμογών).\n\nΗ αλλαγή σας θα το αναθέσει σε: %@.\n\nΑν θέλετε να χρησιμοποιήσετε το ⎋, βεβαιωθείτε ότι οι τροποποιητές Hold δεν είναι: ⌘⌥, ⌘⌥⇧ ή ⌘⌥⇧⌃.";
+"The application needs to restart to apply the imported settings." = "Η εφαρμογή πρέπει να επανεκκινήσει για να εφαρμοστούν οι εισαγόμενες ρυθμίσεις.";
 "The application needs to restart to apply the language change." = "Η εφαρμογή χρειάζεται επανεκκίνηση για να εφαρμοστεί η αλλαγή γλώσσας.";
 "Theme" = "Θέμα";
 "Theme:" = "Θέμα:";
@@ -235,6 +253,7 @@
 "Title truncation" = "Περικοπή τίτλου";
 "Titles" = "Τίτλοι";
 "Trackpad haptic feedback" = "Απτική ανάδραση του Trackpad";
+"Trigger" = "Ενεργοποίηση";
 "Trigger shortcut" = "Συντόμευση";
 "Unassign existing shortcut and continue" = "Απόρριψη υπάρχουσας συντόμευσης και συνέχεια";
 "Updates policy" = "Πολιτική ενημερώσεων";

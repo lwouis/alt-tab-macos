@@ -1,3 +1,7 @@
+"3-finger Horizontal Swipe" = "Przeciągnięcie 3 palcami w poziomie";
+"3-finger Vertical Swipe" = "Przeciągnięcie 3 palcami w pionie";
+"4-finger Horizontal Swipe" = "Przeciągnięcie 4 palcami w poziomie";
+"4-finger Vertical Swipe" = "Przeciągnięcie 4 palcami w pionie";
 "About" = "O aplikacji";
 "About %@" = "O %@";
 "Accessibility" = "Dostępość";
@@ -8,6 +12,7 @@
 "Additional controls" = "Dodatkowe elementy sterujące";
 "Additional controls…" = "Dodatkowe elementy sterujące…";
 "Advanced" = "Zaawansowany";
+"After keys are released" = "Po zwolnieniu klawiszy";
 "After release" = "Po odpuszeniu klawisza";
 "Align windows" = "Wyrównaj okna";
 "Align windows:" = "Wyrównaj okna:";
@@ -44,6 +49,7 @@
 "Are you sure you don’t want a response?" = "Jesteś pewien, że nie chcesz dostać odpowiedzi?";
 "Arrow keys" = "Strzałek";
 "Ask whether to send crash reports" = "Pytaj, czy wysyłać raporty crashów";
+"Auto" = "Auto";
 "Auto-install updates periodically" = "Instaluj aktualizacje automatycznie";
 "Blacklists" = "Czarne listy";
 "Cancel" = "Anuluj";
@@ -63,6 +69,7 @@
 "Customize Thumbnails style…" = "Dostosuj styl miniatury…";
 "Customize Titles style…" = "Dostosuj styl tytułów…";
 "Dark" = "Ciemny";
+"Debug tools" = "Narzędzia debugowania";
 "Disabled" = "Wyłączone";
 "Do nothing" = "Nic nie rób";
 "Don’t check for updates periodically" = "Nie sprawdzaj aktualizacji";
@@ -70,10 +77,12 @@
 "Don’t show windows from these apps" = "Nie pokazuj okien z tych aplikacji";
 "Done" = "Gotowe";
 "End" = "Na końcu";
+"Export…" = "Eksportuj…";
 "Fade in animation of Preview" = "Animacja pojawiania się";
 "Fade out animation" = "Zniknąć animację";
 "Fade out animation of Switcher" = "Animacja zanikania";
 "Fade out animation:" = "Animacja zanikania:";
+"Failed to import settings" = "Nie udało się zaimportować ustawień";
 "Focus selected window" = "Skup się na wybranym oknie";
 "Fullscreen window" = "Okno pełnoekranowe";
 "Fullscreen windows:" = "Okna pełnoekranowe:";
@@ -104,6 +113,9 @@
 "I think the app could be improved with…" = "Myślę, że aplikacja może zostać ulepszona dzięki…";
 "Ignore shortcuts when active" = "Ignoruj skrót gdy aktywny";
 "Ignore shortcuts while a window from these apps is active" = "Ignoruj skróty podczas gdy jedna z tych aplikacji jest aktywna";
+"Import…" = "Importuj…";
+"Keep open" = "Pozostaw otwarte";
+"Keep open and search" = "Pozostaw otwarte i wyszukaj";
 "Language" = "Język";
 "Language Change" = "Zmiana języka";
 "Large" = "Duży";
@@ -112,6 +124,7 @@
 "Leading" = "Prowadzący";
 "Left" = "Lewo";
 "Light" = "Światło";
+"Lock search" = "Zablokuj wyszukiwanie";
 "Max height on screen:" = "Maksymalna wysokość na ekranie";
 "Max width on screen:" = "Maksymalna szerokość na ekranie";
 "Medium" = "Średni";
@@ -127,6 +140,7 @@
 "Never" = "Nigdy";
 "Never send crash reports" = "Nigdy nie wysyłaj raportów crashów";
 "Non-active apps" = "Nieaktywne aplikacje";
+"Non-visible Spaces" = "Nieaktywne przestrzenie";
 "Normal" = "Normalna";
 "Not allowed" = "Nie dozwolone";
 "NSHumanReadableCopyright" = "Licencja GPL-3.0";
@@ -165,6 +179,7 @@
 "Screen including mouse" = "Ekranie na którym znajduje się mysz";
 "Screen Recording" = "Nagrywanie ekranu";
 "Screen showing AltTab" = "Ekranu wyświetlającego AltTab";
+"Search" = "Szukaj";
 "Select next window" = "Przejdź do następnego okna";
 "Select previous window" = "Przejdź do poprzedniego okna";
 "Select windows on mouse hover" = "Wybieraj okna przy najechaniu myszką";
@@ -176,8 +191,10 @@
 "Send debug profile (CPU, memory, etc)" = "Wyślij profil debugowania (CPU, pamięć, itp.)";
 "Send feedback" = "Wyślij feedback";
 "Send feedback…" = "Wyślij feedback…";
+"Settings imported" = "Ustawienia zaimportowane";
 "Settings…" = "Ustawienia";
 "Share improvement ideas, or report bugs" = "Podziel się pomysłami na ulepszenia lub zgłoś błąd";
+"Shortcut" = "Skrót";
 "Shortcut 1" = "Skrót 1";
 "Shortcut 2" = "Skrót 2";
 "Shortcut 3" = "Skrót 3";
@@ -223,6 +240,7 @@
 "The ⌘⎋ (command+escape) shortcut may be used by macOS for GameOverlay.\n\nYour change would assign it to: %@.\n\nIf you want to continue, make sure that the GameOverlay shortcut is disabled.\nAlso note that macOS has reported bugs where the shortcut may still interfere while disabled." = "Skrót ⌘⎋ (command+escape) może być używany przez macOS  do Trybu Gry.\n\nTwoja zmiana zostanie zastosowana do: %@.\n\nJeżeli chcesz kontynuować, upewnij się, że skrót do Trybu Gry na Macu jest wyłączony.\nDodatkowo wiedz, że zostały zgłaszane błędy w działaniu tego skrótu nawet gdy zostanie wyłączony.\n";
 "The ⎋ (escape) key is reserved by some macOS shortcuts (e.g. ⌘⌥⎋ will show the Force Quit Applications window).\n\nIf you want to use ⎋, make sure that Hold modifiers are neither: ⌘⌥, ⌘⌥⇧, or ⌘⌥⇧⌃" = "Klawisz ⎋ (escape) jest zarezerwowany przez niektóre skróty macOS (np. ⌘⌥⎋ pokaże okno Wymuszenia zamknięcia aplikacji).\n\nJeżeli chcesz używać ⎋, upewnij się, że nie używasz modyfikatorów: ⌘⌥, ⌘⌥⇧, lub ⌘⌥⇧⌃";
 "The ⎋ (escape) key is reserved by some macOS shortcuts (e.g. ⌘⌥⎋ will show the Force Quit Applications window).\n\nYour change would assign it to: %@.\n\nIf you want to use ⎋, make sure that Hold modifiers are neither: ⌘⌥, ⌘⌥⇧, or ⌘⌥⇧⌃" = "Klawisz ⎋ (escape) jest zarezerwowany przez niektóre skróty macOS (np. ⌘⌥⎋ pokaże okno Wymuszenia zamknięcia aplikacji).\n\nTwoja zmiana zostanie zastosowana do: %@.\n\nJeżeli chcesz używać ⎋, upewnij się, że nie używasz modyfikatorów: ⌘⌥, ⌘⌥⇧, lub ⌘⌥⇧⌃";
+"The application needs to restart to apply the imported settings." = "Aplikacja musi się ponownie uruchomić, aby zastosować zaimportowane ustawienia.";
 "The application needs to restart to apply the language change." = "Aplikacja musi zostać uruchomiona ponownie, by zastosować zmianę języka.";
 "Theme" = "Motyw";
 "Theme:" = "Motyw:";
@@ -235,6 +253,7 @@
 "Title truncation" = "Obcięcie tytułu";
 "Titles" = "Tytuły";
 "Trackpad haptic feedback" = "Odpowiedzi haptyczne gładzika";
+"Trigger" = "Wyzwalacz";
 "Trigger shortcut" = "Skrót klawiszowy";
 "Unassign existing shortcut and continue" = "Anuluj przypisanie istniejącego skrótu i kontynuuj";
 "Updates policy" = "Zasady aktualizacji";

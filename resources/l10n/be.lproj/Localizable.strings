@@ -9,6 +9,8 @@
 "Active app" = "Актыўнае прыкладанне";
 "Active screen" = "Актыўны экран";
 "Active Space" = "Актыўная прастора";
+"Add a running app" = "Дадаць запушчаную праграму";
+"Add an app from disk" = "Дадаць праграму з дыска";
 "Additional controls" = "Дадатковыя элементы кіравання";
 "Additional controls…" = "Дадатковыя элементы кіравання…";
 "Advanced" = "Дадаткова";
@@ -77,6 +79,8 @@
 "Don’t show windows from these apps" = "Не паказваць вокны гэтых праграм";
 "Done" = "Гатова";
 "End" = "Канец";
+"Exceptions" = "Выключэнні";
+"Export settings…" = "Экспартаваць налады…";
 "Export…" = "Экспартаваць…";
 "Fade in animation of Preview" = "Анімацыя паступовага з'яўлення папярэдняга прагляду";
 "Fade out animation" = "Анімацыя згасання";
@@ -113,6 +117,7 @@
 "I think the app could be improved with…" = "Я лічу, што праграму можна ўдасканаліць…";
 "Ignore shortcuts when active" = "Ігнараваць спалучэнні клавіш, калі актыўны";
 "Ignore shortcuts while a window from these apps is active" = "Ігнараваць спалучэнні клавіш, калі акно гэтых праграм актыўнае";
+"Import settings…" = "Імпартаваць налады…";
 "Import…" = "Імпартаваць…";
 "Keep open" = "Захоўваць адкрытым";
 "Keep open and search" = "Захоўваць адкрытым і шукаць";
@@ -279,6 +284,7 @@
 "Window min width in row:" = "Мін. шырыня акна ў радку:";
 "Window order:" = "Парадак вокнаў:";
 "Window Title" = "Загаловак акна";
+"Window title contains" = "Загаловак акна ўтрымлівае";
 "Window title font size:" = "Памер шрыфту загалоўка вокна:";
 "Window title truncation:" = "Абрэзка загалоўка акна:";
 "Windows" = "Вокны";

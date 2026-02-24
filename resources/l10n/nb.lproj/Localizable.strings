@@ -1,3 +1,7 @@
+"3-finger Horizontal Swipe" = "3-finger Horisontal sveip";
+"3-finger Vertical Swipe" = "3-finger Vertikal sveip";
+"4-finger Horizontal Swipe" = "4-finger Horisontal sveip";
+"4-finger Vertical Swipe" = "4-finger Vertikal sveip";
 "About" = "Om";
 "About %@" = "Om %@";
 "Accessibility" = "Tilgjengelighet";
@@ -8,6 +12,7 @@
 "Additional controls" = "Ytterligere innstillinger";
 "Additional controls…" = "Ytterligere innstillinger…";
 "Advanced" = "Avansert";
+"After keys are released" = "Etter at tastene slippes";
 "After release" = "Etter slipp";
 "Align windows" = "Juster vindusplassering";
 "Align windows:" = "Juster vindusplassering:";
@@ -44,6 +49,7 @@
 "Are you sure you don’t want a response?" = "Er du sikker på at du ikke vil ha en tilbakemelding?";
 "Arrow keys" = "Piltaster";
 "Ask whether to send crash reports" = "Spør om det skal sendes krasjrapporter";
+"Auto" = "Automatisk";
 "Auto-install updates periodically" = "Installer oppdateringer automatisk";
 "Blacklists" = "Svartelister";
 "Cancel" = "Avbryt";
@@ -63,6 +69,7 @@
 "Customize Thumbnails style…" = "Tilpass miniatyrbildestil…";
 "Customize Titles style…" = "Tilpass tittelstil…";
 "Dark" = "Mørk";
+"Debug tools" = "Feilsøkingsverktøy";
 "Disabled" = "Deaktivert";
 "Do nothing" = "Ikke gjør noe";
 "Don’t check for updates periodically" = "Ikke se jevnlig etter oppdateringer";
@@ -70,10 +77,12 @@
 "Don’t show windows from these apps" = "Ikke vis vinduer fra disse appene";
 "Done" = "Ferdig";
 "End" = "Slutt";
+"Export…" = "Eksporter…";
 "Fade in animation of Preview" = "Inntoningsanimasjon av forhåndsvisning";
 "Fade out animation" = "Uttoningsanimasjon";
 "Fade out animation of Switcher" = "Uttoningsanimasjon av forhåndsvisning";
 "Fade out animation:" = "Uttoningsanimasjon:";
+"Failed to import settings" = "Mislyktes å importere innstillinger";
 "Focus selected window" = "Fokuser på valgt vindu";
 "Fullscreen window" = "Fullskjermsvindu";
 "Fullscreen windows:" = "Vinduer i fullskjerm:";
@@ -104,6 +113,9 @@
 "I think the app could be improved with…" = "Jeg synes appen kunne vært forbedret med…";
 "Ignore shortcuts when active" = "Ignorer hurtigtaster når aktiv";
 "Ignore shortcuts while a window from these apps is active" = "Ignorer hurtigtaster mens et vindu fra disse appene er aktivt";
+"Import…" = "Importer…";
+"Keep open" = "Hold åpen";
+"Keep open and search" = "Hold åpen og søk";
 "Language" = "Språk";
 "Language Change" = "Bytt språk";
 "Large" = "Stor";
@@ -112,6 +124,7 @@
 "Leading" = "Venstrejustert";
 "Left" = "Venstre";
 "Light" = "Lys";
+"Lock search" = "Lås søk";
 "Max height on screen:" = "Maks høyde på skjerm:";
 "Max width on screen:" = "Maks bredde på skjerm:";
 "Medium" = "Middels";
@@ -127,6 +140,7 @@
 "Never" = "Aldri";
 "Never send crash reports" = "Send aldri krasjrapporter";
 "Non-active apps" = "Ikke-aktive apper";
+"Non-visible Spaces" = "Ikke-synlige skrivebord";
 "Normal" = "Normal";
 "Not allowed" = "Ikke tillatt";
 "NSHumanReadableCopyright" = "GPL-3.0-lisens";
@@ -165,6 +179,7 @@
 "Screen including mouse" = "Skjerm med mus";
 "Screen Recording" = "Skjermopptak";
 "Screen showing AltTab" = "Skjerm som viser AltTab";
+"Search" = "Søk";
 "Select next window" = "Velg neste vindu";
 "Select previous window" = "Velg forrige vindu";
 "Select windows on mouse hover" = "Velg vinduer når muspekeren er over dem";
@@ -176,8 +191,10 @@
 "Send debug profile (CPU, memory, etc)" = "Send debug-informasjon (CPU, minne, osv)";
 "Send feedback" = "Send tilbakemelding";
 "Send feedback…" = "Send tilbakemelding…";
+"Settings imported" = "Innstillinger importert";
 "Settings…" = "Innstillinger…";
 "Share improvement ideas, or report bugs" = "Del forbedringsideer, eller rapporter om feil";
+"Shortcut" = "Snarvei";
 "Shortcut 1" = "Hurtigtast 1";
 "Shortcut 2" = "Hurtigtast 2";
 "Shortcut 3" = "Hurtigtast 3";
@@ -223,6 +240,7 @@
 "The ⌘⎋ (command+escape) shortcut may be used by macOS for GameOverlay.\n\nYour change would assign it to: %@.\n\nIf you want to continue, make sure that the GameOverlay shortcut is disabled.\nAlso note that macOS has reported bugs where the shortcut may still interfere while disabled." = "⌘⎋ (command+escape) kan være i bruk av macOS for GameOverlay.\n\nEndringen til tilordnes til: %@.\n\nHvis du vil bruke denne, sjekk at GameOverlay-hurtigtasten er deaktivert.\nDet har blitt rapportert bugs hvor hurtigtasten fremdeles har effekt selv om den har blitt deaktivert.";
 "The ⎋ (escape) key is reserved by some macOS shortcuts (e.g. ⌘⌥⎋ will show the Force Quit Applications window).\n\nIf you want to use ⎋, make sure that Hold modifiers are neither: ⌘⌥, ⌘⌥⇧, or ⌘⌥⇧⌃" = "⎋ (escape) er reservert for noen macOS-hurtigtaster (f.eks. ⌘⌥⎋ åpner Tvungen avslutning-vinduet).\n\nFor å bruke ⎋, unngå å bruke disse kombinasjonene: ⌘⌥, ⌘⌥⇧, eller ⌘⌥⇧⌃";
 "The ⎋ (escape) key is reserved by some macOS shortcuts (e.g. ⌘⌥⎋ will show the Force Quit Applications window).\n\nYour change would assign it to: %@.\n\nIf you want to use ⎋, make sure that Hold modifiers are neither: ⌘⌥, ⌘⌥⇧, or ⌘⌥⇧⌃" = "⎋ (escape) er reservert for noen macOS-hurtigtaster (f.eks. ⌘⌥⎋ åpner Tvungen avslutning-vinduet).\n\nEndringen vil tilordnes til: %@.\n\nFor å bruke ⎋, unngå å bruke disse kombinasjonene: ⌘⌥, ⌘⌥⇧, eller ⌘⌥⇧⌃";
+"The application needs to restart to apply the imported settings." = "Applikasjonen må startes på nytt for å ta i bruk de importerte innstillingene.";
 "The application needs to restart to apply the language change." = "Applikasjonen må starte på nytt for å sette nytt språk.";
 "Theme" = "Tema";
 "Theme:" = "Tema:";
@@ -235,6 +253,7 @@
 "Title truncation" = "Tittelforkortelse";
 "Titles" = "Titler";
 "Trackpad haptic feedback" = "Styreflate følbar tilbakemelding";
+"Trigger" = "Utløser";
 "Trigger shortcut" = "Aktiver hurtigtast";
 "Unassign existing shortcut and continue" = "Fjern eksisterende hurtigtast og fortsett";
 "Updates policy" = "Oppdateringspolicy";

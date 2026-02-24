@@ -1,3 +1,7 @@
+"3-finger Horizontal Swipe" = "Deslizamiento horizontal con 3 dedos";
+"3-finger Vertical Swipe" = "Deslizamiento vertical con 3 dedos";
+"4-finger Horizontal Swipe" = "Deslizamiento horizontal con 4 dedos";
+"4-finger Vertical Swipe" = "Deslizamiento vertical con 4 dedos";
 "About" = "Acerca de";
 "About %@" = "Acerca de %@";
 "Accessibility" = "Accesibilidad";
@@ -8,6 +12,7 @@
 "Additional controls" = "Controles adicionales";
 "Additional controls…" = "Controles adicionales...";
 "Advanced" = "Avanzado";
+"After keys are released" = "Después de soltar las teclas";
 "After release" = "Después de la liberación";
 "Align windows" = "Alinear Windows";
 "Align windows:" = "Alinear ventanas:";
@@ -44,6 +49,7 @@
 "Are you sure you don’t want a response?" = "¿Está seguro de que no desea una respuesta?";
 "Arrow keys" = "Teclas de flecha";
 "Ask whether to send crash reports" = "Preguntar si se envían informes de error";
+"Auto" = "Automático";
 "Auto-install updates periodically" = "Auto instalar actualizaciones periódicamente";
 "Blacklists" = "Listas negras";
 "Cancel" = "Cancelar";
@@ -63,6 +69,7 @@
 "Customize Thumbnails style…" = "Personalizar el estilo de las miniaturas ...";
 "Customize Titles style…" = "Personalizar el estilo de títulos ...";
 "Dark" = "Dark";
+"Debug tools" = "Herramientas de depuración";
 "Disabled" = "Desactivado";
 "Do nothing" = "No hacer nada";
 "Don’t check for updates periodically" = "No comprobar actualizaciones periódicamente";
@@ -70,10 +77,12 @@
 "Don’t show windows from these apps" = "No mostrar ventanas de estas aplicaciones";
 "Done" = "Hecho";
 "End" = "Final";
+"Export…" = "Exportar…";
 "Fade in animation of Preview" = "Animación de aparición gradual de la Vista Previa";
 "Fade out animation" = "Animación desvanecida";
 "Fade out animation of Switcher" = "Animación de desaparición del Switcher";
 "Fade out animation:" = "Animación de desaparición:";
+"Failed to import settings" = "Error al importar los ajustes";
 "Focus selected window" = "Dar el foco a la ventana seleccionada";
 "Fullscreen window" = "Pantalla completa";
 "Fullscreen windows:" = "Ventanas a pantalla completa:";
@@ -104,6 +113,9 @@
 "I think the app could be improved with…" = "Creo que la aplicación podría mejorarse con…";
 "Ignore shortcuts when active" = "Ignora los atajos al activarse";
 "Ignore shortcuts while a window from these apps is active" = "Ignorar atajos mientras una ventana de estas aplicaciones está activa";
+"Import…" = "Importar…";
+"Keep open" = "Mantener abierto";
+"Keep open and search" = "Mantener abierto y buscar";
 "Language" = "Idioma";
 "Language Change" = "Cambiar idioma";
 "Large" = "Grande";
@@ -112,6 +124,7 @@
 "Leading" = "Principal";
 "Left" = "Izquierda";
 "Light" = "Light";
+"Lock search" = "Bloquear búsqueda";
 "Max height on screen:" = "Altura máxima en pantalla:";
 "Max width on screen:" = "Ancho máximo en pantalla:";
 "Medium" = "Medio";
@@ -127,6 +140,7 @@
 "Never" = "Nunca";
 "Never send crash reports" = "Nunca enviar informes de error";
 "Non-active apps" = "Aplicaciones no activas";
+"Non-visible Spaces" = "Espacios no visibles";
 "Normal" = "Normal";
 "Not allowed" = "No permitido";
 "NSHumanReadableCopyright" = "Licencia GPL-3.0";
@@ -165,6 +179,7 @@
 "Screen including mouse" = "Pantalla incluyendo el cursor";
 "Screen Recording" = "Grabación de Pantalla";
 "Screen showing AltTab" = "Pantalla que muestra AltTab";
+"Search" = "Buscar";
 "Select next window" = "Seleccionar siguiente ventana";
 "Select previous window" = "Seleccionar ventana anterior";
 "Select windows on mouse hover" = "Seleccione Windows en el mouse ratón";
@@ -176,8 +191,10 @@
 "Send debug profile (CPU, memory, etc)" = "Enviar perfil de depuración (CPU, memoria, etc.)";
 "Send feedback" = "Enviar comentarios";
 "Send feedback…" = "Enviar comentarios…";
+"Settings imported" = "Ajustes importados";
 "Settings…" = "Configuración";
 "Share improvement ideas, or report bugs" = "Comparta ideas de mejora o informe de errores";
+"Shortcut" = "Atajo";
 "Shortcut 1" = "Atajo 1";
 "Shortcut 2" = "Atajo 2";
 "Shortcut 3" = "Atajo 3";
@@ -223,6 +240,7 @@
 "The ⌘⎋ (command+escape) shortcut may be used by macOS for GameOverlay.\n\nYour change would assign it to: %@.\n\nIf you want to continue, make sure that the GameOverlay shortcut is disabled.\nAlso note that macOS has reported bugs where the shortcut may still interfere while disabled." = "El atajo ⌘⎋ (command+escape) podría estar siendo usado por macOS para GameOverlay.\n\nTu cambio lo asignaría a: %@.\n\nSi deseas continuar, asegúrate de que el atajo de GameOverlay esté deshabilitado.\nTen en cuenta también que macOS ha reportado errores en los que el atajo puede seguir interfiriendo incluso estando deshabilitado.";
 "The ⎋ (escape) key is reserved by some macOS shortcuts (e.g. ⌘⌥⎋ will show the Force Quit Applications window).\n\nIf you want to use ⎋, make sure that Hold modifiers are neither: ⌘⌥, ⌘⌥⇧, or ⌘⌥⇧⌃" = "La tecla ⎋ (escape) está reservada por algunos atajos de macOS (por ejemplo, ⌘⌥⎋ muestra la ventana Forzar Salida de Aplicaciones).\n\nSi quieres usar ⎋, asegúrate de que los modificadores de Pulsación Mantenida no sean: ⌘⌥, ⌘⌥⇧ o ⌘⌥⇧⌃";
 "The ⎋ (escape) key is reserved by some macOS shortcuts (e.g. ⌘⌥⎋ will show the Force Quit Applications window).\n\nYour change would assign it to: %@.\n\nIf you want to use ⎋, make sure that Hold modifiers are neither: ⌘⌥, ⌘⌥⇧, or ⌘⌥⇧⌃" = "La tecla ⎋ (escape) está reservada por algunos atajos de macOS (por ejemplo, ⌘⌥⎋ abre la ventana Forzar Salida de Aplicaciones).\n\nTu cambio la asignaría a: %@.\n\nSi quieres usar ⎋, asegúrate de que los Modificadores Mantenidos no sean: ⌘⌥, ⌘⌥⇧ ni ⌘⌥⇧⌃.";
+"The application needs to restart to apply the imported settings." = "La aplicación necesita reiniciarse para aplicar los ajustes importados.";
 "The application needs to restart to apply the language change." = "Es necesario reiniciar la aplicación para aplicar el cambio de idioma.";
 "Theme" = "Tema";
 "Theme:" = "Tema:";
@@ -235,6 +253,7 @@
 "Title truncation" = "Truncamiento del título";
 "Titles" = "Títulos";
 "Trackpad haptic feedback" = "Retroalimentación háptica del trackpad";
+"Trigger" = "Activar";
 "Trigger shortcut" = "Atajo de gatillo";
 "Unassign existing shortcut and continue" = "Anular la asignación del atajo existente y continuar";
 "Updates policy" = "Política de actualizaciones";

@@ -9,6 +9,8 @@
 "Active app" = "البرنامج الحالي";
 "Active screen" = "الشاشة الحالية";
 "Active Space" = "المساحة الحالية";
+"Add a running app" = "إضافة تطبيق قيد التشغيل";
+"Add an app from disk" = "إضافة تطبيق من القرص";
 "Additional controls" = "ضوابط إضافية";
 "Additional controls…" = "ضوابط إضافية…";
 "Advanced" = "متقدّم";
@@ -77,6 +79,8 @@
 "Don’t show windows from these apps" = "لا تُظهر نوافذ هذه التطبيقات";
 "Done" = "منتهي";
 "End" = "النهاية";
+"Exceptions" = "استثناءات";
+"Export settings…" = "تصدير الإعدادات…";
 "Export…" = "تصدير…";
 "Fade in animation of Preview" = "رُسوم متحركة لظهور المعاينة";
 "Fade out animation" = "الرسوم المتحركة للتلاشي";
@@ -113,6 +117,7 @@
 "I think the app could be improved with…" = "أعتقد أنه بالإمكان تطوير البرنامج بـ…";
 "Ignore shortcuts when active" = "تجاهل الاختصارات عند النشاط";
 "Ignore shortcuts while a window from these apps is active" = "لا تفعّل الإختصارات عندما تكون نافذة من أحد هذه التطبيقات مفعّلة";
+"Import settings…" = "استيراد الإعدادات…";
 "Import…" = "استيراد…";
 "Keep open" = "إبقاء مفتوحًا";
 "Keep open and search" = "إبقاء مفتوحًا والبحث";
@@ -279,6 +284,7 @@
 "Window min width in row:" = "أصغر عرض للنافذة بالأعمدة:";
 "Window order:" = "ترتيب النوافذ:";
 "Window Title" = "عنوان النافذة";
+"Window title contains" = "عنوان النافذة يحتوي على";
 "Window title font size:" = "حجم خط عنوان النافذة:";
 "Window title truncation:" = "اقتطاع عنوان النافذة:";
 "Windows" = "نوافذ";

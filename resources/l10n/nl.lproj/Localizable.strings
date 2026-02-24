@@ -9,6 +9,8 @@
 "Active app" = "Actieve programma";
 "Active screen" = "Actieve scherm";
 "Active Space" = "Actieve space";
+"Add a running app" = "Voeg een actieve app toe";
+"Add an app from disk" = "Voeg een app toe vanaf schijf";
 "Additional controls" = "Aanvullende bedieningselementen";
 "Additional controls…" = "Extra bedieningselementen";
 "Advanced" = "Geavanceerd";
@@ -77,6 +79,8 @@
 "Don’t show windows from these apps" = "Toon geen vensters van deze apps";
 "Done" = "Klaar";
 "End" = "Einde";
+"Exceptions" = "Uitzonderingen";
+"Export settings…" = "Instellingen exporteren…";
 "Export…" = "Exporteren…";
 "Fade in animation of Preview" = "Fade-in animatie van de voorvertoning";
 "Fade out animation" = "FADE OUT -animatie";
@@ -113,6 +117,7 @@
 "I think the app could be improved with…" = "Ik denk dat het programma verbeterd kan worden door…";
 "Ignore shortcuts when active" = "Negeer snelkoppeling wanneer actief";
 "Ignore shortcuts while a window from these apps is active" = "Negeer snelkoppeling als één van deze vensters actief is";
+"Import settings…" = "Instellingen importeren…";
 "Import…" = "Importeren…";
 "Keep open" = "Open houden";
 "Keep open and search" = "Open houden en zoeken";
@@ -279,6 +284,7 @@
 "Window min width in row:" = "Minimale vensterbreedte in rij:";
 "Window order:" = "Scherm volgorde:";
 "Window Title" = "Raamtitel";
+"Window title contains" = "Venstertitel bevat";
 "Window title font size:" = "Tekstgrootte venstertitel:";
 "Window title truncation:" = "Afkappen venstertitel:";
 "Windows" = "ramen";

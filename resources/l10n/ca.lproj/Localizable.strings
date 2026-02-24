@@ -9,6 +9,8 @@
 "Active app" = "Aplicació activa";
 "Active screen" = "Pantalla activa";
 "Active Space" = "Espai actiu";
+"Add a running app" = "Afegir una aplicació en execució";
+"Add an app from disk" = "Afegir una aplicació des del disc";
 "Additional controls" = "Controls addicionals";
 "Additional controls…" = "Controls addicionals…";
 "Advanced" = "Avançat";
@@ -77,6 +79,8 @@
 "Don’t show windows from these apps" = "No mostrar les finestres de les següents aplicacions";
 "Done" = "Fet";
 "End" = "Final";
+"Exceptions" = "Excepcions";
+"Export settings…" = "Exportar la configuració…";
 "Export…" = "Exporta…";
 "Fade in animation of Preview" = "Animar l'aparició de la previsualització";
 "Fade out animation" = "En ocultar";
@@ -113,6 +117,7 @@
 "I think the app could be improved with…" = "Crec que l'aplicació milloraria si…";
 "Ignore shortcuts when active" = "Ignorar dreceres quan està activa";
 "Ignore shortcuts while a window from these apps is active" = "Ignorar dreceres si una finestra d'aquestes aplicacions està activa";
+"Import settings…" = "Importar la configuració…";
 "Import…" = "Importa…";
 "Keep open" = "Mantén obert";
 "Keep open and search" = "Mantén obert i cerca";
@@ -279,6 +284,7 @@
 "Window min width in row:" = "Amplada mínima de finestra dins d'una fila:";
 "Window order:" = "Mostrar en ordre:";
 "Window Title" = "Títol de la finestra";
+"Window title contains" = "El títol de la finestra conté";
 "Window title font size:" = "Mida dels títols:";
 "Window title truncation:" = "Escurçament dels títols:";
 "Windows" = "Finestres";

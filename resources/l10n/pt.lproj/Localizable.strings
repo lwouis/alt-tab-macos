@@ -1,3 +1,7 @@
+"3-finger Horizontal Swipe" = "Deslizar horizontalmente com 3 dedos";
+"3-finger Vertical Swipe" = "Deslizar verticalmente com 3 dedos";
+"4-finger Horizontal Swipe" = "Deslizar horizontalmente com 4 dedos";
+"4-finger Vertical Swipe" = "Deslizar verticalmente com 4 dedos";
 "About" = "Informações";
 "About %@" = "Sobre %@";
 "Accessibility" = "Acessibilidade";
@@ -8,6 +12,7 @@
 "Additional controls" = "Controlos adicionais";
 "Additional controls…" = "Controlos adicionais…";
 "Advanced" = "Avançada";
+"After keys are released" = "Após as teclas serem soltas";
 "After release" = "Ao soltar";
 "Align windows" = "Alinhar as janelas";
 "Align windows:" = "Alinhar janelas:";
@@ -44,6 +49,7 @@
 "Are you sure you don’t want a response?" = "Tem a certeza que não deseja uma resposta?";
 "Arrow keys" = "Teclas direccionais";
 "Ask whether to send crash reports" = "Perguntar para enviar";
+"Auto" = "Automático";
 "Auto-install updates periodically" = "Instalar automaticamente";
 "Blacklists" = "Excepções";
 "Cancel" = "Cancelar";
@@ -63,6 +69,7 @@
 "Customize Thumbnails style…" = "Personalizar o estilo das miniaturas…";
 "Customize Titles style…" = "Personalizar o estilo de títulos…";
 "Dark" = "Escuro";
+"Debug tools" = "Ferramentas de depuração";
 "Disabled" = "Desactivado";
 "Do nothing" = "Não fazer nada";
 "Don’t check for updates periodically" = "Não procurar";
@@ -70,10 +77,12 @@
 "Don’t show windows from these apps" = "Não exibir janelas destas applicações";
 "Done" = "Feito";
 "End" = "Fim";
+"Export…" = "Exportar…";
 "Fade in animation of Preview" = "Animação de aparecimento da Pré-Visualização";
 "Fade out animation" = "Animação de desaparecimento";
 "Fade out animation of Switcher" = "Animação de fade-out do switcher";
 "Fade out animation:" = "Animação de desaparecimento:";
+"Failed to import settings" = "Falha ao importar configurações";
 "Focus selected window" = "Focar na janela activa";
 "Fullscreen window" = "Ecrã inteiro";
 "Fullscreen windows:" = "Janelas fullscreen:";
@@ -104,6 +113,9 @@
 "I think the app could be improved with…" = "Eu acho que a aplicação poderia ser melhorada se…";
 "Ignore shortcuts when active" = "Ignorar atalhos enquanto activo";
 "Ignore shortcuts while a window from these apps is active" = "Ignorar atalhos sempre que uma destas janelas esteja activa";
+"Import…" = "Importar…";
+"Keep open" = "Manter aberto";
+"Keep open and search" = "Manter aberto e pesquisar";
 "Language" = "Idioma";
 "Language Change" = "Mudança de Idioma";
 "Large" = "Grande";
@@ -112,6 +124,7 @@
 "Leading" = "Principal";
 "Left" = "Esquerda";
 "Light" = "Claro";
+"Lock search" = "Bloquear pesquisa";
 "Max height on screen:" = "Altura máxima no ecrã:";
 "Max width on screen:" = "Largura máxima no ecrã:";
 "Medium" = "Médio";
@@ -127,6 +140,7 @@
 "Never" = "Nunca";
 "Never send crash reports" = "Nunca enviar";
 "Non-active apps" = "Aplicações não activas";
+"Non-visible Spaces" = "Espaços não visíveis";
 "Normal" = "Normal";
 "Not allowed" = "Não permitido";
 "NSHumanReadableCopyright" = "Licença GPL-3.0";
@@ -165,6 +179,7 @@
 "Screen including mouse" = "Ecrã do rato";
 "Screen Recording" = "Gravação de Ecrã";
 "Screen showing AltTab" = "Ecrã onde o AltTab está activo";
+"Search" = "Pesquisar";
 "Select next window" = "Seleccionar próxima janela";
 "Select previous window" = "Seleccionar janela anterior";
 "Select windows on mouse hover" = "Seleccionar janelas com o rato em cima";
@@ -176,8 +191,10 @@
 "Send debug profile (CPU, memory, etc)" = "Enviar dados para depuração (CPU, memória, etc)";
 "Send feedback" = "Enviar comentário";
 "Send feedback…" = "Enviar comentário…";
+"Settings imported" = "Configurações importadas";
 "Settings…" = "Definições";
 "Share improvement ideas, or report bugs" = "Partilhar sugestões ou reportar falhas";
+"Shortcut" = "Atalho";
 "Shortcut 1" = "Atalho 1";
 "Shortcut 2" = "Atalho 2";
 "Shortcut 3" = "Atalho 3";
@@ -223,6 +240,7 @@
 "The ⌘⎋ (command+escape) shortcut may be used by macOS for GameOverlay.\n\nYour change would assign it to: %@.\n\nIf you want to continue, make sure that the GameOverlay shortcut is disabled.\nAlso note that macOS has reported bugs where the shortcut may still interfere while disabled." = "O atalho ⌘⎋ (Command+Escape) pode ser utilizado pelo macOS para o GameOverlay. \n\nA sua alteração atribuí-lo-ia a: %@. \n\nSe desejar continuar, certifique-se de que o atalho do GameOverlay está desativado. \nNote também que o macOS relatou bugs onde o atalho ainda pode interferir enquanto desativado.";
 "The ⎋ (escape) key is reserved by some macOS shortcuts (e.g. ⌘⌥⎋ will show the Force Quit Applications window).\n\nIf you want to use ⎋, make sure that Hold modifiers are neither: ⌘⌥, ⌘⌥⇧, or ⌘⌥⇧⌃" = "A tecla ⎋ (escape) está reservada por alguns atalhos do MacOS (ex. ⌘⌥⎋ abrirá a janela Force Quit Applications).\n\nSe a desejar utilizar, tenha a certeza de que não utiliza as combinações: ⌘⌥⎋, ⌘⌥⇧⎋, ou ⌘⌥⇧⌃⎋.";
 "The ⎋ (escape) key is reserved by some macOS shortcuts (e.g. ⌘⌥⎋ will show the Force Quit Applications window).\n\nYour change would assign it to: %@.\n\nIf you want to use ⎋, make sure that Hold modifiers are neither: ⌘⌥, ⌘⌥⇧, or ⌘⌥⇧⌃" = "A tecla ⎋ (escape) é reservada por alguns atalhos do macOS (por exemplo, ⌘⌥⎋ abrirá a janela Forçar Encerrar Aplicações). \n\nA sua alteração irá atribuí-la a: %@. \n\nSe quiser utilizar ⎋, certifique-se de que os modificadores não são: ⌘⌥, ⌘⌥⇧ ou ⌘⌥⇧⌃";
+"The application needs to restart to apply the imported settings." = "O aplicativo precisa ser reiniciado para aplicar as configurações importadas.";
 "The application needs to restart to apply the language change." = "A aplicação precisa de reiniciar para aplicar a alteração de idioma.";
 "Theme" = "Tema";
 "Theme:" = "Tema:";
@@ -235,6 +253,7 @@
 "Title truncation" = "Truncamento do título";
 "Titles" = "Títulos";
 "Trackpad haptic feedback" = "Feedback háptico do Trackpad";
+"Trigger" = "Acionador";
 "Trigger shortcut" = "Atalho";
 "Unassign existing shortcut and continue" = "Eliminar atalho e continuar";
 "Updates policy" = "Política de Actualizações";

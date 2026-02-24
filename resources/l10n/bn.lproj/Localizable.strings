@@ -9,6 +9,8 @@
 "Active app" = "সক্রিয় অ্যাপ";
 "Active screen" = "সক্রিয় স্ক্রীন";
 "Active Space" = "সক্রিয় স্পেস";
+"Add a running app" = "একটি চলমান অ্যাপ যোগ করুন";
+"Add an app from disk" = "ডিস্ক থেকে একটি অ্যাপ যোগ করুন";
 "Additional controls" = "অতিরিক্ত নিয়ন্ত্রণ";
 "Additional controls…" = "অতিরিক্ত নিয়ন্ত্রণ ...";
 "Advanced" = "উন্নত";
@@ -77,6 +79,8 @@
 "Don’t show windows from these apps" = "এই অ্যাপস থেকে উইন্ডো দেখাবেন না";
 "Done" = "সম্পন্ন";
 "End" = "শেষ";
+"Exceptions" = "ব্যতিক্রম";
+"Export settings…" = "সেটিংস রপ্তানি করুন…";
 "Export…" = "এক্সপোর্ট করুন…";
 "Fade in animation of Preview" = "প্রিভিউয়ের ফেড ইন অ্যানিমেশন";
 "Fade out animation" = "অ্যানিমেশন বিবর্ণ";
@@ -113,6 +117,7 @@
 "I think the app could be improved with…" = "আমি মনে করি অ্যাপটি আরো উন্নত করা যেতে পারে...";
 "Ignore shortcuts when active" = "সক্রিয় থাকাকালীন শর্টকাট উপেক্ষা করুন";
 "Ignore shortcuts while a window from these apps is active" = "এই অ্যাপগুলির একটি উইন্ডো সক্রিয় থাকাকালীন শর্টকাটগুলি উপেক্ষা করুন৷";
+"Import settings…" = "সেটিংস আমদানি করুন…";
 "Import…" = "আমদানি করুন…";
 "Keep open" = "খোলা রাখুন";
 "Keep open and search" = "খোলা রাখুন এবং অনুসন্ধান করুন";
@@ -279,6 +284,7 @@
 "Window min width in row:" = "সারিতে উইন্ডোর মিনিমাম প্রস্থ:";
 "Window order:" = "উইন্ডোর ক্রম:";
 "Window Title" = "উইন্ডো শিরোনাম";
+"Window title contains" = "উইন্ডোর শিরোনামে রয়েছে";
 "Window title font size:" = "উইন্ডো শিরোনামের ফন্ট সাইজ:";
 "Window title truncation:" = "উইন্ডো শিরোনাম ছেদন:";
 "Windows" = "উইন্ডোজ";

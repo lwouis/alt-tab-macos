@@ -7,6 +7,7 @@
 "Additional controls" = "கூடுதல் கட்டுப்பாடுகள்";
 "Additional controls…" = "கூடுதல் கட்டுப்பாடுகள்…";
 "Advanced" = "மேம்படுத்தபட்ட";
+"After keys are released" = "கீகளை வெளியிட்ட பிறகு";
 "After release" = "வெளியான பிறகு";
 "Align windows" = "விண்டோஸை சீரமைக்கவும்";
 "Align windows:" = "ஜன்னலை சீரமை:";
@@ -40,6 +41,7 @@
 "Are you sure you don’t want a response?" = "நீங்கள் ஒரு பதிலை விரும்பவில்லை என்பதில் உறுதியாக இருக்கிறீர்களா?";
 "Arrow keys" = "அம்புக்குறி விசைகள்";
 "Ask whether to send crash reports" = "செயலிழப்பு அறிக்கைகளை அனுப்பலாமா என்று கேளுங்கள்";
+"Auto" = "தானியங்கு";
 "Auto-install updates periodically" = "அவ்வப்போது புதுப்பிப்புகளைத் தானாக நிறுவவும்";
 "Blacklists" = "தடுப்புப்பட்டியல்கள்";
 "Cancel" = "ரத்துசெய்";
@@ -58,6 +60,7 @@
 "Customize Thumbnails style…" = "சிறுபட பாணியைத் தனிப்பயனாக்குங்கள்…";
 "Customize Titles style…" = "தலைப்புகள் பாணியைத் தனிப்பயனாக்குங்கள்…";
 "Dark" = "இருண்ட";
+"Debug tools" = "பிழைத்திருத்தக் கருவிகள்";
 "Disabled" = "முடக்கப்பட்டது";
 "Do nothing" = "எதுவும் செய்ய வேண்டாம்";
 "Don’t check for updates periodically" = "அவ்வப்போது புதுப்பிப்புகளை சரிபார்க்க வேண்டாம்";
@@ -65,8 +68,10 @@
 "Don’t show windows from these apps" = "ஆப்ஸ்";
 "Done" = "முடிந்தது";
 "End" = "முடிவு";
+"Export…" = "ஏற்றுமதி செய்…";
 "Fade out animation" = "அனிமேஷனை மங்கச் செய்யுங்கள்";
 "Fade out animation:" = "மறையும் அசைவூட்டம்:";
+"Failed to import settings" = "அமைப்புகளை இறக்குமதி செய்ய முடியவில்லை";
 "Focus selected window" = "தேர்ந்தெடுக்கப்பட்ட சாளரத்தை கவனம் செலுத்துங்கள்";
 "Fullscreen/Defullscreen window" = "முழுத்திரை/டெஃபுலெல்ஸ்கிரீன் சாளரம்";
 "General" = "பொது";
@@ -85,18 +90,23 @@
 "Hold" = "பிடி";
 "I think the app could be improved with…" = "பயன்பாட்டை மேம்படுத்த முடியும் என்று நினைக்கிறேன்…";
 "Ignore shortcuts when active" = "செயலில் இருக்கும்போது குறுக்குவழிகளை புறக்கணிக்கவும்";
+"Import…" = "இறக்குமதி செய்…";
+"Keep open" = "திறந்தே வைத்திரு";
+"Keep open and search" = "திறந்தே வைத்திருந்து தேடு";
 "Language" = "மொழி";
 "Large" = "பெரிய";
 "Latest releases" = "சமீபத்திய வெளியீடுகள்";
 "Leading" = "முன்னணி";
 "Left" = "இடது";
 "Light" = "ஒளி";
+"Lock search" = "தேடலை பூட்டு";
 "Medium" = "நடுத்தர";
 "Menubar icon" = "மெனுபார் ஐகான்";
 "Middle" = "நடுத்தர";
 "Minimize/Deminimize window" = "சாளரத்தை குறைக்க/குறைக்கவும்";
 "Multiple screens" = "பல திரைகள்";
 "Never send crash reports" = "செயலிழப்பு அறிக்கைகளை ஒருபோதும் அனுப்ப வேண்டாம்";
+"Non-visible Spaces" = "தெரியாத இடைவெளிகள்";
 "Normal" = "சாதாரண";
 "Not allowed" = "அனுமதிக்கப்படவில்லை";
 "NSHumanReadableCopyright" = "GPL-3.0 உரிமம்";
@@ -122,6 +132,7 @@
 "Screen including mouse" = "சுட்டி உள்ளிட்ட திரை";
 "Screen Recording" = "திரை பதிவு";
 "Screen showing AltTab" = "திரை அல்தாப் காட்டுகிறது";
+"Search" = "தேடு";
 "Select next window" = "அடுத்த சாளரத்தைத் தேர்ந்தெடுக்கவும்";
 "Select previous window" = "முந்தைய சாளரத்தைத் தேர்ந்தெடுக்கவும்";
 "Select windows on mouse hover" = "சுட்டி வட்டத்தில் விண்டோஸைத் தேர்ந்தெடுக்கவும்";
@@ -133,8 +144,10 @@
 "Send debug profile (CPU, memory, etc)" = "பிழைத்திருத்த சுயவிவரத்தை அனுப்பவும் (CPU, நினைவகம் போன்றவை)";
 "Send feedback" = "கருத்துக்களை அனுப்பவும்";
 "Send feedback…" = "கருத்துக்களை அனுப்பவும்…";
+"Settings imported" = "அமைப்புகள் இறக்குமதி செய்யப்பட்டன";
 "Settings…" = "அமைப்புகள்";
 "Share improvement ideas, or report bugs" = "மேம்பாட்டு யோசனைகளைப் பகிரவும் அல்லது பிழைகள் புகாரளிக்கவும்";
+"Shortcut" = "குறுக்குவழி";
 "Shortcut 1" = "குறுக்குவழி 1";
 "Shortcut 2" = "குறுக்குவழி 2";
 "Shortcut 3" = "குறுக்குவழி 3";
@@ -168,6 +181,7 @@
 "Support this project" = "இந்த திட்டத்தை ஆதரிக்கவும்";
 "Switch between 3 different styles. You can customize them." = "3 வெவ்வேறு பாணிகளுக்கு இடையில் மாறவும்.நீங்கள் அவற்றைத் தனிப்பயனாக்கலாம்.";
 "System" = "அமைப்பு";
+"The application needs to restart to apply the imported settings." = "இறக்குமதி செய்யப்பட்ட அமைப்புகளைப் பயன்படுத்த, பயன்பாட்டை மறுதொடக்கம் செய்ய வேண்டும்.";
 "Theme" = "தீம்";
 "Theme:" = "தோற்றம்";
 "Then release:" = "பிறகு விடு:";
@@ -177,6 +191,7 @@
 "Title" = "தலைப்பு";
 "Title truncation" = "தலைப்பு துண்டிப்பு";
 "Titles" = "தலைப்புகள்";
+"Trigger" = "தூண்டுதல்";
 "Trigger shortcut" = "குறுக்குவழியைத் தூண்டவும்";
 "Unassign existing shortcut and continue" = "தற்போதுள்ள குறுக்குவழியை ஒதுக்கி தொடரவும்";
 "Updates policy" = "கொள்கை புதுப்பிக்கிறது";

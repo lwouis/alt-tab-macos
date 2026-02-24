@@ -1,3 +1,7 @@
+"3-finger Horizontal Swipe" = "Sciapáil Cothrománach le 3 Mhéar";
+"3-finger Vertical Swipe" = "Sciapáil Ingearach le 3 Mhéar";
+"4-finger Horizontal Swipe" = "Sciapáil Cothrománach le 4 Mhéar";
+"4-finger Vertical Swipe" = "Sciapáil Ingearach le 4 Mhéar";
 "About" = "Maidir";
 "About %@" = "Maidir le %@";
 "Accessibility" = "Inrochtaineacht";
@@ -8,6 +12,7 @@
 "Additional controls" = "Rialuithe breise";
 "Additional controls…" = "Rialuithe breise…";
 "Advanced" = "Ard";
+"After keys are released" = "Tar éis na heochracha a scaoileadh";
 "After release" = "Tar éis scaoileadh";
 "Align windows" = "Ailínigh fuinneoga";
 "Align windows:" = "Ailínigh fuinneoga:";
@@ -44,6 +49,7 @@
 "Are you sure you don’t want a response?" = "An bhfuil tú cinnte nach dteastaíonn freagra uait?";
 "Arrow keys" = "Eochracha Saighead";
 "Ask whether to send crash reports" = "Fiafraigh ar cheart tuairiscí tuairteála a sheoladh";
+"Auto" = "Uathoibríoch";
 "Auto-install updates periodically" = "Uathshuiteáil nuashonruithe go tréimhsiúil";
 "Blacklists" = "Liostaí dubha";
 "Cancel" = "Cealaigh";
@@ -63,6 +69,7 @@
 "Customize Thumbnails style…" = "Saincheap stíl Mionsamhlacha…";
 "Customize Titles style…" = "Saincheap stíl Teidil…";
 "Dark" = "Dorcha";
+"Debug tools" = "Uirlisí dífhabhtaithe";
 "Disabled" = "Díchumasaithe";
 "Do nothing" = "Ná déan faic";
 "Don’t check for updates periodically" = "Ná seiceáil le haghaidh nuashonruithe ó am go chéile";
@@ -70,10 +77,12 @@
 "Don’t show windows from these apps" = "Ná taispeáin fuinneoga ó na haipeanna seo";
 "Done" = "Déanta";
 "End" = "Deireadh";
+"Export…" = "Easpórtáil…";
 "Fade in animation of Preview" = "Beochan céimnithe isteach Réamhamhairc";
 "Fade out animation" = "Céimnigh amach beochan";
 "Fade out animation of Switcher" = "Beochan céimnithe de Switcher";
 "Fade out animation:" = "Beochan céimnithe:";
+"Failed to import settings" = "Theip ar shocruithe a iompórtáil";
 "Focus selected window" = "Fócas an fhuinneog roghnaithe";
 "Fullscreen window" = "Fuinneog lánscáileáin";
 "Fullscreen windows:" = "Fuinneoga lánscáileáin:";
@@ -104,6 +113,9 @@
 "I think the app could be improved with…" = "Ceapaim go bhféadfaí an aip a fheabhsú le…";
 "Ignore shortcuts when active" = "Déan neamhaird de aicearraí agus tú gníomhach";
 "Ignore shortcuts while a window from these apps is active" = "Déan neamhaird de aicearraí agus fuinneog ó na haipeanna seo gníomhach";
+"Import…" = "Iompórtáil…";
+"Keep open" = "Coinnigh oscailte";
+"Keep open and search" = "Coinnigh oscailte agus cuardaigh";
 "Language" = "Teanga";
 "Language Change" = "Athrú Teanga";
 "Large" = "Mór";
@@ -112,6 +124,7 @@
 "Leading" = "Ceannaireacht";
 "Left" = "Ar chlé";
 "Light" = "Solas";
+"Lock search" = "Cuardach a ghlasáil";
 "Max height on screen:" = "Uasairde ar an scáileán:";
 "Max width on screen:" = "Leithead uasta ar an scáileán:";
 "Medium" = "Meánach";
@@ -127,6 +140,7 @@
 "Never" = "Choíche";
 "Never send crash reports" = "Ná seol tuairiscí tuairteála riamh";
 "Non-active apps" = "Aipeanna neamhghníomhacha";
+"Non-visible Spaces" = "Spásanna Neamhinfheicthe";
 "Normal" = "Gnáth";
 "Not allowed" = "Ní cheadaítear";
 "NSHumanReadableCopyright" = "Ceadúnas GPL-3.0";
@@ -165,6 +179,7 @@
 "Screen including mouse" = "Scáileán lena n-áirítear luch";
 "Screen Recording" = "Taifeadadh Scáileáin";
 "Screen showing AltTab" = "Scáileán ag taispeáint AltTab";
+"Search" = "Cuardaigh";
 "Select next window" = "Roghnaigh an chéad fhuinneog eile";
 "Select previous window" = "Roghnaigh an fhuinneog roimhe seo";
 "Select windows on mouse hover" = "Roghnaigh fuinneoga ar ainlíonn luch";
@@ -176,8 +191,10 @@
 "Send debug profile (CPU, memory, etc)" = "Seol próifíl dífhabhtaithe (LAP, cuimhne, srl)";
 "Send feedback" = "Seol aiseolas";
 "Send feedback…" = "Seol aiseolas…";
+"Settings imported" = "Socruithe iompórtáilte";
 "Settings…" = "Socruithe";
 "Share improvement ideas, or report bugs" = "Comhroinn smaointe feabhsúcháin, nó tuairiscigh fabhtanna";
+"Shortcut" = "Aicearra";
 "Shortcut 1" = "Aicearra 1";
 "Shortcut 2" = "Aicearra 2";
 "Shortcut 3" = "Aicearra 3";
@@ -223,6 +240,7 @@
 "The ⌘⎋ (command+escape) shortcut may be used by macOS for GameOverlay.\n\nYour change would assign it to: %@.\n\nIf you want to continue, make sure that the GameOverlay shortcut is disabled.\nAlso note that macOS has reported bugs where the shortcut may still interfere while disabled." = "D’fhéadfadh macOS an aicearra ⌘⎋ (ordú+éalú) a úsáid le haghaidh GameOverlay.\n\nD’fhéadfadh d’athrú é a shannadh do: %@.\n\nMás mian leat leanúint ar aghaidh, déan cinnte go bhfuil an aicearra GameOverlay díchumasaithe.\nTabhair faoi deara freisin gur thuairiscigh macOS fabhtanna inar féidir leis an aicearra cur isteach fós agus é díchumasaithe.";
 "The ⎋ (escape) key is reserved by some macOS shortcuts (e.g. ⌘⌥⎋ will show the Force Quit Applications window).\n\nIf you want to use ⎋, make sure that Hold modifiers are neither: ⌘⌥, ⌘⌥⇧, or ⌘⌥⇧⌃" = "Tá an eochair ⎋ (éalú) curtha in áirithe ag roinnt aicearraí macOS (m.sh. taispeánfaidh ⌘⌥⎋ an fhuinneog Éigeantach Scoir d'Fheidhmchláir).\n\nMás mian leat ⎋ a úsáid, déan cinnte nach bhfuil na modhnaitheoirí Coinnigh: ⌘⌥, ⌘⌥⇧, ná ⌘⌥⇧⌃";
 "The ⎋ (escape) key is reserved by some macOS shortcuts (e.g. ⌘⌥⎋ will show the Force Quit Applications window).\n\nYour change would assign it to: %@.\n\nIf you want to use ⎋, make sure that Hold modifiers are neither: ⌘⌥, ⌘⌥⇧, or ⌘⌥⇧⌃" = "Tá an eochair ⎋ (éalú) curtha in áirithe ag roinnt aicearraí macOS (m.sh. taispeánfaidh ⌘⌥⎋ an fhuinneog Éigeantach Scoir Feidhmchláir).\n\nD’fhéadfadh d’athrú é a shannadh do: %@.\n\nMás mian leat ⎋ a úsáid, déan cinnte nach bhfuil na modhnaitheoirí Coinnigh: ⌘⌥, ⌘⌥⇧, ná ⌘⌥⇧⌃";
+"The application needs to restart to apply the imported settings." = "Ní mór an feidhmchlár a atosú chun na socruithe iompórtáilte a chur i bhfeidhm.";
 "The application needs to restart to apply the language change." = "Ní mór an feidhmchlár a atosú chun an t-athrú teanga a chur i bhfeidhm.";
 "Theme" = "Téama";
 "Theme:" = "Téama:";
@@ -235,6 +253,7 @@
 "Title truncation" = "Teascadh teidil";
 "Titles" = "Teidil";
 "Trackpad haptic feedback" = "Aiseolas haptic riancheap";
+"Trigger" = "Truicear";
 "Trigger shortcut" = "Aicearra truicear";
 "Unassign existing shortcut and continue" = "Díshannaigh an t-aicearra reatha agus lean ar aghaidh";
 "Updates policy" = "Nuashonraítear polasaí";

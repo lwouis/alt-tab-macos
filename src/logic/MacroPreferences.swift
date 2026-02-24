@@ -82,8 +82,10 @@ enum LanguagePreference: CaseIterable, MacroPreference {
     case serbian
     case ukrainian
     case hebrew
+    case urdu
     case arabic
     case persian
+    case marathi
     case hindi
     case bengali
     case tamil
@@ -117,6 +119,8 @@ enum LanguagePreference: CaseIterable, MacroPreference {
         .irish: ("Gaeilge", "ga"),
         .galician: ("Galego", "gl"),
         .hebrew: ("עִבְרִית", "he"),
+        .urdu: ("اردو", "ur"),
+        .marathi: ("मराठी", "mr"),
         .hindi: ("हिन्दी", "hi"),
         .croatian: ("Hrvatski", "hr"),
         .hungarian: ("Magyar", "hu"),

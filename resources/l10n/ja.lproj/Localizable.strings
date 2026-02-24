@@ -9,6 +9,8 @@
 "Active app" = "稼働アプリケーション";
 "Active screen" = "稼働スクリーン";
 "Active Space" = "稼働デスクトップ";
+"Add a running app" = "実行中のアプリを追加";
+"Add an app from disk" = "ディスクからアプリを追加";
 "Additional controls" = "追加のコントロール";
 "Additional controls…" = "追加のコントロール…";
 "Advanced" = "高度な設定";
@@ -77,6 +79,7 @@
 "Don’t show windows from these apps" = "これらのアプリからウィンドウを表示しない";
 "Done" = "閉じる";
 "End" = "文末";
+"Export settings…" = "設定をエクスポート…";
 "Export…" = "エクスポート…";
 "Fade in animation of Preview" = "プレビューをフェードインさせる";
 "Fade out animation" = "フェードアウトアニメーション";
@@ -113,6 +116,7 @@
 "I think the app could be improved with…" = "アプリの◯◯を改善したい…";
 "Ignore shortcuts when active" = "アクティブの間はショートカットを無効にする";
 "Ignore shortcuts while a window from these apps is active" = "これらのアプリのウィンドウがアクティブの間はショートカットを無効にする";
+"Import settings…" = "設定をインポート…";
 "Import…" = "インポート…";
 "Keep open" = "開いたままにする";
 "Keep open and search" = "開いたまま検索する";
@@ -279,6 +283,7 @@
 "Window min width in row:" = "列に表示される最小ウィンドウ幅：";
 "Window order:" = "ウインドウの並び：";
 "Window Title" = "ウィンドウタイトル";
+"Window title contains" = "ウィンドウタイトルが以下を含む場合";
 "Window title font size:" = "ウィンドウに表示されるタイトルフォントサイズ：";
 "Window title truncation:" = "ウィンドウタイトル短縮：";
 "Windows" = "ウィンドウ";

@@ -9,6 +9,8 @@
 "Active app" = "Активно приложение";
 "Active screen" = "Активен екран";
 "Active Space" = "Активно пространство";
+"Add a running app" = "Добавяне на работещо приложение";
+"Add an app from disk" = "Добавяне на приложение от диск";
 "Additional controls" = "Допълнителни контроли";
 "Additional controls…" = "Допълнителни контроли ...";
 "Advanced" = "Напреднал";
@@ -77,6 +79,8 @@
 "Don’t show windows from these apps" = "Не показвай прозорците на следните приложения:";
 "Done" = "Свършен";
 "End" = "в края";
+"Exceptions" = "Изключения";
+"Export settings…" = "Експортиране на настройки…";
 "Export…" = "Експорт…";
 "Fade in animation of Preview" = "Анимация за плавно появяване на преглед";
 "Fade out animation" = "Избледнява анимация";
@@ -113,6 +117,7 @@
 "I think the app could be improved with…" = "Предлагам подобрение на приложението...";
 "Ignore shortcuts when active" = "Игнорирай клавишни комбинации, когато е активно";
 "Ignore shortcuts while a window from these apps is active" = "Игнорирай шорткъта в следните приложения:";
+"Import settings…" = "Импортиране на настройки…";
 "Import…" = "Импорт…";
 "Keep open" = "Дръж отворено";
 "Keep open and search" = "Дръж отворено и търси";
@@ -279,6 +284,7 @@
 "Window min width in row:" = "Минимална част от реда за един прозорец:";
 "Window order:" = "Подредба на прозорци:";
 "Window Title" = "Заглавие на прозореца";
+"Window title contains" = "Заглавието на прозореца съдържа";
 "Window title font size:" = "Размер на шрифта на заглавието:";
 "Window title truncation:" = "Съкрати заглавието на прозореца";
 "Windows" = "Windows";

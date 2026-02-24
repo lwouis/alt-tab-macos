@@ -1,3 +1,7 @@
+"3-finger Horizontal Swipe" = "세 손가락 가로 스와이프";
+"3-finger Vertical Swipe" = "세 손가락 세로 스와이프";
+"4-finger Horizontal Swipe" = "네 손가락 가로 스와이프";
+"4-finger Vertical Swipe" = "네 손가락 세로 스와이프";
 "About" = "정보";
 "About %@" = "%@에 관하여";
 "Accessibility" = "손쉬운 사용";
@@ -8,6 +12,7 @@
 "Additional controls" = "추가 제어";
 "Additional controls…" = "추가 제어…";
 "Advanced" = "고급";
+"After keys are released" = "키가 해제된 후";
 "After release" = "단축키를 뗄 때";
 "Align windows" = "윈도우 정렬";
 "Align windows:" = "윈도우 정렬:";
@@ -44,6 +49,7 @@
 "Are you sure you don’t want a response?" = "답변을 받지 않으셔도 되나요?";
 "Arrow keys" = "방향키";
 "Ask whether to send crash reports" = "보내기 전에 묻기";
+"Auto" = "자동";
 "Auto-install updates periodically" = "주기적으로 업데이트 자동 설치";
 "Blacklists" = "블랙리스트";
 "Cancel" = "취소";
@@ -63,6 +69,7 @@
 "Customize Thumbnails style…" = "썸네일 스타일 사용자 정의…";
 "Customize Titles style…" = "제목 스타일 사용자 정의…";
 "Dark" = "다크";
+"Debug tools" = "디버그 도구";
 "Disabled" = "비활성화됨";
 "Do nothing" = "아무 것도 하지 않기";
 "Don’t check for updates periodically" = "업데이트를 확인하지 않음";
@@ -70,10 +77,12 @@
 "Don’t show windows from these apps" = "다음 앱들의 윈도우를 보이지 않습니다";
 "Done" = "완료";
 "End" = "끝";
+"Export…" = "내보내기…";
 "Fade in animation of Preview" = "미리보기의 페이드 인 애니메이션";
 "Fade out animation" = "페이드 아웃 애니메이션";
 "Fade out animation of Switcher" = "작업 전환기의 페이드 아웃 애니메이션";
 "Fade out animation:" = "페이드 아웃 애니메이션:";
+"Failed to import settings" = "설정 가져오기 실패";
 "Focus selected window" = "선택한 윈도우에 포커스";
 "Fullscreen window" = "윈도우를 전체 화면으로 전환";
 "Fullscreen windows:" = "전체 화면 윈도우:";
@@ -104,6 +113,9 @@
 "I think the app could be improved with…" = "이 앱의 개선안은…";
 "Ignore shortcuts when active" = "단축키 무시";
 "Ignore shortcuts while a window from these apps is active" = "다음 앱들의 윈도우가 활성 상태일 때 단축키를 무시합니다";
+"Import…" = "가져오기…";
+"Keep open" = "열린 상태 유지";
+"Keep open and search" = "열린 상태로 유지 및 검색";
 "Language" = "언어";
 "Language Change" = "언어 변경";
 "Large" = "큼";
@@ -112,6 +124,7 @@
 "Leading" = "앞쪽";
 "Left" = "왼쪽";
 "Light" = "라이트";
+"Lock search" = "검색 잠금";
 "Max height on screen:" = "화면 내의 최대 높이:";
 "Max width on screen:" = "화면 내의 최대 너비:";
 "Medium" = "중간";
@@ -127,6 +140,7 @@
 "Never" = "절대 안 함";
 "Never send crash reports" = "절대 보내지 않기";
 "Non-active apps" = "비활성 앱";
+"Non-visible Spaces" = "보이지 않는 스페이스";
 "Normal" = "일반";
 "Not allowed" = "허용되지 않음";
 "NSHumanReadableCopyright" = "GPL-3.0 라이선스";
@@ -165,6 +179,7 @@
 "Screen including mouse" = "마우스를 포함한 화면";
 "Screen Recording" = "화면 기록";
 "Screen showing AltTab" = "AltTab이 보여지는 화면";
+"Search" = "검색";
 "Select next window" = "다음 윈도우를 선택";
 "Select previous window" = "이전 윈도우를 선택";
 "Select windows on mouse hover" = "마우스를 호버하여 윈도우 선택";
@@ -176,8 +191,10 @@
 "Send debug profile (CPU, memory, etc)" = "디버깅 정보 보내기 (CPU, 메모리 등)";
 "Send feedback" = "피드백 보내기";
 "Send feedback…" = "피드백 보내기…";
+"Settings imported" = "설정이 가져와졌습니다";
 "Settings…" = "설정";
 "Share improvement ideas, or report bugs" = "개선안을 제안하거나 버그를 제보해주세요";
+"Shortcut" = "단축키";
 "Shortcut 1" = "단축키 1";
 "Shortcut 2" = "단축키 2";
 "Shortcut 3" = "단축키 3";
@@ -223,6 +240,7 @@
 "The ⌘⎋ (command+escape) shortcut may be used by macOS for GameOverlay.\n\nYour change would assign it to: %@.\n\nIf you want to continue, make sure that the GameOverlay shortcut is disabled.\nAlso note that macOS has reported bugs where the shortcut may still interfere while disabled." = "⌘⎋ (Cmd+Esc) 단축키는 macOS GameOverlay에서 쓰일 수도 있습니다.\n\n변경하신 해당 단축키의 동작: %@.\n\n계속하려면 GameOverlay 단축키를 껐는지 확인해주세요.\n또 macOS에서 단축키를 끄더라도 간혹 간섭을 일으키는 버그가 있다고 하니 참고하시기 바랍니다.";
 "The ⎋ (escape) key is reserved by some macOS shortcuts (e.g. ⌘⌥⎋ will show the Force Quit Applications window).\n\nIf you want to use ⎋, make sure that Hold modifiers are neither: ⌘⌥, ⌘⌥⇧, or ⌘⌥⇧⌃" = "⎋ (Esc) 키는 일부 macOS 단축키(예: ⌘⌥⎋ 단축키는 애플리케이션 강제 종료 윈도우를 띄웁니다)에 예약되어 있습니다.\n\n⎋ 키를 아용하려면 이 키들과는 조합하지 마세요: ⌘⌥, ⌘⌥⇧, ⌘⌥⇧⌃";
 "The ⎋ (escape) key is reserved by some macOS shortcuts (e.g. ⌘⌥⎋ will show the Force Quit Applications window).\n\nYour change would assign it to: %@.\n\nIf you want to use ⎋, make sure that Hold modifiers are neither: ⌘⌥, ⌘⌥⇧, or ⌘⌥⇧⌃" = "⎋ (Esc) 키는 일부 macOS 단축키(예: ⌘⌥⎋ 단축키는 애플리케이션 강제 종료 윈도우를 띄웁니다)에 예약되어 있습니다.\n\n변경하신 해당 단축키의 동작: %@\n\n⎋ 키를 아용하려면 이 키들과는 조합하지 마세요: ⌘⌥, ⌘⌥⇧, ⌘⌥⇧⌃";
+"The application needs to restart to apply the imported settings." = "가져온 설정을 적용하려면 애플리케이션을 다시 시작해야 합니다.";
 "The application needs to restart to apply the language change." = "언어 변경을 적용하려면 앱을 다시 시작해야 합니다.";
 "Theme" = "테마";
 "Theme:" = "테마:";
@@ -235,6 +253,7 @@
 "Title truncation" = "제목 끊기";
 "Titles" = "제목";
 "Trackpad haptic feedback" = "트랙패드 햅틱 피드백";
+"Trigger" = "트리거";
 "Trigger shortcut" = "동작 단축키";
 "Unassign existing shortcut and continue" = "이미 존재하는 단축키를 할당 해제하고 계속";
 "Updates policy" = "업데이트 정책";

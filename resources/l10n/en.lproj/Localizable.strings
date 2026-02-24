@@ -9,6 +9,8 @@
 "Active app" = "Active app";
 "Active screen" = "Active screen";
 "Active Space" = "Active Space";
+"Add a running app" = "Add a running app";
+"Add an app from disk" = "Add an app from disk";
 "Additional controls" = "Additional controls";
 "Additional controls…" = "Additional controls…";
 "Advanced" = "Advanced";
@@ -77,6 +79,8 @@
 "Don’t show windows from these apps" = "Don’t show windows from these apps";
 "Done" = "Done";
 "End" = "End";
+"Exceptions" = "Exceptions";
+"Export settings…" = "Export settings…";
 "Export…" = "Export…";
 "Fade in animation of Preview" = "Fade in animation of Preview";
 "Fade out animation" = "Fade out animation";
@@ -113,6 +117,7 @@
 "I think the app could be improved with…" = "I think the app could be improved with…";
 "Ignore shortcuts when active" = "Ignore shortcuts when active";
 "Ignore shortcuts while a window from these apps is active" = "Ignore shortcuts while a window from these apps is active";
+"Import settings…" = "Import settings…";
 "Import…" = "Import…";
 "Keep open" = "Keep open";
 "Keep open and search" = "Keep open and search";
@@ -279,6 +284,7 @@
 "Window min width in row:" = "Window min width in row:";
 "Window order:" = "Window order:";
 "Window Title" = "Window Title";
+"Window title contains" = "Window title contains";
 "Window title font size:" = "Window title font size:";
 "Window title truncation:" = "Window title truncation:";
 "Windows" = "Windows";

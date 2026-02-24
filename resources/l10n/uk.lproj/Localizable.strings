@@ -1,3 +1,7 @@
+"3-finger Horizontal Swipe" = "Горизонтальний свайп 3 пальцями";
+"3-finger Vertical Swipe" = "Вертикальний свайп 3 пальцями";
+"4-finger Horizontal Swipe" = "Горизонтальний свайп 4 пальцями";
+"4-finger Vertical Swipe" = "Вертикальний свайп 4 пальцями";
 "About" = "Про нас";
 "About %@" = "Про %@";
 "Accessibility" = "Доступність";
@@ -8,6 +12,7 @@
 "Additional controls" = "Додаткові елементи управління";
 "Additional controls…" = "Додаткові елементи управління ...";
 "Advanced" = "Просунуті";
+"After keys are released" = "Після відпускання клавіш";
 "After release" = "Після відпускання";
 "Align windows" = "Вирівняти вікна";
 "Align windows:" = "Вирівняти вікна:";
@@ -44,6 +49,7 @@
 "Are you sure you don’t want a response?" = "Ви впевнені, що не хочете відповіді?";
 "Arrow keys" = "Клавіші зі стрілками";
 "Ask whether to send crash reports" = "Запитувати чи надсилати звіт про збій";
+"Auto" = "Авто";
 "Auto-install updates periodically" = "Автоматично оновлювати час вiд часу";
 "Blacklists" = "Чорні списки";
 "Cancel" = "Скасувати";
@@ -63,6 +69,7 @@
 "Customize Thumbnails style…" = "Налаштуйте вигляд мініатюр...";
 "Customize Titles style…" = "Налаштуйте вигляд заголовків...";
 "Dark" = "Темна";
+"Debug tools" = "Інструменти налагодження";
 "Disabled" = "Вимкнено";
 "Do nothing" = "Нічого не робити";
 "Don’t check for updates periodically" = "Не перевiряти оновлення час вiд часу";
@@ -70,10 +77,12 @@
 "Don’t show windows from these apps" = "Не відображати вікна цих програм";
 "Done" = "Готово";
 "End" = "Кінець";
+"Export…" = "Експортувати…";
 "Fade in animation of Preview" = "Анімація появи мініатюр";
 "Fade out animation" = "Анімація зникнення";
 "Fade out animation of Switcher" = "Анімація зникання перемикача";
 "Fade out animation:" = "Анімація зникнення";
+"Failed to import settings" = "Не вдалося імпортувати налаштування";
 "Focus selected window" = "Фокусувати обране вікно";
 "Fullscreen window" = "На весь екран";
 "Fullscreen windows:" = "Повноекранні вікна:";
@@ -104,6 +113,9 @@
 "I think the app could be improved with…" = "Я думаю додаток може бути покращено з...";
 "Ignore shortcuts when active" = "Ігнорувати комб. клавіш коли активне";
 "Ignore shortcuts while a window from these apps is active" = "Ігнорувати гарячі клавіші поки вікна цих програм активні";
+"Import…" = "Імпортувати…";
+"Keep open" = "Залишити відкритим";
+"Keep open and search" = "Залишити відкритим та шукати";
 "Language" = "Мова";
 "Language Change" = "Зміна мови";
 "Large" = "Великий";
@@ -112,6 +124,7 @@
 "Leading" = "Зліва";
 "Left" = "Вліво";
 "Light" = "Світла";
+"Lock search" = "Заблокувати пошук";
 "Max height on screen:" = "Максимальна висота на екрані:";
 "Max width on screen:" = "Максимальна ширина на екрані:";
 "Medium" = "Середній";
@@ -127,6 +140,7 @@
 "Never" = "Ніколи";
 "Never send crash reports" = "Ніколи не надсилати звіти про збої";
 "Non-active apps" = "Неактивні програми";
+"Non-visible Spaces" = "Невидимі робочі столи";
 "Normal" = "Нормальний";
 "Not allowed" = "Заборонено";
 "NSHumanReadableCopyright" = "GPL-3.0 лiцензiя";
@@ -165,6 +179,7 @@
 "Screen including mouse" = "Екран з курсором миші";
 "Screen Recording" = "Запис Екрану";
 "Screen showing AltTab" = "Екрану відображення AltTab";
+"Search" = "Пошук";
 "Select next window" = "Вибрати наступне вікно";
 "Select previous window" = "Вибрати попереднє вікно";
 "Select windows on mouse hover" = "Обирати вікно під курсором миші";
@@ -176,8 +191,10 @@
 "Send debug profile (CPU, memory, etc)" = "Надіслати профіль дебагу (ЦП, памʼять і т.д.)";
 "Send feedback" = "Надіслати відгук";
 "Send feedback…" = "Надіслати відгук...";
+"Settings imported" = "Налаштування імпортовано";
 "Settings…" = "Налаштування";
 "Share improvement ideas, or report bugs" = "Поділитись ідеями покращення або надіслати звіт про помилку";
+"Shortcut" = "Клавіатурне скорочення";
 "Shortcut 1" = "Комб. клавіш 1";
 "Shortcut 2" = "Комб. клавіш 2";
 "Shortcut 3" = "Комб. клавіш 3";
@@ -220,8 +237,10 @@
 "Switch between 3 different styles. You can customize them." = "Перемикання між 3 різними виглядами. Ви можете їх налаштувати.";
 "System" = "Система";
 "System Default" = "Системне значення";
+"The ⌘⎋ (command+escape) shortcut may be used by macOS for GameOverlay.\n\nYour change would assign it to: %@.\n\nIf you want to continue, make sure that the GameOverlay shortcut is disabled.\nAlso note that macOS has reported bugs where the shortcut may still interfere while disabled." = "Клавіатурне скорочення ⌘⎋ (command+escape) може використовуватися macOS для GameOverlay.\n\nВаша зміна призначить його для: %@.\n\nЯкщо ви хочете продовжити, переконайтеся, що клавіатурне скорочення GameOverlay вимкнено.\nТакож зауважте, що macOS повідомляла про помилки, коли це скорочення може все ще заважати, будучи вимкненим.";
 "The ⎋ (escape) key is reserved by some macOS shortcuts (e.g. ⌘⌥⎋ will show the Force Quit Applications window).\n\nIf you want to use ⎋, make sure that Hold modifiers are neither: ⌘⌥, ⌘⌥⇧, or ⌘⌥⇧⌃" = "Кнопка ⎋ (escape) зарезервована деякими скороченнями macOS (напр. ⌘⌥⎋ покаже вікно примусового закриття програми).\n\nЯкщо ви хочете використати ⎋, переконайтесь що утримувані модифікатори не є одними з цих: ⌘⌥, ⌘⌥⇧, or ⌘⌥⇧⌃";
 "The ⎋ (escape) key is reserved by some macOS shortcuts (e.g. ⌘⌥⎋ will show the Force Quit Applications window).\n\nYour change would assign it to: %@.\n\nIf you want to use ⎋, make sure that Hold modifiers are neither: ⌘⌥, ⌘⌥⇧, or ⌘⌥⇧⌃" = "Кнопка ⎋ (escape) зарезервована деякими скороченнями macOS (напр. ⌘⌥⎋ покаже вікно примусового закриття програми).\n\nВаша зміна призначить його на: %@.\n\nЯкщо ви хочете використати ⎋, переконайтесь що утримувані модифікатори не є одними з цих: ⌘⌥, ⌘⌥⇧, or ⌘⌥⇧⌃";
+"The application needs to restart to apply the imported settings." = "Додаток потрібно перезапустити, щоб застосувати імпортовані налаштування.";
 "The application needs to restart to apply the language change." = "Застосунок має бути перезапущено для застосування мовних змін";
 "Theme" = "Тема";
 "Theme:" = "Тема:";
@@ -234,6 +253,7 @@
 "Title truncation" = "Обрізання заголовку";
 "Titles" = "Заголовки";
 "Trackpad haptic feedback" = "Гаптичний відгук трекпада";
+"Trigger" = "Тригер";
 "Trigger shortcut" = "Тригерна комб. клавіш";
 "Unassign existing shortcut and continue" = "Видалити наявну комб. клавіш та продовжити";
 "Updates policy" = "Політика оновлень";

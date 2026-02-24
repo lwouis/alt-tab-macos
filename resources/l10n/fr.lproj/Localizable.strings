@@ -9,6 +9,8 @@
 "Active app" = "L'App active";
 "Active screen" = "Écran actif";
 "Active Space" = "Bureau actif";
+"Add a running app" = "Ajouter une application en cours d'exécution";
+"Add an app from disk" = "Ajouter une application depuis le disque";
 "Additional controls" = "Contrôles supplémentaires";
 "Additional controls…" = "Contrôles supplémentaires…";
 "Advanced" = "Titres / fenêtres";
@@ -77,6 +79,8 @@
 "Don’t show windows from these apps" = "Ne pas afficher les fenêtres de ces Apps";
 "Done" = "Fait";
 "End" = "la Fin";
+"Exceptions" = "Exceptions";
+"Export settings…" = "Exporter les réglages…";
 "Export…" = "Exporter…";
 "Fade in animation of Preview" = "Apparition des aperçus";
 "Fade out animation" = "Animation s'estompe";
@@ -113,6 +117,7 @@
 "I think the app could be improved with…" = "Je pense que AltTab pourrait être améliorée en…";
 "Ignore shortcuts when active" = "Ignorer les raccourcis à l'activation";
 "Ignore shortcuts while a window from these apps is active" = "Ignorer les raccourcis si une fenêtre de ces Apps est active";
+"Import settings…" = "Importer les réglages…";
 "Import…" = "Importer…";
 "Keep open" = "Garder ouvert";
 "Keep open and search" = "Garder ouvert et rechercher";
@@ -279,6 +284,7 @@
 "Window min width in row:" = "Largeur minimum des aperçus :";
 "Window order:" = "Affichage des fenêtres par ordre :";
 "Window Title" = "Titre de fenêtre";
+"Window title contains" = "Le titre de la fenêtre contient";
 "Window title font size:" = "Taille du titre des fenêtres :";
 "Window title truncation:" = "Troncature du titre des fenêtres :";
 "Windows" = "les fenêtres";

@@ -1,3 +1,7 @@
+"3-finger Horizontal Swipe" = "Горизонтальный свайп 3 пальцами";
+"3-finger Vertical Swipe" = "Вертикальный свайп 3 пальцами";
+"4-finger Horizontal Swipe" = "Горизонтальный свайп 4 пальцами";
+"4-finger Vertical Swipe" = "Вертикальный свайп 4 пальцами";
 "About" = "О программе";
 "About %@" = "О приложении %@";
 "Accessibility" = "Универсальный доступ";
@@ -8,6 +12,7 @@
 "Additional controls" = "Дополнительные параметры управления";
 "Additional controls…" = "Доп. параметры управления…";
 "Advanced" = "Расширенные настройки";
+"After keys are released" = "После отпускания клавиш";
 "After release" = "После того как клавиши будут отпущены";
 "Align windows" = "Выравнивание окон";
 "Align windows:" = "Выравнивание окон:";
@@ -44,6 +49,7 @@
 "Are you sure you don’t want a response?" = "Вы уверены, что не хотите ответа?";
 "Arrow keys" = "Клавиши стрелок";
 "Ask whether to send crash reports" = "Спрашивать об отправке отчетов";
+"Auto" = "Авто";
 "Auto-install updates periodically" = "Автоматически устанавливать обновления";
 "Blacklists" = "Черные списки";
 "Cancel" = "Отмена";
@@ -63,6 +69,7 @@
 "Customize Thumbnails style…" = "Настройки стиля \"Миниатюры\"…";
 "Customize Titles style…" = "Настройки стиля \"Заголовки\"…";
 "Dark" = "Темная";
+"Debug tools" = "Инструменты отладки";
 "Disabled" = "Выключено";
 "Do nothing" = "Ничего не делать";
 "Don’t check for updates periodically" = "Не проверять обновления";
@@ -70,10 +77,12 @@
 "Don’t show windows from these apps" = "Не показывать окна этих приложений";
 "Done" = "Готово";
 "End" = "Конец";
+"Export…" = "Экспорт…";
 "Fade in animation of Preview" = "Анимация постепенного появления предварительного просмотра";
 "Fade out animation" = "Анимация затухания";
 "Fade out animation of Switcher" = "Анимация постепенного исчезновения предварительного просмотра";
 "Fade out animation:" = "Анимация затухания:";
+"Failed to import settings" = "Не удалось импортировать настройки";
 "Focus selected window" = "Фокус на выбранное окно";
 "Fullscreen window" = "Окно на весь экран";
 "Fullscreen windows:" = "Окна на весь экран:";
@@ -104,6 +113,9 @@
 "I think the app could be improved with…" = "Я думаю, что приложение может быть улучшено…";
 "Ignore shortcuts when active" = "Игнорировать комбинации, когда активно";
 "Ignore shortcuts while a window from these apps is active" = "Игнорировать комбинации клавиш пока окно приложения из этого списка активно";
+"Import…" = "Импорт…";
+"Keep open" = "Оставить открытым";
+"Keep open and search" = "Оставить открытым и искать";
 "Language" = "Язык";
 "Language Change" = "Сменить язык";
 "Large" = "Большой";
@@ -112,6 +124,7 @@
 "Leading" = "По левому краю";
 "Left" = "Слева";
 "Light" = "Светлая";
+"Lock search" = "Заблокировать поиск";
 "Max height on screen:" = "Макс. высота на экране:";
 "Max width on screen:" = "Макс. ширина на экране:";
 "Medium" = "Средний";
@@ -127,6 +140,7 @@
 "Never" = "Никогда";
 "Never send crash reports" = "Никогда не отправлять отчеты";
 "Non-active apps" = "Неактивные приложения";
+"Non-visible Spaces" = "Невидимые пространства";
 "Normal" = "Обычный";
 "Not allowed" = "Не разрешено";
 "NSHumanReadableCopyright" = "Лицензия GPL-3.0";
@@ -165,6 +179,7 @@
 "Screen including mouse" = "Экран с курсором";
 "Screen Recording" = "Запись экрана";
 "Screen showing AltTab" = "Экран, показывающий AltTab";
+"Search" = "Поиск";
 "Select next window" = "Выбрать следующее окно";
 "Select previous window" = "Выбрать предыдущее окно";
 "Select windows on mouse hover" = "Выбор окон наведением мыши";
@@ -176,8 +191,10 @@
 "Send debug profile (CPU, memory, etc)" = "Отправить отладочный профиль (CPU, память и т.д.)";
 "Send feedback" = "Отправить отзыв";
 "Send feedback…" = "Отправить отзыв…";
+"Settings imported" = "Настройки импортированы";
 "Settings…" = "Настройки";
 "Share improvement ideas, or report bugs" = "Поделитесь идеями по улучшению или сообщите об ошибках";
+"Shortcut" = "Ярлык";
 "Shortcut 1" = "Комбинация 1";
 "Shortcut 2" = "Комбинация 2";
 "Shortcut 3" = "Комбинация 3";
@@ -223,6 +240,7 @@
 "The ⌘⎋ (command+escape) shortcut may be used by macOS for GameOverlay.\n\nYour change would assign it to: %@.\n\nIf you want to continue, make sure that the GameOverlay shortcut is disabled.\nAlso note that macOS has reported bugs where the shortcut may still interfere while disabled." = "Сочетание клавиш ⌘⎋ (command+escape) может использоваться macOS для GameOverlay.\n\nВаше изменение назначит это сочетание для действия: %@.\n\nЕсли вы хотите продолжить, убедитесь, что сочетание клавиш GameOverlay отключено.\nТакже учтите, что macOS сообщает об ошибках, при которых это сочетание может вызывать конфликты даже после отключения.";
 "The ⎋ (escape) key is reserved by some macOS shortcuts (e.g. ⌘⌥⎋ will show the Force Quit Applications window).\n\nIf you want to use ⎋, make sure that Hold modifiers are neither: ⌘⌥, ⌘⌥⇧, or ⌘⌥⇧⌃" = "Клавиша ⎋ (escape) используется некоторыми системными сочетаниями macOS (например, ⌘⌥⎋ открывает окно «Принудительное завершение программ»).\n\nЧтобы использовать ⎋, убедитесь, что удерживаемые модификаторы не являются: ⌘⌥, ⌘⌥⇧ или ⌘⌥⇧⌃";
 "The ⎋ (escape) key is reserved by some macOS shortcuts (e.g. ⌘⌥⎋ will show the Force Quit Applications window).\n\nYour change would assign it to: %@.\n\nIf you want to use ⎋, make sure that Hold modifiers are neither: ⌘⌥, ⌘⌥⇧, or ⌘⌥⇧⌃" = "Клавиша ⎋ (escape) используется некоторыми системными сочетаниями macOS (например, ⌘⌥⎋ открывает окно «Принудительное завершение программ»).\n\nЭто изменение назначит её для действия: %@.\n\nЧтобы использовать ⎋, убедитесь, что удерживаемые клавиши-модификаторы не являются: ⌘⌥, ⌘⌥⇧ или ⌘⌥⇧⌃";
+"The application needs to restart to apply the imported settings." = "Для применения импортированных настроек приложению требуется перезапуск.";
 "The application needs to restart to apply the language change." = "Необходимо перезапустить приложение для смены языка.";
 "Theme" = "Тема";
 "Theme:" = "Тема:";
@@ -235,6 +253,7 @@
 "Title truncation" = "Обрезка заголовка";
 "Titles" = "Заголовки";
 "Trackpad haptic feedback" = "Тактильная обратная связь";
+"Trigger" = "Вызов";
 "Trigger shortcut" = "Комбинация срабатывания";
 "Unassign existing shortcut and continue" = "Назначение отменить и дальше";
 "Updates policy" = "Политика обновлений";

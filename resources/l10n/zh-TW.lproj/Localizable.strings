@@ -9,6 +9,8 @@
 "Active app" = "活躍的程式";
 "Active screen" = "活躍的顯示器";
 "Active Space" = "活躍的空間";
+"Add a running app" = "加入執行中的App";
+"Add an app from disk" = "從磁碟加入App";
 "Additional controls" = "額外設定";
 "Additional controls…" = "額外設定⋯";
 "Advanced" = "進階";
@@ -77,6 +79,8 @@
 "Don’t show windows from these apps" = "不要顯示這些程式的視窗";
 "Done" = "完成";
 "End" = "尾端";
+"Exceptions" = "例外";
+"Export settings…" = "匯出設定…";
 "Export…" = "輸出…";
 "Fade in animation of Preview" = "開啟時使用淡入動畫";
 "Fade out animation" = "淡出動畫";
@@ -113,6 +117,7 @@
 "I think the app could be improved with…" = "我覺得這個程式可以改善⋯";
 "Ignore shortcuts when active" = "活躍時忽略快速鍵";
 "Ignore shortcuts while a window from these apps is active" = "當這些程式的視窗活躍時，忽略快速鍵";
+"Import settings…" = "匯入設定…";
 "Import…" = "輸入…";
 "Keep open" = "保持開啟";
 "Keep open and search" = "保持開啟並搜尋";
@@ -279,6 +284,7 @@
 "Window min width in row:" = "每列視窗最小寬度：";
 "Window order:" = "視窗排序方式：";
 "Window Title" = "視窗標題";
+"Window title contains" = "視窗標題包含";
 "Window title font size:" = "視窗標題的字體大小：";
 "Window title truncation:" = "視窗標題截斷：";
 "Windows" = "視窗";

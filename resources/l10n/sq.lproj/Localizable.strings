@@ -9,6 +9,8 @@
 "Active app" = "Aplikacioni aktiv";
 "Active screen" = "Ekrani aktiv";
 "Active Space" = "Hapësira Aktive";
+"Add a running app" = "Shto një aplikacion aktiv";
+"Add an app from disk" = "Shto një aplikacion nga disku";
 "Additional controls" = "Kontrolle shtesë";
 "Additional controls…" = "Kontrolle shtesë";
 "Advanced" = "I avancuar";
@@ -77,6 +79,8 @@
 "Don’t show windows from these apps" = "Mos shfaq dritaret nga këto aplikacione";
 "Done" = "I mbaruar";
 "End" = "Fund";
+"Exceptions" = "Përjashtime";
+"Export settings…" = "Eksporto cilësimet…";
 "Export…" = "Eksporto…";
 "Fade in animation of Preview" = "Animacion i shfaqjes graduale të Parashikimit";
 "Fade out animation" = "Fade Out Animation";
@@ -113,6 +117,7 @@
 "I think the app could be improved with…" = "Mendoj se aplikacioni mund të përmirësohet me…";
 "Ignore shortcuts when active" = "Injoroni shkurtesat kur janë aktive";
 "Ignore shortcuts while a window from these apps is active" = "Injoro shkurtesat kur një dritare nga këto aplikacione është aktive";
+"Import settings…" = "Importo cilësimet…";
 "Import…" = "Importo…";
 "Keep open" = "Mbaj hapur";
 "Keep open and search" = "Mbaj hapur dhe kërko";
@@ -279,6 +284,7 @@
 "Window min width in row:" = "Gjerësia minimale e dritares në rresht";
 "Window order:" = "Renditja e dritareve:";
 "Window Title" = "Titull dritaresh";
+"Window title contains" = "Titulli i dritares përmban";
 "Window title font size:" = "Madhësia e fontit të titullit të dritares:";
 "Window title truncation:" = "Titulli i kthesës së dritares:";
 "Windows" = "Dritare";

@@ -1,3 +1,7 @@
+"3-finger Horizontal Swipe" = "3 parmak yatay kaydırma";
+"3-finger Vertical Swipe" = "3 parmak dikey kaydırma";
+"4-finger Horizontal Swipe" = "4 parmak yatay kaydırma";
+"4-finger Vertical Swipe" = "4 parmak dikey kaydırma";
 "About" = "Hakkında";
 "About %@" = "Hakkında %@";
 "Accessibility" = "Erişilebilirlik";
@@ -8,6 +12,7 @@
 "Additional controls" = "Ek kontroller";
 "Additional controls…" = "Ek kontroller…";
 "Advanced" = "Gelişmiş";
+"After keys are released" = "Tuşlar bırakıldıktan sonra";
 "After release" = "Serbest bırakıldıktan sonra";
 "Align windows" = "Pencereleri hizalayın";
 "Align windows:" = "Pencereleri hizala:";
@@ -44,6 +49,7 @@
 "Are you sure you don’t want a response?" = "Cevap vermek istemediğinize emin misiniz?";
 "Arrow keys" = "Ok tuşları";
 "Ask whether to send crash reports" = "Çökme raporlarının ne zaman gönderileceğini sor";
+"Auto" = "Otomatik";
 "Auto-install updates periodically" = "Güncellemeleri otomatik olarak yükle";
 "Blacklists" = "Karalisteler";
 "Cancel" = "İptal";
@@ -63,6 +69,7 @@
 "Customize Thumbnails style…" = "Küçük resim stilini özelleştirin…";
 "Customize Titles style…" = "Başlıkları Özelleştir Stili…";
 "Dark" = "Karanlık";
+"Debug tools" = "Hata ayıklama araçları";
 "Disabled" = "Devre Dışı";
 "Do nothing" = "Bir şey yapma";
 "Don’t check for updates periodically" = "Güncellemeleri periyodik olarak kontrol etme";
@@ -70,10 +77,12 @@
 "Don’t show windows from these apps" = "Bu uygulamaya ait pencereleri gösterme";
 "Done" = "Tamamlamak";
 "End" = "Son";
+"Export…" = "Dışa Aktar…";
 "Fade in animation of Preview" = "Önizlemenin Yavaşça Belirme Animasyonu";
 "Fade out animation" = "Fade Out Animation";
 "Fade out animation of Switcher" = "Geçiş Menüsünün Yavaşça Kaybolma Animasyonu";
 "Fade out animation:" = "Karartma animasyonu:";
+"Failed to import settings" = "Ayarlar içe aktarılamadı";
 "Focus selected window" = "Seçilen pencereye odaklan";
 "Fullscreen window" = "Tam ekran penceresi";
 "Fullscreen windows:" = "Tam ekran pencereler:";
@@ -104,6 +113,9 @@
 "I think the app could be improved with…" = "Bence uygulama şu şekilde iyileştirilebilir…";
 "Ignore shortcuts when active" = "Etkinken kestirmeleri yoksay";
 "Ignore shortcuts while a window from these apps is active" = "Bu uygulamalardan bir pencere etkinken kestirmeleri devre dışı bırak";
+"Import…" = "İçe Aktar…";
+"Keep open" = "Açık Tut";
+"Keep open and search" = "Açık tut ve ara";
 "Language" = "Dil";
 "Language Change" = "Dil Değiştir";
 "Large" = "Büyük";
@@ -112,6 +124,7 @@
 "Leading" = "Önde gelen";
 "Left" = "Sol";
 "Light" = "Işık";
+"Lock search" = "Aramayı kilitle";
 "Max height on screen:" = "Ekrandaki maximum yükseklik:";
 "Max width on screen:" = "Ekrandaki maximum genişlik:";
 "Medium" = "Orta";
@@ -127,6 +140,7 @@
 "Never" = "Daha yeni";
 "Never send crash reports" = "Çökme raporlarını asla gönderme";
 "Non-active apps" = "Aktif Olmayan Uygulamalar";
+"Non-visible Spaces" = "Görünmeyen Alanlar";
 "Normal" = "Normal";
 "Not allowed" = "İzin verilmedi";
 "NSHumanReadableCopyright" = "GPL-3.0 lisansı";
@@ -165,6 +179,7 @@
 "Screen including mouse" = "Farenin olduğu monitör";
 "Screen Recording" = "Ekran Kaydı";
 "Screen showing AltTab" = "AltTab'ı gösteren monitör";
+"Search" = "Ara";
 "Select next window" = "Sonraki pencereyi seç";
 "Select previous window" = "Önceki pencereyi seç";
 "Select windows on mouse hover" = "Fare ile üzerine gelinen pencereleri seç";
@@ -176,8 +191,10 @@
 "Send debug profile (CPU, memory, etc)" = "Hata ayıklama profili gönder (İşlemci, bellek, vb)";
 "Send feedback" = "Geri bildirim gönder";
 "Send feedback…" = "Geri bildirim gönder…";
+"Settings imported" = "Ayarlar içe aktarıldı";
 "Settings…" = "Ayarlar";
 "Share improvement ideas, or report bugs" = "Geliştirme önerisi veya hata bilgisi paylaşın";
+"Shortcut" = "Kısayol";
 "Shortcut 1" = "Kestirme 1";
 "Shortcut 2" = "Kestirme 2";
 "Shortcut 3" = "Kestirme 3";
@@ -223,6 +240,7 @@
 "The ⌘⎋ (command+escape) shortcut may be used by macOS for GameOverlay.\n\nYour change would assign it to: %@.\n\nIf you want to continue, make sure that the GameOverlay shortcut is disabled.\nAlso note that macOS has reported bugs where the shortcut may still interfere while disabled." = "Command+escape (⌘⎋) kısayolu macOS tarafından GameOverlay için kullanılıyor olabilir.\n\nDeğişikliğiniz bunu şuraya atayacaktır: %@.\n\nDevam etmek istiyorsanız, GameOverlay kısayolunun kapalı olduğundan emin olun.\nAyrıca, macOS'ta kısayol devre dışı bırakıldığında bile hata oluşturabileceğini de unutmayın.";
 "The ⎋ (escape) key is reserved by some macOS shortcuts (e.g. ⌘⌥⎋ will show the Force Quit Applications window).\n\nIf you want to use ⎋, make sure that Hold modifiers are neither: ⌘⌥, ⌘⌥⇧, or ⌘⌥⇧⌃" = "Escape (⎋) tuşu başka macOS kısayolları tarafından kullanılıyor (örn. ⌘⌥⎋ Uygulamaları zorla kapat penceresi).\n\n⎋ tuşunu kullanmak istiyorsanız, Hold değiştiricilerinin bunlardan biri olmadığından emin olun: ⌘⌥, ⌘⌥⇧, or ⌘⌥⇧⌃.";
 "The ⎋ (escape) key is reserved by some macOS shortcuts (e.g. ⌘⌥⎋ will show the Force Quit Applications window).\n\nYour change would assign it to: %@.\n\nIf you want to use ⎋, make sure that Hold modifiers are neither: ⌘⌥, ⌘⌥⇧, or ⌘⌥⇧⌃" = "Escape (⎋) tuşu başka macOS kısayolları tarafından kullanılıyor (örn. ⌘⌥⎋ Uygulamaları zorla kapat penceresi).\n\nDeğişikliğiniz bunu şuraya atayacaktır: %@.\n\n⎋ tuşunu kullanmak istiyorsanız, Hold değiştiricilerinin bunlardan biri olmadığından emin olun: ⌘⌥, ⌘⌥⇧, or ⌘⌥⇧⌃.";
+"The application needs to restart to apply the imported settings." = "İçe aktarılan ayarları uygulamak için uygulamanın yeniden başlatılması gerekiyor.";
 "The application needs to restart to apply the language change." = "Dil değişikliğini uygulamak için uygulamanın yeniden başlatılması gerekiyor.";
 "Theme" = "Tema";
 "Theme:" = "Tema:";
@@ -235,6 +253,7 @@
 "Title truncation" = "Başlık kesilmesi";
 "Titles" = "Başlıklar";
 "Trackpad haptic feedback" = "Trackpad dokunma geri bildirimi";
+"Trigger" = "Tetikleyici";
 "Trigger shortcut" = "Tetik kısayolu";
 "Unassign existing shortcut and continue" = "Atanmış kestirmeyi kaldır ve devam et";
 "Updates policy" = "Politikayı günceller";

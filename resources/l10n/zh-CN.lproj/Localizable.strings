@@ -9,6 +9,8 @@
 "Active app" = "活跃应用";
 "Active screen" = "活跃屏幕";
 "Active Space" = "活跃桌面";
+"Add a running app" = "添加正在运行的应用程序";
+"Add an app from disk" = "从磁盘添加应用程序";
 "Additional controls" = "其他控制";
 "Additional controls…" = "其他控制…";
 "Advanced" = "高级";
@@ -77,6 +79,8 @@
 "Don’t show windows from these apps" = "不显示这些应用程序的窗口";
 "Done" = "完成";
 "End" = "结尾";
+"Exceptions" = "例外";
+"Export settings…" = "导出设置…";
 "Export…" = "导出…";
 "Fade in animation of Preview" = "预览淡入动画";
 "Fade out animation" = "淡出动画";
@@ -113,6 +117,7 @@
 "I think the app could be improved with…" = "我认为该应用程序可以这样改进…";
 "Ignore shortcuts when active" = "活跃时忽略快捷键";
 "Ignore shortcuts while a window from these apps is active" = "这些应用程序的窗口处于活动状态时，忽略快捷键";
+"Import settings…" = "导入设置…";
 "Import…" = "导入…";
 "Keep open" = "保持打开";
 "Keep open and search" = "保持打开并搜索";
@@ -279,6 +284,7 @@
 "Window min width in row:" = "每行窗口最小宽度：";
 "Window order:" = "窗口顺序：";
 "Window Title" = "窗口标题";
+"Window title contains" = "窗口标题包含";
 "Window title font size:" = "窗口标题字号：";
 "Window title truncation:" = "窗口标题删节：";
 "Windows" = "窗口";
