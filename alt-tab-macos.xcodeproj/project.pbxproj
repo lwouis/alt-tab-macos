@@ -509,7 +509,6 @@
 		BF0C89B4DEC3CBB8ECD29E1B /* import_l10n_strings_from_poeditor.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = import_l10n_strings_from_poeditor.sh; sourceTree = "<group>"; };
 		BF0C89D7F23D82A3FF442E0B /* build_app.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = build_app.sh; sourceTree = "<group>"; };
 		BF0C89F6EA16DD7322626E20 /* FUNDING.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = FUNDING.yml; sourceTree = "<group>"; };
-		BF0C89F77BFA42510A8FFDAB /* FAQ.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = FAQ.md; sourceTree = "<group>"; };
 		BF0C8A261AAA42191426A587 /* run_tests.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = run_tests.sh; sourceTree = "<group>"; };
 		BF0C8A3DAEA5B956593AF97A /* kn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = kn; path = InfoPlist.strings; sourceTree = "<group>"; };
 		BF0C8A479D2B7FB80531F037 /* PopupButtonLikeSystemSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupButtonLikeSystemSettings.swift; sourceTree = "<group>"; };
@@ -2019,7 +2018,6 @@
 				D04BADB5AA570748C717D31A /* Changelog-bare.md */,
 				BF0C815B4782DEEEDB2C76C5 /* Support.md */,
 				BF0C8880DFDFAC86CE1E2E31 /* Gemfile.lock */,
-				BF0C89F77BFA42510A8FFDAB /* FAQ.md */,
 			);
 			path = docs;
 			sourceTree = "<group>";

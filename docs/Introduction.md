@@ -31,6 +31,23 @@ Alternative Styles
 * Drag-and-drop things on top of window thumbnails
 * Accessibility: VoiceOver, sticky keys, reduced transparency, etc
 
+## FAQ
+
+Find [Frequently Asked Questions on GitHub](https://github.com/lwouis/alt-tab-macos/discussions/categories/frequently-asked-questions?discussions_q=category%3A%22Frequently+Asked+Questions%22+).
+
+## Configuration
+
+Change the shortcut keys, switch to a Windows theme and more, using the Settings window:
+
+<div class="can-extend" style="display:flex; align-items:center; flex-wrap: wrap;">
+    <a href="public/demo/preferences-general.jpg"><img loading="lazy" src="public/demo/preferences-general.jpg" alt="Screenshot: General preferences" width="672" height="354" style="width:100%; height:auto; max-width:330px;" /></a>
+    <a href="public/demo/preferences-controls.jpg"><img loading="lazy" src="public/demo/preferences-controls.jpg" alt="Screenshot: Controls preferences" width="677" height="688" style="width:100%; height:auto; max-width:330px;" /></a>
+    <a href="public/demo/preferences-appearance.jpg"><img loading="lazy" src="public/demo/preferences-appearance.jpg" alt="Screenshot: Appearance preferences" width="672" height="735" style="width:100%; height:auto; max-width:330px;" /></a>
+    <a href="public/demo/preferences-appearance-details.jpg"><img loading="lazy" src="public/demo/preferences-appearance-details.jpg" alt="Screenshot: Appearance preferences (details)" width="672" height="934" style="width:100%; height:auto; max-width:330px;" /></a>
+    <a href="public/demo/preferences-blacklist.jpg"><img loading="lazy" src="public/demo/preferences-blacklist.jpg" alt="Screenshot: Blacklist preferences" width="672" height="655" style="width:100%; height:auto; max-width:330px;" /></a>
+    <a href="public/demo/preferences-policies.jpg"><img loading="lazy" src="public/demo/preferences-policies.jpg" alt="Screenshot: Policies preferences" width="672" height="353" style="width:100%; height:auto; max-width:330px;" /></a>
+</div>
+
 ## Compatibility
 
 * __macOS version:__ from 10.12 to latest
@@ -49,19 +66,6 @@ AltTab doesn’t communicate to any server for so-called telemetry. AltTab will 
 ## Performance
 
 AltTab has been designed to take as few resources as possible on the user computer. The app itself is kept as small as possible. CPU usage is kept to a minimum, especially while in the background. The goal is to respect the user and try to have no negative impact on their experience.
-
-## Configuration
-
-Change the shortcut keys, switch to a Windows theme and more, using the Settings window:
-
-<div class="can-extend" style="display:flex; align-items:center; flex-wrap: wrap;">
-    <a href="public/demo/preferences-general.jpg"><img loading="lazy" src="public/demo/preferences-general.jpg" alt="Screenshot: General preferences" width="672" height="354" style="width:100%; height:auto; max-width:330px;" /></a>
-    <a href="public/demo/preferences-controls.jpg"><img loading="lazy" src="public/demo/preferences-controls.jpg" alt="Screenshot: Controls preferences" width="677" height="688" style="width:100%; height:auto; max-width:330px;" /></a>
-    <a href="public/demo/preferences-appearance.jpg"><img loading="lazy" src="public/demo/preferences-appearance.jpg" alt="Screenshot: Appearance preferences" width="672" height="735" style="width:100%; height:auto; max-width:330px;" /></a>
-    <a href="public/demo/preferences-appearance-details.jpg"><img loading="lazy" src="public/demo/preferences-appearance-details.jpg" alt="Screenshot: Appearance preferences (details)" width="672" height="934" style="width:100%; height:auto; max-width:330px;" /></a>
-    <a href="public/demo/preferences-blacklist.jpg"><img loading="lazy" src="public/demo/preferences-blacklist.jpg" alt="Screenshot: Blacklist preferences" width="672" height="655" style="width:100%; height:auto; max-width:330px;" /></a>
-    <a href="public/demo/preferences-policies.jpg"><img loading="lazy" src="public/demo/preferences-policies.jpg" alt="Screenshot: Policies preferences" width="672" height="353" style="width:100%; height:auto; max-width:330px;" /></a>
-</div>
 
 ## CLI usage
 
