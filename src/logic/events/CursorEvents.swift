@@ -115,11 +115,15 @@ class CursorEvents {
     }
 
     private static func handleMouseMoved(_ cgEvent: CGEvent) -> Unmanaged<CGEvent>? {
-        updateDeadzoneSituation(cgEvent)
-        if isAllowedToMouseHover {
+        if isAllowedToReactToPointerMovement(cgEvent.location) {
             TilesView.thumbnailOverView.updateHover()
         }
         return Unmanaged.passUnretained(cgEvent)
+    }
+
+    static func isAllowedToReactToPointerMovement(_ location: CGPoint) -> Bool {
+        updateDeadzoneSituation(location)
+        return isAllowedToMouseHover
     }
 
     private static func pointerLocationInWindow() -> NSPoint {
@@ -158,8 +162,7 @@ class CursorEvents {
 
     /// when using the trackpad, the user may swipe with a slight mistake. This will create a small cursor movement
     /// we ignore those, as they are not intended. Intended movements will be larger and not ignored
-    private static func updateDeadzoneSituation(_ cgEvent: CGEvent) {
-        let location = cgEvent.location
+    private static func updateDeadzoneSituation(_ location: CGPoint) {
         guard let deadZoneInitialPosition else {
             deadZoneInitialPosition = location
             isAllowedToMouseHover = false

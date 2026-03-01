@@ -644,7 +644,7 @@ class ScrollView: NSScrollView {
 
     convenience init() {
         self.init(frame: .zero)
-        documentView = FlippedView(frame: .zero)
+        documentView = TilesDocumentView(frame: .zero)
         documentView!.wantsLayer = true
         drawsBackground = false
         hasVerticalScroller = true
@@ -675,6 +675,107 @@ class ScrollView: NSScrollView {
         } else {
             super.scrollWheel(with: event)
         }
+    }
+}
+
+class TilesDocumentView: FlippedView {
+    private static let dragAndDropTimerDelay = TimeInterval(2)
+    private static let dragAndDropTimerResetDistance = CGFloat(5)
+
+    private weak var dragTarget: TileView?
+    private var lastDragLocation: NSPoint?
+    private var timerResetLocation: NSPoint?
+    private var dragAndDropTimer: Timer?
+
+    override func wantsPeriodicDraggingUpdates() -> Bool { false }
+
+    override init(frame frameRect: NSRect) {
+        super.init(frame: frameRect)
+        // we only handle URLs (i.e. not text, image, or other draggable things)
+        registerForDraggedTypes([NSPasteboard.PasteboardType(kUTTypeURL as String)])
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("Class only supports programmatic initialization")
+    }
+
+    override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
+        let location = sender.draggingLocation
+        lastDragLocation = location
+        return dragOperation(location)
+    }
+
+    override func draggingUpdated(_ sender: NSDraggingInfo) -> NSDragOperation {
+        let location = sender.draggingLocation
+        if location != lastDragLocation { lastDragLocation = location }
+        return dragOperation(location)
+    }
+
+    override func draggingExited(_ sender: NSDraggingInfo?) {
+        resetDraggingState(true)
+    }
+
+    override func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
+        defer { resetDraggingState(false) }
+        guard let target = targetView(sender.draggingLocation) ?? dragTarget,
+              let window = target.window_,
+              let appUrl = window.application.bundleURL else { return false }
+        guard let urls = sender.draggingPasteboard.readObjects(forClasses: [NSURL.self]) as? [URL],
+              !urls.isEmpty else { return false }
+        let open = try? NSWorkspace.shared.open(urls, withApplicationAt: appUrl, options: [], configuration: [:])
+        if open != nil { App.hideUi() }
+        return open != nil
+    }
+
+    override func concludeDragOperation(_ sender: NSDraggingInfo?) {
+        resetDraggingState(false)
+    }
+
+    private func dragOperation(_ location: NSPoint) -> NSDragOperation {
+        guard let target = targetView(location) else {
+            resetDraggingState(true)
+            return []
+        }
+        if dragTarget !== target {
+            dragTarget = target
+            restartDraggingTimer(location)
+        } else if shouldRestartDraggingTimer(location) {
+            restartDraggingTimer(location)
+        }
+        if let window, CursorEvents.isAllowedToReactToPointerMovement(window.convertPoint(toScreen: location)) {
+            target.mouseMovedCallback()
+        }
+        return .link
+    }
+
+    private func shouldRestartDraggingTimer(_ location: NSPoint) -> Bool {
+        guard let timerResetLocation else { return true }
+        return hypot(location.x - timerResetLocation.x, location.y - timerResetLocation.y) >= Self.dragAndDropTimerResetDistance
+    }
+
+    private func restartDraggingTimer(_ location: NSPoint) {
+        timerResetLocation = location
+        dragAndDropTimer?.invalidate()
+        dragAndDropTimer = Timer(timeInterval: Self.dragAndDropTimerDelay, repeats: false, block: { [weak self] _ in
+            guard let self, let dragTarget = self.dragTarget else { return }
+            dragTarget.mouseUpCallback()
+        })
+        dragAndDropTimer?.tolerance = 0.2
+        if let dragAndDropTimer { RunLoop.main.add(dragAndDropTimer, forMode: .common) }
+    }
+
+    private func resetDraggingState(_ resetHoveredWindow: Bool) {
+        lastDragLocation = nil
+        dragTarget = nil
+        timerResetLocation = nil
+        dragAndDropTimer?.invalidate()
+        dragAndDropTimer = nil
+        if resetHoveredWindow { TilesView.thumbnailOverView.resetHoveredWindow() }
+    }
+
+    private func targetView(_ location: NSPoint) -> TileView? {
+        let overlay = TilesView.thumbnailOverView
+        return overlay.findTarget(overlay.convert(location, from: nil))
     }
 }
 
