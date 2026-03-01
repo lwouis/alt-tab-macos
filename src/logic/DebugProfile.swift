@@ -107,12 +107,7 @@ class DebugProfile {
 
     static func inputSource() -> String {
         let r = DispatchQueue.main.sync {
-            if let inputSource = TISCopyCurrentKeyboardInputSource()?.takeUnretainedValue(),
-                let localizedNamePointer = TISGetInputSourceProperty(inputSource, kTISPropertyLocalizedName) {
-                let localizedName = Unmanaged<AnyObject>.fromOpaque(localizedNamePointer).takeUnretainedValue()
-                return localizedName as? String ?? ""
-            }
-            return ""
+            InputSourceEvents.currentInputSource()
         }
         return r
     }

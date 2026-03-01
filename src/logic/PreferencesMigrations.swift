@@ -295,6 +295,44 @@ class PreferencesMigrations {
             UserDefaults.standard.set(new, forKey: preference)
         }
     }
+
+    private static func migrateShortcutPreferencesToSecureCoding() {
+        Preferences.allShortcutPreferenceKeys.forEach {
+            let key = $0
+            guard let oldValue = UserDefaults.standard.object(forKey: key) else { return }
+            if let oldStorage = oldValue as? [String: Any] {
+                let (isValid, shortcut) = Preferences.decodeShortcutStorage(oldStorage)
+                guard isValid else {
+                    UserDefaults.standard.removeObject(forKey: key)
+                    return
+                }
+                UserDefaults.standard.set(Preferences.shortcutStorage(shortcut, oldStorage["string"] as? String), forKey: key)
+                return
+            }
+            if let oldDataValue = oldValue as? Data {
+                let (isValid, shortcut) = Preferences.unarchiveShortcut(oldDataValue)
+                guard isValid else {
+                    UserDefaults.standard.removeObject(forKey: key)
+                    return
+                }
+                UserDefaults.standard.set(Preferences.shortcutStorage(shortcut, nil), forKey: key)
+                return
+            }
+            guard let oldStringValue = oldValue as? String else {
+                UserDefaults.standard.removeObject(forKey: key)
+                return
+            }
+            if oldStringValue.isEmpty {
+                UserDefaults.standard.set(Preferences.shortcutStorage(nil, ""), forKey: key)
+                return
+            }
+            guard let migratedShortcut = Preferences.shortcutFromKeyEquivalent(oldStringValue) else {
+                UserDefaults.standard.removeObject(forKey: key)
+                return
+            }
+            UserDefaults.standard.set(Preferences.shortcutStorage(migratedShortcut, oldStringValue), forKey: key)
+        }
+    }
 }
 
 /// workaround to silence compiler warning

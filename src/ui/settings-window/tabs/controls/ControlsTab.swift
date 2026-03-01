@@ -222,6 +222,11 @@ class ControlsTab {
         }
     }
 
+    static func inputSourceChanged() {
+        refreshShortcutRows()
+        refreshShortcutControlsDisplay()
+    }
+
     static func initTab() -> NSView {
         shortcutEditorViews = (0..<Preferences.maxShortcutCount).map { shortcutTab($0) }
         gestureEditorView = gestureTab(Preferences.gestureIndex)
@@ -369,12 +374,10 @@ class ControlsTab {
 
     private static func shortcutTab(_ index: Int) -> TableGroupView {
         let holdName = Preferences.indexToName("holdShortcut", index)
-        let holdValue = UserDefaults.standard.string(forKey: holdName) ?? ""
-        var holdShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Hold", comment: ""), holdName, holdValue, false, labelPosition: .leftWithoutSeparator)
+        var holdShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Hold", comment: ""), holdName, Preferences.shortcut(holdName), false, labelPosition: .leftWithoutSeparator)
         holdShortcut.append(LabelAndControl.makeLabel(NSLocalizedString("and press", comment: "")))
         let nextName = Preferences.indexToName("nextWindowShortcut", index)
-        let nextValue = UserDefaults.standard.string(forKey: nextName) ?? ""
-        let nextWindowShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Select next window", comment: ""), nextName, nextValue, labelPosition: .right)
+        let nextWindowShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Select next window", comment: ""), nextName, Preferences.shortcut(nextName), labelPosition: .right)
         return controlTab(index, holdShortcut + [nextWindowShortcut[0]], shortcutEditorContentWidth)
     }
 
@@ -417,6 +420,13 @@ class ControlsTab {
         table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Show apps with no open window", comment: ""), rightViews: [showWindowlessApps]))
         table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Order windows by", comment: ""), rightViews: [windowOrder]))
         return table
+    }
+
+    private static func refreshShortcutControlsDisplay() {
+        shortcutControls.values.forEach {
+            $0.0.needsDisplay = true
+            $0.0.invalidateIntrinsicContentSize()
+        }
     }
 
     private static func refreshShortcutUi() {
@@ -524,8 +534,8 @@ class ControlsTab {
     }
 
     private static func setAddedShortcutTriggerDefaults(_ index: Int) {
-        Preferences.set(Preferences.indexToName("holdShortcut", index), "⌥", false)
-        Preferences.set(Preferences.indexToName("nextWindowShortcut", index), "", false)
+        Preferences.setShortcut(Preferences.indexToName("holdShortcut", index), keyEquivalent: "⌥", false)
+        Preferences.setShortcut(Preferences.indexToName("nextWindowShortcut", index), keyEquivalent: "", false)
         Preferences.set(Preferences.indexToName("appsToShow", index), AppsToShowPreference.all.indexAsString, false)
     }
 
@@ -533,8 +543,9 @@ class ControlsTab {
         removableShortcutPreferences.forEach { baseName in
             let fromKey = Preferences.indexToName(baseName, fromIndex)
             let toKey = Preferences.indexToName(baseName, toIndex)
-            if let value = UserDefaults.standard.string(forKey: fromKey) {
-                Preferences.set(toKey, value, false)
+            if let value = UserDefaults.standard.object(forKey: fromKey) {
+                UserDefaults.standard.set(value, forKey: toKey)
+                CachedUserDefaults.removeFromCache(toKey)
             } else {
                 Preferences.remove(toKey, false)
             }
@@ -558,8 +569,7 @@ class ControlsTab {
 
     private static func syncShortcutRecorderControlValue(_ controlId: String) {
         guard let control = shortcutControls[controlId]?.0 else { return }
-        let value = UserDefaults.standard.string(forKey: controlId) ?? ""
-        control.objectValue = value.isEmpty ? nil : Shortcut(keyEquivalent: value)
+        control.objectValue = Preferences.shortcut(controlId)
     }
 
     private static func syncShortcutDropdownControlValue(_ controlId: String) {
@@ -588,8 +598,8 @@ class ControlsTab {
     }
 
     private static func shortcutSummary(_ index: Int) -> String {
-        let holdShortcut = UserDefaults.standard.string(forKey: Preferences.indexToName("holdShortcut", index)) ?? ""
-        let nextWindowShortcut = UserDefaults.standard.string(forKey: Preferences.indexToName("nextWindowShortcut", index)) ?? ""
+        let holdShortcut = Preferences.shortcut(Preferences.indexToName("holdShortcut", index))?.keyEquivalent ?? ""
+        let nextWindowShortcut = Preferences.shortcut(Preferences.indexToName("nextWindowShortcut", index))?.keyEquivalent ?? ""
         if nextWindowShortcut.isEmpty {
             return holdShortcut
         }
@@ -717,8 +727,7 @@ class ControlsTab {
         }
         if controlId.hasPrefix("holdShortcut") {
             let i = Preferences.nameToIndex(controlId)
-            let holdShortcut = UserDefaults.standard.string(forKey: controlId) ?? ""
-            guard let shortcut = Shortcut(keyEquivalent: holdShortcut) else {
+            guard let shortcut = Preferences.shortcut(controlId) else {
                 removeShortcutIfExists(controlId)
                 return
             }
@@ -728,9 +737,8 @@ class ControlsTab {
                 shortcutChangedCallback(nextWindowShortcut)
             }
         } else {
-            let newValue = combineHoldAndNextWindow(controlId, sender)
-            let newShortcut = Shortcut(keyEquivalent: newValue)
-            if newValue.isEmpty || newShortcut == nil {
+            let newShortcut = combineHoldAndNextWindow(controlId, sender)
+            if newShortcut == nil {
                 removeShortcutIfExists(controlId)
                 restrictModifiersOfHoldShortcut(controlId, [])
                 (sender as! CustomRecorderControl).objectValue = nil
@@ -750,16 +758,13 @@ class ControlsTab {
         }
     }
 
-    static func combineHoldAndNextWindow(_ controlId: String, _ sender: NSControl) -> String {
-        let baseValue = (sender as! RecorderControl).stringValue
-        if baseValue == "" {
-            return ""
-        }
+    static func combineHoldAndNextWindow(_ controlId: String, _ sender: NSControl) -> Shortcut? {
+        guard let baseShortcut = (sender as! RecorderControl).objectValue else { return nil }
         if controlId.starts(with: "nextWindowShortcut") {
-            let holdShortcut = UserDefaults.standard.string(forKey: Preferences.indexToName("holdShortcut", Preferences.nameToIndex(controlId))) ?? ""
-            return holdShortcut + baseValue
+            let holdShortcut = Preferences.shortcut(Preferences.indexToName("holdShortcut", Preferences.nameToIndex(controlId)))
+            return combineShortcuts(holdShortcut, baseShortcut)
         }
-        return baseValue
+        return baseShortcut
     }
 
     @objc static func arrowKeysEnabledCallback(_ sender: NSControl) {
@@ -856,8 +861,7 @@ class ControlsTab {
             applyShortcutPreference(Preferences.indexToName("nextWindowShortcut", Preferences.nameToIndex(controlId)))
             return
         }
-        let shortcutString = combinedShortcutString(controlId)
-        guard !shortcutString.isEmpty, let shortcut = Shortcut(keyEquivalent: shortcutString) else {
+        guard let shortcut = combinedShortcut(controlId) else {
             removeShortcutIfExists(controlId)
             restrictModifiersOfHoldShortcut(controlId, [])
             return
@@ -868,23 +872,25 @@ class ControlsTab {
 
     private static func applyHoldShortcutPreference(_ controlId: String) {
         let i = Preferences.nameToIndex(controlId)
-        let holdShortcut = UserDefaults.standard.string(forKey: controlId) ?? ""
-        guard let shortcut = Shortcut(keyEquivalent: holdShortcut) else {
+        guard let shortcut = Preferences.shortcut(controlId) else {
             removeShortcutIfExists(controlId)
             return
         }
         addShortcut(.up, .global, shortcut, controlId, i)
     }
 
-    private static func combinedShortcutString(_ controlId: String) -> String {
-        guard let baseValue = UserDefaults.standard.string(forKey: controlId), !baseValue.isEmpty else {
-            return ""
-        }
+    private static func combinedShortcut(_ controlId: String) -> Shortcut? {
+        guard let baseShortcut = Preferences.shortcut(controlId) else { return nil }
         if controlId.starts(with: "nextWindowShortcut") {
-            let holdShortcut = UserDefaults.standard.string(forKey: Preferences.indexToName("holdShortcut", Preferences.nameToIndex(controlId))) ?? ""
-            return holdShortcut + baseValue
+            let holdShortcut = Preferences.shortcut(Preferences.indexToName("holdShortcut", Preferences.nameToIndex(controlId)))
+            return combineShortcuts(holdShortcut, baseShortcut)
         }
-        return baseValue
+        return baseShortcut
+    }
+
+    private static func combineShortcuts(_ holdShortcut: Shortcut?, _ baseShortcut: Shortcut) -> Shortcut {
+        guard let holdShortcut else { return baseShortcut }
+        return Shortcut(code: baseShortcut.keyCode, modifierFlags: [holdShortcut.modifierFlags, baseShortcut.modifierFlags], characters: baseShortcut.characters, charactersIgnoringModifiers: baseShortcut.charactersIgnoringModifiers)
     }
 
     private static func applyArrowKeysPreference() {

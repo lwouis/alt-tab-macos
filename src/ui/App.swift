@@ -387,6 +387,7 @@ class App: AppCenterApplication {
         ScreensEvents.observe()
         SystemAppearanceEvents.observe()
         SystemScrollerStyleEvents.observe()
+        InputSourceEvents.observe()
         Applications.initialDiscovery()
         KeyboardEvents.addEventHandlers()
         CursorEvents.observe()

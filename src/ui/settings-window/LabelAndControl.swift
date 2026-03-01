@@ -106,8 +106,8 @@ class LabelAndControl: NSObject {
         return view
     }
 
-    static func makeLabelWithRecorder(_ labelText: String, _ rawName: String, _ shortcutString: String, _ clearable: Bool = true, labelPosition: LabelPosition = .leftWithSeparator) -> [NSView] {
-        let input = CustomRecorderControl(shortcutString, clearable, rawName)
+    static func makeLabelWithRecorder(_ labelText: String, _ rawName: String, _ shortcut: Shortcut?, _ clearable: Bool = true, labelPosition: LabelPosition = .leftWithSeparator) -> [NSView] {
+        let input = CustomRecorderControl(shortcut, clearable, rawName)
         let views = makeLabelWithProvidedControl(labelText, rawName, input, labelPosition: labelPosition, extraAction: { _ in ControlsTab.shortcutChangedCallback(input) })
         ControlsTab.shortcutChangedCallback(input)
         ControlsTab.shortcutControls[rawName] = (input, labelText)
@@ -325,6 +325,15 @@ class LabelAndControl: NSObject {
     }
 
     static func controlWasChanged(_ senderControl: NSControl, _ controlId: String?) {
+        if let recorderControl = senderControl as? RecorderControl {
+            let key = senderControl.identifier!.rawValue
+            let oldValue = Preferences.shortcut(key)
+            let newValue = recorderControl.objectValue
+            if oldValue == nil && newValue == nil { return }
+            if let oldValue, let newValue, oldValue.isEqual(newValue) { return }
+            Preferences.setShortcut(key, newValue, stringRepresentation: recorderControl.stringValue)
+            return
+        }
         if let newValue = LabelAndControl.getControlValue(senderControl, controlId) {
             if let oldValue = UserDefaults.standard.string(forKey: senderControl.identifier!.rawValue), newValue == oldValue {
                 return

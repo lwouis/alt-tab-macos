@@ -8,6 +8,10 @@ class CustomRecorderControl: RecorderControl {
     var id: String!
 
     convenience init(_ shortcutString: String, _ clearable: Bool, _ id: String) {
+        self.init(Shortcut(keyEquivalent: shortcutString), clearable, id)
+    }
+
+    convenience init(_ shortcut: Shortcut?, _ clearable: Bool, _ id: String) {
         self.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
         self.clearable = clearable
@@ -17,7 +21,7 @@ class CustomRecorderControl: RecorderControl {
         allowsDeleteToClearShortcutAndEndRecording = false
         allowsModifierFlagsOnlyShortcut = true
         restrictModifiers([])
-        objectValue = Shortcut(keyEquivalent: shortcutString)
+        objectValue = shortcut
         addOrUpdateConstraint(widthAnchor, 100)
     }
 
@@ -133,5 +137,4 @@ extension CustomRecorderControl: RecorderControlDelegate {
         return true
     }
 }
-
 
