@@ -80,6 +80,7 @@ class Preferences {
         }
         (0...maxShortcutCount).forEach { index in
             values[indexToName("appsToShow", index)] = index == 1 ? AppsToShowPreference.active.indexAsString : (index == 2 ? AppsToShowPreference.nonActive.indexAsString : AppsToShowPreference.all.indexAsString)
+            values[indexToName("maxWindowsPerApp", index)] = MaxWindowsPerAppPreference.noLimit.indexAsString
             values[indexToName("spacesToShow", index)] = SpacesToShowPreference.all.indexAsString
             values[indexToName("screensToShow", index)] = ScreensToShowPreference.all.indexAsString
             values[indexToName("showMinimizedWindows", index)] = ShowHowPreference.show.indexAsString
@@ -145,6 +146,7 @@ class Preferences {
     static var updatePolicy: UpdatePolicyPreference { CachedUserDefaults.macroPref("updatePolicy", UpdatePolicyPreference.allCases) }
     static var crashPolicy: CrashPolicyPreference { CachedUserDefaults.macroPref("crashPolicy", CrashPolicyPreference.allCases) }
     static var appsToShow: [AppsToShowPreference] { (0...maxShortcutCount).map { CachedUserDefaults.macroPref(indexToName("appsToShow", $0), AppsToShowPreference.allCases) } }
+    static var maxWindowsPerApp: [MaxWindowsPerAppPreference] { (0...maxShortcutCount).map { CachedUserDefaults.macroPref(indexToName("maxWindowsPerApp", $0), MaxWindowsPerAppPreference.allCases) } }
     static var spacesToShow: [SpacesToShowPreference] { (0...maxShortcutCount).map { CachedUserDefaults.macroPref(indexToName("spacesToShow", $0), SpacesToShowPreference.allCases) } }
     static var screensToShow: [ScreensToShowPreference] { (0...maxShortcutCount).map { CachedUserDefaults.macroPref(indexToName("screensToShow", $0), ScreensToShowPreference.allCases) } }
     static var showMinimizedWindows: [ShowHowPreference] { (0...maxShortcutCount).map { CachedUserDefaults.macroPref(indexToName("showMinimizedWindows", $0), ShowHowPreference.allCases) } }
@@ -203,6 +205,15 @@ class Preferences {
 
     static func onlyShowApplications() -> Bool {
         return Preferences.showAppsOrWindows == .applications && Preferences.appearanceStyle != .thumbnails
+    }
+
+    static func maxWindowsPerAppInSwitcher(_ shortcutIndex: Int = App.shortcutIndex) -> Int? {
+        guard appsToShow[safe: shortcutIndex] == .all else { return nil }
+        return maxWindowsPerApp[safe: shortcutIndex]?.maxWindows
+    }
+
+    static func onlyShowApplicationsInSwitcher(_ shortcutIndex: Int = App.shortcutIndex) -> Bool {
+        return onlyShowApplications() || maxWindowsPerAppInSwitcher(shortcutIndex) == 1
     }
 
     /// key-above-tab is ` on US keyboard, but can be different on other keyboards

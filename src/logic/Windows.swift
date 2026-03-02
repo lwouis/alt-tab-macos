@@ -75,7 +75,7 @@ class Windows {
 
     static func previewSelectedWindowIfNeeded() {
         if App.appIsBeingUsed && ScreenRecordingPermission.status == .granted
-               && Preferences.previewSelectedWindow && !Preferences.onlyShowApplications()
+               && Preferences.previewSelectedWindow && !Preferences.onlyShowApplicationsInSwitcher()
                && TilesPanel.shared.isKeyWindow,
            let window = selectedWindow(),
            let id = window.cgWindowId,
@@ -129,7 +129,7 @@ class Windows {
     // dispatch screenshot requests off the main-thread, then wait for completion
     static func refreshThumbnailsAsync(_ windows: [Window], _ source: RefreshCausedBy, windowRemoved: Bool = false) {
         guard (!windows.isEmpty || windowRemoved) && ScreenRecordingPermission.status == .granted
-               && !Preferences.onlyShowApplications()
+               && !Preferences.onlyShowApplicationsInSwitcher()
                && (!Appearance.hideThumbnails || Preferences.previewSelectedWindow) else { return }
         var eligibleWindows = [Window]()
         for window in windows {
@@ -148,19 +148,34 @@ class Windows {
     }
 
     static func refreshWhichWindowsToShowTheUser() {
-        if Preferences.onlyShowApplications() {
-            // Group windows by application and select the optimal main window
-            let windowsGroupedByApp = Dictionary(grouping: list) { $0.application.pid }
-            windowsGroupedByApp.forEach { (app, windows) in
-                if windows.count > 1, let mainWindow = findMainWindow(windows) {
-                    windows.forEach { window in
-                        if window.cgWindowId != mainWindow.cgWindowId {
-                            window.shouldShowTheUser = false
-                        }
-                    }
+        guard let maxWindowsPerApp = maxWindowsPerAppInCurrentSwitcherMode() else { return }
+        let windowsGroupedByApp = Dictionary(grouping: list) { $0.application.pid }
+        windowsGroupedByApp.forEach { _, windows in
+            let prioritizedWindows = prioritizeWindowsWithinApp(windows).filter { $0.shouldShowTheUser }
+            if prioritizedWindows.count > maxWindowsPerApp {
+                prioritizedWindows.dropFirst(maxWindowsPerApp).forEach {
+                    $0.shouldShowTheUser = false
                 }
             }
         }
+    }
+
+    private static func maxWindowsPerAppInCurrentSwitcherMode() -> Int? {
+        if Preferences.onlyShowApplications() {
+            return 1
+        }
+        return Preferences.maxWindowsPerAppInSwitcher()
+    }
+
+    private static func prioritizeWindowsWithinApp(_ windows: [Window]) -> [Window] {
+        guard let mainWindow = findMainWindow(windows) else { return windows }
+        var prioritizedWindows = [mainWindow]
+        windows.forEach {
+            if $0.id != mainWindow.id {
+                prioritizedWindows.append($0)
+            }
+        }
+        return prioritizedWindows
     }
 
     private static func shouldHideWindow(_ window: Window, _ entry: ExceptionEntry) -> Bool {

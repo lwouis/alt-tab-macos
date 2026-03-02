@@ -1,3 +1,5 @@
+import Cocoa
+
 enum MenubarIconPreference: CaseIterable, MacroPreference {
     case outlined
     case filled
@@ -223,6 +225,37 @@ enum AppsToShowPreference: CaseIterable, MacroPreference {
             case .all: return NSLocalizedString("All apps", comment: "")
             case .active: return NSLocalizedString("Active app", comment: "")
             case .nonActive: return NSLocalizedString("Non-active apps", comment: "")
+        }
+    }
+}
+
+enum MaxWindowsPerAppPreference: CaseIterable, MacroPreference {
+    case noLimit
+    case one
+    case two
+    case three
+    case four
+    case five
+
+    var localizedString: LocalizedString {
+        switch self {
+            case .noLimit: return NSLocalizedString("No limit", comment: "")
+            case .one: return NSLocalizedString("1 window", comment: "")
+            case .two: return NSLocalizedString("2 windows", comment: "")
+            case .three: return NSLocalizedString("3 windows", comment: "")
+            case .four: return NSLocalizedString("4 windows", comment: "")
+            case .five: return NSLocalizedString("5 windows", comment: "")
+        }
+    }
+
+    var maxWindows: Int? {
+        switch self {
+            case .noLimit: return nil
+            case .one: return 1
+            case .two: return 2
+            case .three: return 3
+            case .four: return 4
+            case .five: return 5
         }
     }
 }

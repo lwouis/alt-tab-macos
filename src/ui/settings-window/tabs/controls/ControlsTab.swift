@@ -161,7 +161,7 @@ class ControlsTab {
     ]
     private static let removableShortcutPreferences = [
         "holdShortcut", "nextWindowShortcut",
-        "appsToShow", "spacesToShow", "screensToShow",
+        "appsToShow", "maxWindowsPerApp", "spacesToShow", "screensToShow",
         "showMinimizedWindows", "showHiddenWindows", "showFullscreenWindows", "showWindowlessApps",
         "windowOrder", "shortcutStyle",
     ]
@@ -397,7 +397,11 @@ class ControlsTab {
     }
 
     private static func controlTab(_ index: Int, _ trigger: [NSView], _ width: CGFloat) -> TableGroupView {
-        let appsToShow = LabelAndControl.makeDropdown(Preferences.indexToName("appsToShow", index), AppsToShowPreference.allCases)
+        var maxWindowsPerAppRowInfo: TableGroupView.RowInfo?
+        let appsToShow = LabelAndControl.makeDropdown(Preferences.indexToName("appsToShow", index), AppsToShowPreference.allCases, extraAction: { _ in
+            toggleMaxWindowsPerAppRow(index, maxWindowsPerAppRowInfo)
+        })
+        let maxWindowsPerApp = LabelAndControl.makeDropdown(Preferences.indexToName("maxWindowsPerApp", index), MaxWindowsPerAppPreference.allCases)
         let spacesToShow = LabelAndControl.makeDropdown(Preferences.indexToName("spacesToShow", index), SpacesToShowPreference.allCases)
         let screensToShow = LabelAndControl.makeDropdown(Preferences.indexToName("screensToShow", index), ScreensToShowPreference.allCases)
         let showMinimizedWindows = LabelAndControl.makeDropdown(Preferences.indexToName("showMinimizedWindows", index), ShowHowPreference.allCases)
@@ -409,6 +413,7 @@ class ControlsTab {
         table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Trigger", comment: ""), rightViews: trigger))
         table.addNewTable()
         table.addRow(leftViews: [TableGroupView.makeText(NSLocalizedString("Show windows from applications", comment: ""))], rightViews: [appsToShow])
+        maxWindowsPerAppRowInfo = table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Show at most this many windows from one app", comment: ""), rightViews: [maxWindowsPerApp]))
         table.addRow(leftViews: [TableGroupView.makeText(NSLocalizedString("Show windows from Spaces", comment: ""))], rightViews: [spacesToShow])
         table.addRow(leftViews: [TableGroupView.makeText(NSLocalizedString("Show windows from screens", comment: ""))], rightViews: [screensToShow])
         table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Show minimized windows", comment: ""), rightViews: [showMinimizedWindows]))
@@ -416,7 +421,15 @@ class ControlsTab {
         table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Show fullscreen windows", comment: ""), rightViews: [showFullscreenWindows]))
         table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Show apps with no open window", comment: ""), rightViews: [showWindowlessApps]))
         table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Order windows by", comment: ""), rightViews: [windowOrder]))
+        toggleMaxWindowsPerAppRow(index, maxWindowsPerAppRowInfo)
         return table
+    }
+
+    private static func toggleMaxWindowsPerAppRow(_ index: Int, _ rowInfo: TableGroupView.RowInfo?) {
+        let isVisible = Preferences.appsToShow[safe: index] == .all
+        rowInfo?.view.isHidden = !isVisible
+        rowInfo?.previousSeparator?.isHidden = !isVisible
+        rowInfo?.nextSeparator?.isHidden = !isVisible
     }
 
     private static func refreshShortcutUi() {
