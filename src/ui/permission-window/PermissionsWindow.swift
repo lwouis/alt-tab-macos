@@ -55,7 +55,7 @@ class PermissionsWindow: NSWindow {
             NSLocalizedString("Accessibility", comment: ""),
             NSLocalizedString("This permission is needed to focus windows after you release the shortcut", comment: ""),
             NSLocalizedString("Open Accessibility Settings…", comment: ""),
-            "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility",
+            "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility"
         )
         var rows = [
             [header],
