@@ -20,7 +20,9 @@ class AccessibilityEvents {
             }
         } else {
             let wid = (try? element.cgWindowId()) ?? 0
-            AXUIElement.retryAxCallUntilTimeout(context: "(pid:\(pid))", pid: pid, wid: wid, isWindowDestroyedEvent: type == kAXUIElementDestroyedNotification, callType: .updateWindowFromAxEvent) {
+            let isFocusEvent = type == kAXFocusedWindowChangedNotification || type == kAXMainWindowChangedNotification
+            let callType: AXUIElement.AXCallType = isFocusEvent ? .updateWindowFocusFromAxEvent : .updateWindowFromAxEvent
+            AXUIElement.retryAxCallUntilTimeout(context: "(pid:\(pid))", pid: pid, wid: wid, isWindowDestroyedEvent: type == kAXUIElementDestroyedNotification, callType: callType) {
                 try handleEventWindow(type, wid, pid, element)
             }
         }
@@ -47,7 +49,7 @@ class AccessibilityEvents {
         }
         if let appFocusedWindow, let wid {
             // if there is a focusedWindow, we reuse existing code to process it as if it was a kAXFocusedWindowChangedNotification
-            AXUIElement.retryAxCallUntilTimeout(context: "\(type) \(app.debugId))", pid: pid, wid: wid, callType: .updateWindowFromAxEvent) {
+            AXUIElement.retryAxCallUntilTimeout(context: "\(type) \(app.debugId))", pid: pid, wid: wid, callType: .updateWindowFocusFromAxEvent) {
                 try handleEventWindow(kAXFocusedWindowChangedNotification, wid, pid, appFocusedWindow)
             }
         } else {

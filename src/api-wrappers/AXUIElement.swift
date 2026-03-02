@@ -116,6 +116,7 @@ extension AXUIElement {
         case subscribeToWindowNotification
         case subscribeToDockNotification
         case updateWindowFromAxEvent
+        case updateWindowFocusFromAxEvent
         case updateWindowFromManualDiscovery
         case updateApp
         case updateAppFocusedWindow
