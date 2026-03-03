@@ -39,7 +39,8 @@ class TrackpadEvents {
             userInfo: nil)
         if let eventTap {
             let runLoopSource = CFMachPortCreateRunLoopSource(nil, eventTap, 0)
-            CFRunLoopAddSource(BackgroundWork.keyboardAndMouseAndTrackpadEventsThread.runLoop, runLoopSource, .commonModes)
+            // we run on main-thread since toNSEvent() must be called on main-thread, and we need to synchronously decide if we absorb the event
+            CFRunLoopAddSource(CFRunLoopGetMain(), runLoopSource, .commonModes)
         } else {
             App.restart()
         }
