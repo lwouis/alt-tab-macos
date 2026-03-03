@@ -4,6 +4,9 @@ import ApplicationServices
 class Applications {
     static var list = [Application]()
     static var frontmostPid = NSWorkspace.shared.frontmostApplication?.processIdentifier
+    static let manualAppUpdatesThrottler = ThrottlerWithKey(delayInMs: 1000)
+    static let manualWindowUpdatesThrottler = ThrottlerWithKey(delayInMs: 1000)
+    static let badgesThrottler = Throttler(delayInMs: 1000)
 
     static func initialDiscovery() {
         addInitialRunningApplications()
@@ -26,7 +29,43 @@ class Applications {
     /// this manually queries the system for windows, and keeps our list in-sync with the actual system
     static func addMissingWindows() {
         for app in list {
-            app.manuallyUpdateWindows()
+            manuallyUpdateWindows(app)
+        }
+    }
+
+    static func manuallyUpdateWindows(_ app: Application) {
+        manualAppUpdatesThrottler.throttleOrProceed(key: "\(app.pid)") { [weak app] in
+            guard let app else { return }
+            AXUIElement.retryAxCallUntilTimeout(context: app.debugId, pid: app.pid, callType: .updateAppWindowsFromManualDiscovery) { [weak app] in
+                guard let app, let axUiElement = app.axUiElement else { return }
+                let axWindows = try axUiElement.allWindows(app.pid)
+                guard !axWindows.isEmpty else {
+                    DispatchQueue.main.async { [weak app] in
+                        guard let app else { return }
+                        if app.addWindowlessWindowIfNeeded() != nil {
+                            App.refreshOpenUiAfterExternalEvent([])
+                        }
+                    }
+                    // workaround: some apps launch but take a while to create their window(s)
+                    // initial windows don't trigger a windowCreated notification, so we won't get notified
+                    // it's very unlikely an app would launch with no initial window
+                    // so we retry until timeout, in those rare cases (e.g. Bear.app)
+                    // we only do this for regular, active app, to avoid wasting CPU, with the trade-off of maybe missing some windows
+                    if app.runningApplication.isActive && app.runningApplication.activationPolicy == .regular {
+                        throw AxError.runtimeError
+                    }
+                    return
+                }
+                for axWindow in axWindows {
+                    guard let wid = try? axWindow.cgWindowId(), wid != 0 else { continue }
+                    manualWindowUpdatesThrottler.throttleOrProceed(key: "\(wid)") { [weak app] in
+                        guard let app else { return }
+                        AXUIElement.retryAxCallUntilTimeout(context: app.debugId, pid: app.pid, wid: wid, callType: .updateWindowFromManualDiscovery) { [weak app] in
+                            try app?.manuallyUpdateWindow(axWindow, wid)
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -77,25 +116,32 @@ class Applications {
             // comparing pid here can fail here, as it can be already nil; we use isEqual here to avoid the issue
             list.removeAll { $0.runningApplication.isEqual(tApp) }
         }
+        for tApp in terminatingApps {
+            let pid = tApp.processIdentifier
+            manualAppUpdatesThrottler.removeEntry(withKey: "\(pid)")
+            AccessibilityEvents.removeThrottlerEntries(pid: pid)
+        }
         App.refreshOpenUiAfterExternalEvent([])
     }
 
     static func refreshBadgesAsync() {
         guard App.appIsBeingUsed && !Preferences.hideAppBadges else { return }
-        AXUIElement.retryAxCallUntilTimeout(callType: .updateDockBadges) {
-            guard let dockPid = (list.first { $0.bundleIdentifier == "com.apple.dock" }?.pid),
-                let axDockChildren = try AXUIElementCreateApplication(dockPid).attributes([kAXChildrenAttribute]).children,
-                let axList = try (axDockChildren.first { try $0.attributes([kAXRoleAttribute]).role == kAXListRole }),
-                let axListChildren = try axList.attributes([kAXChildrenAttribute]).children else { return }
-            let axAppDockItemUrlAndLabel: [(URL?, String?)] = try axListChildren.compactMap {
-                let a = try $0.attributes([kAXSubroleAttribute, kAXIsApplicationRunningAttribute, kAXURLAttribute, kAXStatusLabelAttribute])
-                guard a.subrole == kAXApplicationDockItemSubrole && (a.appIsRunning ?? false) else { return nil }
-                return (a.url, a.statusLabel)
-            }
-            guard !axAppDockItemUrlAndLabel.isEmpty else { return }
-            DispatchQueue.main.async {
-                guard App.appIsBeingUsed && !Preferences.hideAppBadges else { return }
-                refreshBadges_(axAppDockItemUrlAndLabel)
+        badgesThrottler.throttleOrProceed {
+            AXUIElement.retryAxCallUntilTimeout(callType: .updateDockBadgesFromShowingUi) {
+                guard let dockPid = (list.first { $0.bundleIdentifier == "com.apple.dock" }?.pid),
+                    let axDockChildren = try AXUIElementCreateApplication(dockPid).attributes([kAXChildrenAttribute]).children,
+                    let axList = try (axDockChildren.first { try $0.attributes([kAXRoleAttribute]).role == kAXListRole }),
+                    let axListChildren = try axList.attributes([kAXChildrenAttribute]).children else { return }
+                let axAppDockItemUrlAndLabel: [(URL?, String?)] = try axListChildren.compactMap {
+                    let a = try $0.attributes([kAXSubroleAttribute, kAXIsApplicationRunningAttribute, kAXURLAttribute, kAXStatusLabelAttribute])
+                    guard a.subrole == kAXApplicationDockItemSubrole && (a.appIsRunning ?? false) else { return nil }
+                    return (a.url, a.statusLabel)
+                }
+                guard !axAppDockItemUrlAndLabel.isEmpty else { return }
+                DispatchQueue.main.async {
+                    guard App.appIsBeingUsed && !Preferences.hideAppBadges else { return }
+                    refreshBadges_(axAppDockItemUrlAndLabel)
+                }
             }
         }
     }

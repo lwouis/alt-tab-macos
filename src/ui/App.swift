@@ -28,8 +28,7 @@ class App: AppCenterApplication {
     private static var appCenterDelegate: AppCenterCrash?
     // don't queue multiple delayed rebuildUi() calls
     private static var delayedDisplayScheduled = 0
-    private static var lastRefreshTimeInNanoseconds = DispatchTime.now().uptimeNanoseconds
-    private static var nextRefreshScheduled = false
+    private static let refreshOpenUiThrottler = Throttler(delayInMs: 200)
 
     override init() {
         super.init()
@@ -266,7 +265,7 @@ class App: AppCenterApplication {
 
     static func refreshOpenUiAfterExternalEvent(_ windowsToScreenshot: [Window], windowRemoved: Bool = false) {
         Windows.refreshThumbnailsAsync(windowsToScreenshot, .refreshUiAfterExternalEvent, windowRemoved: windowRemoved)
-        refreshOpenUiWithThrottling {
+        refreshOpenUiThrottler.throttleOrProceed {
             guard appIsBeingUsed else { return }
             if !Windows.updatesBeforeShowing() { hideUi(); return }
             refreshUi(true)
@@ -285,24 +284,6 @@ class App: AppCenterApplication {
         Windows.previewSelectedWindowIfNeeded()
         guard appIsBeingUsed else { return }
         Applications.refreshBadgesAsync()
-    }
-
-    static func refreshOpenUiWithThrottling(_ block: @escaping () -> Void) {
-        let throttleDelayInMs = 200
-        let now = DispatchTime.now().uptimeNanoseconds
-        let (elapsedInNanoseconds, overflow) = now.subtractingReportingOverflow(lastRefreshTimeInNanoseconds)
-        let timeSinceLastRefreshInMs = overflow ? 0 : Float(elapsedInNanoseconds) / 1_000_000
-        if timeSinceLastRefreshInMs >= Float(throttleDelayInMs) {
-            lastRefreshTimeInNanoseconds = now
-            block()
-            return
-        }
-        guard !nextRefreshScheduled else { return }
-        nextRefreshScheduled = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(throttleDelayInMs + 10)) {
-            nextRefreshScheduled = false
-            refreshOpenUiWithThrottling(block)
-        }
     }
 
     static func showUiOrCycleSelection(_ shortcutIndex: Int, _ forceDoNothingOnRelease_: Bool) {

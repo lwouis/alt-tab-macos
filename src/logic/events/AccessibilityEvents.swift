@@ -3,10 +3,20 @@ import ApplicationServices.HIServices.AXUIElement
 import ApplicationServices.HIServices.AXNotificationConstants
 
 class AccessibilityEvents {
+    private static let throttler = ThrottlerWithKey(delayInMs: 200)
+
+    static func removeThrottlerEntries(wid: CGWindowID) {
+        throttler.removeEntries(withSuffix: "-wid-\(wid)")
+    }
+
+    static func removeThrottlerEntries(pid: pid_t) {
+        throttler.removeEntries(withSuffix: "-pid-\(pid)")
+    }
+
     static let axObserverCallback: AXObserverCallback = { _, element, notificationName, _ in
         let type = notificationName as String
         Logger.debug { type }
-        AXUIElement.retryAxCallUntilTimeout(context: "(type:\(type)", callType: .axEventEntrypoint) {
+        AXUIElement.retryAxCallUntilTimeout(context: "(type:\(type)", callType: .entrypointFromAxEvent) {
             try handleEvent(type, element)
         }
     }
@@ -15,13 +25,17 @@ class AccessibilityEvents {
         let pid = try element.pid()
         Logger.debug { "\(type) pid:\(pid)" }
         if [kAXApplicationActivatedNotification, kAXApplicationHiddenNotification, kAXApplicationShownNotification].contains(type) {
-            AXUIElement.retryAxCallUntilTimeout(context: "(pid:\(pid))", pid: pid, callType: .updateApp) {
-                try handleEventApp(type, pid, element)
+            throttler.throttleOrProceed(key: "\(type)-pid-\(pid)") {
+                AXUIElement.retryAxCallUntilTimeout(context: "(pid:\(pid))", pid: pid, callType: .updateAppFromAxEvent) {
+                    try handleEventApp(type, pid, element)
+                }
             }
         } else {
             let wid = (try? element.cgWindowId()) ?? 0
-            AXUIElement.retryAxCallUntilTimeout(context: "(pid:\(pid))", pid: pid, wid: wid, isWindowDestroyedEvent: type == kAXUIElementDestroyedNotification, callType: .updateWindowFromAxEvent) {
-                try handleEventWindow(type, wid, pid, element)
+            throttler.throttleOrProceed(key: "\(type)-wid-\(wid)") {
+                AXUIElement.retryAxCallUntilTimeout(context: "(pid:\(pid))", pid: pid, wid: wid, callType: .updateWindowFromAxEvent) {
+                    try handleEventWindow(type, wid, pid, element)
+                }
             }
         }
     }

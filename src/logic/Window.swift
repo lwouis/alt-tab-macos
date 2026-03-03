@@ -322,7 +322,7 @@ class Window {
     private func checkIfFocused() {
         let app = application
         guard let appAxUiElement = app.axUiElement else { return }
-        AXUIElement.retryAxCallUntilTimeout(context: debugId, pid: app.pid, wid: cgWindowId, callType: .updateAppFocusedWindow) { [weak app] in
+        AXUIElement.retryAxCallUntilTimeout(context: debugId, pid: app.pid, wid: cgWindowId, callType: .updateAppFocusedWindowFromWindowInit) { [weak app] in
             guard let app, let focusedWindow = try appAxUiElement.attributes([kAXFocusedWindowAttribute]).focusedWindow else { return }
             let focusedWid = try focusedWindow.cgWindowId()
             DispatchQueue.main.async {

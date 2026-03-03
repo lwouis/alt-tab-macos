@@ -295,7 +295,7 @@ class Preferences {
 }
 
 class CachedUserDefaults {
-    static var cache = AXUIElement.ConcurrentMap<String, Any>()
+    static var cache = ConcurrentMap<String, Any>()
 
     static func removeFromCache(_ key: String) {
         cache.withLock { $0.removeValue(forKey: key) }

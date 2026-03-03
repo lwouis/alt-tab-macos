@@ -5,7 +5,7 @@ class Logger {
     private static let logger = SwiftyBeaver.self
     static let flag = "--logs="
     static let longDateTimeFormat = "yyyy-MM-dd HH:mm:ss.SSS"
-    static let shortDateTimeFormat = "HH:mm:ss"
+    static let shortDateTimeFormat = "HH:mm:ss.SSS"
 
     static func initialize() {
         let console = ConsoleDestination()

@@ -142,42 +142,12 @@ class Application: NSObject {
                         // apps don't always create kAXApplicationActivatedNotification upon launch; we update frontmostPid in case it has changed
                         Applications.frontmostPid = NSWorkspace.shared.frontmostApplication?.processIdentifier
                         // apps don't always send kAXWindowCreatedNotification upon launch; we manually check to prevent missing windows
-                        self?.manuallyUpdateWindows()
+                        if let self { Applications.manuallyUpdateWindows(self) }
                     }
                 }
             }
         }
         CFRunLoopAddSource(BackgroundWork.accessibilityEventsThread.runLoop, AXObserverGetRunLoopSource(axObserver), .commonModes)
-    }
-
-    func manuallyUpdateWindows() {
-        AXUIElement.retryAxCallUntilTimeout(context: debugId, pid: pid, callType: .updateAppWindows) { [weak self] in
-            guard let self, let axUiElement = self.axUiElement else { return }
-            let axWindows = try axUiElement.allWindows(self.pid)
-            guard !axWindows.isEmpty else {
-                DispatchQueue.main.async { [weak self] in
-                    guard let self else { return }
-                    if self.addWindowlessWindowIfNeeded() != nil {
-                        App.refreshOpenUiAfterExternalEvent([])
-                    }
-                }
-                // workaround: some apps launch but take a while to create their window(s)
-                // initial windows don't trigger a windowCreated notification, so we won't get notified
-                // it's very unlikely an app would launch with no initial window
-                // so we retry until timeout, in those rare cases (e.g. Bear.app)
-                // we only do this for regular, active app, to avoid wasting CPU, with the trade-off of maybe missing some windows
-                if self.runningApplication.isActive && self.runningApplication.activationPolicy == .regular {
-                    throw AxError.runtimeError
-                }
-                return
-            }
-            for axWindow in axWindows {
-                guard let wid = try? axWindow.cgWindowId() else { continue }
-                AXUIElement.retryAxCallUntilTimeout(context: debugId, pid: pid, wid: wid, callType: .updateWindowFromManualDiscovery) { [weak self] in
-                    try self?.manuallyUpdateWindow(axWindow, wid)
-                }
-            }
-        }
     }
 
     func manuallyUpdateWindow(_ axWindow: AXUIElement, _ wid: CGWindowID) throws {

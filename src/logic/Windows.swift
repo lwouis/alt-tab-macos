@@ -531,6 +531,12 @@ class Windows {
             w.lastFocusOrder -= howManyToShift
             return false
         }
+        for w in windows {
+            if let wid = w.cgWindowId {
+                Applications.manualWindowUpdatesThrottler.removeEntry(withKey: "\(wid)")
+                AccessibilityEvents.removeThrottlerEntries(wid: wid)
+            }
+        }
         if addWindowlessWindowIfNeeded {
             windows.forEach { $0.application.addWindowlessWindowIfNeeded() }
         }
