@@ -736,13 +736,13 @@ class TilesDocumentView: FlippedView {
             resetDraggingState(true)
             return []
         }
-        if dragTarget !== target {
-            dragTarget = target
-            restartDraggingTimer(location)
-        } else if shouldRestartDraggingTimer(location) {
-            restartDraggingTimer(location)
-        }
         if let window, CursorEvents.isAllowedToReactToPointerMovement(window.convertPoint(toScreen: location)) {
+            if dragTarget !== target {
+                dragTarget = target
+                restartDraggingTimer(location)
+            } else if shouldRestartDraggingTimer(location) {
+                restartDraggingTimer(location)
+            }
             target.mouseMovedCallback()
         }
         return .link
@@ -762,6 +762,11 @@ class TilesDocumentView: FlippedView {
         })
         dragAndDropTimer?.tolerance = 0.2
         if let dragAndDropTimer { RunLoop.main.add(dragAndDropTimer, forMode: .common) }
+    }
+
+    func cancelDraggingTimer() {
+        dragAndDropTimer?.invalidate()
+        dragAndDropTimer = nil
     }
 
     private func resetDraggingState(_ resetHoveredWindow: Bool) {

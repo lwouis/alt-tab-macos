@@ -109,6 +109,11 @@ class CursorEvents {
         return Unmanaged.passUnretained(cgEvent)
     }
 
+    static func resetDeadzone() {
+        deadZoneInitialPosition = nil
+        isAllowedToMouseHover = false
+    }
+
     static func isAllowedToReactToPointerMovement(_ location: CGPoint) -> Bool {
         updateDeadzoneSituation(location)
         return isAllowedToMouseHover

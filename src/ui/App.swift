@@ -230,6 +230,8 @@ class App: AppCenterApplication {
     }
 
     static func cycleSelection(_ direction: Direction, allowWrap: Bool = true) {
+        (TilesView.scrollView?.documentView as? TilesDocumentView)?.cancelDraggingTimer()
+        CursorEvents.resetDeadzone()
         if direction == .up || direction == .down {
             TilesView.navigateUpOrDown(direction, allowWrap: allowWrap)
         } else {
