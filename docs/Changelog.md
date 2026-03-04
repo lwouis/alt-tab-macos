@@ -1,3 +1,18 @@
+# [10.4.0](https://github.com/lwouis/alt-tab-macos/compare/v10.3.0...v10.4.0) (2026-03-04)
+
+
+### Bug Fixes
+
+* clicking tiles required to release precisely (closes [#5373](https://github.com/lwouis/alt-tab-macos/issues/5373)) ([2c6c9fb](https://github.com/lwouis/alt-tab-macos/commit/2c6c9fb))
+* issues when using multiple keyboard languages (closes [#2125](https://github.com/lwouis/alt-tab-macos/issues/2125)) ([ea7284b](https://github.com/lwouis/alt-tab-macos/commit/ea7284b))
+* switcher may show windows in the wrong order (closes [#5346](https://github.com/lwouis/alt-tab-macos/issues/5346)) ([a632e42](https://github.com/lwouis/alt-tab-macos/commit/a632e42))
+
+
+### Features
+
+* add kazakh and improve all localizations ([0ad389a](https://github.com/lwouis/alt-tab-macos/commit/0ad389a))
+* improve drag-and-drop over alttab (closes [#5350](https://github.com/lwouis/alt-tab-macos/issues/5350)) ([a809ffa](https://github.com/lwouis/alt-tab-macos/commit/a809ffa))
+
 # [10.3.0](https://github.com/lwouis/alt-tab-macos/compare/v10.2.0...v10.3.0) (2026-02-24)
 
 
