@@ -9,6 +9,8 @@
 "Active app" = "Aip ghníomhach";
 "Active screen" = "Scáileán gníomhach";
 "Active Space" = "Spás Gníomhach";
+"Add a running app" = "Cuir feidhmchlár reatha leis";
+"Add an app from disk" = "Cuir feidhmchlár ón diosca leis";
 "Additional controls" = "Rialuithe breise";
 "Additional controls…" = "Rialuithe breise…";
 "Advanced" = "Ard";
@@ -77,6 +79,8 @@
 "Don’t show windows from these apps" = "Ná taispeáin fuinneoga ó na haipeanna seo";
 "Done" = "Déanta";
 "End" = "Deireadh";
+"Exceptions" = "Eisceachtaí";
+"Export settings…" = "Easpórtáil socruithe…";
 "Export…" = "Easpórtáil…";
 "Fade in animation of Preview" = "Beochan céimnithe isteach Réamhamhairc";
 "Fade out animation" = "Céimnigh amach beochan";
@@ -113,6 +117,7 @@
 "I think the app could be improved with…" = "Ceapaim go bhféadfaí an aip a fheabhsú le…";
 "Ignore shortcuts when active" = "Déan neamhaird de aicearraí agus tú gníomhach";
 "Ignore shortcuts while a window from these apps is active" = "Déan neamhaird de aicearraí agus fuinneog ó na haipeanna seo gníomhach";
+"Import settings…" = "Iompórtáil socruithe…";
 "Import…" = "Iompórtáil…";
 "Keep open" = "Coinnigh oscailte";
 "Keep open and search" = "Coinnigh oscailte agus cuardaigh";
@@ -279,6 +284,7 @@
 "Window min width in row:" = "Leithead min fuinneoige i ndiaidh a chéile:";
 "Window order:" = "Ordú fuinneoige:";
 "Window Title" = "Teideal Fuinneog";
+"Window title contains" = "Tá sa teideal fuinneoige";
 "Window title font size:" = "Méid cló teideal na fuinneoige:";
 "Window title truncation:" = "Teascadh teideal fuinneoige:";
 "Windows" = "Fuinneoga";

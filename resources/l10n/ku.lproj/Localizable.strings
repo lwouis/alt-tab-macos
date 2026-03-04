@@ -9,6 +9,8 @@
 "Active app" = "Sepana çalak";
 "Active screen" = "Paceya çalak";
 "Active Space" = "Valahiya çalak";
+"Add a running app" = "زیادکردنی بەرنامەیەکی کارا";
+"Add an app from disk" = "زیادکردنی بەرنامەیەک لە دیسکەوە";
 "Additional controls" = "Kontrolên zêde";
 "Additional controls…" = "Kontrolên zêde ...";
 "Advanced" = "Pêşveçû";
@@ -77,6 +79,8 @@
 "Don’t show windows from these apps" = "Paceyên wan sepanan nîşan nede";
 "Done" = "Dank";
 "End" = "Dawî";
+"Exceptions" = "ئیستیثناکان";
+"Export settings…" = "هەناردەکردنی ڕێکخستنەکان…";
 "Export…" = "هەناردەکردن…";
 "Fade in animation of Preview" = "فەید ئین ئەنیمەیشنی پێشبینی";
 "Fade out animation" = "Animation Out Out";
@@ -113,6 +117,7 @@
 "I think the app could be improved with…" = "Li gorî min sepên dikari bi ... ve bê geşandin.";
 "Ignore shortcuts when active" = "Dema ku çalak bibe kurteyên kurt bikin";
 "Ignore shortcuts while a window from these apps is active" = "کورتکراوەکان پشتگوێ بخە کاتێک پەنجەرەیەک لەم ئەپانە چالاکە";
+"Import settings…" = "هاوردەکردنی ڕێکخستنەکان…";
 "Import…" = "هاوردەکردن…";
 "Keep open" = "کراوە بهێڵەوە";
 "Keep open and search" = "کراوە بهێڵەوە و گەڕان بکە";
@@ -279,6 +284,7 @@
 "Window min width in row:" = "کەمترین پانی پەنجەرە لە ڕیزێکدا:";
 "Window order:" = "ڕیزبەندی پەنجەرە:";
 "Window Title" = "Sernavê Windowê";
+"Window title contains" = "ناونیشانی پەنجەرە لەخۆدەگرێت";
 "Window title font size:" = "Mezinahîya fontên sernav ên paceya";
 "Window title truncation:" = "Birîna sernavê pacê:";
 "Windows" = "Windows";

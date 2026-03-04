@@ -9,6 +9,8 @@
 "Active app" = "સક્રિય એપ્લિકેશન";
 "Active screen" = "સક્રિય સ્ક્રીન";
 "Active Space" = "સક્રિય સ્પેસ";
+"Add a running app" = "ચાલુ એપ્લિકેશન ઉમેરો";
+"Add an app from disk" = "ડિસ્કમાંથી એપ્લિકેશન ઉમેરો";
 "Additional controls" = "વધારાના નિયંત્રણો";
 "Additional controls…" = "વધારાના નિયંત્રણો…";
 "Advanced" = "અદ્યતન";
@@ -77,6 +79,8 @@
 "Don’t show windows from these apps" = "આ એપ્લિકેશન્સમાંથી વિંડોઝ બતાવશો નહીં";
 "Done" = "થઈ ગયું";
 "End" = "અંત";
+"Exceptions" = "અપવાદો";
+"Export settings…" = "સેટિંગ્સ નિકાસ કરો…";
 "Export…" = "નિકાસ કરો…";
 "Fade in animation of Preview" = "પૂર્વાવલોકનનું ફેડ ઇન એનિમેશન";
 "Fade out animation" = "ફેડ આઉટ એનિમેશન";
@@ -113,6 +117,7 @@
 "I think the app could be improved with…" = "મને લાગે છે કે એપ્લિકેશન આનાથી સુધારી શકાય છે…";
 "Ignore shortcuts when active" = "સક્રિય હોય ત્યારે શૉર્ટકટ્સને અવગણો";
 "Ignore shortcuts while a window from these apps is active" = "જ્યારે આ ઍપ્લિકેશનમાંથી કોઈ વિન્ડો સક્રિય હોય ત્યારે શૉર્ટકટ્સને અવગણો";
+"Import settings…" = "સેટિંગ્સ આયાત કરો…";
 "Import…" = "આયાત કરો…";
 "Keep open" = "ખુલ્લું રાખો";
 "Keep open and search" = "ખુલ્લું રાખો અને શોધો";
@@ -279,6 +284,7 @@
 "Window min width in row:" = "પંક્તિમાં વિન્ડોની ન્યૂનતમ પહોળાઈ:";
 "Window order:" = "વિન્ડોનો ક્રમ:";
 "Window Title" = "વિન્ડો શીર્ષક";
+"Window title contains" = "વિન્ડો શીર્ષકમાં સમાવિષ્ટ છે";
 "Window title font size:" = "વિંડો શીર્ષક ફોન્ટનું કદ:";
 "Window title truncation:" = "વિંડો શીર્ષક ટ્રંકેશન:";
 "Windows" = "વિન્ડોઝ";

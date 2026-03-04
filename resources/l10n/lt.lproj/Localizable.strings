@@ -9,6 +9,8 @@
 "Active app" = "Aktyvi programa";
 "Active screen" = "Aktyvus ekranas";
 "Active Space" = "Aktyvi erdvė";
+"Add a running app" = "Pridėti veikiančią programą";
+"Add an app from disk" = "Pridėti programą iš disko";
 "Additional controls" = "Papildomi valdikliai";
 "Additional controls…" = "Papildomi valdikliai…";
 "Advanced" = "Išplėstiniai nustatymai";
@@ -77,6 +79,8 @@
 "Don’t show windows from these apps" = "Nerodyti langų iš šių programų";
 "Done" = "Atlikta";
 "End" = "Pabaiga";
+"Exceptions" = "Išimtys";
+"Export settings…" = "Eksportuoti nustatymus…";
 "Export…" = "Eksportuoti…";
 "Fade in animation of Preview" = "Peržiūros išryškėjimo animacija";
 "Fade out animation" = "Išnykimo animacija";
@@ -113,6 +117,7 @@
 "I think the app could be improved with…" = "Manau, kad programa gali būti pagerinta su";
 "Ignore shortcuts when active" = "Ignoruoti sparčiuosius klavišus, kai aktyvus";
 "Ignore shortcuts while a window from these apps is active" = "Ignoruoti sparčiuosius klavišus, kai aktyvus langas iš šių programų";
+"Import settings…" = "Importuoti nustatymus…";
 "Import…" = "Importuoti…";
 "Keep open" = "Palikti atidarytą";
 "Keep open and search" = "Palikti atidarytą ir ieškoti";
@@ -279,6 +284,7 @@
 "Window min width in row:" = "Min. lango plotis eilutėje:";
 "Window order:" = "Langų tvarka:";
 "Window Title" = "Lango pavadinimas";
+"Window title contains" = "Lango pavadinime yra";
 "Window title font size:" = "Lango pavadinimo šrifto dydis:";
 "Window title truncation:" = "Lango pavadinimo trumpinimas:";
 "Windows" = "Langai";

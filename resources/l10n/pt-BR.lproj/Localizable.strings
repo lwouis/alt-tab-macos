@@ -9,6 +9,8 @@
 "Active app" = "Aplicações ativas";
 "Active screen" = "Na tela ativa";
 "Active Space" = "Desktop ativo";
+"Add a running app" = "Adicionar um aplicativo em execução";
+"Add an app from disk" = "Adicionar um aplicativo do disco";
 "Additional controls" = "Controles adicionais";
 "Additional controls…" = "Controles adicionais…";
 "Advanced" = "Avançado";
@@ -77,6 +79,8 @@
 "Don’t show windows from these apps" = "Não exibir janelas destes aplicativos";
 "Done" = "Feito";
 "End" = "No fim";
+"Exceptions" = "Exceções";
+"Export settings…" = "Exportar configurações…";
 "Export…" = "Exportar…";
 "Fade in animation of Preview" = "Animação de desvanecimento da Pré-Visualização";
 "Fade out animation" = "Animação de desvanecimento";
@@ -113,6 +117,7 @@
 "I think the app could be improved with…" = "Eu acho que a aplicação poderia ser melhorada com…";
 "Ignore shortcuts when active" = "Ignorar atalhos quando ativo";
 "Ignore shortcuts while a window from these apps is active" = "Ignorar atalhos enquanto uma janela destes aplicativos estiver ativa";
+"Import settings…" = "Importar configurações…";
 "Import…" = "Importar…";
 "Keep open" = "Manter aberto";
 "Keep open and search" = "Manter aberto e pesquisar";
@@ -279,6 +284,7 @@
 "Window min width in row:" = "Largura mínima da janela na linha:";
 "Window order:" = "Ordem das janelas:";
 "Window Title" = "Título da janela";
+"Window title contains" = "O título da janela contém";
 "Window title font size:" = "Tamanho da fonte do título da aplicação:";
 "Window title truncation:" = "Truncar título da janela:";
 "Windows" = "Janelas";

@@ -9,6 +9,8 @@
 "Active app" = "Aktív alkalmazás";
 "Active screen" = "Aktív képernyő";
 "Active Space" = "Aktuális Íróasztal";
+"Add a running app" = "Futó alkalmazás hozzáadása";
+"Add an app from disk" = "Alkalmazás hozzáadása lemezről";
 "Additional controls" = "További kezelőszervek";
 "Additional controls…" = "További kezelőszervek…";
 "Advanced" = "Fejlett";
@@ -77,6 +79,8 @@
 "Don’t show windows from these apps" = "Ablakok elrejtése ezekből az alkalmazásokból";
 "Done" = "Kész";
 "End" = "Végén";
+"Exceptions" = "Kivételek";
+"Export settings…" = "Beállítások exportálása…";
 "Export…" = "Exportálás…";
 "Fade in animation of Preview" = "Előnézet fokozatos beúszás animációja";
 "Fade out animation" = "Eltűnés animáció";
@@ -113,6 +117,7 @@
 "I think the app could be improved with…" = "Azt gondolom hasznos lenne az app bővítése ezzel…";
 "Ignore shortcuts when active" = "Hagyja figyelmen kívül a parancsokat ha";
 "Ignore shortcuts while a window from these apps is active" = "Figyelmen kívül hagyja a parancsikonokat, miközben ezeknek az alkalmazásoknak az ablaka aktív";
+"Import settings…" = "Beállítások importálása…";
 "Import…" = "Importálás…";
 "Keep open" = "Nyitva tartás";
 "Keep open and search" = "Nyitva tartás és keresés";
@@ -279,6 +284,7 @@
 "Window min width in row:" = "Ablak minimum szélessége a sorban:";
 "Window order:" = "Ablakok sorrendje:";
 "Window Title" = "Ablak címe";
+"Window title contains" = "Az ablak címe tartalmazza";
 "Window title font size:" = "Ablak címének betű mérete:";
 "Window title truncation:" = "Ablak címsor rövidítése:";
 "Windows" = "Ablakok";

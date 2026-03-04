@@ -9,6 +9,8 @@
 "Active app" = "Active app";
 "Active screen" = "Active screen";
 "Active Space" = "സജീവ സ്‌പേസ്";
+"Add a running app" = "പ്രവർത്തിക്കുന്ന ഒരു ആപ്പ് ചേർക്കുക";
+"Add an app from disk" = "ഡിസ്കിൽ നിന്ന് ഒരു ആപ്പ് ചേർക്കുക";
 "Additional controls" = "Additional controls";
 "Additional controls…" = "Additional controls…";
 "Advanced" = "Advanced";
@@ -77,6 +79,8 @@
 "Don’t show windows from these apps" = "ഈ ആപ്പുകളിൽ നിന്നുള്ള വിൻഡോകൾ കാണിക്കരുത്";
 "Done" = "Done";
 "End" = "End";
+"Exceptions" = "ഒഴിവാക്കലുകൾ";
+"Export settings…" = "ക്രമീകരണങ്ങൾ എക്സ്പോർട്ട് ചെയ്യുക…";
 "Export…" = "എക്‌സ്‌പോർട്ട് ചെയ്യുക…";
 "Fade in animation of Preview" = "പ്രിവ്യൂവിന്റെ ഫേഡ് ഇൻ ആനിമേഷൻ";
 "Fade out animation" = "Fade out animation";
@@ -113,6 +117,7 @@
 "I think the app could be improved with…" = "I think the app could be improved with…";
 "Ignore shortcuts when active" = "Ignore shortcuts when active";
 "Ignore shortcuts while a window from these apps is active" = "ഈ ആപ്പുകളിൽ നിന്നുള്ള ഒരു വിൻഡോ സജീവമായിരിക്കുമ്പോൾ കുറുക്കുവഴികൾ അവഗണിക്കുക";
+"Import settings…" = "ക്രമീകരണങ്ങൾ ഇംപോർട്ട് ചെയ്യുക…";
 "Import…" = "ഇറക്കുമതി ചെയ്യുക…";
 "Keep open" = "തുറന്നിടുക";
 "Keep open and search" = "തുറന്നിട്ട് തിരയുക";
@@ -279,6 +284,7 @@
 "Window min width in row:" = "നിരയിലെ വിൻഡോയുടെ ഏറ്റവും കുറഞ്ഞ വീതി:";
 "Window order:" = "വിൻഡോ ക്രമം:";
 "Window Title" = "Window Title";
+"Window title contains" = "വിൻഡോ ശീർഷകത്തിൽ അടങ്ങിയിരിക്കുന്നു";
 "Window title font size:" = "വിൻഡോ തലക്കെട്ടിന്റെ ഫോണ്ട് വലുപ്പം:";
 "Window title truncation:" = "വിൻഡോ തലക്കെട്ട് ട്രങ്കേഷൻ:";
 "Windows" = "Windows";

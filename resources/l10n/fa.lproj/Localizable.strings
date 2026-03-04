@@ -9,6 +9,8 @@
 "Active app" = "برنامه فعال";
 "Active screen" = "صفحه فعال";
 "Active Space" = "فضای کاری فعال";
+"Add a running app" = "افزودن یک برنامه در حال اجرا";
+"Add an app from disk" = "افزودن یک برنامه از دیسک";
 "Additional controls" = "کنترل های اضافی";
 "Additional controls…" = "کنترل های اضافی ...";
 "Advanced" = "پیشرفته";
@@ -77,6 +79,8 @@
 "Don’t show windows from these apps" = "پنجره‌های این برنامه‌ها را نمایش نده";
 "Done" = "انجام شده";
 "End" = "پایان";
+"Exceptions" = "استثناها";
+"Export settings…" = "خروجی گرفتن از تنظیمات…";
 "Export…" = "خروجی گرفتن…";
 "Fade in animation of Preview" = "انیمیشن ظاهر شدن (ورود) پیش‌نمایش";
 "Fade out animation" = "محو شدن انیمیشن";
@@ -113,6 +117,7 @@
 "I think the app could be improved with…" = "من گمان می‌کنم این نرم‌افزار می‌تواند بهتر شود به طریق...";
 "Ignore shortcuts when active" = "Ignore shortcuts when active";
 "Ignore shortcuts while a window from these apps is active" = "نادیده گرفتن میانبرها هنگامی که پنجره‌ای از این برنامه‌ها فعال است";
+"Import settings…" = "ورودی گرفتن از تنظیمات…";
 "Import…" = "وارد کردن…";
 "Keep open" = "باز نگه داشتن";
 "Keep open and search" = "باز نگه داشتن و جستجو";
@@ -279,6 +284,7 @@
 "Window min width in row:" = "حداقل عرض پنجره در ردیف:";
 "Window order:" = "ترتیب پنجره:";
 "Window Title" = "عنوان پنجره";
+"Window title contains" = "عنوان پنجره حاوی است";
 "Window title font size:" = "اندازه فونت عنوان پنجره:";
 "Window title truncation:" = "کوتاه کردن عنوان پنجره:";
 "Windows" = "پنجره ها";

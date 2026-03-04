@@ -9,6 +9,8 @@
 "Active app" = "Aplicație activă";
 "Active screen" = "Ecranul activ";
 "Active Space" = "Spațiul activ";
+"Add a running app" = "Adăugați o aplicație în execuție";
+"Add an app from disk" = "Adăugați o aplicație de pe disc";
 "Additional controls" = "Controale suplimentare";
 "Additional controls…" = "Controale suplimentare…";
 "Advanced" = "Avansat";
@@ -77,6 +79,8 @@
 "Don’t show windows from these apps" = "Nu afișa ferestrele acestor aplicații";
 "Done" = "Terminat";
 "End" = "Sfârșit";
+"Exceptions" = "Excepții";
+"Export settings…" = "Exportați setările…";
 "Export…" = "Exportă…";
 "Fade in animation of Preview" = "Animație de apariție a Previzualizării";
 "Fade out animation" = "Animație de estompare";
@@ -113,6 +117,7 @@
 "I think the app could be improved with…" = "Cred că aplicația poate fi îmbunătățită prin…";
 "Ignore shortcuts when active" = "Ignoră scurtăturile când este activă";
 "Ignore shortcuts while a window from these apps is active" = "Ignoră scurtăturile cât timp o fereastră din aceste aplicații este activă";
+"Import settings…" = "Importați setările…";
 "Import…" = "Importă…";
 "Keep open" = "Păstrează deschis";
 "Keep open and search" = "Păstrează deschis și caută";
@@ -279,6 +284,7 @@
 "Window min width in row:" = "Lățime minimă a ferestrei pe rând:";
 "Window order:" = "Ordonare ferestre:";
 "Window Title" = "Titlu fereastră";
+"Window title contains" = "Titlul ferestrei conține";
 "Window title font size:" = "Dimensiunea fontului titlului ferestrei:";
 "Window title truncation:" = "Trunchierea titlului din fereastră:";
 "Windows" = "Ferestre";

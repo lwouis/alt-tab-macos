@@ -9,6 +9,8 @@
 "Active app" = "Aktif Applikatioun";
 "Active screen" = "Aktive Schierm";
 "Active Space" = "Aktiven Espace";
+"Add a running app" = "Eng lafend App derbäisetzen";
+"Add an app from disk" = "Eng App vun der Festplack derbäisetzen";
 "Additional controls" = "Zousätzlech Kontrollrolle";
 "Additional controls…" = "Zousätzlech Kontrollen ...";
 "Advanced" = "Fortdréier";
@@ -77,6 +79,8 @@
 "Don’t show windows from these apps" = "Fënstere vun dësen Apps net weisen";
 "Done" = "Verdataktioun";
 "End" = "Schlisster";
+"Exceptions" = "Ausnahmen";
+"Export settings…" = "Astellungen exportéieren…";
 "Export…" = "Exportéieren…";
 "Fade in animation of Preview" = "Abblennungsanimatioun vun der Virschau";
 "Fade out animation" = "Verschwannen Animatioun";
@@ -113,6 +117,7 @@
 "I think the app could be improved with…" = "Ech mengen d'App kéint verbessert ginn mat ...";
 "Ignore shortcuts when active" = "Ignoréieren Ofkiirzungen wann aktiv";
 "Ignore shortcuts while a window from these apps is active" = "Ofkiirzungen ignoréieren wann eng Fënster vun dësen Apps aktiv ass";
+"Import settings…" = "Astellungen importéieren…";
 "Import…" = "Importéieren…";
 "Keep open" = "Oppe loossen";
 "Keep open and search" = "Oppe loossen a sichen";
@@ -279,6 +284,7 @@
 "Window min width in row:" = "Fënster minimal Breet an der Rei:";
 "Window order:" = "Fënsteruerdnung:";
 "Window Title" = "Fënster Testbetter";
+"Window title contains" = "Fënstertitel enthält";
 "Window title font size:" = "Fënster Titel Schrëftgréisst:";
 "Window title truncation:" = "Fënster Titel Ofkierzung:";
 "Windows" = "FënsterSenferenzen";

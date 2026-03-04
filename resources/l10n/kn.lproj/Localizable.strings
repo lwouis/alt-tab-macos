@@ -9,6 +9,8 @@
 "Active app" = "ಸಕ್ರಿಯ ಆ್ಯಪ್";
 "Active screen" = "ಸಕ್ರಿಯ ಸ್ಕ್ರೀನ್";
 "Active Space" = "ಸಕ್ರಿಯ ಜಾಗ";
+"Add a running app" = "ಚಾಲನೆಯಲ್ಲಿರುವ ಅಪ್ಲಿಕೇಶನ್ ಸೇರಿಸಿ";
+"Add an app from disk" = "ಡಿಸ್ಕ್‌ನಿಂದ ಅಪ್ಲಿಕೇಶನ್ ಸೇರಿಸಿ";
 "Additional controls" = "Additional controls";
 "Additional controls…" = "Additional controls…";
 "Advanced" = "ಮುಂದುವರಿದ";
@@ -77,6 +79,8 @@
 "Don’t show windows from these apps" = "ಈ ಆ್ಯಪ್ ಗಳ ವಿಂಡೋಗಳನ್ನು ತೋರಿಸಬೇಡಿ";
 "Done" = "ಮುಗಿಯಿತು";
 "End" = "ಮುಗಿಸಿ";
+"Exceptions" = "ವಿನಾಯಿತಿಗಳು";
+"Export settings…" = "ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ರಫ್ತು ಮಾಡಿ…";
 "Export…" = "ರಫ್ತು ಮಾಡಿ…";
 "Fade in animation of Preview" = "ಪ್ರಿವ್ಯೂನ ಫೇಡ್ ಇನ್ ಅನಿಮೇಷನ್";
 "Fade out animation" = "Fade out animation";
@@ -113,6 +117,7 @@
 "I think the app could be improved with…" = "ತoತ್ರಾಂಶವನ್ನು ಹೀಗೆ ಸುಧಾರಿಸಬಹುದೆಂದು ನನ್ನ ಅನಿಸಿಕೆ…";
 "Ignore shortcuts when active" = "Ignore shortcuts when active";
 "Ignore shortcuts while a window from these apps is active" = "ಈ ಆ್ಯಪ್‌ಗಳ ವಿಂಡೋ ಸಕ್ರಿಯವಾಗಿದ್ದಾಗ ಶಾರ್ಟ್‌ಕಟ್‌ಗಳನ್ನು ಕಡೆಗಣಿಸಿ";
+"Import settings…" = "ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಆಮದು ಮಾಡಿ…";
 "Import…" = "ಆಮದು ಮಾಡಿ…";
 "Keep open" = "ತೆರೆದಿಡಿ";
 "Keep open and search" = "ತೆರೆದಿಡಿ ಮತ್ತು ಹುಡುಕಿ";
@@ -279,6 +284,7 @@
 "Window min width in row:" = "ಸಾಲಿನಲ್ಲಿ ವಿಂಡೋದ ಕನಿಷ್ಠ ಅಗಲ:";
 "Window order:" = "ವಿಂಡೋ ಕ್ರಮಾಂಕ";
 "Window Title" = "Window Title";
+"Window title contains" = "ವಿಂಡೋ ಶೀರ್ಷಿಕೆಯು ಒಳಗೊಂಡಿದೆ";
 "Window title font size:" = "ವಿಂಡೋ ಶೀರ್ಷಿಕೆ ಅಕ್ಷರ ಗಾತ್ರ:";
 "Window title truncation:" = "ವಿಂಡೋ ಶೀರ್ಷಿಕೆ ಮೊಟಕುಗೊಳಿಸುವಿಕೆ:";
 "Windows" = "ವಿಂಡೋ ಗಳು";

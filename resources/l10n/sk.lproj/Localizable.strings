@@ -9,6 +9,8 @@
 "Active app" = "Aktívna aplikácia";
 "Active screen" = "Aktívna plocha";
 "Active Space" = "Aktívna plocha";
+"Add a running app" = "Pridať spustenú aplikáciu";
+"Add an app from disk" = "Pridať aplikáciu z disku";
 "Additional controls" = "Ďalšie ovládacie prvky";
 "Additional controls…" = "Ďalšie ovládacie prvky ...";
 "Advanced" = "Pokročilé";
@@ -77,6 +79,8 @@
 "Don’t show windows from these apps" = "Nezobrazovať okná z týchto aplikácií";
 "Done" = "hotový";
 "End" = "Koniec";
+"Exceptions" = "Výnimky";
+"Export settings…" = "Exportovať nastavenia…";
 "Export…" = "Exportovať…";
 "Fade in animation of Preview" = "Animácia prelínania náhľadu";
 "Fade out animation" = "Vyblednúť animáciu";
@@ -113,6 +117,7 @@
 "I think the app could be improved with…" = "Myslím si, že by aplikácia mohla byť nasledovne vylepšená…";
 "Ignore shortcuts when active" = "Ignorujte skratky, keď sú aktívne";
 "Ignore shortcuts while a window from these apps is active" = "Ignorovať skratky, kým je aktívne okno niektorej z týchto aplikácií";
+"Import settings…" = "Importovať nastavenia…";
 "Import…" = "Importovať…";
 "Keep open" = "Ponechať otvorené";
 "Keep open and search" = "Ponechať otvorené a hľadať";
@@ -279,6 +284,7 @@
 "Window min width in row:" = "Minimálna šírka okna v rade:";
 "Window order:" = "Poradie okien:";
 "Window Title" = "Názov okna";
+"Window title contains" = "Názov okna obsahuje";
 "Window title font size:" = "Veľkosť písma názvu okna:";
 "Window title truncation:" = "Skrátenie názvu okna:";
 "Windows" = "Okná";

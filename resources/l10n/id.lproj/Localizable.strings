@@ -9,6 +9,8 @@
 "Active app" = "Aplikasi aktif";
 "Active screen" = "Layar aktif";
 "Active Space" = "Ruang aktif";
+"Add a running app" = "Tambahkan aplikasi yang berjalan";
+"Add an app from disk" = "Tambahkan aplikasi dari disk";
 "Additional controls" = "Kontrol tambahan";
 "Additional controls…" = "Kontrol tambahan…";
 "Advanced" = "Canggih";
@@ -77,6 +79,8 @@
 "Don’t show windows from these apps" = "Jangan tampilkan jendela dari aplikasi ini";
 "Done" = "Selesai";
 "End" = "Akhiri";
+"Exceptions" = "Pengecualian";
+"Export settings…" = "Ekspor pengaturan…";
 "Export…" = "Ekspor…";
 "Fade in animation of Preview" = "Animasi masuk Pratinjau";
 "Fade out animation" = "Fade Out Animasi";
@@ -113,6 +117,7 @@
 "I think the app could be improved with…" = "Saya pikir aplikasi dapat ditingkatkan dengan…";
 "Ignore shortcuts when active" = "Abaikan pintasan saat aktif";
 "Ignore shortcuts while a window from these apps is active" = "Abaikan pintasan saat jendela dari aplikasi ini aktif";
+"Import settings…" = "Impor pengaturan…";
 "Import…" = "Impor…";
 "Keep open" = "Tetap buka";
 "Keep open and search" = "Tetap buka dan cari";
@@ -279,6 +284,7 @@
 "Window min width in row:" = "Lebar minimal jendela dalam baris:";
 "Window order:" = "Urutan jendela:";
 "Window Title" = "Judul jendela";
+"Window title contains" = "Judul jendela mengandung";
 "Window title font size:" = "Ukuran font judul jendela:";
 "Window title truncation:" = "Pemotongan judul jendela:";
 "Windows" = "Windows";

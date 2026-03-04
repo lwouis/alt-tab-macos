@@ -9,6 +9,8 @@
 "Active app" = "활성화된 앱";
 "Active screen" = "활성화된 화면";
 "Active Space" = "활성화된 Space";
+"Add a running app" = "실행 중인 앱 추가";
+"Add an app from disk" = "디스크에서 앱 추가";
 "Additional controls" = "추가 제어";
 "Additional controls…" = "추가 제어…";
 "Advanced" = "고급";
@@ -77,6 +79,8 @@
 "Don’t show windows from these apps" = "다음 앱들의 윈도우를 보이지 않습니다";
 "Done" = "완료";
 "End" = "끝";
+"Exceptions" = "예외";
+"Export settings…" = "설정 내보내기…";
 "Export…" = "내보내기…";
 "Fade in animation of Preview" = "미리보기의 페이드 인 애니메이션";
 "Fade out animation" = "페이드 아웃 애니메이션";
@@ -113,6 +117,7 @@
 "I think the app could be improved with…" = "이 앱의 개선안은…";
 "Ignore shortcuts when active" = "단축키 무시";
 "Ignore shortcuts while a window from these apps is active" = "다음 앱들의 윈도우가 활성 상태일 때 단축키를 무시합니다";
+"Import settings…" = "설정 가져오기…";
 "Import…" = "가져오기…";
 "Keep open" = "열린 상태 유지";
 "Keep open and search" = "열린 상태로 유지 및 검색";
@@ -279,6 +284,7 @@
 "Window min width in row:" = "한 줄 내의 윈도우 최소 너비:";
 "Window order:" = "윈도우 정렬:";
 "Window Title" = "윈도우 제목";
+"Window title contains" = "창 제목 포함";
 "Window title font size:" = "윈도우 제목 서체 크기:";
 "Window title truncation:" = "윈도우 제목 생략 위치:";
 "Windows" = "윈도우";

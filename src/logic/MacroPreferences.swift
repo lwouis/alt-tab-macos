@@ -81,6 +81,7 @@ enum LanguagePreference: CaseIterable, MacroPreference {
     case russian
     case serbian
     case ukrainian
+    case kazakh
     case hebrew
     case urdu
     case arabic
@@ -132,6 +133,7 @@ enum LanguagePreference: CaseIterable, MacroPreference {
         .javanese: ("Basa Jawa", "jv"),
         .kannada: ("ಕನ್ನಡ", "kn"),
         .korean: ("한국어", "ko"),
+        .kazakh: ("Қазақ тілі", "kk"),
         .kurdish: ("Kurdî", "ku"),
         .lithuanian: ("Lietuvių", "lt"),
         .luxembourgish: ("Lëtzebuergesch", "lb"),

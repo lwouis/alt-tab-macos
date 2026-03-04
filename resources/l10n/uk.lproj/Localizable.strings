@@ -9,6 +9,8 @@
 "Active app" = "Активної програми";
 "Active screen" = "Активний екран";
 "Active Space" = "Активний простір";
+"Add a running app" = "Додати запущену програму";
+"Add an app from disk" = "Додати програму з диска";
 "Additional controls" = "Додаткові елементи управління";
 "Additional controls…" = "Додаткові елементи управління ...";
 "Advanced" = "Просунуті";
@@ -77,6 +79,8 @@
 "Don’t show windows from these apps" = "Не відображати вікна цих програм";
 "Done" = "Готово";
 "End" = "Кінець";
+"Exceptions" = "Винятки";
+"Export settings…" = "Експортувати налаштування…";
 "Export…" = "Експортувати…";
 "Fade in animation of Preview" = "Анімація появи мініатюр";
 "Fade out animation" = "Анімація зникнення";
@@ -113,6 +117,7 @@
 "I think the app could be improved with…" = "Я думаю додаток може бути покращено з...";
 "Ignore shortcuts when active" = "Ігнорувати комб. клавіш коли активне";
 "Ignore shortcuts while a window from these apps is active" = "Ігнорувати гарячі клавіші поки вікна цих програм активні";
+"Import settings…" = "Імпортувати налаштування…";
 "Import…" = "Імпортувати…";
 "Keep open" = "Залишити відкритим";
 "Keep open and search" = "Залишити відкритим та шукати";
@@ -279,6 +284,7 @@
 "Window min width in row:" = "Мінімальна ширина вікна в рядку:";
 "Window order:" = "Порядок вікон:";
 "Window Title" = "Заголовок вікна";
+"Window title contains" = "Заголовок вікна містить";
 "Window title font size:" = "Розмір шрифту заголовку вікна:";
 "Window title truncation:" = "Скорочення заголовку вікна:";
 "Windows" = "Вікна";

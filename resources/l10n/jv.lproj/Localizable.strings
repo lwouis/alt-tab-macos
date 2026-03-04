@@ -9,6 +9,8 @@
 "Active app" = "App aktif";
 "Active screen" = "Layar aktif";
 "Active Space" = "Spasi aktif";
+"Add a running app" = "Tambah aplikasi sing lagi mlaku";
+"Add an app from disk" = "Tambah aplikasi saka disk";
 "Additional controls" = "Kontrol tambahan";
 "Additional controls…" = "Kontrol tambahan…";
 "Advanced" = "Lanjut";
@@ -77,6 +79,8 @@
 "Don’t show windows from these apps" = "Aja nampilake jendhela saka app iki";
 "Done" = "Rampung";
 "End" = "Pungkasan";
+"Exceptions" = "Pengecualian";
+"Export settings…" = "Ekspor setelan…";
 "Export…" = "Ekspor…";
 "Fade in animation of Preview" = "Animasi mlebu alon-alon Pratinjau";
 "Fade out animation" = "Animasi pudar metu";
@@ -113,6 +117,7 @@
 "I think the app could be improved with…" = "Kula mikir app saged dipun apikake kanthi…";
 "Ignore shortcuts when active" = "Abaikan cekakan nalika aktif";
 "Ignore shortcuts while a window from these apps is active" = "Abaikan trabasan nalika jendhela saka app iki aktif";
+"Import settings…" = "Impor setelan…";
 "Import…" = "Impor…";
 "Keep open" = "Tetep mbukak";
 "Keep open and search" = "Tetep mbukak lan telusuri";
@@ -279,6 +284,7 @@
 "Window min width in row:" = "Jembar minimal jendhela ing larikan:";
 "Window order:" = "Urutan jendhela:";
 "Window Title" = "Judul Jendela";
+"Window title contains" = "Judul jendhela ngemot";
 "Window title font size:" = "Ukuran font judhul jendhela:";
 "Window title truncation:" = "Pemotongan judhul jendhela:";
 "Windows" = "Jendela";

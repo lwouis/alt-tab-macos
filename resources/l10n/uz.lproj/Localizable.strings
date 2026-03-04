@@ -9,6 +9,8 @@
 "Active app" = "Faol ilova";
 "Active screen" = "Faol ekran";
 "Active Space" = "Faol bo'sh joy";
+"Add a running app" = "Ishlayotgan ilovani qo'shish";
+"Add an app from disk" = "Diskdan ilova qo'shish";
 "Additional controls" = "Qo'shimcha boshqarish vositalari";
 "Additional controls…" = "Qo'shimcha boshqarish vositalari ...";
 "Advanced" = "Rivojlangan";
@@ -77,6 +79,8 @@
 "Don’t show windows from these apps" = "Ushbu ilovalardan oynalarni ko'rsatmaslik";
 "Done" = "Bajarildi";
 "End" = "Oxiri";
+"Exceptions" = "Istisnolar";
+"Export settings…" = "Sozlamalarni eksport qilish…";
 "Export…" = "Eksport…";
 "Fade in animation of Preview" = "Oldindan ko'rishning paydo bo'lish animatsiyasi";
 "Fade out animation" = "Yo'q animatsiya";
@@ -113,6 +117,7 @@
 "I think the app could be improved with…" = "Menimcha, ilova yaxshilanishi mumkin ...";
 "Ignore shortcuts when active" = "Faol bo'lganda yorliqlarni e'tiborsiz qoldiring";
 "Ignore shortcuts while a window from these apps is active" = "Ushbu ilovalardan oyna faol bo'lsa, yorliqlarni e'tiborsiz qoldirish";
+"Import settings…" = "Sozlamalarni import qilish…";
 "Import…" = "Import…";
 "Keep open" = "Ochiq qoldirish";
 "Keep open and search" = "Ochiq qoldirish va qidirish";
@@ -279,6 +284,7 @@
 "Window min width in row:" = "Qatordagi oyna minimal kengligi:";
 "Window order:" = "Oynalar tartibi:";
 "Window Title" = "Oyna nomi";
+"Window title contains" = "Oyna sarlavhasi o'z ichiga oladi";
 "Window title font size:" = "Oyna sarlavhasi shrift hajmi:";
 "Window title truncation:" = "Oyna sarlavhasini qisqartirish:";
 "Windows" = "Derazalar";

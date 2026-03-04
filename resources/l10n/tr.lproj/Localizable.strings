@@ -9,6 +9,8 @@
 "Active app" = "Aktif uygulama";
 "Active screen" = "Aktif ekran";
 "Active Space" = "Aktif Alan";
+"Add a running app" = "Çalışan bir uygulama ekle";
+"Add an app from disk" = "Diskten bir uygulama ekle";
 "Additional controls" = "Ek kontroller";
 "Additional controls…" = "Ek kontroller…";
 "Advanced" = "Gelişmiş";
@@ -77,6 +79,8 @@
 "Don’t show windows from these apps" = "Bu uygulamaya ait pencereleri gösterme";
 "Done" = "Tamamlamak";
 "End" = "Son";
+"Exceptions" = "İstisnalar";
+"Export settings…" = "Ayarları dışa aktar…";
 "Export…" = "Dışa Aktar…";
 "Fade in animation of Preview" = "Önizlemenin Yavaşça Belirme Animasyonu";
 "Fade out animation" = "Fade Out Animation";
@@ -113,6 +117,7 @@
 "I think the app could be improved with…" = "Bence uygulama şu şekilde iyileştirilebilir…";
 "Ignore shortcuts when active" = "Etkinken kestirmeleri yoksay";
 "Ignore shortcuts while a window from these apps is active" = "Bu uygulamalardan bir pencere etkinken kestirmeleri devre dışı bırak";
+"Import settings…" = "Ayarları içe aktar…";
 "Import…" = "İçe Aktar…";
 "Keep open" = "Açık Tut";
 "Keep open and search" = "Açık tut ve ara";
@@ -279,6 +284,7 @@
 "Window min width in row:" = "Asgari pencere genişliği:";
 "Window order:" = "Pencere sırası:";
 "Window Title" = "Pencere başlığı";
+"Window title contains" = "Pencere başlığı şunu içerir";
 "Window title font size:" = "Pencere başlığı yazı boyutu:";
 "Window title truncation:" = "Pencere başlığını kısaltma:";
 "Windows" = "Pencereler";

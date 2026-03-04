@@ -9,6 +9,8 @@
 "Active app" = "Aplicación activa";
 "Active screen" = "Pantalla activa";
 "Active Space" = "Escritorio activo";
+"Add a running app" = "Añadir una aplicación en ejecución";
+"Add an app from disk" = "Añadir una aplicación desde el disco";
 "Additional controls" = "Controles adicionales";
 "Additional controls…" = "Controles adicionales...";
 "Advanced" = "Avanzado";
@@ -77,6 +79,8 @@
 "Don’t show windows from these apps" = "No mostrar ventanas de estas aplicaciones";
 "Done" = "Hecho";
 "End" = "Final";
+"Exceptions" = "Excepciones";
+"Export settings…" = "Exportar ajustes…";
 "Export…" = "Exportar…";
 "Fade in animation of Preview" = "Animación de aparición gradual de la Vista Previa";
 "Fade out animation" = "Animación desvanecida";
@@ -113,6 +117,7 @@
 "I think the app could be improved with…" = "Creo que la aplicación podría mejorarse con…";
 "Ignore shortcuts when active" = "Ignora los atajos al activarse";
 "Ignore shortcuts while a window from these apps is active" = "Ignorar atajos mientras una ventana de estas aplicaciones está activa";
+"Import settings…" = "Importar ajustes…";
 "Import…" = "Importar…";
 "Keep open" = "Mantener abierto";
 "Keep open and search" = "Mantener abierto y buscar";
@@ -279,6 +284,7 @@
 "Window min width in row:" = "Ancho mínimo de ventana en fila";
 "Window order:" = "Orden de la ventana:";
 "Window Title" = "Título de ventana";
+"Window title contains" = "El título de la ventana contiene";
 "Window title font size:" = "Tamaño de fuente del título de la ventana:";
 "Window title truncation:" = "Truncado de título de ventana:";
 "Windows" = "Windows";

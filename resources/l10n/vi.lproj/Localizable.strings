@@ -9,6 +9,8 @@
 "Active app" = "Ứng dụng hoạt động";
 "Active screen" = "Màn hình hoạt động";
 "Active Space" = "Khoảng trống hoạt động";
+"Add a running app" = "Thêm một ứng dụng đang chạy";
+"Add an app from disk" = "Thêm một ứng dụng từ ổ đĩa";
 "Additional controls" = "Điều khiển bổ sung";
 "Additional controls…" = "Kiểm soát bổ sung…";
 "Advanced" = "Trình độ cao";
@@ -77,6 +79,8 @@
 "Don’t show windows from these apps" = "Không hiện cửa sổ từ các ứng dụng này";
 "Done" = "Xong";
 "End" = "Đuôi";
+"Exceptions" = "Ngoại lệ";
+"Export settings…" = "Xuất cài đặt…";
 "Export…" = "Xuất…";
 "Fade in animation of Preview" = "Hiệu ứng mờ dần vào của Bản xem trước";
 "Fade out animation" = "Fade out hoạt hình";
@@ -113,6 +117,7 @@
 "I think the app could be improved with…" = "Tôi nghĩ app có thể được cải thiện về mặt...";
 "Ignore shortcuts when active" = "Bỏ qua phím tắt khi hoạt động";
 "Ignore shortcuts while a window from these apps is active" = "Bỏ qua phím tắt khi một cửa sổ trong các ứng dụng sau đang bật";
+"Import settings…" = "Nhập cài đặt…";
 "Import…" = "Nhập…";
 "Keep open" = "Giữ mở";
 "Keep open and search" = "Giữ mở và tìm kiếm";
@@ -279,6 +284,7 @@
 "Window min width in row:" = "Độ rộng cửa sổ tối thiểu trong dòng:";
 "Window order:" = "Thứ tự cửa sổ:";
 "Window Title" = "Tiêu đề cửa sổ";
+"Window title contains" = "Tiêu đề cửa sổ chứa";
 "Window title font size:" = "Kích cỡ tiêu đề cửa sổ:";
 "Window title truncation:" = "Ẩn bớt tiêu đề cửa sổ:";
 "Windows" = "các cửa sổ";

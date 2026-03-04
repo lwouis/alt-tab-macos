@@ -9,6 +9,8 @@
 "Active app" = "Aktivna aplikacja";
 "Active screen" = "Aktivni zaslon";
 "Active Space" = "Aktivno Področje";
+"Add a running app" = "Dodaj zagnano aplikacijo";
+"Add an app from disk" = "Dodaj aplikacijo iz diska";
 "Additional controls" = "Dodatni nadzor";
 "Additional controls…" = "Dodatni nadzor ...";
 "Advanced" = "Napredno";
@@ -77,6 +79,8 @@
 "Don’t show windows from these apps" = "Ne prikazuj oken iz teh aplikacij";
 "Done" = "Končano";
 "End" = "Konec";
+"Exceptions" = "Izjeme";
+"Export settings…" = "Izvozi nastavitve…";
 "Export…" = "Izvozi…";
 "Fade in animation of Preview" = "Animacija pojava predogleda";
 "Fade out animation" = "Fade Out Animacija";
@@ -113,6 +117,7 @@
 "I think the app could be improved with…" = "Menim, da bi lahko aplikacijo izboljšali z…";
 "Ignore shortcuts when active" = "Ignorirajte bližnjice, ko je aktivna";
 "Ignore shortcuts while a window from these apps is active" = "Ignoriraj bližnjice, ko je okno iz teh aplikacij aktivno";
+"Import settings…" = "Uvozi nastavitve…";
 "Import…" = "Uvozi…";
 "Keep open" = "Pusti odprto";
 "Keep open and search" = "Pusti odprto in išči";
@@ -279,6 +284,7 @@
 "Window min width in row:" = "Najmanjša širina okna v vrstici:";
 "Window order:" = "Vrstni red oken:";
 "Window Title" = "Naslov okna";
+"Window title contains" = "Naslov okna vsebuje";
 "Window title font size:" = "Velikost črk v nazivu okna:";
 "Window title truncation:" = "Krajšanje naslova okna:";
 "Windows" = "Okna";

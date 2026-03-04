@@ -9,6 +9,8 @@
 "Active app" = "แอปที่ใช้งานปัจจุบัน";
 "Active screen" = "หน้าจอที่ใช้งาน";
 "Active Space" = "พื้นที่ที่ใช้งาน";
+"Add a running app" = "เพิ่มแอปที่กำลังทำงานอยู่";
+"Add an app from disk" = "เพิ่มแอปจากดิสก์";
 "Additional controls" = "การควบคุมเพิ่มเติม";
 "Additional controls…" = "การควบคุมเพิ่มเติม...";
 "Advanced" = "ขั้นสูง";
@@ -77,6 +79,8 @@
 "Don’t show windows from these apps" = "ไม่ต้องแสดงหน้าต่างจากแอปเหล่านี้";
 "Done" = "เสร็จแล้ว";
 "End" = "ท้าย";
+"Exceptions" = "ข้อยกเว้น";
+"Export settings…" = "ส่งออกการตั้งค่า…";
 "Export…" = "ส่งออก…";
 "Fade in animation of Preview" = "การจางเข้าที่แสดงตัวอย่าง";
 "Fade out animation" = "แอนิเมชั่นจางออก";
@@ -113,6 +117,7 @@
 "I think the app could be improved with…" = "ฉันคิดว่าควรปรับปรุง...";
 "Ignore shortcuts when active" = "ปิดใช้งานคำสั่งลัดเมื่อใช้งานแอปนี้";
 "Ignore shortcuts while a window from these apps is active" = "ปิดใช้งานคำสั่งลัดขณะที่หน้าต่างจากแอปเหล่านี้ทํางานอยู่";
+"Import settings…" = "นำเข้าการตั้งค่า…";
 "Import…" = "นำเข้า…";
 "Keep open" = "เปิดค้างไว้";
 "Keep open and search" = "เปิดค้างไว้และค้นหา";
@@ -279,6 +284,7 @@
 "Window min width in row:" = "ความกว้างต่ำสุดของหน้าต่างในแถว:";
 "Window order:" = "ลำดับหน้าต่าง:";
 "Window Title" = "ชื่อหน้าต่าง";
+"Window title contains" = "ชื่อหน้าต่างประกอบด้วย";
 "Window title font size:" = "ขนาดชื่อของหน้าต่าง:";
 "Window title truncation:" = "ตัดทอนชื่อหน้าต่าง:";
 "Windows" = "หน้าต่าง";

@@ -9,6 +9,8 @@
 "Active app" = "Aktiv app";
 "Active screen" = "Aktiv skärm";
 "Active Space" = "Aktivt skrivbord";
+"Add a running app" = "Lägg till en körande app";
+"Add an app from disk" = "Lägg till en app från disk";
 "Additional controls" = "Ytterligare kontroller";
 "Additional controls…" = "Ytterligare kontroller ...";
 "Advanced" = "Avancerad";
@@ -77,6 +79,8 @@
 "Don’t show windows from these apps" = "Visa inte fönster från dessa appar";
 "Done" = "Klar";
 "End" = "Slutet";
+"Exceptions" = "Undantag";
+"Export settings…" = "Exportera inställningar…";
 "Export…" = "Exportera…";
 "Fade in animation of Preview" = "Tona in-animation för förhandsvisning";
 "Fade out animation" = "Tona ut";
@@ -113,6 +117,7 @@
 "I think the app could be improved with…" = "Jag tycker att appen kan förbättras genom…";
 "Ignore shortcuts when active" = "Ignorera kortkommandon när aktiv";
 "Ignore shortcuts while a window from these apps is active" = "Ignorera kortkommandon när dessa appars fönster är aktiva";
+"Import settings…" = "Importera inställningar…";
 "Import…" = "Importera…";
 "Keep open" = "Håll öppen";
 "Keep open and search" = "Håll öppen och sök";
@@ -279,6 +284,7 @@
 "Window min width in row:" = "Maxbredd för fönster i rad:";
 "Window order:" = "Sortera fönster:";
 "Window Title" = "Fönstertitel";
+"Window title contains" = "Fönstertiteln innehåller";
 "Window title font size:" = "Storlek för fönstertitel:";
 "Window title truncation:" = "Förkortning av fönstertitel:";
 "Windows" = "Fönster";

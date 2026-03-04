@@ -9,6 +9,8 @@
 "Active app" = "सक्रिय ऐप";
 "Active screen" = "सक्रिय स्क्रीन";
 "Active Space" = "सक्रिय स्पेस";
+"Add a running app" = "चल रहे ऐप को जोड़ें";
+"Add an app from disk" = "डिस्क से ऐप जोड़ें";
 "Additional controls" = "अतिरिक्त नियंत्रण";
 "Additional controls…" = "अतिरिक्त नियंत्रण…";
 "Advanced" = "विकसित";
@@ -77,6 +79,8 @@
 "Don’t show windows from these apps" = "इन ऐप्स से खिड़की न दिखाएं";
 "Done" = "हो गया";
 "End" = "अंत";
+"Exceptions" = "अपवाद";
+"Export settings…" = "सेटिंग्स निर्यात करें…";
 "Export…" = "निर्यात करें…";
 "Fade in animation of Preview" = "पूर्वावलोकन का फ़ेड इन एनिमेशन";
 "Fade out animation" = "एनीमेशन को फीका";
@@ -113,6 +117,7 @@
 "I think the app could be improved with…" = "मुझे लगता है कि इससे ऐप को बेहतर बनाया जा सकता है...";
 "Ignore shortcuts when active" = "सक्रिय होने पर शॉर्टकट को अनदेखा करें";
 "Ignore shortcuts while a window from these apps is active" = "इन ऐप्स की खिड़की सक्रिय होने पर शॉर्टकट पर ध्यान न दें";
+"Import settings…" = "सेटिंग्स आयात करें…";
 "Import…" = "आयात करें…";
 "Keep open" = "खुला रखें";
 "Keep open and search" = "खुला रखें और खोजें";
@@ -279,6 +284,7 @@
 "Window min width in row:" = "पंक्ति में खिड़की की न्यूनतम चौड़ाई:";
 "Window order:" = "विंडो और्डर";
 "Window Title" = "खिड़की का शीर्षक";
+"Window title contains" = "विंडो शीर्षक में शामिल है";
 "Window title font size:" = "खिड़की शीर्षक फ़ॉन्ट आकार:";
 "Window title truncation:" = "खिड़की शीर्षक काट-छाँट:";
 "Windows" = "खिड़कियाँ";

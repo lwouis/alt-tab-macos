@@ -9,6 +9,8 @@
 "Active app" = "فعال ایپ";
 "Active screen" = "فعال سکرین";
 "Active Space" = "فعال اسپیس";
+"Add a running app" = "چل رہی ایپ شامل کریں";
+"Add an app from disk" = "ڈسک سے ایپ شامل کریں";
 "Additional controls" = "اضافی کنٹرولز";
 "Additional controls…" = "اضافی کنٹرولز…";
 "Advanced" = "اعلیٰ";
@@ -77,6 +79,8 @@
 "Don’t show windows from these apps" = "ان ایپس کی ونڈوز نہ دکھائیں";
 "Done" = "ہو گیا";
 "End" = "آخر";
+"Exceptions" = "مستثنیات";
+"Export settings…" = "ترتیبات برآمد کریں…";
 "Export…" = "برآمد کریں…";
 "Fade in animation of Preview" = "پریویو کی فیڈ ان اینیمیشن";
 "Fade out animation" = "فیڈ آؤٹ اینیمیشن";
@@ -113,6 +117,7 @@
 "I think the app could be improved with…" = "مجھے لگتا ہے کہ ایپ کو بہتر بنایا جا سکتا ہے…";
 "Ignore shortcuts when active" = "فعال ہونے پر شارٹ کٹس کو نظر انداز کریں";
 "Ignore shortcuts while a window from these apps is active" = "ان ایپس کی ونڈو فعال ہونے پر شارٹ کٹس کو نظر انداز کریں";
+"Import settings…" = "ترتیبات درآمد کریں…";
 "Import…" = "درآمد کریں…";
 "Keep open" = "کھلا رکھیں";
 "Keep open and search" = "کھلا رکھیں اور تلاش کریں";
@@ -279,6 +284,7 @@
 "Window min width in row:" = "قطار میں ونڈو کی کم از کم چوڑائی:";
 "Window order:" = "ونڈو ترتیب:";
 "Window Title" = "ونڈو کا عنوان";
+"Window title contains" = "ونڈو کے عنوان میں شامل ہے";
 "Window title font size:" = "ونڈو ٹائٹل فونٹ سائز:";
 "Window title truncation:" = "ونڈو ٹائٹل کاٹنا:";
 "Windows" = "ونڈوز";

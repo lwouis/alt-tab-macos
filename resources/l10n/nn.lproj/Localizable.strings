@@ -9,6 +9,8 @@
 "Active app" = "Aktiv app";
 "Active screen" = "Aktiv skjerm";
 "Active Space" = "Aktivt område";
+"Add a running app" = "Legg til ein køyrande app";
+"Add an app from disk" = "Legg til ein app frå disk";
 "Additional controls" = "Fleire kontrollar";
 "Additional controls…" = "Fleire kontrollar …";
 "Advanced" = "Avansert";
@@ -77,6 +79,8 @@
 "Don’t show windows from these apps" = "Ikkje vis vindauge frå desse appane";
 "Done" = "Gjort";
 "End" = "Slutten";
+"Exceptions" = "Unntak";
+"Export settings…" = "Eksporter innstillingar…";
 "Export…" = "Eksport …";
 "Fade in animation of Preview" = "Inntoningsanimering av førehandsvisinga";
 "Fade out animation" = "Utfasingsanimering";
@@ -113,6 +117,7 @@
 "I think the app could be improved with…" = "Eg tykkjer appen kunne ha vorte betre med …";
 "Ignore shortcuts when active" = "Ignorer snarveg når aktiv";
 "Ignore shortcuts while a window from these apps is active" = "Ignorer hurtigtastar medan eit vindauge frå desse appane er aktivt";
+"Import settings…" = "Importer innstillingar…";
 "Import…" = "Import …";
 "Keep open" = "Hald open";
 "Keep open and search" = "Hald open og søk";
@@ -279,6 +284,7 @@
 "Window min width in row:" = "Minimum vindaugsbreidde på rad:";
 "Window order:" = "Vindaugsrekkjefylgje:";
 "Window Title" = "Vindaugstittel";
+"Window title contains" = "Vindaugstittelen inneheld";
 "Window title font size:" = "Skriftstorleik på vindaugstittel:";
 "Window title truncation:" = "Avstytting av vindaugstittel:";
 "Windows" = "Vindaugo";

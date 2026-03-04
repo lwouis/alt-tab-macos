@@ -9,6 +9,8 @@
 "Active app" = "Активное приложение";
 "Active screen" = "Активный экран";
 "Active Space" = "Активный рабочий стол";
+"Add a running app" = "Добавить запущенное приложение";
+"Add an app from disk" = "Добавить приложение с диска";
 "Additional controls" = "Дополнительные параметры управления";
 "Additional controls…" = "Доп. параметры управления…";
 "Advanced" = "Расширенные настройки";
@@ -77,6 +79,8 @@
 "Don’t show windows from these apps" = "Не показывать окна этих приложений";
 "Done" = "Готово";
 "End" = "Конец";
+"Exceptions" = "Исключения";
+"Export settings…" = "Экспорт настроек...";
 "Export…" = "Экспорт…";
 "Fade in animation of Preview" = "Анимация постепенного появления предварительного просмотра";
 "Fade out animation" = "Анимация затухания";
@@ -113,6 +117,7 @@
 "I think the app could be improved with…" = "Я думаю, что приложение может быть улучшено…";
 "Ignore shortcuts when active" = "Игнорировать комбинации, когда активно";
 "Ignore shortcuts while a window from these apps is active" = "Игнорировать комбинации клавиш пока окно приложения из этого списка активно";
+"Import settings…" = "Импорт настроек...";
 "Import…" = "Импорт…";
 "Keep open" = "Оставить открытым";
 "Keep open and search" = "Оставить открытым и искать";
@@ -279,6 +284,7 @@
 "Window min width in row:" = "Минимальная ширина эскиза в ряду:";
 "Window order:" = "Порядок окон:";
 "Window Title" = "Заголовок окна";
+"Window title contains" = "Заголовок окна содержит";
 "Window title font size:" = "Размер заголовка:";
 "Window title truncation:" = "Обрезка заголовка окна:";
 "Windows" = "Окна";

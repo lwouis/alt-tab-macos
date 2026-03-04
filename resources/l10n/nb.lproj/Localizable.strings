@@ -9,6 +9,8 @@
 "Active app" = "Aktiv app";
 "Active screen" = "Aktiv skjerm";
 "Active Space" = "Aktivt område";
+"Add a running app" = "Legg til en kjørende app";
+"Add an app from disk" = "Legg til en app fra disk";
 "Additional controls" = "Ytterligere innstillinger";
 "Additional controls…" = "Ytterligere innstillinger…";
 "Advanced" = "Avansert";
@@ -77,6 +79,8 @@
 "Don’t show windows from these apps" = "Ikke vis vinduer fra disse appene";
 "Done" = "Ferdig";
 "End" = "Slutt";
+"Exceptions" = "Unntak";
+"Export settings…" = "Eksporter innstillinger…";
 "Export…" = "Eksporter…";
 "Fade in animation of Preview" = "Inntoningsanimasjon av forhåndsvisning";
 "Fade out animation" = "Uttoningsanimasjon";
@@ -113,6 +117,7 @@
 "I think the app could be improved with…" = "Jeg synes appen kunne vært forbedret med…";
 "Ignore shortcuts when active" = "Ignorer hurtigtaster når aktiv";
 "Ignore shortcuts while a window from these apps is active" = "Ignorer hurtigtaster mens et vindu fra disse appene er aktivt";
+"Import settings…" = "Importer innstillinger…";
 "Import…" = "Importer…";
 "Keep open" = "Hold åpen";
 "Keep open and search" = "Hold åpen og søk";
@@ -279,6 +284,7 @@
 "Window min width in row:" = "Minimum vindusbredde på rad:";
 "Window order:" = "Vindusrekkefølge:";
 "Window Title" = "Vindustittel";
+"Window title contains" = "Vindutittelen inneholder";
 "Window title font size:" = "Skriftstørrelse på vindutittel:";
 "Window title truncation:" = "Forkortelse av vindustittel:";
 "Windows" = "Vinduer";

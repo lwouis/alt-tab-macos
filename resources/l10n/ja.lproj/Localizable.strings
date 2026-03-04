@@ -79,6 +79,7 @@
 "Don’t show windows from these apps" = "これらのアプリからウィンドウを表示しない";
 "Done" = "閉じる";
 "End" = "文末";
+"Exceptions" = "例外";
 "Export settings…" = "設定をエクスポート…";
 "Export…" = "エクスポート…";
 "Fade in animation of Preview" = "プレビューをフェードインさせる";

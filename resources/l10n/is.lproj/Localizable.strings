@@ -9,6 +9,8 @@
 "Active app" = "Virkt forrit";
 "Active screen" = "Virkur skjár";
 "Active Space" = "Virkt umhverfi";
+"Add a running app" = "Bæta við forriti sem er í gangi";
+"Add an app from disk" = "Bæta við forriti af diski";
 "Additional controls" = "Viðbótarstýringar";
 "Additional controls…" = "Viðbótarstýringar ...";
 "Advanced" = "Langt gengið";
@@ -77,6 +79,8 @@
 "Don’t show windows from these apps" = "Ekki sýna glugga frá þessum forritum";
 "Done" = "Gert";
 "End" = "Endir";
+"Exceptions" = "Undantekningar";
+"Export settings…" = "Flytja út stillingar…";
 "Export…" = "Flytja út…";
 "Fade in animation of Preview" = "Hreyfimynd fyrir inndeyðingu forskoðunar";
 "Fade out animation" = "Dofna út fjör";
@@ -113,6 +117,7 @@
 "I think the app could be improved with…" = "Ég tel að forritið gæti orðið betra með";
 "Ignore shortcuts when active" = "Hunsa flýtileiðir þegar forrit keyrir";
 "Ignore shortcuts while a window from these apps is active" = "Hunsa flýtivísar þegar gluggi úr þessum forritum er virkur";
+"Import settings…" = "Flytja inn stillingar…";
 "Import…" = "Flytja inn…";
 "Keep open" = "Halda opnu";
 "Keep open and search" = "Halda opnu og leita";
@@ -279,6 +284,7 @@
 "Window min width in row:" = "Lágmarks breidd glugga í röð:";
 "Window order:" = "Gluggaröð:";
 "Window Title" = "Gluggatitill";
+"Window title contains" = "Gluggatitill inniheldur";
 "Window title font size:" = "Leturstærð titils glugga:";
 "Window title truncation:" = "Styting á gluggaheiti:";
 "Windows" = "Gluggar";
