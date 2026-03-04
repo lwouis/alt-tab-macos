@@ -4,8 +4,7 @@ import Carbon.HIToolbox.Events
 class CursorEvents {
     private static var eventTap: CFMachPort!
     private static var shouldBeEnabled: Bool!
-    private static var mouseDownTileView: TileView?
-    private static var mouseDownButton: TrafficLightButton?
+    private static var mouseDownTarget: AnyObject?
     private static var mouseDownInsideSearchField = false
     static var deadZoneInitialPosition: CGPoint?
     static var isAllowedToMouseHover = true
@@ -48,7 +47,7 @@ class CursorEvents {
     private static let handleEvent: CGEventTapCallBack = { _, type, cgEvent, _ in
         switch type {
             case .leftMouseDown: return handleLeftMouseDown(cgEvent)
-            case .leftMouseUp where cgEvent.getIntegerValueField(.mouseEventClickState) >= 1: return handleLeftMouseUp(cgEvent)
+            case .leftMouseUp: return handleLeftMouseUp(cgEvent)
             case .otherMouseUp: return handleOtherMouseUp(cgEvent)
             case .mouseMoved: return handleMouseMoved(cgEvent)
             case .tapDisabledByUserInput, .tapDisabledByTimeout:
@@ -65,13 +64,7 @@ class CursorEvents {
         }
         mouseDownInsideSearchField = false
         guard isPointerInsideUi() else { return nil }
-        if let button = findButtonUnderPointer() {
-            mouseDownButton = button
-            button.isHighlighted = true
-            button.setNeedsDisplay()
-        } else {
-            mouseDownTileView = findTileViewUnderPointer()
-        }
+        mouseDownTarget = (findButtonUnderPointer() ?? findTileViewUnderPointer()) as AnyObject?
         return nil
     }
 
@@ -81,23 +74,18 @@ class CursorEvents {
             return Unmanaged.passUnretained(cgEvent)
         }
         guard isPointerInsideUi() else {
-            App.hideUi()
+            if mouseDownTarget == nil { App.hideUi() }
+            mouseDownTarget = nil
             return nil
         }
-        if let button = mouseDownButton {
-            mouseDownButton = nil
-            button.isHighlighted = false
-            button.setNeedsDisplay()
-            if findButtonUnderPointer() === button {
-                button.onClick()
-            }
+        let downTarget = mouseDownTarget
+        mouseDownTarget = nil
+        if let button = findButtonUnderPointer(), button === downTarget {
+            button.onClick()
             return nil
         }
-        if let target = mouseDownTileView {
-            mouseDownTileView = nil
-            if isPointerOver(target) {
-                target.mouseUpCallback()
-            }
+        if let target = findTileViewUnderPointer(), target === downTarget {
+            target.mouseUpCallback()
             return nil
         }
         return nil
@@ -139,10 +127,6 @@ class CursorEvents {
         if searchField.isHidden { return false }
         let point = searchField.convert(pointerLocationInWindow(), from: nil)
         return searchField.bounds.contains(point)
-    }
-
-    private static func isPointerOver(_ view: NSView) -> Bool {
-        view.bounds.contains(view.convert(pointerLocationInWindow(), from: nil))
     }
 
     private static func pointerInOverlay() -> (TileOverView, NSPoint) {
