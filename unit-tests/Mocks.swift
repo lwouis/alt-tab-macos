@@ -2,7 +2,8 @@ import ShortcutRecorder
 
 class TilesViewMock {
     var isSearchEditing = false
-    func handleSearchEditingKeyDown(_ event: NSEvent) -> Bool { return false }
+    var handleSearchEditingKeyDownResult = false
+    func handleSearchEditingKeyDown(_ event: NSEvent) -> Bool { return handleSearchEditingKeyDownResult }
 }
 
 class TilesPanelMock {

@@ -12,8 +12,8 @@ class KeyboardEventsTestable {
 @discardableResult
 func handleKeyboardEvent(_ globalId: Int?, _ shortcutState: ShortcutState?, _ keyCode: UInt32?, _ modifiers: NSEvent.ModifierFlags?, _ isARepeat: Bool, _ event: NSEvent? = nil) -> Bool {
     let shouldAbsorbEvent = shouldAbsorbSearchEditingKeyDown(event)
-    if let event, shouldAbsorbEvent, TilesView.handleSearchEditingKeyDown(event) {
-        return true
+    if let event, shouldAbsorbEvent {
+        return TilesView.handleSearchEditingKeyDown(event)
     }
     logKeyboardEvent(globalId, shortcutState, keyCode, modifiers, isARepeat)
     let someShortcutTriggered = triggerMatchingShortcuts(globalId, shortcutState, keyCode, modifiers, isARepeat)

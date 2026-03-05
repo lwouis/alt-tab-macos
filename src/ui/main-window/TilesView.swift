@@ -22,6 +22,7 @@ class TilesView {
     static var thumbnailUnderLayer = TileUnderLayer()
     static var thumbnailOverView = TileOverView()
     private static var initialized = false
+    private static var searchFieldDidChangeObserver: NSObjectProtocol?
 
     static func initialize() {
         guard !initialized else { return }
@@ -101,35 +102,43 @@ class TilesView {
     }
 
     static func handleSearchEditingKeyDown(_ event: NSEvent) -> Bool {
+        if hasMarkedText() { return false }
+        if matchesShortcut(event, "cancelShortcut") {
+            App.cancelSearchModeOrHideUi()
+            return true
+        }
+        if event.modifierFlags.contains(.command) {
+            return handleSearchEditorCommand(event)
+        }
+        if event.modifierFlags.contains(.control) || event.modifierFlags.contains(.function) {
+            return false
+        }
         let keyCode = event.keyCode
         if keyCode == UInt16(kVK_LeftArrow) { App.cycleSelection(.left); return true }
         if keyCode == UInt16(kVK_RightArrow) { App.cycleSelection(.right); return true }
         if keyCode == UInt16(kVK_UpArrow) { App.cycleSelection(.up); return true }
         if keyCode == UInt16(kVK_DownArrow) { App.cycleSelection(.down); return true }
-        if keyCode == UInt16(kVK_Space) { return false }
-        if keyCode == UInt16(kVK_Delete) || keyCode == UInt16(kVK_ForwardDelete) {
-            deleteSearchCharacter(keyCode)
-            return true
-        }
-        if let insertedText = insertedSearchText(from: event) {
-            appendSearchText(insertedText)
-            return true
-        }
-        if matchesShortcut(event, "cancelShortcut") {
-            App.cancelSearchModeOrHideUi()
-            return true
-        }
-        if matchesSearchShortcut(event) {
-            toggleSearchModeFromShortcut()
-            return true
-        }
+        return false
+    }
+
+    private static func hasMarkedText() -> Bool {
+        (searchField.currentEditor() as? NSTextView)?.hasMarkedText() == true
+    }
+
+    private static func handleSearchEditorCommand(_ event: NSEvent) -> Bool {
+        guard let editor = searchField.currentEditor() as? NSTextView else { return false }
+        guard let key = event.charactersIgnoringModifiers?.lowercased() else { return false }
+        if key == "a" { editor.selectAll(nil); return true }
+        if key == "x" { editor.cut(nil); return true }
+        if key == "c" { editor.copy(nil); return true }
+        if key == "v" { editor.paste(nil); return true }
         return false
     }
 
     private static func configureSearchField() {
         searchField.placeholderString = NSLocalizedString("Search", comment: "")
         searchField.sendsSearchStringImmediately = true
-        searchField.sendsWholeSearchString = true
+        searchField.sendsWholeSearchString = false
         searchField.bezelStyle = .roundedBezel
         if #available(macOS 26.0, *) {
             searchField.controlSize = .extraLarge
@@ -141,6 +150,12 @@ class TilesView {
         searchField.usesSingleLineMode = true
         searchField.target = Self.self
         searchField.action = #selector(Self.searchFieldChanged(_:))
+        if let searchFieldDidChangeObserver {
+            NotificationCenter.default.removeObserver(searchFieldDidChangeObserver)
+        }
+        searchFieldDidChangeObserver = NotificationCenter.default.addObserver(forName: NSControl.textDidChangeNotification, object: searchField, queue: .main) { _ in
+            updateSearchQuery(searchField.stringValue)
+        }
         updateSearchFieldEditability()
     }
 
@@ -156,46 +171,6 @@ class TilesView {
         App.refreshUi(true)
     }
 
-    private static func appendSearchText(_ text: String) {
-        guard !text.isEmpty else { return }
-        if let editor = searchField.currentEditor() {
-            let current = searchField.stringValue as NSString
-            let range = clampedSelectionRange(current.length, editor.selectedRange)
-            searchField.stringValue = current.replacingCharacters(in: range, with: text)
-            editor.selectedRange = NSRange(location: range.location + (text as NSString).length, length: 0)
-        } else {
-            searchField.stringValue += text
-        }
-        updateSearchQuery(searchField.stringValue)
-    }
-
-    private static func deleteSearchCharacter(_ keyCode: UInt16) {
-        guard !searchField.stringValue.isEmpty else { return }
-        if let editor = searchField.currentEditor() {
-            let current = searchField.stringValue as NSString
-            var range = clampedSelectionRange(current.length, editor.selectedRange)
-            if range.length == 0 {
-                if keyCode == UInt16(kVK_Delete) {
-                    guard range.location > 0 else { return }
-                    range = NSRange(location: range.location - 1, length: 1)
-                } else {
-                    guard range.location < current.length else { return }
-                    range = NSRange(location: range.location, length: 1)
-                }
-            }
-            searchField.stringValue = current.replacingCharacters(in: range, with: "")
-            editor.selectedRange = NSRange(location: range.location, length: 0)
-        } else {
-            searchField.stringValue.removeLast()
-        }
-        updateSearchQuery(searchField.stringValue)
-    }
-
-    private static func clampedSelectionRange(_ stringLength: Int, _ selectedRange: NSRange) -> NSRange {
-        let location = max(0, min(selectedRange.location, stringLength))
-        let length = max(0, min(selectedRange.length, stringLength - location))
-        return NSRange(location: location, length: length)
-    }
 
     private static func clearHover() {
         if let oldHoveredWindowIndex = Windows.hoveredWindowIndex {
@@ -223,26 +198,6 @@ class TilesView {
         guard let editor = searchField.currentEditor() else { return }
         let end = searchField.stringValue.utf16.count
         editor.selectedRange = NSRange(location: end, length: 0)
-    }
-
-    private static func insertedSearchText(from event: NSEvent) -> String? {
-        if event.modifierFlags.contains(.command) || event.modifierFlags.contains(.control) || event.modifierFlags.contains(.function) {
-            return nil
-        }
-        let keyCode = event.keyCode
-        if keyCode == UInt16(kVK_Tab) || keyCode == UInt16(kVK_Escape) || keyCode == UInt16(kVK_Return) || keyCode == UInt16(kVK_ANSI_KeypadEnter) {
-            return nil
-        }
-        if keyCode == UInt16(kVK_LeftArrow) || keyCode == UInt16(kVK_RightArrow) || keyCode == UInt16(kVK_UpArrow) || keyCode == UInt16(kVK_DownArrow) || keyCode == UInt16(kVK_Home) || keyCode == UInt16(kVK_End) || keyCode == UInt16(kVK_PageUp) || keyCode == UInt16(kVK_PageDown) {
-            return nil
-        }
-        guard let value = event.charactersIgnoringModifiers, value.count == 1 else { return nil }
-        guard let scalar = value.unicodeScalars.first, !CharacterSet.controlCharacters.contains(scalar) else { return nil }
-        return String(value)
-    }
-
-    private static func matchesSearchShortcut(_ event: NSEvent) -> Bool {
-        matchesShortcut(event, "searchShortcut")
     }
 
     private static func updateSearchFieldEditability() {

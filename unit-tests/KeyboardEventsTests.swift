@@ -1,6 +1,104 @@
 import XCTest
 
 final class KeyboardEventsUtilsTests: XCTestCase {
+    func testSearchEditingDoesNotAbsorbUnhandledKeyDown() throws {
+        resetState()
+        App.appIsBeingUsed = true
+        TilesPanel.shared.isKeyWindow = true
+        TilesView.isSearchEditing = true
+        App.app.tilesPanel.tilesView.handleSearchEditingKeyDownResult = false
+        let event = NSEvent.keyEvent(
+            with: .keyDown,
+            location: .zero,
+            modifierFlags: [],
+            timestamp: 0,
+            windowNumber: 0,
+            context: nil,
+            characters: "z",
+            charactersIgnoringModifiers: "z",
+            isARepeat: false,
+            keyCode: 6
+        )
+        XCTAssertNotNil(event)
+        let shouldAbsorb = handleKeyboardEvent(nil, nil, UInt32(6), [], false, event)
+        XCTAssertFalse(shouldAbsorb)
+        XCTAssertEqual(ControlsTab.shortcutsActionsTriggered, [])
+    }
+
+    func testSearchEditingAbsorbsHandledKeyDown() throws {
+        resetState()
+        App.appIsBeingUsed = true
+        TilesPanel.shared.isKeyWindow = true
+        TilesView.isSearchEditing = true
+        App.app.tilesPanel.tilesView.handleSearchEditingKeyDownResult = true
+        let event = NSEvent.keyEvent(
+            with: .keyDown,
+            location: .zero,
+            modifierFlags: [],
+            timestamp: 0,
+            windowNumber: 0,
+            context: nil,
+            characters: "z",
+            charactersIgnoringModifiers: "z",
+            isARepeat: false,
+            keyCode: 6
+        )
+        XCTAssertNotNil(event)
+        let shouldAbsorb = handleKeyboardEvent(nil, nil, UInt32(6), [], false, event)
+        XCTAssertTrue(shouldAbsorb)
+        XCTAssertEqual(ControlsTab.shortcutsActionsTriggered, [])
+    }
+
+    func testSearchEditingDoesNotCloseOnLetterS() throws {
+        resetState()
+        App.appIsBeingUsed = true
+        TilesPanel.shared.isKeyWindow = true
+        TilesView.isSearchEditing = true
+        App.app.tilesPanel.tilesView.handleSearchEditingKeyDownResult = false
+        let sKeyCode = keycodeMap["s"]!
+        let event = NSEvent.keyEvent(
+            with: .keyDown,
+            location: .zero,
+            modifierFlags: [],
+            timestamp: 0,
+            windowNumber: 0,
+            context: nil,
+            characters: "s",
+            charactersIgnoringModifiers: "s",
+            isARepeat: false,
+            keyCode: UInt16(sKeyCode)
+        )
+        XCTAssertNotNil(event)
+        let shouldAbsorb = handleKeyboardEvent(nil, nil, sKeyCode, [], false, event)
+        XCTAssertFalse(shouldAbsorb)
+        XCTAssertEqual(ControlsTab.shortcutsActionsTriggered, [])
+    }
+
+    func testSearchEditingCommandAIsHandledByEditorPath() throws {
+        resetState()
+        App.appIsBeingUsed = true
+        TilesPanel.shared.isKeyWindow = true
+        TilesView.isSearchEditing = true
+        App.app.tilesPanel.tilesView.handleSearchEditingKeyDownResult = true
+        let aKeyCode = keycodeMap["a"]!
+        let event = NSEvent.keyEvent(
+            with: .keyDown,
+            location: .zero,
+            modifierFlags: [.command],
+            timestamp: 0,
+            windowNumber: 0,
+            context: nil,
+            characters: "a",
+            charactersIgnoringModifiers: "a",
+            isARepeat: false,
+            keyCode: UInt16(aKeyCode)
+        )
+        XCTAssertNotNil(event)
+        let shouldAbsorb = handleKeyboardEvent(nil, nil, aKeyCode, [.command], false, event)
+        XCTAssertTrue(shouldAbsorb)
+        XCTAssertEqual(ControlsTab.shortcutsActionsTriggered, [])
+    }
+
     // alt-down > tab-down > tab-up > alt-up
     func testMostCommonSequence() throws {
         resetState()
