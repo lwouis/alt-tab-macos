@@ -65,6 +65,7 @@ class GeneralTab {
     private static func enableDraggingOffMenubarIcon(_ menuIconShownToggle: Switch) {
         Menubar.statusItem.behavior = .removalAllowed
         menubarIsVisibleObserver = Menubar.statusItem.observe(\.isVisible, options: [.old, .new]) { _, change in
+            Logger.debug { "---- \(change)" }
             if change.oldValue == true && change.newValue == false {
                 menuIconShownToggle.state = .off
                 LabelAndControl.controlWasChanged(menuIconShownToggle, nil)
