@@ -1,4 +1,5 @@
 import XCTest
+import AppKit
 
 final class KeyboardEventsUtilsTests: XCTestCase {
     func testSearchEditingDoesNotAbsorbUnhandledKeyDown() throws {
