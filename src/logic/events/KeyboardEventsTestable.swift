@@ -11,13 +11,16 @@ class KeyboardEventsTestable {
 
 @discardableResult
 func handleKeyboardEvent(_ globalId: Int?, _ shortcutState: ShortcutState?, _ keyCode: UInt32?, _ modifiers: NSEvent.ModifierFlags?, _ isARepeat: Bool, _ event: NSEvent? = nil) -> Bool {
-    let shouldAbsorbEvent = shouldAbsorbSearchEditingKeyDown(event)
-    if let event, shouldAbsorbEvent, TilesView.handleSearchEditingKeyDown(event) {
-        return true
+    if let event, shouldAbsorbSearchEditingKeyDown(event) {
+        switch TilesView.handleSearchEditingKeyDown(event) {
+        case .handled: return true
+        case .passToField: return false
+        case .passToShortcuts: break
+        }
     }
     logKeyboardEvent(globalId, shortcutState, keyCode, modifiers, isARepeat)
     let someShortcutTriggered = triggerMatchingShortcuts(globalId, shortcutState, keyCode, modifiers, isARepeat)
-    return shouldAbsorbEvent || someShortcutTriggered
+    return someShortcutTriggered
 }
 
 private func logKeyboardEvent(_ globalId: Int?, _ shortcutState: ShortcutState?, _ keyCode: UInt32?, _ modifiers: NSEvent.ModifierFlags?, _ isARepeat: Bool) {

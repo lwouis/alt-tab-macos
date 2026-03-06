@@ -34,7 +34,6 @@ class Windows {
                 shouldSelectBestMatchOnSearchChange = true
                 shouldRestoreDefaultSelectionOnSearchClear = false
                 hoveredWindowIndex = nil
-                selectedWindowTarget = nil
             }
         }
         sort()

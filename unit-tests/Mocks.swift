@@ -1,8 +1,14 @@
 import ShortcutRecorder
 
+enum SearchKeyResult {
+    case handled
+    case passToField
+    case passToShortcuts
+}
+
 class TilesViewMock {
     var isSearchEditing = false
-    func handleSearchEditingKeyDown(_ event: NSEvent) -> Bool { return false }
+    func handleSearchEditingKeyDown(_ event: NSEvent) -> SearchKeyResult { return .passToField }
 }
 
 class TilesPanelMock {
@@ -46,7 +52,7 @@ class TilesView {
         set { App.app.tilesPanel.tilesView.isSearchEditing = newValue }
     }
 
-    static func handleSearchEditingKeyDown(_ event: NSEvent) -> Bool {
+    static func handleSearchEditingKeyDown(_ event: NSEvent) -> SearchKeyResult {
         return App.app.tilesPanel.tilesView.handleSearchEditingKeyDown(event)
     }
 }

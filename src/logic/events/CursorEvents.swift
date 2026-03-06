@@ -58,6 +58,7 @@ class CursorEvents {
     }
 
     private static func handleLeftMouseDown(_ cgEvent: CGEvent) -> Unmanaged<CGEvent>? {
+        if TilesView.hasMarkedText() { return Unmanaged.passUnretained(cgEvent) }
         if isPointerInsideSearchField() {
             mouseDownInsideSearchField = true
             return Unmanaged.passUnretained(cgEvent)
@@ -69,6 +70,7 @@ class CursorEvents {
     }
 
     private static func handleLeftMouseUp(_ cgEvent: CGEvent) -> Unmanaged<CGEvent>? {
+        if TilesView.hasMarkedText() { return Unmanaged.passUnretained(cgEvent) }
         if mouseDownInsideSearchField || isPointerInsideSearchField() {
             mouseDownInsideSearchField = false
             return Unmanaged.passUnretained(cgEvent)
