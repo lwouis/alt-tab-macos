@@ -1,6 +1,8 @@
 import Foundation
 
 final class Search {
+    private static let minSimilarity = 0.4
+
     static func normalizedQuery(_ query: String) -> String {
         normalizeForSpaceInsensitiveSearch(query).text
     }
@@ -9,7 +11,7 @@ final class Search {
         let normalized = normalizedQuery(query)
         if normalized.isEmpty { return true }
         ensureCache(for: window, normalizedQuery: normalized)
-        return !window.swAppResults.isEmpty || !window.swTitleResults.isEmpty
+        return window.swBestSimilarity >= minSimilarity
     }
 
     static func relevance(for window: Window, query: String) -> Double {
