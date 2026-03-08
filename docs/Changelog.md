@@ -1,3 +1,16 @@
+# [10.5.0](https://github.com/lwouis/alt-tab-macos/compare/v10.4.0...v10.5.0) (2026-03-08)
+
+
+### Bug Fixes
+
+* input with ime better interacts with search (closes [#5377](https://github.com/lwouis/alt-tab-macos/issues/5377)) ([15caa33](https://github.com/lwouis/alt-tab-macos/commit/15caa33))
+
+
+### Features
+
+* improved search results ([0f8d6f1](https://github.com/lwouis/alt-tab-macos/commit/0f8d6f1))
+* refinements on mouse hover and dragging ([#5350](https://github.com/lwouis/alt-tab-macos/issues/5350)) ([643cc80](https://github.com/lwouis/alt-tab-macos/commit/643cc80))
+
 # [10.4.0](https://github.com/lwouis/alt-tab-macos/compare/v10.3.0...v10.4.0) (2026-03-04)
 
 
