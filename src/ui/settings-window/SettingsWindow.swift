@@ -477,6 +477,9 @@ class SettingsWindow: NSWindow {
     private static let sectionInterSectionSpacing = CGFloat(15)
     private static let sectionBottomSpacing = CGFloat(30) - sectionInterSectionSpacing
     private static let sectionScrollTopPadding = CGFloat(20)
+    private static let sectionSelectionTriggerRatioWhenScrollingDown = CGFloat(0.4)
+    private static let sectionSelectionTriggerRatioWhenScrollingUp = CGFloat(0.6)
+    private static let sectionSelectionDirectionDeltaThreshold = CGFloat(0.25)
     private static let minWindowHeight = CGFloat(500)
     private static let sidebarTopInset = CGFloat(40)
     private static let sidebarHorizontalPadding = CGFloat(10)
@@ -512,6 +515,8 @@ class SettingsWindow: NSWindow {
     private var selectedSectionId: String?
     private var sheetHighlightTargets = [ObjectIdentifier: [SettingsSearchHighlightTarget]]()
     private var liveResizeOriginX: CGFloat?
+    private var sectionSelectionTriggerRatio = SettingsWindow.sectionSelectionTriggerRatioWhenScrollingDown
+    private var lastContentScrollY: CGFloat?
 
     convenience init() {
         let windowWidth = Self.sidebarWidth + Self.contentWidth + 3 * Self.contentHorizontalPadding
@@ -593,6 +598,7 @@ class SettingsWindow: NSWindow {
         sectionsStack.alignment = .leading
         sectionsStack.translatesAutoresizingMaskIntoConstraints = false
         sectionsDocumentView.addSubview(sectionsStack)
+        installContentScrollObserver()
         NSLayoutConstraint.activate([
             rightScrollView.leadingAnchor.constraint(equalTo: contentContainer.leadingAnchor),
             rightScrollView.trailingAnchor.constraint(equalTo: contentContainer.trailingAnchor),
@@ -604,6 +610,12 @@ class SettingsWindow: NSWindow {
             sectionsStack.bottomAnchor.constraint(equalTo: sectionsDocumentView.bottomAnchor, constant: -Self.contentBottomPadding),
             sectionsDocumentView.widthAnchor.constraint(equalTo: rightScrollView.contentView.widthAnchor),
         ])
+    }
+
+    private func installContentScrollObserver() {
+        rightScrollView.contentView.postsBoundsChangedNotifications = true
+        lastContentScrollY = rightScrollView.contentView.bounds.minY
+        NotificationCenter.default.addObserver(self, selector: #selector(contentViewBoundsDidChange), name: NSView.boundsDidChangeNotification, object: rightScrollView.contentView)
     }
 
     private func setupSearchField(_ parent: NSView) {
@@ -1234,6 +1246,37 @@ class SettingsWindow: NSWindow {
         let key = ObjectIdentifier(sheet)
         guard let targets = sheetHighlightTargets[key] else { return }
         targets.forEach { $0.clear() }
+    }
+
+    @objc private func contentViewBoundsDidChange(_ notification: Notification) {
+        let currentY = rightScrollView.contentView.bounds.minY
+        updateSectionSelectionTriggerRatio(currentY)
+        guard let section = sectionAtCurrentScrollPosition(sectionSelectionTriggerRatio) else { return }
+        guard selectedSectionId != section.id else { return }
+        selectSection(section, scroll: false)
+    }
+
+    private func updateSectionSelectionTriggerRatio(_ currentY: CGFloat) {
+        defer { lastContentScrollY = currentY }
+        guard let lastContentScrollY else { return }
+        let deltaY = currentY - lastContentScrollY
+        if deltaY > Self.sectionSelectionDirectionDeltaThreshold {
+            sectionSelectionTriggerRatio = Self.sectionSelectionTriggerRatioWhenScrollingDown
+            return
+        }
+        if deltaY < -Self.sectionSelectionDirectionDeltaThreshold {
+            sectionSelectionTriggerRatio = Self.sectionSelectionTriggerRatioWhenScrollingUp
+        }
+    }
+
+    private func sectionAtCurrentScrollPosition(_ triggerRatio: CGFloat) -> SettingsSection? {
+        guard !visibleSections.isEmpty else { return nil }
+        sectionsDocumentView.layoutSubtreeIfNeeded()
+        let visibleBounds = rightScrollView.contentView.bounds
+        let sectionTopY = visibleBounds.minY + visibleBounds.height * triggerRatio
+        return visibleSections.last {
+            $0.anchor.convert($0.anchor.bounds, to: sectionsDocumentView).minY <= sectionTopY
+        } ?? visibleSections[0]
     }
 
     private func selectSection(_ section: SettingsSection, scroll: Bool, selectInSidebar: Bool = true) {
