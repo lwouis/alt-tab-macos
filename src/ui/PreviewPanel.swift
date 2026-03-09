@@ -30,8 +30,8 @@ class PreviewPanel: NSPanel {
     }
 
     static func show(_ id: CGWindowID, _ preview: CALayerContents, _ position: CGPoint, _ size: CGSize) {
+        repositionAndResize(position, size)
         if id != currentId {
-            repositionAndResize(position, size)
             previewView.updateContents(preview, size)
         }
         if id != currentId || !Self.shared.isVisible {
