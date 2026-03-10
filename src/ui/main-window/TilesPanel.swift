@@ -128,6 +128,9 @@ extension TilesPanel: NSWindowDelegate {
         // this avoids command+q from quitting AltTab itself, or command+p from printing
         DispatchQueue.main.async {
             MainMenu.toggle(false)
+            if TilesView.isSearchEditing {
+                MainMenu.toggleEditMenu(true)
+            }
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
             Applications.manuallyRefreshAllWindows()

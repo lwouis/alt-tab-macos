@@ -198,6 +198,7 @@ class TilesView {
         let editable = searchMode == .editing
         searchField.isEditable = editable
         searchField.isSelectable = editable
+        MainMenu.toggleEditMenu(editable)
     }
 
     static func updateCachedSizes() {
