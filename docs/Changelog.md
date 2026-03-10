@@ -1,3 +1,21 @@
+# [10.6.0](https://github.com/lwouis/alt-tab-macos/compare/v10.5.0...v10.6.0) (2026-03-10)
+
+
+### Bug Fixes
+
+* allow edit shortcuts in the search bar (closes [#5308](https://github.com/lwouis/alt-tab-macos/issues/5308)) ([35ddbe7](https://github.com/lwouis/alt-tab-macos/commit/35ddbe7))
+* better handle context menu in search bar ([9aea8f6](https://github.com/lwouis/alt-tab-macos/commit/9aea8f6))
+* key repeat in search mode ([fd4e373](https://github.com/lwouis/alt-tab-macos/commit/fd4e373))
+* preview may not update its position (closes [#5396](https://github.com/lwouis/alt-tab-macos/issues/5396)) ([dbadb2b](https://github.com/lwouis/alt-tab-macos/commit/dbadb2b))
+* right-click and middle-click outside panel ([9969a07](https://github.com/lwouis/alt-tab-macos/commit/9969a07))
+* show preview window on first shortcut press (closes [#5385](https://github.com/lwouis/alt-tab-macos/issues/5385)) ([106f7c9](https://github.com/lwouis/alt-tab-macos/commit/106f7c9))
+* trackpad scrolling shouldn't also scroll on background apps ([cacb789](https://github.com/lwouis/alt-tab-macos/commit/cacb789))
+
+
+### Features
+
+* scrolling the settings update the sidebar (closes [#5400](https://github.com/lwouis/alt-tab-macos/issues/5400)) ([3b831d4](https://github.com/lwouis/alt-tab-macos/commit/3b831d4))
+
 # [10.5.0](https://github.com/lwouis/alt-tab-macos/compare/v10.4.0...v10.5.0) (2026-03-08)
 
 
