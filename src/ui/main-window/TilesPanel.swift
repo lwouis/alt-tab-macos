@@ -64,6 +64,7 @@ class TilesPanel: NSPanel {
         updateAppearance()
         alphaValue = 1
         makeKeyAndOrderFront(nil)
+        ContextMenuEvents.toggle(true)
         CursorEvents.toggle(true)
         DispatchQueue.main.async { TilesView.scrollView.flashScrollers() }
     }
@@ -118,7 +119,7 @@ extension TilesPanel: NSWindowDelegate {
             if App.appIsBeingUsed {
                 TilesPanel.shared.makeKeyAndOrderFront(nil)
             }
-            MainMenu.toggle(enabled: true)
+            MainMenu.toggle(true)
         }
     }
 
@@ -126,7 +127,7 @@ extension TilesPanel: NSWindowDelegate {
         // we toggle the mainMenu off when showing the main window
         // this avoids command+q from quitting AltTab itself, or command+p from printing
         DispatchQueue.main.async {
-            MainMenu.toggle(enabled: false)
+            MainMenu.toggle(false)
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
             Applications.manuallyRefreshAllWindows()

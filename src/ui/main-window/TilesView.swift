@@ -107,7 +107,7 @@ class TilesView {
     }
 
     static func handleSearchEditingKeyDown(_ event: NSEvent) -> SearchKeyResult {
-        if hasMarkedText() { return .passToField }
+        if hasMarkedText() || ContextMenuEvents.isMenuOpen { return .passToField }
         let keyCode = event.keyCode
         if keyCode == UInt16(kVK_LeftArrow) { App.cycleSelection(.left); return .handled }
         if keyCode == UInt16(kVK_RightArrow) { App.cycleSelection(.right); return .handled }

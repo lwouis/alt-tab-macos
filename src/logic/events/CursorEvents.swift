@@ -58,7 +58,7 @@ class CursorEvents {
     }
 
     private static func handleLeftMouseDown(_ cgEvent: CGEvent) -> Unmanaged<CGEvent>? {
-        if TilesView.hasMarkedText() { return Unmanaged.passUnretained(cgEvent) }
+        if TilesView.hasMarkedText() || ContextMenuEvents.isMenuOpen { return Unmanaged.passUnretained(cgEvent) }
         if isPointerInsideSearchField() {
             mouseDownInsideSearchField = true
             return Unmanaged.passUnretained(cgEvent)
@@ -70,7 +70,7 @@ class CursorEvents {
     }
 
     private static func handleLeftMouseUp(_ cgEvent: CGEvent) -> Unmanaged<CGEvent>? {
-        if TilesView.hasMarkedText() { return Unmanaged.passUnretained(cgEvent) }
+        if TilesView.hasMarkedText() || ContextMenuEvents.isMenuOpen { return Unmanaged.passUnretained(cgEvent) }
         if mouseDownInsideSearchField || isPointerInsideSearchField() {
             mouseDownInsideSearchField = false
             return Unmanaged.passUnretained(cgEvent)
@@ -94,6 +94,7 @@ class CursorEvents {
     }
 
     private static func handleOtherMouseUp(_ cgEvent: CGEvent) -> Unmanaged<CGEvent>? {
+        if ContextMenuEvents.isMenuOpen { return Unmanaged.passUnretained(cgEvent) }
         guard isPointerInsideUi(),
               cgEvent.getIntegerValueField(.mouseEventButtonNumber) == 2,
               let target = findTileViewUnderPointer(),

@@ -59,6 +59,7 @@ class App: AppCenterApplication {
         isFirstSummon = true
         forceDoNothingOnRelease = false
         TilesView.endSearchSession()
+        ContextMenuEvents.toggle(false)
         CursorEvents.toggle(false)
         TrackpadEvents.reset()
         hideTilesPanelWithoutChangingKeyWindow()
@@ -66,7 +67,7 @@ class App: AppCenterApplication {
             PreviewPanel.shared.orderOut(nil)
         }
         hideAllTooltips()
-        MainMenu.toggle(enabled: true)
+        MainMenu.toggle(true)
     }
 
     /// some tooltips may not be hidden when the main window is hidden; we force it through a private API

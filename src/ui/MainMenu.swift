@@ -12,7 +12,7 @@ class MainMenu {
         rememberMenuItemsWithShortcut()
     }
 
-    static func toggle(enabled: Bool) {
+    static func toggle(_ enabled: Bool) {
         for (item, keyEquivalent) in menuItemsWithShortcut {
             item.keyEquivalent = enabled ? keyEquivalent : ""
         }
