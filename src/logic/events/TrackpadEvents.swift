@@ -85,6 +85,7 @@ class TrackpadEvents {
             return
         }
         if activeTouches.count > 1 {
+            ScrollwheelEvents.toggle(true)
             CursorEvents.deadZoneInitialPosition = nil
             NavigationSwipeDetector.hasDetected(activeTouches)
         }

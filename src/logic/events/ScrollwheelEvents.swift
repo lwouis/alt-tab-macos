@@ -35,8 +35,9 @@ class ScrollwheelEvents {
     }
 
     private static let handleEvent: CGEventTapCallBack = { _, type, cgEvent, _ in
-        if type.rawValue == NSEvent.EventType.scrollWheel.rawValue {
-            // block scrolling globally
+        if type.rawValue == NSEvent.EventType.scrollWheel.rawValue,
+           cgEvent.getIntegerValueField(.scrollWheelEventIsContinuous) != 0 {
+            // block continuous (trackpad) scrolling; let discrete (mouse) scrolling through
             return nil
         } else if (type == .tapDisabledByUserInput || type == .tapDisabledByTimeout) && shouldBeEnabled {
             CGEvent.tapEnable(tap: eventTap!, enable: true)
