@@ -60,17 +60,19 @@ class ThrottlerWithKey {
                     if !state.tailScheduled {
                         map[key] = ThrottleState(time: state.time, tailScheduled: true)
                         let remaining = delayInNanoseconds - elapsed
-                        if let queue {
-                            queue.addOperationAfter(deadline: .now() + .nanoseconds(Int(remaining))) {
-                                self.map.withLock { $0[key] = nil }
-                                block()
+                        let tailBlock = {
+                            let shouldExecute = self.map.withLock { map -> Bool in
+                                guard let state = map[key], state.tailScheduled else { return false }
+                                map[key] = ThrottleState(time: DispatchTime.now().uptimeNanoseconds, tailScheduled: false)
+                                return true
                             }
+                            if shouldExecute { block() }
+                        }
+                        if let queue {
+                            queue.addOperationAfter(deadline: .now() + .nanoseconds(Int(remaining)), block: tailBlock)
                         } else {
                             let callerQueue = OperationQueue.current?.underlyingQueue ?? DispatchQueue.main
-                            callerQueue.asyncAfter(deadline: .now() + .nanoseconds(Int(remaining))) {
-                                self.map.withLock { $0[key] = nil }
-                                block()
-                            }
+                            callerQueue.asyncAfter(deadline: .now() + .nanoseconds(Int(remaining)), execute: tailBlock)
                         }
                     }
                     return true
