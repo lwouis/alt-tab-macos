@@ -55,6 +55,8 @@ class Window {
         // the app may have timed out trying to subscribe to app notifications
         // It may be responsive now since it has a window; we attempt again
         application.observeEventsIfEligible()
+        // fetch app icon only if we display that app in the switcher
+        application.fetchAppIcon()
         checkIfFocused()
         Logger.info { self.debugId }
         observeEvents()
@@ -67,6 +69,8 @@ class Window {
         Window.globalCreationCounter += 1
         creationOrder = Window.globalCreationCounter
         debugId = "\(application.debugId) (title:\(title))"
+        // fetch app icon only if we display that app in the switcher
+        application.fetchAppIcon()
         Logger.debug { self.debugId }
     }
 

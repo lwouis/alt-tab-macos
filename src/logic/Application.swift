@@ -81,13 +81,6 @@ class Application: NSObject {
         executableURL = runningApplication.executableURL
         debugId = "(pid:\(pid) \(bundleIdentifier ?? bundleURL?.absoluteString ?? executableURL?.absoluteString ?? localizedName))"
         super.init()
-        BackgroundWork.screenshotsQueue.addOperation { [weak self] in
-            guard let self else { return }
-            let r = Application.appIconWithoutPadding(runningApplication.icon)
-            DispatchQueue.main.async { [weak self] in
-                self?.icon = r
-            }
-        }
         Logger.info { self.debugId }
         observeEventsIfEligible()
         kvObservers = [
@@ -119,6 +112,17 @@ class Application: NSObject {
                 AXObserverCreate(pid, AccessibilityEvents.axObserverCallback, &axObserver)
             }
             observeEvents()
+        }
+    }
+
+    func fetchAppIcon() {
+        guard icon == nil else { return }
+        BackgroundWork.screenshotsQueue.addOperation { [weak self] in
+            guard let self, self.icon == nil else { return }
+            let r = Application.appIconWithoutPadding(runningApplication.icon)
+            DispatchQueue.main.async { [weak self] in
+                self?.icon = r
+            }
         }
     }
 
