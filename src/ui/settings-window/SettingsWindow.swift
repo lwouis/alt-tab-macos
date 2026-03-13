@@ -1289,6 +1289,7 @@ class SettingsWindow: NSWindow {
     }
 
     private func scrollToSection(_ section: SettingsSection) {
+        guard isVisible else { return }
         sectionsDocumentView.layoutSubtreeIfNeeded()
         let anchorFrame = section.anchor.convert(section.anchor.bounds, to: sectionsDocumentView)
         let targetY = max(anchorFrame.minY - Self.sectionScrollTopPadding, 0)
