@@ -436,9 +436,10 @@ class TilesView {
                 rowSignature.append(index)
                 window.rowIndex = rows.count - 1
             } else {
-                // release images from unused recycledViews; they take lots of RAM
+                // release images and stale window references from unused recycledViews; they take lots of RAM
                 view.thumbnail.releaseImage()
                 view.appIcon.releaseImage()
+                view.window_ = nil
             }
         }
         scrollView.documentView!.subviews = newViews
