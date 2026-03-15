@@ -544,6 +544,7 @@ class Windows {
         if addWindowlessWindowIfNeeded {
             windows.forEach { $0.application.addWindowlessWindowIfNeeded() }
         }
+        lastFocusedWindowTarget = getLastFocusedOrderWindowIndex().map { list[$0].id }
         App.refreshOpenUiAfterExternalEvent([], windowRemoved: true)
     }
 }
