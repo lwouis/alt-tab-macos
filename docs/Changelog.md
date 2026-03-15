@@ -1,3 +1,19 @@
+# [10.7.0](https://github.com/lwouis/alt-tab-macos/compare/v10.6.0...v10.7.0) (2026-03-15)
+
+
+### Bug Fixes
+
+* allow quitting multiple apps in a row (closes [#5421](https://github.com/lwouis/alt-tab-macos/issues/5421)) ([de9aaa1](https://github.com/lwouis/alt-tab-macos/commit/de9aaa1))
+* avoid memory usage growth over time (closes [#5138](https://github.com/lwouis/alt-tab-macos/issues/5138)) ([739649a](https://github.com/lwouis/alt-tab-macos/commit/739649a))
+* edit shortcuts in settings window search bar on first launch ([2adf741](https://github.com/lwouis/alt-tab-macos/commit/2adf741))
+* prevent sheets from messing up thumbnails order ([#5346](https://github.com/lwouis/alt-tab-macos/issues/5346)) ([b008d63](https://github.com/lwouis/alt-tab-macos/commit/b008d63))
+* thumbnails might be shown too small ([57c95a6](https://github.com/lwouis/alt-tab-macos/commit/57c95a6))
+
+
+### Features
+
+* reduce memory usage by storing fewer app icons ([b21168a](https://github.com/lwouis/alt-tab-macos/commit/b21168a))
+
 # [10.6.0](https://github.com/lwouis/alt-tab-macos/compare/v10.5.0...v10.6.0) (2026-03-10)
 
 
