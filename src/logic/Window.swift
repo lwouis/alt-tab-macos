@@ -208,9 +208,23 @@ class Window {
             if let bundleUrl = application.bundleURL, isWindowlessApp {
                 if (try? NSWorkspace.shared.launchApplication(at: bundleUrl, configuration: [:])) == nil {
                     application.runningApplication.activate(options: .activateAllWindows)
+                    // Retry activation for apps with accessibility injectors like Grammarly
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) {
+                        if !self.application.runningApplication.isActive {
+                            self.application.runningApplication.activate(options: [.activateAllWindows, .activateIgnoringOtherApps])
+                        }
+                    }
                 }
             } else {
                 application.runningApplication.activate(options: .activateAllWindows)
+                // Retry activation for apps with accessibility injectors like Grammarly
+                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) {
+                    if !self.application.runningApplication.isActive {
+                        self.application.runningApplication.activate(options: [.activateAllWindows, .activateIgnoringOtherApps])
+                        // Fallback to NSWorkspace for stubborn apps like Telegram
+                        NSWorkspace.shared.launchApplication(withBundleIdentifier: self.application.bundleIdentifier, options: .activateIgnoringOtherApps, additionalEventParamDescriptor: nil, launchIdentifier: nil)
+                    }
+                }
             }
             Windows.previewSelectedWindowIfNeeded()
         } else {
@@ -224,7 +238,24 @@ class Window {
                 _SLPSSetFrontProcessWithOptions(&psn, self.cgWindowId!, SLPSMode.userGenerated.rawValue)
                 self.makeKeyWindow(&psn)
                 try? self.axUiElement!.focusWindow()
+                
+                // Retry activation for apps with accessibility injectors like Grammarly/Telegram
                 DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) {
+                    if !self.application.runningApplication.isActive {
+                        var psnRetry = ProcessSerialNumber()
+                        GetProcessForPID(self.application.pid, &psnRetry)
+                        _SLPSSetFrontProcessWithOptions(&psnRetry, self.cgWindowId!, SLPSMode.userGenerated.rawValue)
+                        self.makeKeyWindow(&psnRetry)
+                        try? self.axUiElement!.focusWindow()
+                        
+                        // Fallback to higher-level API if still not active
+                        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) {
+                            if !self.application.runningApplication.isActive {
+                                self.application.runningApplication.activate(options: [.activateAllWindows, .activateIgnoringOtherApps])
+                                NSWorkspace.shared.launchApplication(withBundleIdentifier: self.application.bundleIdentifier, options: .activateIgnoringOtherApps, additionalEventParamDescriptor: nil, launchIdentifier: nil)
+                            }
+                        }
+                    }
                     Windows.previewSelectedWindowIfNeeded()
                 }
             }
