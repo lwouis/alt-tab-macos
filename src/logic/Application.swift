@@ -146,7 +146,11 @@ class Application: NSObject {
                         // apps don't always create kAXApplicationActivatedNotification upon launch; we update frontmostPid in case it has changed
                         Applications.frontmostPid = NSWorkspace.shared.frontmostApplication?.processIdentifier
                         // apps don't always send kAXWindowCreatedNotification upon launch; we manually check to prevent missing windows
-                        if let self { Applications.manuallyUpdateWindows(self) }
+                        guard let self else { return }
+                        if addWindowlessWindowIfNeeded() != nil {
+                            App.refreshOpenUiAfterExternalEvent([])
+                        }
+                        Applications.manuallyUpdateWindows(self)
                     }
                 }
             }

@@ -40,12 +40,6 @@ class Applications {
                 guard let app, let axUiElement = app.axUiElement else { return }
                 let axWindows = try axUiElement.allWindows(app.pid)
                 guard !axWindows.isEmpty else {
-                    DispatchQueue.main.async { [weak app] in
-                        guard let app else { return }
-                        if app.addWindowlessWindowIfNeeded() != nil {
-                            App.refreshOpenUiAfterExternalEvent([])
-                        }
-                    }
                     // workaround: some apps launch but take a while to create their window(s)
                     // initial windows don't trigger a windowCreated notification, so we won't get notified
                     // it's very unlikely an app would launch with no initial window
