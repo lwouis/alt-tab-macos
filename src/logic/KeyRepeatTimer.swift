@@ -34,7 +34,7 @@ class KeyRepeatTimer {
     }
 
     private static func startTimerForRepeatingKey(_ atShortcut: ATShortcut, _ block: @escaping () -> Void) {
-        guard timerIsSuspended && atShortcut.state != .up else { return }
+        guard timerIsSuspended && atShortcut.state != .up && (atShortcut.scope == .local || !holdModifierIsReleased()) else { return }
         currentTimerShortcutName = atShortcut.id
         // reading these user defaults every time guarantees we have the latest value, if the user has updated those
         let repeatRate = ticksToSeconds(CachedUserDefaults.globalString("KeyRepeat") ?? "6")
@@ -48,12 +48,24 @@ class KeyRepeatTimer {
 
     private static func handleEvent(_ atShortcut: ATShortcut, _ block: @escaping () -> Void) {
         DispatchQueue.main.async {
-            if atShortcut.state == .up {
+            if atShortcut.state == .up || (atShortcut.scope == .global && holdModifierIsReleased()) {
                 stopTimerForRepeatingKey(atShortcut.id)
             } else {
                 block()
             }
         }
+    }
+
+    /// Poll hardware modifier state to detect key release even when the event-based state update is delayed
+    /// (e.g. when main thread is busy under CPU stress). Mirrors ATShortcut.redundantSafetyMeasures()
+    private static func holdModifierIsReleased() -> Bool {
+        guard App.appIsBeingUsed,
+              let holdShortcut = ControlsTab.shortcuts[Preferences.indexToName("holdShortcut", App.shortcutIndex)] else {
+            return true
+        }
+        let currentModifiers = cocoaToCarbonFlags(ModifierFlags.current).cleaned()
+        let holdModifiers = holdShortcut.shortcut.carbonModifierFlags.cleaned()
+        return currentModifiers & holdModifiers != holdModifiers
     }
 
     // NSEvent.keyRepeatInterval exists, but it doesn't seem to update when System Settings are updated, or when the user runs `defaults write -g KeyRepeat X`
