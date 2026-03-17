@@ -321,8 +321,9 @@ class Window {
         return nil
     }
 
-    /// some apps will not trigger AXApplicationActivated, where we usually update application.focusedWindow
-    /// workaround: we check and possibly do it here
+    /// Scenarios addressed by this:
+    /// * Some apps will not trigger AXApplicationActivated, where we usually update application.focusedWindow
+    /// * Sometimes, we subscribe to an app after it has emitted the focusedWindow / applicationActivated events, so we never receive these
     private func checkIfFocused() {
         let app = application
         guard let appAxUiElement = app.axUiElement else { return }
@@ -332,6 +333,9 @@ class Window {
             DispatchQueue.main.async {
                 guard let window = (Windows.list.first { $0.isEqualRobust(focusedWindow, focusedWid) }) else { return }
                 app.focusedWindow = window
+                if let windows = Windows.updateLastFocusOrder(window) {
+                    App.refreshOpenUiAfterExternalEvent(windows)
+                }
             }
         }
     }

@@ -243,9 +243,8 @@ class Windows {
             hoveredWindowIndex = nil
             TilesView.highlight(oldIndex)
         }
-        if let frontmostPid = Applications.frontmostPid,
-           let frontmostApp = Applications.findOrCreate(frontmostPid, false),
-           (frontmostApp.focusedWindow == nil || Preferences.windowOrder[App.shortcutIndex] != .recentlyFocused),
+        if Applications.frontmostPid != nil,
+           Preferences.windowOrder[App.shortcutIndex] != .recentlyFocused,
            let lastFocusedOrderWindowIndex = getLastFocusedOrderWindowIndex() {
             updateSelectedAndHoveredWindowIndex(lastFocusedOrderWindowIndex)
         } else {
@@ -511,9 +510,7 @@ class Windows {
     }
 
     static func appendWindow(_ window: Window) {
-        list.forEach {
-            $0.lastFocusOrder += 1
-        }
+        window.lastFocusOrder = list.count
         list.append(window)
         if list.count > TilesView.recycledViews.count {
             TilesView.recycledViews.append(TileView())
