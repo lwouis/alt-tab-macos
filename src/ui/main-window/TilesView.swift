@@ -307,10 +307,11 @@ class TilesView {
     }
 
     static func updateItemsAndLayout(_ preservedScrollOrigin: CGPoint?) {
-        let widthMax = TilesPanel.maxThumbnailsWidth().rounded()
+        var widthMax = TilesPanel.maxThumbnailsWidth().rounded()
         if Preferences.appearanceSize == .auto {
             resolveAutoSize(widthMax)
             Self.updateCachedSizes()
+            widthMax = TilesPanel.maxThumbnailsWidth().rounded()
         }
         if let (maxX, maxY, labelHeight, rowSignature) = layoutTileViews(widthMax) {
             layoutParentViews(maxX, widthMax, maxY, labelHeight)
