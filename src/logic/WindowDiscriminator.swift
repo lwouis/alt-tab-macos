@@ -5,44 +5,45 @@ class WindowDiscriminator {
         // Minimized windows or windows of a hidden app have subrole "AXDialog"
         // Activity Monitor main window subrole is "AXDialog" for a brief moment at launch; it then becomes "AXStandardWindow"
         // Some non-windows have cgWindowId == 0 (e.g. windows of apps starting at login with the checkbox "Hidden" checked)
-        Logger.debug { (app.debugId, wid, level, title, subrole, role, size) }
-        return wid != 0
-            // Finder's file copy dialogs are wide but < 100 height (see https://github.com/lwouis/alt-tab-macos/issues/1466)
-            // Sonoma introduced a bug: a caps-lock & language indicators shows as a small window.
-            // We try to hide it by filtering out tiny windows
-            && size != nil && (size!.width > 100 && size!.height > 50) && (
-            (
-                books(app) ||
-                    keynote(app) ||
-                    preview(app, subrole) ||
-                    iina(app) ||
-                    openFlStudio(app, title) ||
-                    crossoverWindow(app, role, subrole, level) ||
-                    isAlwaysOnTopScrcpy(app, level, role, subrole)
-            ) || (
-                 (
-                    [kAXStandardWindowSubrole, kAXDialogSubrole].contains(subrole) ||
-                        openBoard(app) ||
-                        adobeAudition(app, subrole) ||
-                        adobeAfterEffects(app, subrole) ||
-                        steam(app, title, role) ||
-                        worldOfWarcraft(app, role) ||
-                        battleNetBootstrapper(app, role) ||
-                        firefox(app, role, size) ||
-                        vlcFullscreenVideo(app, role) ||
-                        sanGuoShaAirWD(app) ||
-                        dvdFab(app) ||
-                        drBetotte(app) ||
-                        androidEmulator(app, title) ||
-                        autocad(app, subrole)
-                ) && (
-                    mustHaveIfJetbrainApp(app, title, subrole, size!) &&
-                        mustHaveIfSteam(app, title, role) &&
-                        mustHaveIfFusion360(app, title, role) &&
-                        mustHaveIfColorSlurp(app, subrole)
-                )
-            )
-        )
+        guard wid != 0 else {
+            Logger.debug { logTemplate("wid is 0", app, wid, level, title, subrole, role, size) }
+            return false
+        }
+        guard let size else {
+            Logger.debug { logTemplate("it has no size", app, wid, level, title, subrole, role, size) }
+            return false
+        }
+        guard size.width > 100 && size.height > 50 else {
+            Logger.debug { logTemplate("size is \(Int(size.width))x\(Int(size.height)) which is < 100x50", app, wid, level, title, subrole, role, size) }
+            return false
+        }
+        let specialApp = books(app) || keynote(app) || preview(app, subrole) || iina(app) ||
+            openFlStudio(app, title) || crossoverWindow(app, role, subrole, level) ||
+            isAlwaysOnTopScrcpy(app, level, role, subrole)
+        let standardSubrole = [kAXStandardWindowSubrole, kAXDialogSubrole].contains(subrole)
+        let appSpecificSubrole = openBoard(app) || adobeAudition(app, subrole) || adobeAfterEffects(app, subrole) ||
+            steam(app, title, role) || worldOfWarcraft(app, role) || battleNetBootstrapper(app, role) ||
+            firefox(app, role, size) || vlcFullscreenVideo(app, role) || sanGuoShaAirWD(app) ||
+            dvdFab(app) || drBetotte(app) || androidEmulator(app, title) || autocad(app, subrole)
+        guard specialApp || standardSubrole || appSpecificSubrole else {
+            Logger.debug { logTemplate("subrole is '\(subrole ?? "nil")' instead of '\(kAXStandardWindowSubrole)'/'\(kAXDialogSubrole)'", app, wid, level, title, subrole, role, size) }
+            return false
+        }
+        if !specialApp {
+            guard mustHaveIfJetbrainApp(app, title, subrole, size) &&
+                mustHaveIfSteam(app, title, role) &&
+                mustHaveIfFusion360(app, title, role) &&
+                mustHaveIfColorSlurp(app, subrole) else {
+                Logger.debug { logTemplate("of a hardcoded rule for this app", app, wid, level, title, subrole, role, size) }
+                return false
+            }
+        }
+        Logger.debug { logTemplate(nil, app, wid, level, title, subrole, role, size) }
+        return true
+    }
+
+    private static func logTemplate(_ rejectionReason: String?, _ app: Application, _ wid: CGWindowID, _ level: CGWindowLevel, _ title: String?, _ subrole: String?, _ role: String?, _ size: CGSize?) -> String {
+        "Window \(rejectionReason == nil ? "accepted" : "rejected") \(app.debugId)\(rejectionReason == nil ? "" : " because \(rejectionReason)") \((wid, level, title, subrole, role, size))"
     }
 
     private static func mustHaveIfFusion360(_ app: Application, _ title: String?, _ role: String?) -> Bool {

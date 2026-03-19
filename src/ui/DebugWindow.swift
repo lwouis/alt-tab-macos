@@ -13,6 +13,8 @@ class DebugWindow: NSPanel {
     private var isPerformingAutoScroll = false
     private var entries = [(SwiftyBeaver.Level, String)]()
     private var destination: DebugWindowDestination?
+    private var windowDiscriminatorCheckbox: NSButton!
+    private var filterWindowDiscriminator = false
     private var inspectButton: NSButton!
     private var inspectColumns: NSStackView!
     private var inspectAppField: NSTextField!
@@ -91,7 +93,10 @@ class DebugWindow: NSPanel {
             filterControl.setImage(Self.colorDot(Self.colorForLevel(Self.levels[i])), forSegment: i)
             filterControl.setImageScaling(.scaleProportionallyDown, forSegment: i)
         }
-        let filterRow = NSStackView(views: [filterLabel, filterControl])
+        windowDiscriminatorCheckbox = NSButton(checkboxWithTitle: "Accepted/Rejected windows", target: nil, action: nil)
+        windowDiscriminatorCheckbox.translatesAutoresizingMaskIntoConstraints = false
+        windowDiscriminatorCheckbox.onAction = { [weak self] _ in self?.windowDiscriminatorFilterChanged() }
+        let filterRow = NSStackView(views: [filterLabel, filterControl, windowDiscriminatorCheckbox])
         filterRow.translatesAutoresizingMaskIntoConstraints = false
         filterRow.orientation = .horizontal
         filterRow.spacing = 8
@@ -188,6 +193,16 @@ class DebugWindow: NSPanel {
         rebuildText()
     }
 
+    private func windowDiscriminatorFilterChanged() {
+        filterWindowDiscriminator = windowDiscriminatorCheckbox.state == .on
+        rebuildText()
+    }
+
+    private func shouldShowEntry(_ level: SwiftyBeaver.Level, _ message: String) -> Bool {
+        level.rawValue >= selectedMinLevel.rawValue &&
+            (!filterWindowDiscriminator || message.contains("WindowDiscriminator.swift"))
+    }
+
     private func attributedLine(_ text: String, _ level: SwiftyBeaver.Level) -> NSAttributedString {
         let result = NSMutableAttributedString(string: text, attributes: Self.defaultAttrs)
         guard let word = Self.levelWords[level],
@@ -198,7 +213,7 @@ class DebugWindow: NSPanel {
     }
 
     private func rebuildText() {
-        let filtered = entries.filter { $0.0.rawValue >= selectedMinLevel.rawValue }
+        let filtered = entries.filter { shouldShowEntry($0.0, $0.1) }
         let result = NSMutableAttributedString()
         for (i, entry) in filtered.enumerated() {
             if i > 0 { result.append(NSAttributedString(string: "\n", attributes: Self.defaultAttrs)) }
@@ -213,7 +228,7 @@ class DebugWindow: NSPanel {
 
     private func appendEntry(_ level: SwiftyBeaver.Level, _ message: String) {
         entries.append((level, message))
-        guard level.rawValue >= selectedMinLevel.rawValue else { return }
+        guard shouldShowEntry(level, message) else { return }
         let prefix = textView.string.isEmpty ? "" : "\n"
         textView.textStorage?.append(attributedLine(prefix + message, level))
         if isAutoScrolling {
@@ -255,6 +270,8 @@ class DebugWindow: NSPanel {
         selectedMinLevel = .debug
         filterControl.selectedSegment = 0
         isAutoScrolling = true
+        filterWindowDiscriminator = false
+        windowDiscriminatorCheckbox.state = .off
         hideAppIfLastWindowIsClosed()
         super.close()
     }
