@@ -116,13 +116,7 @@ class ControlsTab {
     static var shortcuts = [String: ATShortcut]()
     static var shortcutControls = [String: (CustomRecorderControl, String)]()
     static var shortcutsActions = [
-        "holdShortcut": { App.focusTarget() },
-        "holdShortcut2": { App.focusTarget() },
-        "holdShortcut3": { App.focusTarget() },
         "focusWindowShortcut": { App.focusTarget() },
-        "nextWindowShortcut": { App.showUiOrCycleSelection(0, false) },
-        "nextWindowShortcut2": { App.showUiOrCycleSelection(1, false) },
-        "nextWindowShortcut3": { App.showUiOrCycleSelection(2, false) },
         "previousWindowShortcut": { App.previousWindowShortcutWithRepeatingKey() },
         "→": { App.cycleSelection(.right) },
         "←": { App.cycleSelection(.left) },

@@ -49,6 +49,13 @@ class ATShortcut {
         }
         // other shortcuts: contains exactly or exactly + holdShortcut modifiers
         let holdModifiersCleaned = ControlsTab.shortcuts[Preferences.indexToName("holdShortcut", App.shortcutIndex)]?.shortcut.carbonModifierFlags.cleaned() ?? 0
+        // nextWindowShortcut when panel is open: also match base key without holdShortcut modifiers
+        if App.appIsBeingUsed && id.hasPrefix("nextWindowShortcut") {
+            let baseModifiersCleaned = shortcutModifiersCleaned & ~holdModifiersCleaned
+            if modifiersCleaned == baseModifiersCleaned {
+                return true
+            }
+        }
         return modifiersCleaned == shortcutModifiersCleaned || modifiersCleaned == (shortcutModifiersCleaned | holdModifiersCleaned)
     }
 
