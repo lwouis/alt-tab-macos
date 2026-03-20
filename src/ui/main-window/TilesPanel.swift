@@ -5,6 +5,9 @@ class TilesPanel: NSPanel {
     static var maxPossibleThumbnailSize = NSSize.zero
     static var maxPossibleAppIconSize = NSSize.zero
     static var shared: TilesPanel!
+    private var frozenTopCenter: NSPoint?
+    private var highWaterWidth: CGFloat = 0
+    private var highWaterHeight: CGFloat = 0
 
     convenience init() {
         self.init(contentRect: .zero, styleMask: .nonactivatingPanel, backing: .buffered, defer: false)
@@ -40,10 +43,35 @@ class TilesPanel: NSPanel {
             guard App.appIsBeingUsed else { return }
             setContentSize(TilesView.contentView.frame.size)
             guard App.appIsBeingUsed else { return }
-            NSScreen.preferred.repositionPanel(self)
+            repositionOrFreeze()
         }
         // prevent further AppKit work
         TilesView.clearNeedsLayout()
+    }
+
+    private func repositionOrFreeze() {
+        let size = frame.size
+        guard TilesView.isSearchModeOn else {
+            NSScreen.preferred.repositionPanel(self)
+            resetFrozenPosition()
+            return
+        }
+        if size.width > highWaterWidth || size.height > highWaterHeight {
+            NSScreen.preferred.repositionPanel(self)
+            highWaterWidth = size.width
+            highWaterHeight = size.height
+            frozenTopCenter = NSPoint(x: frame.midX, y: frame.maxY)
+        } else if let topCenter = frozenTopCenter {
+            let x = topCenter.x - size.width * 0.5
+            let y = topCenter.y - size.height
+            setFrameOrigin(NSPoint(x: x, y: y))
+        }
+    }
+
+    func resetFrozenPosition() {
+        frozenTopCenter = nil
+        highWaterWidth = 0
+        highWaterHeight = 0
     }
 
     override func orderOut(_ sender: Any?) {

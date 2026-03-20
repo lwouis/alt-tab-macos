@@ -53,6 +53,7 @@ class TilesView {
     static func endSearchSession() {
         searchField.stringValue = ""
         Windows.updateSearchQuery("")
+        TilesPanel.shared.resetFrozenPosition()
         searchMode = .off
         updateSearchFieldEditability()
     }
@@ -69,6 +70,7 @@ class TilesView {
 
     static func disableSearchMode() {
         guard searchMode != .off else { return }
+        TilesPanel.shared.resetFrozenPosition()
         searchMode = .off
         updateSearchFieldEditability()
         searchField.stringValue = ""
@@ -496,8 +498,10 @@ class TilesView {
         scrollView.contentView.frame.size = scrollView.frame.size
         searchField.isHidden = searchMode == .off
         if searchMode != .off {
-            searchField.frame.size = NSSize(width: TilesView.thumbnailsWidth, height: searchBarHeight)
-            searchField.frame.origin = CGPoint(x: originX, y: frameHeight - Appearance.windowPadding - searchBarHeight)
+            let searchWidth = minSearchWidth
+            searchField.frame.size = NSSize(width: searchWidth, height: searchBarHeight)
+            let searchX = originX + (TilesView.thumbnailsWidth - searchWidth) * 0.5
+            searchField.frame.origin = CGPoint(x: searchX, y: frameHeight - Appearance.windowPadding - searchBarHeight)
         }
         if App.shared.userInterfaceLayoutDirection == .rightToLeft {
             let croppedWidth = max(0, TilesView.thumbnailsWidth - maxX)
