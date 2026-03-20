@@ -1,3 +1,20 @@
+# [10.8.0](https://github.com/lwouis/alt-tab-macos/compare/v10.7.0...v10.8.0) (2026-03-20)
+
+
+### Bug Fixes
+
+* allow quitting multiple apps in a row (follow-up on [#5421](https://github.com/lwouis/alt-tab-macos/issues/5421)) ([56c1927](https://github.com/lwouis/alt-tab-macos/commit/56c1927))
+* apps with no open window might not show up (closes [#5424](https://github.com/lwouis/alt-tab-macos/issues/5424)) ([8962ad1](https://github.com/lwouis/alt-tab-macos/commit/8962ad1))
+* avoid repeating shortcut that was released (closes [#5429](https://github.com/lwouis/alt-tab-macos/issues/5429)) ([3b1c7c7](https://github.com/lwouis/alt-tab-macos/commit/3b1c7c7))
+* switcher might show empty on rare occasions (closes [#5432](https://github.com/lwouis/alt-tab-macos/issues/5432)) ([6105bb3](https://github.com/lwouis/alt-tab-macos/commit/6105bb3))
+* window order in the switcher might be incorrect ([#5346](https://github.com/lwouis/alt-tab-macos/issues/5346)) ([545d81d](https://github.com/lwouis/alt-tab-macos/commit/545d81d))
+
+
+### Features
+
+* allow next-window shortcut without modifiers (closes [#5433](https://github.com/lwouis/alt-tab-macos/issues/5433)) ([15ede93](https://github.com/lwouis/alt-tab-macos/commit/15ede93))
+* stabilize ui during search (closes [#5431](https://github.com/lwouis/alt-tab-macos/issues/5431)) ([7dd11cf](https://github.com/lwouis/alt-tab-macos/commit/7dd11cf))
+
 # [10.7.0](https://github.com/lwouis/alt-tab-macos/compare/v10.6.0...v10.7.0) (2026-03-15)
 
 
