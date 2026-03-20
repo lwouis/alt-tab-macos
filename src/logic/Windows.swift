@@ -316,7 +316,8 @@ class Windows {
     private static func adaptSelectionToVisibleIndexes(_ visibleIndexes: [Int], _ firstVisibleIndex: Int) {
         guard let lastVisibleIndex = visibleIndexes.last else { return }
         if !visibleIndexes.contains(selectedWindowIndex) {
-            updateSelectedAndHoveredWindowIndex(firstVisibleIndex)
+            let closest = visibleIndexes.last(where: { $0 < selectedWindowIndex }) ?? lastVisibleIndex
+            updateSelectedAndHoveredWindowIndex(closest)
             return
         }
         if selectedWindowIndex > lastVisibleIndex {
