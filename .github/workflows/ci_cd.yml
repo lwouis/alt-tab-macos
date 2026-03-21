@@ -59,10 +59,11 @@ jobs:
       - run: scripts/update_appcast.sh
       - run: scripts/update_readme_and_website.sh
       - run: npx semantic-release
-      - id: set_tag_name
-        run: echo "tag_name=v"$(cat $VERSION_FILE)"" >> "$GITHUB_OUTPUT"
+      - id: set_release_info
+        run: scripts/extract_latest_changelog.sh
       - uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{ steps.set_tag_name.outputs.tag_name }}
+          tag_name: ${{ steps.set_release_info.outputs.tag_name }}
+          body: ${{ steps.set_release_info.outputs.body }}
           files: ${{ env.XCODE_BUILD_PATH }}/*.zip
       - run: scripts/update_website.sh
