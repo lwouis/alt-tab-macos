@@ -106,7 +106,8 @@ class Windows {
     }
 
     static func updatesBeforeShowing() -> Bool {
-        if list.count == 0 || MissionControl.state() == .showAllWindows || MissionControl.state() == .showFrontWindows { return false }
+        if MissionControl.state() == .showAllWindows || MissionControl.state() == .showFrontWindows { return false }
+        if list.isEmpty { return true }
         // TODO: find a way to update space info when spaces are changed, instead of on every trigger
         // workaround: when Preferences > Mission Control > "Displays have separate Spaces" is unchecked,
         // switching between displays doesn't trigger .activeSpaceDidChangeNotification; we get the latest manually
@@ -121,7 +122,6 @@ class Windows {
         }
         refreshWhichWindowsToShowTheUser()
         sort()
-        if (!list.contains { $0.shouldShowTheUser }) { return false }
         return true
     }
 

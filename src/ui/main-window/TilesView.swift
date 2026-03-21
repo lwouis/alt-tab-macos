@@ -18,6 +18,7 @@ class TilesView {
     static var scrollView: ScrollView!
     static var contentView: EffectView!
     static var searchField = NSSearchField(frame: .zero)
+    static var noWindowLabel = NSTextField(labelWithString: NSLocalizedString("No Window", comment: ""))
     private(set) static var searchMode: SearchMode = .off
     static var rows = [[TileView]]()
     private static var lastRowSignature = [Int]()
@@ -32,6 +33,7 @@ class TilesView {
     static func initialize() {
         guard !initialized else { return }
         configureSearchField()
+        configureNoWindowLabel()
         updateBackgroundView()
         // TODO: think about this optimization more
         (1...20).forEach { _ in TilesView.recycledViews.append(TileView()) }
@@ -120,6 +122,13 @@ class TilesView {
             matchesShortcut(event, "lockSearchShortcut") ||
             matchesShortcut(event, "focusWindowShortcut") { return .passToShortcuts }
         return .passToField
+    }
+
+    private static func configureNoWindowLabel() {
+        noWindowLabel.textColor = .secondaryLabelColor
+        noWindowLabel.font = .systemFont(ofSize: 13)
+        noWindowLabel.alignment = .center
+        noWindowLabel.isHidden = true
     }
 
     private static func configureSearchField() {
@@ -221,6 +230,7 @@ class TilesView {
         searchField.isHidden = searchMode == .off
         contentView.addSubview(searchField)
         contentView.addSubview(scrollView)
+        contentView.addSubview(noWindowLabel)
     }
 
     static func reset() {
@@ -479,7 +489,8 @@ class TilesView {
         let searchReservedHeight = searchMode == .off ? 0 : searchBarHeight + searchBottomPadding
         let heightMax = max(0, TilesPanel.maxThumbnailsHeight() - searchReservedHeight)
         let minSearchWidth = min(widthMax, 320)
-        TilesView.thumbnailsWidth = max(min(maxX, widthMax), searchMode == .off ? 0 : minSearchWidth)
+        let minWidth = min(widthMax, 320)
+        TilesView.thumbnailsWidth = max(min(maxX, widthMax), searchMode == .off ? (maxX == 0 ? minWidth : 0) : minWidth)
         TilesView.thumbnailsHeight = min(maxY, heightMax)
         let appIconsBottomViewportPadding = appIconsBottomViewportPadding(maxY, heightMax, labelHeight)
         let frameWidth = TilesView.thumbnailsWidth + Appearance.windowPadding * 2
@@ -511,6 +522,14 @@ class TilesView {
         let docSize = scrollView.documentView!.frame.size
         thumbnailOverView.frame = CGRect(origin: .zero, size: docSize)
         thumbnailUnderLayer.frame = CGRect(origin: .zero, size: docSize)
+        let isEmpty = maxX == 0
+        noWindowLabel.isHidden = !isEmpty
+        if isEmpty {
+            noWindowLabel.sizeToFit()
+            let labelX = originX + (TilesView.thumbnailsWidth - noWindowLabel.frame.width) * 0.5
+            let labelY = scrollView.frame.origin.y + (scrollView.frame.height - noWindowLabel.frame.height) * 0.5
+            noWindowLabel.frame.origin = CGPoint(x: labelX, y: labelY)
+        }
     }
 
     private static func searchBarHeight() -> CGFloat {
@@ -563,6 +582,7 @@ class TilesView {
         var views = [NSView]()
         if let contentView { views.append(contentView as NSView) }
         views.append(searchField)
+        views.append(noWindowLabel)
         if let scrollView {
             views.append(scrollView)
             views.append(scrollView.contentView)
