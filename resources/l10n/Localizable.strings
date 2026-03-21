@@ -137,6 +137,9 @@
 "Cancel" = "Cancel";
 
 /* No comment provided by engineer. */
+"Capture windows in the background" = "Capture windows in the background";
+
+/* No comment provided by engineer. */
 "Center" = "Center";
 
 /* No comment provided by engineer. */
@@ -589,6 +592,9 @@
 
 /* No comment provided by engineer. */
 "Visible Spaces" = "Visible Spaces";
+
+/* No comment provided by engineer. */
+"When disabled, avoids the macOS purple screen-recording indicator, and avoids flickers when playing DRM video. Thumbnails will be less up-to-date." = "When disabled, avoids the macOS purple screen-recording indicator, and avoids flickers when playing DRM video. Thumbnails will be less up-to-date.";
 
 /* No comment provided by engineer. */
 "When fullscreen" = "When fullscreen";

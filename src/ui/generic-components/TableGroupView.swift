@@ -516,15 +516,17 @@ class TableGroupView: ClickHoverStackView {
         }
         rowView.addSubview(secondaryRow)
         secondaryRow.translatesAutoresizingMaskIntoConstraints = false
-        secondaryRow.topAnchor.constraint(equalTo: mainRow.bottomAnchor, constant: TableGroupView.rowIntraSpacing).isActive = true
+        secondaryRow.topAnchor.constraint(equalTo: mainRow.bottomAnchor, constant: 2).isActive = true
         secondaryRow.bottomAnchor.constraint(equalTo: rowView.bottomAnchor, constant: -TableGroupView.padding).isActive = true
+        // constrain trailing to the right views' leading so subtitle wraps before the toggle
+        let rightStackView = mainRow.arrangedSubviews[2]
         switch alignment {
             case .leading:
                 secondaryRow.leadingAnchor.constraint(equalTo: rowView.leadingAnchor, constant: TableGroupView.padding).isActive = true
-                secondaryRow.trailingAnchor.constraint(lessThanOrEqualTo: rowView.trailingAnchor, constant: -TableGroupView.padding).isActive = true
+                secondaryRow.trailingAnchor.constraint(lessThanOrEqualTo: rightStackView.leadingAnchor).isActive = true
             case .centerX:
                 secondaryRow.leadingAnchor.constraint(equalTo: rowView.leadingAnchor, constant: TableGroupView.padding).isActive = true
-                secondaryRow.trailingAnchor.constraint(equalTo: rowView.trailingAnchor, constant: -TableGroupView.padding).isActive = true
+                secondaryRow.trailingAnchor.constraint(equalTo: rightStackView.leadingAnchor).isActive = true
             case .right:
                 secondaryRow.leadingAnchor.constraint(lessThanOrEqualTo: rowView.leadingAnchor, constant: TableGroupView.padding).isActive = true
                 secondaryRow.trailingAnchor.constraint(equalTo: rowView.trailingAnchor, constant: -TableGroupView.padding).isActive = true
