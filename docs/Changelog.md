@@ -1,3 +1,17 @@
+# [10.9.0](https://github.com/lwouis/alt-tab-macos/compare/v10.8.0...v10.9.0) (2026-03-22)
+
+
+### Bug Fixes
+
+* panel may re-center when searching ([a1f8b18](https://github.com/lwouis/alt-tab-macos/commit/a1f8b18))
+
+
+### Features
+
+* new setting to not capture windows in background (closes [#5337](https://github.com/lwouis/alt-tab-macos/issues/5337)) ([5ed6c1d](https://github.com/lwouis/alt-tab-macos/commit/5ed6c1d)), closes [#5371](https://github.com/lwouis/alt-tab-macos/issues/5371)
+* show better ui when there are no window (closes [#283](https://github.com/lwouis/alt-tab-macos/issues/283)) ([9f3e20a](https://github.com/lwouis/alt-tab-macos/commit/9f3e20a))
+* update fr/en localizations ([630527e](https://github.com/lwouis/alt-tab-macos/commit/630527e))
+
 # [10.8.0](https://github.com/lwouis/alt-tab-macos/compare/v10.7.0...v10.8.0) (2026-03-20)
 
 
