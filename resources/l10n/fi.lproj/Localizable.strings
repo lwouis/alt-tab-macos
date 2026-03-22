@@ -56,6 +56,7 @@
 "Blacklists" = "Estolistat";
 "Cancel" = "Peru";
 "Cancel and hide" = "Peru ja piilota";
+"Capture windows in the background" = "Tallenna ikkunat taustalla";
 "Center" = "Keskellä";
 "Check for updates now…" = "Tarkista päivitykset nyt…";
 "Check for updates periodically" = "Tarkista päivitykset aika ajoin";
@@ -144,6 +145,7 @@
 "Multiple screens" = "Useita näyttöjä";
 "Never" = "Ei koskaan";
 "Never send crash reports" = "Älä lähetä vikaraportteja";
+"No Window" = "Ei ikkunaa";
 "Non-active apps" = "Ei-aktiiviset apit";
 "Non-visible Spaces" = "Ei-näkyvät työtilat";
 "Normal" = "Normaali";
@@ -272,6 +274,7 @@
 "Vim keys already assigned to other actions:\n%@" = "Vim-näppäimet on jo määritetty toisiin toimintoihin:\n%@";
 "Visibility" = "Näkyvyys";
 "Visible Spaces" = "Näkyvät tilat";
+"When disabled, avoids the macOS purple screen-recording indicator, and avoids flickers when playing DRM video. Thumbnails will be less up-to-date." = "Kun tämä on poissa käytöstä, vältetään macOS:n violetti näytöntallennuksen ilmaisin ja vältetään välkkymistä DRM-videota toistettaessa. Esikatselukuvat ovat vähemmän ajantasaisia.";
 "When fullscreen" = "Kun koko näytöllä";
 "When no open window" = "Kun ikkunoita ei ole auki";
 "While open, press:" = "Kun auki, paina:";

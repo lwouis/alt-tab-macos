@@ -56,6 +56,7 @@
 "Blacklists" = "阻止列表";
 "Cancel" = "取消";
 "Cancel and hide" = "取消與隱藏";
+"Capture windows in the background" = "在背景擷取視窗";
 "Center" = "中央";
 "Check for updates now…" = "立即檢查更新⋯";
 "Check for updates periodically" = "定期檢查更新";
@@ -144,6 +145,7 @@
 "Multiple screens" = "多個螢幕";
 "Never" = "永不";
 "Never send crash reports" = "不傳送死機報告";
+"No Window" = "沒有視窗";
 "Non-active apps" = "非活躍 App";
 "Non-visible Spaces" = "非可見空間";
 "Normal" = "正常";
@@ -272,6 +274,7 @@
 "Vim keys already assigned to other actions:\n%@" = "Vim 按鍵已經分配予其他動作：\n%@";
 "Visibility" = "可見性";
 "Visible Spaces" = "可見的空間";
+"When disabled, avoids the macOS purple screen-recording indicator, and avoids flickers when playing DRM video. Thumbnails will be less up-to-date." = "停用後，可避免 macOS 的紫色螢幕錄影指示器，並避免播放 DRM 影片時出現閃爍。縮圖將不會及時更新。";
 "When fullscreen" = "當進入全螢幕時";
 "When no open window" = "當無視窗開啟󠄁時";
 "While open, press:" = "當開啟󠄁時，按一下：";

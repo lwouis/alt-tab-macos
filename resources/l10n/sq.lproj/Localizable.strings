@@ -56,6 +56,7 @@
 "Blacklists" = "Lista e zezë";
 "Cancel" = "Anulo";
 "Cancel and hide" = "Anulo dhe fshih";
+"Capture windows in the background" = "Kap dritaret në sfond";
 "Center" = "Qendër";
 "Check for updates now…" = "Shiko për përditësime tani...";
 "Check for updates periodically" = "Shiko për përditësime shpesh";
@@ -144,6 +145,7 @@
 "Multiple screens" = "Ekranet e shumta";
 "Never" = "Asnjëherë";
 "Never send crash reports" = "Kurrë mos dërgo raport të dështimeve";
+"No Window" = "Asnjë Dritare";
 "Non-active apps" = "Aplikacionet joaktive";
 "Non-visible Spaces" = "Hapësirat jo të dukshme";
 "Normal" = "Normal";
@@ -272,6 +274,7 @@
 "Vim keys already assigned to other actions:\n%@" = "Çelësat vim tashmë të caktuar për veprime të tjera: \\ n%@";
 "Visibility" = "Shikim";
 "Visible Spaces" = "Hapësirat e dukshme";
+"When disabled, avoids the macOS purple screen-recording indicator, and avoids flickers when playing DRM video. Thumbnails will be less up-to-date." = "Kur çaktivizohet, shmanget treguesi vjollcë i regjistrimit të ekranit të macOS dhe shmanget dridhja gjatë luajtjes së videos DRM. Miniaturat do të jenë më pak të azhurnuara.";
 "When fullscreen" = "Kur është në ekran të plotë";
 "When no open window" = "Kur nuk ka dritare të hapur";
 "While open, press:" = "Duke qenë hapur, prekni:";

@@ -56,6 +56,7 @@
 "Blacklists" = "Забрани";
 "Cancel" = "Отказ";
 "Cancel and hide" = "за да прекратиш";
+"Capture windows in the background" = "Заснемане на прозорци на заден план";
 "Center" = "центрирано";
 "Check for updates now…" = "Провери за нови онбонвявания...";
 "Check for updates periodically" = "Проверявай за нови обновявания";
@@ -144,6 +145,7 @@
 "Multiple screens" = "Множество екрани";
 "Never" = "Никога";
 "Never send crash reports" = "Никога";
+"No Window" = "Няма прозорец";
 "Non-active apps" = "Неактивни приложения";
 "Non-visible Spaces" = "Невидими пространства";
 "Normal" = "Нормално";
@@ -272,6 +274,7 @@
 "Vim keys already assigned to other actions:\n%@" = "VIM клавиши, които вече са присвоени на други действия: \\ n%@";
 "Visibility" = "Видимост";
 "Visible Spaces" = "видимите пространства";
+"When disabled, avoids the macOS purple screen-recording indicator, and avoids flickers when playing DRM video. Thumbnails will be less up-to-date." = "Когато е изключено, избягва лилавия индикатор за запис на екран на macOS и избягва примигванията при възпроизвеждане на DRM видео. Миниатюрите ще бъдат по-малко актуални.";
 "When fullscreen" = "Когато е на цял екран";
 "When no open window" = "Когато няма отворени прозорци";
 "While open, press:" = "С бутон";

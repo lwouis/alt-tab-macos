@@ -56,6 +56,7 @@
 "Blacklists" = "Чорныя спісы";
 "Cancel" = "Адмяніць";
 "Cancel and hide" = "Адмяніць і схаваць";
+"Capture windows in the background" = "Захоп вокнаў у фонавым рэжыме";
 "Center" = "Па цэнтры";
 "Check for updates now…" = "Праверыць абнаўленні цяпер…";
 "Check for updates periodically" = "Перыядычна правяраць абнаўленні";
@@ -144,6 +145,7 @@
 "Multiple screens" = "Некалькі экранаў";
 "Never" = "Ніколі";
 "Never send crash reports" = "Ніколі не адпраўляць справаздачы аб збоях";
+"No Window" = "Няма акна";
 "Non-active apps" = "Неактыўныя праграмы";
 "Non-visible Spaces" = "Нябачныя прасторы";
 "Normal" = "Нармальны";
@@ -272,6 +274,7 @@
 "Vim keys already assigned to other actions:\n%@" = "Клавішы Vim ужо прызначаны іншым дзеянням:\n%@";
 "Visibility" = "Бачнасць";
 "Visible Spaces" = "Бачныя прасторы";
+"When disabled, avoids the macOS purple screen-recording indicator, and avoids flickers when playing DRM video. Thumbnails will be less up-to-date." = "Калі адключана, дазваляе пазбегнуць фіялетавага індыкатара запісу экрана macOS і мігацення пры прайграванні відэа з DRM. Эскізы будуць менш актуальнымі.";
 "When fullscreen" = "Пры поўнаэкранным рэжыме";
 "When no open window" = "Пры адсутнасці адкрытых вокнаў";
 "While open, press:" = "Падчас адкрыцця, націсніце:";

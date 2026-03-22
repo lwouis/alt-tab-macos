@@ -56,6 +56,7 @@
 "Blacklists" = "Blacklists";
 "Cancel" = "Cancel";
 "Cancel and hide" = "Cancel and hide";
+"Capture windows in the background" = "Capture windows in the background";
 "Center" = "Center";
 "Check for updates now…" = "Check for updates now…";
 "Check for updates periodically" = "Check for updates periodically";
@@ -144,6 +145,7 @@
 "Multiple screens" = "Multiple screens";
 "Never" = "Never";
 "Never send crash reports" = "Never send crash reports";
+"No Window" = "No Window";
 "Non-active apps" = "Non-active apps";
 "Non-visible Spaces" = "Non-visible Spaces";
 "Normal" = "Normal";
@@ -272,6 +274,7 @@
 "Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
 "Visibility" = "Visibility";
 "Visible Spaces" = "Visible Spaces";
+"When disabled, avoids the macOS purple screen-recording indicator, and avoids flickers when playing DRM video. Thumbnails will be less up-to-date." = "When disabled, avoids the macOS purple screen-recording indicator, and avoids flickers when playing DRM video. Thumbnails will be less up-to-date.";
 "When fullscreen" = "When fullscreen";
 "When no open window" = "When no open window";
 "While open, press:" = "While open, press:";

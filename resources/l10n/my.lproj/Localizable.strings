@@ -56,6 +56,7 @@
 "Blacklists" = "ပိတ်ပင်စာရင်းများ";
 "Cancel" = "ပယ်ဖျက်မည်";
 "Cancel and hide" = "ပယ်ဖျက်ပြီး ဝှက်ထားမည်";
+"Capture windows in the background" = "နောက်ခံတွင် ဝင်းဒိုးများကို ဖမ်းယူရန်";
 "Center" = "အလယ်";
 "Check for updates now…" = "ယခု အပ်ဒိတ်များ စစ်ဆေးပါ…";
 "Check for updates periodically" = "အပ်ဒိတ်များကို အချိန်မှန် စစ်ဆေးပါ။";
@@ -144,6 +145,7 @@
 "Multiple screens" = "မျက်နှာပြင်များစွာ";
 "Never" = "ဘယ်တော့မှ မလုပ်ပါ";
 "Never send crash reports" = "ပြဿနာအစီရင်ခံစာများကို ဘယ်တော့မှ မပို့ပါနှင့်";
+"No Window" = "ဝင်းဒိုး မရှိပါ";
 "Non-active apps" = "အလုပ်မလုပ်သော အက်ပ်များ";
 "Non-visible Spaces" = "မမြင်နိုင်သော နေရာများ";
 "Normal" = "ပုံမှန်";
@@ -272,6 +274,7 @@
 "Vim keys already assigned to other actions:\n%@" = "Vim ကီးများကို အခြားလုပ်ဆောင်ချက်များဖြစ်သည့်\n%@ သို့ ပေးအပ်ထားပြီးဖြစ်သည်။";
 "Visibility" = "မြင်သာမှု";
 "Visible Spaces" = "မြင်နိုင်သော Space များ";
+"When disabled, avoids the macOS purple screen-recording indicator, and avoids flickers when playing DRM video. Thumbnails will be less up-to-date." = "ပိတ်ထားသည့်အခါ၊ macOS ၏ ခရမ်းရောင် မျက်နှာပြင် မှတ်တမ်းတင်ခြင်း အမှတ်အသားကို ရှောင်ရှားပြီး DRM ဗီဒီယို ဖွင့်သည့်အခါ တုန်ခါမှုများကိုလည်း ရှောင်ရှားနိုင်သည်။ ပုံသေးများသည် နောက်ဆုံးအခြေအနေနှင့် ကိုက်ညီမှု နည်းပါးလိမ့်မည်။";
 "When fullscreen" = "ဖန်သားပြင်အပြည့်ဖြစ်နေချိန်";
 "When no open window" = "ဝင်းဒိုးဖွင့်မထားချိန်";
 "While open, press:" = "ဖွင့်ထားစဉ် နှိပ်ပါ:";
