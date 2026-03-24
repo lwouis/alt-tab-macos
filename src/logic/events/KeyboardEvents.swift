@@ -51,6 +51,12 @@ class KeyboardEvents {
         }
     }
 
+    static func reEnableTapIfNeeded() {
+        guard let eventTap, !CGEvent.tapIsEnabled(tap: eventTap) else { return }
+        CGEvent.tapEnable(tap: eventTap, enable: true)
+        Logger.warning { "" }
+    }
+
     static func addEventHandlers() {
         addLocalMonitorForKeyDownAndKeyUp()
         addCgEventTapForModifierFlags()

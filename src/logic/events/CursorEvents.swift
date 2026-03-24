@@ -24,6 +24,12 @@ class CursorEvents {
         }
     }
 
+    static func reEnableTapIfNeeded() {
+        guard let eventTap, shouldBeEnabled, !CGEvent.tapIsEnabled(tap: eventTap) else { return }
+        CGEvent.tapEnable(tap: eventTap, enable: true)
+        Logger.warning { "" }
+    }
+
     private static func observe_() {
         let eventMask = [CGEventType.leftMouseDown, CGEventType.leftMouseUp, CGEventType.rightMouseDown, CGEventType.rightMouseUp, CGEventType.otherMouseDown, CGEventType.otherMouseUp, CGEventType.mouseMoved].reduce(CGEventMask(0), { $0 | (1 << $1.rawValue) })
         // CGEvent.tapCreate returns nil if ensureAccessibilityCheckboxIsChecked() didn't pass

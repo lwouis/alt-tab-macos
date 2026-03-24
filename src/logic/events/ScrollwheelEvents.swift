@@ -17,6 +17,12 @@ class ScrollwheelEvents {
         }
     }
 
+    static func reEnableTapIfNeeded() {
+        guard let eventTap, shouldBeEnabled, !CGEvent.tapIsEnabled(tap: eventTap) else { return }
+        CGEvent.tapEnable(tap: eventTap, enable: true)
+        Logger.warning { "" }
+    }
+
     private static func observe_() {
         // CGEvent.tapCreate returns null if ensureAccessibilityCheckboxIsChecked() didn't pass
         eventTap = CGEvent.tapCreate(

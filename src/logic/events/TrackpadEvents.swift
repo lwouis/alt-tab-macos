@@ -20,6 +20,12 @@ class TrackpadEvents {
         }
     }
 
+    static func reEnableTapIfNeeded() {
+        guard let eventTap, shouldBeEnabled, !CGEvent.tapIsEnabled(tap: eventTap) else { return }
+        Logger.warning { "" }
+        CGEvent.tapEnable(tap: eventTap, enable: true)
+    }
+
     static func reset() {
         ScrollwheelEvents.toggle(false)
         NavigationSwipeDetector.reset()
