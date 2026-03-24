@@ -162,8 +162,13 @@ class Applications {
         if let app = (list.first { $0.pid == pid }) {
             return app
         }
-        guard let runningApp = NSRunningApplication(processIdentifier: pid) else { return nil }
-        guard ApplicationDiscriminator.isActualApplication(pid, runningApp.bundleIdentifier) else { return nil }
+        guard let runningApp = NSRunningApplication(processIdentifier: pid) else {
+            Logger.debug { "NSRunningApplication init failed for pid:\(pid)" }
+            return nil
+        }
+        guard ApplicationDiscriminator.isActualApplication(pid, runningApp.bundleIdentifier) else {
+            return nil
+        }
         let app = Application(runningApp)
         list.append(app)
         return app

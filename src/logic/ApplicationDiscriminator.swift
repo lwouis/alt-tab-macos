@@ -2,7 +2,20 @@ class ApplicationDiscriminator {
     static func isActualApplication(_ processIdentifier: pid_t, _ bundleIdentifier: String?) -> Bool {
         // an app can start with .activationPolicy == .prohibited, then transition to != .prohibited later
         // an app can be both activationPolicy == .accessory and XPC (e.g. com.apple.dock.etci)
-        return (isNotXpc(processIdentifier) || isPasswords(bundleIdentifier) || isAndroidEmulator(bundleIdentifier, processIdentifier)) && !processIdentifier.isZombie()
+        guard isNotXpc(processIdentifier) || isPasswords(bundleIdentifier) || isAndroidEmulator(bundleIdentifier, processIdentifier) else {
+            Logger.debug { logTemplate("XPC process", processIdentifier, bundleIdentifier) }
+            return false
+        }
+        guard !processIdentifier.isZombie() else {
+            Logger.debug { logTemplate("zombie process", processIdentifier, bundleIdentifier) }
+            return false
+        }
+        Logger.debug { logTemplate(nil, processIdentifier, bundleIdentifier) }
+        return true
+    }
+
+    private static func logTemplate(_ rejectionReason: String?, _ processIdentifier: pid_t, _ bundleIdentifier: String?) -> String {
+        "Application \(rejectionReason == nil ? "accepted" : "rejected") (pid:\(processIdentifier) \(bundleIdentifier ?? "nil"))\(rejectionReason == nil ? "" : " because \(rejectionReason!)")"
     }
 
     private static func isNotXpc(_ processIdentifier: pid_t) -> Bool {
