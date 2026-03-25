@@ -89,7 +89,7 @@ class Windows {
 
     /// tabs detection is a flaky work-around the lack of public API to observe OS tabs
     /// see: https://github.com/lwouis/alt-tab-macos/issues/1540
-    private static func detectTabbedWindows(_ window: Window, _ cgsWindowIds: [CGWindowID], _ visibleCgsWindowIds: [CGWindowID]) {
+    private static func detectTabbedWindows(_ window: Window, _ cgsWindowIds: [CGWindowID], _ visibleCgsWindowIds: [CGWindowID], _ pidsWithVisibleWindow: Set<pid_t>) {
         if let cgWindowId = window.cgWindowId {
             if window.isMinimized || window.isHidden {
                 if #available(macOS 13.0, *) {
@@ -100,7 +100,10 @@ class Windows {
                     window.isTabbed = false
                 }
             } else {
-                window.isTabbed = !visibleCgsWindowIds.contains(cgWindowId)
+                // a real inactive tab always has a visible sibling (the active tab) from the same app
+                // apps like Teams/WeChat hide windows without destroying them; those have no visible sibling
+                let notInVisibleList = !visibleCgsWindowIds.contains(cgWindowId)
+                window.isTabbed = notInVisibleList && pidsWithVisibleWindow.contains(window.application.pid)
             }
         }
     }
@@ -115,8 +118,18 @@ class Windows {
         let spaceIdsAndIndexes = Spaces.idsAndIndexes.map { $0.0 }
         lazy var cgsWindowIds = Spaces.windowsInSpaces(spaceIdsAndIndexes)
         lazy var visibleCgsWindowIds = Spaces.windowsInSpaces(spaceIdsAndIndexes, false)
+        lazy var pidsWithVisibleWindow: Set<pid_t> = {
+            let visibleSet = Set(visibleCgsWindowIds)
+            var pids = Set<pid_t>()
+            for window in list {
+                if let wid = window.cgWindowId, visibleSet.contains(wid) {
+                    pids.insert(window.application.pid)
+                }
+            }
+            return pids
+        }()
         for window in list {
-            detectTabbedWindows(window, cgsWindowIds, visibleCgsWindowIds)
+            detectTabbedWindows(window, cgsWindowIds, visibleCgsWindowIds, pidsWithVisibleWindow)
             window.updateSpacesAndScreen()
             refreshIfWindowShouldBeShownToTheUser(window)
         }
