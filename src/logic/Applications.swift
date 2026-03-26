@@ -124,8 +124,8 @@ class Applications {
             AXUIElement.retryAxCallUntilTimeout(callType: .updateDockBadgesFromShowingUi) {
                 guard let dockPid = (list.first { $0.bundleIdentifier == "com.apple.dock" }?.pid),
                     let axDockChildren = try AXUIElementCreateApplication(dockPid).attributes([kAXChildrenAttribute]).children,
-                    let axList = try (axDockChildren.first { try $0.attributes([kAXRoleAttribute]).role == kAXListRole }),
-                    let axListChildren = try axList.attributes([kAXChildrenAttribute]).children else { return }
+                    let axListAttrs = (axDockChildren.lazy.compactMap { try? $0.attributes([kAXRoleAttribute, kAXChildrenAttribute]) }.first { $0.role == kAXListRole }),
+                    let axListChildren = axListAttrs.children else { return }
                 let axAppDockItemUrlAndLabel: [(URL?, String?)] = try axListChildren.compactMap {
                     let a = try $0.attributes([kAXSubroleAttribute, kAXIsApplicationRunningAttribute, kAXURLAttribute, kAXStatusLabelAttribute])
                     guard a.subrole == kAXApplicationDockItemSubrole && (a.appIsRunning ?? false) else { return nil }
