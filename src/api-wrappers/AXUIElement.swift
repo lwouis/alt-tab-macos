@@ -241,6 +241,24 @@ extension AXUIElement {
     func performAction(_ action: String) throws {
         try throwIfNotSuccess(AXUIElementPerformAction(self, action as CFString))
     }
+
+    /// Query the window's AXTabGroup child to detect OS-level tabs.
+    /// Returns tab titles if the window has tabs (always ≥ 2), nil otherwise.
+    /// `children` should come from the prior `.attributes([..., kAXChildrenAttribute])` call.
+    static func tabGroupInfo(_ children: [AXUIElement]?) -> [String]? {
+        guard let children else { return nil }
+        for child in children {
+            let a = try? child.attributes([kAXRoleAttribute, kAXChildrenAttribute])
+            guard a?.role == "AXTabGroup", let tabChildren = a?.children else { continue }
+            let titles = tabChildren.compactMap { tab -> String? in
+                let t = try? tab.attributes([kAXSubroleAttribute, kAXTitleAttribute])
+                guard t?.subrole == "AXTabButton" else { return nil }
+                return t?.title ?? ""
+            }
+            return titles.count >= 2 ? titles : nil
+        }
+        return nil
+    }
 }
 
 /// tests have shown that this ID has a range going from 0 to probably UInt.MAX

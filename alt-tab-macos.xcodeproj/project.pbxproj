@@ -258,6 +258,7 @@
 		D04BA6CC689662DECB2BE55E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BAC0253EAB4D509C4813F /* InfoPlist.strings */; };
 		D04BA72B336C7175871B281C /* general@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D04BAF6E2AB002763931645A /* general@2x.png */; };
 		D04BA737008AA2CD4E230A21 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA10777505D8A67ABD186 /* Application.swift */; };
+		BB0000000000000000000002 /* TabGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000001 /* TabGroup.swift */; };
 		D04BA73E90EFEF8247A5105D /* CGWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAC34CFD42A7F6F1F01C0 /* CGWindow.swift */; };
 		D04BA76A74267B1346D23687 /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA6D57A1456C07318B8EA /* GridView.swift */; };
 		D04BA7B8D599E1A7A27FF5AE /* AcknowledgmentsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA788228BA86D9EFBD1ED /* AcknowledgmentsTab.swift */; };
@@ -606,6 +607,7 @@
 		D04BA0E1C5DBC07108AC2F54 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		D04BA0F5EB832B8E142B654B /* 4 windows - 1 line.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "4 windows - 1 line.jpg"; sourceTree = "<group>"; };
 		D04BA10777505D8A67ABD186 /* Application.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
+		BB0000000000000000000001 /* TabGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabGroup.swift; sourceTree = "<group>"; };
 		D04BA107C8B8FE7FF8536606 /* too many windows - 4 lines - paginated.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "too many windows - 4 lines - paginated.jpg"; sourceTree = "<group>"; };
 		D04BA1232AFEEFE90D5CC827 /* debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = debug.xcconfig; sourceTree = "<group>"; };
 		D04BA18724DC58FA95DB33DB /* Podfile.lock */ = {isa = PBXFileReference; lastKnownFileType = file.lock; path = Podfile.lock; sourceTree = "<group>"; };
@@ -1418,6 +1420,7 @@
 				D04BA015A45DE7AFDC9794FE /* Window.swift */,
 				D04BA10777505D8A67ABD186 /* Application.swift */,
 				D04BA282BB16C1554595A968 /* Applications.swift */,
+				BB0000000000000000000001 /* TabGroup.swift */,
 				D04BAB74451B79FE18B8BEDF /* BackgroundWork.swift */,
 				D04BACABD048E62EBE4576CC /* DebugProfile.swift */,
 				D04BAC8857A527C2E15D6598 /* events */,
@@ -2561,6 +2564,7 @@
 				5F21C9E82C6E96A00091F72F /* SheetWindow.swift in Sources */,
 				D04BA737008AA2CD4E230A21 /* Application.swift in Sources */,
 				D04BA2A6FF9DDDC5A1A68E36 /* Applications.swift in Sources */,
+				BB0000000000000000000002 /* TabGroup.swift in Sources */,
 				AA974BA929B7D84C0099A29E /* PreviewPanel.swift in Sources */,
 				D04BA3CF766857381519B892 /* BackgroundWork.swift in Sources */,
 				D04BA48B00B4211A465C7337 /* DebugProfile.swift in Sources */,

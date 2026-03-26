@@ -20,6 +20,7 @@ class Window {
     var icon: CGImage? { get { application.icon } }
     var shouldShowTheUser = true
     var isTabbed: Bool = false
+    var tabbedSiblingWids: [CGWindowID]?
     var isHidden: Bool { get { application.isHidden } }
     var dockLabel: String? { get { application.dockLabel } }
     var isFullscreen = false
@@ -269,7 +270,11 @@ class Window {
 
     private func updateSpaces() {
         guard let cgWindowId else { return }
-        let spaceIds = cgWindowId.spaces()
+        var spaceIds = cgWindowId.spaces()
+        // inactive tabs return no space from CGSCopySpacesForWindows; use the active tab sibling's space
+        if spaceIds.isEmpty, let activeTab = TabGroup.activeTabSibling(of: self) {
+            spaceIds = activeTab.spaceIds
+        }
         self.spaceIds = spaceIds
         self.spaceIndexes = spaceIds.compactMap { spaceId in Spaces.idsAndIndexes.first { $0.0 == spaceId }?.1 }
         self.isOnAllSpaces = spaceIds.count > 1
@@ -300,9 +305,8 @@ class Window {
     func referenceWindowForTabbedWindow() -> Window? {
         // if the window is tabbed, we can't know its position/size before it's focused, so we use the currently
         // visible window-tab. Its data will match the tabbed window's
-        // TODO: handle the case where the app has multiple window-groups. In that case, we need to find the right
-        //       window-group, instead of picking the focused one
-        return isTabbed ? application.focusedWindow : self
+        // fallback to the focusedWindow
+        isTabbed ? (TabGroup.activeTabSibling(of: self) ?? application.focusedWindow) : self
     }
 
     // Determines if this window is the main application window

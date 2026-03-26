@@ -87,27 +87,6 @@ class Windows {
         }
     }
 
-    /// tabs detection is a flaky work-around the lack of public API to observe OS tabs
-    /// see: https://github.com/lwouis/alt-tab-macos/issues/1540
-    private static func detectTabbedWindows(_ window: Window, _ cgsWindowIds: [CGWindowID], _ visibleCgsWindowIds: [CGWindowID], _ pidsWithVisibleWindow: Set<pid_t>) {
-        if let cgWindowId = window.cgWindowId {
-            if window.isMinimized || window.isHidden {
-                if #available(macOS 13.0, *) {
-                    // not exact after window merging
-                    window.isTabbed = !cgsWindowIds.contains(cgWindowId)
-                } else {
-                    // not known
-                    window.isTabbed = false
-                }
-            } else {
-                // a real inactive tab always has a visible sibling (the active tab) from the same app
-                // apps like Teams/WeChat hide windows without destroying them; those have no visible sibling
-                let notInVisibleList = !visibleCgsWindowIds.contains(cgWindowId)
-                window.isTabbed = notInVisibleList && pidsWithVisibleWindow.contains(window.application.pid)
-            }
-        }
-    }
-
     static func updatesBeforeShowing() -> Bool {
         if MissionControl.state() == .showAllWindows || MissionControl.state() == .showFrontWindows { return false }
         if list.isEmpty { return true }
@@ -115,21 +94,7 @@ class Windows {
         // workaround: when Preferences > Mission Control > "Displays have separate Spaces" is unchecked,
         // switching between displays doesn't trigger .activeSpaceDidChangeNotification; we get the latest manually
         Spaces.refresh()
-        let spaceIdsAndIndexes = Spaces.idsAndIndexes.map { $0.0 }
-        lazy var cgsWindowIds = Spaces.windowsInSpaces(spaceIdsAndIndexes)
-        lazy var visibleCgsWindowIds = Spaces.windowsInSpaces(spaceIdsAndIndexes, false)
-        lazy var pidsWithVisibleWindow: Set<pid_t> = {
-            let visibleSet = Set(visibleCgsWindowIds)
-            var pids = Set<pid_t>()
-            for window in list {
-                if let wid = window.cgWindowId, visibleSet.contains(wid) {
-                    pids.insert(window.application.pid)
-                }
-            }
-            return pids
-        }()
         for window in list {
-            detectTabbedWindows(window, cgsWindowIds, visibleCgsWindowIds, pidsWithVisibleWindow)
             window.updateSpacesAndScreen()
             refreshIfWindowShouldBeShownToTheUser(window)
         }
@@ -551,6 +516,10 @@ class Windows {
             if let wid = w.cgWindowId {
                 Applications.manualWindowUpdatesThrottler.removeEntry(withKey: "\(wid)")
                 AccessibilityEvents.removeThrottlerEntries(wid: wid)
+            }
+            // when a tabbed window is removed, update its former siblings' tab group
+            if let siblingWids = w.tabbedSiblingWids {
+                TabGroup.removedWindowFromGroup(wid: w.cgWindowId, siblingWids: siblingWids)
             }
         }
         if addWindowlessWindowIfNeeded {

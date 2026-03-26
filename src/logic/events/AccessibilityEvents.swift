@@ -80,8 +80,7 @@ class AccessibilityEvents {
             // for AXUIElement of apps, CFEqual or == don't work; looks like a Cocoa bug
             return $0.application.pid == pid
         }
-        // if we process the "shown" event too fast, the window won't be listed by CGSCopyWindowsWithOptionsAndTags
-        // it will thus be detected as isTabbed. We add a delay to work around this scenario
+        // if we process the "shown" event too fast, UI may not be ready; we add a delay to work around this
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)) {
             App.refreshOpenUiAfterExternalEvent(windows)
         }
@@ -98,7 +97,11 @@ class AccessibilityEvents {
             return
         }
         let level = wid.level()
-        let a = try element.attributes([kAXTitleAttribute, kAXSubroleAttribute, kAXRoleAttribute, kAXSizeAttribute, kAXPositionAttribute, kAXFullscreenAttribute, kAXMinimizedAttribute])
+        // if we query .children on ourselves, AppKit calls layout directly from our thread instead of IPC; we avoid this
+        let isSelf = pid == ProcessInfo.processInfo.processIdentifier
+        let keys = [kAXTitleAttribute, kAXSubroleAttribute, kAXRoleAttribute, kAXSizeAttribute, kAXPositionAttribute, kAXFullscreenAttribute, kAXMinimizedAttribute] + (isSelf ? [] : [kAXChildrenAttribute])
+        let a = try element.attributes(keys)
+        let tabSiblingTitles = isSelf ? nil : TabGroup.extractTabTitles(a.children)
         DispatchQueue.main.async {
             guard let app = Applications.findOrCreate(pid, false) else { return }
             Logger.info { "\(type) wid:\(wid) app:\(app.debugId)" }
@@ -111,7 +114,11 @@ class AccessibilityEvents {
                 return
             }
             Logger.debug { "\(type) win:\(window.debugId)" }
-            if findOrCreate.1 {
+            var tabStateChanged = false
+            if tabSiblingTitles != nil || window.tabbedSiblingWids != nil {
+                tabStateChanged = TabGroup.updateState(window, tabSiblingTitles)
+            }
+            if findOrCreate.1 || (tabStateChanged && App.appIsBeingUsed) {
                 App.refreshOpenUiAfterExternalEvent([window])
             }
             if type == kAXMainWindowChangedNotification || type == kAXFocusedWindowChangedNotification {
