@@ -302,7 +302,6 @@
 		D04BADCDA9F9A6C3D6499877 /* SystemPermissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA7C6F2519091717F4B4E /* SystemPermissions.swift */; };
 		D04BADE4DDF7597749FB13BD /* SettingsWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA099FA155FB4D517D66B /* SettingsWindow.swift */; };
 		D04BAE8B16A06A10E2FA94DE /* AccessibilityEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA8FDCF137D892114F5F3 /* AccessibilityEvents.swift */; };
-		D04BAEE31B6FFCDC779E6C17 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = D04BAC2FF99F629CD4ED20FC /* MainMenu.xib */; };
 		D04BAF12DF5D15B9D7D316A4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BA61693F710CD7BD054D7 /* InfoPlist.strings */; };
 		D04BAFB217F9F8E58C3B09AD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BA82BB17B85A88A5D2B87 /* InfoPlist.strings */; };
 		D04BAFB90E00AA5D662EAF24 /* PermissionsWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA9DF10D0CC4CA0C8F814 /* PermissionsWindow.swift */; };
@@ -725,7 +724,6 @@
 		D04BABE52980E4EEF838B8DD /* nl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = nl; path = Localizable.strings; sourceTree = "<group>"; };
 		D04BAC02D60EF22D9CC7D969 /* commitlint.config.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = commitlint.config.js; sourceTree = "<group>"; };
 		D04BAC08AEDFBF722D613801 /* ar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ar; path = Localizable.strings; sourceTree = "<group>"; };
-		D04BAC2FF99F629CD4ED20FC /* MainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		D04BAC34CFD42A7F6F1F01C0 /* CGWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGWindow.swift; sourceTree = "<group>"; };
 		D04BAC6AFC7F06D1A567F27A /* replace_environment_variables_in_app.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = replace_environment_variables_in_app.sh; sourceTree = "<group>"; };
 		D04BACABD048E62EBE4576CC /* DebugProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugProfile.swift; sourceTree = "<group>"; };
@@ -1840,7 +1838,6 @@
 		D04BA9CA03317B315B267E21 /* resources */ = {
 			isa = PBXGroup;
 			children = (
-				D04BAC2FF99F629CD4ED20FC /* MainMenu.xib */,
 				D04BAC2B70BC798C57B0B492 /* l10n */,
 				D04BA7568B7165A7726306A7 /* icons */,
 				D04BA60A6D08C041F5BF8CC9 /* SF-Pro-Text-Regular.otf */,
@@ -2232,7 +2229,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				48F3E16224EC0D8800A1C64B /* Localizable.strings in Resources */,
-				D04BAEE31B6FFCDC779E6C17 /* MainMenu.xib in Resources */,
 				D04BA276B3241D440F65B149 /* InfoPlist.strings in Resources */,
 				D04BA084CD1236EC78D90A01 /* Localizable.strings in Resources */,
 				D04BAF12DF5D15B9D7D316A4 /* InfoPlist.strings in Resources */,

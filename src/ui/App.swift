@@ -363,7 +363,7 @@ class App: AppCenterApplication {
         TilesPanel.updateMaxPossibleThumbnailSize()
         TilesPanel.updateMaxPossibleAppIconSize()
         Menubar.initialize()
-        MainMenu.loadFromXib()
+        MainMenu.create()
         _ = TilesPanel()
         _ = PreviewPanel()
         Spaces.refresh()
