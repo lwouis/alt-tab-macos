@@ -3,21 +3,12 @@ import ApplicationServices.HIServices.AXUIElement
 import ApplicationServices.HIServices.AXNotificationConstants
 
 class AccessibilityEvents {
-    private static let throttler = ThrottlerWithKey(delayInMs: 200)
-
-    static func removeThrottlerEntries(wid: CGWindowID) {
-        throttler.removeEntries(withSuffix: "-wid-\(wid)")
-    }
-
-    static func removeThrottlerEntries(pid: pid_t) {
-        throttler.removeEntries(withSuffix: "-pid-\(pid)")
-    }
-
     static let axObserverCallback: AXObserverCallback = { _, element, notificationName, _ in
         let type = notificationName as String
         Logger.debug { type }
-        AXUIElement.retryAxCallUntilTimeout(context: "(type:\(type)", callType: .entrypointFromAxEvent) {
-            try handleEvent(type, element)
+        AXCallScheduler.shared.submit {
+            do { try handleEvent(type, element) }
+            catch { Logger.debug { "handleEvent threw for \(type): stale element" } }
         }
     }
 
@@ -25,17 +16,22 @@ class AccessibilityEvents {
         let pid = try element.pid()
         Logger.debug { "\(type) pid:\(pid)" }
         if [kAXApplicationActivatedNotification, kAXApplicationHiddenNotification, kAXApplicationShownNotification].contains(type) {
-            throttler.throttleOrProceed(key: "\(type)-pid-\(pid)") {
-                AXUIElement.retryAxCallUntilTimeout(context: "(pid:\(pid))", pid: pid, callType: .updateAppFromAxEvent) {
-                    try handleEventApp(type, pid, element)
-                }
+            AXCallScheduler.shared.schedule(key: "pid-\(pid)", context: "(pid:\(pid))", pid: pid) {
+                try handleEventApp(type, pid, element)
             }
         } else {
             let wid = (try? element.cgWindowId()) ?? 0
-            throttler.throttleOrProceed(key: "\(type)-wid-\(wid)") {
-                AXUIElement.retryAxCallUntilTimeout(context: "(pid:\(pid))", pid: pid, wid: wid, callType: .updateWindowFromAxEvent) {
-                    try handleEventWindow(type, wid, pid, element)
+            guard wid != 0 || type == kAXUIElementDestroyedNotification,
+                  wid != TilesPanel.shared.windowNumber else { return }
+            if type == kAXUIElementDestroyedNotification {
+                DispatchQueue.main.async {
+                    Logger.info { "\(type) wid:\(wid) pid:\(pid)" }
+                    windowDestroyed(element, pid, wid)
                 }
+                return
+            }
+            AXCallScheduler.shared.schedule(key: "wid-\(wid)", context: "(pid:\(pid) wid:\(wid))", pid: pid) {
+                try handleEventWindow(type, wid, pid, element)
             }
         }
     }
@@ -44,12 +40,14 @@ class AccessibilityEvents {
         let appFocusedWindow = try element.attributes([kAXFocusedWindowAttribute]).focusedWindow
         let wid = try appFocusedWindow?.cgWindowId()
         DispatchQueue.main.async {
-            guard let app = Applications.findOrCreate(pid, false) else { return }
-            Logger.info { "\(type) app:\(app.debugId)" }
-            if type == kAXApplicationActivatedNotification {
-                applicationActivated(app, pid, type, appFocusedWindow, wid)
-            } else if type == kAXApplicationHiddenNotification || type == kAXApplicationShownNotification {
-                applicationHiddenOrShown(app, pid, type)
+            Applications.appListUpdateThrottler.throttleOrProceed(key: "\(pid)") {
+                guard let app = Applications.findOrCreate(pid, false) else { return }
+                Logger.info { "\(type) app:\(app.debugId)" }
+                if type == kAXApplicationActivatedNotification {
+                    applicationActivated(app, pid, type, appFocusedWindow, wid)
+                } else if type == kAXApplicationHiddenNotification || type == kAXApplicationShownNotification {
+                    applicationHiddenOrShown(app, pid, type)
+                }
             }
         }
     }
@@ -61,7 +59,7 @@ class AccessibilityEvents {
         }
         if let appFocusedWindow, let wid {
             // if there is a focusedWindow, we reuse existing code to process it as if it was a kAXFocusedWindowChangedNotification
-            AXUIElement.retryAxCallUntilTimeout(context: "\(type) \(app.debugId))", pid: pid, wid: wid, callType: .updateWindowFromAxEvent) {
+            AXCallScheduler.shared.schedule(key: "wid-\(wid)", context: "\(type) \(app.debugId))", pid: pid) {
                 try handleEventWindow(kAXFocusedWindowChangedNotification, wid, pid, appFocusedWindow)
             }
         } else {
@@ -87,15 +85,6 @@ class AccessibilityEvents {
     }
 
     static func handleEventWindow(_ type: String, _ wid: CGWindowID, _ pid: pid_t, _ element: AXUIElement) throws {
-        guard wid != 0 || type == kAXUIElementDestroyedNotification,
-              wid != TilesPanel.shared.windowNumber else { return } // don't process events for the thumbnails panel
-        if type == kAXUIElementDestroyedNotification {
-            DispatchQueue.main.async {
-                Logger.info { "\(type) wid:\(wid) pid:\(pid)" }
-                windowDestroyed(element, pid, wid)
-            }
-            return
-        }
         let level = wid.level()
         // if we query .children on ourselves, AppKit calls layout directly from our thread instead of IPC; we avoid this
         let isSelf = pid == ProcessInfo.processInfo.processIdentifier
@@ -103,30 +92,32 @@ class AccessibilityEvents {
         let a = try element.attributes(keys)
         let tabSiblingTitles = isSelf ? nil : TabGroup.extractTabTitles(a.children)
         DispatchQueue.main.async {
-            guard let app = Applications.findOrCreate(pid, false) else { return }
-            Logger.info { "\(type) wid:\(wid) app:\(app.debugId)" }
-            let findOrCreate = Windows.findOrCreate(element, wid, app, level, a.title, a.subrole, a.role, a.size, a.position, a.isFullscreen, a.isMinimized)
-            guard let window = findOrCreate.0 else {
-                // we don't know this window, but it got focused, so let's update app.focusedWindow with nil
-                if type == kAXFocusedWindowChangedNotification && a.role != kAXSheetRole {
-                    app.focusedWindow = nil
+            Applications.windowListUpdateThrottler.throttleOrProceed(key: "\(wid)") {
+                guard let app = Applications.findOrCreate(pid, false) else { return }
+                Logger.info { "\(type) wid:\(wid) app:\(app.debugId)" }
+                let findOrCreate = Windows.findOrCreate(element, wid, app, level, a.title, a.subrole, a.role, a.size, a.position, a.isFullscreen, a.isMinimized)
+                guard let window = findOrCreate.0 else {
+                    // we don't know this window, but it got focused, so let's update app.focusedWindow with nil
+                    if type == kAXFocusedWindowChangedNotification && a.role != kAXSheetRole {
+                        app.focusedWindow = nil
+                    }
+                    return
                 }
-                return
-            }
-            Logger.debug { "\(type) win:\(window.debugId)" }
-            var tabStateChanged = false
-            if tabSiblingTitles != nil || window.tabbedSiblingWids != nil {
-                tabStateChanged = TabGroup.updateState(window, tabSiblingTitles)
-            }
-            if findOrCreate.1 || (tabStateChanged && App.appIsBeingUsed) {
-                App.refreshOpenUiAfterExternalEvent([window])
-            }
-            if type == kAXMainWindowChangedNotification || type == kAXFocusedWindowChangedNotification {
-                focusedWindowChanged(window)
-            } else if type == kAXWindowResizedNotification || type == kAXWindowMovedNotification {
-                windowResizedOrMoved(window)
-            } else if !findOrCreate.1 {
-                App.refreshOpenUiAfterExternalEvent([window])
+                Logger.debug { "\(type) win:\(window.debugId)" }
+                var tabStateChanged = false
+                if tabSiblingTitles != nil || window.tabbedSiblingWids != nil {
+                    tabStateChanged = TabGroup.updateState(window, tabSiblingTitles)
+                }
+                if findOrCreate.1 || (tabStateChanged && App.appIsBeingUsed) {
+                    App.refreshOpenUiAfterExternalEvent([window])
+                }
+                if type == kAXMainWindowChangedNotification || type == kAXFocusedWindowChangedNotification {
+                    focusedWindowChanged(window)
+                } else if type == kAXWindowResizedNotification || type == kAXWindowMovedNotification {
+                    windowResizedOrMoved(window)
+                } else if !findOrCreate.1 {
+                    App.refreshOpenUiAfterExternalEvent([window])
+                }
             }
         }
     }

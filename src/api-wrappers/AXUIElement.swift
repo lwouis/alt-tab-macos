@@ -6,13 +6,11 @@ import ApplicationServices.HIServices.AXRoleConstants
 import ApplicationServices.HIServices.AXAttributeConstants
 import ApplicationServices.HIServices.AXActionConstants
 
-/// common, subscriptions, concurrency
+/// common, subscriptions
 extension AXUIElement {
     // default timeout for AX calls is 6s
     // we reduce to 1s to avoid AX calls blocking threads, thus too many threads getting created to make the next AX calls
     private static let globalMessagingTimeoutInSeconds = Float(1)
-    // if an app times out our AX calls, we retry for 6s then give up
-    private static let axCallsRetriesQueueTimeoutInSeconds = Float(6)
     static func setGlobalTimeout() {
         AXUIElementSetMessagingTimeout(AXUIElementCreateSystemWide(), globalMessagingTimeoutInSeconds)
     }
@@ -23,39 +21,6 @@ extension AXUIElement {
             throw AxError.runtimeError
         }
         // for success or other errors we don't throw
-    }
-
-    /// if the window server is busy, it may not reply to AX calls. We retry right before the call times-out and returns a bogus value
-    static func retryAxCallUntilTimeout(file: String = #file, function: String = #function, line: Int = #line, context: String = "", after: DispatchTime? = nil, pid: pid_t? = nil, wid: CGWindowID? = nil, retriesQueue: Bool = false, startTimeInNanoseconds: UInt64 = DispatchTime.now().uptimeNanoseconds, callType: AXCallType, block: @escaping () throws -> Void) {
-        let closure = { retryAxCallUntilTimeout_(file: file, function: function, line: line, context: context, after: after, pid: pid, wid: wid, retriesQueue: retriesQueue, startTimeInNanoseconds: startTimeInNanoseconds, callType: callType, block: block) }
-        let queue = (callType == .updateAppWindowsFromManualDiscovery ? BackgroundWork.axCallsManualDiscoveryQueue
-            : (retriesQueue ? BackgroundWork.axCallsRetriesQueue
-                : BackgroundWork.axCallsFirstAttemptQueue))!
-        if let after {
-            queue.addOperationAfter(deadline: after, block: closure)
-        } else {
-            queue.addOperation(closure)
-        }
-    }
-
-    private static func retryAxCallUntilTimeout_(file: String, function: String, line: Int, context: String, after: DispatchTime?, pid: pid_t?, wid: CGWindowID?, retriesQueue: Bool, startTimeInNanoseconds: UInt64, callType: AXCallType, block: @escaping () throws -> Void) {
-        // attempt the AX call
-        if (try? block()) != nil {
-            return
-        }
-        // give up?
-        let timePassedInSeconds = Float(DispatchTime.now().uptimeNanoseconds - startTimeInNanoseconds) / 1_000_000_000
-        if timePassedInSeconds >= axCallsRetriesQueueTimeoutInSeconds {
-            Logger.info { "AX call failed for more than \(Int(axCallsRetriesQueueTimeoutInSeconds))s. Giving up on it. \(logFromContext(file, function, line, context, callType))" }
-            return
-        }
-        // retry
-        Logger.debug { "(pid:\(pid) wid:\(wid)) \(logFromContext(file, function, line, context, callType))" }
-        retryAxCallUntilTimeout(file: file, function: function, line: line, context: context, after: .now() + humanPerceptionDelay, pid: pid, wid: wid, retriesQueue: true, startTimeInNanoseconds: startTimeInNanoseconds, callType: callType, block: block)
-    }
-
-    private static func logFromContext(_ file: String, _ function: String, _ line: Int, _ context: String, _ callType: AXCallType) -> String {
-        return "Context: \((file as NSString).lastPathComponent):\(line) \(function) \(String(describing: callType)) \(context)"
     }
 
     @discardableResult
@@ -71,23 +36,6 @@ extension AXUIElement {
         // temporary issue; subscription may succeed if retried
         throw AxError.runtimeError
     }
-
-    enum AXCallType: Int {
-        case subscribeToAppNotification
-        case subscribeToWindowNotification
-        case subscribeToDockNotification
-
-        case updateAppWindowsFromManualDiscovery
-        case updateWindowFromManualDiscovery
-
-        case entrypointFromAxEvent
-        case updateWindowFromAxEvent
-        case updateAppFromAxEvent
-
-        case updateAppFocusedWindowFromWindowInit
-        case updateDockBadgesFromShowingUi
-    }
-
 }
 
 /// Attributes

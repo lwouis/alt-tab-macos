@@ -42,10 +42,11 @@ class Windows {
     static func updateIsFullscreenOnCurrentSpace() {
         let windowsOnCurrentSpace = list.filter { !$0.isWindowlessApp }
         for window in windowsOnCurrentSpace {
-            AXUIElement.retryAxCallUntilTimeout(context: window.debugId, after: .now() + humanPerceptionDelay, wid: window.cgWindowId, callType: .updateWindowFromAxEvent) { [weak window] in
+            guard let wid = window.cgWindowId, let axUiElement = window.axUiElement else { continue }
+            AXCallScheduler.shared.schedule(key: "wid-\(wid)", context: window.debugId, pid: window.application.pid) { [weak window] in
                 guard let window else { return }
                 // we reuse existing code, to update .isFullscreen, as if there was a kAXWindowResizedNotification
-                try AccessibilityEvents.handleEventWindow(kAXWindowResizedNotification, window.cgWindowId!, window.application.pid, window.axUiElement!)
+                try AccessibilityEvents.handleEventWindow(kAXWindowResizedNotification, wid, window.application.pid, axUiElement)
             }
         }
     }
@@ -514,8 +515,8 @@ class Windows {
         }
         for w in windows {
             if let wid = w.cgWindowId {
-                Applications.manualWindowUpdatesThrottler.removeEntry(withKey: "\(wid)")
-                AccessibilityEvents.removeThrottlerEntries(wid: wid)
+                AXCallScheduler.shared.removeEntry(key: "wid-\(wid)")
+                Applications.windowListUpdateThrottler.removeEntry(withKey: "\(wid)")
             }
             // when a tabbed window is removed, update its former siblings' tab group
             if let siblingWids = w.tabbedSiblingWids {

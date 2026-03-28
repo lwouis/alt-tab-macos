@@ -13,9 +13,6 @@ class BackgroundWork {
     static var repeatingKeyQueue: LabeledOperationQueue!
     static var screenshotsQueue: LabeledOperationQueue!
     static var accessibilityCommandsQueue: LabeledOperationQueue!
-    static var axCallsFirstAttemptQueue: LabeledOperationQueue!
-    static var axCallsRetriesQueue: LabeledOperationQueue!
-    static var axCallsManualDiscoveryQueue: LabeledOperationQueue!
     static var crashReportsQueue: LabeledOperationQueue!
     static var permissionsCheckOnTimerQueue: LabeledOperationQueue!
     static var permissionsSystemCallsQueue: LabeledOperationQueue!
@@ -33,16 +30,9 @@ class BackgroundWork {
     }
 
     static func start() {
-
         // calls to focus/close/minimize/etc windows
         // They are tried once and if they timeout we don't retry. The OS seems to still execute them even if the call timed out
         accessibilityCommandsQueue = LabeledOperationQueue("axCommands", .userInteractive, 4)
-        // calls to the AX APIs can block for a long time (e.g. if an app is unresponsive)
-        // We first try the AX calls on axCallsFirstAttemptQueue. If we get a timeout, we move to axCallsRetriesQueue and retry there for a while
-        axCallsFirstAttemptQueue = LabeledOperationQueue("axCallsFirst", .userInteractive, 8)
-        axCallsRetriesQueue = LabeledOperationQueue("axCallsRetry", .userInteractive, 8)
-        // we separate calls to manuallyUpdateWindows since those can be very heavy and numerous
-        axCallsManualDiscoveryQueue = LabeledOperationQueue("axCallsManual", .userInteractive, 8)
         // we time key repeat on a background queue. We handle their consequence on the main-thread
         repeatingKeyQueue = LabeledOperationQueue("repeatingKey", .userInteractive, 1)
         // we observe app and windows notifications. They arrive on this thread, and are handled off the main thread initially
@@ -72,7 +62,7 @@ class BackgroundWork {
     // useful during development to inspect how many threads are used by AltTab
     private static func logThreadsAndQueuesOnRepeat() {
         // if Logger.decideLevel() == .debug {
-            debugMenu = DebugMenu([screenshotsQueue, accessibilityCommandsQueue, axCallsFirstAttemptQueue, axCallsRetriesQueue, axCallsManualDiscoveryQueue])
+            debugMenu = DebugMenu([screenshotsQueue, accessibilityCommandsQueue, AXCallScheduler.shared.fastQueue, AXCallScheduler.shared.retryQueue])
             debugMenu.orderFront(nil)
             debugMenu.start()
             // Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
@@ -83,7 +73,7 @@ class BackgroundWork {
     }
 
     private static func logQueues() -> Void {
-        let queues = [screenshotsQueue, accessibilityCommandsQueue, axCallsFirstAttemptQueue, axCallsRetriesQueue, crashReportsQueue].compactMap { $0 }
+        let queues = [screenshotsQueue, accessibilityCommandsQueue, AXCallScheduler.shared.fastQueue, AXCallScheduler.shared.retryQueue, crashReportsQueue].compactMap { $0 }
         var map = [String:Int]()
         for queue in queues {
             map[queue.underlyingQueue!.label] = queue.operations.reduce(0) { $1.isExecuting ? $0 + 1 : $0 }

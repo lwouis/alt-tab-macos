@@ -97,12 +97,12 @@ class Window {
     private func observeEvents() {
         AXObserverCreate(application.pid, AccessibilityEvents.axObserverCallback, &axObserver)
         guard let axObserver else { return }
-        AXUIElement.retryAxCallUntilTimeout(context: debugId, pid: application.pid, wid: cgWindowId, callType: .subscribeToWindowNotification) { [weak self] in
+        AXCallScheduler.shared.schedule(key: "sub-win-\(cgWindowId)", context: debugId, pid: application.pid) { [weak self] in
             guard let self else { return }
             if try self.axUiElement!.subscribeToNotification(axObserver, Window.notifications.first!) {
                 Logger.debug { "Subscribed to window: \(self.debugId)" }
                 for notification in Window.notifications.dropFirst() {
-                    AXUIElement.retryAxCallUntilTimeout(context: self.debugId, pid: self.application.pid, wid: cgWindowId, callType: .subscribeToWindowNotification) { [weak self] in
+                    AXCallScheduler.shared.schedule(key: "sub-win-\(cgWindowId)-\(notification)", context: self.debugId, pid: self.application.pid) { [weak self] in
                         try self?.axUiElement!.subscribeToNotification(axObserver, notification)
                     }
                 }
@@ -331,7 +331,7 @@ class Window {
     private func checkIfFocused() {
         let app = application
         guard let appAxUiElement = app.axUiElement else { return }
-        AXUIElement.retryAxCallUntilTimeout(context: debugId, pid: app.pid, wid: cgWindowId, callType: .updateAppFocusedWindowFromWindowInit) { [weak app] in
+        AXCallScheduler.shared.schedule(key: "wid-\(cgWindowId)-focus", context: debugId, pid: app.pid) { [weak app] in
             guard let app, let focusedWindow = try appAxUiElement.attributes([kAXFocusedWindowAttribute]).focusedWindow else { return }
             let focusedWid = try focusedWindow.cgWindowId()
             DispatchQueue.main.async {

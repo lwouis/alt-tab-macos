@@ -170,6 +170,7 @@
 		BF0C89C49CFBAAB4646BB8CB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C82A8848224E76B880A83 /* InfoPlist.strings */; };
 		BF0C89F0632E0A2EC52D9168 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C87749F1A64E2D3305181 /* InfoPlist.strings */; };
 		BF0C8A2F6E4C85A7D9B63B12 /* Throttler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C8A1E7D3F94B6E8C52A01 /* Throttler.swift */; };
+		AA0C8A100000000000000001 /* AXCallScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0C8A000000000000000001 /* AXCallScheduler.swift */; };
 		BF0C8A3F32B2177AF407DC7E /* DockEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C870C14C20C936BA4AF40 /* DockEvents.swift */; };
 		BF0C8A408B8E1C662E457A99 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C86C535CC75FA07FAA09B /* InfoPlist.strings */; };
 		BF0C8A49891371E4027E0641 /* MacroPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C8998862E0E04D60CACBC /* MacroPreferences.swift */; };
@@ -528,6 +529,7 @@
 		BF0C89D7F23D82A3FF442E0B /* build_app.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = build_app.sh; sourceTree = "<group>"; };
 		BF0C89F6EA16DD7322626E20 /* FUNDING.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = FUNDING.yml; sourceTree = "<group>"; };
 		BF0C8A1E7D3F94B6E8C52A01 /* Throttler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Throttler.swift; sourceTree = "<group>"; };
+		AA0C8A000000000000000001 /* AXCallScheduler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AXCallScheduler.swift; sourceTree = "<group>"; };
 		BF0C8A261AAA42191426A587 /* run_tests.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = run_tests.sh; sourceTree = "<group>"; };
 		BF0C8A3DAEA5B956593AF97A /* kn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = kn; path = InfoPlist.strings; sourceTree = "<group>"; };
 		BF0C8A479D2B7FB80531F037 /* PopupButtonLikeSystemSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupButtonLikeSystemSettings.swift; sourceTree = "<group>"; };
@@ -1433,6 +1435,7 @@
 				BF0C8998862E0E04D60CACBC /* MacroPreferences.swift */,
 				BF0C8F58B38F29B2662E6C2D /* PreferencesMigrations.swift */,
 				BF0C8A1E7D3F94B6E8C52A01 /* Throttler.swift */,
+				AA0C8A000000000000000001 /* AXCallScheduler.swift */,
 			);
 			path = logic;
 			sourceTree = "<group>";
@@ -2643,6 +2646,7 @@
 				BF0C803A13C409E7F01FBCAB /* SkyLight.framework.swift in Sources */,
 				BF0C80C69EFEF93C18539925 /* PreferencesMigrations.swift in Sources */,
 				BF0C8A2F6E4C85A7D9B63B12 /* Throttler.swift in Sources */,
+				AA0C8A100000000000000001 /* AXCallScheduler.swift in Sources */,
 				BF0C8973EC078169170F2634 /* CliEvents.swift in Sources */,
 				BF0C8521DA3078516615C414 /* HelperExtensionsTestable.swift in Sources */,
 				BF0C8991399A3277A9A02FFA /* LightImageView.swift in Sources */,

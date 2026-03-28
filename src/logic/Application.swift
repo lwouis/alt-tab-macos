@@ -128,7 +128,7 @@ class Application: NSObject {
 
     private func observeEvents() {
         guard let axObserver else { return }
-        AXUIElement.retryAxCallUntilTimeout(context: debugId, pid: pid, callType: .subscribeToAppNotification) { [weak self] in
+        AXCallScheduler.shared.schedule(key: "sub-app-\(pid)", context: debugId, pid: pid) { [weak self] in
             guard let self, !self.isReallyFinishedLaunching else { return }
             if try self.axUiElement!.subscribeToNotification(axObserver, Application.notifications.first!) {
                 Logger.debug { "Subscribed to app: \(self.debugId)" }
@@ -138,7 +138,7 @@ class Application: NSObject {
                     // windows opened before that point won't send a notification, so check those windows manually here
                     self.isReallyFinishedLaunching = true
                     for notification in Application.notifications.dropFirst() {
-                        AXUIElement.retryAxCallUntilTimeout(context: self.debugId, pid: self.pid, callType: .subscribeToAppNotification) { [weak self] in
+                        AXCallScheduler.shared.schedule(key: "sub-app-\(self.pid)-\(notification)", context: self.debugId, pid: self.pid) { [weak self] in
                             try self?.axUiElement!.subscribeToNotification(axObserver, notification)
                         }
                     }
@@ -156,29 +156,6 @@ class Application: NSObject {
             }
         }
         CFRunLoopAddSource(BackgroundWork.accessibilityEventsThread.runLoop, AXObserverGetRunLoopSource(axObserver), .commonModes)
-    }
-
-    func manuallyUpdateWindow(_ axWindow: AXUIElement, _ wid: CGWindowID) throws {
-        guard wid != 0 && wid != TilesPanel.shared.windowNumber else { return } // some bogus "windows" have wid 0
-        let level = wid.level()
-        // if we query .children on ourselves, AppKit calls layout directly from our thread instead of IPC; we avoid this
-        let isSelf = pid == ProcessInfo.processInfo.processIdentifier
-        let keys = [kAXTitleAttribute, kAXSubroleAttribute, kAXRoleAttribute, kAXSizeAttribute, kAXPositionAttribute, kAXFullscreenAttribute, kAXMinimizedAttribute] + (isSelf ? [] : [kAXChildrenAttribute])
-        let a = try axWindow.attributes(keys)
-        let tabSiblingTitles = isSelf ? nil : TabGroup.extractTabTitles(a.children)
-        DispatchQueue.main.async { [weak self] in
-            guard let self else { return }
-            let findOrCreate = Windows.findOrCreate(axWindow, wid, self, level, a.title, a.subrole, a.role, a.size, a.position, a.isFullscreen, a.isMinimized)
-            guard let window = findOrCreate.0 else { return }
-            var tabStateChanged = false
-            if tabSiblingTitles != nil || window.tabbedSiblingWids != nil {
-                tabStateChanged = TabGroup.updateState(window, tabSiblingTitles)
-            }
-            if findOrCreate.1 || (tabStateChanged && App.appIsBeingUsed) {
-                if findOrCreate.1 { Logger.info { "manuallyUpdateWindows found a new window:\(window.debugId)" } }
-                App.refreshOpenUiAfterExternalEvent([window])
-            }
-        }
     }
 
     @discardableResult
