@@ -306,25 +306,9 @@ extension CMSampleBuffer {
 }
 
 class ActiveWindowCaptures {
-    private static var count: Int = 0
-    private static let semaphore = DispatchSemaphore(value: 1)
+    private static var _count: Int32 = 0
 
-    static func increment() {
-        semaphore.wait()
-        count += 1
-        semaphore.signal()
-    }
-
-    static func decrement() {
-        semaphore.wait()
-        count -= 1
-        semaphore.signal()
-    }
-
-    static func value() -> Int {
-        semaphore.wait()
-        let current = count
-        semaphore.signal()
-        return current
-    }
+    static func increment() { OSAtomicIncrement32(&_count) }
+    static func decrement() { OSAtomicDecrement32(&_count) }
+    static func value() -> Int { Int(OSAtomicAdd32(0, &_count)) }
 }

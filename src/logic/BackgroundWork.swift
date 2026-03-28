@@ -159,10 +159,6 @@ class LabeledOperationQueue: OperationQueue, @unchecked Sendable {
         self.underlyingQueue = strongUnderlyingQueue
     }
 
-    override func addOperation(_ block: @escaping () -> ()) {
-        super.addOperation(block)
-    }
-
     func addOperationAfter(deadline: DispatchTime, block: @escaping @convention(block) () -> Void) {
         strongUnderlyingQueue.asyncAfter(deadline: deadline) { [weak self] in
             self?.addOperation(block)

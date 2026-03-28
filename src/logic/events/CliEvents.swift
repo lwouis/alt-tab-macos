@@ -35,6 +35,7 @@ class CliServer {
     static let error = "error"
     static let noOutput = "noOutput"
 
+    // main.sync is safe here: the main thread never synchronously waits on the CLI thread
     static func executeCommandAndSendReponse(_ rawValue: String) -> Codable {
         var output: Codable = ""
         DispatchQueue.main.sync {

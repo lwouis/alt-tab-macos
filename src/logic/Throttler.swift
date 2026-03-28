@@ -10,6 +10,7 @@ class Throttler {
     }
 
     func throttleOrProceed(_ block: @escaping () -> Void) {
+        dispatchPrecondition(condition: .onQueue(.main))
         let now = DispatchTime.now().uptimeNanoseconds
         let (elapsed, overflow) = now.subtractingReportingOverflow(lastTimeInNanoseconds)
         if !overflow, elapsed >= delayInNanoseconds {
