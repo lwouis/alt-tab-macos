@@ -79,24 +79,47 @@ class ExceptionsTab {
 
     private static func buildRunningAppsSubmenu(_ tableView: TableView) -> NSMenu {
         let submenu = NSMenu()
-        let existingIds = Set(tableView.items.map { $0.bundleIdentifier })
-        let apps = NSWorkspace.shared.runningApplications
-            .filter { $0.activationPolicy == .regular && $0.bundleIdentifier != nil && !existingIds.contains($0.bundleIdentifier!) }
-            .sorted { ($0.localizedName ?? "") < ($1.localizedName ?? "") }
-        for app in apps {
-            guard let bundleId = app.bundleIdentifier else { continue }
-            let item = NSMenuItem(title: app.localizedName ?? bundleId, action: nil, keyEquivalent: "")
-            if let path = app.bundleURL?.path {
-                let icon = NSWorkspace.shared.icon(forFile: path)
-                icon.size = NSSize(width: 16, height: 16)
-                item.image = icon
-            }
-            item.representedObject = (tableView, bundleId)
-            item.target = ExceptionsTab.self
-            item.action = #selector(addRunningApp(_:))
-            submenu.addItem(item)
-        }
+        runningAppsForMenu(tableView).forEach { submenu.addItem(makeRunningAppItem(tableView, $0.app, $0.bundleId)) }
         return submenu
+    }
+
+    private static func runningAppsForMenu(_ tableView: TableView) -> [(app: NSRunningApplication, bundleId: String)] {
+        let existingIds = Set(tableView.items.map { $0.bundleIdentifier })
+        var appsByBundleId = [String: NSRunningApplication]()
+        runningAppCandidates().forEach {
+            guard let bundleId = $0.bundleIdentifier, !existingIds.contains(bundleId), appsByBundleId[bundleId] == nil else { return }
+            appsByBundleId[bundleId] = $0
+        }
+        return appsByBundleId.map { ($0.value, $0.key) }.sorted { appMenuTitle($0.app).localizedStandardCompare(appMenuTitle($1.app)) == .orderedAscending }
+    }
+
+    private static func runningAppCandidates() -> [NSRunningApplication] {
+        windowBackedRunningApps() + regularRunningApps()
+    }
+
+    private static func windowBackedRunningApps() -> [NSRunningApplication] {
+        Windows.list.map { $0.application.runningApplication }
+    }
+
+    private static func regularRunningApps() -> [NSRunningApplication] {
+        NSWorkspace.shared.runningApplications.filter { $0.activationPolicy == .regular }
+    }
+
+    private static func makeRunningAppItem(_ tableView: TableView, _ app: NSRunningApplication, _ bundleId: String) -> NSMenuItem {
+        let item = NSMenuItem(title: appMenuTitle(app), action: nil, keyEquivalent: "")
+        if let path = app.bundleURL?.path {
+            let icon = NSWorkspace.shared.icon(forFile: path)
+            icon.size = NSSize(width: 16, height: 16)
+            item.image = icon
+        }
+        item.representedObject = (tableView, bundleId)
+        item.target = ExceptionsTab.self
+        item.action = #selector(addRunningApp(_:))
+        return item
+    }
+
+    private static func appMenuTitle(_ app: NSRunningApplication) -> String {
+        app.localizedName ?? app.bundleIdentifier ?? ""
     }
 
     @objc private static func addRunningApp(_ sender: NSMenuItem) {
