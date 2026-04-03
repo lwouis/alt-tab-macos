@@ -17,7 +17,7 @@
     <meta name="theme-color" content="#ffffff">
 
     <title>
-        {% if page.name == "Introduction.md" %} {{ site.title }} - {{ site.description }}
+        {% if page.name == "introduction.md" %} {{ site.title }} - {{ site.description }}
         {% else %} {{ site.title }} - {{ page.name | remove: ".md" }} {% endif %}
     </title>
 
@@ -69,33 +69,33 @@
 
             <ul class="menu">
                 <li class="menu-item">
-                    <a class="menu-label button {% if page.name == 'Introduction.md' %}active{% endif %}" href="{{ site.baseurl }}"><span>Introduction</span></a>
+                    <a class="menu-label button {% if page.name == 'introduction.md' %}active{% endif %}" href="{{ site.baseurl }}"><span>Introduction</span></a>
                     <ul class="submenu"></ul>
                 </li>
                 <li class="menu-item">
-                    <a class="menu-label button {% if page.name == 'Changelog.md' %}active{% endif %}" href="{{ site.baseurl }}changelog"><span>Release notes</span></a>
+                    <a class="menu-label button {% if page.name == 'changelog.md' %}active{% endif %}" href="{{ site.baseurl }}changelog"><span>Release notes</span></a>
                     <ul class="submenu changelog"></ul>
                 </li>
                 <li class="menu-item">
-                    <a class="menu-label button {% if page.name == 'Contributing.md' %}active{% endif %}" href="{{ site.baseurl }}contributing"><span>Contributing</span></a>
+                    <a class="menu-label button {% if page.name == 'contributing.md' %}active{% endif %}" href="{{ site.baseurl }}contributing"><span>Contributing</span></a>
                     <ul class="submenu contributing"></ul>
                 </li>
                 <li class="menu-item">
-                    <a class="menu-label button {% if page.name == 'Thanks.md' %}active{% endif %}" href="{{ site.baseurl }}thanks"><span>Thanks</span></a>
+                    <a class="menu-label button {% if page.name == 'thanks.md' %}active{% endif %}" href="{{ site.baseurl }}thanks"><span>Thanks</span></a>
                     <ul class="submenu thanks"></ul>
                 </li>
                 <li class="menu-item">
                     <a class="menu-label button external" href="{{ site.github.repository_url }}"><span style="display:flex; gap:3px;">GitHub <img src="data:image/svg+xml;charset=utf-8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMiIgaGVpZ2h0PSIxMiIgdmlld0JveD0iMCAwIDEyIDEyIj4KCTx0aXRsZT4KCQlleHRlcm5hbCBsaW5rCgk8L3RpdGxlPgoJPHBhdGggZmlsbD0iIzM2YyIgZD0iTTYgMWg1djVMOC44NiAzLjg1IDQuNyA4IDQgNy4zbDQuMTUtNC4xNnpNMiAzaDJ2MUgydjZoNlY4aDF2MmExIDEgMCAwIDEtMSAxSDJhMSAxIDAgMCAxLTEtMVY0YTEgMSAwIDAgMSAxLTEiLz4KPC9zdmc+Cg==" /></span></a>
                 </li>
                 <li class="menu-item">
-                    <a class="menu-label button support {% if page.name == 'Support.md' %}active{% endif %}" href="{{ site.baseurl }}support"><span>Support this project ❤️</span></a>
+                    <a class="menu-label button support {% if page.name == 'support.md' %}active{% endif %}" href="{{ site.baseurl }}support"><span>Support this project ❤️</span></a>
                     <ul class="submenu support"></ul>
                 </li>
             </ul>
         </aside>
 
         <main class="content">
-            <div{% if page.name == 'Changelog.md' %} id="changelog"{% endif %}>
+            <div{% if page.name == 'changelog.md' %} id="changelog"{% endif %}>
                 {{ content }}
             </div>
         </main>

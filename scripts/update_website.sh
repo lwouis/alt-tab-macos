@@ -2,4 +2,4 @@
 
 set -exu
 
-curl -X POST -d {} $NETLIFY_WEBHOOK
+curl -d "" "$CLOUDFLARE_WEBHOOK"

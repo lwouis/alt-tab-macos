@@ -100,4 +100,4 @@ sed -i "" -E "s|(v)[^/]+(/AltTab-)[^/]+(\.zip)|\1${version}\2${version}\3|g" "RE
 sed -i "" -E "s|(<sub>)[^ ]+( stars</sub>)|\1${stars}\2|g" "README.md"
 sed -i "" -E "s|(<sub>)[^ ]+( downloads</sub>)|\1${downloads}\2|g" "README.md"
 sed -i "" -E "s|(>)[^ ]+( downloads<)|\1${downloads}\2|g" "docs/_layouts/default.html"
-echo "$contributors" > "docs/Contributors.md"
+echo "$contributors" > "docs/contributors.md"

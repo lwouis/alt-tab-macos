@@ -11,7 +11,7 @@ env:
   APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
   APPLE_P12_CERTIFICATE: ${{ secrets.APPLE_P12_CERTIFICATE }}
   FEEDBACK_TOKEN: ${{ secrets.FEEDBACK_TOKEN }}
-  NETLIFY_WEBHOOK: ${{ secrets.NETLIFY_WEBHOOK }}
+  CLOUDFLARE_WEBHOOK: ${{ secrets.CLOUDFLARE_WEBHOOK }}
   SPARKLE_ED_PRIVATE_KEY: ${{ secrets.SPARKLE_ED_PRIVATE_KEY }}
   GITHUB_EVENT_BEFORE: ${{ github.event.before }}
   GITHUB_EVENT_AFTER: ${{ github.event.after }}

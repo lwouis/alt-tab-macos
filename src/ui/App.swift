@@ -14,7 +14,7 @@ class App: AppCenterApplication {
     static let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String
     static let licence = Bundle.main.object(forInfoDictionaryKey: "NSHumanReadableCopyright") as! String
     static let repository = "https://github.com/lwouis/alt-tab-macos"
-    static let website = "https://alt-tab-macos.netlify.app"
+    static let website = "https://alt-tab.app"
     static let appIcon = CGImage.named("app.icns")
     override class var shared: App { super.shared as! App }
     static var supportProjectAction: Selector { #selector(App.supportProject) }
