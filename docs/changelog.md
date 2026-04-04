@@ -20,11 +20,6 @@
 
 * improve badges retrieval ([edbbf20](https://github.com/lwouis/alt-tab-macos/commit/edbbf20))
 
----
-permalink: /changelog
-sitemap: true
----
-
 # [10.9.0](https://github.com/lwouis/alt-tab-macos/compare/v10.8.0...v10.9.0) (2026-03-22)
 
 
