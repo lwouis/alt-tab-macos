@@ -1,5 +1,6 @@
 ---
 permalink: /
+sitemap: true
 ---
 
 [<img src="public/demo/frontpage.jpg" alt="Screenshot showing AltTab" width="1920" height="1080" style="width:100%; height:auto;" class="can-extend" />](public/demo/frontpage.jpg)

@@ -1,3 +1,8 @@
+---
+permalink: /contributing
+sitemap: true
+---
+
 There are many ways to contribute:
 
 * [Suggest an enhancement or discuss an issue on github](https://github.com/lwouis/alt-tab-macos/issues), or use the feedback form in the app.

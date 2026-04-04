@@ -1,3 +1,8 @@
+---
+permalink: /support
+sitemap: true
+---
+
 <h1 style="text-align:center">Support this project ❤️</h1>
 
 <div class="support-buttons">

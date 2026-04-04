@@ -1,9 +1,17 @@
 repository: lwouis/alt-tab-macos
 theme: null # bug in github-pages generates a css file; we prevent it
 title: "AltTab"
+url: "https://alt-tab.app"
 baseurl: "/"
+plugins:
+  - jekyll-sitemap
 sass:
   style: compressed
+defaults:
+  - scope:
+      path: ""
+    values:
+      sitemap: false
 exclude:
   - "study-material"
   - "Gemfile"
