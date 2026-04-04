@@ -1,3 +1,25 @@
+# [10.10.0](https://github.com/lwouis/alt-tab-macos/compare/v10.9.0...v10.10.0) (2026-04-04)
+
+
+### Bug Fixes
+
+* better handle bugged apps with hidden windows (closes [#5296](https://github.com/lwouis/alt-tab-macos/issues/5296)) ([ff1e923](https://github.com/lwouis/alt-tab-macos/commit/ff1e923))
+* improve reliability after sleep/wake ([1ab419d](https://github.com/lwouis/alt-tab-macos/commit/1ab419d))
+* show more apps when adding an exception (closes [#5463](https://github.com/lwouis/alt-tab-macos/issues/5463)) ([41d608e](https://github.com/lwouis/alt-tab-macos/commit/41d608e))
+
+
+### Features
+
+* better recognizes tabbed windows ([170bd67](https://github.com/lwouis/alt-tab-macos/commit/170bd67))
+* improve localizations ([fe6e52d](https://github.com/lwouis/alt-tab-macos/commit/fe6e52d))
+* improved detection of windows and apps ([7a2a548](https://github.com/lwouis/alt-tab-macos/commit/7a2a548))
+* update localizations ([ecafbe7](https://github.com/lwouis/alt-tab-macos/commit/ecafbe7))
+
+
+### Performance Improvements
+
+* improve badges retrieval ([edbbf20](https://github.com/lwouis/alt-tab-macos/commit/edbbf20))
+
 ---
 permalink: /changelog
 sitemap: true
