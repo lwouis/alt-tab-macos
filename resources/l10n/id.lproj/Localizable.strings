@@ -56,6 +56,7 @@
 "Blacklists" = "Daftar hitam";
 "Cancel" = "Batal";
 "Cancel and hide" = "Batalkan dan sembunyikan";
+"Capture windows in the background" = "Ambil jendela di latar belakang";
 "Center" = "Tengah";
 "Check for updates now…" = "Periksa pembaruan sekarang…";
 "Check for updates periodically" = "Periksa pembaruan secara berkala";
@@ -144,6 +145,7 @@
 "Multiple screens" = "Beberapa layar";
 "Never" = "Tidak Pernah";
 "Never send crash reports" = "Jangan pernah kirim laporan kerusakan";
+"No Window" = "Tidak Ada Jendela";
 "Non-active apps" = "Aplikasi tidak aktif";
 "Non-visible Spaces" = "Ruang tidak terlihat";
 "Normal" = "Normal";
@@ -272,6 +274,7 @@
 "Vim keys already assigned to other actions:\n%@" = "Kunci vim yang sudah ditetapkan untuk tindakan lain: \\ n%@";
 "Visibility" = "Visibilitas";
 "Visible Spaces" = "Ruang Terlihat";
+"When disabled, avoids the macOS purple screen-recording indicator, and avoids flickers when playing DRM video. Thumbnails will be less up-to-date." = "Saat dinonaktifkan, ini menghindari indikator perekaman layar ungu macOS, dan menghindari kedipan saat memutar video DRM. Gambar mini akan kurang terbaru.";
 "When fullscreen" = "Saat layar penuh";
 "When no open window" = "Saat tidak ada jendela yang terbuka";
 "While open, press:" = "Ketika terbuka, tekan:";

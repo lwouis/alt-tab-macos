@@ -56,6 +56,7 @@
 "Blacklists" = "ಕಪ್ಪುಪಟ್ಟಿಗಳು";
 "Cancel" = "ರದ್ದುಮಾಡಿ";
 "Cancel and hide" = "ರದ್ದುಮಾಡಿ ಮತ್ತು ಮರೆಮಾಡಿ";
+"Capture windows in the background" = "ಹಿನ್ನೆಲೆಯಲ್ಲಿ ವಿಂಡೋಗಳನ್ನು ಸೆರೆಹಿಡಿ";
 "Center" = "ಮಧ್ಯ";
 "Check for updates now…" = "ಹೊಸ ತoತ್ರಾಂಶಕ್ಕಾಗಿ ಈಗ ಪರಿಶೀಲಿಸಿ…";
 "Check for updates periodically" = "ಹೊಸ ತoತ್ರಾಂಶಕ್ಕಾಗಿ ನಿಯತಕಾಲಿಕವಾಗಿ ಪರಿಶೀಲಿಸಿ";
@@ -144,6 +145,7 @@
 "Multiple screens" = "Multiple screens";
 "Never" = "ಯಾವಾಗಲೂ ಇಲ್ಲ";
 "Never send crash reports" = "ಕ್ರ್ಯಾಶ್ ರಿಪೋರ್ಟನ್ನು ಕಳುಹಿಸಬೇಡಿ";
+"No Window" = "ಯಾವುದೇ ವಿಂಡೋ ಇಲ್ಲ";
 "Non-active apps" = "ಸಕ್ರಿಯವಲ್ಲದ ಆ್ಯಪ್‌ಗಳು";
 "Non-visible Spaces" = "ಕಾಣದ ಸ್ಥಳಗಳು";
 "Normal" = "ಸಾಧಾರಣ";
@@ -272,6 +274,7 @@
 "Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
 "Visibility" = "Visibility";
 "Visible Spaces" = "Visible Spaces";
+"When disabled, avoids the macOS purple screen-recording indicator, and avoids flickers when playing DRM video. Thumbnails will be less up-to-date." = "ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಿದಾಗ, macOS ನ ನೇರಳೆ ಸ್ಕ್ರೀನ್-ರೆಕಾರ್ಡಿಂಗ್ ಸೂಚಕವನ್ನು ತಪ್ಪಿಸುತ್ತದೆ ಮತ್ತು DRM ವೀಡಿಯೊ ಪ್ಲೇ ಮಾಡುವಾಗ ಮಿನುಗುವಿಕೆಯನ್ನು ತಪ್ಪಿಸುತ್ತದೆ. ಥಂಬ್‌ನೇಲ್‌ಗಳು ಕಡಿಮೆ ನವೀಕೃತವಾಗಿರುತ್ತವೆ.";
 "When fullscreen" = "When fullscreen";
 "When no open window" = "When no open window";
 "While open, press:" = "ತೆರೆದಿದ್ದಾಗ, ಒತ್ತಿ:";

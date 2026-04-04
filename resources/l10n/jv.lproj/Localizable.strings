@@ -56,6 +56,7 @@
 "Blacklists" = "Dhaptar ireng";
 "Cancel" = "ꦮꦸꦫꦸꦁ";
 "Cancel and hide" = "Batal lan ndhelikake";
+"Capture windows in the background" = "Rekam jendhela ing latar mburi";
 "Center" = "Tengah";
 "Check for updates now…" = "Priksa nganyari saiki…";
 "Check for updates periodically" = "Priksa nganyari sacara periodik";
@@ -144,6 +145,7 @@
 "Multiple screens" = "Layar pirang-pirang";
 "Never" = "Ora nate";
 "Never send crash reports" = "Ora tau ngirim laporan macet";
+"No Window" = "Ora Ana Jendhela";
 "Non-active apps" = "Aplikasi sing ora aktif";
 "Non-visible Spaces" = "Ruang sing ora katon";
 "Normal" = "Normal";
@@ -272,6 +274,7 @@
 "Vim keys already assigned to other actions:\n%@" = "Tombol Vim wis ditugasake menyang tumindak liyane:\n%@";
 "Visibility" = "Visibilitas";
 "Visible Spaces" = "Spasi Sing Katon";
+"When disabled, avoids the macOS purple screen-recording indicator, and avoids flickers when playing DRM video. Thumbnails will be less up-to-date." = "Yen dipateni, ngindhari indikator rekaman layar ungu macOS, lan ngindhari kelip-kelip nalika muter video DRM. Gambar cilik bakal kurang anyar.";
 "When fullscreen" = "Nalika layar penuh";
 "When no open window" = "Nalika ora ana jendhela sing mbukak";
 "While open, press:" = "Nalika mbukak, pencet:";

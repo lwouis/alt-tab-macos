@@ -56,6 +56,7 @@
 "Blacklists" = "Schloen Moleschloss";
 "Cancel" = "Ofbriechen";
 "Cancel and hide" = "Ofbriechen a verstoppen";
+"Capture windows in the background" = "Fënsteren am Hannergrond erfaassen";
 "Center" = "Center";
 "Check for updates now…" = "Elo no Updates sichen…";
 "Check for updates periodically" = "Reegelméisseg no Updates sichen";
@@ -144,6 +145,7 @@
 "Multiple screens" = "Multiple Schiirme";
 "Never" = "Ni";
 "Never send crash reports" = "Schéckt ni Crash Berichter";
+"No Window" = "Keng Fënster";
 "Non-active apps" = "Net-aktiv Apps";
 "Non-visible Spaces" = "Net-siichtbar Spaces";
 "Normal" = "Normelle";
@@ -272,6 +274,7 @@
 "Vim keys already assigned to other actions:\n%@" = "Vim Schlësselen déi scho fir aner Aktiounen zougewisen hunn: \\ n% @";
 "Visibility" = "Visatierlechung";
 "Visible Spaces" = "Biance gesinn";
+"When disabled, avoids the macOS purple screen-recording indicator, and avoids flickers when playing DRM video. Thumbnails will be less up-to-date." = "Wann desaktivéiert, gëtt de purpurroude macOS Bildschiermopnam-Indikator evitéiert, an et gëtt kee Flimmeren beim Ofspille vun DRM Videoen. Miniaturbiller sinn dann manner aktuell.";
 "When fullscreen" = "Wann Fullcreen";
 "When no open window" = "Wa keng oppe Fënster";
 "While open, press:" = "Wärend op, drécken:";

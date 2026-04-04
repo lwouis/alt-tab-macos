@@ -56,6 +56,7 @@
 "Blacklists" = "רשימה שחורה";
 "Cancel" = "ביטול";
 "Cancel and hide" = "בטל והסתר";
+"Capture windows in the background" = "לכידת חלונות ברקע";
 "Center" = "מרכז";
 "Check for updates now…" = "בדוק עדכונים כעת";
 "Check for updates periodically" = "בדוק עדכונים על בסיס קבוע";
@@ -144,6 +145,7 @@
 "Multiple screens" = "מספר מסכים";
 "Never" = "לעולם לא";
 "Never send crash reports" = "אף פעם אל תשלח דיווחי קריסה";
+"No Window" = "אין חלון";
 "Non-active apps" = "אפליקציות לא פעילות";
 "Non-visible Spaces" = "מרחבים לא גלויים";
 "Normal" = "נוֹרמָלִי";
@@ -272,6 +274,7 @@
 "Vim keys already assigned to other actions:\n%@" = "Vim Keys כבר הוקצה לפעולות אחרות: \\ n%@";
 "Visibility" = "רְאוּת";
 "Visible Spaces" = "שטחים גלויים";
+"When disabled, avoids the macOS purple screen-recording indicator, and avoids flickers when playing DRM video. Thumbnails will be less up-to-date." = "כאשר מושבת, נמנע מאינדיקטור הקלטת המסך הסגול של macOS, ונמנע מהבהובים בעת הפעלת וידאו עם הגנת DRM. תמונות ממוזערות יהיו פחות מעודכנות.";
 "When fullscreen" = "במסך מלא";
 "When no open window" = "כשאין חלון פתוח";
 "While open, press:" = "כאשר פתוח, לחץ:";

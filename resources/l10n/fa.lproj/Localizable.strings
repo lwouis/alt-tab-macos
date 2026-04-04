@@ -56,6 +56,7 @@
 "Blacklists" = "Blacklists";
 "Cancel" = "لغو";
 "Cancel and hide" = "لغو و پنهان کردن";
+"Capture windows in the background" = "ضبط پنجره‌ها در پس‌زمینه";
 "Center" = "Center";
 "Check for updates now…" = "همین الان به روزرسانی را بررسی کن";
 "Check for updates periodically" = "به صورت دوره‌ای به‌روزرسانی را بررسی کن";
@@ -144,6 +145,7 @@
 "Multiple screens" = "چندین صفحه";
 "Never" = "هرگز";
 "Never send crash reports" = "Never send crash reports";
+"No Window" = "بدون پنجره";
 "Non-active apps" = "برنامه‌های غیرفعال";
 "Non-visible Spaces" = "فضا‌های غیرقابل مشاهده";
 "Normal" = "عادی";
@@ -272,6 +274,7 @@
 "Vim keys already assigned to other actions:\n%@" = "کلیدهای VIM قبلاً به اقدامات دیگر اختصاص داده شده اند: \\ n ٪@";
 "Visibility" = "دید";
 "Visible Spaces" = "فضاهای قابل مشاهده";
+"When disabled, avoids the macOS purple screen-recording indicator, and avoids flickers when playing DRM video. Thumbnails will be less up-to-date." = "هنگام غیرفعال شدن، از نشانگر بنفش ضبط صفحه macOS و از پرش تصویر هنگام پخش ویدیوی DRM جلوگیری می‌کند. تصاویر بندانگشتی کمتر به‌روز خواهند بود.";
 "When fullscreen" = "وقتی تمام صفحه";
 "When no open window" = "وقتی پنجره باز نیست";
 "While open, press:" = "هنگام باز بودن، فشار دهید:";

@@ -56,6 +56,7 @@
 "Blacklists" = "தடுப்புப்பட்டியல்கள்";
 "Cancel" = "ரத்துசெய்";
 "Cancel and hide" = "ரத்து செய்து மறைக்க";
+"Capture windows in the background" = "பின்னணியில் சாளரங்களைப் பிடிக்கவும்";
 "Center" = "மையம்";
 "Check for updates now…" = "புதுப்பிப்புகளை இப்போது சரிபார்க்கவும்…";
 "Check for updates periodically" = "அவ்வப்போது புதுப்பிப்புகளைச் சரிபார்க்கவும்";
@@ -144,6 +145,7 @@
 "Multiple screens" = "பல திரைகள்";
 "Never" = "ஒருபோதும் இல்லை";
 "Never send crash reports" = "செயலிழப்பு அறிக்கைகளை ஒருபோதும் அனுப்ப வேண்டாம்";
+"No Window" = "சாளரம் இல்லை";
 "Non-active apps" = "செயலில் இல்லாத பயன்பாடுகள்";
 "Non-visible Spaces" = "தெரியாத இடைவெளிகள்";
 "Normal" = "சாதாரண";
@@ -272,6 +274,7 @@
 "Vim keys already assigned to other actions:\n%@" = "மற்ற செயல்களுக்கு ஏற்கனவே ஒதுக்கப்பட்ட VIM விசைகள்: \\ n%@";
 "Visibility" = "பார்வை";
 "Visible Spaces" = "புலப்படும் இடங்கள்";
+"When disabled, avoids the macOS purple screen-recording indicator, and avoids flickers when playing DRM video. Thumbnails will be less up-to-date." = "முடக்கப்படும்போது, macOS ஊதா திரை பதிவு காட்டி தவிர்க்கப்படும், மேலும் DRM வீடியோக்களை இயக்கும்போது ஏற்படும் துடிப்பு தவிர்க்கப்படும். சிறுபடங்கள் குறைந்த புதுப்பிப்புடன் இருக்கும்.";
 "When fullscreen" = "முழுத்திரை போது";
 "When no open window" = "திறந்த சாளரம் இல்லாதபோது";
 "While open, press:" = "திறந்திருக்கும்போது, அழுத்தவும்:";

@@ -56,6 +56,7 @@
 "Blacklists" = "Blacklists";
 "Cancel" = "Jêveger";
 "Cancel and hide" = "Jêvegere û veşêre";
+"Capture windows in the background" = "پەنجەرەکان لە پاشبنەماوە بگرە";
 "Center" = "Navîn";
 "Check for updates now…" = "Li nûjeniyan aniha venêre...";
 "Check for updates periodically" = "Li nûjeniyan peryodîk venêre";
@@ -144,6 +145,7 @@
 "Multiple screens" = "Dîwarên pirjimar";
 "Never" = "هەرگیز";
 "Never send crash reports" = "Qet çaran raporên qirçîn neşîne";
+"No Window" = "هیچ پەنجەرەیەک نییە";
 "Non-active apps" = "ئەپە ناچالاکەکان";
 "Non-visible Spaces" = "شوێنە نادیارەکان";
 "Normal" = "Normal";
@@ -272,6 +274,7 @@
 "Vim keys already assigned to other actions:\n%@" = "Bişkojkên VIM berê ji bo kiryarên din hatine veqetandin: \\ N% @";
 "Visibility" = "Dîtinî";
 "Visible Spaces" = "Cihên xuya";
+"When disabled, avoids the macOS purple screen-recording indicator, and avoids flickers when playing DRM video. Thumbnails will be less up-to-date." = "کاتێک ناچالاک دەکرێت، خۆدوورگرتن لە نیشانەی تۆمارکردنی شاشەی مۆر لە macOS و خۆدوورگرتن لە زریکە کاتێک ڤیدیۆی DRM لێدەدرێت. وێنە بچووکەکان کەمتر نوێ دەبنەوە.";
 "When fullscreen" = "Gava ku fullscreen";
 "When no open window" = "Gava ku pencereya vekirî tune";
 "While open, press:" = "کاتێک کراوەیە، پەنجە دابنێ:";

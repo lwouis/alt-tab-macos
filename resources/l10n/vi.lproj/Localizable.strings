@@ -56,6 +56,7 @@
 "Blacklists" = "Danh sách loại trừ";
 "Cancel" = "Huỷ";
 "Cancel and hide" = "Huỷ bỏ và ẩn đi";
+"Capture windows in the background" = "Chụp cửa sổ trong nền";
 "Center" = "Ở giữa";
 "Check for updates now…" = "Kiểm tra cập nhật ngay lập tức";
 "Check for updates periodically" = "Kiểm tra cập nhật theo chu kì";
@@ -144,6 +145,7 @@
 "Multiple screens" = "Nhiều màn hình";
 "Never" = "Không bao giờ";
 "Never send crash reports" = "Không bao giờ gửi báo cáo sự cố";
+"No Window" = "Không có cửa sổ";
 "Non-active apps" = "Ứng dụng không hoạt động";
 "Non-visible Spaces" = "Không gian không hiển thị";
 "Normal" = "Bình thường";
@@ -272,6 +274,7 @@
 "Vim keys already assigned to other actions:\n%@" = "Tổ hợp phím Vim đã được đặt cho hành động khác: \n%@";
 "Visibility" = "Khả năng hiển thị";
 "Visible Spaces" = "Khoảng trống thấy được";
+"When disabled, avoids the macOS purple screen-recording indicator, and avoids flickers when playing DRM video. Thumbnails will be less up-to-date." = "Khi tắt, tránh hiển thị chỉ báo quay màn hình màu tím của macOS và tránh nhấp nháy khi phát video DRM. Ảnh thu nhỏ sẽ ít được cập nhật hơn.";
 "When fullscreen" = "Khi đang toàn màn hình";
 "When no open window" = "Khi đang không có cửa sổ mở";
 "While open, press:" = "Khi mở, nhấn:";

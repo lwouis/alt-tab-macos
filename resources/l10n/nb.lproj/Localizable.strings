@@ -56,6 +56,7 @@
 "Blacklists" = "Svartelister";
 "Cancel" = "Avbryt";
 "Cancel and hide" = "Avbryt og skjul";
+"Capture windows in the background" = "Ta opp vinduer i bakgrunnen";
 "Center" = "Midtstilt";
 "Check for updates now…" = "Se etter oppdateringer nå…";
 "Check for updates periodically" = "Se jevnlig etter oppdateringer";
@@ -144,6 +145,7 @@
 "Multiple screens" = "Flere skjermer";
 "Never" = "Aldri";
 "Never send crash reports" = "Send aldri krasjrapporter";
+"No Window" = "Ingen vindu";
 "Non-active apps" = "Ikke-aktive apper";
 "Non-visible Spaces" = "Ikke-synlige skrivebord";
 "Normal" = "Normal";
@@ -272,6 +274,7 @@
 "Vim keys already assigned to other actions:\n%@" = "Vim-taster er allerede gitt til andre handlinger:\n%@";
 "Visibility" = "Synlighet";
 "Visible Spaces" = "Synlige områder";
+"When disabled, avoids the macOS purple screen-recording indicator, and avoids flickers when playing DRM video. Thumbnails will be less up-to-date." = "Når deaktivert, unngår den lilla skjermopptak-indikatoren fra macOS, og unngår flimring når du spiller av DRM-video. Miniatyrbilder vil være mindre oppdaterte.";
 "When fullscreen" = "Når i fullskjerm";
 "When no open window" = "Når ingen åpne vinduer";
 "While open, press:" = "Når åpen, trykk:";

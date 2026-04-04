@@ -56,6 +56,7 @@
 "Blacklists" = "Μαύρες λίστες";
 "Cancel" = "Ακύρωση";
 "Cancel and hide" = "Ακύρωση και απόκρυψη";
+"Capture windows in the background" = "Σύλληψη παραθύρων στο παρασκήνιο";
 "Center" = "Κεντράρισμα";
 "Check for updates now…" = "Έλεγχος για ενημερώσεις τώρα...";
 "Check for updates periodically" = "Περιοδικός έλεγχος ενημερώσεων";
@@ -144,6 +145,7 @@
 "Multiple screens" = "Πολλαπλές οθόνες";
 "Never" = "Ποτέ";
 "Never send crash reports" = "Να μην αποστέλλονται αναφορές συντριβής";
+"No Window" = "Κανένα Παράθυρο";
 "Non-active apps" = "Εφαρμογές που δεν είναι ενεργές";
 "Non-visible Spaces" = "Μη ορατοί χώροι";
 "Normal" = "Κανονική";
@@ -272,6 +274,7 @@
 "Vim keys already assigned to other actions:\n%@" = "Vim keys που έχουν ήδη ανατεθεί σε άλλες ενέργειες: \\ n%@";
 "Visibility" = "Ορατότητα";
 "Visible Spaces" = "Ορατά Γραφεία εργασίας";
+"When disabled, avoids the macOS purple screen-recording indicator, and avoids flickers when playing DRM video. Thumbnails will be less up-to-date." = "Όταν είναι απενεργοποιημένο, αποφεύγει την μωβ ένδειξη εγγραφής οθόνης του macOS και αποφεύγει τα τρεμοπαίγματα κατά την αναπαραγωγή βίντεο DRM. Οι μικρογραφίες θα είναι λιγότερο ενημερωμένες.";
 "When fullscreen" = "Όταν σε πλήρη οθόνη";
 "When no open window" = "Όταν δεν υπάρχει ανοιχτό παράθυρο";
 "While open, press:" = "Όταν είναι ανοιχτό, πατήστε:";

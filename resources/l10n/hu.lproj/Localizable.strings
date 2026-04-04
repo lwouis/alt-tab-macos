@@ -56,6 +56,7 @@
 "Blacklists" = "Tiltó lista";
 "Cancel" = "Mégsem";
 "Cancel and hide" = "Mégsem majd elrejt";
+"Capture windows in the background" = "Ablakok rögzítése a háttérben";
 "Center" = "Középre";
 "Check for updates now…" = "Frissítések keresése…";
 "Check for updates periodically" = "Frissítések automatikus keresése";
@@ -144,6 +145,7 @@
 "Multiple screens" = "Több képernyő";
 "Never" = "Soha";
 "Never send crash reports" = "Soha ne küldjön Hibajelentést";
+"No Window" = "Nincs ablak";
 "Non-active apps" = "Inaktív alkalmazások";
 "Non-visible Spaces" = "Nem látható Spaces";
 "Normal" = "Normál";
@@ -272,6 +274,7 @@
 "Vim keys already assigned to other actions:\n%@" = "VIM bill. már hozzárendelt más műveletekhez: \\ n%@";
 "Visibility" = "Láthatóság";
 "Visible Spaces" = "Látható Íróasztalok";
+"When disabled, avoids the macOS purple screen-recording indicator, and avoids flickers when playing DRM video. Thumbnails will be less up-to-date." = "Ha le van tiltva, elkerüli a macOS lila képernyőfelvétel-jelzőjét, és a DRM-védett videók lejátszásakor fellépő villódzást is. A bélyegképek kevésbé lesznek naprakészek.";
 "When fullscreen" = "Amikor teljes képernyős";
 "When no open window" = "Amikor nincs nyitott ablaka";
 "While open, press:" = "Megnyitás közben nyomjon:";

@@ -56,6 +56,7 @@
 "Blacklists" = "Liste de excludere";
 "Cancel" = "Anulează";
 "Cancel and hide" = "Anulează și ascunde";
+"Capture windows in the background" = "Capturează ferestrele în fundal";
 "Center" = "Centru";
 "Check for updates now…" = "Caută actualizări acum…";
 "Check for updates periodically" = "Caută actualizări periodic";
@@ -144,6 +145,7 @@
 "Multiple screens" = "Mai multe ecrane";
 "Never" = "Niciodată";
 "Never send crash reports" = "Nu trimite rapoarte de eroare";
+"No Window" = "Fără fereastră";
 "Non-active apps" = "Aplicații inactive";
 "Non-visible Spaces" = "Spații invizibile";
 "Normal" = "Normal";
@@ -272,6 +274,7 @@
 "Vim keys already assigned to other actions:\n%@" = "Tastele vim deja alocate altor acțiuni: \n %@";
 "Visibility" = "Vizibilitate";
 "Visible Spaces" = "Spații vizibile";
+"When disabled, avoids the macOS purple screen-recording indicator, and avoids flickers when playing DRM video. Thumbnails will be less up-to-date." = "Când este dezactivat, evită indicatorul violet de înregistrare a ecranului macOS și evită pâlpâirile la redarea videoclipurilor DRM. Miniaturile vor fi mai puțin actualizate.";
 "When fullscreen" = "Când este în ecran complet";
 "When no open window" = "Când nu este nicio fereastră deschisă";
 "While open, press:" = "În timp ce e deschis, apasă:";

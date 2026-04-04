@@ -56,6 +56,7 @@
 "Blacklists" = "Svartur listi";
 "Cancel" = "Hætta við";
 "Cancel and hide" = "Hætta við og fela";
+"Capture windows in the background" = "Taka glugga í bakgrunni";
 "Center" = "Miðja";
 "Check for updates now…" = "Leita að uppfærslum núna";
 "Check for updates periodically" = "Leita að uppfærslum reglulega";
@@ -144,6 +145,7 @@
 "Multiple screens" = "Marga skjái";
 "Never" = "Aldrei";
 "Never send crash reports" = "Sendu aldrei hrunskýrslur";
+"No Window" = "Enginn gluggi";
 "Non-active apps" = "Óvirk forrit";
 "Non-visible Spaces" = "Ósýnilegt skjáborð";
 "Normal" = "Venjulegt";
@@ -272,6 +274,7 @@
 "Vim keys already assigned to other actions:\n%@" = "Vim lyklar nú þegar skráðir á aðrar virknir";
 "Visibility" = "Skyggni";
 "Visible Spaces" = "Sýnileg rými";
+"When disabled, avoids the macOS purple screen-recording indicator, and avoids flickers when playing DRM video. Thumbnails will be less up-to-date." = "Þegar óvirkt er, forðast þetta fjólubláa skjáupptökuvísinn í macOS og forðast flökt þegar DRM myndbönd eru spiluð. Smámyndir verða sjaldnar uppfærðar.";
 "When fullscreen" = "Í fullri stærð";
 "When no open window" = "Þegar engin gluggi er opinn";
 "While open, press:" = "Á meðan opið, ýta á:";

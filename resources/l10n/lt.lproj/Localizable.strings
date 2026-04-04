@@ -56,6 +56,7 @@
 "Blacklists" = "Juodieji sąrašai";
 "Cancel" = "Atmesti";
 "Cancel and hide" = "Atmesti ir paslėpti";
+"Capture windows in the background" = "Fiksuoti langus fone";
 "Center" = "Centruoti";
 "Check for updates now…" = "Tikrinti naujinimus dabar";
 "Check for updates periodically" = "Tikrinti naujinimus periodiškai";
@@ -144,6 +145,7 @@
 "Multiple screens" = "Keli ekranai";
 "Never" = "Niekada";
 "Never send crash reports" = "Niekada nesiųsti gedimų ataskaitų";
+"No Window" = "Nėra lango";
 "Non-active apps" = "Neaktyvios programos";
 "Non-visible Spaces" = "Nematomos erdvės";
 "Normal" = "Normalus";
@@ -272,6 +274,7 @@
 "Vim keys already assigned to other actions:\n%@" = "Vim klavišai jau priskirti kitiems veiksmams:\n%@";
 "Visibility" = "Matomumas";
 "Visible Spaces" = "Matomos erdvės";
+"When disabled, avoids the macOS purple screen-recording indicator, and avoids flickers when playing DRM video. Thumbnails will be less up-to-date." = "Išjungus, išvengiama „macOS“ purpurinio ekrano įrašymo indikatoriaus ir mirgėjimo atkuriant DRM vaizdo įrašus. Miniatiūros bus mažiau atnaujintos.";
 "When fullscreen" = "Kai viso ekrano režimu";
 "When no open window" = "Kai nėra atidaryto lango";
 "While open, press:" = "Kai atidaryta, paspauskite:";

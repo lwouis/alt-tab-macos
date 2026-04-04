@@ -56,6 +56,7 @@
 "Blacklists" = "Karalisteler";
 "Cancel" = "İptal";
 "Cancel and hide" = "İptal et ve gizle";
+"Capture windows in the background" = "Pencereleri arka planda yakala";
 "Center" = "Ortala";
 "Check for updates now…" = "Güncellemeleri kontrol et…";
 "Check for updates periodically" = "Güncellemeleri periyodik olarak kontrol et";
@@ -144,6 +145,7 @@
 "Multiple screens" = "Birden fazla ekran";
 "Never" = "Daha yeni";
 "Never send crash reports" = "Çökme raporlarını asla gönderme";
+"No Window" = "Pencere Yok";
 "Non-active apps" = "Aktif Olmayan Uygulamalar";
 "Non-visible Spaces" = "Görünmeyen Alanlar";
 "Normal" = "Normal";
@@ -272,6 +274,7 @@
 "Vim keys already assigned to other actions:\n%@" = "Diğer eylemlere hâlihazırda atanmış Vim tuşları:\n%@";
 "Visibility" = "Görünürlük";
 "Visible Spaces" = "Görünen Alanlar";
+"When disabled, avoids the macOS purple screen-recording indicator, and avoids flickers when playing DRM video. Thumbnails will be less up-to-date." = "Devre dışı bırakıldığında, macOS mor ekran kaydı göstergesini ve DRM video oynatırken oluşan titremeleri önler. Küçük resimler daha az güncel olacaktır.";
 "When fullscreen" = "Tam ekran olduğunda";
 "When no open window" = "Açık pencere olmadığında";
 "While open, press:" = "Açıkken basın:";

@@ -56,6 +56,7 @@
 "Blacklists" = "Mustade nimekirjad";
 "Cancel" = "Tühista";
 "Cancel and hide" = "Tühista ja peida";
+"Capture windows in the background" = "Jäädvusta aknaid taustal";
 "Center" = "Keskel";
 "Check for updates now…" = "Kontrollige värskendusi kohe ...";
 "Check for updates periodically" = "Kontrollige värskendusi perioodiliselt";
@@ -144,6 +145,7 @@
 "Multiple screens" = "Mitu ekraani";
 "Never" = "Mitte kunagi";
 "Never send crash reports" = "Ärge kunagi saatke krahhi aruandeid";
+"No Window" = "Akent pole";
 "Non-active apps" = "Mitteaktiivsed rakendused";
 "Non-visible Spaces" = "Mittenähtavad ruumid";
 "Normal" = "Normaalne";
@@ -272,6 +274,7 @@
 "Vim keys already assigned to other actions:\n%@" = "VIM võtmed on juba muude toimingute jaoks määratud: \\ n%@";
 "Visibility" = "Nähtavus";
 "Visible Spaces" = "Nähtavad ruumid";
+"When disabled, avoids the macOS purple screen-recording indicator, and avoids flickers when playing DRM video. Thumbnails will be less up-to-date." = "Välja lülitamisel välditakse macOS-i lilla ekraanisalvestuse indikaatorit ja välditakse virvendust DRM-videote esitamisel. Pisipildid on vähem ajakohased.";
 "When fullscreen" = "Kui täisekraanil";
 "When no open window" = "Kui pole avatud akent";
 "While open, press:" = "Avatuna vajuta:";

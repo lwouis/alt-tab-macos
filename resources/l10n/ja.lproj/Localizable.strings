@@ -56,6 +56,7 @@
 "Blacklists" = "ブラックリスト";
 "Cancel" = "キャンセル";
 "Cancel and hide" = "キャンセルして、しまう";
+"Capture windows in the background" = "バックグラウンドでウィンドウをキャプチャ";
 "Center" = "中央";
 "Check for updates now…" = "今すぐアップデートを確認…";
 "Check for updates periodically" = "定期的に更新を確認する";
@@ -144,6 +145,7 @@
 "Multiple screens" = "複数スクリーン";
 "Never" = "しない";
 "Never send crash reports" = "クラッシュレポートを送らない";
+"No Window" = "ウィンドウなし";
 "Non-active apps" = "他のアプリケーション";
 "Non-visible Spaces" = "非表示のスペース";
 "Normal" = "普通";
@@ -272,6 +274,7 @@
 "Vim keys already assigned to other actions:\n%@" = "他のアクションに割り当てられているVimキー：%@";
 "Visibility" = "可視性";
 "Visible Spaces" = "現在のスペース";
+"When disabled, avoids the macOS purple screen-recording indicator, and avoids flickers when playing DRM video. Thumbnails will be less up-to-date." = "無効にすると、macOSの紫色の画面収録インジケータが表示されなくなり、DRMビデオ再生時のちらつきを防げます。ただし、サムネイルは最新の状態ではなくなります。";
 "When fullscreen" = "フルスクリーンの場合";
 "When no open window" = "開いているウィンドウがない場合";
 "While open, press:" = "ウィンドウが表示中、次のボタンを押す：";

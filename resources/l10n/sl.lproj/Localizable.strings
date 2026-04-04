@@ -56,6 +56,7 @@
 "Blacklists" = "Črni seznami";
 "Cancel" = "Prekini";
 "Cancel and hide" = "Prekliči in skrij";
+"Capture windows in the background" = "Zajemaj okna v ozadju";
 "Center" = "Center";
 "Check for updates now…" = "Sedaj preveri posodobitve…";
 "Check for updates periodically" = "Periodično preveri posodobitve";
@@ -144,6 +145,7 @@
 "Multiple screens" = "Več zaslonov";
 "Never" = "Nikoli";
 "Never send crash reports" = "Nikoli ne pošiljajte poročil o nesreči";
+"No Window" = "Brez okna";
 "Non-active apps" = "Neaktivne aplikacije";
 "Non-visible Spaces" = "Nevidni prostori";
 "Normal" = "Normalno";
@@ -272,6 +274,7 @@
 "Vim keys already assigned to other actions:\n%@" = "Vim Keys je že dodeljen drugim dejanjem: \\ n%@";
 "Visibility" = "Vidnost";
 "Visible Spaces" = "Vidni prostori";
+"When disabled, avoids the macOS purple screen-recording indicator, and avoids flickers when playing DRM video. Thumbnails will be less up-to-date." = "Ko je onemogočeno, preprečuje pojav vijoličnega indikatorja snemanja zaslona v sistemu macOS in preprečuje utripanje pri predvajanju videoposnetkov z DRM. Sličice bodo manj posodobljene.";
 "When fullscreen" = "Ko je na celotnem zaslonu";
 "When no open window" = "Ko ni odprtega okna";
 "While open, press:" = "Medtem ko je odprto, pritisni:";

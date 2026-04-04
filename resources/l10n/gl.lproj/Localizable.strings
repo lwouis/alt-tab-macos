@@ -56,6 +56,7 @@
 "Blacklists" = "Listas negras";
 "Cancel" = "Cancelar";
 "Cancel and hide" = "Cancelar e ocultar";
+"Capture windows in the background" = "Capturar ventás en segundo plano";
 "Center" = "Centro";
 "Check for updates now…" = "Comprobar actualizacións agora...";
 "Check for updates periodically" = "Comprobar actualizacións periódicamente";
@@ -144,6 +145,7 @@
 "Multiple screens" = "Múltiples pantallas";
 "Never" = "Nunca";
 "Never send crash reports" = "Xamais enviar informes de erro";
+"No Window" = "Sen ventá";
 "Non-active apps" = "Aplicacións non activas";
 "Non-visible Spaces" = "Espazos non visibles";
 "Normal" = "Normal";
@@ -272,6 +274,7 @@
 "Vim keys already assigned to other actions:\n%@" = "VIM teclas xa asignadas a outras accións: \\ n%@";
 "Visibility" = "Visibilidade";
 "Visible Spaces" = "Spaces visible";
+"When disabled, avoids the macOS purple screen-recording indicator, and avoids flickers when playing DRM video. Thumbnails will be less up-to-date." = "Cando está desactivado, evita o indicador morado de gravación de pantalla de macOS e evita os parpadeos ao reproducir vídeo con DRM. As miniaturas estarán menos actualizadas.";
 "When fullscreen" = "Cando se atopa toda a pantalla";
 "When no open window" = "Cando non hai xanela aberta";
 "While open, press:" = "Mentras este aberto, pulsar:";

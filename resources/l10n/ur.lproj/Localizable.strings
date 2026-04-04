@@ -56,6 +56,7 @@
 "Blacklists" = "بلیک لسٹس";
 "Cancel" = "منسوخ کریں";
 "Cancel and hide" = "منسوخ کریں اور چھپائیں";
+"Capture windows in the background" = "پس منظر میں ونڈوز کیپچر کریں";
 "Center" = "درمیان میں";
 "Check for updates now…" = "ابھی اپ ڈیٹس چیک کریں…";
 "Check for updates periodically" = "وقتاً فوقتاً اپ ڈیٹس چیک کریں";
@@ -144,6 +145,7 @@
 "Multiple screens" = "متعدد اسکرینز";
 "Never" = "کبھی نہیں";
 "Never send crash reports" = "کبھی کریش رپورٹس نہ بھیجیں";
+"No Window" = "کوئی ونڈو نہیں";
 "Non-active apps" = "غیر فعال ایپس";
 "Non-visible Spaces" = "غیر مرئی جگہیں";
 "Normal" = "نارمل";
@@ -272,6 +274,7 @@
 "Vim keys already assigned to other actions:\n%@" = "ویم کیز پہلے ہی دوسرے اعمال کو تفویض ہیں:\n%@";
 "Visibility" = "مرئیت";
 "Visible Spaces" = "دکھائی دینے والی سپیسز";
+"When disabled, avoids the macOS purple screen-recording indicator, and avoids flickers when playing DRM video. Thumbnails will be less up-to-date." = "جب غیر فعال ہو، تو یہ macOS کے جامنی اسکرین ریکارڈنگ اشارے سے بچتا ہے، اور DRM ویڈیو چلاتے وقت جھلملاہٹ سے بھی بچتا ہے۔ تھمب نیلز اتنے تازہ نہیں ہوں گے۔";
 "When fullscreen" = "فل سکرین ہونے پر";
 "When no open window" = "جب کوئی کھلی ونڈو نہ ہو";
 "While open, press:" = "کھلے ہونے پر، دبائیں:";

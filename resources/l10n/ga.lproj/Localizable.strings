@@ -56,6 +56,7 @@
 "Blacklists" = "Liostaí dubha";
 "Cancel" = "Cealaigh";
 "Cancel and hide" = "Cealaigh agus folaigh";
+"Capture windows in the background" = "Fuinneoga a ghabháil sa chúlra";
 "Center" = "Ionad";
 "Check for updates now…" = "Seiceáil le haghaidh nuashonruithe anois…";
 "Check for updates periodically" = "Seiceáil le haghaidh nuashonruithe go tréimhsiúil";
@@ -144,6 +145,7 @@
 "Multiple screens" = "Scáileáin iolracha";
 "Never" = "Choíche";
 "Never send crash reports" = "Ná seol tuairiscí tuairteála riamh";
+"No Window" = "Gan Fhuinneog";
 "Non-active apps" = "Aipeanna neamhghníomhacha";
 "Non-visible Spaces" = "Spásanna Neamhinfheicthe";
 "Normal" = "Gnáth";
@@ -272,6 +274,7 @@
 "Vim keys already assigned to other actions:\n%@" = "Eochracha Vim sannta cheana féin do ghníomhartha eile:\n%@";
 "Visibility" = "Infheictheacht";
 "Visible Spaces" = "Spásanna Infheicthe";
+"When disabled, avoids the macOS purple screen-recording indicator, and avoids flickers when playing DRM video. Thumbnails will be less up-to-date." = "Nuair a dhíchumasaítear é, seachnaítear an táscaire corcra taifeadta scáileáin de macOS, agus seachnaítear splancarnaigh agus físeán DRM á sheinm. Ní bheidh na mionsamhlacha chomh nuashonraithe sin.";
 "When fullscreen" = "Nuair a bheidh scáileán iomlán";
 "When no open window" = "Nuair nach bhfuil aon fhuinneog oscailte";
 "While open, press:" = "Agus tú ar oscailt, brúigh:";

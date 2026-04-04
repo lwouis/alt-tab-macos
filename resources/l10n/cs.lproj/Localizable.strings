@@ -56,6 +56,7 @@
 "Blacklists" = "Seznamy vyloučených";
 "Cancel" = "Zrušit";
 "Cancel and hide" = "Zrušit a skrýt";
+"Capture windows in the background" = "Zachyťte okna na pozadí";
 "Center" = "Na střed";
 "Check for updates now…" = "Zkontrolovat aktualizace…";
 "Check for updates periodically" = "Pravidelně kontrolovat aktualizace";
@@ -144,6 +145,7 @@
 "Multiple screens" = "Více obrazovek";
 "Never" = "Nikdy";
 "Never send crash reports" = "Nikdy neposílat hlášení o pádu";
+"No Window" = "Žádné okno";
 "Non-active apps" = "Neaktivní appky";
 "Non-visible Spaces" = "Neviditelné plochy";
 "Normal" = "Normální";
@@ -272,6 +274,7 @@
 "Vim keys already assigned to other actions:\n%@" = "Klávesy Vim již přiřazené k jiným akcím: \\ n%@";
 "Visibility" = "Viditelnost";
 "Visible Spaces" = "Viditelné plochy";
+"When disabled, avoids the macOS purple screen-recording indicator, and avoids flickers when playing DRM video. Thumbnails will be less up-to-date." = "Když je vypnuto, zabrání fialovému indikátoru nahrávání obrazovky macOS a zabrání blikání při přehrávání DRM videa. Náhledy budou méně aktuální.";
 "When fullscreen" = "Při režimu celé obrazovky";
 "When no open window" = "Při neotevřeném okně";
 "While open, press:" = "Při otevření stiskněte:";
