@@ -17,4 +17,4 @@ exclude:
   - "Gemfile"
 include:
   - "contributing.md" # bug in jekyll ignore this file; we force it here
-  - "_redirects" # _ prefixed files are ignored by jekyll by default
+#  - "_redirects" # only needed on Netlify; avoid on Cloudflare; _ prefixed files are ignored by jekyll by default
