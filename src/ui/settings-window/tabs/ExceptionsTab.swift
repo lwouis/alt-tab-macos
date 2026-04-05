@@ -135,6 +135,7 @@ class ExceptionsView: ForwardingVerticalScrollView {
         borderType = .noBorder
         hasHorizontalScroller = false
         hasVerticalScroller = true
+        verticalScrollElasticity = .none
         usesPredominantAxisScrolling = true
         documentView = TableView(nil)
         fit(width, height)

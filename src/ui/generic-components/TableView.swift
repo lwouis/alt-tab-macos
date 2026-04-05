@@ -6,36 +6,30 @@ class ForwardingVerticalScrollView: NSScrollView {
     }
 
     override func scrollWheel(with event: NSEvent) {
-        let before = contentView.bounds.origin
-        super.scrollWheel(with: event)
-        DispatchQueue.main.async { [weak self] in
-            guard let self, self.shouldForwardToParent(event, before) else { return }
-            self.parentScrollView()?.scrollWheel(with: event)
+        guard isVerticalScroll(event) else {
+            super.scrollWheel(with: event)
+            return
         }
-    }
-
-    private func shouldForwardToParent(_ event: NSEvent, _ before: CGPoint) -> Bool {
-        guard isVerticalScroll(event) else { return false }
-        guard abs(contentView.bounds.origin.y - before.y) < 0.01 else { return false }
-        return isAtVerticalBoundary(event)
+        let bounds = contentView.bounds
+        let y = bounds.origin.y
+        // Ask AppKit for the actual valid scroll range (accounts for headers, insets, etc.)
+        let minY = contentView.constrainBoundsRect(NSRect(x: bounds.origin.x, y: -1e9, width: bounds.width, height: bounds.height)).origin.y
+        let maxY = contentView.constrainBoundsRect(NSRect(x: bounds.origin.x, y: 1e9, width: bounds.width, height: bounds.height)).origin.y
+        let canScrollUp = y > minY + 0.5
+        let canScrollDown = y < maxY - 0.5
+        // scrollingDeltaY > 0 → scroll up (y decreases); < 0 → scroll down (y increases)
+        let wantsUp = event.scrollingDeltaY > 0
+        let wantsDown = event.scrollingDeltaY < 0
+        let shouldForward = (wantsUp && !canScrollUp) || (wantsDown && !canScrollDown)
+        if shouldForward {
+            parentScrollView()?.scrollWheel(with: event)
+        } else {
+            super.scrollWheel(with: event)
+        }
     }
 
     private func isVerticalScroll(_ event: NSEvent) -> Bool {
         abs(event.scrollingDeltaY) > abs(event.scrollingDeltaX) && abs(event.scrollingDeltaY) > 0.1
-    }
-
-    private func isAtVerticalBoundary(_ event: NSEvent) -> Bool {
-        guard let content = documentView else { return false }
-        let visible = contentView.documentVisibleRect
-        let dy = normalizedVerticalDelta(event)
-        if dy > 0 { return visible.minY <= content.bounds.minY + 0.5 }
-        if dy < 0 { return visible.maxY >= content.bounds.maxY - 0.5 }
-        return false
-    }
-
-    private func normalizedVerticalDelta(_ event: NSEvent) -> CGFloat {
-        let delta = event.hasPreciseScrollingDeltas ? event.scrollingDeltaY : event.deltaY
-        return event.isDirectionInvertedFromDevice ? -delta : delta
     }
 
     private func parentScrollView() -> NSScrollView? {

@@ -299,6 +299,7 @@ class ControlsTab {
         rowsScrollView.translatesAutoresizingMaskIntoConstraints = false
         rowsScrollView.drawsBackground = false
         rowsScrollView.hasVerticalScroller = true
+        rowsScrollView.verticalScrollElasticity = .none
         rowsScrollView.hasHorizontalScroller = false
         rowsScrollView.scrollerStyle = .overlay
         rowsScrollView.usesPredominantAxisScrolling = true
