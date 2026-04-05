@@ -1,3 +1,12 @@
+## [10.10.1](https://github.com/lwouis/alt-tab-macos/compare/v10.10.0...v10.10.1) (2026-04-05)
+
+
+### Bug Fixes
+
+* about-alttab window would crash when opened (closes [#5491](https://github.com/lwouis/alt-tab-macos/issues/5491)) ([d5152fb](https://github.com/lwouis/alt-tab-macos/commit/d5152fb))
+* rare crash sometimes when opening the app twice quickly ([47e6cbd](https://github.com/lwouis/alt-tab-macos/commit/47e6cbd))
+* rare crash when scrolling some settings window views ([317d2ff](https://github.com/lwouis/alt-tab-macos/commit/317d2ff))
+
 # [10.10.0](https://github.com/lwouis/alt-tab-macos/compare/v10.9.0...v10.10.0) (2026-04-04)
 
 
