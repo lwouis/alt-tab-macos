@@ -1,0 +1,116 @@
+/* No comment provided by engineer. */
+"%@ %@ is currently the newest version available." = "%1$@ %2$@ เป็นเวอร์ชั่นใหม่ล่าสุดแล้ว";
+
+/* No comment provided by engineer. */
+"%@ %@ is currently the newest version available.\n(You are currently running version %@.)" = "%1$@ %2$@ เป็นเวอร์ชั่นใหม่ล่าสุดแล้ว\n(You are currently running version %3$@.)";
+
+/* Description text for SUUpdateAlert when the update is downloadable. */
+"%@ %@ is now available—you have %@. Would you like to download it now?" = "%1$@ %2$@ พร้อมให้ดาวน์โหลดแล้ว (คุณมีเวอร์ชั่น %3$@) ต้องการดาวน์โหลดเลยหรือไม่";
+
+/* The download progress in a unit of bytes, e.g. 100 KB */
+"%@ downloaded" = "ดาวน์โหลด %@ เสร็จสิ้น";
+
+/* The download progress in units of bytes, e.g. 100 KB of 1,0 MB */
+"%@ of %@" = "%1$@ จาก %2$@";
+
+/* Description text for SUUpdateAlert when the update has already been downloaded and ready to install. */
+"%1$@ %2$@ has been downloaded and is ready to use! Would you like to install it and relaunch %1$@ now?" = "%1$@ %2$@ ได้ถูกดาวน์โหลดและพร้อมใช้งานแล้ว คุณต้องการติดตั้งและเริ่ม %1$@ ใหม่เดี๋ยวนี้หรือไม่";
+
+/* No comment provided by engineer. */
+"%1$@ can’t be updated because it was opened from a read-only or a temporary location." = "%1$@ ไม่สามารถรับการอัพเดทได้เมื่อถูกเรียกจากดิสก์แบบอ่านอย่างเดียวหรือซีดีรอม ย้าย";
+
+/* No comment provided by engineer. */
+"A new version of %@ is available!" = "%@ มีเวอร์ชั่นใหม่!";
+
+/* No comment provided by engineer. */
+"A new version of %@ is ready to install!" = "เวอร์ชั่นใหม่ของ %@ พร้อมสำหรับการติดตั้งแล้ว";
+
+/* No comment provided by engineer. */
+"An error occurred in retrieving update information. Please try again later." = "เกิดข้อผิดพลาดระหว่างการรับข้อมูลอัพเดท กรุณาลองใหม่ในภายหลัง";
+
+/* No comment provided by engineer. */
+"An error occurred while downloading the update. Please try again later." = "เกิดข้อผิดพลาดระหว่างพยายามดาวน์โหลดอัพเดท กรุณาลองใหม่ในภายหลัง";
+
+/* No comment provided by engineer. */
+"An error occurred while extracting the archive. Please try again later." = "เกิดข้อผิดพลาดระหว่างการแตกไฟล์ที่ถูกบีบอัด กรุณาลองใหม่ในภายหลัง";
+
+/* No comment provided by engineer. */
+"An error occurred while parsing the update feed." = "เกิดข้อผิดพลาดระหว่างการประมวลผลฟีดอัพเดท กรุณาลองใหม่ในภายหลัง";
+
+/* No comment provided by engineer. */
+"Cancel" = "ยกเลิก";
+
+/* No comment provided by engineer. */
+"Cancel Update" = "ยกเลิกอัพเดท";
+
+/* No comment provided by engineer. */
+"Checking for updates…" = "ตรวจสอบอัพเดท…";
+
+/* Take care not to overflow the status window. */
+"Downloading update…" = "กำลังดาวน์โหลดอัพเดท…";
+
+/* Take care not to overflow the status window. */
+"Extracting update…" = "กำลังแตกไฟล์อัพเดท…";
+
+/* No comment provided by engineer. */
+"Install and Relaunch" = "ติดตั้งและเริ่มแอปพลิเคชันใหม่";
+
+/* Take care not to overflow the status window. */
+"Installing update…" = "กำลังติดตั้งอัพเดท…";
+
+/* Alternate title for 'Install Update' button when there's no download in RSS feed. */
+"Learn More…" = "เรียนรู้เพิ่มเติม…";
+
+/* No comment provided by engineer. */
+"OK" = "ตกลง";
+
+/* No comment provided by engineer. */
+"Ready to Install" = "พร้อมติดตั้ง";
+
+/* No comment provided by engineer. */
+"Should %1$@ automatically check for updates? You can always check for updates manually from the %1$@ menu." = "คุณต้องการให้ %1$@ ตรวจสอบอัพเดทโดยอัตโนมัติหรือไม่ คุณสามารถเริ่มการตรวจสอบอัพเดทด้วยตนเองได้ทุกเมื่อจากเมนูของ %1$@";
+
+/* No comment provided by engineer. */
+"Update Error!" = "อัพเดทผิดพลาด!";
+
+/* No comment provided by engineer. */
+"Updating %@" = "กำลังอัพเดท %@";
+
+/* No comment provided by engineer. */
+"Use Finder to copy %1$@ to the Applications folder, relaunch it from there, and try again." = "%1$@ ไปยังโฟลเดอร์แอปพลิเคชัน และเรียกใช้งาน จากนั้นลองใหม่อีกครั้ง";
+
+/* Status message shown when the user checks for updates but is already current or the feed doesn't contain any updates. */
+"You’re up to date!" = "คุณมีเวอร์ชั่นล่าสุดแล้ว!";
+
+/* Software Update title/label */
+"Software Update" = "อัพเดทซอฟต์แวร์";
+
+/* Remind Me Later choice for update alert */
+"Remind Me Later" = "เตือนในภายหลัง";
+
+/* Skip This Version choice for update alert */
+"Skip This Version" = "ข้ามเวอร์ชั่นนี้";
+
+/* Install Update choice for update alert */
+"Install Update" = "ติดตั้งอัพเดท";
+
+/* Automatically download and install updates in the future option for update alert */
+"Automatically download and install updates in the future" = "ดาวน์โหลดและติดตั้งอัพเดทโดยอัตโนมัติในอนาคต";
+
+/* Check for updates automatically response for update permission dialog */
+"Check Automatically" = "ตรวจสอบโดยอัตโนมัติ";
+
+/* Don't check for updates automatically response for update permission dialog */
+"Don’t Check" = "ไม่ต้องตรวจสอบ";
+
+/* Title question for update permission dialog */
+"Check for updates automatically?" = "ตรวจสอบอัพเดทอัตโนมัติ?";
+
+/* Include anonymous system profile choice for update permission dialog */
+"Include anonymous system profile" = "ส่งข้อมูลระบบแบบนิรนาม";
+
+/* Automatically download and install updates choice for update permission dialog */
+"Automatically download and install updates" = "ดาวน์โหลดและติดตั้งอัพเดทโดยอัตโนมัติ";
+
+/* Anonymous system profile information disclosure for update permission dialog */
+"Anonymous system profile information is used to help us plan future development work. Please contact us if you have any questions about this.\n\nThis is the information that would be sent:" = "ข้อมูลระบบแบบนิรนามช่วยในการวางแผนพัฒนาแอปพลิเคชันของเราในอนาคต กรุณาติดต่อเราถ้าคุณมีข้อสงสัยในเรื่องนี้\n\nนี่คือข้อมูลที่จะถูกส่งไป:";

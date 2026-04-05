@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="24412" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24412"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="SUUpdateAlert">
+            <connections>
+                <outlet property="_automaticallyInstallUpdatesButton" destination="xYY-q8-ZyN" id="yjl-z6-hNj"/>
+                <outlet property="_installButton" destination="sUq-y0-gA3" id="hQ1-WX-CFo"/>
+                <outlet property="_laterButton" destination="uGk-Ks-HQR" id="QLX-rC-OVd"/>
+                <outlet property="_releaseNotesBoxView" destination="ikY-gb-bgB" id="8ep-uz-XVh"/>
+                <outlet property="_releaseNotesContentView" destination="YbC-Ky-Aam" id="nng-CZ-Hwe"/>
+                <outlet property="_skipButton" destination="nRH-TL-zdL" id="1wh-qo-iMh"/>
+                <outlet property="_stackView" destination="61v-5k-OXp" id="1rj-X0-yNf"/>
+                <outlet property="_titleView" destination="cGD-9V-Gym" id="4EE-yh-bV0"/>
+                <outlet property="window" destination="5" id="69"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <window identifier="SUUpdateAlert" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" titlebarAppearsTransparent="YES" id="5" userLabel="Update Alert (release notes)">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+            <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
+            <windowPositionMask key="initialPositionMask" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="746" y="229" width="532" height="370"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1470" height="922"/>
+            <value key="minSize" type="size" width="462" height="150"/>
+            <view key="contentView" misplaced="YES" id="6">
+                <rect key="frame" x="0.0" y="0.0" width="532" height="370"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <subviews>
+                    <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="61v-5k-OXp">
+                        <rect key="frame" x="0.0" y="0.0" width="680" height="381"/>
+                        <subviews>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="cGD-9V-Gym" userLabel="Title View">
+                                <rect key="frame" x="0.0" y="317" width="680" height="64"/>
+                                <subviews>
+                                    <imageView translatesAutoresizingMaskIntoConstraints="NO" id="F1L-zh-U8Z" userLabel="Program icon">
+                                        <rect key="frame" x="20" y="0.0" width="64" height="64"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="64" id="66j-dF-FGm"/>
+                                            <constraint firstAttribute="width" secondItem="F1L-zh-U8Z" secondAttribute="height" multiplier="1:1" id="OlN-VE-Lim"/>
+                                        </constraints>
+                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyUpOrDown" image="NSApplicationIcon" id="k4f-D1-7oF"/>
+                                        <connections>
+                                            <binding destination="-2" name="value" keyPath="applicationIcon" id="DAK-U8-9cN"/>
+                                        </connections>
+                                    </imageView>
+                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="UU2-7C-LCJ" userLabel="Version &amp; Question view">
+                                        <rect key="frame" x="92" y="13" width="568" height="38"/>
+                                        <subviews>
+                                            <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Nvn-Dp-hAH" userLabel="Version text field">
+                                                <rect key="frame" x="-2" y="22" width="572" height="16"/>
+                                                <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" sendsActionOnEndEditing="YES" title="Version title" usesSingleLineMode="YES" id="f6r-wP-EYG">
+                                                    <font key="font" metaFont="systemBold"/>
+                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                                <connections>
+                                                    <binding destination="-2" name="value" keyPath="titleText" id="j4H-SG-IuG"/>
+                                                </connections>
+                                            </textField>
+                                            <textField focusRingType="none" verticalHuggingPriority="999" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" preferredMaxLayoutWidth="490" translatesAutoresizingMaskIntoConstraints="NO" id="WdU-eY-Ta9" userLabel="Question text field">
+                                                <rect key="frame" x="-2" y="0.0" width="572" height="14"/>
+                                                <textFieldCell key="cell" allowsUndo="NO" sendsActionOnEndEditing="YES" title="Question" id="Jsa-P1-mWz">
+                                                    <font key="font" metaFont="smallSystem"/>
+                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                                <connections>
+                                                    <binding destination="-2" name="value" keyPath="descriptionText" id="83R-0d-Obq"/>
+                                                </connections>
+                                            </textField>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="Nvn-Dp-hAH" firstAttribute="leading" secondItem="UU2-7C-LCJ" secondAttribute="leading" id="25L-Ag-aFU"/>
+                                            <constraint firstItem="WdU-eY-Ta9" firstAttribute="top" secondItem="Nvn-Dp-hAH" secondAttribute="bottom" constant="8" id="9M6-6n-Bro"/>
+                                            <constraint firstAttribute="bottom" secondItem="WdU-eY-Ta9" secondAttribute="bottom" id="CZX-9a-gJl"/>
+                                            <constraint firstAttribute="trailing" secondItem="WdU-eY-Ta9" secondAttribute="trailing" id="WZm-Si-7IJ"/>
+                                            <constraint firstAttribute="trailing" secondItem="Nvn-Dp-hAH" secondAttribute="trailing" id="aGK-sK-0uf"/>
+                                            <constraint firstItem="Nvn-Dp-hAH" firstAttribute="top" secondItem="UU2-7C-LCJ" secondAttribute="top" id="kgy-Vi-Ea3"/>
+                                            <constraint firstItem="WdU-eY-Ta9" firstAttribute="leading" secondItem="Nvn-Dp-hAH" secondAttribute="leading" id="vtl-AO-H0b"/>
+                                        </constraints>
+                                    </customView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="F1L-zh-U8Z" firstAttribute="top" secondItem="cGD-9V-Gym" secondAttribute="top" id="29T-yc-60G"/>
+                                    <constraint firstAttribute="bottom" secondItem="F1L-zh-U8Z" secondAttribute="bottom" id="72d-EQ-SSU"/>
+                                    <constraint firstItem="F1L-zh-U8Z" firstAttribute="leading" secondItem="cGD-9V-Gym" secondAttribute="leading" constant="20" symbolic="YES" id="Mg4-Zl-nWT"/>
+                                    <constraint firstItem="UU2-7C-LCJ" firstAttribute="centerY" secondItem="F1L-zh-U8Z" secondAttribute="centerY" id="WwT-ww-Twu"/>
+                                    <constraint firstAttribute="trailing" secondItem="UU2-7C-LCJ" secondAttribute="trailing" constant="20" symbolic="YES" id="eyz-xg-wVZ"/>
+                                    <constraint firstItem="UU2-7C-LCJ" firstAttribute="leading" secondItem="F1L-zh-U8Z" secondAttribute="trailing" constant="8" symbolic="YES" id="pUk-FW-06K"/>
+                                </constraints>
+                            </customView>
+                            <box boxType="custom" cornerRadius="4" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="ikY-gb-bgB" userLabel="Release Notes Box">
+                                <rect key="frame" x="20" y="74" width="640" height="235"/>
+                                <view key="contentView" id="YbC-Ky-Aam" userLabel="Release Notes Content View">
+                                    <rect key="frame" x="1" y="1" width="638" height="233"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="235" placeholder="YES" id="MvR-0E-bDS"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="200" id="g5s-9E-8SF"/>
+                                </constraints>
+                            </box>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="Dg5-0U-d14" userLabel="Options view">
+                                <rect key="frame" x="0.0" y="52" width="680" height="14"/>
+                                <subviews>
+                                    <button verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="xYY-q8-ZyN">
+                                        <rect key="frame" x="20" y="0.0" width="313" height="14"/>
+                                        <buttonCell key="cell" type="check" title="Automatically download and install updates in the future" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="fPh-Q9-vLr">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="smallSystem"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <binding destination="-2" name="value" keyPath="self.updaterSettings.automaticallyDownloadsUpdates" id="ckv-Jc-M6i"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="xYY-q8-ZyN" firstAttribute="top" secondItem="Dg5-0U-d14" secondAttribute="top" id="9SN-p3-BTb"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="xYY-q8-ZyN" secondAttribute="trailing" constant="20" symbolic="YES" id="CQ6-qx-HSc"/>
+                                    <constraint firstAttribute="bottom" secondItem="xYY-q8-ZyN" secondAttribute="bottom" id="PoC-Dx-8Jc"/>
+                                    <constraint firstItem="xYY-q8-ZyN" firstAttribute="leading" secondItem="Dg5-0U-d14" secondAttribute="leading" constant="20" symbolic="YES" id="wWK-qz-vla"/>
+                                </constraints>
+                            </customView>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="iUh-Md-dRX" userLabel="Choices view">
+                                <rect key="frame" x="0.0" y="0.0" width="680" height="44"/>
+                                <subviews>
+                                    <button horizontalHuggingPriority="150" verticalHuggingPriority="750" horizontalCompressionResistancePriority="997" translatesAutoresizingMaskIntoConstraints="NO" id="uGk-Ks-HQR">
+                                        <rect key="frame" x="395" y="20" width="127" height="24"/>
+                                        <buttonCell key="cell" type="push" title="Remind Me Later" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="G8s-oM-9gf">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                            <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                                        </buttonCell>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" priority="222" constant="90" id="8FZ-lB-M5G"/>
+                                        </constraints>
+                                        <accessibility identifier="SPUUserUpdateChoiceDismiss"/>
+                                        <connections>
+                                            <action selector="remindMeLater:" target="-2" id="108-L6-c2e"/>
+                                        </connections>
+                                    </button>
+                                    <button horizontalHuggingPriority="20" verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="sUq-y0-gA3">
+                                        <rect key="frame" x="534" y="20" width="126" height="24"/>
+                                        <buttonCell key="cell" type="push" title="Install Update" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" inset="2" id="IIY-s3-hkz">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                            <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                                        </buttonCell>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" priority="222" constant="120" id="Gsu-Ko-2TJ"/>
+                                        </constraints>
+                                        <accessibility identifier="SPUUserUpdateChoiceInstall"/>
+                                        <connections>
+                                            <action selector="installUpdate:" target="-2" id="8TR-Ao-zjt"/>
+                                        </connections>
+                                    </button>
+                                    <button verticalHuggingPriority="750" horizontalCompressionResistancePriority="998" translatesAutoresizingMaskIntoConstraints="NO" id="nRH-TL-zdL">
+                                        <rect key="frame" x="20" y="20" width="129" height="24"/>
+                                        <buttonCell key="cell" type="push" title="Skip This Version" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="kVE-pO-gl0">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <accessibility identifier="SPUUserUpdateChoiceSkip"/>
+                                        <connections>
+                                            <action selector="skipThisVersion:" target="-2" id="cXW-0s-yIT"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="uGk-Ks-HQR" firstAttribute="baseline" secondItem="sUq-y0-gA3" secondAttribute="baseline" id="7hK-NU-1pL"/>
+                                    <constraint firstItem="nRH-TL-zdL" firstAttribute="top" secondItem="iUh-Md-dRX" secondAttribute="top" id="Cwv-ha-SRC"/>
+                                    <constraint firstItem="uGk-Ks-HQR" firstAttribute="width" secondItem="sUq-y0-gA3" secondAttribute="width" id="EWD-pD-s8E"/>
+                                    <constraint firstItem="sUq-y0-gA3" firstAttribute="leading" secondItem="uGk-Ks-HQR" secondAttribute="trailing" constant="12" symbolic="YES" id="GNV-C1-iwM"/>
+                                    <constraint firstItem="uGk-Ks-HQR" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="nRH-TL-zdL" secondAttribute="trailing" constant="12" symbolic="YES" id="JIK-Ix-vKz"/>
+                                    <constraint firstItem="nRH-TL-zdL" firstAttribute="width" relation="greaterThanOrEqual" secondItem="sUq-y0-gA3" secondAttribute="width" id="ZG6-hO-ueO"/>
+                                    <constraint firstAttribute="bottom" secondItem="nRH-TL-zdL" secondAttribute="bottom" constant="20" symbolic="YES" id="hi9-TB-2I7"/>
+                                    <constraint firstAttribute="trailing" secondItem="sUq-y0-gA3" secondAttribute="trailing" constant="20" symbolic="YES" id="qFp-Lz-Zct"/>
+                                    <constraint firstItem="nRH-TL-zdL" firstAttribute="baseline" secondItem="uGk-Ks-HQR" secondAttribute="baseline" id="u6y-Qc-AKF"/>
+                                    <constraint firstItem="nRH-TL-zdL" firstAttribute="leading" secondItem="iUh-Md-dRX" secondAttribute="leading" constant="20" symbolic="YES" id="z77-Ds-Apc"/>
+                                </constraints>
+                            </customView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="iUh-Md-dRX" firstAttribute="leading" secondItem="61v-5k-OXp" secondAttribute="leading" id="9Qm-jR-l2n"/>
+                            <constraint firstAttribute="trailing" secondItem="cGD-9V-Gym" secondAttribute="trailing" id="Hzm-0Q-nAs"/>
+                            <constraint firstAttribute="trailing" secondItem="Dg5-0U-d14" secondAttribute="trailing" id="QtQ-Z7-Sy3"/>
+                            <constraint firstItem="cGD-9V-Gym" firstAttribute="leading" secondItem="61v-5k-OXp" secondAttribute="leading" id="fKq-7a-nM1"/>
+                            <constraint firstAttribute="trailing" secondItem="iUh-Md-dRX" secondAttribute="trailing" id="fly-DF-xg8"/>
+                            <constraint firstAttribute="trailing" secondItem="ikY-gb-bgB" secondAttribute="trailing" constant="20" symbolic="YES" id="gyA-Og-04f"/>
+                            <constraint firstItem="ikY-gb-bgB" firstAttribute="leading" secondItem="61v-5k-OXp" secondAttribute="leading" constant="20" symbolic="YES" id="zdI-MC-GvM"/>
+                            <constraint firstItem="Dg5-0U-d14" firstAttribute="leading" secondItem="61v-5k-OXp" secondAttribute="leading" id="zjt-Mp-9hy"/>
+                        </constraints>
+                        <visibilityPriorities>
+                            <integer value="1000"/>
+                            <integer value="1000"/>
+                            <integer value="1000"/>
+                            <integer value="1000"/>
+                        </visibilityPriorities>
+                        <customSpacing>
+                            <real value="3.4028234663852886e+38"/>
+                            <real value="3.4028234663852886e+38"/>
+                            <real value="3.4028234663852886e+38"/>
+                            <real value="3.4028234663852886e+38"/>
+                        </customSpacing>
+                    </stackView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="61v-5k-OXp" secondAttribute="bottom" id="5XV-te-jdS"/>
+                    <constraint firstItem="61v-5k-OXp" firstAttribute="leading" secondItem="6" secondAttribute="leading" id="ISL-gI-Nqo"/>
+                    <constraint firstItem="61v-5k-OXp" firstAttribute="top" secondItem="6" secondAttribute="top" id="Xwp-R6-5u2"/>
+                    <constraint firstAttribute="trailing" secondItem="61v-5k-OXp" secondAttribute="trailing" id="pAA-qg-9qi"/>
+                </constraints>
+            </view>
+            <connections>
+                <outlet property="delegate" destination="-2" id="50"/>
+            </connections>
+            <point key="canvasLocation" x="602" y="352"/>
+        </window>
+        <userDefaultsController representsSharedInstance="YES" id="93" userLabel="Shared Defaults"/>
+    </objects>
+    <resources>
+        <image name="NSApplicationIcon" width="32" height="32"/>
+    </resources>
+</document>

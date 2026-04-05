@@ -161,12 +161,33 @@ final class KeyboardEventsUtilsTests: XCTestCase {
     }
 
     private func resetState() {
-        App.app.appIsBeingUsed = false
-        App.app.shortcutIndex = 0
+        SwitcherSession.current = nil
         Preferences.shortcutStyle = .focusOnRelease
         ControlsTab.shortcuts.values.forEach { $0.state = .up }
         ControlsTab.shortcutsActionsTriggered = []
     }
+
+    // Issue #5585: Escape (kVK_Escape = 53) reaches the matcher via the cghid event tap in
+    // KeyboardEvents on the real device. These tests exercise the matcher logic that the tap
+    // routes into — not the OS event delivery itself.
+    func testEscapeFiresCancelShortcutWhileSwitcherActiveWithOptionHeld() throws {
+        resetState()
+        // Set up: switcher is open, Option still held (the original bug repro).
+        SwitcherSession.current = SwitcherSession()
+        ModifierFlags.current = [.option]
+        handleKeyboardEvent(nil, nil, escapeKeycode, [.option], false)
+        XCTAssertEqual(ControlsTab.shortcutsActionsTriggered, ["cancelShortcut"])
+    }
+
+    func testEscapeDoesNothingWhenSwitcherIsClosed() throws {
+        resetState()
+        SwitcherSession.current = nil
+        ModifierFlags.current = []
+        handleKeyboardEvent(nil, nil, escapeKeycode, [], false)
+        XCTAssertEqual(ControlsTab.shortcutsActionsTriggered, [])
+    }
+
+    private let escapeKeycode: UInt32 = 53 // kVK_Escape
 
     private let keycodeMap: [Character: UInt32] = [
         "a": 0x00, "s": 0x01, "d": 0x02, "f": 0x03,

@@ -66,11 +66,11 @@ final class CustomRecorderControlTests: XCTestCase {
         ControlsTab.shortcuts = ControlsTab.defaultShortcuts
     }
 
-    func testIsShortcutAcceptable_usedByGameOverlay() {
-        if #available(macOS 26.0, *) {
-            XCTAssertEqual(CustomRecorderControlTestable.isShortcutAcceptable("holdShortcut", Shortcut(keyEquivalent: "⌘")!), .usedByGameOverlay(shortcutUsingGameOverlay: "cancelShortcut"))
-        } else {
-            XCTAssertEqual(CustomRecorderControlTestable.isShortcutAcceptable("holdShortcut", Shortcut(keyEquivalent: "⌘")!), .accepted)
-        }
+    // Issue #5585: previously, binding holdShortcut to ⌘ was rejected on macOS 26+ because
+    // ⌘+cancelShortcut(=⎋) collided with Game Overlay. With the cghid event tap in
+    // KeyboardEvents absorbing Esc at HID level (before Game Overlay's hook), we can bind ⌘⎋
+    // freely.
+    func testIsShortcutAcceptable_cmdHoldShortcutNoLongerBlockedByGameOverlay() {
+        XCTAssertEqual(CustomRecorderControlTestable.isShortcutAcceptable("holdShortcut", Shortcut(keyEquivalent: "⌘")!), .accepted)
     }
 }

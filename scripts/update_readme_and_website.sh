@@ -2,25 +2,12 @@
 
 set -exu
 
-version="$(cat "$VERSION_FILE")"
-readOnlyToken="8170d6b4f0531ffd7f52edea374a3689"
-projectId="316051"
-
 github_api_request() {
   local url="$1"
   curl -s \
     -H "Accept: application/vnd.github+json" \
     -H "Authorization: token $GITHUB_TOKEN" \
     "https://api.github.com/repos/lwouis/alt-tab-macos$url"
-}
-
-poeditor_api_request() {
-  local url="$1"
-  curl -s \
-    -X POST \
-    -d api_token="$readOnlyToken" \
-    -d id="$projectId" \
-    "https://api.poeditor.com/v2$url"
 }
 
 unicode_sort() {
@@ -35,27 +22,17 @@ github_contributors() {
     awk '{printf "%s%s", sep, $0; sep=", "} END{print ""}'
 }
 
-poeditor_contributors() {
-  (
-    echo "lwouis"
-    poeditor_api_request "/contributors/list" |
-      jq -r '.result.contributors[].name'
-  ) |
-    sed 's/^[[:space:]]*//;s/[[:space:]]*$//' |
-    unicode_sort |
-    awk '{printf "%s%s", sep, $0; sep=", "} END{print ""}'
-}
-
-generate_contributors() {
-  echo "# Contributors"
-  echo
-  echo "## [Developed the app](https://github.com/lwouis/alt-tab-macos/graphs/contributors)"
-  echo
-  github_contributors
-  echo
-  echo "## [Localized the app](https://poeditor.com/join/project/8AOEZ0eAZE)"
-  echo
-  poeditor_contributors
+# Rewrite only the "Developed the app" section of docs/contributors.md, preserving the
+# frozen "Localized the app" section below it.
+update_developer_contributors() {
+  local file="docs/contributors.md"
+  {
+    echo "## [Developed the app](https://github.com/lwouis/alt-tab-macos/graphs/contributors)"
+    echo
+    github_contributors
+    echo
+    sed -n '/## Localized the app/,$p' "$file"
+  } > "$file.tmp" && mv "$file.tmp" "$file"
 }
 
 get_total_downloads() {
@@ -94,10 +71,12 @@ format_number() {
 
 downloads=$(format_number "$(get_total_downloads)")
 stars=$(format_number "$(get_stars)")
-contributors=$(generate_contributors)
 
-sed -i "" -E "s|(v)[^/]+(/AltTab-)[^/]+(\.zip)|\1${version}\2${version}\3|g" "README.md"
-sed -i "" -E "s|(<sub>)[^ ]+( stars</sub>)|\1${stars}\2|g" "README.md"
-sed -i "" -E "s|(<sub>)[^ ]+( downloads</sub>)|\1${downloads}\2|g" "README.md"
-sed -i "" -E "s|(>)[^ ]+( downloads<)|\1${downloads}\2|g" "docs/_layouts/default.html"
-echo "$contributors" > "docs/contributors.md"
+# Stats are baked into docs/readme/main.svg (one consolidated SVG that holds
+# the hero, stats, CTAs, and screenshot). Each stat text element is preceded by
+# an XML comment marker — anchor sed on the marker and replace whatever value
+# follows up to the next `<` (i.e. the closing `</text>`).
+sed -i "" -E "s|(<!--downloads-->)[^<]*|\1${downloads}|" "docs/readme/main.svg"
+sed -i "" -E "s|(<!--stars-->)[^<]*|\1${stars}|" "docs/readme/main.svg"
+
+update_developer_contributors

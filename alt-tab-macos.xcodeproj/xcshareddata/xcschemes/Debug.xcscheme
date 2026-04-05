@@ -28,6 +28,16 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "BF0C873EC188A7EBBCF4310D"
+               BuildableName = "unit-tests.xctest"
+               BlueprintName = "unit-tests"
+               ReferencedContainer = "container:alt-tab-macos.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
@@ -53,7 +63,7 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "--logs=info"
+            argument = "--logs=debug"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

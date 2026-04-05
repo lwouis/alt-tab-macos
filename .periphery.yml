@@ -1,6 +1,6 @@
-project: alt-tab-macos.xcworkspace
+project: alt-tab-macos.xcodeproj
 schemes:
 - Release
 index_exclude:
-  - Pods/**
+  - vendor/**
   - src/api-wrappers/private-apis/**

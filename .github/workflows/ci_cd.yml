@@ -10,8 +10,6 @@ env:
   APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
   APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
   APPLE_P12_CERTIFICATE: ${{ secrets.APPLE_P12_CERTIFICATE }}
-  FEEDBACK_TOKEN: ${{ secrets.FEEDBACK_TOKEN }}
-  CLOUDFLARE_WEBHOOK: ${{ secrets.CLOUDFLARE_WEBHOOK }}
   SPARKLE_ED_PRIVATE_KEY: ${{ secrets.SPARKLE_ED_PRIVATE_KEY }}
   GITHUB_EVENT_BEFORE: ${{ github.event.before }}
   GITHUB_EVENT_AFTER: ${{ github.event.after }}
@@ -67,3 +65,5 @@ jobs:
           body: ${{ steps.set_release_info.outputs.body }}
           files: ${{ env.XCODE_BUILD_PATH }}/*.zip
       - run: scripts/update_website.sh
+        env:
+          GH_TOKEN: ${{ secrets.WEBSITE_DISPATCH_TOKEN }}

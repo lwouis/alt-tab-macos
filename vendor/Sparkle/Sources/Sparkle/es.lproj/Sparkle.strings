@@ -1,0 +1,128 @@
+/* No comment provided by engineer. */
+"%@ %@ is currently the newest version available." = "%1$@ %2$@ es la versión más nueva disponible.";
+
+/* No comment provided by engineer. */
+"%@ %@ is currently the newest version available.\n(You are currently running version %@.)" = "%1$@ %2$@ es la versión más nueva disponible.\n(Actualmente estás corriendo la versión %3$@.)";
+
+/* Description text for SUUpdateAlert when the update is downloadable. */
+"%@ %@ is now available—you have %@. Would you like to download it now?" = "%1$@ %2$@ ya está disponible (tienes la %3$@). ¿Quisieras descargarla ahora?";
+
+/* Description text for SUUpdateAlert when the update informational with no download. */
+"%@ %@ is now available—you have %@. Would you like to learn more about this update on the web?" = "%1$@ %2$@ ya está disponible--tú tienes la %3$@. ¿Quisieras aprender más acerca de esta actualización en la red?";
+
+/* The download progress in a unit of bytes, e.g. 100 KB */
+"%@ downloaded" = "%@ descargado";
+
+/* The download progress in units of bytes, e.g. 100 KB of 1,0 MB */
+"%@ of %@" = "%1$@ de %2$@";
+
+/* Description text for SUUpdateAlert when the critical update has already been downloaded and ready to install. */
+"%1$@ %2$@ has been downloaded and is ready to use! This is an important update; would you like to install it and relaunch %1$@ now?" = "¡%1$@ %2$@ se ha descargado y está lista para usarse! Ésta es una actualización importante. ¿Te gustaría instalarla y volver a abrir %1$@ ahora?";
+
+/* Description text for SUUpdateAlert when the update has already been downloaded and ready to install. */
+"%1$@ %2$@ has been downloaded and is ready to use! Would you like to install it and relaunch %1$@ now?" = "¡%1$@ %2$@ se ha descargado y está lista para usarse! ¿Te gustaría instalarla y volver a abrir %1$@ ahora?";
+
+/* No comment provided by engineer. */
+"%1$@ can’t be updated because it was opened from a read-only or a temporary location." = "%1$@ no se puede actualizar porque fue abierta desde una ubicación temporal o de solo lectura.";
+
+/* No comment provided by engineer. */
+"A new version of %@ is available!" = "¡Una nueva versión de %@ está disponible!";
+
+/* No comment provided by engineer. */
+"A new version of %@ is ready to install!" = "¡Una nueva versión de %@ está lista para instalarse!";
+
+/* No comment provided by engineer. */
+"An error occurred in retrieving update information. Please try again later." = "Ocurrió un error al recopilar información sobre la actualización. Por favor inténtalo de nuevo más tarde.";
+
+/* No comment provided by engineer. */
+"An error occurred while downloading the update. Please try again later." = "Ocurrió un error al descargar la actualización. Por favor inténtalo de nuevo más tarde.";
+
+/* No comment provided by engineer. */
+"An error occurred while extracting the archive. Please try again later." = "Ocurrió un error al extraer el archivo. Por favor inténtalo de nuevo más tarde.";
+
+/* No comment provided by engineer. */
+"An error occurred while parsing the update feed." = "Ocurrió un error al analizar la información de la actualización.";
+
+/* No comment provided by engineer. */
+"An important update to %@ is ready to install" = "Una actualización importante para %@ está lista para instalarse";
+
+/* No comment provided by engineer. */
+"Cancel" = "Cancelar";
+
+/* No comment provided by engineer. */
+"Cancel Update" = "Cancelar actualización";
+
+/* No comment provided by engineer. */
+"Checking for updates…" = "Buscando actualizaciones…";
+
+/* Take care not to overflow the status window. */
+"Downloading update…" = "Descargando actualización…";
+
+/* Take care not to overflow the status window. */
+"Extracting update…" = "Extrayendo actualización…";
+
+/* No comment provided by engineer. */
+"Install and Relaunch" = "Instalar y volver a abrir";
+
+/* Take care not to overflow the status window. */
+"Installing update…" = "Instalando actualización…";
+
+/* Alternate title for 'Install Update' button when there's no download in RSS feed. */
+"Learn More…" = "Más información…";
+
+/* No comment provided by engineer. */
+"OK" = "Aceptar";
+
+/* No comment provided by engineer. */
+"Ready to Install" = "Listo para instalarse";
+
+/* No comment provided by engineer. */
+"Should %1$@ automatically check for updates? You can always check for updates manually from the %1$@ menu." = "¿Debería %1$@ buscar actualizaciones automáticamente? Siempre puedes buscar actualizaciones manualmente desde el menú %1$@.";
+
+/* No comment provided by engineer. */
+"Update Error!" = "¡Error de actualización!";
+
+/* No comment provided by engineer. */
+"Updating %@" = "Actualizando %@";
+
+/* No comment provided by engineer. */
+"Use Finder to copy %1$@ to the Applications folder, relaunch it from there, and try again." = "Usa Finder para copiar %1$@ a la carpeta Aplicaciones, vuélvela a abrir desde ahí e inténtalo de nuevo.";
+
+/* No comment provided by engineer. */
+"Version History" = "Historial de versiones";
+
+/* Status message shown when the user checks for updates but is already current or the feed doesn't contain any updates. */
+"You’re up to date!" = "¡Está actualizado!";
+
+/* Software Update title/label */
+"Software Update" = "Actualización de software";
+
+/* Remind Me Later choice for update alert */
+"Remind Me Later" = "Recordármelo";
+
+/* Skip This Version choice for update alert */
+"Skip This Version" = "No instalar esta versión";
+
+/* Install Update choice for update alert */
+"Install Update" = "Instalar actualización";
+
+/* Automatically download and install updates in the future option for update alert */
+"Automatically download and install updates in the future" = "Descargar e instalar actualizaciones automáticamente";
+
+/* Check for updates automatically response for update permission dialog */
+"Check Automatically" = "Comprobar automáticamente";
+
+/* Don't check for updates automatically response for update permission dialog */
+"Don’t Check" = "No comprobar";
+
+/* Title question for update permission dialog */
+"Check for updates automatically?" = "¿Comprobar si hay actualizaciones automáticamente?";
+
+/* Include anonymous system profile choice for update permission dialog */
+"Include anonymous system profile" = "Incluir perfil de sistema anónimo";
+
+/* Automatically download and install updates choice for update permission dialog */
+"Automatically download and install updates" = "Descargar e instalar actualizaciones automáticamente";
+
+/* Anonymous system profile information disclosure for update permission dialog */
+"Anonymous system profile information is used to help us plan future development work. Please contact us if you have any questions about this.\n\nThis is the information that would be sent:" = "La información de perfil de sistema anónimo se usa para ayudarnos a planear el trabajo de desarrollo futuro. Por favor, póngase en contacto con nosotros si tiene preguntas sobre esto.\n\nEsta es la información que nos enviaría:";

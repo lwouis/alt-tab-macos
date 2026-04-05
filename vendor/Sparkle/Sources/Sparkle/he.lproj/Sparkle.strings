@@ -1,0 +1,221 @@
+/* Description text for SUUpdateAlert when the critical update has already been downloaded and ready to install. */
+"%1$@ %2$@ has been downloaded and is ready to use! This is an important update; would you like to install it and relaunch %1$@ now?" = "%1$@ %2$@ הורד והוא מוכן לשימוש! זהו עדכון חשוב; האם ברצונך להתקין אותו ולהפעיל מחדש את %1$@ כעת?";
+
+/* Description text for SUUpdateAlert when the update has already been downloaded and ready to install. */
+"%1$@ %2$@ has been downloaded and is ready to use! Would you like to install it and relaunch %1$@ now?" = "%1$@ %2$@ הורד והוא מוכן לשימוש! האם ברצונך להתקין אותו ולהפעיל מחדש את %1$@ כעת?";
+
+/* No comment provided by engineer. */
+"%1$@ %2$@ is available but your macOS version is too new for this update. This update only supports up to macOS %3$@." = "%1$@ %2$@ זמין, אך גרסת ה-macOS שלך חדשה מדי עבור עדכון זה. עדכון זה תומך רק עד macOS %3$@.";
+
+/* No comment provided by engineer. */
+"%1$@ %2$@ is available but your macOS version is too old to install it. At least macOS %3$@ is required." = "%1$@ %2$@ זמין אך גרסת ה-macOS שלך ישנה מדי. נדרשת macOS %3$@ לפחות.";
+
+/* No comment provided by engineer. */
+"%1$@ can’t be updated if it’s running from the location it was downloaded to." = "לא ניתן לעדכן את %1$@ כשהוא פועל מהמיקום אליו הוא הורד.";
+
+/* No comment provided by engineer. */
+"%1$@ can’t be updated because it was opened from a read-only or a temporary location." = "לא ניתן לעדכן את %1$@ מכיוון שהוא נפתח ממיקום זמני או לקריאה בלבד.";
+
+/* No comment provided by engineer. */
+"%@ %@ is currently the newest version available." = "%@ %@ היא הגרסה החדשה ביותר שזמינה כרגע.";
+
+/* No comment provided by engineer. */
+"%@ %@ is currently the newest version available.\n(You are currently running version %@.)" = "%@ %@ היא הגרסה החדשה ביותר שזמינה.\n(אתה מפעיל כעת את גרסה %@.)";
+
+/* Description text for SUUpdateAlert when the critical update is downloadable. */
+"%@ %@ is now available—you have %@. This is an important update; would you like to download it now?" = "%@ %@ זמין - אתה משתמש ב-%@. זהו עדכון חשוב; האם ברצונך להוריד אותו כעת?";
+
+/* Description text for SUUpdateAlert when the update is downloadable. */
+"%@ %@ is now available—you have %@. Would you like to download it now?" = "%@ %@ זמין - אתה משתמש ב-%@. האם ברצונך להוריד אותו כעת?";
+
+/* Description text for SUUpdateAlert when the update informational with no download. */
+"%@ %@ is now available—you have %@. Would you like to learn more about this update on the web?" = "%@ %@ זמין - אתה משתמש ב-%@. האם ברצונך ללמוד עוד על עדכון זה?";
+
+/* The download progress in a unit of bytes, e.g. 100 KB */
+"%@ downloaded" = "%@ הורדו";
+
+/* No comment provided by engineer. */
+"%@ is now updated to version %@!" = "%@ מעודכן כעת לגרסה %@!";
+
+/* No comment provided by engineer. */
+"%@ is now updated!" = "%@ מעודכן כעת!";
+
+/* The download progress in units of bytes, e.g. 100 KB of 1,0 MB */
+"%@ of %@" = "%@ מתוך %@";
+
+/* No comment provided by engineer. */
+"A new version of %@ is available!" = "גרסה חדשה של %@ זמינה!";
+
+/* No comment provided by engineer. */
+"A new version of %@ is ready to install!" = "גרסה חדשה של %@ מוכנה להתקנה!";
+
+/* No comment provided by engineer. */
+"An error occurred in retrieving update information. Please try again later." = "אירעה שגיאה בקבלת מידע העדכון. אנא נסה שוב מאוחר יותר.";
+
+/* No comment provided by engineer. */
+"An error occurred while connecting to the installer. Please try again later." = "אירעה שגיאה בעת התחברות למתקין. אנא נסה שוב מאוחר יותר.";
+
+/* No comment provided by engineer. */
+"An error occurred while downloading the update. Please try again later." = "אירעה שגיאה בעת הורדת העדכון. אנא נסה שוב מאוחר יותר.";
+
+/* No comment provided by engineer. */
+"An error occurred while extracting the archive. Please try again later." = "אירעה שגיאה בעת חילוץ העדכון. אנא נסה שוב מאוחר יותר.";
+
+/* No comment provided by engineer. */
+"An error occurred while launching the installer. Please try again later." = "אירעה שגיאה בעת הפעלת המתקין. אנא נסה שוב מאוחר יותר.";
+
+/* No comment provided by engineer. */
+"An error occurred while parsing the update feed." = "אירעה שגיאה במהלך ניתוח רשימת העדכונים.";
+
+/* No comment provided by engineer. */
+"An error occurred while running the updater. Please try again later." = "אירעה שגיאה בעת הפעלת המעדכן. אנא נסה שוב מאוחר יותר.";
+
+/* No comment provided by engineer. */
+"An error occurred while starting the installer. Please try again later." = "אירעה שגיאה בעת הפעלת המתקין. בבקשה נסה שוב מאוחר יותר.";
+
+/* No comment provided by engineer. */
+"An important update to %@ is ready to install" = "עדכון חשוב ל-%@ מוכן להתקנה";
+
+/* No comment provided by engineer. */
+"Cancel" = "ביטול";
+
+/* No comment provided by engineer. */
+"Cancel Update" = "בטל את העדכון";
+
+/* No comment provided by engineer. */
+"Checking for updates…" = "מחפש עדכונים…";
+
+/* Take care not to overflow the status window. */
+"Downloading update…" = "מוריד את העדכון…";
+
+/* Take care not to overflow the status window. */
+"Extracting update…" = "מחלץ את העדכון…";
+
+/* No comment provided by engineer. */
+"Failed to resume installing update." = "חידוש התקנת העדכון נכשל.";
+
+/* No comment provided by engineer. */
+"Install and Relaunch" = "עדכן והפעל מחדש";
+
+/* Alternate title for 'Remind Me Later' button when downloaded updates can be resumed */
+"Install on Quit" = "התקן בעת סגירת היישום";
+
+/* Take care not to overflow the status window. */
+"Installing update…" = "מתקין את העדכון";
+
+/* Alternate title for 'Install Update' button when there's no download in RSS feed. */
+"Learn More…" = "למד עוד…";
+
+/* No comment provided by engineer. */
+"OK" = "אישור";
+
+/* No comment provided by engineer. */
+"Quit %1$@, move it into your Applications folder, relaunch it from there and try again." = "צא מ-%1$@, העבר אותו לתיקיית היישומים שלך, הפעל אותו מחדש משם ונסה שוב.";
+
+/* No comment provided by engineer. */
+"Ready to Install" = "מוכן להתקנה";
+
+/* No comment provided by engineer. */
+"Should %1$@ automatically check for updates? You can always check for updates manually from the %1$@ menu." = "האם %1$@ צריך לבדוק באופן אוטומטי אם יש עדכונים? תוכל תמיד לחפש עדכונים באופן ידני מהתפריט של %1$@.";
+
+/* No comment provided by engineer. */
+"The update is improperly signed and could not be validated. Please try again later or contact the app developer." = "העדכון חתום בצורה לא נכונה ולא ניתן היה לאמת אותו. נסה שוב מאוחר יותר או צור קשר עם מפתח היישום.";
+
+/* No comment provided by engineer. */
+"Unable to Check For Updates" = "לא ניתן לחפש עדכונים";
+
+/* No comment provided by engineer. */
+"Update Error!" = "העדכון נכשל!";
+
+/* No comment provided by engineer. */
+"Update Installed" = "העדכון הותקן בהצלחה";
+
+/* No comment provided by engineer. */
+"Updating %@" = "עדכון %@";
+
+/* No comment provided by engineer. */
+"Use Finder to copy %1$@ to the Applications folder, relaunch it from there, and try again." = "השתמש ב-Finder כדי להעתיק את %1$@ לתיקיית היישומים, הפעל אותו מחדש משם ונסה שוב.";
+
+/* No comment provided by engineer. */
+"Version History" = "היסטוריית גרסאות";
+
+/* No comment provided by engineer. */
+"Your macOS version is too new" = "גרסת ה-macOS שלך חדשה מדי";
+
+/* No comment provided by engineer. */
+"Your macOS version is too old" = "גרסת ה-macOS שלך ישנה מדי";
+
+/* Status message shown when the user checks for updates but is already current or the feed doesn't contain any updates. */
+"You’re up to date!" = "לא נמצאו עדכונים חדשים!";
+
+/* System profile key for OS version */
+"OS Version" = "גרסת מערכת ההפעלה";
+
+/* System profile key for CPU Type */
+"CPU Type" = "סוג מעבד";
+
+/* System profile key for CPU is 64-bit? */
+"CPU is 64-Bit?" = "מעבד 64-bit?";
+
+/* System profile yes value for CPU is 64-bit? */
+"Yes" = "כן";
+
+/* System profile no value for CPU is 64-bit? */
+"No" = "לא";
+
+/* System profile key for CPU Subtype */
+"CPU Subtype" = "תת-סוג מעבד";
+
+/* System profile key for Mac Model */
+"Mac Model" = "דגם ה-Mac";
+
+/* System profile key for Number of CPUs */
+"Number of CPUs" = "מספר ליבות מעבד";
+
+/* System profile key for Preferred Language */
+"Preferred Language" = "שפה מועדפת";
+
+/* System profile key for Application Name */
+"Application Name" = "שם היישום";
+
+/* System profile key for Application Version */
+"Application Version" = "גרסת היישום";
+
+/* System profile key for CPU Speed (MHz) */
+"CPU Speed (MHz)" = "מהירות מעבד (MHz)";
+
+/* System profile key for Memory (MB) */
+"Memory (MB)" = "זיכרון (MB)";
+
+/* Software Update title/label */
+"Software Update" = "עדכון תוכנה";
+
+/* Remind Me Later choice for update alert */
+"Remind Me Later" = "הזכר לי מאוחר יותר";
+
+/* Skip This Version choice for update alert */
+"Skip This Version" = "דלג על גרסה זו";
+
+/* Install Update choice for update alert */
+"Install Update" = "התקן את העדכון";
+
+/* Automatically download and install updates in the future option for update alert */
+"Automatically download and install updates in the future" = "הורד והתקן עדכונים בעתיד באופן אוטומטי";
+
+/* Check for updates automatically response for update permission dialog */
+"Check Automatically" = "חפש עדכונים אוטומטית";
+
+/* Don't check for updates automatically response for update permission dialog */
+"Don’t Check" = "אל תחפש";
+
+/* Title question for update permission dialog */
+"Check for updates automatically?" = "לחפש עדכונים באופן אוטומטי?";
+
+/* Include anonymous system profile choice for update permission dialog */
+"Include anonymous system profile" = "כלול מידע מערכת אנונימי";
+
+/* Automatically download and install updates choice for update permission dialog */
+"Automatically download and install updates" = "הורד והתקן עדכונים באופן אוטומטי";
+
+/* Anonymous system profile information disclosure for update permission dialog */
+"Anonymous system profile information is used to help us plan future development work. Please contact us if you have any questions about this.\n\nThis is the information that would be sent:" = "מידע מערכת אנונימי משמש כדי לעזור לנו לתכנן את עבודת הפיתוח העתידית. אנא צור איתנו קשר אם יש לך שאלות בנושא.\n\nזהו המידע שיישלח:";

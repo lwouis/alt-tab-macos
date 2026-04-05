@@ -2,55 +2,79 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>ATSApplicationFontsPath</key>
-	<string></string>
-	<key>AppCenterApplicationForwarderEnabled</key>
-	<string>0</string>
-	<key>AppCenterSecret</key>
-	<string>#APPCENTER_SECRET#</string>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>en</string>
-	<key>CFBundleExecutable</key>
-	<string>$(EXECUTABLE_NAME)</string>
-	<key>CFBundleIconFile</key>
-	<string>app.icns</string>
+	<!-- ===== Bundle identity (required by macOS / App Store) ===== -->
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
 	<key>CFBundleName</key>
 	<string>$(PRODUCT_NAME)</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
-	<key>CFBundleShortVersionString</key>
-	<string>#VERSION#</string>
-	<key>CFBundleVersion</key>
-	<string>#VERSION#</string>
-	<key>FeedbackToken</key>
-	<string>#FEEDBACK_TOKEN#</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en</string>
+	<key>CFBundleIconFile</key>
+	<string>app.icns</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>GPL-3.0 licence</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.utilities</string>
+
+	<!-- ===== Versioning (substituted from xcconfig; CI overrides via config/local.xcconfig) ===== -->
+	<key>CFBundleShortVersionString</key>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>CFBundleVersion</key>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
+
+	<!-- ===== Launch behavior (read by LaunchServices before app starts) ===== -->
 	<key>LSMinimumSystemVersion</key>
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
 	<key>LSUIElement</key>
 	<string>true</string>
-	<key>NSHumanReadableCopyright</key>
-	<string>GPL-3.0 licence</string>
 	<key>NSPrincipalClass</key>
 	<string>AppCenterApplication</string>
 	<key>NSSupportsAutomaticTermination</key>
 	<string>false</string>
 	<key>NSSupportsSuddenTermination</key>
 	<string>false</string>
-	<key>SUEnableAutomaticChecks</key>
-	<string>true</string>
-	<key>SUEnableJavaScript</key>
-	<string>true</string>
-	<key>SUFeedURL</key>
-	<string>https://alt-tab.app/appcast.xml</string>
+	<key>ATSApplicationFontsPath</key>
+	<string></string>
+
+	<!-- ===== URL scheme registration (LaunchServices dispatches $(PRODUCT_BUNDLE_IDENTIFIER):// to us) ===== -->
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>CFBundleURLName</key>
+			<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+			</array>
+		</dict>
+	</array>
+
+	<!-- ===== Sparkle (auto-update framework — reads these directly from the bundle) ===== -->
 	<key>SUPublicEDKey</key>
 	<string>2e9SQOBoaKElchSa/4QDli/nvYkyuDNfynfzBF6vJK4=</string>
+	<key>SUEnableAutomaticChecks</key>
+	<string>true</string>
 	<key>SUScheduledCheckInterval</key>
 	<string>604800</string>
+
+	<!-- ===== AppCenter (crash reporter — read by AppCenterApplication superclass at init) ===== -->
+	<key>AppCenterApplicationForwarderEnabled</key>
+	<string>0</string>
+
+	<!-- ===== Build-time secrets (substituted from xcconfig; override per-dev via config/local.xcconfig) ===== -->
+	<key>AppCenterSecret</key>
+	<string>$(APPCENTER_SECRET)</string>
+	<key>Domain</key>
+	<string>$(DOMAIN)</string>
+	<key>ApiDomain</key>
+	<string>$(API_DOMAIN)</string>
 </dict>
 </plist>

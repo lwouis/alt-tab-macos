@@ -2,7 +2,6 @@
 # src/**/*.swift: Matches all .swift files in the src directory and all its subdirectories.
 # !node_modules/**: Excludes all files in the node_modules directory and all its subdirectories.
 
-Pods/**
 Generated/**
 
 **/PrivateApis.swift

@@ -1,4 +1,23 @@
+import Cocoa
 import ShortcutRecorder
+
+// Stubs so ProBadgeView.swift compiles in the test target. The real Symbols
+// enum and NSImage.fromSymbol live in TileFontIconView.swift and
+// HelperExtensions.swift respectively, neither of which is in the test
+// target's source membership. Tests never actually render an icon, so a
+// minimal stub satisfying the signatures is enough — isTemplate = true
+// matches the production contract that ProBadgeViewSegmentTests asserts on.
+enum Symbols: String {
+    case stub = ""
+}
+
+extension NSImage {
+    static func fromSymbol(_ symbol: Symbols, pointSize: CGFloat, rotated180: Bool = false) -> NSImage {
+        let image = NSImage()
+        image.isTemplate = true
+        return image
+    }
+}
 
 enum SearchKeyResult {
     case handled
@@ -18,24 +37,10 @@ class TilesPanelMock {
 
 class App {
     class AppMock {
-        var appIsBeingUsed = false
-        var shortcutIndex = 0
-        var forceDoNothingOnRelease = false
         var tilesPanel = TilesPanelMock()
     }
     static let app = AppMock()
-    static var appIsBeingUsed: Bool {
-        get { app.appIsBeingUsed }
-        set { app.appIsBeingUsed = newValue }
-    }
-    static var shortcutIndex: Int {
-        get { app.shortcutIndex }
-        set { app.shortcutIndex = newValue }
-    }
-    static var forceDoNothingOnRelease: Bool {
-        get { app.forceDoNothingOnRelease }
-        set { app.forceDoNothingOnRelease = newValue }
-    }
+    static let bundleIdentifier = "com.lwouis.alt-tab-macos"
 }
 
 class TilesPanel {
@@ -87,15 +92,25 @@ class ControlsTab {
     static func executeAction(_ action: String) {
         shortcutsActionsTriggered.append(action)
         if action.starts(with: "holdShortcut") {
-            App.app.appIsBeingUsed = false
+            SwitcherSession.current = nil
         }
         if action.starts(with: "nextWindowShortcut") {
-            App.app.appIsBeingUsed = true
-            App.app.shortcutIndex = Preferences.nameToIndex(action)
+            let session = SwitcherSession.current ?? {
+                let new = SwitcherSession()
+                SwitcherSession.current = new
+                return new
+            }()
+            session.shortcutIndex = Preferences.nameToIndex(action)
         }
     }
 
     static var shortcutsActionsTriggered: [String] = []
+}
+
+enum ShortcutActions {
+    static func execute(_ id: String) {
+        ControlsTab.executeAction(id)
+    }
 }
 
 class KeyRepeatTimer {
@@ -123,6 +138,10 @@ class Preferences {
     static func nameToIndex(_ name: String) -> Int {
         guard let number = name.last?.wholeNumberValue else { return 0 }
         return number - 1
+    }
+
+    static func effectiveShortcutStyle(_ index: Int) -> ShortcutStylePreference {
+        return shortcutStyle
     }
 }
 

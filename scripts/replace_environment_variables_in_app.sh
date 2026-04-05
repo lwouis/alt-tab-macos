@@ -2,8 +2,9 @@
 
 set -exu
 
-version="$(cat "$VERSION_FILE")"
-
-sed -i '' -e "s/#VERSION#/$version/" Info.plist
-sed -i '' -e "s/#FEEDBACK_TOKEN#/$FEEDBACK_TOKEN/" Info.plist
-sed -i '' -e "s/#APPCENTER_SECRET#/$APPCENTER_SECRET/" Info.plist
+# Inject CI values via the same xcconfig override mechanism used locally.
+# Xcode substitutes $(VAR) refs into Info.plist at build time.
+cat > config/local.xcconfig <<EOF
+CURRENT_PROJECT_VERSION = $(cat "$VERSION_FILE")
+APPCENTER_SECRET = $APPCENTER_SECRET
+EOF

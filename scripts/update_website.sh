@@ -2,4 +2,4 @@
 
 set -exu
 
-curl -d "" "$CLOUDFLARE_WEBHOOK"
+gh api repos/lwouis/alt-tab-website/dispatches -f event_type=update-website

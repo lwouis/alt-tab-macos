@@ -1,0 +1,89 @@
+/* No comment provided by engineer. */
+"%@ %@ is currently the newest version available." = "الإصدار %2$@ هو أحدث إصدار متوفر حاليًا لتطبيق %1$@";
+
+/* The download progress in a unit of bytes, e.g. 100 KB */
+"%@ downloaded" = "تم تنزيل %@";
+
+/* The download progress in units of bytes, e.g. 100 KB of 1,0 MB */
+"%@ of %@" = "%1$@ من %2$@";
+
+/* Description text for SUUpdateAlert when the update has already been downloaded and ready to install. */
+"%1$@ %2$@ has been downloaded and is ready to use! Would you like to install it and relaunch %1$@ now?" = "تم تنزيل %1$@ %2$@ وهو جاهز للاستخدام، هل ترغب بتثبيت التحديث وإعادة تشغيل %1$@ الآن؟";
+
+/* No comment provided by engineer. */
+"A new version of %@ is available!" = "يتوفر إصدار جديد من تطبيق %@";
+
+/* No comment provided by engineer. */
+"A new version of %@ is ready to install!" = "الإصدار الجديد من تطبيق %@ جاهز للتثبيت";
+
+/* No comment provided by engineer. */
+"An error occurred in retrieving update information. Please try again later." = "حال خطأ دون الحصول على معلومات حول التحديث، الرجاء المحاولة لاحقًا.";
+
+/* No comment provided by engineer. */
+"An error occurred while downloading the update. Please try again later." = "حدث خطأ أثناء تنزيل التحديث، الرجاء المحاولة لاحقًا.";
+
+/* No comment provided by engineer. */
+"An error occurred while extracting the archive. Please try again later." = "حدث خطأ أثناء استخراج الأرشيف، الرجاء المحاولة لاحقًا.";
+
+/* No comment provided by engineer. */
+"An error occurred while parsing the update feed." = "حدث خطأ أثناء تحليل المعلومات المزوّدَة حول التحديث.";
+
+/* No comment provided by engineer. */
+"Cancel" = "إلغاء";
+
+/* No comment provided by engineer. */
+"Cancel Update" = "إلغاء التحديث";
+
+/* No comment provided by engineer. */
+"Install and Relaunch" = "تثبيت وإعادة تشغيل التطبيق";
+
+/* No comment provided by engineer. */
+"OK" = "موافق";
+
+/* No comment provided by engineer. */
+"Ready to Install" = "جاهز للتثبيت";
+
+/* No comment provided by engineer. */
+"Should %1$@ automatically check for updates? You can always check for updates manually from the %1$@ menu." = "هل ترغب في أن يتحقق %1$@ من وجود تحديثات تلقائيًا؟ يمكنك التحقق من وجود تحديثات يدويًا في أي وقت من قائمة %1$@.";
+
+/* No comment provided by engineer. */
+"Update Error!" = "حدث خطأ أثناء التحديث";
+
+/* No comment provided by engineer. */
+"Updating %@" = "تحديث %@";
+
+/* No comment provided by engineer. */
+"Use Finder to copy %1$@ to the Applications folder, relaunch it from there, and try again." = "انقل %1$@ إلى مجلد التطبيقات وأعد تشغيله من هناك ثم حاول مجددًا.";
+
+/* Software Update title/label */
+"Software Update" = "محدث البرنامج";
+
+/* Remind Me Later choice for update alert */
+"Remind Me Later" = "تذكيري لاحقًا";
+
+/* Skip This Version choice for update alert */
+"Skip This Version" = "تخطي هذا الإصدار";
+
+/* Install Update choice for update alert */
+"Install Update" = "تثبيت التحديث";
+
+/* Automatically download and install updates in the future option for update alert */
+"Automatically download and install updates in the future" = "تنزيل التحديثات وتثبيتها تلقائيًا في المستقبل";
+
+/* Check for updates automatically response for update permission dialog */
+"Check Automatically" = "التحقق تلقائيًا";
+
+/* Don't check for updates automatically response for update permission dialog */
+"Don’t Check" = "عدم التحقق";
+
+/* Title question for update permission dialog */
+"Check for updates automatically?" = "هل تريد أن يتم التحقق من وجود تحديثات تلقائيًا؟";
+
+/* Include anonymous system profile choice for update permission dialog */
+"Include anonymous system profile" = "تضمين تقرير عن النظام دون ذكر معلومات عن المستخدم";
+
+/* Automatically download and install updates choice for update permission dialog */
+"Automatically download and install updates" = "تنزيل التحديثات وتثبيتها تلقائيًا في المست";
+
+/* Anonymous system profile information disclosure for update permission dialog */
+"Anonymous system profile information is used to help us plan future development work. Please contact us if you have any questions about this.\n\nThis is the information that would be sent:" = "Anonymous system profile information is used to help us plan future development work. Please contact us if you have any questions about this.\n\nThis is the information that would be sent:";

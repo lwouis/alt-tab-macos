@@ -8,7 +8,7 @@ xcrun xctrace record \
   --no-prompt --quiet \
   --output "$profileFile".trace \
   --launch -- \
-    ~/git/alt-tab-macos/DerivedData/Build/Products/Debug/AltTab.app --benchmark showUi 3
+    DerivedData/Build/Products/Debug/AltTab.app --benchmark showUi 3
 
 xcrun xctrace export \
   --input "$profileFile".trace \

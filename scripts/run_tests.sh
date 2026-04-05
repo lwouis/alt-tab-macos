@@ -3,6 +3,6 @@
 set -ex
 
 xcodebuild -version
-xcodebuild -workspace alt-tab-macos.xcworkspace -scheme Release -showBuildSettings | grep SWIFT_VERSION
+xcodebuild -project alt-tab-macos.xcodeproj -scheme Release -showBuildSettings | grep SWIFT_VERSION
 
-set -o pipefail && xcodebuild test -workspace alt-tab-macos.xcworkspace -scheme Test -configuration Release | scripts/xcbeautify
+set -o pipefail && xcodebuild test -project alt-tab-macos.xcodeproj -scheme Test -configuration Release | scripts/xcbeautify

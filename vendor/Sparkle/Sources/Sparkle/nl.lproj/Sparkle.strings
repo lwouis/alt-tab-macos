@@ -1,0 +1,227 @@
+/* No comment provided by engineer. */
+"%@ %@ is currently the newest version available." = "%1$@ %2$@ is momenteel de nieuwste versie.";
+
+/* No comment provided by engineer. */
+"%@ %@ is currently the newest version available.\n(You are currently running version %@.)" = "%1$@ %2$@ is momenteel de nieuwste versie.\n(Je gebruikt op dit moment versie %3$@.)";
+
+/* Description text for SUUpdateAlert when the critical update is downloadable. */
+"%@ %@ is now available—you have %@. This is an important update; would you like to download it now?" = "%1$@ %2$@ is nu beschikbaar – je hebt %3$@. Dit is een belangrijke update. Wil je deze nu downloaden?";
+
+/* Description text for SUUpdateAlert when the update is downloadable. */
+"%@ %@ is now available—you have %@. Would you like to download it now?" = "%1$@ %2$@ is nu beschikbaar – je hebt %3$@. Wil je de update nu downloaden?";
+
+/* Description text for SUUpdateAlert when the update informational with no download. */
+"%@ %@ is now available—you have %@. Would you like to learn more about this update on the web?" = "%1$@ %2$@ is nu beschikbaar – je hebt %3$@. Wil je een webpagina openen met meer informatie?";
+
+/* The download progress in a unit of bytes, e.g. 100 KB */
+"%@ downloaded" = "%@ gedownload";
+
+/* No comment provided by engineer. */
+"%@ is now updated to version %@!" = "%@ is nu bijgewerkt naar versie %@!";
+
+/* No comment provided by engineer. */
+"%@ is now updated!" = "%@ is nu bijgewerkt!";
+
+/* The download progress in units of bytes, e.g. 100 KB of 1,0 MB */
+"%@ of %@" = "%1$@ van %2$@";
+
+/* Description text for SUUpdateAlert when the critical update has already been downloaded and ready to install. */
+"%1$@ %2$@ has been downloaded and is ready to use! This is an important update; would you like to install it and relaunch %1$@ now?" = "%1$@ %2$@ is gedownload en klaar om te installeren! Dit is een belangrijke update. Wil je deze nu installeren en %1$@ herstarten?";
+
+/* Description text for SUUpdateAlert when the update has already been downloaded and ready to install. */
+"%1$@ %2$@ has been downloaded and is ready to use! Would you like to install it and relaunch %1$@ now?" = "%1$@ %2$@ is gedownload en klaar om te installeren! Wil je deze nu installeren en %1$@ herstarten?";
+
+/* No comment provided by engineer. */
+"%1$@ %2$@ is available but your macOS version is too new for this update. This update only supports up to macOS %3$@." = "%1$@ %2$@ is beschikbaar, maar je versie van macOS is te nieuw voor deze update. De update kan alleen worden gebruikt tot macOS %3$@.";
+
+/* No comment provided by engineer. */
+"%1$@ %2$@ is available but your macOS version is too old to install it. At least macOS %3$@ is required." = "%1$@ %2$@ is beschikbaar, maar je versie van macOS is te oud om deze te installeren. Ten minste macOS %3$@ is vereist.";
+
+/* No comment provided by engineer. */
+"%1$@ can’t be updated if it’s running from the location it was downloaded to." = "%1$@ kan niet worden bijgewerkt als het is geopend vanuit de downloadlocatie.";
+
+/* No comment provided by engineer. */
+"%1$@ can’t be updated because it was opened from a read-only or a temporary location." = "%1$@ kan niet worden bijgewerkt, omdat het vanuit een alleen-lezen- of tijdelijke locatie is geopend.";
+
+/* No comment provided by engineer. */
+"A new version of %@ is available!" = "Een nieuwe versie van %@ is beschikbaar!";
+
+/* No comment provided by engineer. */
+"A new version of %@ is ready to install!" = "Een nieuwe versie van %@ is klaar om te installeren!";
+
+/* No comment provided by engineer. */
+"An error occurred in retrieving update information. Please try again later." = "Er heeft zich een fout voorgedaan bij het ophalen van update-informatie. Probeer het later opnieuw.";
+
+/* No comment provided by engineer. */
+"An error occurred while connecting to the installer. Please try again later." = "Er heeft zich een fout voorgedaan bij het verbinden met het installatieprogramma. Probeer het later opnieuw.";
+
+/* No comment provided by engineer. */
+"An error occurred while downloading the update. Please try again later." = "Er heeft zich een fout voorgedaan bij het downloaden van de update. Probeer het later opnieuw";
+
+/* No comment provided by engineer. */
+"An error occurred while extracting the archive. Please try again later." = "Er heeft zich een fout voorgedaan bij het uitpakken van het archief. Probeer het later opnieuw.";
+
+/* No comment provided by engineer. */
+"An error occurred while launching the installer. Please try again later." = "Er heeft zich een fout voorgedaan bij het starten van het installatieprogramma. Probeer het later opnieuw.";
+
+/* No comment provided by engineer. */
+"An error occurred while parsing the update feed." = "Er heeft zich een fout voorgedaan bij het verwerken van de update-informatie.";
+
+/* No comment provided by engineer. */
+"An error occurred while running the updater. Please try again later." = "Er heeft zich een fout voorgedaan bij het uitvoeren van het bijwerkprogramma. Probeer het later opnieuw.";
+
+/* No comment provided by engineer. */
+"An error occurred while starting the installer. Please try again later." = "Er heeft zich een fout voorgedaan bij het starten van het installatieprogramma. Probeer het later opnieuw.";
+
+/* No comment provided by engineer. */
+"An important update to %@ is ready to install" = "Een belangrijke update voor %@ is klaar om te installeren";
+
+/* No comment provided by engineer. */
+"Application Name" = "Appnaam";
+
+/* No comment provided by engineer. */
+"Application Version" = "Appversie";
+
+/* No comment provided by engineer. */
+"Cancel" = "Annuleer";
+
+/* No comment provided by engineer. */
+"Cancel Update" = "Annuleer update";
+
+/* No comment provided by engineer. */
+"Checking for updates…" = "Zoeken naar updates…";
+
+/* No comment provided by engineer. */
+"CPU is 64-Bit?" = "CPU is 64-bits?";
+
+/* No comment provided by engineer. */
+"CPU Speed (MHz)" = "CPU-snelheid (MHz)";
+
+/* No comment provided by engineer. */
+"CPU Subtype" = "CPU-subtype";
+
+/* No comment provided by engineer. */
+"CPU Type" = "CPU-type";
+
+/* Take care not to overflow the status window. */
+"Downloading update…" = "Update downloaden…";
+
+/* Take care not to overflow the status window. */
+"Extracting update…" = "Update uitpakken…";
+
+/* No comment provided by engineer. */
+"Failed to resume installing update." = "Het hervatten van de update-installatie is mislukt.";
+
+/* No comment provided by engineer. */
+"Install and Relaunch" = "Installeer en herstart";
+
+/* Alternate title for 'Remind Me Later' button when downloaded updates can be resumed */
+"Install on Quit" = "Installeer bij het stoppen";
+
+/* Take care not to overflow the status window. */
+"Installing update…" = "Update installeren…";
+
+/* Alternate title for 'Install Update' button when there's no download in RSS feed. */
+"Learn More…" = "Meer informatie…";
+
+/* No comment provided by engineer. */
+"Mac Model" = "Mac-model";
+
+/* No comment provided by engineer. */
+"Memory (MB)" = "Geheugen (MB)";
+
+/* No comment provided by engineer. */
+"No" = "Nee";
+
+/* No comment provided by engineer. */
+"Number of CPUs" = "Aantal CPU's";
+
+/* No comment provided by engineer. */
+"OK" = "OK";
+
+/* No comment provided by engineer. */
+"OS Version" = "OS-versie";
+
+/* No comment provided by engineer. */
+"Preferred Language" = "Voorkeurstaal";
+
+/* No comment provided by engineer. */
+"Quit %1$@, move it into your Applications folder, relaunch it from there and try again." = "Stop %1$@, verplaats het naar de map 'Apps', herstart het van daaruit en probeer opnieuw.";
+
+/* No comment provided by engineer. */
+"Ready to Install" = "Klaar om te installeren";
+
+/* No comment provided by engineer. */
+"Should %1$@ automatically check for updates? You can always check for updates manually from the %1$@ menu." = "Wil je dat %1$@ automatisch naar updates zoekt? Je kunt altijd nog handmatig zoeken naar updates via het %1$@-menu.";
+
+/* No comment provided by engineer. */
+"The installation failed due to not having permission to write the new update." = "De installatie is mislukt omdat je geen bevoegdheden hebt om de nieuwe update te schrijven.";
+
+/* No comment provided by engineer. */
+"The update is improperly signed and could not be validated. Please try again later or contact the app developer." = "De update is onjuist gesigneerd en kan niet worden gecontroleerd. Probeer het later opnieuw of neem contact op met de app-ontwikkelaar.";
+
+/* No comment provided by engineer. */
+"Unable to Check For Updates" = "Zoeken naar updates mislukt";
+
+/* No comment provided by engineer. */
+"Update Error!" = "Fout bij het bijwerken!";
+
+/* No comment provided by engineer. */
+"Update Installed" = "Update geïnstalleerd";
+
+/* No comment provided by engineer. */
+"Updating %@" = "%@ bijwerken…";
+
+/* No comment provided by engineer. */
+"Use Finder to copy %1$@ to the Applications folder, relaunch it from there, and try again." = "Gebruik Finder om %1$@ naar de map 'Apps' te kopiëren, herstart het van daaruit en probeer opnieuw.";
+
+/* No comment provided by engineer. */
+"Version History" = "Versiegeschiedenis";
+
+/* No comment provided by engineer. */
+"Yes" = "Ja";
+
+/* No comment provided by engineer. */
+"You may need to allow modifications from %1$@ in System Settings under Privacy & Security and App Management to install future updates." = "Je moet mogelijk %1$@ toevoegen in Systeeminstellingen onder 'Privacy en beveiliging' en 'Appbeheer' om toekomstige updates te installeren.";
+
+/* Status message shown when the user checks for updates but is already current or the feed doesn't contain any updates. */
+"You’re up to date!" = "Je hebt de nieuwste versie!";
+
+/* No comment provided by engineer. */
+"Your macOS version is too new" = "Je versie van macOS is te nieuw";
+
+/* No comment provided by engineer. */
+"Your macOS version is too old" = "Je versie van macOS is te oud";
+
+/* Software Update title/label */
+"Software Update" = "Software-update";
+
+/* Remind Me Later choice for update alert */
+"Remind Me Later" = "Herinner mij later";
+
+/* Skip This Version choice for update alert */
+"Skip This Version" = "Sla deze versie over";
+
+/* Install Update choice for update alert */
+"Install Update" = "Installeer update";
+
+/* Automatically download and install updates in the future option for update alert */
+"Automatically download and install updates in the future" = "Download en installeer updates voortaan automatisch";
+
+/* Check for updates automatically response for update permission dialog */
+"Check Automatically" = "Zoek automatisch";
+
+/* Don't check for updates automatically response for update permission dialog */
+"Don’t Check" = "Zoek niet";
+
+/* Title question for update permission dialog */
+"Check for updates automatically?" = "Automatisch zoeken naar updates?";
+
+/* Include anonymous system profile choice for update permission dialog */
+"Include anonymous system profile" = "Voeg anoniem systeemprofiel bij";
+
+/* Automatically download and install updates choice for update permission dialog */
+"Automatically download and install updates" = "Download en installeer updates automatisch";
+
+/* Anonymous system profile information disclosure for update permission dialog */
+"Anonymous system profile information is used to help us plan future development work. Please contact us if you have any questions about this.\n\nThis is the information that would be sent:" = "Aan de hand van anonieme informatie over het systeemprofiel kunnen wij toekomstige ontwikkelingswerkzaamheden beter plannen. Neem contact met ons op als je hierover vragen hebt.\n\nDit is de informatie die wordt verzonden:";

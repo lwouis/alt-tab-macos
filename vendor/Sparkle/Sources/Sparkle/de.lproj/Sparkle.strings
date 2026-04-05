@@ -1,0 +1,227 @@
+/* No comment provided by engineer. */
+"%@ %@ is currently the newest version available." = "%1$@ %2$@ ist zurzeit die neueste verfügbare Version.";
+
+/* No comment provided by engineer. */
+"%@ %@ is currently the newest version available.\n(You are currently running version %@.)" = "%1$@ %2$@ ist zurzeit die neueste verfügbare Version.\n(Die derzeit installierte Version ist %3$@.)";
+
+/* Description text for SUUpdateAlert when the critical update is downloadable. */
+"%@ %@ is now available—you have %@. This is an important update; would you like to download it now?" = "%1$@ %2$@ ist verfügbar – du verwendest Version %3$@. Dies ist ein wichtiges Update. Möchtest du die neue Version jetzt laden?";
+
+/* Description text for SUUpdateAlert when the update is downloadable. */
+"%@ %@ is now available—you have %@. Would you like to download it now?" = "%1$@ %2$@ ist verfügbar – du verwendest Version %3$@. Möchtest du die neue Version jetzt laden?";
+
+/* Description text for SUUpdateAlert when the update informational with no download. */
+"%@ %@ is now available—you have %@. Would you like to learn more about this update on the web?" = "%1$@ %2$@ ist verfügbar – du verwendest Version %3$@. Möchtest du mehr über dieses Update erfahren?";
+
+/* The download progress in a unit of bytes, e.g. 100 KB */
+"%@ downloaded" = "%@ geladen";
+
+/* No comment provided by engineer. */
+"%@ is now updated to version %@!" = "%@ wurde auf Version %@ aktualisiert!";
+
+/* No comment provided by engineer. */
+"%@ is now updated!" = "%@ wurde aktualisiert!";
+
+/* The download progress in units of bytes, e.g. 100 KB of 1,0 MB */
+"%@ of %@" = "%1$@ von %2$@";
+
+/* Description text for SUUpdateAlert when the critical update has already been downloaded and ready to install. */
+"%1$@ %2$@ has been downloaded and is ready to use! This is an important update; would you like to install it and relaunch %1$@ now?" = "%1$@ %2$@ wurde geladen und steht zur Installation bereit! Dies ist ein wichtiges Update. Möchtest du %1$@ jetzt aktualisieren?";
+
+/* Description text for SUUpdateAlert when the update has already been downloaded and ready to install. */
+"%1$@ %2$@ has been downloaded and is ready to use! Would you like to install it and relaunch %1$@ now?" = "%1$@ %2$@ wurde geladen und steht zur Installation bereit! Möchtest du %1$@ jetzt aktualisieren?";
+
+/* No comment provided by engineer. */
+"%1$@ %2$@ is available but your macOS version is too new for this update. This update only supports up to macOS %3$@." = "%1$@ %2$@ ist verfügbar, aber deine Version von macOS ist zu neu für dieses Update. Das Update unterstützt nur bis macOS %3$@.";
+
+/* No comment provided by engineer. */
+"%1$@ %2$@ is available but your macOS version is too old to install it. At least macOS %3$@ is required." = "%1$@ %2$@ ist verfügbar, aber deine Version von macOS ist zu alt, um das Update zu installieren. Es wird mindestens macOS %3$@ benötigt.";
+
+/* No comment provided by engineer. */
+"%1$@ can’t be updated if it’s running from the location it was downloaded to." = "„%1$@“ kann nicht aktualisiert werden, wenn das Programm von dem Ort ausgeführt wird, an den es heruntergeladen wurde.";
+
+/* No comment provided by engineer. */
+"%1$@ can’t be updated because it was opened from a read-only or a temporary location." = "%1$@ kann nicht aktualisiert werden, da es aus dem Downloads-Ordner, oder von einer DMG-Datei oder einem Laufwerk ohne Schreibzugriff gestartet wurde.";
+
+/* No comment provided by engineer. */
+"A new version of %@ is available!" = "Eine neue Version von %@ ist verfügbar!";
+
+/* No comment provided by engineer. */
+"A new version of %@ is ready to install!" = "Eine neue Version von %@ steht zur Installation bereit!";
+
+/* No comment provided by engineer. */
+"An error occurred in retrieving update information. Please try again later." = "Beim Laden der Updateinformationen ist ein Fehler aufgetreten. Bitte versuche es später erneut.";
+
+/* No comment provided by engineer. */
+"An error occurred while connecting to the installer. Please try again later." = "Beim Verbinden mit dem Installationsprogramm ist ein Fehler aufgetreten. Bitte versuche es später erneut.";
+
+/* No comment provided by engineer. */
+"An error occurred while downloading the update. Please try again later." = "Beim Laden des Updates ist ein Fehler aufgetreten. Bitte versuche es später erneut.";
+
+/* No comment provided by engineer. */
+"An error occurred while extracting the archive. Please try again later." = "Beim Entpacken des Archivs ist ein Fehler aufgetreten. Bitte versuche es später erneut.";
+
+/* No comment provided by engineer. */
+"An error occurred while launching the installer. Please try again later." = "Beim Starten des Installationsprogramms ist ein Fehler aufgetreten. Bitte versuche es später erneut.";
+
+/* No comment provided by engineer. */
+"An error occurred while parsing the update feed." = "Beim Lesen der Updateinformationen ist ein Fehler aufgetreten.";
+
+/* No comment provided by engineer. */
+"An error occurred while running the updater. Please try again later." = "Beim Ausführen des Aktualisierungsprogramms ist ein Fehler aufgetreten. Bitte versuche es später erneut.";
+
+/* No comment provided by engineer. */
+"An error occurred while starting the installer. Please try again later." = "Beim Starten des Installationsprogramms ist ein Fehler aufgetreten. Bitte versuche es später erneut.";
+
+/* No comment provided by engineer. */
+"An important update to %@ is ready to install" = "Ein wichtiges Update von %@ steht zur Installation bereit";
+
+/* No comment provided by engineer. */
+"Application Name" = "App-Name";
+
+/* No comment provided by engineer. */
+"Application Version" = "App-Version";
+
+/* No comment provided by engineer. */
+"Cancel" = "Abbrechen";
+
+/* No comment provided by engineer. */
+"Cancel Update" = "Aktualisierung abbrechen";
+
+/* No comment provided by engineer. */
+"Checking for updates…" = "Nach Updates suchen …";
+
+/* No comment provided by engineer. */
+"CPU is 64-Bit?" = "CPU ist 64-Bit?";
+
+/* No comment provided by engineer. */
+"CPU Speed (MHz)" = "CPU-Geschwindigkeit (MHz)";
+
+/* No comment provided by engineer. */
+"CPU Subtype" = "CPU-Untertyp";
+
+/* No comment provided by engineer. */
+"CPU Type" = "CPU-Typ";
+
+/* Take care not to overflow the status window. */
+"Downloading update…" = "Update laden …";
+
+/* Take care not to overflow the status window. */
+"Extracting update…" = "Update entpacken …";
+
+/* No comment provided by engineer. */
+"Failed to resume installing update." = "Das Fortsetzen der Installation ist fehlgeschlagen.";
+
+/* No comment provided by engineer. */
+"Install and Relaunch" = "Installieren und App neu starten";
+
+/* Alternate title for 'Remind Me Later' button when downloaded updates can be resumed */
+"Install on Quit" = "Installieren beim Beenden";
+
+/* Take care not to overflow the status window. */
+"Installing update…" = "Update installieren …";
+
+/* Alternate title for 'Install Update' button when there's no download in RSS feed. */
+"Learn More…" = "Mehr erfahren …";
+
+/* No comment provided by engineer. */
+"Mac Model" = "Mac-Modell";
+
+/* No comment provided by engineer. */
+"Memory (MB)" = "Speicher (MB)";
+
+/* No comment provided by engineer. */
+"No" = "Nein";
+
+/* No comment provided by engineer. */
+"Number of CPUs" = "Anzahl der CPUs";
+
+/* No comment provided by engineer. */
+"OK" = "OK";
+
+/* No comment provided by engineer. */
+"OS Version" = "OS-Version";
+
+/* No comment provided by engineer. */
+"Preferred Language" = "Bevorzugte Sprache";
+
+/* No comment provided by engineer. */
+"Quit %1$@, move it into your Applications folder, relaunch it from there and try again." = "Beende „%1$@“, bewege es in den Ordner „Programme“, starte das Programm von dort erneut und versuche es noch einmal.";
+
+/* No comment provided by engineer. */
+"Ready to Install" = "Bereit zum Installieren";
+
+/* No comment provided by engineer. */
+"Should %1$@ automatically check for updates? You can always check for updates manually from the %1$@ menu." = "Soll %1$@ automatisch nach Updates suchen? Du kannst im %1$@-Menü auch manuell nach Updates suchen.";
+
+/* No comment provided by engineer. */
+"The installation failed due to not having permission to write the new update." = "Die Installation ist fehlgeschlagen aufgrund fehlender Berechtigung zum Schreiben des neuen Updates.";
+
+/* No comment provided by engineer. */
+"The update is improperly signed and could not be validated. Please try again later or contact the app developer." = "Das Update ist nicht ordnungsgemäß signiert und konnte nicht überprüft werden. Bitte versuche es später erneut oder kontaktiere den App-Entwickler.";
+
+/* No comment provided by engineer. */
+"Unable to Check For Updates" = "Suche nach Updates ist fehlgeschlagen";
+
+/* No comment provided by engineer. */
+"Update Error!" = "Fehler beim Aktualisieren!";
+
+/* No comment provided by engineer. */
+"Update Installed" = "Update installiert";
+
+/* No comment provided by engineer. */
+"Updating %@" = "Aktualisierung von %@";
+
+/* No comment provided by engineer. */
+"Use Finder to copy %1$@ to the Applications folder, relaunch it from there, and try again." = "Kopiere %1$@ in den Programmeordner, starte es von dort aus und versuche es erneut zu aktualisieren.";
+
+/* No comment provided by engineer. */
+"Version History" = "Versionsverlauf";
+
+/* No comment provided by engineer. */
+"Yes" = "Ja";
+
+/* No comment provided by engineer. */
+"You may need to allow modifications from %1$@ in System Settings under Privacy & Security and App Management to install future updates." = "Du musst möglicherweise in den Systemeinstellungen unter „Datenschutz & Sicherheit“ und „App-Verwaltung“ Änderungen von %1$@ erlauben, um künftige Updates zu installieren.";
+
+/* Status message shown when the user checks for updates but is already current or the feed doesn't contain any updates. */
+"You’re up to date!" = "Du bist auf dem neuesten Stand!";
+
+/* No comment provided by engineer. */
+"Your macOS version is too new" = "Deine Version von macOS ist zu neu";
+
+/* No comment provided by engineer. */
+"Your macOS version is too old" = "Deine Version von macOS ist zu alt";
+
+/* Software Update title/label */
+"Software Update" = "Softwareupdate";
+
+/* Remind Me Later choice for update alert */
+"Remind Me Later" = "Später erinnern";
+
+/* Skip This Version choice for update alert */
+"Skip This Version" = "Diese Version überspringen";
+
+/* Install Update choice for update alert */
+"Install Update" = "Installieren";
+
+/* Automatically download and install updates in the future option for update alert */
+"Automatically download and install updates in the future" = "Updates in Zukunft automatisch laden und installieren";
+
+/* Check for updates automatically response for update permission dialog */
+"Check Automatically" = "Automatisch suchen";
+
+/* Don't check for updates automatically response for update permission dialog */
+"Don’t Check" = "Nicht suchen";
+
+/* Title question for update permission dialog */
+"Check for updates automatically?" = "Automatisch nach Updates suchen?";
+
+/* Include anonymous system profile choice for update permission dialog */
+"Include anonymous system profile" = "Anonymisiertes Systemprofil übertragen";
+
+/* Automatically download and install updates choice for update permission dialog */
+"Automatically download and install updates" = "Updates automatisch laden und installieren";
+
+/* Anonymous system profile information disclosure for update permission dialog */
+"Anonymous system profile information is used to help us plan future development work. Please contact us if you have any questions about this.\n\nThis is the information that would be sent:" = "Das anonymisierte Systemprofil unterstützt uns bei der zukünftigen Entwicklung. Bitte kontaktiere uns, wenn du Fragen hierzu hast.\n\nDiese Informationen würden an uns gesendet werden:";

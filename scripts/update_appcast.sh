@@ -6,7 +6,7 @@ version="$(cat "$VERSION_FILE")"
 date="$(date +'%a, %d %b %Y %H:%M:%S %z')"
 minimumSystemVersion="$(awk -F ' = ' '/MACOSX_DEPLOYMENT_TARGET/ { print $2; }' < config/base.xcconfig)"
 zipName="$APP_NAME-$version.zip"
-edSignatureAndLength=$(Pods/Sparkle/bin/sign_update -s $SPARKLE_ED_PRIVATE_KEY "$XCODE_BUILD_PATH/$zipName")
+edSignatureAndLength=$(vendor/Sparkle/bin/sign_update -s $SPARKLE_ED_PRIVATE_KEY "$XCODE_BUILD_PATH/$zipName")
 
 echo "
     <item>
@@ -23,5 +23,4 @@ echo "
     </item>
 " > ITEM.txt
 
-sed -i '' -e "/<\/language>/r ITEM.txt" docs/appcast.xml
-cp docs/appcast.xml appcast.xml # for retro-compat; we'll eventually remove it
+sed -i '' -e "/<\/language>/r ITEM.txt" appcast.xml

@@ -1,0 +1,78 @@
+import Cocoa
+
+class TextArea: NSTextField {
+    static let padding = CGFloat(5)
+    static let interLineFactor = CGFloat(1.6)
+    var callback: (() -> Void)!
+    // Cap measured in UTF-16 code units (matches JS String.length on the
+    // backend so client and server agree on emoji-heavy input).
+    var maxLength: Int?
+
+    convenience init(_ nCharactersWide: CGFloat, _ nLinesHigh: Int, _ placeholder: String, _ callback: (() -> Void)? = nil, _ maxLength: Int? = nil) {
+        self.init(frame: .zero)
+        self.callback = callback
+        self.maxLength = maxLength
+        delegate = self
+        cell = TextFieldCell(placeholder, nLinesHigh == 1)
+        let width: CGFloat = (font!.xHeight * nCharactersWide + TextArea.padding * 2).rounded()
+        let height: CGFloat = (NSFont.systemFontSize * TextArea.interLineFactor * CGFloat(nLinesHigh) + TextArea.padding * 2).rounded()
+        fit(width, height)
+    }
+}
+
+extension TextArea: NSTextFieldDelegate {
+    // Multi-line fields: Return inserts a newline so users can compose multi-paragraph
+    // content (matches Mail compose / Notes / Linear).
+    // Single-line fields: fall through to AppKit's default — Return ends editing and
+    // triggers the window's default button, which is the conventional macOS "submit"
+    // gesture (HIG: Keyboard Shortcuts).
+    func control(_ control: NSControl, textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {
+        guard commandSelector == #selector(NSResponder.insertNewline) else { return false }
+        if (cell as? NSTextFieldCell)?.usesSingleLineMode == true { return false }
+        textView.insertNewlineIgnoringFieldEditor(self)
+        return true
+    }
+
+    func controlTextDidChange(_ notification: Notification) {
+        if let max = maxLength, stringValue.utf16.count > max {
+            // Walk grapheme by grapheme so we never split a surrogate pair
+            // or a combining sequence; stop when adding the next would push
+            // utf16.count past the cap.
+            var truncated = ""
+            var count = 0
+            for char in stringValue {
+                let charUtf16 = char.utf16.count
+                if count + charUtf16 > max { break }
+                truncated.append(char)
+                count += charUtf16
+            }
+            stringValue = truncated
+        }
+        callback?()
+    }
+}
+
+// subclassing NSTextFieldCell is done uniquely to add padding
+class TextFieldCell: NSTextFieldCell {
+    convenience init(_ placeholder: String, _ usesSingleLineMode: Bool) {
+        self.init()
+        isBordered = true
+        isBezeled = true
+        isEditable = true
+        font = NSFont.systemFont(ofSize: NSFont.systemFontSize)
+        stringValue = ""
+        placeholderString = placeholder
+        self.usesSingleLineMode = usesSingleLineMode
+        alignment = .natural // appkit bug: the docs say default is .natural but it's .left
+    }
+
+    // add padding all around
+    override func drawingRect(forBounds rect: NSRect) -> NSRect {
+        return super.drawingRect(forBounds: NSMakeRect(
+            rect.origin.x + TextArea.padding,
+            rect.origin.y + TextArea.padding,
+            rect.size.width - TextArea.padding * 2,
+            rect.size.height - TextArea.padding * 2
+        ))
+    }
+}

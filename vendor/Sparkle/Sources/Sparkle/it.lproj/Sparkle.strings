@@ -1,0 +1,182 @@
+/* Description text for SUUpdateAlert when the critical update has already been downloaded and ready to install. */
+"%1$@ %2$@ has been downloaded and is ready to use! This is an important update; would you like to install it and relaunch %1$@ now?" = "%1$@ %2$@ è stato scaricato ed è pronto per essere utilizzato! Questo è un aggiornamento importante; desideri installare e riavviare %1$@ ora?";
+
+/* Description text for SUUpdateAlert when the update has already been downloaded and ready to install. */
+"%1$@ %2$@ has been downloaded and is ready to use! Would you like to install it and relaunch %1$@ now?" = "%1$@ %2$@ è stato scaricato ed è pronto per essere utilizzato! Desideri installare e riavviare %1$@ ora?";
+
+/* No comment provided by engineer. */
+"%1$@ %2$@ is available but your macOS version is too new for this update. This update only supports up to macOS %3$@." = "%1$@ %2$@ è disponibile ma la tua versione di macOS è troppo recente per questo aggiornamento. Questo aggiornamento supporta solo fino a macOS %3$@.";
+
+/* No comment provided by engineer. */
+"%1$@ %2$@ is available but your macOS version is too old to install it. At least macOS %3$@ is required." = "%1$@ %2$@ è disponibile ma la tua versione di macOS è troppo vecchia per installarla. È richiesto almeno macOS %3$@.";
+
+/* No comment provided by engineer. */
+"%1$@ can’t be updated if it’s running from the location it was downloaded to." = "%1$@ non può essere aggiornata se è in esecuzione dalla posizione in cui è stato scaricata.";
+
+/* No comment provided by engineer. */
+"%1$@ can’t be updated because it was opened from a read-only or a temporary location." = "%1$@ non può essere aggiornata perché è stata aperta da una posizione di sola lettura o temporanea.";
+
+/* No comment provided by engineer. */
+"%@ %@ is currently the newest version available." = "%1$@ %2$@ è la versione più recente attualmente disponibile.";
+
+/* No comment provided by engineer. */
+"%@ %@ is currently the newest version available.\n(You are currently running version %@.)" = "%1$@ %2$@ è la versione più recente attualmente disponibile.\n(Attualmente stai utilizzando la versione %3$@)";
+
+/* Description text for SUUpdateAlert when the critical update is downloadable. */
+"%@ %@ is now available—you have %@. This is an important update; would you like to download it now?" = "%1$@ %2$@ è disponibile; disponi della versione %3$@. Questo è un aggiornamento importante; desideri eseguire l’aggiornamento ora?";
+
+/* Description text for SUUpdateAlert when the update is downloadable. */
+"%@ %@ is now available—you have %@. Would you like to download it now?" = "%1$@ %2$@ è disponibile; disponi della versione %3$@. Desideri eseguire l’aggiornamento ora?";
+
+/* Description text for SUUpdateAlert when the update informational with no download. */
+"%@ %@ is now available—you have %@. Would you like to learn more about this update on the web?" = "%1$@ %2$@ è disponibile; disponi della versione %3$@. Desideri ulteriori informazioni su questo aggiornamento sul web?";
+
+/* The download progress in a unit of bytes, e.g. 100 KB */
+"%@ downloaded" = "%@ scaricato";
+
+/* No comment provided by engineer. */
+"%@ is now updated to version %@!" = "%1$@ ora è aggiornata alla versione %2$@!";
+
+/* No comment provided by engineer. */
+"%@ is now updated!" = "%@ ora è aggiornata!";
+
+/* The download progress in units of bytes, e.g. 100 KB of 1,0 MB */
+"%@ of %@" = "%1$@ di %2$@";
+
+/* No comment provided by engineer. */
+"A new version of %@ is available!" = "È disponibile una nuova versione di %@!";
+
+/* No comment provided by engineer. */
+"A new version of %@ is ready to install!" = "Una nuova versione di %@ è pronta per essere installata!";
+
+/* No comment provided by engineer. */
+"An error occurred in retrieving update information. Please try again later." = "Si è verificato un errore durante il recupero delle informazioni sull’aggiornamento. Riprova in seguito.";
+
+/* No comment provided by engineer. */
+"An error occurred while connecting to the installer. Please try again later." = "Si è verificato un errore durante la connessione al programma di installazione. Riprova in seguito.";
+
+/* No comment provided by engineer. */
+"An error occurred while downloading the update. Please try again later." = "Si è verificato un errore durante lo scaricamento dell’aggiornamento. Riprova in seguito.";
+
+/* No comment provided by engineer. */
+"An error occurred while extracting the archive. Please try again later." = "Si è verificato un errore durante l’estrazione dell’archivio. Riprova in seguito.";
+
+/* No comment provided by engineer. */
+"An error occurred while launching the installer. Please try again later." = "Si è verificato un errore durante l’avvio del programma di installazione. Riprova in seguito.";
+
+/* No comment provided by engineer. */
+"An error occurred while parsing the update feed." = "Si è verificato un errore durante la lettura del feed di aggiornamento.";
+
+/* No comment provided by engineer. */
+"An error occurred while running the updater. Please try again later." = "Si è verificato un errore durante l’esecuzione del programma di aggiornamento. Riprova in seguito.";
+
+/* No comment provided by engineer. */
+"An error occurred while starting the installer. Please try again later." = "Si è verificato un errore durante l’avvio del programma di installazione. Riprova in seguito.";
+
+/* No comment provided by engineer. */
+"An important update to %@ is ready to install" = "Un importante aggiornamento di %@ è pronto per l’installazione";
+
+/* No comment provided by engineer. */
+"Cancel" = "Annulla";
+
+/* No comment provided by engineer. */
+"Cancel Update" = "Annulla Aggiornamento";
+
+/* No comment provided by engineer. */
+"Checking for updates…" = "Controllo aggiornamenti in corso…";
+
+/* Take care not to overflow the status window. */
+"Downloading update…" = "Scaricamento dell’aggiornamento…";
+
+/* Take care not to overflow the status window. */
+"Extracting update…" = "Estrazione dell’aggiornamento…";
+
+/* No comment provided by engineer. */
+"Failed to resume installing update." = "Impossibile riprendere l’installazione dell’aggiornamento.";
+
+/* No comment provided by engineer. */
+"Install and Relaunch" = "Installa e Riavvia";
+
+/* Alternate title for 'Remind Me Later' button when downloaded updates can be resumed */
+"Install on Quit" = "Installa all’uscita";
+
+/* Take care not to overflow the status window. */
+"Installing update…" = "Installazione aggiornamento in corso…";
+
+/* Alternate title for 'Install Update' button when there's no download in RSS feed. */
+"Learn More…" = "Ulteriori informazioni…";
+
+/* No comment provided by engineer. */
+"OK" = "OK";
+
+/* No comment provided by engineer. */
+"Quit %1$@, move it into your Applications folder, relaunch it from there and try again." = "Esci da %1$@, spostala nella Cartella Applicazioni, riavviala da lì e riprova.";
+
+/* No comment provided by engineer. */
+"Ready to Install" = "Pronto per l’installazione";
+
+/* No comment provided by engineer. */
+"Should %1$@ automatically check for updates? You can always check for updates manually from the %1$@ menu." = "Desideri che %1$@ verifichi gli aggiornamenti automaticamente? Puoi effettuare la verifica manualmente dal menu di %1$@.";
+
+/* No comment provided by engineer. */
+"The update is improperly signed and could not be validated. Please try again later or contact the app developer." = "L’aggiornamento è firmato in modo errato e non può essere convalidato. Riprova in seguito o contatta lo sviluppatore dell’app.";
+
+/* No comment provided by engineer. */
+"Unable to Check For Updates" = "Impossibile controllare gli aggiornamenti";
+
+/* No comment provided by engineer. */
+"Update Error!" = "Errore di Aggiornamento!";
+
+/* No comment provided by engineer. */
+"Update Installed" = "Aggiornamento installato";
+
+/* No comment provided by engineer. */
+"Updating %@" = "Aggiornamento di %@";
+
+/* No comment provided by engineer. */
+"Use Finder to copy %1$@ to the Applications folder, relaunch it from there, and try again." = "Spostare %1$@ nella Cartella Applicazioni, riavviarla e riprovare.";
+
+/* No comment provided by engineer. */
+"Version History" = "Cronologia versioni";
+
+/* No comment provided by engineer. */
+"Your macOS version is too new" = "La tua versione di macOS è troppo recente";
+
+/* No comment provided by engineer. */
+"Your macOS version is too old" = "La tua versione di macOS è troppo vecchia";
+
+/* Status message shown when the user checks for updates but is already current or the feed doesn't contain any updates. */
+"You’re up to date!" = "La tua applicazione è aggiornata!";
+
+/* Software Update title/label */
+"Software Update" = "Aggiornamento Software";
+
+/* Remind Me Later choice for update alert */
+"Remind Me Later" = "Ricordamelo più tardi";
+
+/* Skip This Version choice for update alert */
+"Skip This Version" = "Ignora questa versione";
+
+/* Install Update choice for update alert */
+"Install Update" = "Installa";
+
+/* Automatically download and install updates in the future option for update alert */
+"Automatically download and install updates in the future" = "In futuro scarica e installa automaticamente gli aggiornamenti";
+
+/* Check for updates automatically response for update permission dialog */
+"Check Automatically" = "Controlla Automaticamente";
+
+/* Don't check for updates automatically response for update permission dialog */
+"Don’t Check" = "Non controllare";
+
+/* Title question for update permission dialog */
+"Check for updates automatically?" = "Controllo automaticamente gli aggiornamenti?";
+
+/* Include anonymous system profile choice for update permission dialog */
+"Include anonymous system profile" = "Include profilo di sistema anonimo";
+
+/* Automatically download and install updates choice for update permission dialog */
+"Automatically download and install updates" = "Scarica e installa automaticamente gli aggiornamenti";
+
+/* Anonymous system profile information disclosure for update permission dialog */
+"Anonymous system profile information is used to help us plan future development work. Please contact us if you have any questions about this.\n\nThis is the information that would be sent:" = "Le informazioni del profilo di sistema anomino sono utilizzate per aiutarci in futuri lavori di sviluppo. Contattaci se hai dei quesiti sull’argomento.\n\nQueste sono le informazioni che verrebbero inviate:";

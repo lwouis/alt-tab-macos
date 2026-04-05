@@ -1,0 +1,236 @@
+/* Description text for SUUpdateAlert when the critical update has already been downloaded and ready to install. */
+"%1$@ %2$@ has been downloaded and is ready to use! This is an important update; would you like to install it and relaunch %1$@ now?" = "%1$@ %2$@ đã được tải xuống và sẵn sàng sử dụng! Đây là bản cập nhật quan trọng; bạn có muốn cài đặt và khởi động lại %1$@ ngay bây giờ không?";
+
+/* Description text for SUUpdateAlert when the update has already been downloaded and ready to install. */
+"%1$@ %2$@ has been downloaded and is ready to use! Would you like to install it and relaunch %1$@ now?" = "%1$@ %2$@ đã được tải xuống và sẵn sàng sử dụng! Bạn có muốn cài đặt và khởi động lại %1$@ ngay bây giờ không?";
+
+/* No comment provided by engineer. */
+"%1$@ %2$@ is available but your macOS version is too new for this update. This update only supports up to macOS %3$@." = "%1$@ %2$@ khả dụng nhưng phiên bản macOS của bạn quá mới đối với bản cập nhật này. Bản cập nhật này chỉ hỗ trợ tối đa đến macOS %3$@.";
+
+/* No comment provided by engineer. */
+"%1$@ %2$@ is available but your macOS version is too old to install it. At least macOS %3$@ is required." = "%1$@ %2$@ khả dụng nhưng phiên bản macOS của bạn quá cũ để cài đặt. Yêu cầu tối thiểu macOS %3$@.";
+
+/* Mac is too old and update requires Apple silicon Mac */
+"%1$@ %2$@ is available but this update requires a new Apple silicon Mac." = "%1$@ %2$@ khả dụng nhưng bản cập nhật này yêu cầu máy Mac chạy chip Apple silicon mới.";
+
+/* No comment provided by engineer. */
+"%1$@ can’t be updated if it’s running from the location it was downloaded to." = "Không thể cập nhật %1$@ nếu ứng dụng đang chạy từ vị trí mà nó đã được tải xuống.";
+
+/* No comment provided by engineer. */
+"%1$@ can’t be updated because it was opened from a read-only or a temporary location." = "Không thể cập nhật %1$@ vì ứng dụng đã được mở từ một vị trí chỉ đọc hoặc vị trí tạm thời.";
+
+/* No comment provided by engineer. */
+"%@ %@ is currently the newest version available." = "%1$@ %2$@ hiện là phiên bản mới nhất.";
+
+/* No comment provided by engineer. */
+"%@ %@ is currently the newest version available.\n(You are currently running version %@.)" = "%1$@ %2$@ hiện là phiên bản mới nhất.\n(Bạn đang chạy phiên bản %3$@.)";
+
+/* Description text for SUUpdateAlert when the critical update is downloadable. */
+"%@ %@ is now available—you have %@. This is an important update; would you like to download it now?" = "%1$@ %2$@ hiện đã có—bạn đang dùng %3$@. Đây là bản cập nhật quan trọng; bạn có muốn tải xuống ngay bây giờ không?";
+
+/* Description text for SUUpdateAlert when the update is downloadable. */
+"%@ %@ is now available—you have %@. Would you like to download it now?" = "%1$@ %2$@ hiện đã có—bạn đang dùng %3$@. Bạn có muốn tải xuống ngay bây giờ không?";
+
+/* Description text for SUUpdateAlert when the update informational with no download. */
+"%@ %@ is now available—you have %@. Would you like to learn more about this update on the web?" = "%1$@ %2$@ hiện đã có—bạn đang dùng %3$@. Bạn có muốn tìm hiểu thêm về bản cập nhật này trên web không?";
+
+/* The download progress in a unit of bytes, e.g. 100 KB */
+"%@ downloaded" = "%@ đã tải xuống";
+
+/* No comment provided by engineer. */
+"%@ is now updated to version %@!" = "%1$@ đã được cập nhật lên phiên bản %2$@!";
+
+/* No comment provided by engineer. */
+"%@ is now updated!" = "%@ đã được cập nhật!";
+
+/* The download progress in units of bytes, e.g. 100 KB of 1,0 MB */
+"%@ of %@" = "%1$@ trên %2$@";
+
+/* No comment provided by engineer. */
+"A new version of %@ is available!" = "Đã có phiên bản mới của %@!";
+
+/* No comment provided by engineer. */
+"A new version of %@ is ready to install!" = "Phiên bản mới của %@ đã sẵn sàng để cài đặt!";
+
+/* No comment provided by engineer. */
+"An error occurred in retrieving update information. Please try again later." = "Đã xảy ra lỗi khi lấy thông tin cập nhật. Vui lòng thử lại sau.";
+
+/* No comment provided by engineer. */
+"An error occurred while connecting to the installer. Please try again later." = "Đã xảy ra lỗi khi kết nối tới trình cài đặt. Vui lòng thử lại sau.";
+
+/* No comment provided by engineer. */
+"An error occurred while downloading the update. Please try again later." = "Đã xảy ra lỗi khi tải xuống bản cập nhật. Vui lòng thử lại sau.";
+
+/* No comment provided by engineer. */
+"An error occurred while extracting the archive. Please try again later." = "Đã xảy ra lỗi khi giải nén gói lưu trữ. Vui lòng thử lại sau.";
+
+/* No comment provided by engineer. */
+"An error occurred while launching the installer. Please try again later." = "Đã xảy ra lỗi khi khởi chạy trình cài đặt. Vui lòng thử lại sau.";
+
+/* No comment provided by engineer. */
+"An error occurred while parsing the update feed." = "Đã xảy ra lỗi khi phân tích nguồn cập nhật.";
+
+/* No comment provided by engineer. */
+"An error occurred while running the updater. Please try again later." = "Đã xảy ra lỗi khi chạy trình cập nhật. Vui lòng thử lại sau.";
+
+/* No comment provided by engineer. */
+"An error occurred while starting the installer. Please try again later." = "Đã xảy ra lỗi khi khởi động trình cài đặt. Vui lòng thử lại sau.";
+
+/* No comment provided by engineer. */
+"An important update to %@ is ready to install" = "Một bản cập nhật quan trọng cho %@ đã sẵn sàng để cài đặt";
+
+/* No comment provided by engineer. */
+"Application Name" = "Tên ứng dụng";
+
+/* No comment provided by engineer. */
+"Application Version" = "Phiên bản ứng dụng";
+
+/* No comment provided by engineer. */
+"Cancel" = "Hủy";
+
+/* No comment provided by engineer. */
+"Cancel Update" = "Hủy cập nhật";
+
+/* No comment provided by engineer. */
+"Checking for updates…" = "Đang kiểm tra cập nhật…";
+
+/* No comment provided by engineer. */
+"CPU is 64-Bit?" = "CPU là 64-bit?";
+
+/* No comment provided by engineer. */
+"CPU Speed (MHz)" = "Tốc độ CPU (MHz)";
+
+/* No comment provided by engineer. */
+"CPU Subtype" = "Phân loại CPU";
+
+/* No comment provided by engineer. */
+"CPU Type" = "Loại CPU";
+
+/* Take care not to overflow the status window. */
+"Downloading update…" = "Đang tải xuống bản cập nhật…";
+
+/* Take care not to overflow the status window. */
+"Extracting update…" = "Đang giải nén bản cập nhật…";
+
+/* No comment provided by engineer. */
+"Failed to resume installing update." = "Không thể tiếp tục cài đặt bản cập nhật.";
+
+/* No comment provided by engineer. */
+"Install and Relaunch" = "Cài đặt và khởi động lại";
+
+/* Alternate title for 'Remind Me Later' button when downloaded updates can be resumed */
+"Install on Quit" = "Cài đặt khi thoát";
+
+/* Take care not to overflow the status window. */
+"Installing update…" = "Đang cài đặt bản cập nhật…";
+
+/* Alternate title for 'Install Update' button when there's no download in RSS feed. */
+"Learn More…" = "Tìm hiểu thêm…";
+
+/* No comment provided by engineer. */
+"Mac Model" = "Mẫu Mac";
+
+/* No comment provided by engineer. */
+"Memory (MB)" = "Bộ nhớ (MB)";
+
+/* No comment provided by engineer. */
+"No" = "Không";
+
+/* No comment provided by engineer. */
+"Number of CPUs" = "Số lượng CPU";
+
+/* No comment provided by engineer. */
+"OK" = "OK";
+
+/* No comment provided by engineer. */
+"OS Version" = "Phiên bản hệ điều hành";
+
+/* No comment provided by engineer. */
+"Preferred Language" = "Ngôn ngữ ưu tiên";
+
+/* No comment provided by engineer. */
+"Quit %1$@, move it into your Applications folder, relaunch it from there and try again." = "Thoát %1$@, di chuyển vào thư mục Applications, khởi động lại từ đó và thử lại.";
+
+/* No comment provided by engineer. */
+"Ready to Install" = "Sẵn sàng cài đặt";
+
+/* No comment provided by engineer. */
+"Should %1$@ automatically check for updates? You can always check for updates manually from the %1$@ menu." = "Có nên để %1$@ tự động kiểm tra cập nhật không? Bạn luôn có thể kiểm tra cập nhật thủ công từ menu %1$@.";
+
+/* No comment provided by engineer. */
+"The installation failed due to not having permission to write the new update." = "Cài đặt thất bại do không có quyền ghi bản cập nhật mới.";
+
+/* No comment provided by engineer. */
+"The updater failed to start. Please verify you have the latest version of %@ and contact the app developer if the issue still persists. Check the Console logs for more information." = "Trình cập nhật không thể khởi động. Vui lòng xác minh bạn đang dùng phiên bản mới nhất của %@ và liên hệ nhà phát triển nếu sự cố vẫn tiếp diễn. Kiểm tra nhật ký Console để biết thêm thông tin.";
+
+/* No comment provided by engineer. */
+"The update is improperly signed and could not be validated. Please try again later or contact the app developer." = "Bản cập nhật có chữ ký không hợp lệ và không thể xác thực. Vui lòng thử lại sau hoặc liên hệ nhà phát triển.";
+
+/* No comment provided by engineer. */
+"Unable to Check For Updates" = "Không thể kiểm tra cập nhật";
+
+/* No comment provided by engineer. */
+"Update Error!" = "Lỗi cập nhật!";
+
+/* No comment provided by engineer. */
+"Update Installed" = "Đã cài đặt cập nhật";
+
+/* No comment provided by engineer. */
+"Updating %@" = "Đang cập nhật %@";
+
+/* No comment provided by engineer. */
+"Use Finder to copy %1$@ to the Applications folder, relaunch it from there, and try again." = "Sử dụng Finder để sao chép %1$@ vào thư mục Applications, khởi động lại từ đó và thử lại.";
+
+/* No comment provided by engineer. */
+"Version History" = "Lịch sử phiên bản";
+
+/* No comment provided by engineer. */
+"Yes" = "Có";
+
+/* No comment provided by engineer. */
+"You may need to allow modifications from %1$@ in System Settings under Privacy & Security and App Management to install future updates." = "Bạn có thể cần cho phép sửa đổi từ %1$@ trong Cài đặt hệ thống tại Quyền riêng tư & Bảo mật và Quản lý ứng dụng để cài đặt các bản cập nhật trong tương lai.";
+
+/* No comment provided by engineer. */
+"Your macOS version is too new" = "Phiên bản macOS của bạn quá mới";
+
+/* No comment provided by engineer. */
+"Your macOS version is too old" = "Phiên bản macOS của bạn quá cũ";
+
+/* Mac is too old and update requires newer hardware */
+"Your Mac is too old" = "Máy Mac của bạn quá cũ";
+
+/* Status message shown when the user checks for updates but is already current or the feed doesn't contain any updates. */
+"You’re up to date!" = "Bạn đang dùng phiên bản mới nhất!";
+
+/* Software Update title/label */
+"Software Update" = "Cập nhật phần mềm";
+
+/* Remind Me Later choice for update alert */
+"Remind Me Later" = "Nhắc tôi sau";
+
+/* Skip This Version choice for update alert */
+"Skip This Version" = "Bỏ qua phiên bản này";
+
+/* Install Update choice for update alert */
+"Install Update" = "Cài đặt cập nhật";
+
+/* Automatically download and install updates in the future option for update alert */
+"Automatically download and install updates in the future" = "Tự động tải xuống và cài đặt cập nhật trong tương lai";
+
+/* Check for updates automatically response for update permission dialog */
+"Check Automatically" = "Tự động kiểm tra";
+
+/* Don't check for updates automatically response for update permission dialog */
+"Don’t Check" = "Không kiểm tra";
+
+/* Title question for update permission dialog */
+"Check for updates automatically?" = "Tự động kiểm tra cập nhật?";
+
+/* Include anonymous system profile choice for update permission dialog */
+"Include anonymous system profile" = "Bao gồm hồ sơ hệ thống ẩn danh";
+
+/* Automatically download and install updates choice for update permission dialog */
+"Automatically download and install updates" = "Tự động tải xuống và cài đặt cập nhật";
+
+/* Anonymous system profile information disclosure for update permission dialog */
+"Anonymous system profile information is used to help us plan future development work. Please contact us if you have any questions about this.\n\nThis is the information that would be sent:" = "Thông tin hồ sơ hệ thống ẩn danh được sử dụng để giúp chúng tôi lập kế hoạch phát triển trong tương lai. Vui lòng liên hệ nếu bạn có bất kỳ câu hỏi nào.\n\nĐây là thông tin sẽ được gửi:";

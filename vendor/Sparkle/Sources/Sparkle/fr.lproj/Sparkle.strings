@@ -1,0 +1,134 @@
+/* No comment provided by engineer. */
+"%@ %@ is currently the newest version available." = "%1$@ %2$@ est la version la plus récente disponible.";
+
+/* No comment provided by engineer. */
+"%@ %@ is currently the newest version available.\n(You are currently running version %@.)" = "%1$@ %2$@ est la version la plus récente disponible.\n(Vous utilisez actuellement la version %3$@)";
+
+/* Description text for SUUpdateAlert when the update is downloadable. */
+"%@ %@ is now available—you have %@. Would you like to download it now?" = "%1$@ %2$@ est disponible ; vous utilisez la version %3$@. Voulez-vous le télécharger maintenant ?";
+
+/* Description text for SUUpdateAlert when the update informational with no download. */
+"%@ %@ is now available—you have %@. Would you like to learn more about this update on the web?" = "%1$@ %2$@ est disponible ; vous utilisez la version %3$@. Voulez-vous en savoir plus sur cette mise à jour sur Internet ?";
+
+/* The download progress in a unit of bytes, e.g. 100 KB */
+"%@ downloaded" = "%@ téléchargé";
+
+/* The download progress in units of bytes, e.g. 100 KB of 1,0 MB */
+"%@ of %@" = "%1$@ sur %2$@";
+
+/* Description text for SUUpdateAlert when the critical update has already been downloaded and ready to install. */
+"%1$@ %2$@ has been downloaded and is ready to use! This is an important update; would you like to install it and relaunch %1$@ now?" = "%1$@ %2$@ a été téléchargé. C’est une mise à jour importante ; voulez-vous l’installer et relancer %1$@ maintenant ?";
+
+/* Description text for SUUpdateAlert when the update has already been downloaded and ready to install. */
+"%1$@ %2$@ has been downloaded and is ready to use! Would you like to install it and relaunch %1$@ now?" = "%1$@ %2$@ a été téléchargé. Voulez-vous l’installer et relancer %1$@ maintenant ?";
+
+/* No comment provided by engineer. */
+"%1$@ can’t be updated if it’s running from the location it was downloaded to." = "%1$@ ne peut pas être mis à jour s’il est exécuté depuis le dossier dans lequel il a été téléchargé.";
+
+/* No comment provided by engineer. */
+"%1$@ can’t be updated because it was opened from a read-only or a temporary location." = "%1$@ ne peut pas être mis à jour quand il fonctionne à partir d’un volume en lecture seule, comme une image disque ou un lecteur optique.";
+
+/* No comment provided by engineer. */
+"A new version of %@ is available!" = "Une nouvelle version de %@ est disponible !";
+
+/* No comment provided by engineer. */
+"A new version of %@ is ready to install!" = "Une nouvelle version de %@ est prête à être installée !";
+
+/* No comment provided by engineer. */
+"An error occurred in retrieving update information. Please try again later." = "Une erreur est survenue en récupérant les informations de mise à jour. Veuillez réessayer plus tard.";
+
+/* No comment provided by engineer. */
+"An error occurred while downloading the update. Please try again later." = "Une erreur est survenue pendant le téléchargement de la mise à jour. Veuillez réessayer plus tard.";
+
+/* No comment provided by engineer. */
+"An error occurred while extracting the archive. Please try again later." = "Une erreur est survenue pendant l’extraction des données de l’archive. Veuillez réessayer plus tard.";
+
+/* No comment provided by engineer. */
+"An error occurred while parsing the update feed." = "Une erreur est survenue pendant l’analyse de la mise à jour.";
+
+/* No comment provided by engineer. */
+"An important update to %@ is ready to install" = "Une mise à jour importante de %@ est prête à être installée";
+
+/* No comment provided by engineer. */
+"Cancel" = "Annuler";
+
+/* No comment provided by engineer. */
+"Cancel Update" = "Annuler la mise à jour";
+
+/* No comment provided by engineer. */
+"Checking for updates…" = "Recherche de mises à jour…";
+
+/* Take care not to overflow the status window. */
+"Downloading update…" = "Téléchargement de la mise à jour…";
+
+/* Take care not to overflow the status window. */
+"Extracting update…" = "Extraction de la mise à jour…";
+
+/* No comment provided by engineer. */
+"Install and Relaunch" = "Installer et relancer";
+
+/* Take care not to overflow the status window. */
+"Installing update…" = "Installation de la mise à jour…";
+
+/* Alternate title for 'Install Update' button when there's no download in RSS feed. */
+"Learn More…" = "En savoir plus…";
+
+/* No comment provided by engineer. */
+"OK" = "OK";
+
+/* No comment provided by engineer. */
+"Quit %1$@, move it into your Applications folder, relaunch it from there and try again." = "Quittez %1$@ et déplacez-le dans le dossier Applications, relancez-le à partir de ce dossier et essayez à nouveau.";
+
+/* No comment provided by engineer. */
+"Ready to Install" = "Prêt pour l’installation";
+
+/* No comment provided by engineer. */
+"Should %1$@ automatically check for updates? You can always check for updates manually from the %1$@ menu." = "%1$@ doit-il rechercher automatiquement les mises à jour ? La mise à jour est toujours possible manuellement depuis le menu %1$@.";
+
+/* No comment provided by engineer. */
+"Update Error!" = "Erreur pendant la mise à jour !";
+
+/* No comment provided by engineer. */
+"Updating %@" = "Mise à jour de %@";
+
+/* No comment provided by engineer. */
+"Use Finder to copy %1$@ to the Applications folder, relaunch it from there, and try again." = "Déplacez %1$@ dans votre dossier Applications, relancez-le à partir de là et réessayez.";
+
+/* No comment provided by engineer. */
+"Version History" = "Historique des versions";
+
+/* Status message shown when the user checks for updates but is already current or the feed doesn't contain any updates. */
+"You’re up to date!" = "Votre logiciel est à jour !";
+
+/* Software Update title/label */
+"Software Update" = "Mise à jour logiciel";
+
+/* Remind Me Later choice for update alert */
+"Remind Me Later" = "Pas maintenant";
+
+/* Skip This Version choice for update alert */
+"Skip This Version" = "Ignorer cette version";
+
+/* Install Update choice for update alert */
+"Install Update" = "Installer";
+
+/* Automatically download and install updates in the future option for update alert */
+"Automatically download and install updates in the future" = "Télécharger et installer automatiquement les mises à jour";
+
+/* Check for updates automatically response for update permission dialog */
+"Check Automatically" = "Vérifier automatiquement";
+
+/* Don't check for updates automatically response for update permission dialog */
+"Don’t Check" = "Ne pas vérifier";
+
+/* Title question for update permission dialog */
+"Check for updates automatically?" = "Rechercher automatiquement les mises à jour ?";
+
+/* Include anonymous system profile choice for update permission dialog */
+"Include anonymous system profile" = "Avec transmission anonyme de mon profil système";
+
+/* Automatically download and install updates choice for update permission dialog */
+"Automatically download and install updates" = "Télécharger et installer automatiquement les mises à jour";
+
+/* Anonymous system profile information disclosure for update permission dialog */
+"Anonymous system profile information is used to help us plan future development work. Please contact us if you have any questions about this.\n\nThis is the information that would be sent:" = "Les informations anonymes de profil système nous aident à planifier les futurs développements. Contactez-nous pour toute question à ce sujet.\n\nCi-dessous figurent les informations qui seront transmises :";

@@ -1,0 +1,116 @@
+/* No comment provided by engineer. */
+"%@ %@ is currently the newest version available." = "В настоящий момент %1$@ %2$@ является новейшей версией.";
+
+/* No comment provided by engineer. */
+"%@ %@ is currently the newest version available.\n(You are currently running version %@.)" = "В настоящий момент %1$@ %2$@ является новейшей версией.\n(У вас установлена %3$@.)";
+
+/* Description text for SUUpdateAlert when the update is downloadable. */
+"%@ %@ is now available—you have %@. Would you like to download it now?" = "%1$@ %2$@ теперь доступен – у вас установлен %3$@. Хотите загрузить его сейчас?";
+
+/* The download progress in a unit of bytes, e.g. 100 KB */
+"%@ downloaded" = "%@ загружено";
+
+/* The download progress in units of bytes, e.g. 100 KB of 1,0 MB */
+"%@ of %@" = "%1$@ из %2$@";
+
+/* Description text for SUUpdateAlert when the update has already been downloaded and ready to install. */
+"%1$@ %2$@ has been downloaded and is ready to use! Would you like to install it and relaunch %1$@ now?" = "%1$@ %2$@ загружен и готов к использованию! Хотите установить и перезапустить %1$@?";
+
+/* No comment provided by engineer. */
+"%1$@ can’t be updated because it was opened from a read-only or a temporary location." = "Не удаётся обновить %1$@ с тома, предназначенного только для чтения.";
+
+/* No comment provided by engineer. */
+"A new version of %@ is available!" = "Имеется новая версия %@!";
+
+/* No comment provided by engineer. */
+"A new version of %@ is ready to install!" = "Новая версия %@ готова к установке!";
+
+/* No comment provided by engineer. */
+"An error occurred in retrieving update information. Please try again later." = "Произошла ошибка при извлечении информации обновления. Повторите попытку позже.";
+
+/* No comment provided by engineer. */
+"An error occurred while downloading the update. Please try again later." = "Произошла ошибка при загрузке обновления. Повторите попытку позже.";
+
+/* No comment provided by engineer. */
+"An error occurred while extracting the archive. Please try again later." = "Произошла ошибка при извлечении архива. Повторите попытку позже.";
+
+/* No comment provided by engineer. */
+"An error occurred while parsing the update feed." = "Произошла ошибка при извлечении канала обновления.";
+
+/* No comment provided by engineer. */
+"Cancel" = "Отменить";
+
+/* No comment provided by engineer. */
+"Cancel Update" = "Отменить обновление";
+
+/* No comment provided by engineer. */
+"Checking for updates…" = "Проверяю наличие обновлений…";
+
+/* Take care not to overflow the status window. */
+"Downloading update…" = "Загружаю обновление…";
+
+/* Take care not to overflow the status window. */
+"Extracting update…" = "Извлекаю обновление…";
+
+/* No comment provided by engineer. */
+"Install and Relaunch" = "Установить и перезапустить";
+
+/* Take care not to overflow the status window. */
+"Installing update…" = "Устанавливаю обновление…";
+
+/* Alternate title for 'Install Update' button when there's no download in RSS feed. */
+"Learn More…" = "Узнать больше…";
+
+/* No comment provided by engineer. */
+"OK" = "OK";
+
+/* No comment provided by engineer. */
+"Ready to Install" = "Готов к установке";
+
+/* No comment provided by engineer. */
+"Should %1$@ automatically check for updates? You can always check for updates manually from the %1$@ menu." = "Должен ли %1$@ выполнять автоматическую проверку обновлений? Вы всегда можете выполнять проверку обновлений вручную в меню %1$@.";
+
+/* No comment provided by engineer. */
+"Update Error!" = "Ошибка при обновлении!";
+
+/* No comment provided by engineer. */
+"Updating %@" = "Обновляю %@";
+
+/* No comment provided by engineer. */
+"Use Finder to copy %1$@ to the Applications folder, relaunch it from there, and try again." = "Переместите %1$@ в Папку приложений, перезапустите его оттуда и повторите попытку.";
+
+/* Status message shown when the user checks for updates but is already current or the feed doesn't contain any updates. */
+"You’re up to date!" = "У вас все обновлено!";
+
+/* Software Update title/label */
+"Software Update" = "Обновление программного обеспечения";
+
+/* Remind Me Later choice for update alert */
+"Remind Me Later" = "Напоминать позже";
+
+/* Skip This Version choice for update alert */
+"Skip This Version" = "Пропустить эту версию";
+
+/* Install Update choice for update alert */
+"Install Update" = "Установить обновление";
+
+/* Automatically download and install updates in the future option for update alert */
+"Automatically download and install updates in the future" = "Автоматически загружать и устанавливать обновления в будущем";
+
+/* Check for updates automatically response for update permission dialog */
+"Check Automatically" = "Проверять автоматически";
+
+/* Don't check for updates automatically response for update permission dialog */
+"Don’t Check" = "Не проверять";
+
+/* Title question for update permission dialog */
+"Check for updates automatically?" = "Выполнять автоматическую проверку наличия обновлений?";
+
+/* Include anonymous system profile choice for update permission dialog */
+"Include anonymous system profile" = "Включить анонимный профиль системы";
+
+/* Automatically download and install updates choice for update permission dialog */
+"Automatically download and install updates" = "Автоматически загружать и устанавливать обновления";
+
+/* Anonymous system profile information disclosure for update permission dialog */
+"Anonymous system profile information is used to help us plan future development work. Please contact us if you have any questions about this.\n\nThis is the information that would be sent:" = "Использование анонимного профиля системы помогает нам в планировании будущей работы по разработке. Если у вас есть какие-либо вопросы по этой теме, обращайтесь к нам.\n\nЭто информация, предназначенная для отправления:";

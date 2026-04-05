@@ -1,6 +1,5 @@
 // docs: https://help.apple.com/xcode/mac/11.4/#/itcaec37c2a6
 
-#include "Pods/Target Support Files/Pods-alt-tab-macos/Pods-alt-tab-macos.debug.xcconfig"
 #include "base.xcconfig"
 
 CODE_SIGN_IDENTITY = Local Self-Signed
@@ -8,3 +7,6 @@ SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG // for macro `#if DEBUG`
 OTHER_SWIFT_FLAGS = -driver-time-compilation -Xfrontend -warn-long-function-bodies=250 -Xfrontend -warn-long-expression-type-checking=250 // find slow compilation areas
 OTHER_CODE_SIGN_FLAGS = --timestamp=none
 SWIFT_COMPILATION_MODE = incremental
+
+// Per-developer overrides (CODE_SIGN_IDENTITY, APPCENTER_SECRET, DOMAIN, API_DOMAIN, …).
+#include? "local.xcconfig"
