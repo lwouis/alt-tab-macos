@@ -24,6 +24,7 @@ class App: AppCenterApplication {
     static var forceDoNothingOnRelease = false
     private static var isFirstSummon = true
     private static var isVeryFirstSummon = true
+    private static var pendingShowSettingsWindow = false
     // periphery:ignore
     private static var appCenterDelegate: AppCenterCrash?
     // don't queue multiple delayed rebuildUi() calls
@@ -162,6 +163,10 @@ class App: AppCenterApplication {
     }
 
     @objc static func showSettingsWindow() {
+        guard Menubar.statusItem != nil else {
+            pendingShowSettingsWindow = true
+            return
+        }
         initializeSettingsWindowIfNeeded()
         showSecondaryWindow(SettingsWindow.shared!)
         if SettingsWindow.shared!.isVisible != true {
@@ -381,6 +386,10 @@ class App: AppCenterApplication {
         PreferencesEvents.initialize()
         BenchmarkRunner.startIfNeeded()
         showSettingsWindowOnFirstLaunchIfNeeded()
+        if pendingShowSettingsWindow {
+            pendingShowSettingsWindow = false
+            showSettingsWindow()
+        }
         #if DEBUG
 //            App.showSettingsWindow()
         #endif
