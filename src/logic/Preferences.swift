@@ -47,6 +47,7 @@ class Preferences {
             "hideSpaceNumberLabels": "false",
             "hideStatusIcons": "false",
             "previewFocusedWindow": "false",
+            "highlightSelectedWindow": "false",
             "captureWindowsInBackground": "true",
             "screenRecordingPermissionSkipped": "false",
             "trackpadHapticFeedbackEnabled": "true",
@@ -116,6 +117,7 @@ class Preferences {
     static var startAtLogin: Bool { CachedUserDefaults.bool("startAtLogin") }
     static var exceptions: [ExceptionEntry] { CachedUserDefaults.json("exceptions", [ExceptionEntry].self) }
     static var previewSelectedWindow: Bool { CachedUserDefaults.bool("previewFocusedWindow") }
+    static var highlightSelectedWindow: Bool { CachedUserDefaults.bool("highlightSelectedWindow") }
     static var captureWindowsInBackground: Bool { CachedUserDefaults.bool("captureWindowsInBackground") }
     static var screenRecordingPermissionSkipped: Bool { CachedUserDefaults.bool("screenRecordingPermissionSkipped") }
     static var settingsWindowShownOnFirstLaunch: Bool { CachedUserDefaults.bool("settingsWindowShownOnFirstLaunch") }

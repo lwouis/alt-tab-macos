@@ -424,6 +424,7 @@ class AppearanceTab: NSObject {
             rightViews: [LabelAndControl.makeSegmentedControl("appearanceTheme", AppearanceThemePreference.allCases, segmentWidth: 100)])
         addAfterKeysReleasedRow(table)
         addPreviewSelectedWindowRow(table)
+        addHighlightSelectedWindowRow(table)
         table.addRow(rightViews: customizeStyleButton)
         return table
     }
@@ -431,6 +432,11 @@ class AppearanceTab: NSObject {
     private static func addAfterKeysReleasedRow(_ table: TableGroupView) {
         table.addRow(leftText: NSLocalizedString("After keys are released", comment: ""),
             rightViews: [LabelAndControl.makeDropdown("shortcutStyle", ShortcutStylePreference.allCases)])
+    }
+
+    private static func addHighlightSelectedWindowRow(_ table: TableGroupView) {
+        table.addRow(leftText: NSLocalizedString("Highlight selected window on desktop", comment: ""),
+            rightViews: [LabelAndControl.makeSwitch("highlightSelectedWindow")])
     }
 
     private static func addPreviewSelectedWindowRow(_ table: TableGroupView) {

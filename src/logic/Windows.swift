@@ -86,6 +86,7 @@ class Windows {
         } else {
             PreviewPanel.shared.orderOut(nil)
         }
+        WindowHighlightPanel.updateHighlightIfNeeded()
     }
 
     static func updatesBeforeShowing() -> Bool {

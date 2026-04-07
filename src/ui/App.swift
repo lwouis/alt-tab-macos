@@ -67,6 +67,7 @@ class App: AppCenterApplication {
         if !keepPreview {
             PreviewPanel.shared.orderOut(nil)
         }
+        WindowHighlightPanel.shared?.orderOut(nil)
         hideAllTooltips()
         MainMenu.toggle(true)
     }
@@ -371,6 +372,7 @@ class App: AppCenterApplication {
         MainMenu.create()
         _ = TilesPanel()
         _ = PreviewPanel()
+        _ = WindowHighlightPanel()
         Spaces.refresh()
         Screens.refresh()
         SpacesEvents.observe()
