@@ -229,6 +229,30 @@ class Window {
                 _SLPSSetFrontProcessWithOptions(&psn, self.cgWindowId!, SLPSMode.userGenerated.rawValue)
                 self.makeKeyWindow(&psn)
                 try? self.axUiElement!.focusWindow()
+                // Public-API safety net for apps where the private SLPS call above silently
+                // half-fails: it activates the app at the menu-bar level and the AX raise
+                // updates focus state, but the window never actually rises visually above
+                // other apps' windows. This bites apps like Slack, Telegram, Teams, ChatGPT,
+                // Notion, etc., especially after their window has been closed (red ✕) and
+                // reopened, or when switching very quickly to a newly-opened window.
+                //
+                // Since macOS Sonoma / Sequoia, the system applies focus-stealing prevention
+                // to window-raise requests that don't carry an activation token. Our private
+                // path doesn't carry one, so the system silently drops the visual raise.
+                // NSRunningApplication.activate does carry a proper token, so the system
+                // honours the raise.
+                //
+                // Because _SLPSSetFrontProcessWithOptions above has already designated our
+                // target cgWindowId as the app's frontmost window, calling activate() here
+                // only raises that one window — it does not bring all of the app's windows
+                // forward. See #3747, #4192.
+                //
+                // Must run on the main thread: NSRunningApplication.activate's internal
+                // yield step takes a fast path on main but blocks for up to a second when
+                // called off-main.
+                DispatchQueue.main.async { [weak self] in
+                    self?.application.runningApplication.activate(options: .activateIgnoringOtherApps)
+                }
                 DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) {
                     Windows.previewSelectedWindowIfNeeded()
                 }
