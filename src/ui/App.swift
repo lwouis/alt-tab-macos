@@ -59,6 +59,7 @@ class App: AppCenterApplication {
         appIsBeingUsed = false
         isFirstSummon = true
         forceDoNothingOnRelease = false
+        UsageStats.resetSession()
         TilesView.endSearchSession()
         ContextMenuEvents.toggle(false)
         CursorEvents.toggle(false)
@@ -298,6 +299,7 @@ class App: AppCenterApplication {
         forceDoNothingOnRelease = forceDoNothingOnRelease_
         Logger.debug { "isFirstSummon:\(isFirstSummon) shortcutIndex:\(shortcutIndex)" }
         appIsBeingUsed = true
+        UsageStats.recordTrigger()
         if isFirstSummon || shortcutIndex != App.shortcutIndex {
             NSScreen.updatePreferred()
             if isVeryFirstSummon {
@@ -393,6 +395,7 @@ class App: AppCenterApplication {
         #if DEBUG
 //            App.showSettingsWindow()
         #endif
+        UsageStats.prune()
         Logger.info { "Finished launching AltTab" }
     }
 }
