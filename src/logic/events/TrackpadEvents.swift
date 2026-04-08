@@ -65,7 +65,6 @@ class TrackpadEvents {
     private static func touchEventHandler(_ cgEvent: CGEvent) -> Bool {
         guard let nsEvent = cgEvent.toNSEvent() else { return false } // don't absorb the touch event
         let touches = nsEvent.allTouches()
-        // Logger.error { (touches.count, touches.map { $0.phase.readable }) }
         // macOS often sends faulty events with no touches between valid events; we ignore these as they would break our gesture logic
         guard touches.count > 0 else  { return false }
         // isResting seems to always return false. It's not doing its job to detect resting thumb/palm/finger
@@ -153,6 +152,7 @@ class TriggerSwipeDetector {
         guard swipeStillPossible && !gestureTracker.isNewGesture(activeTouches) else { return false }
         maxFingersDownDuringTrigger = max(maxFingersDownDuringTrigger, fingersDown)
         let distances = gestureTracker.computeDistance(activeTouches)
+        guard !distances.isEmpty else { return false }
         for distance in distances {
             let (absX, absY) = (abs(distance.x), abs(distance.y))
             let horizontal = Preferences.nextWindowGesture.isHorizontal()
@@ -203,12 +203,19 @@ class NavigationSwipeDetector {
 class GestureTracker {
     var startPositions = [String: NSPoint]()
 
+    private static func safeNormalizedPosition(_ touch: NSTouch) -> NSPoint? {
+        var point = NSPoint.zero
+        return ATTouchSafety.getNormalizedPosition(touch, result: &point) ? point : nil
+    }
+
     @discardableResult
     func isNewGesture(_ activeTouches: Set<NSTouch>) -> Bool {
         // if touches are new, record their startPositions
         if (activeTouches.contains { startPositions["\($0.identity)"] == nil }) {
             for touch in activeTouches {
-                startPositions["\(touch.identity)"] = touch.normalizedPosition
+                if let pos = GestureTracker.safeNormalizedPosition(touch) {
+                    startPositions["\(touch.identity)"] = pos
+                }
             }
             return true
         }
@@ -217,16 +224,22 @@ class GestureTracker {
 
     func computeAverageDistance(_ activeTouches: Set<NSTouch>) -> NSPoint {
         var totalDelta = NSPoint(x: 0, y: 0)
+        var count = 0
         for touch in activeTouches {
-            totalDelta = totalDelta + (touch.normalizedPosition - startPositions["\(touch.identity)"]!)
+            guard let pos = GestureTracker.safeNormalizedPosition(touch),
+                  let start = startPositions["\(touch.identity)"] else { continue }
+            totalDelta = totalDelta + (pos - start)
+            count += 1
         }
-        return totalDelta / activeTouches.count
+        return count > 0 ? totalDelta / count : totalDelta
     }
 
     func computeDistance(_ activeTouches: Set<NSTouch>) -> Array<NSPoint> {
         var deltas: Array<NSPoint> = []
         for touch in activeTouches {
-            deltas.append(touch.normalizedPosition - startPositions["\(touch.identity)"]!)
+            guard let pos = GestureTracker.safeNormalizedPosition(touch),
+                  let start = startPositions["\(touch.identity)"] else { continue }
+            deltas.append(pos - start)
         }
         return deltas
     }
@@ -237,13 +250,15 @@ class GestureTracker {
 
     func resetX(_ activeTouches: Set<NSTouch>) {
         for touch in activeTouches {
-            startPositions["\(touch.identity)"]!.x = touch.normalizedPosition.x
+            guard let pos = GestureTracker.safeNormalizedPosition(touch) else { continue }
+            startPositions["\(touch.identity)"]?.x = pos.x
         }
     }
 
     func resetY(_ activeTouches: Set<NSTouch>) {
         for touch in activeTouches {
-            startPositions["\(touch.identity)"]!.y = touch.normalizedPosition.y
+            guard let pos = GestureTracker.safeNormalizedPosition(touch) else { continue }
+            startPositions["\(touch.identity)"]?.y = pos.y
         }
     }
 }
