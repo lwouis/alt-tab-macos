@@ -1,3 +1,10 @@
+# [10.11.0](https://github.com/lwouis/alt-tab-macos/compare/v10.10.1...v10.11.0) (2026-04-08)
+
+
+### Features
+
+* add local usage stats for curious users ([8e07d26](https://github.com/lwouis/alt-tab-macos/commit/8e07d26))
+
 ## [10.10.1](https://github.com/lwouis/alt-tab-macos/compare/v10.10.0...v10.10.1) (2026-04-05)
 
 

@@ -5,6 +5,20 @@
     <language>en</language>
 
     <item>
+      <title>Version 10.11.0</title>
+      <pubDate>Wed, 08 Apr 2026 20:11:32 +0000</pubDate>
+      <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
+      <sparkle:releaseNotesLink>https://alt-tab.app/changelog-bare</sparkle:releaseNotesLink>
+      <enclosure
+        url="https://github.com/lwouis/alt-tab-macos/releases/download/v10.11.0/AltTab-10.11.0.zip"
+        sparkle:version="10.11.0"
+        sparkle:shortVersionString="10.11.0"
+        sparkle:edSignature="ji9+oax9WQkIOPSpC02z6s7nbWDrIR1Msca02Trp48pJWMYX35NjT0aZBMLGNGqZewFLrhAAzmn47+6KXkiDBQ==" length="12132679"
+        type="application/octet-stream"/>
+    </item>
+
+
+    <item>
       <title>Version 10.10.1</title>
       <pubDate>Sun, 05 Apr 2026 15:40:14 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
