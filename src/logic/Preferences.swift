@@ -215,7 +215,13 @@ class Preferences {
     static var all: [String: Any] { UserDefaults.standard.persistentDomain(forName: App.bundleIdentifier)! }
 
     static func onlyShowApplications() -> Bool {
-        return Preferences.showAppsOrWindows == .applications && Preferences.appearanceStyle != .thumbnails
+        guard Preferences.showAppsOrWindows == .applications && Preferences.appearanceStyle != .thumbnails else {
+            return false
+        }
+        guard App.shortcutIndex < Preferences.appsToShow.count else {
+            return true
+        }
+        return Preferences.appsToShow[App.shortcutIndex] != .active
     }
 
     /// key-above-tab is ` on US keyboard, but can be different on other keyboards
