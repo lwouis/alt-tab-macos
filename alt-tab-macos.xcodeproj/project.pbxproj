@@ -401,6 +401,8 @@
 		5F2218AE2F156BC6005769F9 /* mascot-dog.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mascot-dog.png"; sourceTree = "<group>"; };
 		5F2218AF2F156BC6005769F9 /* mascot-rabbit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mascot-rabbit.png"; sourceTree = "<group>"; };
 		5F2218B02F156BC6005769F9 /* mascot-squirrel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mascot-squirrel.png"; sourceTree = "<group>"; };
+		5F3A72C12F8CE76D00E2D433 /* appcast.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = appcast.xml; sourceTree = "<group>"; };
+		5F3C6CCF2F8CE7120021CEDF /* extract_latest_changelog.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = extract_latest_changelog.sh; sourceTree = "<group>"; };
 		5F706EBD2BA448B1004D542D /* is */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = is; path = Localizable.strings; sourceTree = "<group>"; };
 		5F706EC22BA448D8004D542D /* is */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = is; path = InfoPlist.strings; sourceTree = "<group>"; };
 		5F7834AF2F47C12400340041 /* my */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = my; path = Localizable.strings; sourceTree = "<group>"; };
@@ -1755,6 +1757,7 @@
 		D04BA703DCD38D9757093312 /* scripts */ = {
 			isa = PBXGroup;
 			children = (
+				5F3C6CCF2F8CE7120021CEDF /* extract_latest_changelog.sh */,
 				5FAE000A2F13B49800FE6246 /* update_readme_and_website.sh */,
 				5FE2AF752EAE849F004A4AC5 /* xcbeautify */,
 				D04BA4B5292629AA6B560216 /* package_and_notarize_release.sh */,
@@ -2069,6 +2072,7 @@
 		D04BAD1F5F5D4427DEA16682 /* docs */ = {
 			isa = PBXGroup;
 			children = (
+				5F3A72C12F8CE76D00E2D433 /* appcast.xml */,
 				5F895B8D2F8CE336007842A1 /* changelog-wrapper.md */,
 				5F895B8E2F8CE336007842A1 /* privacy.md */,
 				5F895B8F2F8CE336007842A1 /* terms.md */,

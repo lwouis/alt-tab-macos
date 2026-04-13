@@ -23,4 +23,5 @@ echo "
     </item>
 " > ITEM.txt
 
-sed -i '' -e "/<\/language>/r ITEM.txt" appcast.xml
+sed -i '' -e "/<\/language>/r ITEM.txt" docs/appcast.xml
+cp docs/appcast.xml appcast.xml # for retro-compat; we'll eventually remove it
