@@ -97,9 +97,7 @@ class Windows {
         // workaround: when Preferences > Mission Control > "Displays have separate Spaces" is unchecked,
         // switching between displays doesn't trigger .activeSpaceDidChangeNotification; we get the latest manually
         Spaces.refresh()
-        // batch: build a windowId-to-spaces map with one system call per space (M calls)
-        // instead of one per window (N calls). M is typically 1-6, N can be 20-100+
-        let windowToSpacesMap = Spaces.buildWindowToSpacesMap()
+        let windowToSpacesMap = shouldBatchSpaceUpdates() ? Spaces.buildWindowToSpacesMap() : nil
         for window in list {
             window.updateSpacesAndScreen(windowToSpacesMap)
             refreshIfWindowShouldBeShownToTheUser(window)
@@ -107,6 +105,13 @@ class Windows {
         refreshWhichWindowsToShowTheUser()
         sort()
         return true
+    }
+
+    private static func shouldBatchSpaceUpdates() -> Bool {
+        let trackedWindowCount = list.reduce(0) { count, window in
+            count + (window.cgWindowId == nil ? 0 : 1)
+        }
+        return trackedWindowCount > Spaces.idsAndIndexes.count
     }
 
     // dispatch screenshot requests off the main-thread, then wait for completion

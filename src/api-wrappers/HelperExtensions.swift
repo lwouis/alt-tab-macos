@@ -250,48 +250,89 @@ extension CGImage {
         guard ![.none, .noneSkipFirst, .noneSkipLast].contains(alphaInfo),
               let provider = dataProvider, let data = provider.data, let ptr = CFDataGetBytePtr(data)
         else { return false }
-        // Assumes: kCGImageAlphaPremultipliedFirst | kCGImageByteOrder32Little
-        // Layout: [B, G, R, A]
         let length = CFDataGetLength(data)
         guard length >= 4 else { return true }
-        let pixelCount = length / 4
-        // for small images, check all pixels
-        if pixelCount <= 256 {
-            var i = 3
-            while i < length {
-                if ptr[i] != 0 { return false }
-                i += 4
-            }
-            return true
+        if length / 4 <= 256 { return scanAlphaBytes(ptr, length, 3, 4, length / 4) }
+        if bytesPerRow > 0 && width > 0 && height > 0 { return scanSampleGrid(ptr, length) }
+        return scanFlatSamples(ptr, length)
+    }
+
+    private func scanSampleGrid(_ ptr: UnsafePointer<UInt8>, _ length: Int) -> Bool {
+        let rowStep = max((height - 1) / 9, 1)
+        let colStep = max((width - 1) / 19, 1)
+        var row = 0
+        while row < height {
+            if !scanSampleRow(ptr, length, row, colStep) { return false }
+            row += rowStep
         }
-        // for large images, sample pixels instead of scanning all of them
-        // check corners, edges, center, and a grid pattern across the image
-        let w = width
-        let h = height
-        let bytesPerRow = self.bytesPerRow
-        // if bytesPerRow info is available, use row-based sampling for accuracy
-        if bytesPerRow > 0 && w > 0 && h > 0 {
-            // sample up to ~200 pixels: 10 rows x 20 columns
-            let rowStep = max(h / 10, 1)
-            let colStep = max(w / 20, 1)
-            var row = 0
-            while row < h {
-                var col = 0
-                while col < w {
-                    let byteOffset = row * bytesPerRow + col * 4 + 3
-                    if byteOffset < length && ptr[byteOffset] != 0 { return false }
-                    col += colStep
-                }
-                row += rowStep
-            }
-        } else {
-            // fallback: stride through the flat buffer, sampling ~200 pixels
-            let step = max(pixelCount / 200, 1) * 4
-            var i = 3
-            while i < length {
-                if ptr[i] != 0 { return false }
-                i += step
-            }
+        if !scanSampleRow(ptr, length, height - 1, colStep) { return false }
+        if !scanSampleColumn(ptr, length, width - 1, rowStep) { return false }
+        return scanPinnedPoints(ptr, length)
+    }
+
+    private func scanSampleRow(_ ptr: UnsafePointer<UInt8>, _ length: Int, _ row: Int, _ colStep: Int) -> Bool {
+        var col = 0
+        while col < width {
+            if !sampleAlpha(ptr, length, row, col) { return false }
+            col += colStep
+        }
+        return sampleAlpha(ptr, length, row, width - 1)
+    }
+
+    private func scanSampleColumn(_ ptr: UnsafePointer<UInt8>, _ length: Int, _ col: Int, _ rowStep: Int) -> Bool {
+        var row = 0
+        while row < height {
+            if !sampleAlpha(ptr, length, row, col) { return false }
+            row += rowStep
+        }
+        return sampleAlpha(ptr, length, height - 1, col)
+    }
+
+    private func scanPinnedPoints(_ ptr: UnsafePointer<UInt8>, _ length: Int) -> Bool {
+        let lastRow = height - 1
+        let lastCol = width - 1
+        let midRow = lastRow / 2
+        let midCol = lastCol / 2
+        let quarterRow = lastRow / 4
+        let quarterCol = lastCol / 4
+        let threeQuarterRow = (lastRow * 3) / 4
+        let threeQuarterCol = (lastCol * 3) / 4
+        return sampleAlpha(ptr, length, 0, 0)
+            && sampleAlpha(ptr, length, 0, midCol)
+            && sampleAlpha(ptr, length, 0, lastCol)
+            && sampleAlpha(ptr, length, midRow, 0)
+            && sampleAlpha(ptr, length, midRow, midCol)
+            && sampleAlpha(ptr, length, midRow, lastCol)
+            && sampleAlpha(ptr, length, lastRow, 0)
+            && sampleAlpha(ptr, length, lastRow, midCol)
+            && sampleAlpha(ptr, length, lastRow, lastCol)
+            && sampleAlpha(ptr, length, quarterRow, quarterCol)
+            && sampleAlpha(ptr, length, quarterRow, threeQuarterCol)
+            && sampleAlpha(ptr, length, threeQuarterRow, quarterCol)
+            && sampleAlpha(ptr, length, threeQuarterRow, threeQuarterCol)
+    }
+
+    private func sampleAlpha(_ ptr: UnsafePointer<UInt8>, _ length: Int, _ row: Int, _ col: Int) -> Bool {
+        let byteOffset = row * bytesPerRow + col * 4 + 3
+        return byteOffset >= length || ptr[byteOffset] == 0
+    }
+
+    private func scanAlphaBytes(_ ptr: UnsafePointer<UInt8>, _ length: Int, _ start: Int, _ step: Int, _ count: Int) -> Bool {
+        var offset = start
+        for _ in 0..<count {
+            guard offset < length else { return true }
+            if ptr[offset] != 0 { return false }
+            offset += step
+        }
+        return true
+    }
+
+    private func scanFlatSamples(_ ptr: UnsafePointer<UInt8>, _ length: Int) -> Bool {
+        let step = max((length / 4) / 200, 1) * 4
+        var offset = 3
+        while offset < length {
+            if ptr[offset] != 0 { return false }
+            offset += step
         }
         return true
     }
