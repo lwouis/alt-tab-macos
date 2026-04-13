@@ -1,3 +1,11 @@
+# [10.12.0](https://github.com/lwouis/alt-tab-macos/compare/v10.11.0...v10.12.0) (2026-04-13)
+
+
+### Features
+
+* remove the need to add email in feedback form ([da9a46b](https://github.com/lwouis/alt-tab-macos/commit/da9a46b))
+* show usage stats in the about-window ([9c5b963](https://github.com/lwouis/alt-tab-macos/commit/9c5b963))
+
 # [10.11.0](https://github.com/lwouis/alt-tab-macos/compare/v10.10.1...v10.11.0) (2026-04-08)
 
 
