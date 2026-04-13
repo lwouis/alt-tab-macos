@@ -299,7 +299,7 @@ class App: AppCenterApplication {
         forceDoNothingOnRelease = forceDoNothingOnRelease_
         Logger.debug { "isFirstSummon:\(isFirstSummon) shortcutIndex:\(shortcutIndex)" }
         appIsBeingUsed = true
-        UsageStats.recordTrigger()
+        UsageStats.recordTrigger(shortcutIndex)
         if isFirstSummon || shortcutIndex != App.shortcutIndex {
             NSScreen.updatePreferred()
             if isVeryFirstSummon {

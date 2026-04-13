@@ -1,11 +1,12 @@
 struct UsageStats {
     private static let defaults = UserDefaults(suiteName: "\(App.bundleIdentifier).usage")!
     private static let maxAge: TimeInterval = 365 * 24 * 3600
-    private static let allKeys = ["triggers", "searches", "triggersAppIcons", "triggersTitles", "triggersAutoSize"]
+    private static let allKeys = ["triggers", "searches", "triggersAppIcons", "triggersTitles", "triggersAutoSize", "triggersExtraShortcuts"]
     private(set) static var searchRecordedThisSession = false
 
-    static func recordTrigger() {
+    static func recordTrigger(_ shortcutIndex: Int) {
         record("triggers")
+        if shortcutIndex > 0 && shortcutIndex < Preferences.maxShortcutCount { record("triggersExtraShortcuts") }
         if Preferences.appearanceStyle == .appIcons { record("triggersAppIcons") }
         if Preferences.appearanceStyle == .titles { record("triggersTitles") }
         if Preferences.appearanceSize == .auto { record("triggersAutoSize") }

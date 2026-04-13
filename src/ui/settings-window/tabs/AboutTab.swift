@@ -65,6 +65,7 @@ class AboutTab {
 class AboutWindow: NSPanel {
     private static let contentPadding = CGFloat(24)
     static var shared: AboutWindow?
+    private var usageTextView: NSTextView!
 
     static var canBecomeKey_ = true
     override var canBecomeKey: Bool { Self.canBecomeKey_ }
@@ -75,6 +76,11 @@ class AboutWindow: NSPanel {
         setupView()
         setFrameAutosaveName("AboutWindow")
         Self.shared = self
+    }
+
+    override func makeKeyAndOrderFront(_ sender: Any?) {
+        updateUsageStats()
+        super.makeKeyAndOrderFront(sender)
     }
 
     private func setupWindow() {
@@ -99,11 +105,13 @@ class AboutWindow: NSPanel {
         stack.spacing = 30
         stack.translatesAutoresizingMaskIntoConstraints = false
         let aboutView = AboutTab.makeContentView(false, false, true)
-        let acknowledgmentsColumnWidth = frame.width - 2 * Self.contentPadding
-        let acknowledgmentsView = AcknowledgmentsTab.makeContentView(columnWidth: acknowledgmentsColumnWidth, shouldFit: false, verticallyStacked: true)
+        let columnWidth = frame.width - 2 * Self.contentPadding
+        usageTextView = Self.makeUsageTextView(columnWidth)
+        let acknowledgmentsView = AcknowledgmentsTab.makeContentView(columnWidth: columnWidth, shouldFit: false, verticallyStacked: true)
         acknowledgmentsView.translatesAutoresizingMaskIntoConstraints = false
         stack.addArrangedSubview(aboutView)
         stack.addArrangedSubview(acknowledgmentsView)
+        stack.addArrangedSubview(usageTextView)
         documentView.addSubview(stack)
         contentView = scrollView
         NSLayoutConstraint.activate([
@@ -114,9 +122,36 @@ class AboutWindow: NSPanel {
             documentView.widthAnchor.constraint(equalTo: scrollView.contentView.widthAnchor),
             aboutView.leadingAnchor.constraint(equalTo: stack.leadingAnchor),
             aboutView.trailingAnchor.constraint(equalTo: stack.trailingAnchor),
+            usageTextView.leadingAnchor.constraint(equalTo: stack.leadingAnchor),
+            usageTextView.trailingAnchor.constraint(equalTo: stack.trailingAnchor),
             acknowledgmentsView.leadingAnchor.constraint(equalTo: stack.leadingAnchor),
             acknowledgmentsView.trailingAnchor.constraint(equalTo: stack.trailingAnchor),
         ])
+    }
+
+    private static func makeUsageTextView(_ columnWidth: CGFloat) -> NSTextView {
+        let textView = NSTextView()
+        textView.textContainer!.widthTracksTextView = true
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.drawsBackground = false
+        textView.isSelectable = true
+        textView.isEditable = false
+        textView.enabledTextCheckingTypes = 0
+        textView.frame.size.width = columnWidth
+        return textView
+    }
+
+    private func updateUsageStats() {
+        let now = Date()
+        let weekCount = UsageStats.count("triggers", since: now.addingTimeInterval(-7 * 24 * 3600))
+        let monthCount = UsageStats.count("triggers", since: now.addingTimeInterval(-30 * 24 * 3600))
+        let yearCount = UsageStats.count("triggers", since: now.addingTimeInterval(-365 * 24 * 3600))
+        let markdown = "## \(NSLocalizedString("Usage", comment: ""))\n\nYou have used AltTab:\n\u{2022} \(weekCount) times in the past week\n\u{2022} \(monthCount) times in the past month\n\u{2022} \(yearCount) times in the past year"
+        usageTextView.textStorage!.setAttributedString(Markdown.toAttributedString(markdown))
+        usageTextView.layoutManager!.ensureLayout(for: usageTextView.textContainer!)
+        let usedRect = usageTextView.layoutManager!.usedRect(for: usageTextView.textContainer!)
+        usageTextView.invalidateIntrinsicContentSize()
+        usageTextView.fit(usedRect.width, usedRect.height)
     }
 
     override func close() {
