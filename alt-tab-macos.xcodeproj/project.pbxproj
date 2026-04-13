@@ -300,6 +300,7 @@
 		D04BAD2A7F2E8BF64EE982E9 /* TextArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA7C836A8CE8C0B8D128B /* TextArea.swift */; };
 		D04BAD451966B43720120D2E /* Menubar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAD905546AA93E5117B0A /* Menubar.swift */; };
 		D04BADA3F2DAB820D6FC6E75 /* AppCenterApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = D04BA48BC82D3060C3A1AB11 /* AppCenterApplication.m */; };
+		AA0000000000000000000001 /* ATTouchSafety.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000002 /* ATTouchSafety.m */; };
 		D04BADCDA9F9A6C3D6499877 /* SystemPermissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA7C6F2519091717F4B4E /* SystemPermissions.swift */; };
 		D04BADE4DDF7597749FB13BD /* SettingsWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA099FA155FB4D517D66B /* SettingsWindow.swift */; };
 		D04BAE8B16A06A10E2FA94DE /* AccessibilityEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA8FDCF137D892114F5F3 /* AccessibilityEvents.swift */; };
@@ -649,6 +650,8 @@
 		D04BA459034C1885CA43A807 /* LICENCE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = LICENCE.md; sourceTree = "<group>"; };
 		D04BA484B11FEF4DBF08350A /* pt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = pt; path = Localizable.strings; sourceTree = "<group>"; };
 		D04BA48BC82D3060C3A1AB11 /* AppCenterApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppCenterApplication.m; sourceTree = "<group>"; };
+		AA0000000000000000000002 /* ATTouchSafety.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATTouchSafety.m; sourceTree = "<group>"; };
+		AA0000000000000000000003 /* ATTouchSafety.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATTouchSafety.h; sourceTree = "<group>"; };
 		D04BA49E45BFFF3D9FC60E43 /* HyperlinkLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HyperlinkLabel.swift; sourceTree = "<group>"; };
 		D04BA4A26987F67DD94C827F /* AboutTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutTab.swift; sourceTree = "<group>"; };
 		D04BA4A621A8A15660F973C1 /* KeyboardEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardEvents.swift; sourceTree = "<group>"; };
@@ -1686,6 +1689,8 @@
 				BF0C88D101728C6798C7FC07 /* private-apis */,
 				BF0C810FA0F6BC70E5886E11 /* HelperExtensionsTestable.swift */,
 				BF0C8363D45FECB8D6F8DCD5 /* LightweightTimer.swift */,
+				AA0000000000000000000002 /* ATTouchSafety.m */,
+				AA0000000000000000000003 /* ATTouchSafety.h */,
 			);
 			path = "api-wrappers";
 			sourceTree = "<group>";
@@ -2631,6 +2636,7 @@
 				D04BAFF30A98CF287F85DA1E /* ExceptionsTab.swift in Sources */,
 				D04BA56789A2AF52557A9BFF /* AppCenterCrashes.swift in Sources */,
 				D04BADA3F2DAB820D6FC6E75 /* AppCenterApplication.m in Sources */,
+				AA0000000000000000000001 /* ATTouchSafety.m in Sources */,
 				D04BAA16F21AC41A23DDA63D /* ControlsTab.swift in Sources */,
 				D04BADE4DDF7597749FB13BD /* SettingsWindow.swift in Sources */,
 				BF0C8CC5057406014FD612CC /* ATShortcut.swift in Sources */,
