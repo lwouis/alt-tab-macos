@@ -10,7 +10,6 @@ class FeedbackWindow: NSWindow {
     static var shared: FeedbackWindow?
     var issueTitle: TextArea!
     var body: TextArea!
-    var email: TextArea!
     var sendButton: NSButton!
     var debugProfile: NSButton!
     static var canBecomeKey_ = true
@@ -52,7 +51,6 @@ class FeedbackWindow: NSWindow {
         buttons.spacing = GridView.interPadding
         issueTitle = TextArea(80, 1, NSLocalizedString("Title", comment: ""), checkEmptyFields)
         body = TextArea(80, 12, NSLocalizedString("I think the app could be improved with…", comment: ""), checkEmptyFields)
-        email = TextArea(80, 1, NSLocalizedString("Optional: email (if you want a reply)", comment: ""))
         debugProfile = NSButton(checkboxWithTitle: NSLocalizedString("Send debug profile (CPU, memory, etc)", comment: ""), target: nil, action: nil)
         debugProfile.state = .on
         let warning = BoldLabel("ℹ️ " + NSLocalizedString("All data from this form will be made public, as a ticket on github.com", comment: ""))
@@ -62,11 +60,10 @@ class FeedbackWindow: NSWindow {
             [warning],
             [issueTitle],
             [body],
-            [email],
             [debugProfile],
             [buttons],
         ])
-        view.cell(atColumnIndex: 0, rowIndex: 7).xPlacement = .trailing
+        view.cell(atColumnIndex: 0, rowIndex: 6).xPlacement = .trailing
         setContentSize(view.fittingSize)
         contentView = view
         checkEmptyFields()
@@ -83,13 +80,6 @@ class FeedbackWindow: NSWindow {
     }
 
     @objc private func sendCallback() {
-        if email.stringValue.isEmpty && !warnAboutNoEmail() {
-            return
-        }
-        openTicket()
-    }
-
-    private func openTicket() {
         URLSession.shared.dataTask(with: prepareRequest(), completionHandler: { data, response, error in
             if error != nil || response == nil || (response as! HTTPURLResponse).statusCode != 201 {
                 Logger.error { "HTTP call failed. response:\(response) error:\(error) data:\(data.flatMap { String(data: $0, encoding: .utf8) })" }
@@ -98,16 +88,6 @@ class FeedbackWindow: NSWindow {
         issueTitle.stringValue = ""
         body.stringValue = ""
         close()
-    }
-
-    private func warnAboutNoEmail() -> Bool {
-        let alert = NSAlert()
-        alert.alertStyle = .warning
-        alert.messageText = NSLocalizedString("Are you sure you don’t want a response?", comment: "")
-        alert.informativeText = NSLocalizedString("You didn’t write your email, thus can’t receive any response.", comment: "")
-        alert.addButton(withTitle: NSLocalizedString("Send anyway", comment: ""))
-        alert.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))
-        return alert.runModal() == NSApplication.ModalResponse.alertFirstButtonReturn
     }
 
     private func prepareRequest() -> URLRequest {
@@ -127,9 +107,6 @@ class FeedbackWindow: NSWindow {
     private func assembleBody() -> String {
         var result = ""
         result += "_This issue was opened by a bot after a user submitted feedback through the in-app form._"
-        if !email.stringValue.isEmpty {
-            result += "\n\n__From:__ " + email.stringValue
-        }
         result += "\n\n__Message:__"
         result += "\n\n> " + body.stringValue.replacingOccurrences(of: "\n", with: "\n> ")
         if debugProfile.state == .on {
