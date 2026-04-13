@@ -291,25 +291,14 @@ extension CGImage {
     private func scanPinnedPoints(_ ptr: UnsafePointer<UInt8>, _ length: Int) -> Bool {
         let lastRow = height - 1
         let lastCol = width - 1
-        let midRow = lastRow / 2
-        let midCol = lastCol / 2
-        let quarterRow = lastRow / 4
-        let quarterCol = lastCol / 4
-        let threeQuarterRow = (lastRow * 3) / 4
-        let threeQuarterCol = (lastCol * 3) / 4
-        return sampleAlpha(ptr, length, 0, 0)
-            && sampleAlpha(ptr, length, 0, midCol)
-            && sampleAlpha(ptr, length, 0, lastCol)
-            && sampleAlpha(ptr, length, midRow, 0)
-            && sampleAlpha(ptr, length, midRow, midCol)
-            && sampleAlpha(ptr, length, midRow, lastCol)
-            && sampleAlpha(ptr, length, lastRow, 0)
-            && sampleAlpha(ptr, length, lastRow, midCol)
-            && sampleAlpha(ptr, length, lastRow, lastCol)
-            && sampleAlpha(ptr, length, quarterRow, quarterCol)
-            && sampleAlpha(ptr, length, quarterRow, threeQuarterCol)
-            && sampleAlpha(ptr, length, threeQuarterRow, quarterCol)
-            && sampleAlpha(ptr, length, threeQuarterRow, threeQuarterCol)
+        for rowIndex in 0...4 {
+            let row = (lastRow * rowIndex) / 4
+            for colIndex in 0...4 {
+                let col = (lastCol * colIndex) / 4
+                guard sampleAlpha(ptr, length, row, col) else { return false }
+            }
+        }
+        return true
     }
 
     private func sampleAlpha(_ ptr: UnsafePointer<UInt8>, _ length: Int, _ row: Int, _ col: Int) -> Bool {
