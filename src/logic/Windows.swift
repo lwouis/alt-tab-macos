@@ -2,6 +2,8 @@ import Cocoa
 
 class Windows {
     static var list = [Window]()
+    /// O(1) lookup of Window by cgWindowId, kept in sync with list mutations
+    private(set) static var byWindowId = [CGWindowID: Window]()
     static var selectedWindowIndex = Int(0)
     static var selectedWindowTarget: String?
     static var hoveredWindowIndex: Int?
@@ -95,13 +97,21 @@ class Windows {
         // workaround: when Preferences > Mission Control > "Displays have separate Spaces" is unchecked,
         // switching between displays doesn't trigger .activeSpaceDidChangeNotification; we get the latest manually
         Spaces.refresh()
+        let windowToSpacesMap = shouldBatchSpaceUpdates() ? Spaces.buildWindowToSpacesMap() : nil
         for window in list {
-            window.updateSpacesAndScreen()
+            window.updateSpacesAndScreen(windowToSpacesMap)
             refreshIfWindowShouldBeShownToTheUser(window)
         }
         refreshWhichWindowsToShowTheUser()
         sort()
         return true
+    }
+
+    private static func shouldBatchSpaceUpdates() -> Bool {
+        let trackedWindowCount = list.reduce(0) { count, window in
+            count + (window.cgWindowId == nil ? 0 : 1)
+        }
+        return trackedWindowCount > Spaces.idsAndIndexes.count
     }
 
     // dispatch screenshot requests off the main-thread, then wait for completion
@@ -479,7 +489,7 @@ class Windows {
     }
 
     static func findOrCreate(_ windowAxUiElement: AXUIElement, _ wid: CGWindowID, _ app: Application, _ level: CGWindowLevel, _ title: String?, _ subrole: String?, _ role: String?, _ size: CGSize?, _ position: CGPoint?, _ isFullscreen: Bool?, _ isMinimized: Bool?) -> (Window?, Bool) {
-        if let window = (list.first { $0.isEqualRobust(windowAxUiElement, wid) }) {
+        if let window = byWindowId[wid] ?? (list.first { $0.isEqualRobust(windowAxUiElement, wid) }) {
             // on any window event, we take the opportunity to refresh all window attributes
             window.updateFromAxAttributes(title, size, position, isFullscreen, isMinimized)
             return (window, false)
@@ -493,6 +503,9 @@ class Windows {
     static func appendWindow(_ window: Window) {
         window.lastFocusOrder = list.count
         list.append(window)
+        if let wid = window.cgWindowId {
+            byWindowId[wid] = window
+        }
         if list.count > TilesView.recycledViews.count {
             TilesView.recycledViews.append(TileView())
         }
@@ -502,6 +515,9 @@ class Windows {
         for w in windows {
             if w.application.focusedWindow?.cgWindowId == w.cgWindowId {
                 w.application.focusedWindow = nil
+            }
+            if let wid = w.cgWindowId {
+                byWindowId.removeValue(forKey: wid)
             }
         }
         let toRemove = windows.map { $0.lastFocusOrder }

@@ -59,7 +59,7 @@ class WindowCaptureScreenshots {
     }
 
     private static func oneTimeCapture(_ scWindow: SCWindow, _ source: RefreshCausedBy) {
-        guard !App.isTerminating, let window = (Windows.list.first { $0.cgWindowId == scWindow.windowID }), window.size != nil else { return }
+        guard !App.isTerminating, let window = Windows.byWindowId[scWindow.windowID], window.size != nil else { return }
         let config = SCStreamConfiguration.forWindow(scWindow, window, false)
         let filter = SCContentFilter(desktopIndependentWindow: scWindow)
         ActiveWindowCaptures.increment()
@@ -71,7 +71,7 @@ class WindowCaptureScreenshots {
             guard let pixelBuffer else { Logger.error { "\(window.debugId) no pixelBuffer" }; return }
             DispatchQueue.main.async {
                 guard source != .refreshOnlyThumbnailsAfterShowUi || App.appIsBeingUsed else { return }
-                if let window = (Windows.list.first { $0.cgWindowId == scWindow.windowID }) {
+                if let window = Windows.byWindowId[scWindow.windowID] {
                     window.refreshThumbnail(.pixelBuffer(pixelBuffer))
                 }
             }

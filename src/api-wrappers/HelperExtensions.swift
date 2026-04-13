@@ -250,15 +250,78 @@ extension CGImage {
         guard ![.none, .noneSkipFirst, .noneSkipLast].contains(alphaInfo),
               let provider = dataProvider, let data = provider.data, let ptr = CFDataGetBytePtr(data)
         else { return false }
-        // Assumes: kCGImageAlphaPremultipliedFirst | kCGImageByteOrder32Little
-        // Layout: [B, G, R, A]
         let length = CFDataGetLength(data)
-        var i = 3
-        while i < length {
-            if ptr[i] != 0 {
-                return false
+        guard length >= 4 else { return true }
+        if length / 4 <= 256 { return scanAlphaBytes(ptr, length, 3, 4, length / 4) }
+        if bytesPerRow > 0 && width > 0 && height > 0 { return scanSampleGrid(ptr, length) }
+        return scanFlatSamples(ptr, length)
+    }
+
+    private func scanSampleGrid(_ ptr: UnsafePointer<UInt8>, _ length: Int) -> Bool {
+        let rowStep = max((height - 1) / 9, 1)
+        let colStep = max((width - 1) / 19, 1)
+        var row = 0
+        while row < height {
+            if !scanSampleRow(ptr, length, row, colStep) { return false }
+            row += rowStep
+        }
+        if !scanSampleRow(ptr, length, height - 1, colStep) { return false }
+        if !scanSampleColumn(ptr, length, width - 1, rowStep) { return false }
+        return scanPinnedPoints(ptr, length)
+    }
+
+    private func scanSampleRow(_ ptr: UnsafePointer<UInt8>, _ length: Int, _ row: Int, _ colStep: Int) -> Bool {
+        var col = 0
+        while col < width {
+            if !sampleAlpha(ptr, length, row, col) { return false }
+            col += colStep
+        }
+        return sampleAlpha(ptr, length, row, width - 1)
+    }
+
+    private func scanSampleColumn(_ ptr: UnsafePointer<UInt8>, _ length: Int, _ col: Int, _ rowStep: Int) -> Bool {
+        var row = 0
+        while row < height {
+            if !sampleAlpha(ptr, length, row, col) { return false }
+            row += rowStep
+        }
+        return sampleAlpha(ptr, length, height - 1, col)
+    }
+
+    private func scanPinnedPoints(_ ptr: UnsafePointer<UInt8>, _ length: Int) -> Bool {
+        let lastRow = height - 1
+        let lastCol = width - 1
+        for rowIndex in 0...4 {
+            let row = (lastRow * rowIndex) / 4
+            for colIndex in 0...4 {
+                let col = (lastCol * colIndex) / 4
+                guard sampleAlpha(ptr, length, row, col) else { return false }
             }
-            i += 4
+        }
+        return true
+    }
+
+    private func sampleAlpha(_ ptr: UnsafePointer<UInt8>, _ length: Int, _ row: Int, _ col: Int) -> Bool {
+        let byteOffset = row * bytesPerRow + col * 4 + 3
+        return byteOffset >= length || ptr[byteOffset] == 0
+    }
+
+    private func scanAlphaBytes(_ ptr: UnsafePointer<UInt8>, _ length: Int, _ start: Int, _ step: Int, _ count: Int) -> Bool {
+        var offset = start
+        for _ in 0..<count {
+            guard offset < length else { return true }
+            if ptr[offset] != 0 { return false }
+            offset += step
+        }
+        return true
+    }
+
+    private func scanFlatSamples(_ ptr: UnsafePointer<UInt8>, _ length: Int) -> Bool {
+        let step = max((length / 4) / 200, 1) * 4
+        var offset = 3
+        while offset < length {
+            if ptr[offset] != 0 { return false }
+            offset += step
         }
         return true
     }
