@@ -21,6 +21,20 @@ class Spaces {
         return CGSCopyWindowsWithOptionsAndTags(CGS_CONNECTION, 0, spaceIds as CFArray, options.rawValue, &set_tags, &clear_tags) as! [CGWindowID]
     }
 
+    /// Build a map from windowId to the set of spaceIds it belongs to.
+    /// This queries windows per-space (one system call per space) instead of per-window,
+    /// reducing N per-window CGSCopySpacesForWindows calls to M per-space calls (M << N typically).
+    static func buildWindowToSpacesMap() -> [CGWindowID: [CGSSpaceID]] {
+        var map = [CGWindowID: [CGSSpaceID]]()
+        for (spaceId, _) in idsAndIndexes {
+            let windowIds = windowsInSpaces([spaceId])
+            for wid in windowIds {
+                map[wid, default: []].append(spaceId)
+            }
+        }
+        return map
+    }
+
     static func refresh() {
         refreshAllIdsAndIndexes()
         updateCurrentSpace()

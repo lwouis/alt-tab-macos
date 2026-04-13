@@ -253,12 +253,45 @@ extension CGImage {
         // Assumes: kCGImageAlphaPremultipliedFirst | kCGImageByteOrder32Little
         // Layout: [B, G, R, A]
         let length = CFDataGetLength(data)
-        var i = 3
-        while i < length {
-            if ptr[i] != 0 {
-                return false
+        guard length >= 4 else { return true }
+        let pixelCount = length / 4
+        // for small images, check all pixels
+        if pixelCount <= 256 {
+            var i = 3
+            while i < length {
+                if ptr[i] != 0 { return false }
+                i += 4
             }
-            i += 4
+            return true
+        }
+        // for large images, sample pixels instead of scanning all of them
+        // check corners, edges, center, and a grid pattern across the image
+        let w = width
+        let h = height
+        let bytesPerRow = self.bytesPerRow
+        // if bytesPerRow info is available, use row-based sampling for accuracy
+        if bytesPerRow > 0 && w > 0 && h > 0 {
+            // sample up to ~200 pixels: 10 rows x 20 columns
+            let rowStep = max(h / 10, 1)
+            let colStep = max(w / 20, 1)
+            var row = 0
+            while row < h {
+                var col = 0
+                while col < w {
+                    let byteOffset = row * bytesPerRow + col * 4 + 3
+                    if byteOffset < length && ptr[byteOffset] != 0 { return false }
+                    col += colStep
+                }
+                row += rowStep
+            }
+        } else {
+            // fallback: stride through the flat buffer, sampling ~200 pixels
+            let step = max(pixelCount / 200, 1) * 4
+            var i = 3
+            while i < length {
+                if ptr[i] != 0 { return false }
+                i += step
+            }
         }
         return true
     }
