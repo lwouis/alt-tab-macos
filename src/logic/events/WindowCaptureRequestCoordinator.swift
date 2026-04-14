@@ -45,7 +45,10 @@ final class WindowCaptureRequestCoordinator {
 
     func cancel(_ wid: CGWindowID) {
         lock.lock()
-        entries[wid] = nil
-        lock.unlock()
+        defer { lock.unlock() }
+        guard var entry = entries[wid] else { return }
+        entry.latestRequestedGeneration += 1
+        entry.activeGeneration = nil
+        entries[wid] = entry
     }
 }

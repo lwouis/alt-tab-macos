@@ -36,11 +36,27 @@ final class WindowCaptureRequestCoordinatorTests: XCTestCase {
         XCTAssertEqual(coordinator.request(101), 2)
     }
 
-    func testCancelDropsOutstandingState() {
+    func testCancelInvalidatesOutstandingStateAndKeepsMonotonicGenerations() {
         let coordinator = WindowCaptureRequestCoordinator()
         XCTAssertEqual(coordinator.request(101), 1)
         XCTAssertNil(coordinator.request(101))
         coordinator.cancel(101)
+        XCTAssertFalse(coordinator.shouldApplyResult(for: 101, generation: 1))
+        let nextGeneration = coordinator.request(101)
+        XCTAssertNotNil(nextGeneration)
+        XCTAssertGreaterThan(nextGeneration ?? 0, 1)
+    }
+
+    func testCancelPreventsOldCompletionFromClearingNewActiveGeneration() {
+        let coordinator = WindowCaptureRequestCoordinator()
         XCTAssertEqual(coordinator.request(101), 1)
+        XCTAssertNil(coordinator.request(101))
+        coordinator.cancel(101)
+        let nextGeneration = coordinator.request(101)
+        XCTAssertNotNil(nextGeneration)
+        XCTAssertTrue(coordinator.shouldApplyResult(for: 101, generation: nextGeneration!))
+        XCTAssertNil(coordinator.finish(101, generation: 1))
+        XCTAssertNil(coordinator.request(101))
+        XCTAssertEqual(coordinator.finish(101, generation: nextGeneration!), nextGeneration! + 1)
     }
 }
