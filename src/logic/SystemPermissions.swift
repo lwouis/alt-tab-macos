@@ -102,8 +102,8 @@ class ScreenRecordingPermission {
 
     private static func detect() -> PermissionStatus {
         if #available(macOS 10.15, *) {
-            return isGrantedOnSomeDisplay() ? .granted :
-                (Preferences.screenRecordingPermissionSkipped ? .skipped : .notGranted)
+            guard !Preferences.screenRecordingPermissionSkipped else { return .skipped }
+            return isGrantedOnSomeDisplay() ? .granted : .notGranted
         }
         return .granted
     }
