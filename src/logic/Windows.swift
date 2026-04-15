@@ -517,6 +517,7 @@ class Windows {
             if let wid = w.cgWindowId {
                 AXCallScheduler.shared.removeEntry(key: "wid-\(wid)")
                 Applications.windowListUpdateThrottler.removeEntry(withKey: "\(wid)")
+                WindowCaptureRequestCoordinator.shared.cancel(wid)
             }
             // when a tabbed window is removed, update its former siblings' tab group
             if let siblingWids = w.tabbedSiblingWids {

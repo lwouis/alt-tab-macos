@@ -64,6 +64,10 @@
 		48F3E16224EC0D8800A1C64B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BABDA79F8EF76E3ACDD5F /* Localizable.strings */; };
 		5883F0A829A5182C0071DB65 /* TrackpadEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5883F0A729A5182C0071DB65 /* TrackpadEvents.swift */; };
 		5F04852E2F09AC9700235D4A /* WindowCaptureEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F04852D2F09AC9700235D4A /* WindowCaptureEvents.swift */; };
+		C1A1B1C1D1E1F10111213141 /* RefreshCausedBy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A1B1C1D1E1F10111213140 /* RefreshCausedBy.swift */; };
+		C1A1B1C1D1E1F10111213142 /* RefreshCausedBy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A1B1C1D1E1F10111213140 /* RefreshCausedBy.swift */; };
+		B1C2D3E4F5061728394A5B6C /* WindowCaptureRequestCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C2D3E4F5061728394A5B6E /* WindowCaptureRequestCoordinator.swift */; };
+		B1C2D3E4F5061728394A5B6D /* WindowCaptureRequestCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C2D3E4F5061728394A5B6E /* WindowCaptureRequestCoordinator.swift */; };
 		5F13D6E92F58A3FE000F5E41 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5F13D6E72F58A3FE000F5E41 /* Localizable.strings */; };
 		5F13D6EC2F58A409000F5E41 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5F13D6EB2F58A409000F5E41 /* InfoPlist.strings */; };
 		5F17452E2F1A908D00128EF8 /* WindowDiscriminator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F17452D2F1A907800128EF8 /* WindowDiscriminator.swift */; };
@@ -201,6 +205,7 @@
 		BF0C8CC5057406014FD612CC /* ATShortcut.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C8BA452332236D972C60E /* ATShortcut.swift */; };
 		BF0C8CE3AE04A98400B9962F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C8D1BBBC02D57E16B454B /* InfoPlist.strings */; };
 		BF0C8CEBBC2E851D16FF4757 /* CustomRecorderControlTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C8308B436837FA3EDED86 /* CustomRecorderControlTests.swift */; };
+		A1B2C3D4E5F60718293A4B5C /* WindowCaptureRequestCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60718293A4B5D /* WindowCaptureRequestCoordinatorTests.swift */; };
 		BF0C8D1C57D74106018D073C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C87F5D4AD51D6950C98B0 /* InfoPlist.strings */; };
 		BF0C8D610C93D48F572937F8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C8FBA6B0F4DEB510C71CB /* Localizable.strings */; };
 		BF0C8DD7EBC3BA1E86BF4BDB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C841E403C1C6E8C65727E /* InfoPlist.strings */; };
@@ -380,6 +385,8 @@
 		5883F0A729A5182C0071DB65 /* TrackpadEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackpadEvents.swift; sourceTree = "<group>"; };
 		59DD4BE63D42EEFF1182BA7F /* Pods-alt-tab-macos.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alt-tab-macos.release.xcconfig"; path = "Target Support Files/Pods-alt-tab-macos/Pods-alt-tab-macos.release.xcconfig"; sourceTree = "<group>"; };
 		5F04852D2F09AC9700235D4A /* WindowCaptureEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowCaptureEvents.swift; sourceTree = "<group>"; };
+		C1A1B1C1D1E1F10111213140 /* RefreshCausedBy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshCausedBy.swift; sourceTree = "<group>"; };
+		B1C2D3E4F5061728394A5B6E /* WindowCaptureRequestCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowCaptureRequestCoordinator.swift; sourceTree = "<group>"; };
 		5F05D0E62F31441A004A95F9 /* AGENTS.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = AGENTS.md; sourceTree = "<group>"; };
 		5F05D0E72F31441A004A95F9 /* CLAUDE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CLAUDE.md; sourceTree = "<group>"; };
 		5F084EAF2EF15E6B00CD212A /* TabbedWindowDetection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbedWindowDetection.swift; sourceTree = "<group>"; };
@@ -603,6 +610,7 @@
 		BF0C8FC083A2443F3EAF5DB7 /* preferences-blacklist.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "preferences-blacklist.jpg"; sourceTree = "<group>"; };
 		BF0C8FEE46E9A73F617EF679 /* gu */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = gu; path = Localizable.strings; sourceTree = "<group>"; };
 		BF0CAAAA0000000000000001 /* SearchAcronymTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAcronymTests.swift; sourceTree = "<group>"; };
+		A1B2C3D4E5F60718293A4B5D /* WindowCaptureRequestCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowCaptureRequestCoordinatorTests.swift; sourceTree = "<group>"; };
 		C0712B3BEA2B3780398C0999 /* Pods_alt_tab_macos.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_alt_tab_macos.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7E6F409CA442F83B7BE71AD /* Pods_unit_tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_unit_tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D04BA015A45DE7AFDC9794FE /* Window.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
@@ -1177,6 +1185,7 @@
 				BF0C84933936C6FE676CD33C /* AppearanceTests.swift */,
 				BF0C899905524253DC170B56 /* KeyboardEventsTests.swift */,
 				BF0CAAAA0000000000000001 /* SearchAcronymTests.swift */,
+				A1B2C3D4E5F60718293A4B5D /* WindowCaptureRequestCoordinatorTests.swift */,
 				BF0C829EAA93A4C4ADB42CF8 /* Mocks.swift */,
 				BF0C8C6810FF50908E637A48 /* ConcurrentScreenshots.swift */,
 				BF0C855CD9DBCAEFE48F9EA5 /* AXUIElementTests.swift */,
@@ -2036,6 +2045,8 @@
 			isa = PBXGroup;
 			children = (
 				5F04852D2F09AC9700235D4A /* WindowCaptureEvents.swift */,
+				C1A1B1C1D1E1F10111213140 /* RefreshCausedBy.swift */,
+				B1C2D3E4F5061728394A5B6E /* WindowCaptureRequestCoordinator.swift */,
 				D04BA8FDCF137D892114F5F3 /* AccessibilityEvents.swift */,
 				D04BA4A621A8A15660F973C1 /* KeyboardEvents.swift */,
 				D04BA76AEE37D6656EB80126 /* RunningApplicationsEvents.swift */,
@@ -2548,7 +2559,10 @@
 				5F4753072CEE5A2E002C6C5E /* AppearanceTestable.swift in Sources */,
 				BF0C8B787C76D9B961CC2F45 /* KeyboardEventsTests.swift in Sources */,
 				BF0CAAAA0000000000001001 /* SearchAcronymTests.swift in Sources */,
+				A1B2C3D4E5F60718293A4B5C /* WindowCaptureRequestCoordinatorTests.swift in Sources */,
 				BF0C8C5FA4B401A8C0F75B7A /* KeyboardEventsTestable.swift in Sources */,
+				C1A1B1C1D1E1F10111213142 /* RefreshCausedBy.swift in Sources */,
+				B1C2D3E4F5061728394A5B6D /* WindowCaptureRequestCoordinator.swift in Sources */,
 				F00DCAFE0000000000001103 /* SearchTestable.swift in Sources */,
 				BF0C875A28B98904F8F4A66A /* ATShortcut.swift in Sources */,
 				BF0C84E5AC1D423625ABF3E6 /* Mocks.swift in Sources */,
@@ -2643,6 +2657,8 @@
 				AA0C8B000000000000000001 /* UsageStats.swift in Sources */,
 				BF0C83578F7292F307E30751 /* PopupButtonLikeSystemSettings.swift in Sources */,
 				5F04852E2F09AC9700235D4A /* WindowCaptureEvents.swift in Sources */,
+				C1A1B1C1D1E1F10111213141 /* RefreshCausedBy.swift in Sources */,
+				B1C2D3E4F5061728394A5B6C /* WindowCaptureRequestCoordinator.swift in Sources */,
 				1C961F9CF4F1BEDF04ACAEE0 /* Switch.swift in Sources */,
 				1C96182D2ECA735740ED474E /* ImageTextButtonView.swift in Sources */,
 				BF0C860F1779DDE8C0171EA0 /* WindowlessAppIndicator.swift in Sources */,
