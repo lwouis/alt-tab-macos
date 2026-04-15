@@ -59,4 +59,43 @@ final class WindowCaptureRequestCoordinatorTests: XCTestCase {
         XCTAssertNil(coordinator.request(101))
         XCTAssertEqual(coordinator.finish(101, generation: nextGeneration!), nextGeneration! + 1)
     }
+
+    // Hammers the coordinator from 8 concurrent queues to verify the NSLock-based critical
+    // section holds under load: at most one request() may be granted before that caller
+    // invokes finish(), and latestRequestedGeneration must reflect every request() bump.
+    func testConcurrentRequestsAndFinishesHonorActiveSlotInvariant() {
+        let coordinator = WindowCaptureRequestCoordinator()
+        let wid: CGWindowID = 42
+        let producers = 8
+        let perProducer = 5_000
+        let lock = NSLock()
+        var preFinishHolders = 0
+        var maxPreFinish = 0
+        let group = DispatchGroup()
+        let queue = DispatchQueue(label: "test.producers", attributes: .concurrent)
+        for _ in 0..<producers {
+            group.enter()
+            queue.async {
+                for _ in 0..<perProducer {
+                    if let generation = coordinator.request(wid) {
+                        lock.lock()
+                        preFinishHolders += 1
+                        if preFinishHolders > maxPreFinish { maxPreFinish = preFinishHolders }
+                        lock.unlock()
+                        lock.lock()
+                        preFinishHolders -= 1
+                        lock.unlock()
+                        var current: Int? = generation
+                        while let cur = current { current = coordinator.finish(wid, generation: cur) }
+                    }
+                }
+                group.leave()
+            }
+        }
+        XCTAssertEqual(group.wait(timeout: .now() + .seconds(30)), .success)
+        XCTAssertEqual(maxPreFinish, 1)
+        let finalGeneration = coordinator.request(wid)
+        XCTAssertNotNil(finalGeneration)
+        XCTAssertGreaterThanOrEqual(finalGeneration ?? 0, producers * perProducer)
+    }
 }
