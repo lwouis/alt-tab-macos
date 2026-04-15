@@ -40,10 +40,16 @@ final class WindowCaptureRequestCoordinator {
     func finish(_ wid: CGWindowID, generation: Int) -> Activation? {
         lock.lock()
         defer { lock.unlock() }
-        guard var entry = entries[wid], entry.activeGeneration == generation else { return nil }
+        guard var entry = entries[wid], entry.activeGeneration == generation else {
+            // Stale completion after cancel: if no in-flight work remains, prune.
+            if let existing = entries[wid], existing.activeGeneration == nil {
+                entries.removeValue(forKey: wid)
+            }
+            return nil
+        }
         guard entry.latestRequestedGeneration != generation else {
-            entry.activeGeneration = nil
-            entries[wid] = entry
+            // No pending retry: prune the entry.
+            entries.removeValue(forKey: wid)
             return nil
         }
         entry.activeGeneration = entry.latestRequestedGeneration
@@ -56,6 +62,11 @@ final class WindowCaptureRequestCoordinator {
         lock.lock()
         defer { lock.unlock() }
         guard var entry = entries[wid] else { return }
+        guard entry.activeGeneration != nil else {
+            // Already quiescent: prune.
+            entries.removeValue(forKey: wid)
+            return
+        }
         entry.latestRequestedGeneration += 1
         entry.activeGeneration = nil
         entries[wid] = entry

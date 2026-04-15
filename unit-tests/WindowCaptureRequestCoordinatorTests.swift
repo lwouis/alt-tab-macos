@@ -48,16 +48,41 @@ final class WindowCaptureRequestCoordinatorTests: XCTestCase {
         XCTAssertNil(coordinator.finish(202, generation: 1))
     }
 
-    func testCompletedWindowKeepsMonotonicGenerations() {
+    func testCompletedWindowPrunesEntryAllowingFreshGenerations() {
         let coordinator = WindowCaptureRequestCoordinator()
         XCTAssertEqual(
             coordinator.request(101, source: .refreshUiAfterExternalEvent),
             WindowCaptureRequestCoordinator.Activation(generation: 1, source: .refreshUiAfterExternalEvent)
         )
         XCTAssertNil(coordinator.finish(101, generation: 1))
+        // entry pruned: the next request starts fresh at generation 1
         XCTAssertEqual(
             coordinator.request(101, source: .refreshUiAfterExternalEvent),
-            WindowCaptureRequestCoordinator.Activation(generation: 2, source: .refreshUiAfterExternalEvent)
+            WindowCaptureRequestCoordinator.Activation(generation: 1, source: .refreshUiAfterExternalEvent)
+        )
+    }
+
+    func testCancelOnQuiescentWindowPrunesEntry() {
+        let coordinator = WindowCaptureRequestCoordinator()
+        XCTAssertEqual(
+            coordinator.request(101, source: .refreshUiAfterExternalEvent)?.generation, 1
+        )
+        XCTAssertNil(coordinator.finish(101, generation: 1))
+        // entry is already pruned by finish
+        coordinator.cancel(101) // should be a no-op, not crash
+        XCTAssertEqual(
+            coordinator.request(101, source: .refreshUiAfterExternalEvent)?.generation, 1
+        )
+    }
+
+    func testStaleFinishAfterCancelPrunesEntry() {
+        let coordinator = WindowCaptureRequestCoordinator()
+        _ = coordinator.request(101, source: .refreshUiAfterExternalEvent)
+        coordinator.cancel(101)
+        XCTAssertNil(coordinator.finish(101, generation: 1))
+        // entry pruned: next request starts fresh
+        XCTAssertEqual(
+            coordinator.request(101, source: .refreshUiAfterExternalEvent)?.generation, 1
         )
     }
 
@@ -142,8 +167,8 @@ final class WindowCaptureRequestCoordinatorTests: XCTestCase {
         }
         XCTAssertEqual(group.wait(timeout: .now() + .seconds(30)), .success)
         XCTAssertEqual(maxPreFinish, 1)
+        // After convergence the coordinator must be quiescent: a new request must be granted.
         let finalActivation = coordinator.request(wid, source: .refreshUiAfterExternalEvent)
         XCTAssertNotNil(finalActivation)
-        XCTAssertGreaterThanOrEqual(finalActivation?.generation ?? 0, producers * perProducer)
     }
 }
