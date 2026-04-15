@@ -1,4 +1,5 @@
 import XCTest
+import CoreGraphics
 
 final class WindowCaptureRequestCoordinatorTests: XCTestCase {
     func testFirstRequestStartsCapture() {
@@ -82,11 +83,11 @@ final class WindowCaptureRequestCoordinatorTests: XCTestCase {
                         preFinishHolders += 1
                         if preFinishHolders > maxPreFinish { maxPreFinish = preFinishHolders }
                         lock.unlock()
+                        var current: Int? = generation
+                        while let cur = current { current = coordinator.finish(wid, generation: cur) }
                         lock.lock()
                         preFinishHolders -= 1
                         lock.unlock()
-                        var current: Int? = generation
-                        while let cur = current { current = coordinator.finish(wid, generation: cur) }
                     }
                 }
                 group.leave()
