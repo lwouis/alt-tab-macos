@@ -4,23 +4,31 @@ import CoreGraphics
 final class WindowCaptureRequestCoordinator {
     static let shared = WindowCaptureRequestCoordinator()
 
+    struct Activation: Equatable {
+        let generation: Int
+        let source: RefreshCausedBy
+    }
+
     private struct Entry {
         var latestRequestedGeneration = 0
         var activeGeneration: Int?
+        var latestSource: RefreshCausedBy
+        init(source: RefreshCausedBy) { self.latestSource = source }
     }
 
     private let lock = NSLock()
     private var entries = [CGWindowID: Entry]()
 
-    func request(_ wid: CGWindowID) -> Int? {
+    func request(_ wid: CGWindowID, source: RefreshCausedBy) -> Activation? {
         lock.lock()
         defer { lock.unlock() }
-        var entry = entries[wid] ?? Entry()
+        var entry = entries[wid] ?? Entry(source: source)
         entry.latestRequestedGeneration += 1
+        entry.latestSource = source
         defer { entries[wid] = entry }
         guard entry.activeGeneration == nil else { return nil }
         entry.activeGeneration = entry.latestRequestedGeneration
-        return entry.activeGeneration
+        return Activation(generation: entry.activeGeneration!, source: source)
     }
 
     func shouldApplyResult(for wid: CGWindowID, generation: Int) -> Bool {
@@ -29,7 +37,7 @@ final class WindowCaptureRequestCoordinator {
         return entries[wid]?.latestRequestedGeneration == generation
     }
 
-    func finish(_ wid: CGWindowID, generation: Int) -> Int? {
+    func finish(_ wid: CGWindowID, generation: Int) -> Activation? {
         lock.lock()
         defer { lock.unlock() }
         guard var entry = entries[wid], entry.activeGeneration == generation else { return nil }
@@ -39,8 +47,9 @@ final class WindowCaptureRequestCoordinator {
             return nil
         }
         entry.activeGeneration = entry.latestRequestedGeneration
+        let activation = Activation(generation: entry.activeGeneration!, source: entry.latestSource)
         entries[wid] = entry
-        return entry.activeGeneration
+        return activation
     }
 
     func cancel(_ wid: CGWindowID) {
