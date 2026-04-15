@@ -137,6 +137,7 @@ class ControlsTab {
     ]
     static var arrowKeysCheckbox: Switch!
     static var vimKeysCheckbox: Switch!
+    private static var triggerBackwardLabels = [Int: NSTextField]()
 
     static var shortcutsWhenActiveSheet: ShortcutsWhenActiveSheet!
     static var additionalControlsSheet: AdditionalControlsSheet!
@@ -154,7 +155,7 @@ class ControlsTab {
         "closeWindowShortcut", "minDeminWindowShortcut", "toggleFullscreenWindowShortcut", "quitAppShortcut", "hideShowAppShortcut",
     ]
     private static let removableShortcutPreferences = [
-        "holdShortcut", "nextWindowShortcut",
+        "holdShortcut", "nextWindowShortcut", "triggerWithPreviousWindow",
         "appsToShow", "spacesToShow", "screensToShow",
         "showMinimizedWindows", "showHiddenWindows", "showFullscreenWindows", "showWindowlessApps",
         "windowOrder", "shortcutStyle",
@@ -205,6 +206,12 @@ class ControlsTab {
                 removeShortcutIfExists(k)
             }
             refreshShortcutRows()
+        case let k where k.hasPrefix("triggerWithPreviousWindow"):
+            let i = Preferences.nameToIndex(k)
+            applyTriggerWithPreviousWindowPreference(i)
+        case "previousWindowShortcut":
+            (0..<Preferences.shortcutCount).forEach { applyTriggerWithPreviousWindowPreference($0) }
+            applyShortcutPreference("previousWindowShortcut")
         case let k where staticManagedShortcutPreferences.contains(k):
             applyShortcutPreference(k)
         case "arrowKeysEnabled":
@@ -373,7 +380,9 @@ class ControlsTab {
         holdShortcut.append(LabelAndControl.makeLabel(NSLocalizedString("and press", comment: "")))
         let nextName = Preferences.indexToName("nextWindowShortcut", index)
         let nextWindowShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Select next window", comment: ""), nextName, Preferences.shortcut(nextName), labelPosition: .right)
-        return controlTab(index, holdShortcut + [nextWindowShortcut[0]], shortcutEditorContentWidth)
+        let triggerBackwardName = Preferences.indexToName("triggerWithPreviousWindow", index)
+        let triggerBackwardSwitch = LabelAndControl.makeSwitch(triggerBackwardName)
+        return controlTab(index, holdShortcut + [nextWindowShortcut[0]], triggerBackwardSwitch, shortcutEditorContentWidth)
     }
 
     private static func gestureTab(_ index: Int) -> TableGroupView {
@@ -395,6 +404,10 @@ class ControlsTab {
     }
 
     private static func controlTab(_ index: Int, _ trigger: [NSView], _ width: CGFloat) -> TableGroupView {
+        controlTab(index, trigger, nil, width)
+    }
+
+    private static func controlTab(_ index: Int, _ trigger: [NSView], _ triggerBackwardSwitch: Switch?, _ width: CGFloat) -> TableGroupView {
         let appsToShow = LabelAndControl.makeDropdown(Preferences.indexToName("appsToShow", index), AppsToShowPreference.allCases)
         let spacesToShow = LabelAndControl.makeDropdown(Preferences.indexToName("spacesToShow", index), SpacesToShowPreference.allCases)
         let screensToShow = LabelAndControl.makeDropdown(Preferences.indexToName("screensToShow", index), ScreensToShowPreference.allCases)
@@ -405,6 +418,11 @@ class ControlsTab {
         let windowOrder = LabelAndControl.makeDropdown(Preferences.indexToName("windowOrder", index), WindowOrderPreference.allCases)
         let table = TableGroupView(width: width)
         table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Trigger", comment: ""), rightViews: trigger))
+        if let triggerBackwardSwitch {
+            let label = TableGroupView.makeText(triggerBackwardLabelText(index))
+            triggerBackwardLabels[index] = label
+            table.addRow(leftViews: [label], rightViews: [triggerBackwardSwitch])
+        }
         table.addNewTable()
         table.addRow(leftViews: [TableGroupView.makeText(NSLocalizedString("Show windows from applications", comment: ""))], rightViews: [appsToShow])
         table.addRow(leftViews: [TableGroupView.makeText(NSLocalizedString("Show windows from Spaces", comment: ""))], rightViews: [spacesToShow])
@@ -679,6 +697,7 @@ class ControlsTab {
                     removeShortcutIfExists(key)
                 }
             }
+            applyTriggerWithPreviousWindowPreference(index)
         }
     }
 
@@ -869,9 +888,37 @@ class ControlsTab {
         let i = Preferences.nameToIndex(controlId)
         guard let shortcut = Preferences.shortcut(controlId) else {
             removeShortcutIfExists(controlId)
+            applyTriggerWithPreviousWindowPreference(i)
             return
         }
         addShortcut(.up, .global, shortcut, controlId, i)
+        applyTriggerWithPreviousWindowPreference(i)
+    }
+
+    private static func applyTriggerWithPreviousWindowPreference(_ index: Int) {
+        let controlId = Preferences.indexToName("prevWindowShortcut", index)
+        refreshTriggerBackwardLabel(index)
+        guard index < Preferences.shortcutCount,
+              Preferences.triggerWithPreviousWindow[index],
+              let prevShortcut = Preferences.previousWindowShortcut else {
+            removeShortcutIfExists(controlId)
+            return
+        }
+        let holdShortcut = Preferences.shortcut(Preferences.indexToName("holdShortcut", index))
+        addShortcut(.down, .global, combineShortcuts(holdShortcut, prevShortcut), controlId, index)
+    }
+
+    private static func triggerBackwardLabelText(_ index: Int) -> String {
+        let base = NSLocalizedString("Also trigger with 'Select previous'", comment: "")
+        let holdShortcut = Preferences.shortcut(Preferences.indexToName("holdShortcut", index))
+        guard let prevShortcut = Preferences.previousWindowShortcut else { return base }
+        let hotkeyStr = combineShortcuts(holdShortcut, prevShortcut).keyEquivalent
+        guard !hotkeyStr.isEmpty else { return base }
+        return "\(base) (\(hotkeyStr))"
+    }
+
+    private static func refreshTriggerBackwardLabel(_ index: Int) {
+        triggerBackwardLabels[index]?.stringValue = triggerBackwardLabelText(index)
     }
 
     private static func combinedShortcut(_ controlId: String) -> Shortcut? {
@@ -933,6 +980,14 @@ class ControlsTab {
         }
         if action.hasPrefix("nextWindowShortcut") {
             App.showUiOrCycleSelection(Preferences.nameToIndex(action), false)
+        }
+        if action.hasPrefix("prevWindowShortcut") {
+            let index = Preferences.nameToIndex(action)
+            if App.appIsBeingUsed && App.shortcutIndex == index {
+                App.previousWindowShortcutWithRepeatingKey()
+            } else {
+                App.showUiOrCycleSelection(index, false, backward: true)
+            }
         }
     }
 }

@@ -295,7 +295,7 @@ class App: AppCenterApplication {
         Applications.refreshBadgesAsync()
     }
 
-    static func showUiOrCycleSelection(_ shortcutIndex: Int, _ forceDoNothingOnRelease_: Bool) {
+    static func showUiOrCycleSelection(_ shortcutIndex: Int, _ forceDoNothingOnRelease_: Bool, backward: Bool = false) {
         forceDoNothingOnRelease = forceDoNothingOnRelease_
         Logger.debug { "isFirstSummon:\(isFirstSummon) shortcutIndex:\(shortcutIndex)" }
         appIsBeingUsed = true
@@ -314,7 +314,7 @@ class App: AppCenterApplication {
                 forceDoNothingOnRelease = true
             }
             if !Windows.updatesBeforeShowing() { hideUi(); return }
-            Windows.setInitialSelectedAndHoveredWindowIndex()
+            Windows.setInitialSelectedAndHoveredWindowIndex(backward: backward)
             if Preferences.windowDisplayDelay == DispatchTimeInterval.milliseconds(0) {
                 buildUiAndShowPanel()
             } else {
