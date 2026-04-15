@@ -434,8 +434,3 @@ extension App: NSApplicationDelegate {
         return .terminateNow
     }
 }
-
-enum RefreshCausedBy {
-    case refreshOnlyThumbnailsAfterShowUi
-    case refreshUiAfterExternalEvent
-}

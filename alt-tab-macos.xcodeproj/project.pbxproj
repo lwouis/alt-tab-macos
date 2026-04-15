@@ -64,6 +64,8 @@
 		48F3E16224EC0D8800A1C64B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BABDA79F8EF76E3ACDD5F /* Localizable.strings */; };
 		5883F0A829A5182C0071DB65 /* TrackpadEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5883F0A729A5182C0071DB65 /* TrackpadEvents.swift */; };
 		5F04852E2F09AC9700235D4A /* WindowCaptureEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F04852D2F09AC9700235D4A /* WindowCaptureEvents.swift */; };
+		C1A1B1C1D1E1F10111213141 /* RefreshCausedBy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A1B1C1D1E1F10111213140 /* RefreshCausedBy.swift */; };
+		C1A1B1C1D1E1F10111213142 /* RefreshCausedBy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A1B1C1D1E1F10111213140 /* RefreshCausedBy.swift */; };
 		B1C2D3E4F5061728394A5B6C /* WindowCaptureRequestCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C2D3E4F5061728394A5B6E /* WindowCaptureRequestCoordinator.swift */; };
 		B1C2D3E4F5061728394A5B6D /* WindowCaptureRequestCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C2D3E4F5061728394A5B6E /* WindowCaptureRequestCoordinator.swift */; };
 		5F13D6E92F58A3FE000F5E41 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5F13D6E72F58A3FE000F5E41 /* Localizable.strings */; };
@@ -383,6 +385,7 @@
 		5883F0A729A5182C0071DB65 /* TrackpadEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackpadEvents.swift; sourceTree = "<group>"; };
 		59DD4BE63D42EEFF1182BA7F /* Pods-alt-tab-macos.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alt-tab-macos.release.xcconfig"; path = "Target Support Files/Pods-alt-tab-macos/Pods-alt-tab-macos.release.xcconfig"; sourceTree = "<group>"; };
 		5F04852D2F09AC9700235D4A /* WindowCaptureEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowCaptureEvents.swift; sourceTree = "<group>"; };
+		C1A1B1C1D1E1F10111213140 /* RefreshCausedBy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshCausedBy.swift; sourceTree = "<group>"; };
 		B1C2D3E4F5061728394A5B6E /* WindowCaptureRequestCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowCaptureRequestCoordinator.swift; sourceTree = "<group>"; };
 		5F05D0E62F31441A004A95F9 /* AGENTS.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = AGENTS.md; sourceTree = "<group>"; };
 		5F05D0E72F31441A004A95F9 /* CLAUDE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CLAUDE.md; sourceTree = "<group>"; };
@@ -2042,6 +2045,7 @@
 			isa = PBXGroup;
 			children = (
 				5F04852D2F09AC9700235D4A /* WindowCaptureEvents.swift */,
+				C1A1B1C1D1E1F10111213140 /* RefreshCausedBy.swift */,
 				B1C2D3E4F5061728394A5B6E /* WindowCaptureRequestCoordinator.swift */,
 				D04BA8FDCF137D892114F5F3 /* AccessibilityEvents.swift */,
 				D04BA4A621A8A15660F973C1 /* KeyboardEvents.swift */,
@@ -2557,6 +2561,7 @@
 				BF0CAAAA0000000000001001 /* SearchAcronymTests.swift in Sources */,
 				A1B2C3D4E5F60718293A4B5C /* WindowCaptureRequestCoordinatorTests.swift in Sources */,
 				BF0C8C5FA4B401A8C0F75B7A /* KeyboardEventsTestable.swift in Sources */,
+				C1A1B1C1D1E1F10111213142 /* RefreshCausedBy.swift in Sources */,
 				B1C2D3E4F5061728394A5B6D /* WindowCaptureRequestCoordinator.swift in Sources */,
 				F00DCAFE0000000000001103 /* SearchTestable.swift in Sources */,
 				BF0C875A28B98904F8F4A66A /* ATShortcut.swift in Sources */,
@@ -2652,6 +2657,7 @@
 				AA0C8B000000000000000001 /* UsageStats.swift in Sources */,
 				BF0C83578F7292F307E30751 /* PopupButtonLikeSystemSettings.swift in Sources */,
 				5F04852E2F09AC9700235D4A /* WindowCaptureEvents.swift in Sources */,
+				C1A1B1C1D1E1F10111213141 /* RefreshCausedBy.swift in Sources */,
 				B1C2D3E4F5061728394A5B6C /* WindowCaptureRequestCoordinator.swift in Sources */,
 				1C961F9CF4F1BEDF04ACAEE0 /* Switch.swift in Sources */,
 				1C96182D2ECA735740ED474E /* ImageTextButtonView.swift in Sources */,
