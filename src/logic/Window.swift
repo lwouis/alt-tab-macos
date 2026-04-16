@@ -216,6 +216,12 @@ class Window {
                 }
             } else {
                 application.runningApplication.activate(options: .activateAllWindows)
+                if isMinimized, axUiElement != nil {
+                    BackgroundWork.accessibilityCommandsQueue.addOperation { [weak self] in
+                        guard let self else { return }
+                        try? self.axUiElement!.setAttribute(kAXMinimizedAttribute, false)
+                    }
+                }
             }
             Windows.previewSelectedWindowIfNeeded()
         } else {
