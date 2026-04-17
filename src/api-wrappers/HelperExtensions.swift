@@ -22,11 +22,9 @@ func caTransaction(_ body: () -> Void) {
 
 extension NSAppearance {
     func getThemeName() -> AppearanceThemePreference {
-        if #available(macOS 10.14, *) {
-            let appearance = NSApp.effectiveAppearance.name
-            if appearance == .darkAqua || appearance == .vibrantDark {
-                return .dark
-            }
+        let appearance = NSApp.effectiveAppearance.name
+        if appearance == .darkAqua || appearance == .vibrantDark {
+            return .dark
         }
         return .light
     }
@@ -45,11 +43,7 @@ extension NSColor {
     }
 
     class var systemAccentColor: NSColor {
-        if #available(macOS 10.14, *) {
-            // dynamically adapts to changes in System Default; no need to listen to notifications
-            return NSColor.controlAccentColor
-        }
-        return NSColor.blue
+        return NSColor.controlAccentColor
     }
 
     class var tableBorderColor: NSColor {

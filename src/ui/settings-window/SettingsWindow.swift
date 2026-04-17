@@ -450,9 +450,7 @@ private final class SettingsSidebarCellView: NSTableCellView {
         let selected = backgroundStyle == .emphasized
         titleLabel.font = NSFont.systemFont(ofSize: 13.5, weight: .medium)
         titleLabel.textColor = selected ? .white : .labelColor
-        if #available(macOS 10.14, *) {
-            iconView.contentTintColor = selected ? .white : .secondaryLabelColor
-        }
+        iconView.contentTintColor = selected ? .white : .secondaryLabelColor
     }
 }
 

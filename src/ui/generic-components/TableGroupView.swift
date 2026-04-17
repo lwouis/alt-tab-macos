@@ -608,32 +608,18 @@ class TableGroupView: ClickHoverStackView {
     private func updateRowCornerRadius() {
         rowInfoTables.forEach { table in
             for (index, rowInfo) in table.enumerated() {
-                if #available(macOS 10.13, *) {
-                    if table.count == 1 {
-                        rowInfo.view.layer?.cornerRadius = TableGroupView.cornerRadius
-                        rowInfo.view.layer?.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner, .layerMinXMinYCorner, .layerMaxXMinYCorner]
-                    } else if index == 0 {
-                        rowInfo.view.layer?.cornerRadius = TableGroupView.cornerRadius
-                        rowInfo.view.layer?.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-                    } else if index == table.count - 1 {
-                        rowInfo.view.layer?.cornerRadius = TableGroupView.cornerRadius
-                        rowInfo.view.layer?.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-                    } else {
-                        rowInfo.view.layer?.cornerRadius = 0
-                        rowInfo.view.layer?.maskedCorners = []
-                    }
+                if table.count == 1 {
+                    rowInfo.view.layer?.cornerRadius = TableGroupView.cornerRadius
+                    rowInfo.view.layer?.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner, .layerMinXMinYCorner, .layerMaxXMinYCorner]
+                } else if index == 0 {
+                    rowInfo.view.layer?.cornerRadius = TableGroupView.cornerRadius
+                    rowInfo.view.layer?.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+                } else if index == table.count - 1 {
+                    rowInfo.view.layer?.cornerRadius = TableGroupView.cornerRadius
+                    rowInfo.view.layer?.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
                 } else {
-                    if index == 0 {
-                        // Degraded experience, rounded corners will appear in the lower left and lower right corners.
-                        rowInfo.view.layer?.cornerRadius = TableGroupView.cornerRadius
-                    }
-                    if index == table.count - 1 {
-                        // Degraded experience, rounded corners will appear in the upper left and upper right corners.
-                        rowInfo.view.layer?.cornerRadius = TableGroupView.cornerRadius
-                    }
-                    if 0 < index && index < table.count - 1 {
-                        rowInfo.view.layer?.cornerRadius = 0
-                    }
+                    rowInfo.view.layer?.cornerRadius = 0
+                    rowInfo.view.layer?.maskedCorners = []
                 }
             }
         }

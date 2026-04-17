@@ -101,11 +101,8 @@ class ScreenRecordingPermission {
     }
 
     private static func detect() -> PermissionStatus {
-        if #available(macOS 10.15, *) {
-            return isGrantedOnSomeDisplay() ? .granted :
-                (Preferences.screenRecordingPermissionSkipped ? .skipped : .notGranted)
-        }
-        return .granted
+        return isGrantedOnSomeDisplay() ? .granted :
+            (Preferences.screenRecordingPermissionSkipped ? .skipped : .notGranted)
     }
 
     // workaround: public API CGPreflightScreenCaptureAccess and private API SLSRequestScreenCaptureAccess exist, but

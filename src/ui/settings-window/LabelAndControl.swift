@@ -267,11 +267,7 @@ class LabelAndControl: NSObject {
     }
 
     static func applySystemSelectedSegmentStyle(_ control: NSSegmentedControl) {
-        if #available(macOS 10.14, *) {
-            control.segmentStyle = .automatic
-        } else {
-            control.segmentStyle = .texturedRounded
-        }
+        control.segmentStyle = .automatic
     }
 
     static func makeLabelWithSlider(_ labelText: String, _ rawName: String, _ minValue: Double, _ maxValue: Double,

@@ -18,9 +18,7 @@ class PermissionsWindow: NSWindow {
 
     static func updatePermissionViews() {
         accessibilityView.updatePermissionStatus(AccessibilityPermission.status)
-        if #available(macOS 10.15, *) {
-            screenRecordingView.updatePermissionStatus(ScreenRecordingPermission.status)
-        }
+        screenRecordingView.updatePermissionStatus(ScreenRecordingPermission.status)
     }
 
     static func show() {
@@ -57,21 +55,19 @@ class PermissionsWindow: NSWindow {
             NSLocalizedString("Open Accessibility Settings…", comment: ""),
             "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility",
         )
-        var rows = [
+        Self.screenRecordingView = PermissionView(
+            "screen-recording",
+            NSLocalizedString("Screen Recording", comment: ""),
+            NSLocalizedString("This permission is needed to show thumbnails and preview of open windows", comment: ""),
+            NSLocalizedString("Open Screen Recording Settings…", comment: ""),
+            "x-apple.systempreferences:com.apple.preference.security?Privacy_ScreenCapture",
+            StackView(LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Use the app without this permission. Thumbnails won't show.", comment: ""), "screenRecordingPermissionSkipped", labelPosition: .right))
+        )
+        let rows = [
             [header],
             [Self.accessibilityView],
+            [Self.screenRecordingView],
         ]
-        if #available(macOS 10.15, *) {
-            Self.screenRecordingView = PermissionView(
-                "screen-recording",
-                NSLocalizedString("Screen Recording", comment: ""),
-                NSLocalizedString("This permission is needed to show thumbnails and preview of open windows", comment: ""),
-                NSLocalizedString("Open Screen Recording Settings…", comment: ""),
-                "x-apple.systempreferences:com.apple.preference.security?Privacy_ScreenCapture",
-                StackView(LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Use the app without this permission. Thumbnails won’t show.", comment: ""), "screenRecordingPermissionSkipped", labelPosition: .right))
-            )
-            rows.append([Self.screenRecordingView])
-        }
         let widestRowWidth = rows.reduce(0) { max($0, $1[0]!.fittingSize.width) }
         rows.forEach { $0[0]!.fit(widestRowWidth, $0[0]!.fittingSize.height) }
         let view = GridView(rows as! [[NSView]])

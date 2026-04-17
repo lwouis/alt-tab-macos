@@ -5,10 +5,8 @@ class Switch: NSButton {
 
     override var state: NSControl.StateValue {
         didSet {
-            if #available(macOS 10.15, *) {
-                if let switchButton = switchButton as? NSSwitch {
-                    switchButton.state = state
-                }
+            if let switchButton = switchButton as? NSSwitch {
+                switchButton.state = state
             }
             sendAction(action, to: target)
         }
@@ -16,10 +14,8 @@ class Switch: NSButton {
 
     override var isEnabled: Bool {
         didSet {
-            if #available(macOS 10.15, *) {
-                if let switchButton = switchButton as? NSSwitch {
-                    switchButton.isEnabled = isEnabled
-                }
+            if let switchButton = switchButton as? NSSwitch {
+                switchButton.isEnabled = isEnabled
             }
         }
     }
@@ -35,25 +31,20 @@ class Switch: NSButton {
     }
 
     private func setupButton() {
-        if #available(macOS 10.15, *) {
-            bezelStyle = .regularSquare
-            isBordered = false
-            title = ""
-            setButtonType(.toggle)
-            switchButton = NSSwitch(frame: bounds)
-            switchButton?.translatesAutoresizingMaskIntoConstraints = false
-            self.addSubview(switchButton!)
-            switchButton?.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-            switchButton?.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-            switchButton?.topAnchor.constraint(equalTo: topAnchor).isActive = true
-            switchButton?.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-            switchButton?.controlSize = .mini
-            switchButton?.target = self
-            switchButton?.action = #selector(switchToggled(_:))
-        } else {
-            setButtonType(.switch)
-            title = ""
-        }
+        bezelStyle = .regularSquare
+        isBordered = false
+        title = ""
+        setButtonType(.toggle)
+        switchButton = NSSwitch(frame: bounds)
+        switchButton?.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(switchButton!)
+        switchButton?.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        switchButton?.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        switchButton?.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        switchButton?.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        switchButton?.controlSize = .mini
+        switchButton?.target = self
+        switchButton?.action = #selector(switchToggled(_:))
     }
 
     override var acceptsFirstResponder: Bool {
