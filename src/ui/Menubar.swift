@@ -36,7 +36,7 @@ class Menubar {
         menu.addItem(NSMenuItem.separator())
         addMenuItem(String(format: NSLocalizedString("Quit %@", comment: "Menubar option. %@ is AltTab"), App.name), #selector(NSApplication.terminate(_:)), "q", nil) // "xmark.rectangle" is not necessary; macos automatically recognizes Quit
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
-        statusItem.target = self
+        statusItem.button!.target = self
         statusItem.button!.action = #selector(statusItemOnClick)
         statusItem.button!.sendAction(on: [.leftMouseDown, .rightMouseDown])
     }
@@ -58,7 +58,9 @@ class Menubar {
         if let type = NSApp.currentEvent?.type, type != .leftMouseDown {
             App.showUiFromShortcut0()
         } else {
-            statusItem.popUpMenu(Menubar.menu)
+            statusItem.menu = Menubar.menu
+            statusItem.button?.performClick(nil)
+            statusItem.menu = nil
         }
     }
 
