@@ -85,11 +85,11 @@ class TileOverView: FlippedView {
         guard newHoveredButton !== previousHoveredButton else { return }
         if let old = previousHoveredButton {
             old.isMouseOver = false
-            old.setNeedsDisplay()
+            old.needsDisplay = true
         }
         if let new = newHoveredButton {
             new.isMouseOver = true
-            new.setNeedsDisplay()
+            new.needsDisplay = true
         }
         previousHoveredButton = newHoveredButton
     }

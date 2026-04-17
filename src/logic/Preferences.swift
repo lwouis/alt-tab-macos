@@ -252,10 +252,7 @@ class Preferences {
     }
 
     static func archiveShortcut(_ shortcut: Shortcut?) -> Data {
-        if #available(macOS 10.13, *) {
-            return try! NSKeyedArchiver.archivedData(withRootObject: shortcut ?? emptyShortcut, requiringSecureCoding: true)
-        }
-        return NSKeyedArchiver.archivedData(withRootObject: shortcut ?? emptyShortcut)
+        return try! NSKeyedArchiver.archivedData(withRootObject: shortcut ?? emptyShortcut, requiringSecureCoding: true)
     }
 
     static func shortcutStorage(_ shortcut: Shortcut?, _ stringRepresentation: String?) -> [String: Any] {
@@ -271,12 +268,7 @@ class Preferences {
     }
 
     static func unarchiveShortcut(_ data: Data) -> (Bool, Shortcut?) {
-        let shortcut: Shortcut?
-        if #available(macOS 10.13, *) {
-            shortcut = try? NSKeyedUnarchiver.unarchivedObject(ofClass: Shortcut.self, from: data)
-        } else {
-            shortcut = NSKeyedUnarchiver.unarchiveObject(with: data) as? Shortcut
-        }
+        let shortcut = try? NSKeyedUnarchiver.unarchivedObject(ofClass: Shortcut.self, from: data)
         guard let shortcut else { return (false, nil) }
         return (true, shortcut.keyCode == .none && shortcut.modifierFlags == [] ? nil : shortcut)
     }

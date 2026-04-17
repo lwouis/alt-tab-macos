@@ -96,10 +96,10 @@ class WindowCaptureScreenshotsPrivateApi {
 
     private static func oneTimeCapture(_ wid: CGWindowID) -> CGImage? {
         guard !App.isTerminating else { return nil }
-        // we use CGSHWCaptureWindowList because it can screenshot minimized windows, which CGWindowListCreateImage can't
         var windowId_ = wid
+        let resolution: CGSWindowCaptureOptions = Preferences.previewSelectedWindow ? .bestResolution : .nominalResolution
         ActiveWindowCaptures.increment()
-        let list = CGSHWCaptureWindowList(CGS_CONNECTION, &windowId_, 1, [.ignoreGlobalClipShape, .bestResolution, .fullSize]).takeRetainedValue() as! [CGImage]
+        let list = CGSHWCaptureWindowList(CGS_CONNECTION, &windowId_, 1, [.ignoreGlobalClipShape, resolution, .fullSize]).takeRetainedValue() as! [CGImage]
         ActiveWindowCaptures.decrement()
         return list.first
     }
