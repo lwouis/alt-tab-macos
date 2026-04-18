@@ -31,7 +31,11 @@ func printStackTrace() {
 
 // during an emergency exit, we re-enable the native command+tab, and log
 fileprivate func emergencyExit(_ logs: Any?...) {
-    setNativeCommandTabEnabled(true)
+    // the Settings helper subprocess shares our bundle id; if it crashes we must
+    // not stomp on the main process's cmd-tab override (which persists after quit).
+    if !App.isSettingsHelper {
+        setNativeCommandTabEnabled(true)
+    }
     print(logs)
     printStackTrace()
     makeSureAllCapturesAreFinished()

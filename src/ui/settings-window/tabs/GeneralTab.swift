@@ -8,6 +8,14 @@ class GeneralTab {
     static var policyLock = false
     private static var menubarIsVisibleObserver: NSKeyValueObservation?
 
+    static func releaseUiState() {
+        menubarIsVisibleObserver?.invalidate()
+        menubarIsVisibleObserver = nil
+        menubarIconDropdown = nil
+        updatesPolicyDropdown = nil
+        crashPolicyDropdown = nil
+    }
+
     static func initTab() -> NSView {
         let startAtLogin = TableGroupView.Row(leftTitle: NSLocalizedString("Start at login", comment: ""),
             rightViews: [LabelAndControl.makeSwitch("startAtLogin")])
@@ -67,8 +75,12 @@ class GeneralTab {
     }
 
     private static func enableDraggingOffMenubarIcon(_ menuIconShownToggle: Switch) {
-        Menubar.statusItem.behavior = .removalAllowed
-        menubarIsVisibleObserver = Menubar.statusItem.observe(\.isVisible, options: [.old, .new]) { _, change in
+        // helper subprocess hosts Settings without running the menubar machinery,
+        // so `Menubar.statusItem` is nil there. skipping the observer is fine:
+        // drag-off only matters when a status item is actually shown.
+        guard let statusItem = Menubar.statusItem else { return }
+        statusItem.behavior = .removalAllowed
+        menubarIsVisibleObserver = statusItem.observe(\.isVisible, options: [.old, .new]) { _, change in
             Logger.debug { "---- \(change)" }
             if change.oldValue == true && change.newValue == false {
                 menuIconShownToggle.state = .off
@@ -115,7 +127,7 @@ class GeneralTab {
             alert.runModal()
             return
         }
-        UserDefaults.standard.setPersistentDomain(dict, forName: App.bundleIdentifier)
+        Preferences.defaults.setPersistentDomain(dict, forName: App.bundleIdentifier)
         CachedUserDefaults.cache.withLock { $0.removeAll() }
         let alert = NSAlert()
         alert.alertStyle = .informational
@@ -130,9 +142,9 @@ class GeneralTab {
 
     static func setLanguageCallback(_ sender: NSControl) {
         if Preferences.language == .systemDefault {
-            UserDefaults.standard.removeObject(forKey: "AppleLanguages")
+            Preferences.defaults.removeObject(forKey: "AppleLanguages")
         } else {
-            UserDefaults.standard.set([Preferences.language.appleLanguageCode!], forKey: "AppleLanguages")
+            Preferences.defaults.set([Preferences.language.appleLanguageCode!], forKey: "AppleLanguages")
         }
         // Inform the user that the app needs to restart to apply the language change
         let alert = NSAlert()

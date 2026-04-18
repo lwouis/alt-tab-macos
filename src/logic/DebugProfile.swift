@@ -65,7 +65,7 @@ class DebugProfile {
     }
 
     private static func appPreference(_ key: String) -> String {
-        UserDefaults.standard.object(forKey: key).map { String(describing: $0) } ?? "nil"
+        Preferences.defaults.object(forKey: key).map { String(describing: $0) } ?? "nil"
     }
 
     private static func screen(_ screen: NSScreen) -> String {

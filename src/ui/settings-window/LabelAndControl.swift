@@ -335,7 +335,7 @@ class LabelAndControl: NSObject {
             return
         }
         if let newValue = LabelAndControl.getControlValue(senderControl, controlId) {
-            if let oldValue = UserDefaults.standard.string(forKey: senderControl.identifier!.rawValue), newValue == oldValue {
+            if let oldValue = Preferences.defaults.string(forKey: senderControl.identifier!.rawValue), newValue == oldValue {
                 return
             }
             if senderControl is NSSlider {

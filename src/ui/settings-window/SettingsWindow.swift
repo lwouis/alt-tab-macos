@@ -1330,6 +1330,44 @@ class SettingsWindow: NSWindow {
     override func close() {
         hideAppIfLastWindowIsClosed()
         super.close()
+        // helper subprocess mode: Settings is the entire purpose of this process,
+        // so when the window is closed we tear down the process. The main AltTab
+        // process keeps running, so the user's shortcut stays armed. All memory
+        // consumed by the Settings view tree / frameworks / caches is reclaimed
+        // by the kernel on termination.
+        if App.isSettingsHelper {
+            // release statics so any deinit observers fire before we exit
+            releaseUiState()
+            App.shared.terminate(nil)
+            return
+        }
+        // release the heavy Settings UI tree so ARC can drop it.
+        // without this, a single open of Settings leaves ~100k NSLayoutConstraint
+        // + 4 tab view trees + 4 sheets permanently retained through the static
+        // references below, even after the user closes the window.
+        releaseUiState()
+        // after ARC frees the UI tree, the malloc zones still hold reclaimable
+        // pages (visible as `footprint`'s Reclaimable column). Ask libmalloc to
+        // hand them back to the kernel so physical footprint drops back to the
+        // baseline instead of lingering until the next memory-pressure event.
+        // Done async so it runs after the autorelease pool drain that frees the
+        // ARC-released objects.
+        DispatchQueue.main.async {
+            malloc_zone_pressure_relief(nil, 0)
+        }
+    }
+
+    private func releaseUiState() {
+        // each tab owns its own static UI refs; ask them to drop them so ARC
+        // can deallocate the whole view tree. core (non-UI) state is kept.
+        ControlsTab.releaseUiState()
+        AppearanceTab.releaseUiState()
+        GeneralTab.releaseUiState()
+        Self.shared = nil
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 }
 

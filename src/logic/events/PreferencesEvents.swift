@@ -128,3 +128,54 @@ fileprivate protocol AvoidDeprecationWarnings {
 }
 
 extension PreferencesEvents: AvoidDeprecationWarnings {}
+
+/// bridges preference edits between the main AltTab process and the Settings
+/// helper subprocess (see `App.isSettingsHelper`). The helper owns the Settings
+/// UI; all reads/writes there route through `Preferences.defaults`, which
+/// explicitly opens the *main* app's preference domain by suiteName. That gets
+/// the value onto disk, but `PreferencesEvents.preferenceChanged` is an
+/// *in-process* callback, so the main process would otherwise keep running
+/// with stale cached values. We use `DistributedNotificationCenter` so the
+/// helper can broadcast a key change and the main process can re-read
+/// UserDefaults and re-apply the side effects (menubar icon, hotkey
+/// registration, start-at-login, …).
+class CrossProcessPreferencesEvents {
+    private static let notificationName = Notification.Name("com.lwouis.alt-tab-macos.preferenceChanged")
+    private static let keyUserInfoKey = "key"
+    private static var observerToken: NSObjectProtocol?
+
+    /// called from `Preferences.set*` after the value lands in UserDefaults. only
+    /// the helper needs to emit (the main process doesn't mutate prefs from UI).
+    static func broadcastChange(_ key: String) {
+        guard App.isSettingsHelper else { return }
+        DistributedNotificationCenter.default().postNotificationName(
+            notificationName,
+            object: nil,
+            userInfo: [keyUserInfoKey: key],
+            deliverImmediately: true
+        )
+    }
+
+    /// installed once from the main process at launch. helper-side edits come
+    /// through here on the main queue.
+    static func observe() {
+        guard !App.isSettingsHelper, observerToken == nil else { return }
+        observerToken = DistributedNotificationCenter.default().addObserver(
+            forName: notificationName,
+            object: nil,
+            queue: .main
+        ) { notification in
+            guard let key = notification.userInfo?[keyUserInfoKey] as? String else { return }
+            handleRemoteChange(key)
+        }
+    }
+
+    private static func handleRemoteChange(_ key: String) {
+        // cfprefsd caches per-process; without this call `Preferences.defaults`
+        // would still serve the old value we read before the helper wrote.
+        CFPreferencesAppSynchronize(App.bundleIdentifier as CFString)
+        CachedUserDefaults.removeFromCache(key)
+        Logger.debug { "remote preferenceChanged key:\(key)" }
+        PreferencesEvents.preferenceChanged(key)
+    }
+}

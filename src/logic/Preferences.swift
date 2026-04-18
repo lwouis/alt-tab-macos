@@ -3,6 +3,23 @@ import Carbon.HIToolbox.Events
 import ShortcutRecorder
 
 class Preferences {
+    /// UserDefaults instance that always addresses the **main** AltTab
+    /// process's persistent domain, regardless of which process is reading.
+    ///
+    /// In the switcher process, `.standard` already points at the main
+    /// domain, so we just alias it. In the Settings helper process, which
+    /// runs from a nested bundle with its own bundle id (so it shows up
+    /// distinctly in Activity Monitor), `.standard` would point at the
+    /// helper's *own* preference domain -- we explicitly open the main
+    /// domain via `suiteName:` so both processes share a single source of
+    /// truth for all persisted settings.
+    static let defaults: UserDefaults = {
+        if App.isSettingsHelper {
+            return UserDefaults(suiteName: App.bundleIdentifier)!
+        }
+        return .standard
+    }()
+
     static var defaultValues: [String: Any] = {
         var values: [String: Any] = [
             "shortcutCount": "2",
@@ -161,11 +178,11 @@ class Preferences {
     }
 
     static func resetAll() {
-        UserDefaults.standard.removePersistentDomain(forName: App.bundleIdentifier)
+        Preferences.defaults.removePersistentDomain(forName: App.bundleIdentifier)
     }
 
     static func registerDefaults() {
-        UserDefaults.standard.register(defaults: defaultValues)
+        Preferences.defaults.register(defaults: defaultValues)
     }
 
     static func markSettingsWindowShownOnFirstLaunch() {
@@ -181,10 +198,11 @@ class Preferences {
     }
 
     static func setShortcut(_ key: String, _ shortcut: Shortcut?, stringRepresentation: String?, _ notify: Bool = true) {
-        UserDefaults.standard.set(shortcutStorage(shortcut, stringRepresentation), forKey: key)
+        Preferences.defaults.set(shortcutStorage(shortcut, stringRepresentation), forKey: key)
         CachedUserDefaults.removeFromCache(key)
         if notify {
             PreferencesEvents.preferenceChanged(key)
+            CrossProcessPreferencesEvents.broadcastChange(key)
         }
     }
 
@@ -197,22 +215,24 @@ class Preferences {
     }
 
     static func set<T>(_ key: String, _ value: T, _ notify: Bool = true) where T: Encodable {
-        UserDefaults.standard.set(key == "exceptions" ? jsonEncode(value) : value, forKey: key)
+        Preferences.defaults.set(key == "exceptions" ? jsonEncode(value) : value, forKey: key)
         CachedUserDefaults.removeFromCache(key)
         if notify {
             PreferencesEvents.preferenceChanged(key)
+            CrossProcessPreferencesEvents.broadcastChange(key)
         }
     }
 
     static func remove(_ key: String, _ notify: Bool = true) {
-        UserDefaults.standard.removeObject(forKey: key)
+        Preferences.defaults.removeObject(forKey: key)
         CachedUserDefaults.removeFromCache(key)
         if notify {
             PreferencesEvents.preferenceChanged(key)
+            CrossProcessPreferencesEvents.broadcastChange(key)
         }
     }
 
-    static var all: [String: Any] { UserDefaults.standard.persistentDomain(forName: App.bundleIdentifier)! }
+    static var all: [String: Any] { Preferences.defaults.persistentDomain(forName: App.bundleIdentifier)! }
 
     static func onlyShowApplications() -> Bool {
         return Preferences.showAppsOrWindows == .applications && Preferences.appearanceStyle != .thumbnails
@@ -301,7 +321,7 @@ class CachedUserDefaults {
         if let cached = cache.withLock({ $0[key] }) {
             return cached as? String
         }
-        if let string = UserDefaults.standard.string(forKey: key) {
+        if let string = Preferences.defaults.string(forKey: key) {
             cache.withLock { $0[key] = string }
         }
         return nil
@@ -311,7 +331,7 @@ class CachedUserDefaults {
         if let cachedFinalValue = cache.withLock({ $0[key] }) {
             return cachedFinalValue as! String
         }
-        let finalValue = UserDefaults.standard.string(forKey: key)!
+        let finalValue = Preferences.defaults.string(forKey: key)!
         cache.withLock { $0[key] = finalValue }
         return finalValue
     }
@@ -320,7 +340,7 @@ class CachedUserDefaults {
         if let cachedFinalValue = cache.withLock({ $0[key] }) {
             return cachedFinalValue as? Shortcut
         }
-        guard let objectValue = UserDefaults.standard.object(forKey: key) else {
+        guard let objectValue = Preferences.defaults.object(forKey: key) else {
             cache.withLock { $0[key] = NSNull() }
             return nil
         }
@@ -329,7 +349,7 @@ class CachedUserDefaults {
             cache.withLock { $0[key] = finalValue ?? NSNull() }
             return finalValue
         }
-        UserDefaults.standard.removeObject(forKey: key)
+        Preferences.defaults.removeObject(forKey: key)
         return shortcut(key)
     }
 
@@ -363,14 +383,14 @@ class CachedUserDefaults {
         if let cachedFinalValue = cache.withLock({ $0[key] }) {
             return cachedFinalValue as! T
         }
-        let stringValue = UserDefaults.standard.string(forKey: key)!
+        let stringValue = Preferences.defaults.string(forKey: key)!
         if let finalValue = getterFn(stringValue) {
             cache.withLock { $0[key] = finalValue }
             return finalValue
         }
         // value couldn't be read properly; we remove it and work with the default
-        UserDefaults.standard.removeObject(forKey: key)
-        let defaultStringValue = UserDefaults.standard.string(forKey: key)!
+        Preferences.defaults.removeObject(forKey: key)
+        let defaultStringValue = Preferences.defaults.string(forKey: key)!
         let defaultFinalValue = getterFn(defaultStringValue)!
         cache.withLock { $0[key] = defaultFinalValue }
         return defaultFinalValue

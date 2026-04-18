@@ -407,6 +407,27 @@ class AppearanceTab: NSObject {
         return makeView()
     }
 
+    static func releaseUiState() {
+        // cancel any pending perform(#selector:) that would touch the released UI
+        NSObject.cancelPreviousPerformRequests(withTarget: self)
+        customizeStyleButton = nil
+        animationsButton = nil
+        // orderOut + disable the autorelease-on-close path before dropping the static ref;
+        // calling close() with the default isReleasedWhenClosed=true would enqueue a pending
+        // release into the current autorelease pool, which combined with `= nil`'s immediate
+        // release causes a double-free (EXC_BAD_ACCESS on pool drain).
+        releaseSheet(&customizeStyleSheet)
+        releaseSheet(&animationsSheet)
+        previewSelectedWindowRowInfo = nil
+    }
+
+    private static func releaseSheet<T: SheetWindow>(_ sheet: inout T?) {
+        guard let s = sheet else { return }
+        s.isReleasedWhenClosed = false
+        if s.isVisible { s.orderOut(nil) }
+        sheet = nil
+    }
+
     private static func makeView() -> NSStackView {
         let appearanceView = makeAppearanceView()
         let multipleScreensView = makeMultipleScreensView()

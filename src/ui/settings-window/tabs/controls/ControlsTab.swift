@@ -236,6 +236,39 @@ class ControlsTab {
         return view
     }
 
+    // release UI-bound static refs so the Settings view tree can be deallocated
+    // when the window is closed. `shortcuts` / `shortcutsActions` are core state
+    // used for shortcut dispatch and are intentionally kept.
+    static func releaseUiState() {
+        if let observer = shortcutRowsScrollObserver {
+            NotificationCenter.default.removeObserver(observer)
+            shortcutRowsScrollObserver = nil
+        }
+        shortcutControls.removeAll()
+        arrowKeysCheckbox = nil
+        vimKeysCheckbox = nil
+        // see AppearanceTab.releaseSheet for why close() is unsafe here
+        Self.releaseSheet(&shortcutsWhenActiveSheet)
+        Self.releaseSheet(&additionalControlsSheet)
+        shortcutRowsStackView = nil
+        shortcutRows.removeAll()
+        shortcutEditorViews.removeAll()
+        gestureSidebarRow = nil
+        gestureEditorView = nil
+        shortcutCountButtons = nil
+        shortcutRowsScrollView = nil
+    }
+
+    // disables the default `isReleasedWhenClosed=true` autorelease-on-close path before dropping
+    // the static ref, so setting `sheet = nil` does a single deterministic release instead of
+    // combining with a pending autorelease (which would double-free on pool drain).
+    private static func releaseSheet<T: SheetWindow>(_ sheet: inout T?) {
+        guard let s = sheet else { return }
+        s.isReleasedWhenClosed = false
+        if s.isVisible { s.orderOut(nil) }
+        sheet = nil
+    }
+
     private static func makeShortcutsView() -> NSView {
         let sidebar = makeShortcutSidebar()
         let editorPane = makeEditorPane()
@@ -546,8 +579,8 @@ class ControlsTab {
         removableShortcutPreferences.forEach { baseName in
             let fromKey = Preferences.indexToName(baseName, fromIndex)
             let toKey = Preferences.indexToName(baseName, toIndex)
-            if let value = UserDefaults.standard.object(forKey: fromKey) {
-                UserDefaults.standard.set(value, forKey: toKey)
+            if let value = Preferences.defaults.object(forKey: fromKey) {
+                Preferences.defaults.set(value, forKey: toKey)
                 CachedUserDefaults.removeFromCache(toKey)
             } else {
                 Preferences.remove(toKey, false)
@@ -580,7 +613,7 @@ class ControlsTab {
         guard index < shortcutEditorViews.count else { return }
         guard let dropdown = findDropdownControl(shortcutEditorViews[index], controlId) else { return }
         guard dropdown.numberOfItems > 0 else { return }
-        let selectedIndex = UserDefaults.standard.string(forKey: controlId).flatMap(Int.init) ?? 0
+        let selectedIndex = Preferences.defaults.string(forKey: controlId).flatMap(Int.init) ?? 0
         dropdown.selectItem(at: min(max(0, selectedIndex), dropdown.numberOfItems - 1))
     }
 
@@ -709,6 +742,10 @@ class ControlsTab {
     }
 
     static func toggleNativeCommandTabIfNeeded() {
+        // setNativeCommandTabEnabled flips a *system-wide* symbolic hotkey state that
+        // outlives the process. the Settings helper subprocess should never touch it
+        // (the main process owns the authoritative state for cmd-tab overrides).
+        guard !App.isSettingsHelper else { return }
         let nativeHotkeys: [CGSSymbolicHotKey: (Shortcut) -> Bool] = [
             .commandTab: { shortcut in shortcut.carbonModifierFlags == cmdKey && shortcut.carbonKeyCode == kVK_Tab },
             .commandShiftTab: { shortcut in CustomRecorderControlTestable.combinedModifiersMatch(shortcut.carbonModifierFlags, UInt32(cmdKey | shiftKey)) && shortcut.carbonKeyCode == kVK_Tab },

@@ -2,20 +2,20 @@ class PreferencesMigrations {
     static func removeCorruptedPreferences() {
         // from v5.1.0+, there are crash reports of users somehow having their hold shortcuts set to ""
         ["holdShortcut", "holdShortcut2", "holdShortcut3", "holdShortcut4", "holdShortcut5"].forEach {
-            if let s = UserDefaults.standard.string(forKey: $0), s == "" {
-                UserDefaults.standard.removeObject(forKey: $0)
+            if let s = Preferences.defaults.string(forKey: $0), s == "" {
+                Preferences.defaults.removeObject(forKey: $0)
             }
         }
     }
 
     static func migratePreferences() {
         let preferencesKey = "preferencesVersion"
-        if let versionInPlist = UserDefaults.standard.string(forKey: preferencesKey) {
+        if let versionInPlist = Preferences.defaults.string(forKey: preferencesKey) {
             if versionInPlist != "#VERSION#" && versionInPlist.compare(App.version, options: .numeric) != .orderedDescending {
                 updateToNewPreferences(versionInPlist)
             }
         }
-        UserDefaults.standard.set(App.version, forKey: preferencesKey)
+        Preferences.defaults.set(App.version, forKey: preferencesKey)
     }
 
     private static func updateToNewPreferences(_ versionInPlist: String) {
@@ -60,11 +60,11 @@ class PreferencesMigrations {
     private static func migrateBlacklistToExceptions() {
         let oldKey = "blacklist"
         let newKey = "exceptions"
-        guard let oldValue = UserDefaults.standard.string(forKey: oldKey) else { return }
-        if UserDefaults.standard.string(forKey: newKey) == nil {
-            UserDefaults.standard.set(oldValue, forKey: newKey)
+        guard let oldValue = Preferences.defaults.string(forKey: oldKey) else { return }
+        if Preferences.defaults.string(forKey: newKey) == nil {
+            Preferences.defaults.set(oldValue, forKey: newKey)
         }
-        UserDefaults.standard.removeObject(forKey: oldKey)
+        Preferences.defaults.removeObject(forKey: oldKey)
     }
 
     // gesture index moved from 3 (suffix "4") to 9 (suffix "10"); set shortcutCount for users who had a 3rd shortcut
@@ -75,17 +75,17 @@ class PreferencesMigrations {
             "showWindowlessApps", "windowOrder", "shortcutStyle",
         ]
         for baseName in gesturePrefs {
-            if let old = UserDefaults.standard.string(forKey: baseName + "4") {
-                UserDefaults.standard.set(old, forKey: baseName + "10")
-                UserDefaults.standard.removeObject(forKey: baseName + "4")
+            if let old = Preferences.defaults.string(forKey: baseName + "4") {
+                Preferences.defaults.set(old, forKey: baseName + "10")
+                Preferences.defaults.removeObject(forKey: baseName + "4")
             }
         }
         let allPerShortcutPrefs = gesturePrefs + ["holdShortcut", "nextWindowShortcut"]
         let hasThirdShortcut = allPerShortcutPrefs.contains {
-            UserDefaults.standard.string(forKey: $0 + "3") != nil
+            Preferences.defaults.string(forKey: $0 + "3") != nil
         }
         if hasThirdShortcut {
-            UserDefaults.standard.set("3", forKey: "shortcutCount")
+            Preferences.defaults.set("3", forKey: "shortcutCount")
         }
     }
 
@@ -93,8 +93,8 @@ class PreferencesMigrations {
     // before: cursorFollowFocusEnabled: true/false
     // after: cursorFollowFocus: 0 (never), 1 (always), 2 (differentScreen)
     private static func migrateCursorFollowFocus() {
-        if let old = UserDefaults.standard.string(forKey: "cursorFollowFocusEnabled") {
-            UserDefaults.standard.set(old == "true" ? 1 : 0, forKey: "cursorFollowFocus")
+        if let old = Preferences.defaults.string(forKey: "cursorFollowFocusEnabled") {
+            Preferences.defaults.set(old == "true" ? 1 : 0, forKey: "cursorFollowFocus")
         }
     }
 
@@ -103,17 +103,17 @@ class PreferencesMigrations {
     // after: show: 0, hide: 1, showAtTheEnd: 2
     private static func migrateShowWindowlessApps() {
         for index in ["", "2", "3", "4"] {
-            if let old = UserDefaults.standard.string(forKey: "showWindowlessApps" + index) {
-                UserDefaults.standard.set(old == "0" ? 2 : 1, forKey: "showWindowlessApps" + index)
+            if let old = Preferences.defaults.string(forKey: "showWindowlessApps" + index) {
+                Preferences.defaults.set(old == "0" ? 2 : 1, forKey: "showWindowlessApps" + index)
             }
         }
     }
 
     // we moved from global to per-shortcut
     private static func migrateHideWindowlessApps() {
-        if let old = UserDefaults.standard.string(forKey: "hideWindowlessApps") {
+        if let old = Preferences.defaults.string(forKey: "hideWindowlessApps") {
             for index in ["", "2", "3", "4"] {
-                UserDefaults.standard.set(old == "true" ? 1 : 0, forKey: "showWindowlessApps" + index)
+                Preferences.defaults.set(old == "true" ? 1 : 0, forKey: "showWindowlessApps" + index)
             }
         }
     }
@@ -123,9 +123,9 @@ class PreferencesMigrations {
     // no need to map 1 -> 1 (3-finger -> 3-finger-horizontal)
     // we need to map 2 -> 3 (4-finger -> 4-finger-horizontal)
     private static func migrateGestures() {
-        if let old = UserDefaults.standard.string(forKey: "nextWindowGesture") {
+        if let old = Preferences.defaults.string(forKey: "nextWindowGesture") {
             if old == "2" { // 2 (4-finger) -> 3 (4-finger-horizontal)
-                UserDefaults.standard.set("3", forKey: "nextWindowGesture")
+                Preferences.defaults.set("3", forKey: "nextWindowGesture")
             }
         }
     }
@@ -133,10 +133,10 @@ class PreferencesMigrations {
     /// we added the new menubarIconShown toggle. It replaces menubarIcon having value "3" which would hide the icon
     /// there are now 2 preferences : menubarIconShown is a boolean, and menubarIcon has values 0, 1, 2
     private static func migrateMenubarIconWithNewShownToggle() {
-        if let old = UserDefaults.standard.string(forKey: "menubarIcon") {
+        if let old = Preferences.defaults.string(forKey: "menubarIcon") {
             if old == "3" {
-                UserDefaults.standard.set("0", forKey: "menubarIcon")
-                UserDefaults.standard.set("false", forKey: "menubarIconShown")
+                Preferences.defaults.set("0", forKey: "menubarIcon")
+                Preferences.defaults.set("false", forKey: "menubarIconShown")
             }
         }
     }
@@ -145,20 +145,20 @@ class PreferencesMigrations {
     private static func migratePreferencesIndexes() {
         // migrate spacesToShow from 1 to 2. 1 was removed a while ago. 1=active => 2=>visible
         ["", "2", "3", "4", "5"].forEach { suffix in
-            if let spacesToShow = UserDefaults.standard.string(forKey: "spacesToShow" + suffix) {
+            if let spacesToShow = Preferences.defaults.string(forKey: "spacesToShow" + suffix) {
                 if spacesToShow == "1" {
-                    UserDefaults.standard.set("2", forKey: "spacesToShow" + suffix)
+                    Preferences.defaults.set("2", forKey: "spacesToShow" + suffix)
                 }
             }
         }
         // migrate spacesToShow from 0 to 2 and 2 to 0. 0 used to be end, 2 used to be start; they got switch for the UI order
         ["", "2", "3", "4", "5"].forEach { suffix in
-            if let spacesToShow = UserDefaults.standard.string(forKey: "titleTruncation" + suffix) {
+            if let spacesToShow = Preferences.defaults.string(forKey: "titleTruncation" + suffix) {
                 if spacesToShow == "0" {
-                    UserDefaults.standard.set("2", forKey: "titleTruncation" + suffix)
+                    Preferences.defaults.set("2", forKey: "titleTruncation" + suffix)
                 }
                 if spacesToShow == "2" {
-                    UserDefaults.standard.set("0", forKey: "titleTruncation" + suffix)
+                    Preferences.defaults.set("0", forKey: "titleTruncation" + suffix)
                 }
             }
         }
@@ -166,17 +166,17 @@ class PreferencesMigrations {
 
     private static func migrateExceptions() {
         var entries = [ExceptionEntry]()
-        if let old = UserDefaults.standard.string(forKey: "dontShowBlacklist") {
+        if let old = Preferences.defaults.string(forKey: "dontShowBlacklist") {
             entries.append(contentsOf: oldExceptionEntriesToNewOnes(old, .always, .none))
         }
-        if let old = UserDefaults.standard.string(forKey: "disableShortcutsBlacklist") {
-            let onlyFullscreen = UserDefaults.standard.bool(forKey: "disableShortcutsBlacklistOnlyFullscreen")
+        if let old = Preferences.defaults.string(forKey: "disableShortcutsBlacklist") {
+            let onlyFullscreen = Preferences.defaults.bool(forKey: "disableShortcutsBlacklistOnlyFullscreen")
             entries.append(contentsOf: oldExceptionEntriesToNewOnes(old, .none, onlyFullscreen ? .whenFullscreen : .always))
         }
         if entries.count > 0 {
-            UserDefaults.standard.set(Preferences.jsonEncode(entries), forKey: "exceptions")
+            Preferences.defaults.set(Preferences.jsonEncode(entries), forKey: "exceptions")
             ["dontShowBlacklist", "disableShortcutsBlacklist", "disableShortcutsBlacklistOnlyFullscreen"].forEach {
-                UserDefaults.standard.removeObject(forKey: $0)
+                Preferences.defaults.removeObject(forKey: $0)
             }
         }
     }
@@ -193,9 +193,9 @@ class PreferencesMigrations {
 
     private static func migrateMinMaxWindowsWidthInRow() {
         ["windowMinWidthInRow", "windowMaxWidthInRow"].forEach {
-            if let old = UserDefaults.standard.string(forKey: $0) {
+            if let old = Preferences.defaults.string(forKey: $0) {
                 if old == "0" {
-                    UserDefaults.standard.set("1", forKey: $0)
+                    Preferences.defaults.set("1", forKey: $0)
                 }
             }
         }
@@ -227,12 +227,12 @@ class PreferencesMigrations {
 
     private static func migrateShowWindowsFrom() {
         ["", "2"].forEach { suffix in
-            if let spacesToShow = UserDefaults.standard.string(forKey: "spacesToShow" + suffix) {
+            if let spacesToShow = Preferences.defaults.string(forKey: "spacesToShow" + suffix) {
                 if spacesToShow == "2" {
-                    UserDefaults.standard.set("1", forKey: "screensToShow" + suffix)
-                    UserDefaults.standard.set("1", forKey: "spacesToShow" + suffix)
+                    Preferences.defaults.set("1", forKey: "screensToShow" + suffix)
+                    Preferences.defaults.set("1", forKey: "spacesToShow" + suffix)
                 } else if spacesToShow == "1" {
-                    UserDefaults.standard.set("1", forKey: "screensToShow" + suffix)
+                    Preferences.defaults.set("1", forKey: "screensToShow" + suffix)
                 }
             }
         }
@@ -240,20 +240,20 @@ class PreferencesMigrations {
 
     private static func migrateNextWindowShortcuts() {
         ["", "2"].forEach { suffix in
-            if let oldHoldShortcut = UserDefaults.standard.string(forKey: "holdShortcut" + suffix),
-               let oldNextWindowShortcut = UserDefaults.standard.string(forKey: "nextWindowShortcut" + suffix) {
+            if let oldHoldShortcut = Preferences.defaults.string(forKey: "holdShortcut" + suffix),
+               let oldNextWindowShortcut = Preferences.defaults.string(forKey: "nextWindowShortcut" + suffix) {
                 let nextWindowShortcutCleanedUp = oldHoldShortcut.reduce(oldNextWindowShortcut, { $0.replacingOccurrences(of: String($1), with: "") })
                 if oldNextWindowShortcut != nextWindowShortcutCleanedUp {
-                    UserDefaults.standard.set(nextWindowShortcutCleanedUp, forKey: "nextWindowShortcut" + suffix)
+                    Preferences.defaults.set(nextWindowShortcutCleanedUp, forKey: "nextWindowShortcut" + suffix)
                 }
             }
         }
     }
 
     private static func migrateMaxSizeOnScreenToWidthAndHeight() {
-        if let old = UserDefaults.standard.string(forKey: "maxScreenUsage") {
-            UserDefaults.standard.set(old, forKey: "maxWidthOnScreen")
-            UserDefaults.standard.set(old, forKey: "maxHeightOnScreen")
+        if let old = Preferences.defaults.string(forKey: "maxScreenUsage") {
+            Preferences.defaults.set(old, forKey: "maxWidthOnScreen")
+            Preferences.defaults.set(old, forKey: "maxHeightOnScreen")
         }
     }
 
@@ -261,11 +261,11 @@ class PreferencesMigrations {
         ["showMinimizedWindows", "showHiddenWindows", "showFullscreenWindows"]
             .flatMap { [$0, $0 + "2"] }
             .forEach {
-                if let old = UserDefaults.standard.string(forKey: $0) {
+                if let old = Preferences.defaults.string(forKey: $0) {
                     if old == "true" {
-                        UserDefaults.standard.set(ShowHowPreference.show.indexAsString, forKey: $0)
+                        Preferences.defaults.set(ShowHowPreference.show.indexAsString, forKey: $0)
                     } else if old == "false" {
-                        UserDefaults.standard.set(ShowHowPreference.hide.indexAsString, forKey: $0)
+                        Preferences.defaults.set(ShowHowPreference.hide.indexAsString, forKey: $0)
                     }
                 }
             }
@@ -282,55 +282,55 @@ class PreferencesMigrations {
     }
 
     private static func migrateMenubarIconFromCheckboxToDropdown() {
-        if let old = UserDefaults.standard.string(forKey: "hideMenubarIcon") {
+        if let old = Preferences.defaults.string(forKey: "hideMenubarIcon") {
             if old == "true" {
-                UserDefaults.standard.set("3", forKey: "menubarIcon")
+                Preferences.defaults.set("3", forKey: "menubarIcon")
             }
         }
     }
 
     private static func migratePreferenceValue(_ preference: String, _ oldAndNew: [String: String]) {
-        if let old = UserDefaults.standard.string(forKey: preference),
+        if let old = Preferences.defaults.string(forKey: preference),
            let new = oldAndNew[old] {
-            UserDefaults.standard.set(new, forKey: preference)
+            Preferences.defaults.set(new, forKey: preference)
         }
     }
 
     private static func migrateShortcutPreferencesToSecureCoding() {
         Preferences.allShortcutPreferenceKeys.forEach {
             let key = $0
-            guard let oldValue = UserDefaults.standard.object(forKey: key) else { return }
+            guard let oldValue = Preferences.defaults.object(forKey: key) else { return }
             if let oldStorage = oldValue as? [String: Any] {
                 let (isValid, shortcut) = Preferences.decodeShortcutStorage(oldStorage)
                 guard isValid else {
-                    UserDefaults.standard.removeObject(forKey: key)
+                    Preferences.defaults.removeObject(forKey: key)
                     return
                 }
-                UserDefaults.standard.set(Preferences.shortcutStorage(shortcut, oldStorage["string"] as? String), forKey: key)
+                Preferences.defaults.set(Preferences.shortcutStorage(shortcut, oldStorage["string"] as? String), forKey: key)
                 return
             }
             if let oldDataValue = oldValue as? Data {
                 let (isValid, shortcut) = Preferences.unarchiveShortcut(oldDataValue)
                 guard isValid else {
-                    UserDefaults.standard.removeObject(forKey: key)
+                    Preferences.defaults.removeObject(forKey: key)
                     return
                 }
-                UserDefaults.standard.set(Preferences.shortcutStorage(shortcut, nil), forKey: key)
+                Preferences.defaults.set(Preferences.shortcutStorage(shortcut, nil), forKey: key)
                 return
             }
             guard let oldStringValue = oldValue as? String else {
-                UserDefaults.standard.removeObject(forKey: key)
+                Preferences.defaults.removeObject(forKey: key)
                 return
             }
             if oldStringValue.isEmpty {
-                UserDefaults.standard.set(Preferences.shortcutStorage(nil, ""), forKey: key)
+                Preferences.defaults.set(Preferences.shortcutStorage(nil, ""), forKey: key)
                 return
             }
             guard let migratedShortcut = Preferences.shortcutFromKeyEquivalent(oldStringValue) else {
-                UserDefaults.standard.removeObject(forKey: key)
+                Preferences.defaults.removeObject(forKey: key)
                 return
             }
-            UserDefaults.standard.set(Preferences.shortcutStorage(migratedShortcut, oldStringValue), forKey: key)
+            Preferences.defaults.set(Preferences.shortcutStorage(migratedShortcut, oldStringValue), forKey: key)
         }
     }
 }

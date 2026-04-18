@@ -8,7 +8,14 @@ class App: AppCenterApplication {
     /// periphery:ignore
     static let activity = ProcessInfo.processInfo.beginActivity(options: .userInitiatedAllowingIdleSystemSleep,
         reason: "Prevent App Nap to preserve responsiveness")
-    static let bundleIdentifier = Bundle.main.bundleIdentifier!
+    /// the main AltTab process's bundle identifier. Hardcoded instead of
+    /// read from `Bundle.main.bundleIdentifier!` because the Settings helper
+    /// runs from a nested `.app` bundle with its own distinct identifier
+    /// (`.settings`) so it shows up separately in Activity Monitor. All call
+    /// sites using `App.bundleIdentifier` expect to address the *main*
+    /// preferences domain / launch agent / CLI port regardless of which
+    /// process is running.
+    static let bundleIdentifier = "com.lwouis.alt-tab-macos"
     static let bundleURL = Bundle.main.bundleURL
     static let name = Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as! String
     static let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String
@@ -22,6 +29,11 @@ class App: AppCenterApplication {
     static var appIsBeingUsed = false
     static var shortcutIndex = 0
     static var forceDoNothingOnRelease = false
+    /// when launched with `--settings-only`, this process is a short-lived helper whose sole
+    /// job is to display the Settings UI and then quit. The main AltTab process launches
+    /// one of these on demand so the heavy Settings view tree never gets allocated in the
+    /// long-running switcher process.
+    static let isSettingsHelper = CommandLine.arguments.contains("--settings-only")
     private static var isFirstSummon = true
     private static var isVeryFirstSummon = true
     private static var pendingShowSettingsWindow = false
@@ -51,6 +63,152 @@ class App: AppCenterApplication {
         printStackTrace()
         Process.launchedProcess(launchPath: "/usr/bin/open", arguments: ["-n", Bundle.main.bundlePath])
         App.shared.terminate(nil)
+    }
+
+    /// minimal launch path taken when this process is a Settings helper
+    /// (`--settings-only` CLI flag). We skip switcher initialization: no
+    /// ScreenCaptureKit, no AX observers, no menubar, no permissions gate.
+    /// The helper only needs preferences + the Settings view tree, and exits
+    /// when the user closes the Settings window.
+    static func startAsSettingsHelper() {
+        Logger.initialize()
+        Logger.info { "Launching AltTab Settings helper \(App.version)" }
+        AXUIElement.setGlobalTimeout()
+        Preferences.initialize()
+        // must run before the Settings view tree is built: several views
+        // (TileFontIconView, ShowHideIllustratedView, …) read `Appearance.fontHeight`
+        // / `Appearance.fontColor` in their init, which are dummy values
+        // (`3`, `.red`) until `Appearance.update()` fills them in. Creating
+        // an `NSFont` with size ≈ 3 feeds CoreText a degenerate font and
+        // crashes inside `TAttributes::ApplyFont` with a nil-dictionary-insert.
+        NSScreen.updatePreferred()
+        Appearance.update()
+        App.shared.setActivationPolicy(.accessory)
+        // Defer Settings window creation to the next runloop tick so the
+        // NSApplicationDidFinishLaunching notification has already been posted
+        // and framework observers are in a consistent state.
+        DispatchQueue.main.async {
+            initializeSettingsWindowIfNeeded()
+            App.shared.activate(ignoringOtherApps: true)
+            showSecondaryWindow(SettingsWindow.shared!)
+        }
+    }
+
+    /// nested sub-bundle name (Activity Monitor / ps display text).
+    static let settingsHelperExecName = "AltTabSettings"
+    static let settingsHelperDisplayName = "AltTab Settings"
+    /// distinct bundle id so LaunchServices treats the helper as its own app
+    /// instead of a duplicate instance of the main AltTab (which would cause
+    /// LaunchServices to terminate one of the two). Preferences still live in
+    /// `App.bundleIdentifier`'s domain -- both processes share that domain via
+    /// `Preferences.defaults` regardless of their own bundle id.
+    static let settingsHelperBundleId = "\(bundleIdentifier).settings"
+
+    /// lazily materialises `Contents/Helpers/AltTabSettings.app` as a sibling
+    /// sub-bundle. Uses a hardlink to the main executable (no extra disk cost,
+    /// code signature preserved via copy-on-write semantics of `link(2)`) plus
+    /// relative symlinks for Frameworks/Resources so dyld resolves frameworks
+    /// from the parent bundle. Returns the helper binary URL, or nil if the
+    /// bundle can't be materialised (e.g. app ships on a read-only volume);
+    /// callers then fall back to launching the main executable.
+    private static func ensureSettingsHelperBundle(primary: URL) -> URL? {
+        let fm = FileManager.default
+        let helperApp = Bundle.main.bundleURL
+            .appendingPathComponent("Contents", isDirectory: true)
+            .appendingPathComponent("Helpers", isDirectory: true)
+            .appendingPathComponent("\(settingsHelperExecName).app", isDirectory: true)
+        let helperContents = helperApp.appendingPathComponent("Contents", isDirectory: true)
+        let helperMacOS = helperContents.appendingPathComponent("MacOS", isDirectory: true)
+        let helperBinary = helperMacOS.appendingPathComponent(settingsHelperExecName)
+        let helperPlist = helperContents.appendingPathComponent("Info.plist")
+        // from `AltTabSettings.app/Contents/Frameworks`, `../../../Frameworks`
+        // resolves to `<AltTab.app>/Contents/Frameworks`. kept relative so the
+        // sub-bundle keeps working if the main app is moved.
+        let sharedLinks: [(name: String, target: String)] = [
+            ("Frameworks", "../../../Frameworks"),
+            ("Resources", "../../../Resources"),
+        ]
+
+        do {
+            try fm.createDirectory(at: helperMacOS, withIntermediateDirectories: true)
+
+            // refresh hardlink if stale (different inode after an app upgrade).
+            if fm.fileExists(atPath: helperBinary.path) {
+                let pi = (try? fm.attributesOfItem(atPath: primary.path)[.systemFileNumber] as? NSNumber)?.uint64Value
+                let hi = (try? fm.attributesOfItem(atPath: helperBinary.path)[.systemFileNumber] as? NSNumber)?.uint64Value
+                if pi == nil || pi != hi {
+                    try? fm.removeItem(atPath: helperBinary.path)
+                }
+            }
+            if !fm.fileExists(atPath: helperBinary.path) {
+                try fm.linkItem(atPath: primary.path, toPath: helperBinary.path)
+            }
+
+            // start from the main bundle's Info.plist so the helper
+            // inherits keys that AppKit / CoreText depend on (e.g.
+            // NSPrincipalClass, CFBundleDevelopmentRegion,
+            // ATSApplicationFontsPath, LSMinimumSystemVersion,
+            // CFBundleSupportedPlatforms). A minimal Info.plist missing
+            // these makes CoreText receive nil font attributes inside
+            // `TAttributes::ApplyFont` and crash when drawing attributed
+            // strings (observed with NSAttributedString.size()).
+            var desiredPlist = (Bundle.main.infoDictionary ?? [:])
+            // strip keys that Foundation injects at runtime but would look
+            // stale if re-serialised to disk (BuildMachineOSBuild, DT*, etc.
+            // are fine to keep; these can cause issues when written back).
+            for k in ["CFBundleInfoPlistURL", "CFBundleNumericVersion"] {
+                desiredPlist.removeValue(forKey: k)
+            }
+            desiredPlist["CFBundleExecutable"] = settingsHelperExecName
+            desiredPlist["CFBundleIdentifier"] = settingsHelperBundleId
+            desiredPlist["CFBundleName"] = settingsHelperDisplayName
+            desiredPlist["CFBundleDisplayName"] = settingsHelperDisplayName
+            desiredPlist["LSUIElement"] = true
+            // note: keep `NSPrincipalClass` (`AppCenterApplication`) so NSApp
+            // is instantiated as our `App` subclass -- the helper relies on
+            // `applicationDidFinishLaunching` to branch on `isSettingsHelper`.
+            // Sparkle / AppCenter actual *initialisation* is already guarded
+            // behind `isSettingsHelper`, so leaving their Info.plist keys in
+            // place is harmless (the frameworks just don't get wired up).
+            let desiredData = try PropertyListSerialization.data(fromPropertyList: desiredPlist, format: .xml, options: 0)
+            let currentData = try? Data(contentsOf: helperPlist)
+            if currentData != desiredData {
+                try desiredData.write(to: helperPlist, options: [.atomic])
+            }
+
+            for link in sharedLinks {
+                let linkPath = helperContents.appendingPathComponent(link.name).path
+                let existingTarget = try? fm.destinationOfSymbolicLink(atPath: linkPath)
+                if existingTarget == link.target { continue }
+                if fm.fileExists(atPath: linkPath) || existingTarget != nil {
+                    try? fm.removeItem(atPath: linkPath)
+                }
+                try fm.createSymbolicLink(atPath: linkPath, withDestinationPath: link.target)
+            }
+
+            return helperBinary
+        } catch {
+            Logger.warning { "Could not materialise \(settingsHelperExecName) sub-bundle: \(error)" }
+            return nil
+        }
+    }
+
+    /// launches a fresh Settings helper subprocess. Prefers the nested
+    /// `AltTabSettings.app` sub-bundle so the helper appears distinctly in
+    /// Activity Monitor (own `CFBundleName`, own `CFBundleIdentifier`). Falls
+    /// back to the main executable if the sub-bundle can't be materialised --
+    /// in that degraded mode the two processes share a name but still function.
+    private static func launchSettingsHelper() {
+        let execName = Bundle.main.object(forInfoDictionaryKey: "CFBundleExecutable") as? String ?? "AltTab"
+        let primary = Bundle.main.bundleURL
+            .appendingPathComponent("Contents")
+            .appendingPathComponent("MacOS")
+            .appendingPathComponent(execName)
+        let launchURL = ensureSettingsHelperBundle(primary: primary) ?? primary
+        let task = Process()
+        task.executableURL = launchURL
+        task.arguments = ["--settings-only"]
+        try? task.run()
     }
 
     static func hideUi(_ keepPreview: Bool = false) {
@@ -164,17 +322,23 @@ class App: AppCenterApplication {
     }
 
     @objc static func showSettingsWindow() {
-        guard Menubar.statusItem != nil else {
-            pendingShowSettingsWindow = true
+        // the main (switcher) process never opens Settings in-process: the heavy
+        // UI tree would permanently inflate its memory footprint. instead we
+        // spawn a short-lived helper subprocess that displays Settings and exits
+        // on close. the helper process itself opens Settings inline via
+        // `startAsSettingsHelper()` (see `applicationDidFinishLaunching`).
+        if !isSettingsHelper {
+            guard Menubar.statusItem != nil else {
+                pendingShowSettingsWindow = true
+                return
+            }
+            launchSettingsHelper()
             return
         }
+        // shared is set to nil in SettingsWindow.close(); initialize here if needed so each open
+        // gets a fresh instance (the previous tree is dropped by ARC after the previous close).
         initializeSettingsWindowIfNeeded()
         showSecondaryWindow(SettingsWindow.shared!)
-        if SettingsWindow.shared!.isVisible != true {
-            let window = SettingsWindow()
-            showSecondaryWindow(window)
-            window.orderFrontRegardless()
-        }
     }
 
     @objc static func showAboutWindow() {
@@ -386,6 +550,9 @@ class App: AppCenterApplication {
         TrackpadEvents.observe()
         CliEvents.observe()
         PreferencesEvents.initialize()
+        // listen for preference edits made by the Settings helper subprocess so
+        // the main process re-applies them immediately (hotkeys, menubar, ...).
+        CrossProcessPreferencesEvents.observe()
         BenchmarkRunner.startIfNeeded()
         showSettingsWindowOnFirstLaunchIfNeeded()
         if pendingShowSettingsWindow {
@@ -402,6 +569,10 @@ class App: AppCenterApplication {
 
 extension App: NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        if App.isSettingsHelper {
+            App.startAsSettingsHelper()
+            return
+        }
         App.appCenterDelegate = AppCenterCrash()
         App.shared.disableRelaunchOnLogin()
         Logger.initialize()
@@ -425,7 +596,11 @@ extension App: NSApplicationDelegate {
 
     func applicationWillTerminate(_ notification: Notification) {
         // symbolic hotkeys state persist after the app is quit; we restore this shortcut before quitting
-        setNativeCommandTabEnabled(true)
+        // the helper subprocess must not touch system-wide state -- the main AltTab
+        // process is still running and owns the authoritative cmd-tab override.
+        if !App.isSettingsHelper {
+            setNativeCommandTabEnabled(true)
+        }
     }
 
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {

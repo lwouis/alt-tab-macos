@@ -31,16 +31,24 @@ class KeyboardEvents {
     }
 
     static func addGlobalShortcut(_ controlId: String, _ shortcut: Shortcut) {
+        // the Settings helper subprocess shares our bundle id with the main AltTab
+        // process. if it also called RegisterEventHotKey for the same shortcuts, the
+        // system would start routing hotkey events non-deterministically between the
+        // two processes (symptom: alt-tab stops working while Settings is open).
+        // the helper only renders UI; actual hotkeys stay owned by the main process.
+        guard !App.isSettingsHelper else { return }
         addGlobalHandlerIfNeeded(shortcut)
         registerHotKeyIfNeeded(controlId, shortcut)
     }
 
     static func removeGlobalShortcut(_ controlId: String, _ shortcut: Shortcut) {
+        guard !App.isSettingsHelper else { return }
         unregisterHotKeyIfNeeded(controlId, shortcut)
         removeHandlerIfNeeded()
     }
 
     static func toggleGlobalShortcuts(_ shouldDisable: Bool) {
+        guard !App.isSettingsHelper else { return }
         if shouldDisable != globalShortcutsAreDisabled {
             let fn = shouldDisable ? unregisterHotKeyIfNeeded : registerHotKeyIfNeeded
             for shortcutId in KeyboardEventsTestable.globalShortcutsIds.keys {
