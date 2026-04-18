@@ -516,7 +516,11 @@ class Windows {
         }
         for w in windows {
             if let wid = w.cgWindowId {
+                // `wid-\(wid)` also cleans its `-focus` sub-entry via the
+                // prefix sweep in `removeEntry`; `sub-win-\(wid)` cleans
+                // the AX observer-subscription entries keyed by wid.
                 AXCallScheduler.shared.removeEntry(key: "wid-\(wid)")
+                AXCallScheduler.shared.removeEntry(key: "sub-win-\(wid)")
                 Applications.windowListUpdateThrottler.removeEntry(withKey: "\(wid)")
             }
             // when a tabbed window is removed, update its former siblings' tab group

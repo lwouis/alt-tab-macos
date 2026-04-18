@@ -88,9 +88,30 @@ class AXCallScheduler {
         fastQueue.addOperation(block)
     }
 
+    /// removes the entry for `key` *and* every entry whose key starts with
+    /// `"\(key)-"`. Callers only track top-level handles (pid/wid), but
+    /// `schedule()` is also hit with notification-suffixed sub-keys (e.g.
+    /// `"sub-win-\(wid)-AXFocusedWindowChanged"`); without this sweep
+    /// those never got removed and `keyStates` grew monotonically.
     func removeEntry(key: String) {
         lock.lock()
-        keyStates[key] = nil
+        keyStates.removeValue(forKey: key)
+        let subPrefix = "\(key)-"
+        // snapshot keys first -- iterating Dictionary.keys while mutating
+        // the dict is undefined behaviour.
+        let subKeys = keyStates.keys.filter { $0.hasPrefix(subPrefix) }
+        for k in subKeys {
+            keyStates.removeValue(forKey: k)
+        }
+        // Swift dictionaries never shrink their storage on `removeValue`, so
+        // a long-running AltTab process that once held ~1k in-flight entries
+        // keeps its 128 KB bucket array forever. When the live set shrinks
+        // drastically (count << capacity), rebuild into a fresh compact dict.
+        if keyStates.capacity >= 64 && keyStates.count * 4 < keyStates.capacity {
+            keyStates = keyStates.reduce(into: [String: KeyState](minimumCapacity: keyStates.count)) {
+                $0[$1.key] = $1.value
+            }
+        }
         lock.unlock()
     }
 

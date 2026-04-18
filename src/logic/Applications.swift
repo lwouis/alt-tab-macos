@@ -157,6 +157,9 @@ class Applications {
         for tApp in terminatingApps {
             let pid = tApp.processIdentifier
             AXCallScheduler.shared.removeEntry(key: "pid-\(pid)")
+            // also sweep AX observer-subscription entries keyed by pid
+            // (e.g. `sub-app-\(pid)`, `sub-app-\(pid)-<notification>`).
+            AXCallScheduler.shared.removeEntry(key: "sub-app-\(pid)")
             AXCallScheduler.shared.removeUnresponsivePid(pid)
             appListUpdateThrottler.removeEntry(withKey: "\(pid)")
         }
