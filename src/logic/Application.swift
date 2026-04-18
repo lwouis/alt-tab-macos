@@ -99,6 +99,17 @@ class Application: NSObject {
     }
 
     deinit {
+        // remove AX notifications and the run-loop source; otherwise the AXObserverCookies leak
+        // AXObserverRemoveNotification is safe to call even if the target process has exited
+        if let axObserver, let axUiElement {
+            for notification in Application.notifications {
+                AXObserverRemoveNotification(axObserver, axUiElement, notification as CFString)
+            }
+            let source = AXObserverGetRunLoopSource(axObserver)
+            if let runLoop = BackgroundWork.accessibilityEventsThread?.runLoop {
+                CFRunLoopRemoveSource(runLoop, source, .commonModes)
+            }
+        }
         Logger.info { self.debugId }
     }
 
@@ -117,7 +128,7 @@ class Application: NSObject {
 
     func fetchAppIcon() {
         guard icon == nil else { return }
-        BackgroundWork.screenshotsQueue.addOperation { [weak self] in
+        BackgroundWork.appIconsQueue.addOperation { [weak self] in
             guard let self, self.icon == nil else { return }
             let r = Application.appIconWithoutPadding(runningApplication.icon)
             DispatchQueue.main.async { [weak self] in

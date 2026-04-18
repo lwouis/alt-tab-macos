@@ -10,6 +10,8 @@ class KeyboardEvents {
     private static var hotKeyReleasedEventHandler: EventHandlerRef?
     private static var globalShortcutsAreDisabled = false
     private static var eventTap: CFMachPort?
+    // keep a strong reference to the NSEvent monitor token so we can removeMonitor later, preventing the block leak
+    private static var localEventMonitor: Any?
 
     private static let cgEventFlagsChangedHandler: CGEventTapCallBack = { _, type, cgEvent, _ in
         if type == .flagsChanged {
@@ -86,7 +88,11 @@ class KeyboardEvents {
 
     // TODO: handle this on a background thread?
     private static func addLocalMonitorForKeyDownAndKeyUp() {
-        NSEvent.addLocalMonitorForEvents(matching: [.keyDown, .keyUp]) { (event: NSEvent) in
+        // if called twice, remove the previous monitor to avoid stacking duplicates
+        if let localEventMonitor {
+            NSEvent.removeMonitor(localEventMonitor)
+        }
+        localEventMonitor = NSEvent.addLocalMonitorForEvents(matching: [.keyDown, .keyUp]) { (event: NSEvent) in
             let keyCode = event.type == .keyDown ? UInt32(event.keyCode) : nil
             let isARepeat = event.type == .keyDown ? event.isARepeat : false
             let shouldAbsorbEvent = handleKeyboardEvent(nil, nil, keyCode, event.modifierFlags, isARepeat, event)
