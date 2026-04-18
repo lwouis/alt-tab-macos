@@ -136,7 +136,7 @@ class ScreenRecordingPermission {
                 // this callback runs on a GCD queue, not on the thread that called getWithCompletionHandler
                 if #available(macOS 14.0, *), let shareableContent, error == nil {
                     BackgroundWork.screenshotsQueue.addOperation {
-                        WindowCaptureScreenshots.cachedSCWindows = shareableContent.windows
+                        WindowCaptureScreenshots.replaceCachedSCWindows(shareableContent.windows)
                     }
                 }
                 completion(error != nil ? false : (shareableContent != nil))

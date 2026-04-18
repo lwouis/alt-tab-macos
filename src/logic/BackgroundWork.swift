@@ -12,6 +12,7 @@ class BackgroundWork {
     // we use an OperationQueue for most tasks, especially when we need to call blocking APIs in parallel
     static var repeatingKeyQueue: LabeledOperationQueue!
     static var screenshotsQueue: LabeledOperationQueue!
+    static var appIconsQueue: LabeledOperationQueue!
     static var accessibilityCommandsQueue: LabeledOperationQueue!
     static var crashReportsQueue: LabeledOperationQueue!
     static var permissionsCheckOnTimerQueue: LabeledOperationQueue!
@@ -26,7 +27,8 @@ class BackgroundWork {
         // if macOS is overwhelmed, let's reduce the pressure on it by calling permission APIs one at a time
         permissionsSystemCallsQueue = LabeledOperationQueue("permissionsSystemCalls", .userInteractive, 1)
         // we update cachedSCWindows during the first permission check; so we need this queue early
-        screenshotsQueue = LabeledOperationQueue("screenshots", .userInteractive, 8)
+        screenshotsQueue = LabeledOperationQueue("screenshots", .userInteractive, 6)
+        appIconsQueue = LabeledOperationQueue("appIcons", .userInitiated, 2)
     }
 
     static func start() {

@@ -504,12 +504,13 @@ class Windows {
                 w.application.focusedWindow = nil
             }
         }
-        let toRemove = windows.map { $0.lastFocusOrder }
+        let toRemove = Set(windows.map { $0.lastFocusOrder })
+        let sortedToRemove = toRemove.sorted()
         list.removeAll { w in
             if toRemove.contains(w.lastFocusOrder) {
                 return true
             }
-            let howManyToShift = toRemove.reduce(0) { $1 < w.lastFocusOrder ? $0 + 1 : $0 }
+            let howManyToShift = sortedToRemove.countOfElementsLessThan(w.lastFocusOrder)
             w.lastFocusOrder -= howManyToShift
             return false
         }

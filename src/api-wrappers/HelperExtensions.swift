@@ -151,6 +151,17 @@ extension Collection {
     }
 }
 
+extension Array where Element: Comparable {
+    func countOfElementsLessThan(_ value: Element) -> Int {
+        var lo = startIndex, hi = endIndex
+        while lo < hi {
+            let mid = lo + (hi - lo) / 2
+            if self[mid] < value { lo = mid + 1 } else { hi = mid }
+        }
+        return lo
+    }
+}
+
 // allow using a closure for NSControl action, instead of selector
 class SelectorWrapper<T> {
     let selector: Selector

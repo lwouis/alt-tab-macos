@@ -222,7 +222,7 @@ class Applications {
 
     static func updateAppIcons() {
         for app in list {
-            BackgroundWork.screenshotsQueue.addOperation { [weak app] in
+            BackgroundWork.appIconsQueue.addOperation { [weak app] in
                 guard let app else { return }
                 let r = Application.appIconWithoutPadding(app.runningApplication.icon)
                 DispatchQueue.main.async { [weak app] in

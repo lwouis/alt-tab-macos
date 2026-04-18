@@ -4,7 +4,7 @@ import ScreenCaptureKit
 @available(macOS 14.0, *)
 class WindowCaptureScreenshots {
     // SCShareableContent.getExcludingDesktopWindows is expensive for the OS; we cache as much as possible
-    static var cachedSCWindows = [SCWindow]()
+    static var cachedSCWindowsById = [CGWindowID: SCWindow]()
 
     static func oneTimeScreenshots(_ windowsToScreenshot: [Window], _ source: RefreshCausedBy) {
         let windows = windowsToScreenshot.compactMap { $0.cgWindowId }
@@ -30,12 +30,11 @@ class WindowCaptureScreenshots {
         SCShareableContent.getExcludingDesktopWindows(true, onScreenWindowsOnly: false) { shareableContent, error in
             guard let shareableContent, error == nil else { Logger.error { "\(shareableContent == nil) \(error)" }; return }
             guard source != .refreshOnlyThumbnailsAfterShowUi || App.appIsBeingUsed else { return }
-            // this callback is executed on an undetermined queue; we move execution to main-thread
             BackgroundWork.screenshotsQueue.addOperation {
-                cachedSCWindows = shareableContent.windows
+                replaceCachedSCWindows(shareableContent.windows)
                 guard source != .refreshOnlyThumbnailsAfterShowUi || App.appIsBeingUsed else { return }
                 for notCachedWindow in notCachedWindows {
-                    if let cachedWindow = (cachedSCWindows.first { $0.windowID == notCachedWindow }) {
+                    if let cachedWindow = cachedSCWindowsById[notCachedWindow] {
                         oneTimeCapture(cachedWindow, source)
                     } else {
                         Logger.debug { "wid:\(notCachedWindow) was not found in SCShareableContent windows" }
@@ -45,11 +44,15 @@ class WindowCaptureScreenshots {
         }
     }
 
+    static func replaceCachedSCWindows(_ windows: [SCWindow]) {
+        cachedSCWindowsById = Dictionary(uniqueKeysWithValues: windows.map { ($0.windowID, $0) })
+    }
+
     private static func sortCachedAndNotCached(_ windows: [CGWindowID]) -> ([SCWindow], [CGWindowID]) {
         var cachedWindows = [SCWindow]()
         var notCachedWindows = [CGWindowID]()
         for window in windows {
-            if let cachedWindow = (cachedSCWindows.first { $0.windowID == window }) {
+            if let cachedWindow = cachedSCWindowsById[window] {
                 cachedWindows.append(cachedWindow)
             } else {
                 notCachedWindows.append(window)
