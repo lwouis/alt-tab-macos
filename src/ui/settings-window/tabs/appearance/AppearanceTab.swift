@@ -46,8 +46,9 @@ class IllustratedImageThemeView: ClickHoverImageView {
             imageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -IllustratedImageThemeView.padding),
         ])
         highlight(false)
-        onClick = { (event, view) in
-            self.highlight(false)
+        // avoid retain cycle: onClick is stored on self (ClickHoverImageView)
+        onClick = { [weak self] (event, view) in
+            self?.highlight(false)
         }
     }
 
@@ -122,17 +123,21 @@ class ShowHideIllustratedView {
         for row in showHideRows {
             setStateOnApplications(row: row)
             if row.supportedStyles.contains(style) {
-                table.addRow(leftViews: row.leftViews, rightViews: row.rightViews, onClick: { event, view in
+                // [weak self] on all closures: they end up stored on views that `self` indirectly owns,
+                // so a strong capture would keep ShowHideIllustratedView alive forever.
+                table.addRow(leftViews: row.leftViews, rightViews: row.rightViews, onClick: { [weak self] event, view in
+                    guard let self else { return }
                     if !ShowHideIllustratedView.isDisabledOnApplications(row) {
                         self.clickCheckbox(rowId: row.rowId)
                         self.updateImageView(rowId: row.rowId)
                     }
-                }, onMouseEntered: { event, view in
-                    self.updateImageView(rowId: row.rowId)
+                }, onMouseEntered: { [weak self] event, view in
+                    self?.updateImageView(rowId: row.rowId)
                 })
             }
         }
-        table.onMouseExited = { event, view in
+        table.onMouseExited = { [weak self] event, view in
+            guard let self else { return }
             IllustratedImageThemeView.resetImage(self.illustratedImageView, event, view)
         }
         let view = TableGroupSetView(originalViews: [table], padding: 0)
@@ -146,8 +151,8 @@ class ShowHideIllustratedView {
         hideAppBadges.checkedImage = "hide_app_badges"
         hideAppBadges.supportedStyles = [.thumbnails, .appIcons, .titles]
         hideAppBadges.leftViews = [TableGroupView.makeText(NSLocalizedString("Hide app badges", comment: ""))]
-        hideAppBadges.rightViews.append(LabelAndControl.makeSwitch(hideAppBadges.rowId, extraAction: { sender in
-            self.onCheckboxClicked(sender: sender, rowId: hideAppBadges.rowId)
+        hideAppBadges.rightViews.append(LabelAndControl.makeSwitch(hideAppBadges.rowId, extraAction: { [weak self] sender in
+            self?.onCheckboxClicked(sender: sender, rowId: hideAppBadges.rowId)
         }))
         showHideRows.append(hideAppBadges)
         var hideStatusIcons = ShowHideRowInfo()
@@ -162,8 +167,8 @@ class ShowHideIllustratedView {
         }, onMouseExited: { event, view in
             Popover.shared.hide()
         }))
-        hideStatusIcons.rightViews.append(LabelAndControl.makeSwitch(hideStatusIcons.rowId, extraAction: { sender in
-            self.onCheckboxClicked(sender: sender, rowId: hideStatusIcons.rowId)
+        hideStatusIcons.rightViews.append(LabelAndControl.makeSwitch(hideStatusIcons.rowId, extraAction: { [weak self] sender in
+            self?.onCheckboxClicked(sender: sender, rowId: hideStatusIcons.rowId)
         }))
         showHideRows.append(hideStatusIcons)
         var hideSpaceNumberLabels = ShowHideRowInfo()
@@ -172,8 +177,8 @@ class ShowHideIllustratedView {
         hideSpaceNumberLabels.checkedImage = "hide_space_number_labels"
         hideSpaceNumberLabels.supportedStyles = [.thumbnails, .titles]
         hideSpaceNumberLabels.leftViews = [TableGroupView.makeText(NSLocalizedString("Hide Space number labels", comment: ""))]
-        hideSpaceNumberLabels.rightViews.append(LabelAndControl.makeSwitch(hideSpaceNumberLabels.rowId, extraAction: { sender in
-            self.onCheckboxClicked(sender: sender, rowId: hideSpaceNumberLabels.rowId)
+        hideSpaceNumberLabels.rightViews.append(LabelAndControl.makeSwitch(hideSpaceNumberLabels.rowId, extraAction: { [weak self] sender in
+            self?.onCheckboxClicked(sender: sender, rowId: hideSpaceNumberLabels.rowId)
         }))
         showHideRows.append(hideSpaceNumberLabels)
         var hideColoredCircles = ShowHideRowInfo()
@@ -182,8 +187,8 @@ class ShowHideIllustratedView {
         hideColoredCircles.checkedImage = "hide_colored_circles"
         hideColoredCircles.supportedStyles = [.thumbnails]
         hideColoredCircles.leftViews = [TableGroupView.makeText(NSLocalizedString("Hide colored circles on mouse hover", comment: ""))]
-        hideColoredCircles.rightViews.append(LabelAndControl.makeSwitch(hideColoredCircles.rowId, extraAction: { sender in
-            self.onCheckboxClicked(sender: sender, rowId: hideColoredCircles.rowId)
+        hideColoredCircles.rightViews.append(LabelAndControl.makeSwitch(hideColoredCircles.rowId, extraAction: { [weak self] sender in
+            self?.onCheckboxClicked(sender: sender, rowId: hideColoredCircles.rowId)
         }))
         showHideRows.append(hideColoredCircles)
         let featureUnavailable = NSLocalizedString("AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows.", comment: "")
@@ -203,9 +208,9 @@ class ShowHideIllustratedView {
         }, onMouseExited: { event, view in
             Popover.shared.hide()
         }))
-        showTabsAsWindows.rightViews.append(LabelAndControl.makeSwitch(showTabsAsWindows.rowId, extraAction: { sender in
+        showTabsAsWindows.rightViews.append(LabelAndControl.makeSwitch(showTabsAsWindows.rowId, extraAction: { [weak self] sender in
             if !ShowHideIllustratedView.isDisabledOnApplications(showTabsAsWindows) {
-                self.onCheckboxClicked(sender: sender, rowId: showTabsAsWindows.rowId)
+                self?.onCheckboxClicked(sender: sender, rowId: showTabsAsWindows.rowId)
             }
         }))
         showHideRows.append(showTabsAsWindows)

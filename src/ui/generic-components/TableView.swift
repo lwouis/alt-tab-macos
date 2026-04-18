@@ -132,7 +132,7 @@ class TableView: NSTableView {
         text.lineBreakMode = .byTruncatingTail
         text.usesSingleLineMode = true
         text.cell!.sendsActionOnEndEditing = true
-        text.onAction = { self.wasUpdated(colId, $0) }
+        text.onAction = { [weak self] in self?.wasUpdated(colId, $0) }
         let parent = NSView()
         parent.addSubview(text)
         text.centerYAnchor.constraint(equalTo: parent.centerYAnchor).isActive = true
@@ -161,7 +161,7 @@ class TableView: NSTableView {
         let cases: [MacroPreference] = isHidePref ? ExceptionHidePreference.allCases : ExceptionIgnorePreference.allCases
         button.addItems(withTitles: cases.map { $0.localizedString })
         button.selectItem(at: isHidePref ? item.hide.index : item.ignore.index)
-        button.onAction = { self.wasUpdated(colId, $0) }
+        button.onAction = { [weak self] in self?.wasUpdated(colId, $0) }
         let parent = NSView()
         parent.addSubview(button)
         button.leadingAnchor.constraint(equalTo: parent.leadingAnchor).isActive = true

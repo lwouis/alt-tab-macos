@@ -99,7 +99,8 @@ class ImageTextButtonView: NSStackView {
             button.heightAnchor.constraint(equalTo: button.widthAnchor, multiplier: imageAspectRatio),
         ])
         button.identifier = NSUserInterfaceItemIdentifier(rawName)
-        button.onAction = { control in
+        button.onAction = { [weak self] control in
+            guard let self else { return }
             self.state = .on
             self.onClick?(control)
         }

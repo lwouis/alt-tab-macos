@@ -75,15 +75,17 @@ class LabelAndControl: NSObject {
                                       _ macroPreferences: [ImageMacroPreference],
                                       extraAction: ActionClosure? = nil,
                                       buttonSpacing: CGFloat = 15) -> NSStackView {
-        var buttons = [ImageTextButtonView]()
+        // siblings are reached via superview at click time instead of a captured local array;
+        // capturing an array of siblings strongly + stored on each button's onClick creates a
+        // mutual retain cycle across all N buttons that survives Settings close.
         let buttonViews = macroPreferences.enumerated().map { (index, preference) -> ImageTextButtonView in
             let state: NSControl.StateValue = CachedUserDefaults.intFromMacroPref(rawName, macroPreferences) == index ? .on : .off
             let buttonView = ImageTextButtonView(title: preference.localizedString, rawName: rawName, image: preference.image, state: state)
-            buttons.append(buttonView)
-            buttonView.onClick = { control in
-                buttons.enumerated().forEach { (i, otherButtonView) in
-                    if otherButtonView != buttonView {
-                        otherButtonView.state = i == index ? .on : .off
+            buttonView.onClick = { [weak buttonView] _ in
+                guard let buttonView else { return }
+                buttonView.superview?.subviews.forEach { other in
+                    if let other = other as? ImageTextButtonView, other !== buttonView {
+                        other.state = .off
                     }
                 }
                 controlWasChanged(buttonView.button, String(index))
@@ -108,7 +110,9 @@ class LabelAndControl: NSObject {
 
     static func makeLabelWithRecorder(_ labelText: String, _ rawName: String, _ shortcut: Shortcut?, _ clearable: Bool = true, labelPosition: LabelPosition = .leftWithSeparator) -> [NSView] {
         let input = CustomRecorderControl(shortcut, clearable, rawName)
-        let views = makeLabelWithProvidedControl(labelText, rawName, input, labelPosition: labelPosition, extraAction: { _ in ControlsTab.shortcutChangedCallback(input) })
+        // use $0 (sender) instead of capturing `input`; capturing `input` builds a retain cycle:
+        //   input -[associated object]-> SelectorWrapper -[closure]-> extraAction -[strong]-> input
+        let views = makeLabelWithProvidedControl(labelText, rawName, input, labelPosition: labelPosition, extraAction: { ControlsTab.shortcutChangedCallback($0) })
         ControlsTab.shortcutChangedCallback(input)
         ControlsTab.shortcutControls[rawName] = (input, labelText)
         return views

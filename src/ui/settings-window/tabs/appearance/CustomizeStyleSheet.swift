@@ -48,8 +48,8 @@ class CustomizeStyleSheet: SheetWindow {
         showHideIllustratedView = ShowHideIllustratedView(style, illustratedImageView)
         alignThumbnails = TableGroupView.Row(leftTitle: NSLocalizedString("Align windows", comment: ""),
             rightViews: LabelAndControl.makeRadioButtons(
-                "alignThumbnails", AlignThumbnailsPreference.allCases, extraAction: { _ in
-                self.showAlignThumbnailsIllustratedImage()
+                "alignThumbnails", AlignThumbnailsPreference.allCases, extraAction: { [weak self] _ in
+                self?.showAlignThumbnailsIllustratedImage()
             }))
         titleTruncation = TableGroupView.Row(leftTitle: NSLocalizedString("Title truncation", comment: ""),
             rightViews: LabelAndControl.makeRadioButtons("titleTruncation", TitleTruncationPreference.allCases))
@@ -61,7 +61,8 @@ class CustomizeStyleSheet: SheetWindow {
             Popover.shared.hide()
         })
         showAppsOrWindows = TableGroupView.Row(leftTitle: NSLocalizedString("Show in switcher", comment: ""),
-            rightViews: LabelAndControl.makeRadioButtons("showAppsOrWindows", ShowAppsOrWindowsPreference.allCases, extraAction: { _ in
+            rightViews: LabelAndControl.makeRadioButtons("showAppsOrWindows", ShowAppsOrWindowsPreference.allCases, extraAction: { [weak self] _ in
+                guard let self else { return }
                 self.showHideIllustratedView.setStateOnApplications()
                 AppearanceTab.updatePreviewSelectedWindowState()
                 self.toggleAppNamesWindowTitles()
@@ -69,24 +70,26 @@ class CustomizeStyleSheet: SheetWindow {
             }) + [showAppWindowsInfo])
         showTitles = TableGroupView.Row(leftTitle: NSLocalizedString("Show titles", comment: ""),
             rightViews: [LabelAndControl.makeDropdown(
-                "showTitles", ShowTitlesPreference.allCases, extraAction: { _ in
-                self.showAppsOrWindowsIllustratedImage()
+                "showTitles", ShowTitlesPreference.allCases, extraAction: { [weak self] _ in
+                self?.showAppsOrWindowsIllustratedImage()
             })])
     }
 
     private func makeThumbnailsView() -> TableGroupSetView {
         let table = TableGroupView(width: CustomizeStyleSheet.width)
-        showTitlesRowInfo = table.addRow(showTitles, onMouseEntered: { event, view in
-            self.showAppsOrWindowsIllustratedImage()
+        showTitlesRowInfo = table.addRow(showTitles, onMouseEntered: { [weak self] event, view in
+            self?.showAppsOrWindowsIllustratedImage()
         })
         table.addNewTable()
-        table.addRow(alignThumbnails, onMouseEntered: { event, view in
-            self.showAlignThumbnailsIllustratedImage()
-        }, onMouseExited: { event, view in
+        table.addRow(alignThumbnails, onMouseEntered: { [weak self] event, view in
+            self?.showAlignThumbnailsIllustratedImage()
+        }, onMouseExited: { [weak self] event, view in
+            guard let self else { return }
             IllustratedImageThemeView.resetImage(self.illustratedImageView, event, view)
         })
         table.addRow(titleTruncation)
-        table.onMouseExited = { event, view in
+        table.onMouseExited = { [weak self] event, view in
+            guard let self else { return }
             IllustratedImageThemeView.resetImage(self.illustratedImageView, event, view)
         }
         let view = TableGroupSetView(originalViews: [table], padding: 0)
@@ -96,10 +99,11 @@ class CustomizeStyleSheet: SheetWindow {
     private func makeAppIconsView() -> TableGroupSetView {
         let table = makeAppWindowTableGroupView()
         table.addNewTable()
-        table.addRow(alignThumbnails, onMouseEntered: { event, view in
-            self.showAlignThumbnailsIllustratedImage()
+        table.addRow(alignThumbnails, onMouseEntered: { [weak self] event, view in
+            self?.showAlignThumbnailsIllustratedImage()
         })
-        table.onMouseExited = { event, view in
+        table.onMouseExited = { [weak self] event, view in
+            guard let self else { return }
             IllustratedImageThemeView.resetImage(self.illustratedImageView, event, view)
         }
         let view = TableGroupSetView(originalViews: [table], padding: 0)
@@ -118,14 +122,15 @@ class CustomizeStyleSheet: SheetWindow {
 
     private func makeAppWindowTableGroupView() -> TableGroupView {
         let view = TableGroupView(width: CustomizeStyleSheet.width)
-        view.addRow(showAppsOrWindows, onMouseEntered: { event, view in
-            self.showAppsOrWindowsIllustratedImage()
+        view.addRow(showAppsOrWindows, onMouseEntered: { [weak self] event, view in
+            self?.showAppsOrWindowsIllustratedImage()
         })
         view.addNewTable()
-        showTitlesRowInfo = view.addRow(showTitles, onMouseEntered: { event, view in
-            self.showAppsOrWindowsIllustratedImage()
+        showTitlesRowInfo = view.addRow(showTitles, onMouseEntered: { [weak self] event, view in
+            self?.showAppsOrWindowsIllustratedImage()
         })
-        view.onMouseExited = { event, view in
+        view.onMouseExited = { [weak self] event, view in
+            guard let self else { return }
             IllustratedImageThemeView.resetImage(self.illustratedImageView, event, view)
         }
         return view

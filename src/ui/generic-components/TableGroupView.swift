@@ -557,10 +557,13 @@ class TableGroupView: ClickHoverStackView {
                                   onClick: EventClosure?,
                                   onMouseEntered: EventClosure?,
                                   onMouseExited: EventClosure?) {
+        // [weak self, weak rowView] to break the retain cycle:
+        //   self (TableGroupView) -> subviews tree -> rowView -> rowView.onMouseEntered/Exited closure -> self/rowView
         rowView.onClick = { event, view in
             onClick?(event, view)
         }
-        rowView.onMouseEntered = { event, view in
+        rowView.onMouseEntered = { [weak self, weak rowView] event, view in
+            guard let self, let rowView else { return }
             if let onMouseEntered {
                 self.rowInfoTables.forEach { table in
                     if let rowInfo = table.first(where: { $0.view === rowView }) {
@@ -570,7 +573,8 @@ class TableGroupView: ClickHoverStackView {
                 }
             }
         }
-        rowView.onMouseExited = { event, view in
+        rowView.onMouseExited = { [weak self, weak rowView] event, view in
+            guard let self, let rowView else { return }
             self.rowInfoTables.forEach { table in
                 if let rowInfo = table.first(where: { $0.view === rowView }) {
                     self.addMouseExitedEffects(rowInfo)
