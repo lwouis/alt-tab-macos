@@ -141,6 +141,16 @@ class App: AppCenterApplication {
         focusSelectedWindow(selectedWindow)
     }
 
+    static func focusPreviousWindow() {
+        guard MissionControl.state() == .inactive || MissionControl.state() == .showDesktop else { return }
+        guard let window = (Windows.list.first { $0.lastFocusOrder == 1 }) else { return }
+        Logger.info { window.debugId }
+        window.focus()
+        if Preferences.cursorFollowFocus == .always {
+            moveCursorToSelectedWindow(window)
+        }
+    }
+
     @objc static func checkForUpdatesNow(_ sender: NSMenuItem) {
         GeneralTab.checkForUpdatesNow(sender)
     }

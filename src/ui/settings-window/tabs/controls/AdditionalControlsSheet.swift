@@ -2,6 +2,8 @@ import Cocoa
 
 class AdditionalControlsSheet: SheetWindow {
     override func makeContentView() -> NSView {
+        let focusPreviousWindowShortcut = TableGroupView.Row(leftTitle: NSLocalizedString("Focus previous window", comment: ""),
+            rightViews: [LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Focus previous window", comment: ""), "focusPreviousWindowShortcut", Preferences.focusPreviousWindowShortcut, labelPosition: .right)[0]])
         let enableArrows = TableGroupView.Row(leftTitle: NSLocalizedString("Select windows using arrow keys", comment: ""),
             rightViews: [LabelAndControl.makeSwitch("arrowKeysEnabled", extraAction: ControlsTab.arrowKeysEnabledCallback)])
         let enableVimKeys = TableGroupView.Row(leftTitle: NSLocalizedString("Select windows using vim keys", comment: ""),
@@ -16,6 +18,9 @@ class AdditionalControlsSheet: SheetWindow {
         ControlsTab.vimKeysCheckbox = enableVimKeys.rightViews[0] as? Switch
         ControlsTab.arrowKeysEnabledCallback(ControlsTab.arrowKeysCheckbox)
         ControlsTab.vimKeysEnabledCallback(ControlsTab.vimKeysCheckbox)
+        let table0 = TableGroupView(title: NSLocalizedString("Global shortcuts", comment: ""),
+            width: SheetWindow.width)
+        _ = table0.addRow(focusPreviousWindowShortcut)
         let table1 = TableGroupView(title: NSLocalizedString("Additional controls", comment: ""),
             width: SheetWindow.width)
         _ = table1.addRow(enableArrows)
@@ -25,7 +30,7 @@ class AdditionalControlsSheet: SheetWindow {
             width: SheetWindow.width)
         _ = table2.addRow(enableCursorFollowFocus)
         _ = table2.addRow(enableTrackpadHapticFeedback)
-        let view = TableGroupSetView(originalViews: [table1, table2], padding: 0)
+        let view = TableGroupSetView(originalViews: [table0, table1, table2], padding: 0)
         return view
     }
 }

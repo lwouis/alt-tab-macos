@@ -117,6 +117,7 @@ class ControlsTab {
     static var shortcutControls = [String: (CustomRecorderControl, String)]()
     static var shortcutsActions = [
         "focusWindowShortcut": { App.focusTarget() },
+        "focusPreviousWindowShortcut": { App.focusPreviousWindow() },
         "previousWindowShortcut": { App.previousWindowShortcutWithRepeatingKey() },
         "→": { App.cycleSelection(.right) },
         "←": { App.cycleSelection(.left) },
@@ -150,9 +151,10 @@ class ControlsTab {
     private static var shortcutEditorContentWidth: CGFloat { shortcutEditorWidth - shortcutEditorRightPadding }
     private static let gestureSelectionIndex = -1
     private static let staticManagedShortcutPreferences = [
-        "focusWindowShortcut", "previousWindowShortcut", "cancelShortcut", "searchShortcut", "lockSearchShortcut",
+        "focusWindowShortcut", "focusPreviousWindowShortcut", "previousWindowShortcut", "cancelShortcut", "searchShortcut", "lockSearchShortcut",
         "closeWindowShortcut", "minDeminWindowShortcut", "toggleFullscreenWindowShortcut", "quitAppShortcut", "hideShowAppShortcut",
     ]
+    private static let globalStaticShortcutPreferences = ["focusPreviousWindowShortcut"]
     private static let removableShortcutPreferences = [
         "holdShortcut", "nextWindowShortcut",
         "appsToShow", "spacesToShow", "screensToShow",
@@ -690,6 +692,13 @@ class ControlsTab {
         SettingsWindow.shared.beginSheetWithSearchHighlight(additionalControlsSheet)
     }
 
+    private static func scopeForControlId(_ controlId: String) -> ShortcutScope {
+        if controlId.hasPrefix("nextWindowShortcut") || globalStaticShortcutPreferences.contains(controlId) {
+            return .global
+        }
+        return .local
+    }
+
     private static func addShortcut(_ triggerPhase: ShortcutTriggerPhase, _ scope: ShortcutScope, _ shortcut: Shortcut, _ controlId: String, _ index: Int?) {
         let atShortcut = ATShortcut(shortcut, controlId, scope, triggerPhase, index)
         removeShortcutIfExists(controlId)
@@ -738,7 +747,7 @@ class ControlsTab {
                 restrictModifiersOfHoldShortcut(controlId, [])
                 (sender as! CustomRecorderControl).objectValue = nil
             } else {
-                addShortcut(.down, controlId.hasPrefix("nextWindowShortcut") ? .global : .local, newShortcut!, controlId, nil)
+                addShortcut(.down, scopeForControlId(controlId), newShortcut!, controlId, nil)
                 restrictModifiersOfHoldShortcut(controlId, [(sender as! CustomRecorderControl).objectValue!.modifierFlags])
             }
         }
@@ -861,7 +870,7 @@ class ControlsTab {
             restrictModifiersOfHoldShortcut(controlId, [])
             return
         }
-        addShortcut(.down, controlId.hasPrefix("nextWindowShortcut") ? .global : .local, shortcut, controlId, nil)
+        addShortcut(.down, scopeForControlId(controlId), shortcut, controlId, nil)
         restrictModifiersOfHoldShortcut(controlId, [shortcut.modifierFlags])
     }
 
