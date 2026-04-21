@@ -256,6 +256,11 @@ class App: AppCenterApplication {
         hideUi(true)
         if let window = selectedWindow, MissionControl.state() == .inactive || MissionControl.state() == .showDesktop {
             window.focus()
+            // update lastFocusOrder eagerly. Otherwise we rely on the AX focusedWindow-changed event which
+            // is gated on runningApplication.isActive (AccessibilityEvents.focusedWindowChanged). That guard
+            // can fail during rapid switches, leaving the recent-order stale — next alt-tab then selects the
+            // wrong window (the one AltTab still believes was most-recently focused)
+            _ = Windows.updateLastFocusOrder(window)
             if Preferences.cursorFollowFocus == .always || (
                 Preferences.cursorFollowFocus == .differentScreen && (Spaces.screenSpacesMap.first { $0.value.contains { space in window.spaceIds.contains(space) } })?.key != NSScreen.active()?.cachedUuid()) {
                 moveCursorToSelectedWindow(window)

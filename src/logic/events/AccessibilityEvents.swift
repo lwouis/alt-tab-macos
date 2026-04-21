@@ -131,7 +131,11 @@ class AccessibilityEvents {
     private static func focusedWindowChanged(_ window: Window) {
         // photoshop will focus a window *after* you focus another app
         // we check that a focused window happens within an active app
-        guard window.application.runningApplication.isActive else { return }
+        // NSRunningApplication.isActive is racy: during rapid switches it can be stale/false when
+        // this callback runs, making us drop legitimate focus events and leaving lastFocusOrder stale.
+        // Applications.frontmostPid is set synchronously when AltTab processes the activation event,
+        // so it's a reliable signal that this window's app is the currently frontmost app.
+        guard Applications.frontmostPid == window.application.pid else { return }
         // if the window is shown by alt-tab, we mark it as focused for this app
         // this avoids issues with dialogs, quicklook, etc (see scenarios from #1044 and #2003)
         window.application.focusedWindow = window
