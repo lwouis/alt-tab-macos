@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# NOTE: First run will prompt for keychain password multiple times — click "Always Allow" each time.
 set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
