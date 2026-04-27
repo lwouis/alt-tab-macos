@@ -4,6 +4,8 @@
 #include "base.xcconfig"
 
 CODE_SIGN_IDENTITY = Local Self-Signed
+PRODUCT_NAME = AltTabDebug
+PRODUCT_BUNDLE_IDENTIFIER = com.lwouis.alt-tab-macos.debug
 SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG // for macro `#if DEBUG`
 OTHER_SWIFT_FLAGS = -driver-time-compilation -Xfrontend -warn-long-function-bodies=250 -Xfrontend -warn-long-expression-type-checking=250 // find slow compilation areas
 OTHER_CODE_SIGN_FLAGS = --timestamp=none
