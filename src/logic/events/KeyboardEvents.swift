@@ -10,6 +10,20 @@ class KeyboardEvents {
     private static var hotKeyReleasedEventHandler: EventHandlerRef?
     private static var globalShortcutsAreDisabled = false
     private static var eventTap: CFMachPort?
+    private static var localShortcutEventTap: CFMachPort?
+
+    private static let cgEventKeyDownHandler: CGEventTapCallBack = { _, type, cgEvent, _ in
+        if type == .keyDown, App.appIsBeingUsed {
+            let keyCode = UInt32(cgEvent.getIntegerValueField(.keyboardEventKeycode))
+            let isARepeat = cgEvent.getIntegerValueField(.keyboardEventAutorepeat) != 0
+            let modifiers = NSEvent.ModifierFlags(rawValue: UInt(cgEvent.flags.rawValue))
+            let absorbed = handleKeyboardEvent(nil, nil, keyCode, modifiers, isARepeat, localOnly: true)
+            if absorbed { return nil }
+        } else if type == .tapDisabledByUserInput || type == .tapDisabledByTimeout {
+            CGEvent.tapEnable(tap: localShortcutEventTap!, enable: true)
+        }
+        return Unmanaged.passUnretained(cgEvent)
+    }
 
     private static let cgEventFlagsChangedHandler: CGEventTapCallBack = { _, type, cgEvent, _ in
         if type == .flagsChanged {
@@ -60,6 +74,7 @@ class KeyboardEvents {
     static func addEventHandlers() {
         addLocalMonitorForKeyDownAndKeyUp()
         addCgEventTapForModifierFlags()
+        addCgEventTapForLocalShortcuts()
     }
 
     private static func unregisterHotKeyIfNeeded(_ controlId: String, _ shortcut: Shortcut) {
@@ -91,6 +106,23 @@ class KeyboardEvents {
             let isARepeat = event.type == .keyDown ? event.isARepeat : false
             let shouldAbsorbEvent = handleKeyboardEvent(nil, nil, keyCode, event.modifierFlags, isARepeat, event)
             return shouldAbsorbEvent ? nil : event
+        }
+    }
+
+    private static func addCgEventTapForLocalShortcuts() {
+        let eventMask = CGEventMask(1 << CGEventType.keyDown.rawValue)
+        localShortcutEventTap = CGEvent.tapCreate(
+            tap: .cgSessionEventTap,
+            place: .headInsertEventTap,
+            options: .defaultTap,
+            eventsOfInterest: eventMask,
+            callback: cgEventKeyDownHandler,
+            userInfo: nil)
+        if let localShortcutEventTap {
+            let runLoopSource = CFMachPortCreateRunLoopSource(nil, localShortcutEventTap, 0)
+            CFRunLoopAddSource(CFRunLoopGetMain(), runLoopSource, .commonModes)
+        } else {
+            App.restart()
         }
     }
 

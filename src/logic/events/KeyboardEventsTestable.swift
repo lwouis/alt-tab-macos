@@ -10,7 +10,7 @@ class KeyboardEventsTestable {
 }
 
 @discardableResult
-func handleKeyboardEvent(_ globalId: Int?, _ shortcutState: ShortcutState?, _ keyCode: UInt32?, _ modifiers: NSEvent.ModifierFlags?, _ isARepeat: Bool, _ event: NSEvent? = nil) -> Bool {
+func handleKeyboardEvent(_ globalId: Int?, _ shortcutState: ShortcutState?, _ keyCode: UInt32?, _ modifiers: NSEvent.ModifierFlags?, _ isARepeat: Bool, _ event: NSEvent? = nil, localOnly: Bool = false) -> Bool {
     if let event, shouldAbsorbSearchEditingKeyDown(event) {
         switch TilesView.handleSearchEditingKeyDown(event) {
         case .handled: return true
@@ -19,7 +19,7 @@ func handleKeyboardEvent(_ globalId: Int?, _ shortcutState: ShortcutState?, _ ke
         }
     }
     logKeyboardEvent(globalId, shortcutState, keyCode, modifiers, isARepeat)
-    let someShortcutTriggered = triggerMatchingShortcuts(globalId, shortcutState, keyCode, modifiers, isARepeat)
+    let someShortcutTriggered = triggerMatchingShortcuts(globalId, shortcutState, keyCode, modifiers, isARepeat, localOnly: localOnly)
     return someShortcutTriggered
 }
 
@@ -46,9 +46,10 @@ private func shouldAbsorbSearchEditingKeyDown(_ event: NSEvent?) -> Bool {
     return true
 }
 
-private func triggerMatchingShortcuts(_ globalId: Int?, _ shortcutState: ShortcutState?, _ keyCode: UInt32?, _ modifiers: NSEvent.ModifierFlags?, _ isARepeat: Bool) -> Bool {
+private func triggerMatchingShortcuts(_ globalId: Int?, _ shortcutState: ShortcutState?, _ keyCode: UInt32?, _ modifiers: NSEvent.ModifierFlags?, _ isARepeat: Bool, localOnly: Bool = false) -> Bool {
     var someShortcutTriggered = false
     for shortcut in ControlsTab.shortcuts.values {
+        if localOnly && shortcut.scope == .global { continue }
         if shortcut.matches(globalId, shortcutState, keyCode, modifiers) && shortcut.shouldTrigger() {
             shortcut.executeAction(isARepeat)
             // we want to pass-through alt-up to the active app, since it saw alt-down previously

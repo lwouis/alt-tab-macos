@@ -1,7 +1,11 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -euo pipefail
+
+REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+DERIVED_DATA="${DERIVED_DATA:-$REPO_ROOT/DerivedData}"
 
 xcodebuild \
-  -workspace alt-tab-macos.xcworkspace \
+  -workspace "$REPO_ROOT/alt-tab-macos.xcworkspace" \
   -scheme Debug \
   -configuration Debug \
-  -derivedDataPath ~/git/alt-tab-macos/DerivedData
+  -derivedDataPath "$DERIVED_DATA"
