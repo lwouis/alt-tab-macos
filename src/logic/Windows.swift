@@ -342,6 +342,7 @@ class Windows {
         guard let index else { return }
         TilesView.highlight(index)
         let focusedView = TilesView.recycledViews[index]
+        focusedView.updatePendingContent()
         TilesView.scrollView.contentView.scrollToVisible(focusedView.frame)
         voiceOverWindow(index)
     }

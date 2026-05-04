@@ -55,13 +55,52 @@ class TileView: FlippedView {
         return CGRect(origin: .zero, size: frame.size)
     }
 
+    var needsContentUpdate = false
+    private var pendingWindow: Window?
+    private var pendingIndex: Int = 0
+
+    func updateFrameSizeOnly(_ element: Window, _ newHeight: CGFloat) {
+        window_ = element
+        if !thumbnail.isHidden {
+            if element.thumbnail != nil {
+                let thumbnailSize = TileView.thumbnailSize(element.size, false)
+                thumbnail.frame.size = thumbnailSize
+            } else {
+                let thumbnailSize = TileView.thumbnailSize(element.icon?.size(), true)
+                thumbnail.frame.size = thumbnailSize
+            }
+        }
+        setFrameWidthHeight(newHeight)
+    }
+
+    func updatePendingContent() {
+        guard needsContentUpdate, let window = pendingWindow else { return }
+        needsContentUpdate = false
+        let height = frame.size.height
+        label.toolTip = nil
+        updateValues(window, pendingIndex, height)
+        updateSizes(height)
+        updatePositions(height)
+        applySearchHighlight()
+    }
+
     func updateRecycledCellWithNewContent(_ element: Window, _ index: Int, _ newHeight: CGFloat) {
+        needsContentUpdate = false
+        pendingWindow = nil
         window_ = element
         label.toolTip = nil
         updateValues(element, index, newHeight)
         updateSizes(newHeight)
         updatePositions(newHeight)
         applySearchHighlight()
+    }
+
+    func deferContentUpdate(_ element: Window, _ index: Int) {
+        needsContentUpdate = true
+        pendingWindow = element
+        pendingIndex = index
+        mouseUpCallback = { () -> Void in App.focusSelectedWindow(element) }
+        mouseMovedCallback = { () -> Void in Windows.updateSelectedAndHoveredWindowIndex(index, true) }
     }
 
     func drawHighlight() {
