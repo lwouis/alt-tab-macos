@@ -344,7 +344,30 @@ class App: AppCenterApplication {
             TilesView.enableSearchEditing()
         }
         KeyRepeatTimer.startRepeatingKeyNextWindow()
-        Windows.refreshThumbnailsAsync(Windows.list, .refreshOnlyThumbnailsAfterShowUi)
+        refreshThumbnailsViewportFirst()
+    }
+
+    private static func refreshThumbnailsViewportFirst() {
+        let visibleBounds = TilesView.scrollView.documentVisibleRect
+        var visibleWindows = [Window]()
+        var deferredWindows = [Window]()
+        for (index, window) in Windows.list.enumerated() {
+            guard index < TilesView.recycledViews.count else { break }
+            let tileFrame = TilesView.recycledViews[index].frame
+            if tileFrame == .zero {
+                continue
+            } else if visibleBounds.intersects(tileFrame) {
+                visibleWindows.append(window)
+            } else {
+                deferredWindows.append(window)
+            }
+        }
+        Windows.refreshThumbnailsAsync(visibleWindows, .refreshOnlyThumbnailsAfterShowUi)
+        guard !deferredWindows.isEmpty else { return }
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(150)) {
+            guard appIsBeingUsed else { return }
+            Windows.refreshThumbnailsAsync(deferredWindows, .refreshOnlyThumbnailsAfterShowUi)
+        }
     }
 
     static func checkIfShortcutsShouldBeDisabled(_ activeWindow: Window?, _ activeApp: Application?) {
