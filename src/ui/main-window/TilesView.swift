@@ -419,6 +419,7 @@ class TilesView {
         var rowSignature = [Int]()
         rows.removeAll(keepingCapacity: true)
         rows.append([TileView]())
+        let visibleRect = scrollView.documentVisibleRect
         var index = 0
         while index < TilesView.recycledViews.count {
             guard App.appIsBeingUsed else { return nil }
@@ -430,7 +431,7 @@ class TilesView {
                     view.frame = .zero
                     continue
                 }
-                view.updateRecycledCellWithNewContent(window, index, height)
+                view.updateFrameSizeOnly(window, height)
                 let width = view.frame.size.width
                 let projectedX = projectedWidth(currentX, width).rounded(.down)
                 if needNewLine(projectedX, widthMax) {
@@ -444,6 +445,11 @@ class TilesView {
                     view.frame.origin = CGPoint(x: localizedCurrentX(currentX, width), y: currentY)
                     currentX = projectedX
                     maxX = max(isLeftToRight ? currentX : widthMax - currentX, maxX)
+                }
+                if visibleRect.isEmpty || view.frame.intersects(visibleRect) {
+                    view.updateRecycledCellWithNewContent(window, index, height)
+                } else {
+                    view.deferContentUpdate(window, index)
                 }
                 rows[rows.count - 1].append(view)
                 newViews.append(view)
@@ -627,12 +633,25 @@ class ScrollView: NSScrollView {
     }
 
     private func observeScrollingEvents() {
-        NotificationCenter.default.addObserver(self, selector: #selector(scrollingStarted), name: NSScrollView.willStartLiveScrollNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(scrollingEnded), name: NSScrollView.didEndLiveScrollNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(scrollingStarted), name: NSScrollView.willStartLiveScrollNotification, object: self)
+        NotificationCenter.default.addObserver(self, selector: #selector(scrollingEnded), name: NSScrollView.didEndLiveScrollNotification, object: self)
     }
 
     @objc private func scrollingStarted() { isCurrentlyScrolling = true }
-    @objc private func scrollingEnded() { isCurrentlyScrolling = false }
+
+    @objc private func scrollingEnded() {
+        isCurrentlyScrolling = false
+        updateVisibleTiles()
+    }
+
+    func updateVisibleTiles() {
+        let visibleRect = self.documentVisibleRect
+        for view in TilesView.recycledViews where view.needsContentUpdate {
+            if view.frame.intersects(visibleRect) {
+                view.updatePendingContent()
+            }
+        }
+    }
 
     /// holding shift and using the scrolling wheel will generate a horizontal movement
     /// shift can be part of shortcuts so we force shift scrolls to be vertical
