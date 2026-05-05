@@ -364,9 +364,12 @@ class App: AppCenterApplication {
         }
         Windows.refreshThumbnailsAsync(visibleWindows, .refreshOnlyThumbnailsAfterShowUi)
         guard !deferredWindows.isEmpty else { return }
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(150)) {
-            guard appIsBeingUsed else { return }
-            Windows.refreshThumbnailsAsync(deferredWindows, .refreshOnlyThumbnailsAfterShowUi)
+        // batch 2 starts when the queue has a free slot (i.e. batch 1 remaining < maxConcurrent)
+        BackgroundWork.screenshotsQueue.addOperation {
+            DispatchQueue.main.async {
+                guard appIsBeingUsed else { return }
+                Windows.refreshThumbnailsAsync(deferredWindows, .refreshOnlyThumbnailsAfterShowUi)
+            }
         }
     }
 
