@@ -34,8 +34,9 @@ class WindowCaptureScreenshots {
             BackgroundWork.screenshotsQueue.addOperation {
                 cachedSCWindows = shareableContent.windows
                 guard source != .refreshOnlyThumbnailsAfterShowUi || App.appIsBeingUsed else { return }
+                let freshMap = Dictionary(cachedSCWindows.map { ($0.windowID, $0) }, uniquingKeysWith: { first, _ in first })
                 for notCachedWindow in notCachedWindows {
-                    if let cachedWindow = (cachedSCWindows.first { $0.windowID == notCachedWindow }) {
+                    if let cachedWindow = freshMap[notCachedWindow] {
                         oneTimeCapture(cachedWindow, source)
                     } else {
                         Logger.debug { "wid:\(notCachedWindow) was not found in SCShareableContent windows" }
@@ -46,10 +47,11 @@ class WindowCaptureScreenshots {
     }
 
     private static func sortCachedAndNotCached(_ windows: [CGWindowID]) -> ([SCWindow], [CGWindowID]) {
+        let cachedMap = Dictionary(cachedSCWindows.map { ($0.windowID, $0) }, uniquingKeysWith: { first, _ in first })
         var cachedWindows = [SCWindow]()
         var notCachedWindows = [CGWindowID]()
         for window in windows {
-            if let cachedWindow = (cachedSCWindows.first { $0.windowID == window }) {
+            if let cachedWindow = cachedMap[window] {
                 cachedWindows.append(cachedWindow)
             } else {
                 notCachedWindows.append(window)

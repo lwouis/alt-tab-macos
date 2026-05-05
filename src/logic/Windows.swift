@@ -344,6 +344,9 @@ class Windows {
         let focusedView = TilesView.recycledViews[index]
         focusedView.updatePendingContent()
         TilesView.scrollView.contentView.scrollToVisible(focusedView.frame)
+        DispatchQueue.main.async {
+            TilesView.scrollView.updateVisibleTiles()
+        }
         voiceOverWindow(index)
     }
 

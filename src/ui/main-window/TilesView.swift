@@ -391,7 +391,7 @@ class TilesView {
             guard index < Windows.list.count else { break }
             let window = Windows.list[index]
             guard Windows.shouldDisplay(window) else { view.frame = .zero; continue }
-            view.updateRecycledCellWithNewContent(window, index, height)
+            view.updateFrameSizeOnly(window, height)
             let width = view.frame.size.width
             let projectedX = projectedWidth(currentX, width).rounded(.down)
             if needNewLine(projectedX, widthMax) {
