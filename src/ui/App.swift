@@ -255,6 +255,9 @@ class App: AppCenterApplication {
         guard appIsBeingUsed else { return } // already hidden
         hideUi(true)
         if let window = selectedWindow, MissionControl.state() == .inactive || MissionControl.state() == .showDesktop {
+            // Proactively update window order before focusing
+            // The accessibility event will confirm or correct this later if needed
+            let _ = Windows.updateLastFocusOrder(window)
             window.focus()
             if Preferences.cursorFollowFocus == .always || (
                 Preferences.cursorFollowFocus == .differentScreen && (Spaces.screenSpacesMap.first { $0.value.contains { space in window.spaceIds.contains(space) } })?.key != NSScreen.active()?.cachedUuid()) {

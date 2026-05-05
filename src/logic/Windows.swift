@@ -463,10 +463,14 @@ class Windows {
     }
 
     static func updateLastFocusOrder(_ focusedWindow: Window) -> [Window]? {
-        // no need to update the list is the window is already lastFocusOrder 0
-        guard focusedWindow.lastFocusOrder != 0 && list.count > 1, let previousFocus = (list.first { $0.lastFocusOrder == 0 }) else { return [focusedWindow] }
+        // no need to update if less than 2 windows
+        guard list.count > 1 else { return [focusedWindow] }
+        // if window is already at lastFocusOrder 0, it's already the most recently focused
+        guard focusedWindow.lastFocusOrder != 0 else { return [focusedWindow] }
+        // find the window that was previously focused (if any)
+        let previousFocus = list.first { $0.lastFocusOrder == 0 }
         // 2 windows have recently changed: the one which got focused, and the one who just lost focus
-        let windowsToRefresh = [focusedWindow, previousFocus]
+        let windowsToRefresh = previousFocus != nil ? [focusedWindow, previousFocus!] : [focusedWindow]
         let focusedWindowOldFocusOrder = focusedWindow.lastFocusOrder
         list.forEach {
             if $0.lastFocusOrder == focusedWindowOldFocusOrder {
