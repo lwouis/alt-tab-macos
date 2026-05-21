@@ -1,3 +1,18 @@
+# [11.0.0](https://github.com/lwouis/alt-tab-macos/compare/v10.12.0...v11.0.0) (2026-05-21)
+
+
+### Features
+
+* introducing alt-tab pro! ([9147a4a](https://github.com/lwouis/alt-tab-macos/commit/9147a4a)), closes [#5450](https://github.com/lwouis/alt-tab-macos/issues/5450) [#5539](https://github.com/lwouis/alt-tab-macos/issues/5539) [#5627](https://github.com/lwouis/alt-tab-macos/issues/5627) [#5509](https://github.com/lwouis/alt-tab-macos/issues/5509) [#5492](https://github.com/lwouis/alt-tab-macos/issues/5492) [#5585](https://github.com/lwouis/alt-tab-macos/issues/5585) [#5488](https://github.com/lwouis/alt-tab-macos/issues/5488) [#5583](https://github.com/lwouis/alt-tab-macos/issues/5583) [#5482](https://github.com/lwouis/alt-tab-macos/issues/5482) [#5313](https://github.com/lwouis/alt-tab-macos/issues/5313)
+
+
+### BREAKING CHANGES
+
+* announcement: https://github.com/lwouis/alt-tab-macos/discussions/5533
+
+* improved performance, especially switcher responsiveness
+* reduced battery usage even more
+
 # [10.12.0](https://github.com/lwouis/alt-tab-macos/compare/v10.11.0...v10.12.0) (2026-04-13)
 
 
