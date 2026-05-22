@@ -28,29 +28,49 @@ enum SettingsTab: String, CaseIterable, Identifiable {
 struct ContentView: View {
     @EnvironmentObject var store: PreferencesStore
     @EnvironmentObject var proTracker: ProStateTracker
+    @EnvironmentObject var searchVM: SearchViewModel
     @State private var selectedTab: SettingsTab? = .appearance
     @State private var columnVisibility = NavigationSplitViewVisibility.all
 
     var body: some View {
-        NavigationSplitView(columnVisibility: $columnVisibility) {
-            List(SettingsTab.allCases, selection: $selectedTab) { tab in
-                Label(tab.title, systemImage: tab.symbolName)
-                    .tag(tab)
-            }
-            .listStyle(.sidebar)
-            .safeAreaInset(edge: .bottom) {
-                VStack(spacing: 8) {
-                    Divider()
-                    upgradeButton.padding(.horizontal, 8)
-                    quitButton.padding(.horizontal, 8).padding(.bottom, 8)
+        VStack(spacing: 0) {
+            SearchFieldView(text: $searchVM.query)
+                .frame(height: 28)
+                .padding(.horizontal, 10)
+                .padding(.top, 40)
+                .padding(.bottom, 12)
+
+            NavigationSplitView(columnVisibility: $columnVisibility) {
+                List(filteredTabs, selection: $selectedTab) { tab in
+                    Label(tab.title, systemImage: tab.symbolName)
+                        .tag(tab)
                 }
-                .background(.bar)
+                .listStyle(.sidebar)
+                .safeAreaInset(edge: .bottom) {
+                    VStack(spacing: 8) {
+                        Divider()
+                        upgradeButton.padding(.horizontal, 8)
+                        quitButton.padding(.horizontal, 8).padding(.bottom, 8)
+                    }
+                    .background(.bar)
+                }
+                .navigationSplitViewColumnWidth(SwiftUISettingsWindow.sidebarWidth)
+            } detail: {
+                detailContent
             }
-            .navigationSplitViewColumnWidth(SwiftUISettingsWindow.sidebarWidth)
-        } detail: {
-            detailContent
+            .navigationSplitViewStyle(.prominentDetail)
         }
-        .navigationSplitViewStyle(.prominentDetail)
+        .onAppear { searchVM.applySearch() }
+        .onChange(of: searchVM.query) { _ in searchVM.applySearch() }
+    }
+
+    // MARK: - Filtered sidebar items
+
+    private var filteredTabs: [SettingsTab] {
+        SettingsTab.allCases.filter { tab in
+            if tab == .upgrade { return true }
+            return searchVM.isTabVisible(tab.id)
+        }
     }
 
     // MARK: - Upgrade button

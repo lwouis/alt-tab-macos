@@ -17,6 +17,7 @@ final class SwiftUISettingsWindow: NSWindow {
 
     private let store = PreferencesStore()
     private let proTracker = ProStateTracker()
+    private let searchVM = SearchViewModel()
 
     convenience init() {
         let width = Self.totalWindowWidth
@@ -42,6 +43,7 @@ final class SwiftUISettingsWindow: NSWindow {
         let rootView = ContentView()
             .environmentObject(store)
             .environmentObject(proTracker)
+            .environmentObject(searchVM)
         let hostingController = NSHostingController(rootView: rootView)
         self.contentViewController = hostingController
 
