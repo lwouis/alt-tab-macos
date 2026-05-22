@@ -307,13 +307,6 @@ class App: AppCenterApplication {
     static func showUiOrCycleSelection(_ shortcutIndex: Int, _ forceDoNothingOnRelease_: Bool) {
         let session = SwitcherSession.current ?? {
             let new = SwitcherSession()
-            // Read the cached value rather than querying NSWorkspace (which is a blocking IPC)
-            // on this hot path. AX activation notifications can be in-flight when the user invokes
-            // the switcher right after activating an app, so this can be momentarily stale. In that
-            // race, the modifier release is redelivered to the previously-foreground app instead of
-            // the real initial app — a spurious but benign modifier-state update for that app, and
-            // the destination is still shielded from receiving the release.
-            new.initialPid = Applications.frontmostPid
             SwitcherSession.current = new
             return new
         }()
@@ -328,7 +321,6 @@ class App: AppCenterApplication {
             }
             session.isFirstSummon = false
             session.shortcutIndex = shortcutIndex
-            session.holdMask = ControlsTab.shortcuts[Preferences.indexToName("holdShortcut", shortcutIndex)]?.shortcut.modifierFlags ?? []
             // Hide instantly so the rebuild for a different shortcut (Appearance change, layout
             // recalc) is invisible. `TilesPanel.show()` flips alpha back to 1 once everything is
             // in its final state. No-op on first summon (panel was orderOut'd with alpha=0).

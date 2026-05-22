@@ -22,23 +22,13 @@ class KeyboardEvents {
         case .flagsChanged:
             // TODO: it would be great to shortcut matching and trigger on the background thread
             // it would enable us to set App.shared.isBeingUsed here, and could stop tasks on main when they check the flag
-            let modifiers = NSEvent.ModifierFlags(rawValue: UInt(cgEvent.flags.rawValue))
-            // When the hold-shortcut mask transitions out of fully held during a session,
-            // redeliver the real event to the initial app's PID and absorb the system-routed
-            // copy so the destination app doesn't receive the release. Posting first (before
-            // the main-thread async that drives focus switching) gives A's run loop a head
-            // start over the focus change.
-            var absorb = false
-            if let session = SwitcherSession.current, let pid = session.initialPid,
-               !session.holdMask.isEmpty, !modifiers.isSuperset(of: session.holdMask),
-               let copy = cgEvent.copy() {
-                copy.postToPid(pid)
-                absorb = true
-            }
             DispatchQueue.main.async {
+                let modifiers = NSEvent.ModifierFlags(rawValue: UInt(cgEvent.flags.rawValue))
+                // TODO: ideally, we want to absorb all modifier keys except holdShortcut
+                // it was pressed down before AltTab was triggered, so we should let the up event through
                 handleKeyboardEvent(nil, nil, nil, modifiers, false)
             }
-            return absorb ? nil : Unmanaged.passUnretained(cgEvent)
+            return Unmanaged.passUnretained(cgEvent)
         case .keyDown:
             // Issue #5585. Esc only — absorb when AltTab is using it and a shortcut binds it. cghid is
             // the earliest tap point; absorbing here preempts macOS 26 Game Overlay's hook on `⌘⎋`.

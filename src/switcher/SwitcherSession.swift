@@ -21,13 +21,4 @@ final class SwitcherSession {
     var hoveredIndex: Int?
     var selectedTarget: String?
     var searchQuery: String = ""
-
-    /// PID of the app that was frontmost when this session started. The `cgEventHandler`
-    /// in `KeyboardEvents` redelivers the hold-modifier release event to this PID via
-    /// `CGEventPostToPid`, so the initial app sees a release matching the press it saw
-    /// when the user invoked the switcher.
-    var initialPid: pid_t?
-    /// Modifier mask of the active hold shortcut. The trigger event is the `flagsChanged`
-    /// where the current modifiers no longer fully satisfy this mask.
-    var holdMask: NSEvent.ModifierFlags = []
 }
