@@ -1,3 +1,10 @@
+## [11.0.1](https://github.com/lwouis/alt-tab-macos/compare/v11.0.0...v11.0.1) (2026-05-22)
+
+
+### Bug Fixes
+
+* cmd key could be stuck after switching (closes [#5650](https://github.com/lwouis/alt-tab-macos/issues/5650)) ([3a48a13](https://github.com/lwouis/alt-tab-macos/commit/3a48a13))
+
 # [11.0.0](https://github.com/lwouis/alt-tab-macos/compare/v10.12.0...v11.0.0) (2026-05-21)
 
 
