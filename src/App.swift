@@ -87,6 +87,7 @@ class App: AppCenterApplication {
 
     private static func allSecondaryWindowsCanBecomeKey(_ canBecomeKey_: Bool) {
         SettingsWindow.canBecomeKey_ = canBecomeKey_
+        if #available(macOS 13.0, *) { SwiftUISettingsWindow.canBecomeKey_ = canBecomeKey_ }
         AboutWindow.canBecomeKey_ = canBecomeKey_
         PermissionsWindow.canBecomeKey_ = canBecomeKey_
         FeedbackWindow.canBecomeKey_ = canBecomeKey_
@@ -139,12 +140,22 @@ class App: AppCenterApplication {
             pendingShowSettingsWindow = true
             return
         }
-        initializeSettingsWindowIfNeeded()
-        showSecondaryWindow(SettingsWindow.shared!)
-        if SettingsWindow.shared!.isVisible != true {
-            let window = SettingsWindow()
-            showSecondaryWindow(window)
-            window.orderFrontRegardless()
+        if #available(macOS 13.0, *) {
+            if SwiftUISettingsWindow.shared == nil { _ = SwiftUISettingsWindow() }
+            showSecondaryWindow(SwiftUISettingsWindow.shared!)
+            if SwiftUISettingsWindow.shared!.isVisible != true {
+                let window = SwiftUISettingsWindow()
+                showSecondaryWindow(window)
+                window.orderFrontRegardless()
+            }
+        } else {
+            initializeSettingsWindowIfNeeded()
+            showSecondaryWindow(SettingsWindow.shared!)
+            if SettingsWindow.shared!.isVisible != true {
+                let window = SettingsWindow()
+                showSecondaryWindow(window)
+                window.orderFrontRegardless()
+            }
         }
     }
 
@@ -167,7 +178,11 @@ class App: AppCenterApplication {
     }
 
     private static func initializeSettingsWindowIfNeeded() {
-        if SettingsWindow.shared == nil { _ = SettingsWindow() }
+        if #available(macOS 13.0, *) {
+            if SwiftUISettingsWindow.shared == nil { _ = SwiftUISettingsWindow() }
+        } else {
+            if SettingsWindow.shared == nil { _ = SettingsWindow() }
+        }
     }
 
     private static func initializeAboutWindowIfNeeded() {
@@ -225,7 +240,10 @@ class App: AppCenterApplication {
     /// showing so the user sees the window in the middle of the screen.
     private static func showAndCenterSettingsWindowOnFirstLaunch() {
         showSettingsWindow()
-        if let window = SettingsWindow.shared {
+        if #available(macOS 13.0, *), let window = SwiftUISettingsWindow.shared {
+            NSScreen.preferred.repositionPanel(window)
+            window.center()
+        } else if let window = SettingsWindow.shared {
             NSScreen.preferred.repositionPanel(window)
             window.center()
         }
@@ -454,6 +472,7 @@ extension App: NSApplicationDelegate {
             ProTransitionManager.shared.onLicenseStateChanged()
             UpgradeTab.refreshStatus()
             SettingsWindow.shared?.refreshUpgradeButton()
+            // SwiftUI window uses ProStateTracker observer — no explicit refresh needed
             if TilesPanel.shared != nil { App.resetPreferencesDependentComponents() }
             // `isProLocked` reads from state, so a state change implicitly changes the lock.
             // Notify UI observers so Settings rows repaint their ghost/pro-locked styling.
