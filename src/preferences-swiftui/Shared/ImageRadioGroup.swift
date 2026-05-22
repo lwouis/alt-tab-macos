@@ -39,10 +39,21 @@ private struct StyleTile: View {
     private let tileWidth: CGFloat = 150
     private let tileHeight: CGFloat = 150 / 1.6
 
+    /// Load illustration from bundle, matching the original `loadIllustration` pattern.
+    /// Tries `NSImage(named:)` first (asset catalog / bundled resources), then falls back
+    /// to loading directly from the bundle path.
+    static func loadImage(_ name: String) -> NSImage? {
+        if let img = NSImage(named: name) { return img }
+        guard let path = Bundle.main.path(forResource: "\(name)@2x", ofType: "heic") else { return nil }
+        let image = NSImage(contentsOfFile: path)
+        image?.cacheMode = .never
+        return image
+    }
+
     var body: some View {
         VStack(spacing: 5) {
             ZStack(alignment: .topTrailing) {
-                if let nsImage = NSImage(named: imageName + "_light") {
+                if let nsImage = Self.loadImage(imageName) {
                     Image(nsImage: nsImage)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
