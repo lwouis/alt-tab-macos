@@ -45,7 +45,9 @@ jobs:
       - run: sudo xcode-select -s /Applications/Xcode_26.0.1.app/Contents/Developer
       - run: scripts/print_env.sh
       - run: npm ci
-      - run: npx commitlint --from "$GITHUB_EVENT_BEFORE" --to "$GITHUB_EVENT_AFTER" --verbose
+      - name: Validate commits
+        if: github.event.forced == false
+        run: npx commitlint --from "$GITHUB_EVENT_BEFORE" --to "$GITHUB_EVENT_AFTER" --verbose
       - run: scripts/ensure_generated_files_are_up_to_date.sh
       - run: scripts/determine_next_version.sh
       - run: scripts/replace_environment_variables_in_app.sh
