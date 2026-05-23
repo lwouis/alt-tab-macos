@@ -78,6 +78,7 @@
 "Crash reports policy" = "當機報告政策";
 "Create GitHub issue" = "建立 GitHub issue";
 "Cursor follows focus" = "游標跟隨焦點";
+"Customize" = "自訂";
 "Customize more…" = "更多自訂…";
 "Dark" = "深色";
 "Dark Mode, live preview, window controls, trackpad gestures, and more" = "深色模式、即時預覽、視窗控制項、觸控板手勢等等";
@@ -242,6 +243,7 @@
 "Source code" = "原始碼";
 "Space Order" = "空間順序";
 "Start" = "開頭";
+"Style" = "樣式";
 "Start at login" = "登入時啟動";
 "Start my 14-day trial" = "開始我的 14 天試用";
 "Still interested in Pro?" = "仍然對 Pro 有興趣?";

@@ -3,6 +3,12 @@ import ScreenCaptureKit.SCShareableContent
 
 // macOS has some privacy restrictions. The user needs to grant certain permissions, app by app, in System Preferences > Security & Privacy
 class SystemPermissions {
+    /// 检测是否运行在 SwiftUI Preview 环境中
+    /// Xcode 在预览时会设置 `XCODE_RUNNING_FOR_PREVIEWS=1` 环境变量
+    static var isRunningInPreview: Bool {
+        ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1"
+    }
+
     static var preStartupPermissionsPassed = false
     private static var timer: DispatchSourceTimer!
     private static var timerIsFrequent = false
@@ -20,6 +26,12 @@ class SystemPermissions {
     private static var distributedObserver: NSObjectProtocol?
 
     static func ensurePermissionsAreGranted() {
+        // 跳过 SwiftUI Preview 环境下的权限检查
+        guard !isRunningInPreview else {
+            preStartupPermissionsPassed = true // 模拟权限已通过，避免启动流程阻塞
+            return
+        }
+
         timer = DispatchSource.makeTimerSource(queue: BackgroundWork.permissionsCheckOnTimerQueue.strongUnderlyingQueue)
         timer.setEventHandler(handler: checkPermissionsOnTimer)
         setImmediateTimer()
@@ -129,17 +141,30 @@ class AccessibilityPermission {
 
 class ScreenRecordingPermission {
     static var status = PermissionStatus.notGranted
+    private static var permissionPromptShown = false
 
     @discardableResult
     static func update() -> PermissionStatus {
         status = detect()
+        if status == .granted {
+            permissionPromptShown = false
+        }
         return status
     }
 
     private static func detect() -> PermissionStatus {
         if #available(macOS 10.15, *) {
             guard !Preferences.screenRecordingPermissionSkipped else { return .skipped }
-            return isGrantedOnSomeDisplay() ? .granted : .notGranted
+            // If we've already shown the permission prompt and it wasn't granted,
+            // use the silent check to avoid triggering the system prompt repeatedly
+            if permissionPromptShown {
+                return CGPreflightScreenCaptureAccess() ? .granted : .notGranted
+            }
+            let granted = isGrantedOnSomeDisplay()
+            if !granted {
+                permissionPromptShown = true
+            }
+            return granted ? .granted : .notGranted
         }
         return .granted
     }

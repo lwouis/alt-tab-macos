@@ -148,7 +148,6 @@ struct LabeledRow<Content: View>: View {
     var body: some View {
         HStack(alignment: .center, spacing: 12) {
             Text(label)
-                .frame(width: 200, alignment: .leading)
             Spacer()
             content()
         }
@@ -169,6 +168,6 @@ struct FullWidthRow<Content: View>: View {
 @available(macOS 13.0, *)
 struct RowDivider: View {
     var body: some View {
-        Divider().padding(.leading, 12)
+        Divider().padding(.vertical, 4)
     }
 }

@@ -18,5 +18,9 @@ func syncLicenseCookie(state: LicenseState) {
         .expires: Date.distantFuture,
         .secure: true,
     ])
-    if let cookie { HTTPCookieStorage.shared.setCookie(cookie) }
+    if let cookie {
+        DispatchQueue.global(qos: .default).async {
+            HTTPCookieStorage.shared.setCookie(cookie)
+        }
+    }
 }

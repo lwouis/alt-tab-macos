@@ -30,38 +30,42 @@ struct ContentView: View {
     @EnvironmentObject var proTracker: ProStateTracker
     @EnvironmentObject var searchVM: SearchViewModel
     @State private var selectedTab: SettingsTab? = .appearance
-    @State private var columnVisibility = NavigationSplitViewVisibility.all
+    @State private var columnVisibility = NavigationSplitViewVisibility
+        .automatic
 
     var body: some View {
         VStack(spacing: 0) {
-            SearchFieldView(text: $searchVM.query)
-                .frame(height: 28)
-                .padding(.horizontal, 10)
-                .padding(.top, 40)
-                .padding(.bottom, 12)
-
             NavigationSplitView(columnVisibility: $columnVisibility) {
+                SearchFieldView(text: $searchVM.query)
+                    .frame(height: 36)
+                    .padding(.horizontal, 10)
+                    .padding(.bottom, 12)
                 List(filteredTabs, selection: $selectedTab) { tab in
                     Label(tab.title, systemImage: tab.symbolName)
                         .tag(tab)
                 }
                 .listStyle(.sidebar)
-                .safeAreaInset(edge: .bottom) {
-                    VStack(spacing: 8) {
-                        Divider()
-                        upgradeButton.padding(.horizontal, 8)
-                        quitButton.padding(.horizontal, 8).padding(.bottom, 8)
-                    }
-                    .background(.bar)
-                }
-                .navigationSplitViewColumnWidth(SwiftUISettingsWindow.sidebarWidth)
+                //                .safeAreaInset(edge: .bottom) {
+                //                    VStack(spacing: 8) {
+                //                        Divider()
+                //                        upgradeButton.padding(.horizontal, 8)
+                //                        quitButton.padding(.horizontal, 8).padding(.bottom, 8)
+                //                    }
+                //                    .background(.bar)
+                //                }
+                .navigationSplitViewColumnWidth(
+                    SwiftUISettingsWindow.sidebarWidth
+                )
             } detail: {
                 detailContent
             }
-            .navigationSplitViewStyle(.prominentDetail)
+//            .navigationSplitViewStyle(.prominentDetail)
         }
         .onAppear { searchVM.applySearch() }
         .onChange(of: searchVM.query) { _ in searchVM.applySearch() }
+        .onReceive(NotificationCenter.default.publisher(for: Notification.Name("NavigateToUpgradeTab"))) { _ in
+            selectedTab = .upgrade
+        }
     }
 
     // MARK: - Filtered sidebar items
@@ -79,31 +83,65 @@ struct ContentView: View {
     private var upgradeButton: some View {
         if case .pro = proTracker.licenseState {
             VStack(spacing: 2) {
-                Text(proTracker.isLifetimeVariant
-                    ? NSLocalizedString("Pro Lifetime activated", comment: "")
-                    : NSLocalizedString("Pro activated", comment: ""))
-                    .font(.caption2).foregroundColor(.white.opacity(0.8))
+                Text(
+                    proTracker.isLifetimeVariant
+                        ? NSLocalizedString(
+                            "Pro Lifetime activated",
+                            comment: ""
+                        )
+                        : NSLocalizedString("Pro activated", comment: "")
+                )
+                .font(.caption2).foregroundColor(.white.opacity(0.8))
                 if let email = proTracker.customerEmail {
-                    Text(email).font(.caption.weight(.semibold)).foregroundColor(.white).lineLimit(1)
+                    Text(email).font(.caption.weight(.semibold))
+                        .foregroundColor(.white).lineLimit(1)
                 }
             }
-            .frame(maxWidth: .infinity).padding(.vertical, 6).padding(.horizontal, 8)
-            .background(LinearGradient(colors: [.blue, .purple], startPoint: .leading, endPoint: .trailing))
+            .frame(maxWidth: .infinity).padding(.vertical, 6).padding(
+                .horizontal,
+                8
+            )
+            .background(
+                LinearGradient(
+                    colors: [.blue, .purple],
+                    startPoint: .leading,
+                    endPoint: .trailing
+                )
+            )
             .clipShape(RoundedRectangle(cornerRadius: 6))
             .onTapGesture { selectedTab = .upgrade }
         } else {
             let subtitle: String = {
                 if case .trial(let days) = proTracker.licenseState {
-                    return String(format: NSLocalizedString("Trial: %d days remaining", comment: ""), days)
+                    return String(
+                        format: NSLocalizedString(
+                            "Trial: %d days remaining",
+                            comment: ""
+                        ),
+                        days
+                    )
                 }
                 return NSLocalizedString("Get Pro", comment: "")
             }()
             VStack(spacing: 2) {
-                Text(subtitle).font(.caption2).foregroundColor(.white.opacity(0.8))
-                Text(NSLocalizedString("Get Pro", comment: "")).font(.caption.weight(.semibold)).foregroundColor(.white)
+                Text(subtitle).font(.caption2).foregroundColor(
+                    .white.opacity(0.8)
+                )
+                Text(NSLocalizedString("Get Pro", comment: "")).font(
+                    .caption.weight(.semibold)
+                ).foregroundColor(.white)
             }
-            .frame(maxWidth: .infinity).padding(.vertical, 6).padding(.horizontal, 8)
-            .background(LinearGradient(colors: [.blue, .purple], startPoint: .leading, endPoint: .trailing))
+            .frame(maxWidth: .infinity).padding(.vertical, 6).padding(
+                .horizontal,
+                8
+            )
+            .background(
+                LinearGradient(
+                    colors: [.blue, .purple],
+                    startPoint: .leading,
+                    endPoint: .trailing
+                )
+            )
             .clipShape(RoundedRectangle(cornerRadius: 6))
             .onTapGesture { selectedTab = .upgrade }
         }
@@ -112,7 +150,12 @@ struct ContentView: View {
     // MARK: - Quit button
 
     private var quitButton: some View {
-        SwiftUI.Button(String(format: NSLocalizedString("Quit %@", comment: "%@ is AltTab"), App.name)) {
+        SwiftUI.Button(
+            String(
+                format: NSLocalizedString("Quit %@", comment: "%@ is AltTab"),
+                App.name
+            )
+        ) {
             NSApp.terminate(nil)
         }
         .buttonStyle(.borderless).font(.caption)
@@ -133,6 +176,16 @@ struct ContentView: View {
     }
 
     private var emptyDetail: some View {
-        Text(NSLocalizedString("Select a section", comment: "")).foregroundColor(.secondary)
+        Text(NSLocalizedString("Select a section", comment: ""))
+            .foregroundColor(.secondary)
     }
+}
+
+@available(macOS 13.0, *)
+#Preview {
+    Preferences.registerDefaults()
+    return ContentView()
+        .environmentObject(PreferencesStore())
+        .environmentObject(ProStateTracker())
+        .environmentObject(SearchViewModel())
 }

@@ -78,6 +78,7 @@
 "Crash reports policy" = "מדיניות דיווחי קריסה";
 "Create GitHub issue" = "צור issue ב-GitHub";
 "Cursor follows focus" = "הסמן עוקב אחר המיקוד";
+"Customize" = "התאמה אישית";
 "Customize more…" = "התאמה אישית נוספת…";
 "Dark" = "כהה";
 "Dark Mode, live preview, window controls, trackpad gestures, and more" = "מצב כהה, תצוגה מקדימה חיה, פקדי חלון, מחוות משטח מגע ועוד";
@@ -242,6 +243,7 @@
 "Source code" = "קוד מקור";
 "Space Order" = "סדר המרחבים";
 "Start" = "התחלה";
+"Style" = "סגנון";
 "Start at login" = "הפעל בעת ההתחברות";
 "Start my 14-day trial" = "התחל את תקופת הניסיון של 14 יום שלי";
 "Still interested in Pro?" = "עדיין מתעניין ב-Pro?";

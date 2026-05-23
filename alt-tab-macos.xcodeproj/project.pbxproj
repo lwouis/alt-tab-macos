@@ -129,6 +129,7 @@
 		AECF000000000000000000A3 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECF000000000000000000A1 /* Endpoints.swift */; };
 		AECF000000000000000000B2 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECF000000000000000000B1 /* Secrets.swift */; };
 		B21F8D6890128C73485B2BF6 /* ImageRadioGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6A46F95605FAB3078FC0FF /* ImageRadioGroup.swift */; };
+		EE4342F2AF351F54DBE6BC90 /* SegmentedPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554D6A584FB0D6259E944435 /* SegmentedPicker.swift */; };
 		B2C6172C076F9AF7B28D3216 /* UpgradeTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15B4E90AE4587FF01587007 /* UpgradeTabView.swift */; };
 		BB0000000000000000000002 /* TabGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000001 /* TabGroup.swift */; };
 		BF0C803A13C409E7F01FBCAB /* SkyLight.framework.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C8B94D7994AB9007F6391 /* SkyLight.framework.swift */; };
@@ -668,6 +669,7 @@
 		F00DCAFE0000000000000002 /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		F00DCAFE0000000000000003 /* SearchTestable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTestable.swift; sourceTree = "<group>"; };
 		F204DA47D6F64AEEE5FD2645 /* SearchFieldView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SearchFieldView.swift; path = "src/preferences-swiftui/Wrappers/SearchFieldView.swift"; sourceTree = SOURCE_ROOT; };
+		554D6A584FB0D6259E944435 /* SegmentedPicker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SegmentedPicker.swift; path = "src/preferences-swiftui/Shared/SegmentedPicker.swift"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -866,6 +868,7 @@
 				A0E63E06568186D76D7DD746 /* ContentView.swift */,
 				1E9842333466CEB02ACAE08D /* PreferencesWindow.swift */,
 				BC6A46F95605FAB3078FC0FF /* ImageRadioGroup.swift */,
+				554D6A584FB0D6259E944435 /* SegmentedPicker.swift */,
 				8267C2EB27C90D0F4BF2455F /* OverrideIndicatorButton.swift */,
 				6DE800F4EDC5384D6B0A5159 /* ProBadge.swift */,
 				BBCEF306874E127C7D163C1C /* SearchHighlightModifier.swift */,
@@ -2024,6 +2027,7 @@
 				04AF649B1AE93763C23355A8 /* ContentView.swift in Sources */,
 				80ED333242CB4619312B389D /* PreferencesWindow.swift in Sources */,
 				B21F8D6890128C73485B2BF6 /* ImageRadioGroup.swift in Sources */,
+				EE4342F2AF351F54DBE6BC90 /* SegmentedPicker.swift in Sources */,
 				64384A82E8334213B8F45348 /* OverrideIndicatorButton.swift in Sources */,
 				26ED14A38E70D7206C6A7C45 /* ProBadge.swift in Sources */,
 				EEE329A0434B8C80ABFF59B4 /* SearchHighlightModifier.swift in Sources */,

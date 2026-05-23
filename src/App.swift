@@ -1,24 +1,36 @@
+import AppCenterCrashes
 import Cocoa
 import Darwin
 import ShortcutRecorder
-import AppCenterCrashes
 import Sparkle
 
 class App: AppCenterApplication {
     /// periphery:ignore
-    static let activity = ProcessInfo.processInfo.beginActivity(options: .userInitiatedAllowingIdleSystemSleep,
-        reason: "Prevent App Nap to preserve responsiveness")
-    static let bundleIdentifier = Bundle.main.bundleIdentifier!
+    static let activity = ProcessInfo.processInfo.beginActivity(
+        options: .userInitiatedAllowingIdleSystemSleep,
+        reason: "Prevent App Nap to preserve responsiveness"
+    )
+    static let bundleIdentifier =
+        Bundle.main.bundleIdentifier ?? "com.lwouis.alt-tab-macos"
     static let bundleURL = Bundle.main.bundleURL
-    static let name = Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as! String
-    static let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String
-    static let licence = Bundle.main.object(forInfoDictionaryKey: "NSHumanReadableCopyright") as! String
+    static let name =
+        Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String
+        ?? "AltTab"
+    static let version =
+        Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String
+        ?? "0"
+    static let licence =
+        Bundle.main.object(forInfoDictionaryKey: "NSHumanReadableCopyright")
+        as? String ?? ""
     static let repository = "https://github.com/lwouis/alt-tab-macos"
     static let appIconReps = CGImage.allNamed("app.icns")
 
     static func appIcon(for size: NSSize) -> CGImage {
         let scale = NSScreen.main?.backingScaleFactor ?? 2.0
-        let scaled = NSSize(width: size.width * scale, height: size.height * scale)
+        let scaled = NSSize(
+            width: size.width * scale,
+            height: size.height * scale
+        )
         return CGImage.bestMatch(appIconReps, for: scaled)
     }
     override class var shared: App { super.shared as! App }
@@ -56,13 +68,16 @@ class App: AppCenterApplication {
         // we use -n to open a new instance, to avoid calling applicationShouldHandleReopen
         // we use Bundle.main.bundlePath in case of multiple AltTab versions on the machine
         printStackTrace()
-        Process.launchedProcess(launchPath: "/usr/bin/open", arguments: ["-n", Bundle.main.bundlePath])
+        Process.launchedProcess(
+            launchPath: "/usr/bin/open",
+            arguments: ["-n", Bundle.main.bundlePath]
+        )
         App.shared.terminate(nil)
     }
 
     static func hideUi(_ keepPreview: Bool = false) {
         Logger.info { "active:\(SwitcherSession.isActive)" }
-        guard SwitcherSession.current != nil else { return } // already hidden
+        guard SwitcherSession.current != nil else { return }  // already hidden
         SwitcherSession.current = nil
         UsageStats.resetSession()
         TilesView.endSearchSession()
@@ -87,7 +102,9 @@ class App: AppCenterApplication {
 
     private static func allSecondaryWindowsCanBecomeKey(_ canBecomeKey_: Bool) {
         SettingsWindow.canBecomeKey_ = canBecomeKey_
-        if #available(macOS 13.0, *) { SwiftUISettingsWindow.canBecomeKey_ = canBecomeKey_ }
+        if #available(macOS 13.0, *) {
+            SwiftUISettingsWindow.canBecomeKey_ = canBecomeKey_
+        }
         AboutWindow.canBecomeKey_ = canBecomeKey_
         PermissionsWindow.canBecomeKey_ = canBecomeKey_
         FeedbackWindow.canBecomeKey_ = canBecomeKey_
@@ -95,7 +112,7 @@ class App: AppCenterApplication {
     }
 
     static func focusTarget() {
-        guard SwitcherSession.isActive else { return } // already hidden
+        guard SwitcherSession.isActive else { return }  // already hidden
         let selectedWindow = Windows.selectedWindow()
         Logger.info { selectedWindow?.debugId }
         focusSelectedWindow(selectedWindow)
@@ -141,7 +158,9 @@ class App: AppCenterApplication {
             return
         }
         if #available(macOS 13.0, *) {
-            if SwiftUISettingsWindow.shared == nil { _ = SwiftUISettingsWindow() }
+            if SwiftUISettingsWindow.shared == nil {
+                _ = SwiftUISettingsWindow()
+            }
             showSecondaryWindow(SwiftUISettingsWindow.shared!)
             if SwiftUISettingsWindow.shared!.isVisible != true {
                 let window = SwiftUISettingsWindow()
@@ -179,7 +198,9 @@ class App: AppCenterApplication {
 
     private static func initializeSettingsWindowIfNeeded() {
         if #available(macOS 13.0, *) {
-            if SwiftUISettingsWindow.shared == nil { _ = SwiftUISettingsWindow() }
+            if SwiftUISettingsWindow.shared == nil {
+                _ = SwiftUISettingsWindow()
+            }
         } else {
             if SettingsWindow.shared == nil { _ = SettingsWindow() }
         }
@@ -203,7 +224,9 @@ class App: AppCenterApplication {
 
     @discardableResult
     private static func showSettingsWindowOnFirstLaunchIfNeeded() -> Bool {
-        guard !Preferences.settingsWindowShownOnFirstLaunch else { return false }
+        guard !Preferences.settingsWindowShownOnFirstLaunch else {
+            return false
+        }
         // If the Day1 Welcome window will be shown on this launch, wait for the user to close it
         // before showing Settings — otherwise both windows appear stacked.
         if willShowDay1WelcomeOnAppLaunch() {
@@ -224,13 +247,18 @@ class App: AppCenterApplication {
 
     private static func deferFirstLaunchSettingsUntilDay1WelcomeCloses() {
         firstLaunchSettingsObserver = NotificationCenter.default.addObserver(
-            forName: NSWindow.willCloseNotification, object: nil, queue: .main) { notification in
+            forName: NSWindow.willCloseNotification,
+            object: nil,
+            queue: .main
+        ) { notification in
             guard notification.object is Day1WelcomeLetterWindow else { return }
             if let observer = firstLaunchSettingsObserver {
                 NotificationCenter.default.removeObserver(observer)
                 firstLaunchSettingsObserver = nil
             }
-            DispatchQueue.main.async { showAndCenterSettingsWindowOnFirstLaunch() }
+            DispatchQueue.main.async {
+                showAndCenterSettingsWindowOnFirstLaunch()
+            }
         }
     }
 
@@ -240,7 +268,8 @@ class App: AppCenterApplication {
     /// showing so the user sees the window in the middle of the screen.
     private static func showAndCenterSettingsWindowOnFirstLaunch() {
         showSettingsWindow()
-        if #available(macOS 13.0, *), let window = SwiftUISettingsWindow.shared {
+        if #available(macOS 13.0, *), let window = SwiftUISettingsWindow.shared
+        {
             NSScreen.preferred.repositionPanel(window)
             window.center()
         } else if let window = SettingsWindow.shared {
@@ -264,12 +293,16 @@ class App: AppCenterApplication {
     }
 
     static func cycleSelection(_ direction: Direction, allowWrap: Bool = true) {
-        (TilesView.scrollView?.documentView as? TilesDocumentView)?.cancelDraggingTimer()
+        (TilesView.scrollView?.documentView as? TilesDocumentView)?
+            .cancelDraggingTimer()
         CursorEvents.resetDeadzone()
         if direction == .up || direction == .down {
             TilesView.navigateUpOrDown(direction, allowWrap: allowWrap)
         } else {
-            Windows.cycleSelectedWindowIndex(direction.step(), allowWrap: allowWrap)
+            Windows.cycleSelectedWindowIndex(
+                direction.step(),
+                allowWrap: allowWrap
+            )
         }
     }
 
@@ -279,12 +312,21 @@ class App: AppCenterApplication {
     }
 
     static func focusSelectedWindow(_ selectedWindow: Window?) {
-        guard SwitcherSession.isActive else { return } // already hidden
+        guard SwitcherSession.isActive else { return }  // already hidden
         hideUi(true)
-        if let window = selectedWindow, MissionControl.state() == .inactive || MissionControl.state() == .showDesktop {
+        if let window = selectedWindow,
+            MissionControl.state() == .inactive
+                || MissionControl.state() == .showDesktop
+        {
             window.focus()
-            if Preferences.cursorFollowFocus == .always || (
-                Preferences.cursorFollowFocus == .differentScreen && (Spaces.screenSpacesMap.first { $0.value.contains { space in window.spaceIds.contains(space) } })?.key != NSScreen.active()?.cachedUuid()) {
+            if Preferences.cursorFollowFocus == .always
+                || (Preferences.cursorFollowFocus == .differentScreen
+                    && (Spaces.screenSpacesMap.first {
+                        $0.value.contains { space in
+                            window.spaceIds.contains(space)
+                        }
+                    })?.key != NSScreen.active()?.cachedUuid())
+            {
                 moveCursorToSelectedWindow(window)
             }
         } else {
@@ -294,42 +336,71 @@ class App: AppCenterApplication {
 
     static func moveCursorToSelectedWindow(_ window: Window) {
         let referenceWindow = window.referenceWindowForTabbedWindow()
-        guard let position = referenceWindow?.position, let size = referenceWindow?.size else { return }
-        let point = CGPoint(x: position.x + size.width / 2, y: position.y + size.height / 2)
+        guard let position = referenceWindow?.position,
+            let size = referenceWindow?.size
+        else { return }
+        let point = CGPoint(
+            x: position.x + size.width / 2,
+            y: position.y + size.height / 2
+        )
         CGWarpMouseCursorPosition(point)
     }
 
-    static func refreshOpenUiAfterExternalEvent(_ windowsToScreenshot: [Window], windowRemoved: Bool = false) {
-        WindowThumbnails.refreshAsync(windowsToScreenshot, .refreshUiAfterExternalEvent, windowRemoved: windowRemoved)
+    static func refreshOpenUiAfterExternalEvent(
+        _ windowsToScreenshot: [Window],
+        windowRemoved: Bool = false
+    ) {
+        WindowThumbnails.refreshAsync(
+            windowsToScreenshot,
+            .refreshUiAfterExternalEvent,
+            windowRemoved: windowRemoved
+        )
         refreshOpenUiThrottler.throttleOrProceed {
             guard SwitcherSession.isActive else { return }
-            if !Windows.updatesBeforeShowing() { hideUi(); return }
+            if !Windows.updatesBeforeShowing() {
+                hideUi()
+                return
+            }
             refreshUi(true)
         }
     }
 
     static func refreshUi(_ preserveScrollPosition: Bool = false) {
         guard SwitcherSession.isActive else { return }
-        let preservedScrollOrigin = preserveScrollPosition ? TilesView.currentScrollOrigin() : nil
+        let preservedScrollOrigin =
+            preserveScrollPosition ? TilesView.currentScrollOrigin() : nil
         Windows.updateSelectedWindow()
         guard SwitcherSession.isActive else { return }
         TilesPanel.shared.updateContents(preservedScrollOrigin)
         guard SwitcherSession.isActive else { return }
-        Windows.voiceOverWindow() // at this point TileViews are assigned to the window, and ready
+        Windows.voiceOverWindow()  // at this point TileViews are assigned to the window, and ready
         guard SwitcherSession.isActive else { return }
         WindowThumbnails.previewSelectedIfNeeded()
         guard SwitcherSession.isActive else { return }
         Applications.refreshBadgesAsync()
     }
 
-    static func showUiOrCycleSelection(_ shortcutIndex: Int, _ forceDoNothingOnRelease_: Bool) {
-        let session = SwitcherSession.current ?? {
-            let new = SwitcherSession()
-            SwitcherSession.current = new
-            return new
-        }()
+    static func showUiOrCycleSelection(
+        _ shortcutIndex: Int,
+        _ forceDoNothingOnRelease_: Bool
+    ) {
+        let session =
+            SwitcherSession.current
+            ?? {
+                let new = SwitcherSession()
+                // Read the cached value rather than querying NSWorkspace (which is a blocking IPC)
+                // on this hot path. AX activation notifications can be in-flight when the user invokes
+                // the switcher right after activating an app, so this can be momentarily stale. In that
+                // race, the modifier release is redelivered to the previously-foreground app instead of
+                // the real initial app — a spurious but benign modifier-state update for that app, and
+                // the destination is still shielded from receiving the release.
+                SwitcherSession.current = new
+                return new
+            }()
         session.forceDoNothingOnRelease = forceDoNothingOnRelease_
-        Logger.debug { "isFirstSummon:\(session.isFirstSummon) shortcutIndex:\(shortcutIndex)" }
+        Logger.debug {
+            "isFirstSummon:\(session.isFirstSummon) shortcutIndex:\(shortcutIndex)"
+        }
         UsageStats.recordTrigger(shortcutIndex)
         if session.isFirstSummon || shortcutIndex != session.shortcutIndex {
             NSScreen.updatePreferred()
@@ -339,23 +410,37 @@ class App: AppCenterApplication {
             }
             session.isFirstSummon = false
             session.shortcutIndex = shortcutIndex
+            session.holdMask =
+                ControlsTab.shortcuts[
+                    Preferences.indexToName("holdShortcut", shortcutIndex)
+                ]?.shortcut.modifierFlags ?? []
             // Hide instantly so the rebuild for a different shortcut (Appearance change, layout
             // recalc) is invisible. `TilesPanel.show()` flips alpha back to 1 once everything is
             // in its final state. No-op on first summon (panel was orderOut'd with alpha=0).
             TilesPanel.shared.alphaValue = 0
             ProTransitionManager.shared.onSwitcherShown()
-            let shouldStartInSearchMode = Preferences.effectiveShortcutStyle(shortcutIndex) == .searchOnRelease
+            let shouldStartInSearchMode =
+                Preferences.effectiveShortcutStyle(shortcutIndex)
+                == .searchOnRelease
             TilesView.startSearchSession(shouldStartInSearchMode)
             if shouldStartInSearchMode {
                 session.forceDoNothingOnRelease = true
             }
-            if !Windows.updatesBeforeShowing() { hideUi(); return }
+            if !Windows.updatesBeforeShowing() {
+                hideUi()
+                return
+            }
             Windows.setInitialSelectedAndHoveredWindowIndex()
-            if Preferences.windowDisplayDelay == DispatchTimeInterval.milliseconds(0) {
+            if Preferences.windowDisplayDelay
+                == DispatchTimeInterval.milliseconds(0)
+            {
                 buildUiAndShowPanel()
             } else {
                 delayedDisplayScheduled += 1
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Preferences.windowDisplayDelay) { () -> () in
+                DispatchQueue.main.asyncAfter(
+                    deadline: DispatchTime.now()
+                        + Preferences.windowDisplayDelay
+                ) { () -> Void in
                     if delayedDisplayScheduled == 1 {
                         buildUiAndShowPanel()
                     }
@@ -383,15 +468,26 @@ class App: AppCenterApplication {
         }
         KeyRepeatTimer.startRepeatingKeyNextWindow()
         let prioritizedIds = TilesView.windowIdsInViewport()
-        WindowThumbnails.refreshAsync(Windows.list, .refreshOnlyThumbnailsAfterShowUi, prioritizedIds: prioritizedIds)
+        WindowThumbnails.refreshAsync(
+            Windows.list,
+            .refreshOnlyThumbnailsAfterShowUi,
+            prioritizedIds: prioritizedIds
+        )
     }
 
-    static func checkIfShortcutsShouldBeDisabled(_ activeWindow: Window?, _ activeApp: Application?) {
+    static func checkIfShortcutsShouldBeDisabled(
+        _ activeWindow: Window?,
+        _ activeApp: Application?
+    ) {
         let app = activeWindow?.application ?? activeApp!
-        let shortcutsShouldBeDisabled = Preferences.exceptions.contains { exception in
+        let shortcutsShouldBeDisabled = Preferences.exceptions.contains {
+            exception in
             if let id = app.bundleIdentifier {
-                return !exception.bundleIdentifier.isEmpty && id.hasPrefix(exception.bundleIdentifier) &&
-                    (exception.ignore == .always || (exception.ignore == .whenFullscreen && (activeWindow?.isFullscreen ?? false)))
+                return !exception.bundleIdentifier.isEmpty
+                    && id.hasPrefix(exception.bundleIdentifier)
+                    && (exception.ignore == .always
+                        || (exception.ignore == .whenFullscreen
+                            && (activeWindow?.isFullscreen ?? false)))
             }
             return false
         }
@@ -428,7 +524,8 @@ class App: AppCenterApplication {
         App.updaterController = SPUStandardUpdaterController(
             startingUpdater: false,
             updaterDelegate: App.sparkleDelegate!,
-            userDriverDelegate: nil)
+            userDriverDelegate: nil
+        )
         DispatchQueue.main.asyncAfter(deadline: .now() + 30) {
             App.updaterController?.startUpdater()
         }
@@ -440,12 +537,14 @@ class App: AppCenterApplication {
             showSettingsWindow()
         }
         #if DEBUG
-        QAMenu.shared = QAMenu()
-        QAMenu.shared?.orderFront(nil)
-        if QAMenu.openSettingsOnLaunch { App.showSettingsWindow() }
+            QAMenu.shared = QAMenu()
+            QAMenu.shared?.orderFront(nil)
+            if QAMenu.openSettingsOnLaunch { App.showSettingsWindow() }
         #endif
         UsageStats.prune()
-        ProTransitionManager.shared.onAction = { ProPromptHost.shared.dispatch($0) }
+        ProTransitionManager.shared.onAction = {
+            ProPromptHost.shared.dispatch($0)
+        }
         ProTransitionManager.shared.onAppLaunchComplete()
         Logger.info { "Finished launching AltTab" }
     }
@@ -458,29 +557,51 @@ extension App: NSApplicationDelegate {
         Logger.initialize()
         Logger.info { "Launching AltTab \(App.version)" }
         #if DEBUG
-        UserDefaults.standard.set(true, forKey: "NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints")
+            UserDefaults.standard.set(
+                true,
+                forKey:
+                    "NSConstraintBasedLayoutVisualizeMutativelyExclusiveConstraints"
+            )
         #endif
         #if !DEBUG
-        MoveToApplicationsFolder.promptIfNeeded()
+            MoveToApplicationsFolder.promptIfNeeded()
         #endif
         AXUIElement.setGlobalTimeout()
         Preferences.initialize()
-        LicenseManager.shared.onBeforeProUnlock = { ProTransitionManager.shared.onProUnlocked() }
-        LicenseManager.shared.onStateChanged = { state in
-            Menubar.refreshLicenseMenuItems()
-            syncLicenseCookie(state: state)
-            ProTransitionManager.shared.onLicenseStateChanged()
-            UpgradeTab.refreshStatus()
-            SettingsWindow.shared?.refreshUpgradeButton()
-            // SwiftUI window uses ProStateTracker observer — no explicit refresh needed
-            if TilesPanel.shared != nil { App.resetPreferencesDependentComponents() }
-            // `isProLocked` reads from state, so a state change implicitly changes the lock.
-            // Notify UI observers so Settings rows repaint their ghost/pro-locked styling.
-            NotificationCenter.default.post(name: ProTransitionManager.proLockStateDidChangeNotification, object: nil)
+
+        // 检测是否运行在 SwiftUI Preview 环境中
+        let isRunningInPreview =
+            ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"]
+            == "1"
+
+        // Preview 环境下跳过 LicenseManager 初始化（避免 Keychain 弹窗）
+        if !isRunningInPreview {
+            LicenseManager.shared.onBeforeProUnlock = {
+                ProTransitionManager.shared.onProUnlocked()
+            }
+            LicenseManager.shared.onStateChanged = { state in
+                Menubar.refreshLicenseMenuItems()
+                syncLicenseCookie(state: state)
+                ProTransitionManager.shared.onLicenseStateChanged()
+                UpgradeTab.refreshStatus()
+                SettingsWindow.shared?.refreshUpgradeButton()
+                // SwiftUI window uses ProStateTracker observer — no explicit refresh needed
+                if TilesPanel.shared != nil {
+                    App.resetPreferencesDependentComponents()
+                }
+                // `isProLocked` reads from state, so a state change implicitly changes the lock.
+                // Notify UI observers so Settings rows repaint their ghost/pro-locked styling.
+                NotificationCenter.default.post(
+                    name: ProTransitionManager
+                        .proLockStateDidChangeNotification,
+                    object: nil
+                )
+            }
+            LicenseManager.shared.initialize()
+
+            BackgroundWork.preStart()
+            SystemPermissions.ensurePermissionsAreGranted()
         }
-        LicenseManager.shared.initialize()
-        BackgroundWork.preStart()
-        SystemPermissions.ensurePermissionsAreGranted()
     }
 
     func application(_ application: NSApplication, open urls: [URL]) {
@@ -493,9 +614,15 @@ extension App: NSApplicationDelegate {
 
     private func handleCustomUrl(_ url: URL) {
         guard url.host == "activate",
-              let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
-              let licenseKey = components.queryItems?.first(where: { $0.name == "license_key" })?.value,
-              !licenseKey.isEmpty else {
+            let components = URLComponents(
+                url: url,
+                resolvingAgainstBaseURL: false
+            ),
+            let licenseKey = components.queryItems?.first(where: {
+                $0.name == "license_key"
+            })?.value,
+            !licenseKey.isEmpty
+        else {
             return
         }
         UpgradeTab.showAutoActivating(licenseKey)
@@ -510,7 +637,10 @@ extension App: NSApplicationDelegate {
         }
     }
 
-    func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
+    func applicationShouldHandleReopen(
+        _ sender: NSApplication,
+        hasVisibleWindows flag: Bool
+    ) -> Bool {
         App.showSettingsWindow()
         return true
     }
@@ -520,7 +650,9 @@ extension App: NSApplicationDelegate {
         setNativeCommandTabEnabled(true)
     }
 
-    func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
+    func applicationShouldTerminate(_ sender: NSApplication)
+        -> NSApplication.TerminateReply
+    {
         Logger.info { "" }
         makeSureAllCapturesAreFinished()
         return .terminateNow

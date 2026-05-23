@@ -4,16 +4,26 @@ import SwiftUI
 struct AppearanceTabView: View {
     @EnvironmentObject var store: PreferencesStore
     @EnvironmentObject var proTracker: ProStateTracker
-    @State private var showCustomizeSheet = false
-    @State private var showAnimationsSheet = false
     private let proGatedStyleIndices: Set<Int> = [1, 2]
+
+    private static let navigateToUpgrade = Notification.Name(
+        "NavigateToUpgradeTab"
+    )
+
+    private func notifyProLocked() {
+        NotificationCenter.default.post(
+            name: Self.navigateToUpgrade,
+            object: nil
+        )
+    }
 
     var body: some View {
         SwiftUI.ScrollView {
             VStack(alignment: .leading, spacing: 20) {
+                // 主要外观设置
                 GroupBox {
                     VStack(spacing: 0) {
-                        styleRow.padding(.vertical, 12).padding(.horizontal, 12)
+                        styleRow
                         RowDivider()
                         sizeRow
                         RowDivider()
@@ -22,56 +32,83 @@ struct AppearanceTabView: View {
                         afterReleaseRow
                         RowDivider()
                         previewWindowRow
-                        RowDivider()
-                        SwiftUI.Button(String(format: NSLocalizedString("Customize %@ style…", comment: ""),
-                                               ProGatedPreferences.appearanceStyle.read().localizedString)) {
-                            showCustomizeSheet = true
-                        }
-                        .padding(.vertical, 6).padding(.horizontal, 12)
                     }
+                    .padding(.top, 4)
+                } label: {
+                    SectionLabel(title: "Appearance")
                 }
 
+                // 自定义选项 - 使用已有字符串组合
                 GroupBox {
-                    LabeledRow(NSLocalizedString("Show on", comment: "")) {
-                        Picker("", selection: store.macroBinding(for: "showOnScreen", ShowOnScreenPreference.allCases)) {
-                            ForEach(ShowOnScreenPreference.allCases, id: \.self) { pref in
-                                Text(pref.localizedString).tag(pref)
-                            }
-                        }
-                        .pickerStyle(.menu).frame(width: 200)
+                    VStack(spacing: 0) {
+                        hideStatusIconsRow
+                        RowDivider()
+                        hideSpaceNumberLabelsRow
+                        RowDivider()
+                        hideColoredCirclesRow
+                        RowDivider()
+                        showTitlesRow
+                        RowDivider()
+                        titleTruncationRow
                     }
+                    .padding(.top, 4)
+                } label: {
+                    SectionLabel(title: "Window Style")
+                }
+
+                // 动画
+                GroupBox {
+                    animationsContent
+                } label: {
+                    SectionLabel(title: "Animations")
+                }
+
+                // 多屏幕设置
+                GroupBox {
+                    multipleScreensContent
+                } label: {
+                    SectionLabel(title: "Multiple screens")
                 }
             }
             .padding(30)
         }
         .frame(minWidth: SwiftUISettingsWindow.contentWidth)
-        .sheet(isPresented: $showCustomizeSheet) {
-            CustomizeStyleSheetView().environmentObject(store).frame(width: 500, height: 450)
-        }
-        .sheet(isPresented: $showAnimationsSheet) {
-            AnimationsSheetView().environmentObject(store).frame(width: 500, height: 250)
-        }
     }
 
     // MARK: - Rows
 
     private var styleRow: some View {
-        HStack(alignment: .top, spacing: 12) {
-            Text(NSLocalizedString("Style", comment: ""))
-                .frame(width: 200, alignment: .leading)
-                .padding(.top, 6)
+        HStack(alignment: .center, spacing: 12) {
             ImageRadioGroup(
-                selection: store.proGatedBinding(ProGatedPreferences.appearanceStyle),
+                selection: store.proGatedBinding(
+                    ProGatedPreferences.appearanceStyle
+                ),
                 entries: [
-                    (.thumbnails, AppearanceStylePreference.thumbnails.localizedString, "thumbnails"),
-                    (.appIcons, AppearanceStylePreference.appIcons.localizedString, "app_icons"),
-                    (.titles, AppearanceStylePreference.titles.localizedString, "titles"),
+                    (
+                        .thumbnails,
+                        AppearanceStylePreference.thumbnails.localizedString,
+                        "thumbnails"
+                    ),
+                    (
+                        .appIcons,
+                        AppearanceStylePreference.appIcons.localizedString,
+                        "app_icons"
+                    ),
+                    (
+                        .titles,
+                        AppearanceStylePreference.titles.localizedString,
+                        "titles"
+                    ),
                 ],
-                proGatedIndices: proGatedStyleIndices
+                proGatedIndices: proGatedStyleIndices,
+                onProLockedTap: notifyProLocked
             )
-            Spacer()
+
             OverrideIndicatorButton(
-                overrideIndices: store.overrideIndices(for: "appearanceStyleOverride", globalKey: "appearanceStyle"),
+                overrideIndices: store.overrideIndices(
+                    for: "appearanceStyleOverride",
+                    globalKey: "appearanceStyle"
+                ),
                 action: {}
             )
         }
@@ -79,144 +116,270 @@ struct AppearanceTabView: View {
     }
 
     private var sizeRow: some View {
-        segmentedRow(NSLocalizedString("Size", comment: ""),
-                      gatedDef: ProGatedPreferences.appearanceSize,
-                      allCases: AppearanceSizePreference.allCases,
-                      overrideBase: "appearanceSizeOverride", globalKey: "appearanceSize")
+        LabeledRow(NSLocalizedString("Size", comment: "")) {
+            HStack(spacing: 4) {
+                SegmentedPicker(
+                    options: AppearanceSizePreference.allCases.map { pref in
+                        SegmentOption(
+                            value: pref,
+                            icon: pref.symbol.rawValue,
+                            title: pref.localizedString,
+                            width: 120
+                        )
+                    },
+                    selection: store.proGatedBinding(
+                        ProGatedPreferences.appearanceSize
+                    ),
+                    proSegmentIndex: 3,
+                    onProLockedTap: notifyProLocked
+                )
+                OverrideIndicatorButton(
+                    overrideIndices: store.overrideIndices(
+                        for: "appearanceSizeOverride",
+                        globalKey: "appearanceSize"
+                    ),
+                    action: {}
+                )
+            }
+        }
     }
+
     private var themeRow: some View {
-        segmentedRow(NSLocalizedString("Theme", comment: ""),
-                      binding: store.macroBinding(for: "appearanceTheme", AppearanceThemePreference.allCases),
-                      allCases: AppearanceThemePreference.allCases,
-                      overrideBase: "appearanceThemeOverride", globalKey: "appearanceTheme")
+        LabeledRow(NSLocalizedString("Theme", comment: "")) {
+            HStack(spacing: 4) {
+                SegmentedPicker(
+                    options: AppearanceThemePreference.allCases.map { pref in
+                        SegmentOption(
+                            value: pref,
+                            icon: pref.symbol.rawValue,
+                            title: pref.localizedString,
+                            width: 120
+                        )
+                    },
+                    selection: store.macroBinding(
+                        for: "appearanceTheme",
+                        AppearanceThemePreference.allCases
+                    ),
+                    proSegmentIndex: nil
+                )
+                OverrideIndicatorButton(
+                    overrideIndices: store.overrideIndices(
+                        for: "appearanceThemeOverride",
+                        globalKey: "appearanceTheme"
+                    ),
+                    action: {}
+                )
+            }
+        }
     }
+
     private var afterReleaseRow: some View {
-        segmentedRow(NSLocalizedString("After keys are released", comment: ""),
-                      gatedDef: ProGatedPreferences.shortcutStyle,
-                      allCases: ShortcutStylePreference.allCases,
-                      overrideBase: "shortcutStyleOverride", globalKey: "shortcutStyle")
+        LabeledRow(NSLocalizedString("After keys are released", comment: "")) {
+            HStack(spacing: 4) {
+                SegmentedPicker(
+                    options: ShortcutStylePreference.allCases.map { pref in
+                        SegmentOption(
+                            value: pref,
+                            icon: pref.symbol.rawValue,
+                            title: pref.localizedString,
+                            width: 120
+                        )
+                    },
+                    selection: store.proGatedBinding(
+                        ProGatedPreferences.shortcutStyle
+                    ),
+                    proSegmentIndex: 2,
+                    onProLockedTap: notifyProLocked
+                )
+                OverrideIndicatorButton(
+                    overrideIndices: store.overrideIndices(
+                        for: "shortcutStyleOverride",
+                        globalKey: "shortcutStyle"
+                    ),
+                    action: {}
+                )
+            }
+        }
     }
+
     private var previewWindowRow: some View {
         LabeledRow(NSLocalizedString("Preview selected window", comment: "")) {
             HStack(spacing: 8) {
                 Toggle("", isOn: store.boolBinding(for: "previewFocusedWindow"))
+                    .toggleStyle(.switch)
                 OverrideIndicatorButton(
-                    overrideIndices: store.overrideIndices(for: "previewFocusedWindowOverride", globalKey: "previewFocusedWindow"),
+                    overrideIndices: store.overrideIndices(
+                        for: "previewFocusedWindowOverride",
+                        globalKey: "previewFocusedWindow"
+                    ),
                     action: {}
                 )
             }
         }
     }
 
-    // MARK: - Reusable row builders
+    // MARK: - Customize Options Rows
 
-    private func segmentedRow<T: MacroPreference & CaseIterable & Equatable & Hashable>(
-        _ label: String, gatedDef: PreferenceDefinition<T>, allCases: [T],
-        overrideBase: String, globalKey: String
-    ) -> some View {
-        LabeledRow(label) {
-            HStack(spacing: 4) {
-                Picker("", selection: store.proGatedBinding(gatedDef)) {
-                    ForEach(allCases, id: \.self) { Text($0.localizedString).tag($0) }
-                }
-                .pickerStyle(.segmented)
-                OverrideIndicatorButton(
-                    overrideIndices: store.overrideIndices(for: overrideBase, globalKey: globalKey),
-                    action: {}
+    private var hideStatusIconsRow: some View {
+        LabeledRow(NSLocalizedString("Hide status icons", comment: "")) {
+            Toggle("", isOn: store.boolBinding(for: "hideStatusIcons"))
+                .toggleStyle(.switch)
+        }
+    }
+
+    private var hideSpaceNumberLabelsRow: some View {
+        LabeledRow(NSLocalizedString("Hide Space number labels", comment: "")) {
+            Toggle("", isOn: store.boolBinding(for: "hideSpaceNumberLabels"))
+                .toggleStyle(.switch)
+        }
+    }
+
+    private var hideColoredCirclesRow: some View {
+        LabeledRow(
+            NSLocalizedString(
+                "Hide colored circles on mouse hover",
+                comment: ""
+            )
+        ) {
+            Toggle("", isOn: store.boolBinding(for: "hideColoredCircles"))
+                .toggleStyle(.switch)
+        }
+    }
+
+    private var showTitlesRow: some View {
+        LabeledRow(NSLocalizedString("Show titles", comment: "")) {
+            Picker(
+                "",
+                selection: store.macroBinding(
+                    for: "showTitles",
+                    ShowTitlesPreference.allCases
                 )
+            ) {
+                ForEach(ShowTitlesPreference.allCases, id: \.self) {
+                    Text($0.localizedString).tag($0)
+                }
             }
         }
     }
 
-    private func segmentedRow<T: MacroPreference & CaseIterable & Equatable & Hashable>(
-        _ label: String, binding: Binding<T>, allCases: [T],
-        overrideBase: String, globalKey: String
-    ) -> some View {
-        LabeledRow(label) {
-            HStack(spacing: 4) {
-                Picker("", selection: binding) {
-                    ForEach(allCases, id: \.self) { Text($0.localizedString).tag($0) }
-                }
-                .pickerStyle(.segmented)
-                OverrideIndicatorButton(
-                    overrideIndices: store.overrideIndices(for: overrideBase, globalKey: globalKey),
-                    action: {}
+    private var titleTruncationRow: some View {
+        LabeledRow(NSLocalizedString("Title truncation", comment: "")) {
+            Picker(
+                "",
+                selection: store.macroBinding(
+                    for: "titleTruncation",
+                    TitleTruncationPreference.allCases
                 )
+            ) {
+                ForEach(TitleTruncationPreference.allCases, id: \.self) {
+                    Text($0.localizedString).tag($0)
+                }
             }
         }
+    }
+
+    // MARK: - Section contents
+
+    private var animationsContent: some View {
+        VStack(spacing: 0) {
+            HStack {
+                Text(
+                    NSLocalizedString(
+                        "Apparition delay of Switcher",
+                        comment: ""
+                    )
+                )
+                Spacer()
+                let delayBinding = Binding<Double>(
+                    get: {
+                        Double(store.intBinding(for: "windowDisplayDelay").wrappedValue)
+                    },
+                    set: {
+                        store.intBinding(for: "windowDisplayDelay").wrappedValue = Int($0)
+                    }
+                )
+                Slider(value: delayBinding, in: 0...900, step: 50)
+                    .frame(width: 200)
+                Text("\(Int(delayBinding.wrappedValue)) ms").frame(
+                    width: 56,
+                    alignment: .trailing
+                )
+                .font(.body.monospacedDigit())
+            }
+            .padding(.vertical, 6).padding(.horizontal, 12)
+            RowDivider()
+            LabeledRow(
+                NSLocalizedString("Fade out animation of Switcher", comment: "")
+            ) {
+                Toggle("", isOn: store.boolBinding(for: "fadeOutAnimation"))
+                    .toggleStyle(.switch)
+            }
+            RowDivider()
+            LabeledRow(
+                NSLocalizedString("Fade in animation of Preview", comment: "")
+            ) {
+                Toggle(
+                    "",
+                    isOn: store.boolBinding(for: "previewFadeInAnimation")
+                )
+                .toggleStyle(.switch)
+            }
+        }
+        .padding(.top, 4)
+    }
+
+    private var multipleScreensContent: some View {
+        LabeledRow(NSLocalizedString("Show on", comment: "")) {
+            Picker(
+                "",
+                selection: store.macroBinding(
+                    for: "showOnScreen",
+                    ShowOnScreenPreference.allCases
+                )
+            ) {
+                ForEach(ShowOnScreenPreference.allCases, id: \.self) { pref in
+                    Text(pref.localizedString).tag(pref)
+                }
+            }
+        }
+    }
+
+}
+
+// MARK: - Shared
+
+@available(macOS 13.0, *)
+private struct SectionLabel: View {
+    let title: String
+    var body: some View {
+        Text(NSLocalizedString(title, comment: ""))
+            .font(.system(size: 15, weight: .semibold))
+            .padding(.bottom, 4)
     }
 }
 
-// MARK: - Sheet views
+// MARK: - Preview
 
 @available(macOS 13.0, *)
-struct CustomizeStyleSheetView: View {
-    @EnvironmentObject var store: PreferencesStore
-    @Environment(\.presentationMode) private var presentationMode
-    var body: some View {
-        VStack(spacing: 20) {
-            Text("Customize Style").font(.headline)
-            GroupBox {
-                VStack(spacing: 0) {
-                    LabeledRow(NSLocalizedString("Hide status icons", comment: "")) {
-                        Toggle("", isOn: store.boolBinding(for: "hideStatusIcons"))
-                    }
-                    RowDivider()
-                    LabeledRow(NSLocalizedString("Hide Space number labels", comment: "")) {
-                        Toggle("", isOn: store.boolBinding(for: "hideSpaceNumberLabels"))
-                    }
-                    RowDivider()
-                    LabeledRow(NSLocalizedString("Hide colored circles on mouse hover", comment: "")) {
-                        Toggle("", isOn: store.boolBinding(for: "hideColoredCircles"))
-                    }
-                    RowDivider()
-                    LabeledRow(NSLocalizedString("Show titles", comment: "")) {
-                        Picker("", selection: store.macroBinding(for: "showTitles", ShowTitlesPreference.allCases)) {
-                            ForEach(ShowTitlesPreference.allCases, id: \.self) { Text($0.localizedString).tag($0) }
-                        }.pickerStyle(.menu).frame(width: 220)
-                    }
-                    RowDivider()
-                    LabeledRow(NSLocalizedString("Title truncation", comment: "")) {
-                        Picker("", selection: store.macroBinding(for: "titleTruncation", TitleTruncationPreference.allCases)) {
-                            ForEach(TitleTruncationPreference.allCases, id: \.self) { Text($0.localizedString).tag($0) }
-                        }.pickerStyle(.radioGroup)
-                    }
-                }
-            }
-            SwiftUI.Button(NSLocalizedString("Done", comment: "")) { presentationMode.wrappedValue.dismiss() }
-        }.padding(20)
-    }
-}
+#Preview("Appearance Tab - Mock Data") {
+    // 注册默认值，Preview 环境会自动跳过权限检查和 Keychain 访问
+    Preferences.registerDefaults()
 
-@available(macOS 13.0, *)
-struct AnimationsSheetView: View {
-    @EnvironmentObject var store: PreferencesStore
-    @Environment(\.presentationMode) private var presentationMode
-    var body: some View {
-        VStack(spacing: 20) {
-            Text(NSLocalizedString("Animations", comment: "")).font(.headline)
-            GroupBox {
-                VStack(spacing: 0) {
-                    HStack {
-                        Text(NSLocalizedString("Apparition delay of Switcher", comment: ""))
-                        Spacer()
-                        let binding = Binding(get: { Double(CachedUserDefaults.int("windowDisplayDelay")) },
-                                              set: { Preferences.set("windowDisplayDelay", String(Int($0))) })
-                        Slider(value: binding, in: 0...900, step: 50)
-                        Text("\(Int(binding.wrappedValue)) ms").frame(width: 56, alignment: .trailing).font(.body.monospacedDigit())
-                    }
-                    .padding(.vertical, 6).padding(.horizontal, 12)
-                    RowDivider()
-                    LabeledRow(NSLocalizedString("Fade out animation of Switcher", comment: "")) {
-                        Toggle("", isOn: store.boolBinding(for: "fadeOutAnimation"))
-                    }
-                    RowDivider()
-                    LabeledRow(NSLocalizedString("Fade in animation of Preview", comment: "")) {
-                        Toggle("", isOn: store.boolBinding(for: "previewFadeInAnimation"))
-                    }
-                }
-            }
-            SwiftUI.Button(NSLocalizedString("Done", comment: "")) { presentationMode.wrappedValue.dismiss() }
-        }.padding(20)
+    // 设置一些 mock 值用于预览展示
+    let mockDefaults: [String: Any] = [
+        "appearanceStyle": 1,  // appIcons (Pro 功能)
+        "appearanceSize": 3,  // auto (Pro 功能)
+        "appearanceTheme": 1,  // dark
+        "shortcutStyle": 2,  // searchOnRelease (Pro 功能)
+    ]
+
+    mockDefaults.forEach { key, value in
+        if let intValue = value as? Int {
+            Preferences.set(key, String(intValue))
+        }
     }
+
+    return AppearanceTabView()
+        .environmentObject(PreferencesStore())
+        .environmentObject(ProStateTracker())
 }

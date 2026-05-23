@@ -78,6 +78,7 @@
 "Crash reports policy" = "クラッシュレポートのポリシー";
 "Create GitHub issue" = "GitHub Issue を作成";
 "Cursor follows focus" = "カーソルがフォーカスに従う";
+"Customize" = "カスタマイズ";
 "Customize more…" = "さらにカスタマイズ…";
 "Dark" = "ダーク";
 "Dark Mode, live preview, window controls, trackpad gestures, and more" = "ダークモード、ライブプレビュー、ウインドウコントロール、トラックパッドジェスチャ、その他";
@@ -242,6 +243,7 @@
 "Source code" = "ソースコード";
 "Space Order" = "Space 順";
 "Start" = "先頭";
+"Style" = "スタイル";
 "Start at login" = "ログイン時に起動";
 "Start my 14-day trial" = "14 日間のトライアルを開始";
 "Still interested in Pro?" = "Pro に興味がありますか?";

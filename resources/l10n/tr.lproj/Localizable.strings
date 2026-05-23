@@ -78,6 +78,7 @@
 "Crash reports policy" = "Çökme raporları ilkesi";
 "Create GitHub issue" = "GitHub konusu oluştur";
 "Cursor follows focus" = "İmleç odağı izler";
+"Customize" = "Özelleştir";
 "Customize more…" = "Daha fazla özelleştir…";
 "Dark" = "Karanlık";
 "Dark Mode, live preview, window controls, trackpad gestures, and more" = "Karanlık Mod, canlı önizleme, pencere denetimleri, Trackpad hareketleri ve daha fazlası";
@@ -242,6 +243,7 @@
 "Source code" = "Kaynak kodu";
 "Space Order" = "Alan sırası";
 "Start" = "Başlat";
+"Style" = "Stil";
 "Start at login" = "Oturum açıldığında başlat";
 "Start my 14-day trial" = "14 günlük denememi başlat";
 "Still interested in Pro?" = "Hâlâ Pro ile ilgileniyor musunuz?";

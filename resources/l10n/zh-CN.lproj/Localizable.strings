@@ -78,6 +78,7 @@
 "Crash reports policy" = "崩溃报告策略";
 "Create GitHub issue" = "创建 GitHub issue";
 "Cursor follows focus" = "光标跟随焦点";
+"Customize" = "自定义";
 "Customize more…" = "更多自定义…";
 "Dark" = "深色";
 "Dark Mode, live preview, window controls, trackpad gestures, and more" = "深色模式、实时预览、窗口控件、触控板手势等";
@@ -242,6 +243,7 @@
 "Source code" = "源代码";
 "Space Order" = "桌面顺序";
 "Start" = "起始";
+"Style" = "样式";
 "Start at login" = "登录时启动";
 "Start my 14-day trial" = "开始我的 14 天试用";
 "Still interested in Pro?" = "仍然对 Pro 感兴趣？";
@@ -299,6 +301,7 @@
 "Window is on Space %d" = "窗口在桌面 %d 上";
 "window switches" = "次窗口切换";
 "Window Title" = "窗口标题";
+"Window Style" = "窗口样式";
 "Window title contains" = "窗口标题包含";
 "You can’t undo this action." = "此操作无法撤销。";
 "You have 14 days to try all Pro features. After that, Pro features will step back and the core window switcher will keep working exactly as before.\n\nAltTab stays free and open-source. Pro is an optional one-time purchase that funds continued development." = "您有 14 天时间试用所有 Pro 功能。之后，Pro 功能将退出，核心窗口切换器将一如既往地工作。\n\nAltTab 保持免费和开源。Pro 是可选的一次性购买，用于资助持续开发。";

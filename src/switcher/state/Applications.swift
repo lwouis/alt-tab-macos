@@ -68,9 +68,10 @@ class Applications {
     /// Unified window attribute fetch + main-thread update. Used by both manual sync and reviewExistingWindows.
     /// Uses the "generic" bucket so a real focus event (which lives in the "focus" bucket) is never clobbered.
     static func updateWindowAttributes(_ axWindow: AXUIElement, _ wid: CGWindowID, _ app: Application) {
+        let panelWindowNumber = TilesPanel.shared.windowNumber
         AXCallScheduler.shared.schedule(key: "wid-\(wid)-generic", context: app.debugId, pid: app.pid) { [weak app] in
             guard let app else { return }
-            guard wid != 0 && wid != TilesPanel.shared.windowNumber else { return }
+            guard wid != 0 && wid != panelWindowNumber else { return }
             let level = wid.level()
             let isSelf = app.pid == ProcessInfo.processInfo.processIdentifier
             let keys = [kAXTitleAttribute, kAXSubroleAttribute, kAXRoleAttribute, kAXSizeAttribute, kAXPositionAttribute, kAXFullscreenAttribute, kAXMinimizedAttribute] + (isSelf ? [] : [kAXChildrenAttribute])

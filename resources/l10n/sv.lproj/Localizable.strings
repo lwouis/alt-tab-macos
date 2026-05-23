@@ -78,6 +78,7 @@
 "Crash reports policy" = "Policy för kraschrapporter";
 "Create GitHub issue" = "Skapa GitHub-ärende";
 "Cursor follows focus" = "Markören följer fokus";
+"Customize" = "Anpassa";
 "Customize more…" = "Anpassa mer…";
 "Dark" = "Mörk";
 "Dark Mode, live preview, window controls, trackpad gestures, and more" = "Mörkt läge, direktförhandsvisning, fönsterkontroller, gester på styrplatta och mer";
@@ -242,6 +243,7 @@
 "Source code" = "Källkod";
 "Space Order" = "Skrivbordsordning";
 "Start" = "Start";
+"Style" = "Stil";
 "Start at login" = "Starta vid inloggning";
 "Start my 14-day trial" = "Starta min 14-dagars provperiod";
 "Still interested in Pro?" = "Fortfarande intresserad av Pro?";

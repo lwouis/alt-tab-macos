@@ -78,6 +78,7 @@
 "Crash reports policy" = "충돌 보고서 정책";
 "Create GitHub issue" = "GitHub 이슈 생성";
 "Cursor follows focus" = "커서가 포커스를 따라감";
+"Customize" = "사용자 정의";
 "Customize more…" = "더 사용자화…";
 "Dark" = "다크";
 "Dark Mode, live preview, window controls, trackpad gestures, and more" = "다크 모드, 라이브 미리보기, 윈도우 컨트롤, 트랙패드 제스처 등";
@@ -242,6 +243,7 @@
 "Source code" = "소스 코드";
 "Space Order" = "Space 순서";
 "Start" = "시작";
+"Style" = "스타일";
 "Start at login" = "로그인 시 시작";
 "Start my 14-day trial" = "14일 체험 시작";
 "Still interested in Pro?" = "여전히 Pro에 관심이 있으신가요?";

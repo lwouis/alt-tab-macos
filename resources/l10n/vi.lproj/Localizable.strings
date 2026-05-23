@@ -78,6 +78,7 @@
 "Crash reports policy" = "Chính sách báo cáo sự cố";
 "Create GitHub issue" = "Tạo issue trên GitHub";
 "Cursor follows focus" = "Con trỏ theo tiêu điểm";
+"Customize" = "Tùy chỉnh";
 "Customize more…" = "Tùy chỉnh thêm…";
 "Dark" = "Tối";
 "Dark Mode, live preview, window controls, trackpad gestures, and more" = "Chế độ Tối, xem trước trực tiếp, điều khiển cửa sổ, cử chỉ trackpad và nhiều hơn nữa";
@@ -242,6 +243,7 @@
 "Source code" = "Mã nguồn";
 "Space Order" = "Thứ tự Không gian";
 "Start" = "Đầu";
+"Style" = "Kiểu";
 "Start at login" = "Khởi động khi đăng nhập";
 "Start my 14-day trial" = "Bắt đầu bản dùng thử 14 ngày của tôi";
 "Still interested in Pro?" = "Vẫn quan tâm đến Pro?";

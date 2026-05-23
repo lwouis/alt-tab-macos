@@ -8,6 +8,9 @@ import ShortcutRecorder
 final class PreferencesStore: ObservableObject {
     @Published var refreshToken = UUID()
 
+    private static let isRunningInPreview: Bool =
+        ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1"
+
     // MARK: - Bool bindings
 
     func boolBinding(for key: String) -> Binding<Bool> {
@@ -52,7 +55,13 @@ final class PreferencesStore: ObservableObject {
         _ definition: PreferenceDefinition<T>
     ) -> Binding<T> {
         Binding(
-            get: { definition.read() },
+            get: {
+                // Preview 环境下 LicenseManager 未初始化，跳过门控读原始值
+                if Self.isRunningInPreview {
+                    return CachedUserDefaults.macroPref(definition.key, Array(T.allCases))
+                }
+                return definition.read()
+            },
             set: { newValue in
                 Preferences.set(definition.key, newValue.indexAsString)
                 self.refreshToken = UUID()

@@ -78,6 +78,7 @@
 "Crash reports policy" = "Политика отчётов о сбоях";
 "Create GitHub issue" = "Создать issue на GitHub";
 "Cursor follows focus" = "Курсор следует за фокусом";
+"Customize" = "Настроить";
 "Customize more…" = "Дополнительная настройка…";
 "Dark" = "Тёмная";
 "Dark Mode, live preview, window controls, trackpad gestures, and more" = "Тёмный режим, динамический предпросмотр, элементы управления окном, жесты на трекпаде и многое другое";
@@ -242,6 +243,7 @@
 "Source code" = "Исходный код";
 "Space Order" = "Порядок пространств";
 "Start" = "Начало";
+"Style" = "Стиль";
 "Start at login" = "Запускать при входе в систему";
 "Start my 14-day trial" = "Начать 14-дневный пробный период";
 "Still interested in Pro?" = "Всё ещё интересуетесь Pro?";

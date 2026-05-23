@@ -78,6 +78,7 @@
 "Crash reports policy" = "Politique des rapports de plantage";
 "Create GitHub issue" = "Créer un ticket GitHub";
 "Cursor follows focus" = "Le curseur suit la sélection";
+"Customize" = "Personnaliser";
 "Customize more…" = "Personnaliser davantage…";
 "Dark" = "Sombre";
 "Dark Mode, live preview, window controls, trackpad gestures, and more" = "Mode sombre, aperçu en direct, contrôles de fenêtre, gestes du Trackpad, et plus";
@@ -242,6 +243,7 @@
 "Source code" = "Code source";
 "Space Order" = "Ordre des Bureaux";
 "Start" = "Début";
+"Style" = "Style";
 "Start at login" = "Lancer à l'ouverture de session";
 "Start my 14-day trial" = "Démarrer mon essai de 14 jours";
 "Still interested in Pro?" = "Toujours intéressé par Pro ?";

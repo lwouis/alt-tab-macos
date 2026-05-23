@@ -78,6 +78,7 @@
 "Crash reports policy" = "سياسة تقارير الأعطال";
 "Create GitHub issue" = "إنشاء مشكلة على GitHub";
 "Cursor follows focus" = "المؤشر يتبع التركيز";
+"Customize" = "تخصيص";
 "Customize more…" = "تخصيص المزيد…";
 "Dark" = "مظلم";
 "Dark Mode, live preview, window controls, trackpad gestures, and more" = "الوضع المظلم، المعاينة المباشرة، أزرار النافذة، إيماءات لوحة التعقب، والمزيد";
@@ -242,6 +243,7 @@
 "Source code" = "الكود المصدري";
 "Space Order" = "ترتيب المساحات";
 "Start" = "البداية";
+"Style" = "نمط";
 "Start at login" = "البدء عند تسجيل الدخول";
 "Start my 14-day trial" = "بدء التجربة المجانية لمدة 14 يومًا";
 "Still interested in Pro?" = "لا تزال مهتمًا بـ Pro؟";

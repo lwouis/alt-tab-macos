@@ -11,25 +11,47 @@ final class ProStateTracker: ObservableObject {
 
     private var proLockObserver: NSObjectProtocol?
 
+    /// 检测是否运行在 SwiftUI Preview 环境中
+    private static var isRunningInPreview: Bool {
+        ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1"
+    }
+
+    /// DEBUG 构建自动解锁 Pro 方便开发测试
+    private static var isDebugBuild: Bool {
+        #if DEBUG
+        return true
+        #else
+        return false
+        #endif
+    }
+
     init() {
-        // Defer keychain access off the main thread so window init doesn't block
-        DispatchQueue.global().async {
-            let state = LicenseManager.shared.state
-            let isLocked = LicenseManager.shared.isProLocked
-            let email = LicenseManager.shared.customerEmail
-            let lifetime = LicenseManager.shared.isLifetimeVariant
-            DispatchQueue.main.async {
-                self.licenseState = state
-                self.isProLocked = isLocked
-                self.customerEmail = email
-                self.isLifetimeVariant = lifetime
+        // SwiftUI Preview / DEBUG 环境下使用 mock 数据，方便开发测试
+        if Self.isRunningInPreview || Self.isDebugBuild {
+            self.licenseState = .pro
+            self.isProLocked = false
+            self.customerEmail = "preview@example.com"
+            self.isLifetimeVariant = true
+        } else {
+            // Defer keychain access off the main thread so window init doesn't block
+            DispatchQueue.global().async {
+                let state = LicenseManager.shared.state
+                let isLocked = LicenseManager.shared.isProLocked
+                let email = LicenseManager.shared.customerEmail
+                let lifetime = LicenseManager.shared.isLifetimeVariant
+                DispatchQueue.main.async {
+                    self.licenseState = state
+                    self.isProLocked = isLocked
+                    self.customerEmail = email
+                    self.isLifetimeVariant = lifetime
+                }
             }
-        }
-        proLockObserver = NotificationCenter.default.addObserver(
-            forName: ProTransitionManager.proLockStateDidChangeNotification,
-            object: nil, queue: .main
-        ) { [weak self] _ in
-            self?.refresh()
+            proLockObserver = NotificationCenter.default.addObserver(
+                forName: ProTransitionManager.proLockStateDidChangeNotification,
+                object: nil, queue: .main
+            ) { [weak self] _ in
+                self?.refresh()
+            }
         }
     }
 

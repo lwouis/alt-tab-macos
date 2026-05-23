@@ -78,6 +78,7 @@
 "Crash reports policy" = "Zasady raportów awarii";
 "Create GitHub issue" = "Utwórz zgłoszenie na GitHub";
 "Cursor follows focus" = "Kursor podąża za aktywnym oknem";
+"Customize" = "Dostosuj";
 "Customize more…" = "Dostosuj więcej…";
 "Dark" = "Ciemny";
 "Dark Mode, live preview, window controls, trackpad gestures, and more" = "Tryb ciemny, podgląd na żywo, przyciski okna, gesty na Gładziku i więcej";
@@ -242,6 +243,7 @@
 "Source code" = "Kod źródłowy";
 "Space Order" = "Kolejność Przestrzeni";
 "Start" = "Początek";
+"Style" = "Styl";
 "Start at login" = "Uruchamiaj przy logowaniu";
 "Start my 14-day trial" = "Rozpocznij 14-dniowy okres próbny";
 "Still interested in Pro?" = "Nadal interesuje cię Pro?";
