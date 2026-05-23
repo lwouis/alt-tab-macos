@@ -30,7 +30,7 @@ struct SegmentedPicker<T: Hashable>: View {
                     option: option,
                     isSelected: selection == option.value,
                     isLast: index == options.count - 1,
-                    isPro: proSegmentIndex == index
+                    isPro: proSegmentIndex == index && proState.isProLocked
                 )
                 .onTapGesture {
                     if isProGated {
@@ -41,7 +41,7 @@ struct SegmentedPicker<T: Hashable>: View {
                 }
             }
         }
-        .frame(height: 26)
+        .frame(height: 25)
         .overlay(
             RoundedRectangle(cornerRadius: 4)
                 .stroke(Color.secondary.opacity(0.5), lineWidth: 0.5)

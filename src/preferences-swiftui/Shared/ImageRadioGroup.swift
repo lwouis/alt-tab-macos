@@ -27,7 +27,7 @@ struct ImageRadioGroup<T: Hashable & CaseIterable>: View where T.AllCases: Rando
                     imageName: entry.imageName,
                     label: entry.label,
                     isSelected: isSelected,
-                    showProBadge: isProGated
+                    showProBadge: isProGated && proState.isProLocked
                 )
                 .frame(maxWidth: .infinity)
                 .onTapGesture {

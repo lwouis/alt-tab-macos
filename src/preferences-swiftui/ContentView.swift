@@ -2,7 +2,7 @@ import SwiftUI
 
 @available(macOS 13.0, *)
 enum SettingsTab: String, CaseIterable, Identifiable {
-    case appearance, controls, general, exceptions, upgrade
+    case general, appearance, controls, exceptions, upgrade
     var id: String { rawValue }
     var title: String {
         switch self {
@@ -29,7 +29,7 @@ struct ContentView: View {
     @EnvironmentObject var store: PreferencesStore
     @EnvironmentObject var proTracker: ProStateTracker
     @EnvironmentObject var searchVM: SearchViewModel
-    @State private var selectedTab: SettingsTab? = .appearance
+    @State private var selectedTab: SettingsTab? = .general
     @State private var columnVisibility = NavigationSplitViewVisibility
         .automatic
 
@@ -45,25 +45,28 @@ struct ContentView: View {
                         .tag(tab)
                 }
                 .listStyle(.sidebar)
-                //                .safeAreaInset(edge: .bottom) {
-                //                    VStack(spacing: 8) {
-                //                        Divider()
-                //                        upgradeButton.padding(.horizontal, 8)
-                //                        quitButton.padding(.horizontal, 8).padding(.bottom, 8)
-                //                    }
-                //                    .background(.bar)
-                //                }
+                .safeAreaInset(edge: .bottom) {
+                    VStack(spacing: 0) {
+                        Divider()
+//                        upgradeButton
+                        quitButton
+                    }
+                }
                 .navigationSplitViewColumnWidth(
                     SwiftUISettingsWindow.sidebarWidth
                 )
             } detail: {
                 detailContent
             }
-//            .navigationSplitViewStyle(.prominentDetail)
+            //            .navigationSplitViewStyle(.prominentDetail)
         }
         .onAppear { searchVM.applySearch() }
         .onChange(of: searchVM.query) { _ in searchVM.applySearch() }
-        .onReceive(NotificationCenter.default.publisher(for: Notification.Name("NavigateToUpgradeTab"))) { _ in
+        .onReceive(
+            NotificationCenter.default.publisher(
+                for: Notification.Name("NavigateToUpgradeTab")
+            )
+        ) { _ in
             selectedTab = .upgrade
         }
     }
@@ -81,70 +84,25 @@ struct ContentView: View {
 
     @ViewBuilder
     private var upgradeButton: some View {
-        if case .pro = proTracker.licenseState {
-            VStack(spacing: 2) {
-                Text(
-                    proTracker.isLifetimeVariant
-                        ? NSLocalizedString(
-                            "Pro Lifetime activated",
-                            comment: ""
-                        )
-                        : NSLocalizedString("Pro activated", comment: "")
-                )
-                .font(.caption2).foregroundColor(.white.opacity(0.8))
-                if let email = proTracker.customerEmail {
-                    Text(email).font(.caption.weight(.semibold))
-                        .foregroundColor(.white).lineLimit(1)
-                }
+        let label: String = {
+            if case .pro = proTracker.licenseState {
+                return proTracker.isLifetimeVariant
+                    ? NSLocalizedString("Pro Lifetime activated", comment: "")
+                    : NSLocalizedString("Pro activated", comment: "")
+            } else if case .trial(let days) = proTracker.licenseState {
+                return String(format: NSLocalizedString("Trial: %d days remaining", comment: ""), days)
             }
-            .frame(maxWidth: .infinity).padding(.vertical, 6).padding(
-                .horizontal,
-                8
-            )
-            .background(
-                LinearGradient(
-                    colors: [.blue, .purple],
-                    startPoint: .leading,
-                    endPoint: .trailing
-                )
-            )
+            return NSLocalizedString("Get Pro", comment: "")
+        }()
+        Text(label)
+            .foregroundColor(.white)
+            .frame(maxWidth: .infinity)
+            .padding(8)
+            .background(proGradient)
             .clipShape(RoundedRectangle(cornerRadius: 6))
             .onTapGesture { selectedTab = .upgrade }
-        } else {
-            let subtitle: String = {
-                if case .trial(let days) = proTracker.licenseState {
-                    return String(
-                        format: NSLocalizedString(
-                            "Trial: %d days remaining",
-                            comment: ""
-                        ),
-                        days
-                    )
-                }
-                return NSLocalizedString("Get Pro", comment: "")
-            }()
-            VStack(spacing: 2) {
-                Text(subtitle).font(.caption2).foregroundColor(
-                    .white.opacity(0.8)
-                )
-                Text(NSLocalizedString("Get Pro", comment: "")).font(
-                    .caption.weight(.semibold)
-                ).foregroundColor(.white)
-            }
-            .frame(maxWidth: .infinity).padding(.vertical, 6).padding(
-                .horizontal,
-                8
-            )
-            .background(
-                LinearGradient(
-                    colors: [.blue, .purple],
-                    startPoint: .leading,
-                    endPoint: .trailing
-                )
-            )
-            .clipShape(RoundedRectangle(cornerRadius: 6))
-            .onTapGesture { selectedTab = .upgrade }
-        }
+            .padding(4)
+
     }
 
     // MARK: - Quit button
@@ -157,8 +115,7 @@ struct ContentView: View {
             )
         ) {
             NSApp.terminate(nil)
-        }
-        .buttonStyle(.borderless).font(.caption)
+        }.padding(20)
     }
 
     // MARK: - Detail

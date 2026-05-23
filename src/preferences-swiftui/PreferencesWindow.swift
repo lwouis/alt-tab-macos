@@ -8,7 +8,7 @@ final class SwiftUISettingsWindow: NSWindow {
     override var canBecomeKey: Bool { Self.canBecomeKey_ }
 
     static let sidebarWidth: CGFloat = 175
-    static let contentWidth: CGFloat = 640
+    static let contentWidth: CGFloat = 700
     static let sectionContentHorizontalMargin: CGFloat = 15
     static let defaultWindowHeight: CGFloat = 570
     static let minWindowHeight: CGFloat = 400

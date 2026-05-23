@@ -46,12 +46,13 @@ final class ProStateTracker: ObservableObject {
                     self.isLifetimeVariant = lifetime
                 }
             }
-            proLockObserver = NotificationCenter.default.addObserver(
-                forName: ProTransitionManager.proLockStateDidChangeNotification,
-                object: nil, queue: .main
-            ) { [weak self] _ in
-                self?.refresh()
-            }
+        }
+        // Always listen for Pro state changes so views update after activation/deactivation
+        proLockObserver = NotificationCenter.default.addObserver(
+            forName: ProTransitionManager.proLockStateDidChangeNotification,
+            object: nil, queue: .main
+        ) { [weak self] _ in
+            self?.refresh()
         }
     }
 

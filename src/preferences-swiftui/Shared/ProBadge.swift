@@ -1,22 +1,35 @@
 import SwiftUI
-/// Gradient "Pro" badge that mirrors the existing `ProBadgeView` in AppKit.
-/// Renders as a small pill with "PRO" text on a gradient background.
+
+/// Pro gradient matching `ProGradient` in AppKit:  #FF4488 → #4488FF → #66CCFF at 36° CCW.
+@available(macOS 13.0, *)
+let proGradient = LinearGradient(
+    colors: [
+        Color(red: 0xFF / 255, green: 0x44 / 255, blue: 0x88 / 255),
+        Color(red: 0x44 / 255, green: 0x88 / 255, blue: 0xFF / 255),
+        Color(red: 0x66 / 255, green: 0xCC / 255, blue: 0xFF / 255),
+    ],
+    startPoint: UnitPoint(x: 0.095, y: 0.206),
+    endPoint: UnitPoint(x: 0.905, y: 0.794)
+)
+
+/// Gradient "Pro" badge mirroring `ProBadgeView` in AppKit:
+/// gradient text + subtle gradient fill + gradient border.
 @available(macOS 13.0, *)
 struct ProBadgeLabel: View {
     var body: some View {
-        Text("Pro")
-            .font(.system(size: 9, weight: .bold))
-            .foregroundColor(.white)
-            .padding(.horizontal, 6)
-            .padding(.vertical, 2)
+        Text(NSLocalizedString("Pro", comment: ""))
+            .font(.system(size: 9, weight: .semibold))
+            .foregroundStyle(proGradient)
+            .padding(.horizontal, 4)
+            .padding(.vertical, 1)
             .background(
-                LinearGradient(
-                    colors: [Color.blue, Color.purple],
-                    startPoint: .leading,
-                    endPoint: .trailing
-                )
+                RoundedRectangle(cornerRadius: 4)
+                    .fill(proGradient.opacity(0.1))
             )
-            .clipShape(RoundedRectangle(cornerRadius: 4))
+            .overlay(
+                RoundedRectangle(cornerRadius: 4)
+                    .stroke(proGradient.opacity(0.7), lineWidth: 1)
+            )
     }
 }
 

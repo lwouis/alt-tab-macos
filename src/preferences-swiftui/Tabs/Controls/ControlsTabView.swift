@@ -1,4 +1,5 @@
 import SwiftUI
+
 // MARK: - Controls tab
 
 @available(macOS 13.0, *)
@@ -12,35 +13,59 @@ struct ControlsTabView: View {
     @State private var showAdditionalControlsSheet = false
 
     private let sidebarWidth: CGFloat = 175
-    private var editorWidth: CGFloat { SwiftUISettingsWindow.contentWidth - sidebarWidth - 1 }
+    private var editorWidth: CGFloat {
+        SwiftUISettingsWindow.contentWidth - sidebarWidth - 1
+    }
 
     private var shortcutCount: Int { store.shortcutCount }
 
     var body: some View {
-        HStack(spacing: 0) {
-            ShortcutSidebarView(
-                count: store.shortcutCountBinding,
-                selectedIndex: $selectedIndex,
-                maxCount: Preferences.maxShortcutCount,
-                minCount: Preferences.minShortcutCount,
-                isProLocked: proTracker.isProLocked,
-                onProGateViolation: { /* TODO: navigate to upgrade */ }
-            )
-            .frame(width: sidebarWidth)
+        VStack(spacing: 8) {
+            HStack(spacing: 0) {
+                ShortcutSidebarView(
+                    count: store.shortcutCountBinding,
+                    selectedIndex: $selectedIndex,
+                    maxCount: Preferences.maxShortcutCount,
+                    minCount: Preferences.minShortcutCount,
+                    isProLocked: proTracker.isProLocked,
+                    onProGateViolation: { /* TODO: navigate to upgrade */  }
+                )
+                .frame(width: sidebarWidth)
 
-            Rectangle().fill(.separator).frame(width: 1)
+                Rectangle().fill(.separator).frame(width: 1)
 
-            // Editor pane
-            VStack(alignment: .leading, spacing: 0) {
-                editorContent
+                // Editor pane
+                SwiftUI.ScrollView {
+                    VStack(alignment: .leading, spacing: 0) {
+                        editorContent
+                    }
+                    .frame(width: editorWidth)
+                    .padding(.vertical, 16)
+                    .padding(.horizontal, 16)
+                }
             }
-            .frame(width: editorWidth)
-            .padding(.vertical, 16)
-            .padding(.horizontal, 16)
+            .frame(minHeight: 400)
+            .clipShape(RoundedRectangle(cornerRadius: 8))
+            .overlay(
+                RoundedRectangle(cornerRadius: 8)
+                    .stroke(Color.secondary.opacity(0.3), lineWidth: 0.5)
+            )
+
+            // Tool buttons
+            HStack {
+                Spacer()
+                SwiftUI.Button(
+                    NSLocalizedString("Additional controls…", comment: "")
+                ) {
+                    showAdditionalControlsSheet = true
+                }
+                SwiftUI.Button(
+                    NSLocalizedString("Shortcuts when active…", comment: "")
+                ) {
+                    showShortcutsSheet = true
+                }
+            }
         }
-        .frame(minHeight: 400)
-        .background(.regularMaterial)
-        .clipShape(RoundedRectangle(cornerRadius: 8))
         .padding(20)
     }
 
@@ -65,19 +90,25 @@ struct ControlsTabView: View {
                 HStack(spacing: 8) {
                     Text(NSLocalizedString("Hold", comment: ""))
                     ShortcutRecorderField(
-                        shortcut: store.shortcutBinding(for: vm.holdShortcutKey),
+                        shortcut: store.shortcutBinding(
+                            for: vm.holdShortcutKey
+                        ),
                         label: NSLocalizedString("Hold", comment: "")
                     )
                     .frame(height: 22)
 
                     Text(NSLocalizedString("and press", comment: ""))
-
-                    Text(NSLocalizedString("Select next window", comment: ""))
                     ShortcutRecorderField(
-                        shortcut: store.shortcutBinding(for: vm.nextWindowShortcutKey),
-                        label: NSLocalizedString("Select next window", comment: "")
+                        shortcut: store.shortcutBinding(
+                            for: vm.nextWindowShortcutKey
+                        ),
+                        label: NSLocalizedString(
+                            "Select next window",
+                            comment: ""
+                        )
                     )
                     .frame(height: 22)
+                    Text(NSLocalizedString("Select next window", comment: ""))
                 }
                 .padding(.vertical, 8)
                 .padding(.horizontal, 10)
@@ -92,7 +123,9 @@ struct ControlsTabView: View {
             Picker("", selection: $selectedSegment) {
                 Text(NSLocalizedString("Filtering", comment: "")).tag(0)
                 Text(NSLocalizedString("Appearance", comment: "")).tag(1)
-                Text(NSLocalizedString("Ordering & Grouping", comment: "")).tag(2)
+                Text(NSLocalizedString("Ordering & Grouping", comment: "")).tag(
+                    2
+                )
             }
             .pickerStyle(.segmented)
             .frame(width: editorWidth - 32)
@@ -109,29 +142,17 @@ struct ControlsTabView: View {
                 }
             }
             .frame(minHeight: 300)
-
-            Spacer()
-
-            // Tool buttons
-            HStack(spacing: 12) {
-                SwiftUI.Button(NSLocalizedString("Additional controls…", comment: "")) {
-                    showAdditionalControlsSheet = true
-                }
-                SwiftUI.Button(NSLocalizedString("Shortcuts when active…", comment: "")) {
-                    showShortcutsSheet = true
-                }
-            }
         }
         .sheet(isPresented: $showShortcutsSheet) {
             ShortcutsWhenActiveSheetView()
                 .environmentObject(store)
                 .environmentObject(proTracker)
-                .frame(width: 500, height: 600)
+                .frame(width: 500)
         }
         .sheet(isPresented: $showAdditionalControlsSheet) {
             AdditionalControlsSheetView()
                 .environmentObject(store)
-                .frame(width: 500, height: 400)
+                .frame(width: 500)
         }
     }
 
@@ -141,20 +162,29 @@ struct ControlsTabView: View {
         VStack(alignment: .leading, spacing: 0) {
             GroupBox {
                 HStack(spacing: 8) {
-                    Picker("", selection: store.macroBinding(for: "nextWindowGesture", GesturePreference.allCases)) {
+                    Picker(
+                        "",
+                        selection: store.macroBinding(
+                            for: "nextWindowGesture",
+                            GesturePreference.allCases
+                        )
+                    ) {
                         ForEach(GesturePreference.allCases, id: \.self) { g in
                             Text(g.localizedString).tag(g)
                         }
                     }
-                    .pickerStyle(.menu)
-                    .frame(width: 220)
 
-                    SwiftUI.Button(action: { /* open Trackpad Settings */ }) {
+                    SwiftUI.Button(action: { /* open Trackpad Settings */  }) {
                         Image(systemName: "info.circle")
                     }
                     .buttonStyle(.plain)
                     .foregroundColor(.accentColor)
-                    .help(NSLocalizedString("You may need to disable some conflicting system gestures", comment: ""))
+                    .help(
+                        NSLocalizedString(
+                            "You may need to disable some conflicting system gestures",
+                            comment: ""
+                        )
+                    )
                 }
                 .padding(.vertical, 8)
                 .padding(.horizontal, 10)
@@ -197,18 +227,23 @@ struct ShortcutSidebarView: View {
             HStack {
                 SwiftUI.Button(action: {
                     guard count < maxCount else { return }
-                    if count >= 1 && isProLocked { onProGateViolation(); return }
+                    if count >= 1 && isProLocked {
+                        onProGateViolation()
+                        return
+                    }
                     count += 1
-                }) { Image(systemName: "plus") }
+                }) { Image(systemName: "plus").frame(width: 16, height: 16) }
                 .disabled(count >= maxCount)
 
                 SwiftUI.Button(action: {
                     guard count > minCount else { return }
                     count -= 1
-                    if selectedIndex >= count && selectedIndex < Preferences.gestureIndex {
+                    if selectedIndex >= count
+                        && selectedIndex < Preferences.gestureIndex
+                    {
                         selectedIndex = count - 1
                     }
-                }) { Image(systemName: "minus") }
+                }) { Image(systemName: "minus").frame(width: 16, height: 16) }
                 .disabled(count <= minCount)
                 Spacer()
             }
@@ -219,16 +254,26 @@ struct ShortcutSidebarView: View {
 
     private func shortcutRowView(index: Int) -> some View {
         ShortcutSidebarRowView(index: index, isSelected: selectedIndex == index)
+            .contentShape(Rectangle())
             .onTapGesture { selectedIndex = index }
-            .background(selectedIndex == index ? Color.accentColor.opacity(0.15) : Color.clear)
+            .background(
+                selectedIndex == index ? Color.accentColor : Color.clear
+            )
             .cornerRadius(4)
     }
 
     private var gestureRowView: some View {
-        ShortcutSidebarRowView(index: Preferences.gestureIndex, isSelected: selectedIndex == Preferences.gestureIndex)
-            .onTapGesture { selectedIndex = Preferences.gestureIndex }
-            .background(selectedIndex == Preferences.gestureIndex ? Color.accentColor.opacity(0.15) : Color.clear)
-            .cornerRadius(4)
+        ShortcutSidebarRowView(
+            index: Preferences.gestureIndex,
+            isSelected: selectedIndex == Preferences.gestureIndex
+        )
+        .contentShape(Rectangle())
+        .onTapGesture { selectedIndex = Preferences.gestureIndex }
+        .background(
+            selectedIndex == Preferences.gestureIndex
+                ? Color.accentColor : Color.clear
+        )
+        .cornerRadius(4)
     }
 }
 
@@ -253,7 +298,9 @@ struct ShortcutSidebarRowView: View {
                 }
                 Text(vm.summary)
                     .font(.system(size: 11))
-                    .foregroundColor(isSelected ? .white.opacity(0.7) : .secondary)
+                    .foregroundColor(
+                        isSelected ? .white.opacity(0.7) : .secondary
+                    )
                     .lineLimit(1)
             }
             Spacer()
@@ -276,46 +323,77 @@ struct FilteringSection: View {
     var body: some View {
         GroupBox {
             VStack(spacing: 0) {
-                filteringPicker(NSLocalizedString("Show windows from applications", comment: ""),
-                                baseName: "appsToShow", allCases: AppsToShowPreference.allCases)
+                filteringPicker(
+                    NSLocalizedString(
+                        "Show windows from applications",
+                        comment: ""
+                    ),
+                    baseName: "appsToShow",
+                    allCases: AppsToShowPreference.allCases
+                )
                 Divider().padding(.leading, 10)
-                filteringPicker(NSLocalizedString("Show windows from Spaces", comment: ""),
-                                baseName: "spacesToShow", allCases: SpacesToShowPreference.allCases)
+                filteringPicker(
+                    NSLocalizedString("Show windows from Spaces", comment: ""),
+                    baseName: "spacesToShow",
+                    allCases: SpacesToShowPreference.allCases
+                )
                 Divider().padding(.leading, 10)
-                filteringPicker(NSLocalizedString("Show windows from screens", comment: ""),
-                                baseName: "screensToShow", allCases: ScreensToShowPreference.allCases)
+                filteringPicker(
+                    NSLocalizedString("Show windows from screens", comment: ""),
+                    baseName: "screensToShow",
+                    allCases: ScreensToShowPreference.allCases
+                )
                 Divider().padding(.leading, 10)
-                filteringPicker(NSLocalizedString("Show minimized windows", comment: ""),
-                                baseName: "showMinimizedWindows", allCases: ShowHowPreference.allCases)
+                filteringPicker(
+                    NSLocalizedString("Show minimized windows", comment: ""),
+                    baseName: "showMinimizedWindows",
+                    allCases: ShowHowPreference.allCases
+                )
                 Divider().padding(.leading, 10)
-                filteringPicker(NSLocalizedString("Show hidden windows", comment: ""),
-                                baseName: "showHiddenWindows", allCases: ShowHowPreference.allCases)
+                filteringPicker(
+                    NSLocalizedString("Show hidden windows", comment: ""),
+                    baseName: "showHiddenWindows",
+                    allCases: ShowHowPreference.allCases
+                )
                 Divider().padding(.leading, 10)
-                filteringPicker(NSLocalizedString("Show fullscreen windows", comment: ""),
-                                baseName: "showFullscreenWindows", allCases: ShowHowPreference.allCases.filter { $0 != .showAtTheEnd })
+                filteringPicker(
+                    NSLocalizedString("Show fullscreen windows", comment: ""),
+                    baseName: "showFullscreenWindows",
+                    allCases: ShowHowPreference.allCases.filter {
+                        $0 != .showAtTheEnd
+                    }
+                )
                 Divider().padding(.leading, 10)
-                filteringPicker(NSLocalizedString("Show apps with no open window", comment: ""),
-                                baseName: "showWindowlessApps", allCases: ShowHowPreference.allCases)
+                filteringPicker(
+                    NSLocalizedString(
+                        "Show apps with no open window",
+                        comment: ""
+                    ),
+                    baseName: "showWindowlessApps",
+                    allCases: ShowHowPreference.allCases
+                )
             }
             .padding(.vertical, 4)
             .padding(.horizontal, 10)
         }
     }
 
-    private func filteringPicker<T: MacroPreference & CaseIterable & Equatable & Hashable>(
-        _ label: String, baseName: String, allCases: [T]
+    private func filteringPicker<
+        T: MacroPreference & CaseIterable & Equatable & Hashable
+    >(
+        _ label: String,
+        baseName: String,
+        allCases: [T]
     ) -> some View {
         let key = Preferences.indexToName(baseName, index)
         return HStack {
-            Text(label).frame(width: 220, alignment: .leading)
+            Text(label)
             Spacer()
             Picker("", selection: store.macroBinding(for: key, allCases)) {
                 ForEach(allCases, id: \.self) { v in
                     Text(v.localizedString).tag(v)
                 }
             }
-            .pickerStyle(.menu)
-            .frame(width: 200)
         }
         .padding(.vertical, 6)
     }
@@ -331,33 +409,29 @@ struct AppearanceOverrideSectionView: View {
 
     private var vm: ShortcutViewModel { ShortcutViewModel(index: index) }
 
+    private static let navigateToUpgrade = Notification.Name(
+        "NavigateToUpgradeTab"
+    )
+
+    private func notifyProLocked() {
+        NotificationCenter.default.post(
+            name: Self.navigateToUpgrade,
+            object: nil
+        )
+    }
+
     var body: some View {
         GroupBox {
             VStack(spacing: 0) {
                 overrideStyleRow
                 Divider().padding(.leading, 10)
-                overrideSegmentedRow(
-                    NSLocalizedString("Size", comment: ""),
-                    baseName: "appearanceSizeOverride",
-                    allCases: AppearanceSizePreference.allCases
-                )
+                overrideSizeRow
                 Divider().padding(.leading, 10)
-                overrideSegmentedRow(
-                    NSLocalizedString("Theme", comment: ""),
-                    baseName: "appearanceThemeOverride",
-                    allCases: AppearanceThemePreference.allCases
-                )
+                overrideThemeRow
                 Divider().padding(.leading, 10)
-                overrideSegmentedRow(
-                    NSLocalizedString("After keys are released", comment: ""),
-                    baseName: "shortcutStyleOverride",
-                    allCases: ShortcutStylePreference.allCases
-                )
+                overrideAfterReleaseRow
                 Divider().padding(.leading, 10)
-                overrideToggleRow(
-                    NSLocalizedString("Preview selected window", comment: ""),
-                    baseName: "previewFocusedWindowOverride"
-                )
+                overridePreviewRow
             }
             .padding(.vertical, 4)
             .padding(.horizontal, 10)
@@ -366,62 +440,139 @@ struct AppearanceOverrideSectionView: View {
 
     private var overrideStyleRow: some View {
         let styleKey = Preferences.indexToName("appearanceStyleOverride", index)
-        let binding = store.macroBinding(for: styleKey, AppearanceStylePreference.allCases)
-        return HStack {
-            ImageRadioGroup(
-                selection: binding,
-                entries: [
-                    (.thumbnails, AppearanceStylePreference.thumbnails.localizedString, "thumbnails"),
-                    (.appIcons, AppearanceStylePreference.appIcons.localizedString, "app_icons"),
-                    (.titles, AppearanceStylePreference.titles.localizedString, "titles"),
-                ],
-                proGatedIndices: [1, 2]
-            )
-            Spacer()
+        return HStack(alignment: .center, spacing: 12) {
             if vm.hasOverride("appearanceStyleOverride") {
                 unlinkButton(baseName: "appearanceStyleOverride")
             }
+            ImageRadioGroup(
+                selection: store.macroBinding(
+                    for: styleKey,
+                    AppearanceStylePreference.allCases
+                ),
+                entries: [
+                    (
+                        .thumbnails,
+                        AppearanceStylePreference.thumbnails.localizedString,
+                        "thumbnails"
+                    ),
+                    (
+                        .appIcons,
+                        AppearanceStylePreference.appIcons.localizedString,
+                        "app_icons"
+                    ),
+                    (
+                        .titles,
+                        AppearanceStylePreference.titles.localizedString,
+                        "titles"
+                    ),
+                ],
+                proGatedIndices: [1, 2],
+                onProLockedTap: notifyProLocked
+            )
         }
+        .padding(.vertical, 6)
     }
 
-    private func overrideSegmentedRow<T: MacroPreference & CaseIterable & Equatable & Hashable>(
-        _ label: String, baseName: String, allCases: [T]
-    ) -> some View {
-        let key = Preferences.indexToName(baseName, index)
-        let binding = store.macroBinding(for: key, allCases)
-        return HStack {
-            Text(label).frame(width: 180, alignment: .leading)
-            Picker("", selection: binding) {
-                ForEach(allCases, id: \.self) { v in
-                    Text(v.localizedString).tag(v)
+    private var overrideSizeRow: some View {
+        let key = Preferences.indexToName("appearanceSizeOverride", index)
+        return LabeledRow(NSLocalizedString("Size", comment: "")) {
+            HStack(spacing: 4) {
+                if vm.hasOverride("appearanceSizeOverride") {
+                    unlinkButton(baseName: "appearanceSizeOverride")
                 }
-            }
-            .pickerStyle(.segmented)
-            Spacer()
-            if vm.hasOverride(baseName) {
-                unlinkButton(baseName: baseName)
+                SegmentedPicker(
+                    options: AppearanceSizePreference.allCases.map { pref in
+                        SegmentOption(
+                            value: pref,
+                            icon: pref.symbol.rawValue,
+                            title: pref.localizedString,
+                            width: 100
+                        )
+                    },
+                    selection: store.macroBinding(
+                        for: key,
+                        AppearanceSizePreference.allCases
+                    ),
+                    proSegmentIndex: 3,
+                    onProLockedTap: notifyProLocked
+                )
             }
         }
-        .padding(.vertical, 6)
     }
 
-    private func overrideToggleRow(_ label: String, baseName: String) -> some View {
-        let key = Preferences.indexToName(baseName, index)
-        let binding = store.boolBinding(for: key)
-        return HStack {
-            Text(label).frame(width: 180, alignment: .leading)
-            Toggle("", isOn: binding)
-            Spacer()
-            if vm.hasOverride(baseName) {
-                unlinkButton(baseName: baseName)
+    private var overrideThemeRow: some View {
+        let key = Preferences.indexToName("appearanceThemeOverride", index)
+        return LabeledRow(NSLocalizedString("Theme", comment: "")) {
+            HStack(spacing: 4) {
+                if vm.hasOverride("appearanceThemeOverride") {
+                    unlinkButton(baseName: "appearanceThemeOverride")
+                }
+                SegmentedPicker(
+                    options: AppearanceThemePreference.allCases.map { pref in
+                        SegmentOption(
+                            value: pref,
+                            icon: pref.symbol.rawValue,
+                            title: pref.localizedString,
+                            width: 100
+                        )
+                    },
+                    selection: store.macroBinding(
+                        for: key,
+                        AppearanceThemePreference.allCases
+                    ),
+                    proSegmentIndex: nil
+                )
             }
         }
-        .padding(.vertical, 6)
+    }
+
+    private var overrideAfterReleaseRow: some View {
+        let key = Preferences.indexToName("shortcutStyleOverride", index)
+        return LabeledRow(
+            NSLocalizedString("After keys are released", comment: "")
+        ) {
+            HStack(spacing: 4) {
+                if vm.hasOverride("shortcutStyleOverride") {
+                    unlinkButton(baseName: "shortcutStyleOverride")
+                }
+                SegmentedPicker(
+                    options: ShortcutStylePreference.allCases.map { pref in
+                        SegmentOption(
+                            value: pref,
+                            icon: pref.symbol.rawValue,
+                            title: pref.localizedString,
+                            width: 100
+                        )
+                    },
+                    selection: store.macroBinding(
+                        for: key,
+                        ShortcutStylePreference.allCases
+                    ),
+                    proSegmentIndex: 2,
+                    onProLockedTap: notifyProLocked
+                )
+            }
+        }
+    }
+
+    private var overridePreviewRow: some View {
+        let key = Preferences.indexToName("previewFocusedWindowOverride", index)
+        return LabeledRow(
+            NSLocalizedString("Preview selected window", comment: "")
+        ) {
+            HStack(spacing: 8) {
+                if vm.hasOverride("previewFocusedWindowOverride") {
+                    unlinkButton(baseName: "previewFocusedWindowOverride")
+                }
+                Toggle("", isOn: store.boolBinding(for: key))
+                    .toggleStyle(.switch)
+            }
+        }
     }
 
     private func unlinkButton(baseName: String) -> some View {
         SwiftUI.Button(action: {
-            vm.removeOverride(baseName)
+            store.removeOverride(baseName, index)
         }) {
             Image(systemName: "link")
                 .font(.system(size: 14))
@@ -442,26 +593,39 @@ struct OrderingSectionView: View {
     var body: some View {
         GroupBox {
             VStack(spacing: 0) {
-                orderingPicker(NSLocalizedString("Group apps", comment: ""),
-                               baseName: "showAppsOrWindows", allCases: ShowAppsOrWindowsPreference.allCases)
+                orderingPicker(
+                    NSLocalizedString("Group apps", comment: ""),
+                    baseName: "showAppsOrWindows",
+                    allCases: ShowAppsOrWindowsPreference.allCases
+                )
                 Divider().padding(.leading, 10)
-                orderingPicker(NSLocalizedString("Group tabs", comment: ""),
-                               baseName: "showTabsAsWindows", allCases: GroupTabsPreference.allCases)
+                orderingPicker(
+                    NSLocalizedString("Group tabs", comment: ""),
+                    baseName: "showTabsAsWindows",
+                    allCases: GroupTabsPreference.allCases
+                )
                 Divider().padding(.leading, 10)
-                orderingPicker(NSLocalizedString("Order windows by", comment: ""),
-                               baseName: "windowOrder", allCases: WindowOrderPreference.allCases)
+                orderingPicker(
+                    NSLocalizedString("Order windows by", comment: ""),
+                    baseName: "windowOrder",
+                    allCases: WindowOrderPreference.allCases
+                )
             }
             .padding(.vertical, 4)
             .padding(.horizontal, 10)
         }
     }
 
-    private func orderingPicker<T: MacroPreference & CaseIterable & Equatable & Hashable>(
-        _ label: String, baseName: String, allCases: [T]
+    private func orderingPicker<
+        T: MacroPreference & CaseIterable & Equatable & Hashable
+    >(
+        _ label: String,
+        baseName: String,
+        allCases: [T]
     ) -> some View {
         let key = Preferences.indexToName(baseName, index)
         return HStack {
-            Text(label).frame(width: 220, alignment: .leading)
+            Text(label)
             Spacer()
             Picker("", selection: store.macroBinding(for: key, allCases)) {
                 ForEach(allCases, id: \.self) { v in
@@ -469,7 +633,6 @@ struct OrderingSectionView: View {
                 }
             }
             .pickerStyle(.menu)
-            .frame(width: 200)
         }
         .padding(.vertical, 6)
     }
@@ -491,7 +654,10 @@ struct ShortcutsWhenActiveSheetView: View {
         ("Lock search", "lockSearchShortcut", true),
         ("Close window", "closeWindowShortcut", false),
         ("Minimize/Deminimize window", "minDeminWindowShortcut", false),
-        ("Fullscreen/Defullscreen window", "toggleFullscreenWindowShortcut", false),
+        (
+            "Fullscreen/Defullscreen window", "toggleFullscreenWindowShortcut",
+            false
+        ),
         ("Quit app", "quitAppShortcut", false),
         ("Hide/Show app", "hideShowAppShortcut", false),
     ]
@@ -502,7 +668,9 @@ struct ShortcutsWhenActiveSheetView: View {
                 .font(.headline)
             GroupBox {
                 VStack(spacing: 0) {
-                    ForEach(Array(keyLabels.enumerated()), id: \.offset) { index, item in
+                    ForEach(Array(keyLabels.enumerated()), id: \.offset) {
+                        index,
+                        item in
                         let (label, key, isProGated) = item
                         HStack {
                             HStack(spacing: 4) {
@@ -530,8 +698,7 @@ struct ShortcutsWhenActiveSheetView: View {
                 presentationMode.wrappedValue.dismiss()
             }
             .keyboardShortcut(.return)
-        }
-        .padding(20)
+        }.padding(20)
     }
 }
 
@@ -546,50 +713,171 @@ struct AdditionalControlsSheetView: View {
                 .font(.headline)
             GroupBox {
                 VStack(spacing: 0) {
-                    Toggle(NSLocalizedString("Select windows using arrow keys", comment: ""),
-                           isOn: store.boolBinding(for: "arrowKeysEnabled"))
-                        .padding(.vertical, 6).padding(.horizontal, 10)
+                    LabeledRow(
+                        NSLocalizedString(
+                            "Select windows using arrow keys",
+                            comment: ""
+                        )
+                    ) {
+                        Toggle(
+                            "",
+                            isOn: store.boolBinding(for: "arrowKeysEnabled")
+                        )
+                        .toggleStyle(.switch)
+                    }
                     Divider().padding(.leading, 10)
-                    Toggle(NSLocalizedString("Select windows using vim keys", comment: ""),
-                           isOn: store.boolBinding(for: "vimKeysEnabled"))
-                        .padding(.vertical, 6).padding(.horizontal, 10)
+                    LabeledRow(
+                        NSLocalizedString(
+                            "Select windows using vim keys",
+                            comment: ""
+                        )
+                    ) {
+                        Toggle(
+                            "",
+                            isOn: store.boolBinding(for: "vimKeysEnabled")
+                        )
+                        .toggleStyle(.switch)
+                    }
                     Divider().padding(.leading, 10)
-                    Toggle(NSLocalizedString("Select windows on mouse hover", comment: ""),
-                           isOn: store.boolBinding(for: "mouseHoverEnabled"))
-                        .padding(.vertical, 6).padding(.horizontal, 10)
+                    LabeledRow(
+                        NSLocalizedString(
+                            "Select windows on mouse hover",
+                            comment: ""
+                        )
+                    ) {
+                        Toggle(
+                            "",
+                            isOn: store.boolBinding(for: "mouseHoverEnabled")
+                        )
+                        .toggleStyle(.switch)
+                    }
                 }
+                .padding(.vertical, 4)
             } label: {
                 Text(NSLocalizedString("Additional controls", comment: ""))
             }
 
             GroupBox {
                 VStack(spacing: 0) {
-                    HStack {
-                        Text(NSLocalizedString("Cursor follows focus", comment: ""))
-                        Spacer()
-                        Picker("", selection: store.macroBinding(for: "cursorFollowFocus", CursorFollowFocus.allCases)) {
-                            ForEach(CursorFollowFocus.allCases, id: \.self) { v in
+                    LabeledRow(
+                        NSLocalizedString("Cursor follows focus", comment: "")
+                    ) {
+                        Picker(
+                            "",
+                            selection: store.macroBinding(
+                                for: "cursorFollowFocus",
+                                CursorFollowFocus.allCases
+                            )
+                        ) {
+                            ForEach(CursorFollowFocus.allCases, id: \.self) {
+                                v in
                                 Text(v.localizedString).tag(v)
                             }
                         }
-                        .pickerStyle(.menu)
-                        .frame(width: 200)
                     }
-                    .padding(.vertical, 6).padding(.horizontal, 10)
                     Divider().padding(.leading, 10)
-                    Toggle(NSLocalizedString("Trackpad haptic feedback", comment: ""),
-                           isOn: store.boolBinding(for: "trackpadHapticFeedbackEnabled"))
-                        .padding(.vertical, 6).padding(.horizontal, 10)
+                    LabeledRow(
+                        NSLocalizedString(
+                            "Trackpad haptic feedback",
+                            comment: ""
+                        )
+                    ) {
+                        Toggle(
+                            "",
+                            isOn: store.boolBinding(
+                                for: "trackpadHapticFeedbackEnabled"
+                            )
+                        )
+                        .toggleStyle(.switch)
+                    }
                 }
+                .padding(.vertical, 4)
             } label: {
                 Text(NSLocalizedString("Miscellaneous", comment: ""))
             }
 
             SwiftUI.Button(NSLocalizedString("Done", comment: "")) {
-                NSApp.keyWindow?.sheetParent?.endSheet(NSApp.keyWindow!)
+                presentationMode.wrappedValue.dismiss()
             }
             .keyboardShortcut(.return)
         }
         .padding(20)
     }
+}
+
+// MARK: - Preview
+
+@available(macOS 13.0, *)
+#Preview("Controls Tab - Mock Data") {
+    Preferences.registerDefaults()
+
+    let mockDefaults: [String: Any] = [
+        "shortcutCount": "2",
+        "shortcut_0_hold": "⌥",
+        "shortcut_0_nextWindow": "⇥",
+        "shortcut_1_hold": "⌥⇧",
+        "shortcut_1_nextWindow": "⇥",
+        "nextWindowGesture": "0",
+    ]
+
+    for (key, value) in mockDefaults {
+        Preferences.set(key, value as! String)
+    }
+
+    return ControlsTabView()
+        .environmentObject(PreferencesStore())
+        .environmentObject(ProStateTracker())
+}
+
+@available(macOS 13.0, *)
+#Preview("Controls Tab (Pro Locked)") {
+    Preferences.registerDefaults()
+
+    let mockDefaults: [String: Any] = [
+        "shortcutCount": "2",
+        "shortcut_0_hold": "⌥",
+        "shortcut_0_nextWindow": "⇥",
+        "shortcut_1_hold": "⌥⇧",
+        "shortcut_1_nextWindow": "⇥",
+        "nextWindowGesture": "0",
+    ]
+
+    for (key, value) in mockDefaults {
+        Preferences.set(key, value as! String)
+    }
+
+    let proState = ProStateTracker()
+    proState.isProLocked = true
+
+    return ControlsTabView()
+        .environmentObject(PreferencesStore())
+        .environmentObject(proState)
+}
+
+@available(macOS 13.0, *)
+#Preview("Shortcuts When Active Sheet") {
+    Preferences.registerDefaults()
+    return ShortcutsWhenActiveSheetView()
+        .environmentObject(PreferencesStore())
+        .environmentObject(ProStateTracker())
+        .frame(width: 500)
+}
+
+@available(macOS 13.0, *)
+#Preview("Shortcuts When Active Sheet (Pro Locked)") {
+    Preferences.registerDefaults()
+    let proState = ProStateTracker()
+    proState.isProLocked = true
+    return ShortcutsWhenActiveSheetView()
+        .environmentObject(PreferencesStore())
+        .environmentObject(proState)
+        .frame(width: 500)
+}
+
+@available(macOS 13.0, *)
+#Preview("Additional Controls Sheet") {
+    Preferences.registerDefaults()
+    return AdditionalControlsSheetView()
+        .environmentObject(PreferencesStore())
+        .frame(width: 500)
 }

@@ -129,7 +129,6 @@
 		AECF000000000000000000A3 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECF000000000000000000A1 /* Endpoints.swift */; };
 		AECF000000000000000000B2 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECF000000000000000000B1 /* Secrets.swift */; };
 		B21F8D6890128C73485B2BF6 /* ImageRadioGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6A46F95605FAB3078FC0FF /* ImageRadioGroup.swift */; };
-		EE4342F2AF351F54DBE6BC90 /* SegmentedPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554D6A584FB0D6259E944435 /* SegmentedPicker.swift */; };
 		B2C6172C076F9AF7B28D3216 /* UpgradeTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15B4E90AE4587FF01587007 /* UpgradeTabView.swift */; };
 		BB0000000000000000000002 /* TabGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000001 /* TabGroup.swift */; };
 		BF0C803A13C409E7F01FBCAB /* SkyLight.framework.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C8B94D7994AB9007F6391 /* SkyLight.framework.swift */; };
@@ -293,6 +292,7 @@
 		DC8CF4F01C999497352736F1 /* OverrideClickResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4409E4B3D98C491503CE5D /* OverrideClickResolverTests.swift */; };
 		DD6771EE8ACE714C2599FEB7 /* OverrideClickResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A2E38AF41E866D3CDE71BF /* OverrideClickResolver.swift */; };
 		E70C8A2200000000000SP002 /* SparkleDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70C8A1100000000000SP001 /* SparkleDelegate.swift */; };
+		EE4342F2AF351F54DBE6BC90 /* SegmentedPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554D6A584FB0D6259E944435 /* SegmentedPicker.swift */; };
 		EEE329A0434B8C80ABFF59B4 /* SearchHighlightModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCEF306874E127C7D163C1C /* SearchHighlightModifier.swift */; };
 		F00DCAFE0000000000001002 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00DCAFE0000000000000002 /* Search.swift */; };
 		F00DCAFE0000000000001003 /* SearchTestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00DCAFE0000000000000003 /* SearchTestable.swift */; };
@@ -354,6 +354,7 @@
 		481FE54624D2D387001032F1 /* alt-tab-macos-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "alt-tab-macos-Bridging-Header.h"; sourceTree = "<group>"; };
 		48C30C743ACD104DEBA32974 /* ShortcutRecorderField.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ShortcutRecorderField.swift; path = "src/preferences-swiftui/Wrappers/ShortcutRecorderField.swift"; sourceTree = SOURCE_ROOT; };
 		4B4409E4B3D98C491503CE5D /* OverrideClickResolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverrideClickResolverTests.swift; sourceTree = "<group>"; };
+		554D6A584FB0D6259E944435 /* SegmentedPicker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SegmentedPicker.swift; path = "src/preferences-swiftui/Shared/SegmentedPicker.swift"; sourceTree = SOURCE_ROOT; };
 		567D32A1B1341AECFF935C29 /* ControlsTabView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ControlsTabView.swift; path = "src/preferences-swiftui/Tabs/Controls/ControlsTabView.swift"; sourceTree = SOURCE_ROOT; };
 		5883F0A729A5182C0071DB65 /* TrackpadEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackpadEvents.swift; sourceTree = "<group>"; };
 		5F04852D2F09AC9700235D4A /* WindowCaptureEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowCaptureEvents.swift; sourceTree = "<group>"; };
@@ -605,7 +606,7 @@
 		D04BA7F8F1F44D5D9844BFF5 /* ar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ar; path = InfoPlist.strings; sourceTree = "<group>"; };
 		D04BA812B8DCB915B8F4B915 /* contributors.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = contributors.md; sourceTree = "<group>"; };
 		D04BA8209A337A2960716E3B /* zh-CN */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = Localizable.strings; sourceTree = "<group>"; };
-		D04BA82F792DF53958D92572 /* AltTab.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AltTab.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D04BA82F792DF53958D92572 /* AltTab-Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AltTab-Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D04BA84F172AE89F210CA01D /* Pipfile.lock */ = {isa = PBXFileReference; lastKnownFileType = file.lock; path = Pipfile.lock; sourceTree = "<group>"; };
 		D04BA8AC77465E1B2BC947CF /* StackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackView.swift; sourceTree = "<group>"; };
 		D04BA8DB8AA7E5570DAC568A /* Sysctl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sysctl.swift; sourceTree = "<group>"; };
@@ -669,7 +670,6 @@
 		F00DCAFE0000000000000002 /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		F00DCAFE0000000000000003 /* SearchTestable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTestable.swift; sourceTree = "<group>"; };
 		F204DA47D6F64AEEE5FD2645 /* SearchFieldView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SearchFieldView.swift; path = "src/preferences-swiftui/Wrappers/SearchFieldView.swift"; sourceTree = SOURCE_ROOT; };
-		554D6A584FB0D6259E944435 /* SegmentedPicker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SegmentedPicker.swift; path = "src/preferences-swiftui/Shared/SegmentedPicker.swift"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -884,7 +884,6 @@
 				F204DA47D6F64AEEE5FD2645 /* SearchFieldView.swift */,
 				48C30C743ACD104DEBA32974 /* ShortcutRecorderField.swift */,
 			);
-			name = "preferences-swiftui";
 			path = "preferences-swiftui";
 			sourceTree = "<group>";
 		};
@@ -1206,7 +1205,7 @@
 		D04BA1A461BBB5A9BE15E015 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D04BA82F792DF53958D92572 /* AltTab.app */,
+				D04BA82F792DF53958D92572 /* AltTab-Dev.app */,
 				BF0C832DEED422648209CCD2 /* unit-tests.xctest */,
 			);
 			name = Products;
@@ -1646,7 +1645,7 @@
 			);
 			name = "alt-tab-macos";
 			productName = "alt-tab-macos";
-			productReference = D04BA82F792DF53958D92572 /* AltTab.app */;
+			productReference = D04BA82F792DF53958D92572 /* AltTab-Dev.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1687,9 +1686,9 @@
 			);
 			mainGroup = D04BA1463D2A17038222BB84;
 			packageReferences = (
-				5FDF9EA42FB3575B00703843 /* XCLocalSwiftPackageReference "Sparkle" */,
-				5FDF9EA72FB3577600703843 /* XCLocalSwiftPackageReference "ShortcutRecorder" */,
-				5FDF9EAC2FB3582300703843 /* XCLocalSwiftPackageReference "AppCenter" */,
+				5FDF9EA42FB3575B00703843 /* XCLocalSwiftPackageReference "vendor/Sparkle" */,
+				5FDF9EA72FB3577600703843 /* XCLocalSwiftPackageReference "vendor/ShortcutRecorder" */,
+				5FDF9EAC2FB3582300703843 /* XCLocalSwiftPackageReference "vendor/AppCenter" */,
 			);
 			productRefGroup = D04BA1A461BBB5A9BE15E015 /* Products */;
 			projectDirPath = "";
@@ -2516,7 +2515,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D04BA62D5EACAAAD7BCD3E79 /* release.xcconfig */;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				DEVELOPMENT_TEAM = "${TEAM_ID}";
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = 9H9AXS5ZLL;
 			};
 			name = Release;
 		};
@@ -2524,7 +2525,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D04BA1232AFEEFE90D5CC827 /* debug.xcconfig */;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = 9H9AXS5ZLL;
 			};
 			name = Debug;
 		};
@@ -2670,15 +2673,15 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		5FDF9EA42FB3575B00703843 /* XCLocalSwiftPackageReference "Sparkle" */ = {
+		5FDF9EA42FB3575B00703843 /* XCLocalSwiftPackageReference "vendor/Sparkle" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = vendor/Sparkle;
 		};
-		5FDF9EA72FB3577600703843 /* XCLocalSwiftPackageReference "ShortcutRecorder" */ = {
+		5FDF9EA72FB3577600703843 /* XCLocalSwiftPackageReference "vendor/ShortcutRecorder" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = vendor/ShortcutRecorder;
 		};
-		5FDF9EAC2FB3582300703843 /* XCLocalSwiftPackageReference "AppCenter" */ = {
+		5FDF9EAC2FB3582300703843 /* XCLocalSwiftPackageReference "vendor/AppCenter" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = vendor/AppCenter;
 		};
@@ -2695,7 +2698,7 @@
 		};
 		5FDF9EAA2FB357F600703843 /* ShortcutRecorder */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5FDF9EA72FB3577600703843 /* XCLocalSwiftPackageReference "ShortcutRecorder" */;
+			package = 5FDF9EA72FB3577600703843 /* XCLocalSwiftPackageReference "vendor/ShortcutRecorder" */;
 			productName = ShortcutRecorder;
 		};
 		5FDF9EAD2FB3582300703843 /* AppCenter */ = {

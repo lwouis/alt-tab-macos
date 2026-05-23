@@ -92,7 +92,10 @@ final class PreferencesStore: ObservableObject {
     var shortcutCountBinding: Binding<Int> {
         Binding(
             get: { Preferences.shortcutCount },
-            set: { Preferences.set("shortcutCount", String($0)) }
+            set: {
+                Preferences.set("shortcutCount", String($0))
+                self.refreshToken = UUID()
+            }
         )
     }
 
