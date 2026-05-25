@@ -1,3 +1,19 @@
+# [11.1.0](https://github.com/lwouis/alt-tab-macos/compare/v11.0.1...v11.1.0) (2026-05-25)
+
+
+### Bug Fixes
+
+* better handle electron apps hidden windows (closes [#5449](https://github.com/lwouis/alt-tab-macos/issues/5449)) ([0434679](https://github.com/lwouis/alt-tab-macos/commit/0434679))
+* improve tab detection (closes [#5618](https://github.com/lwouis/alt-tab-macos/issues/5618)) ([a8098c3](https://github.com/lwouis/alt-tab-macos/commit/a8098c3))
+* rare crash when assigning shortcuts with arrow keys ([4977808](https://github.com/lwouis/alt-tab-macos/commit/4977808))
+* rare crash when capturing window thumbnails ([f4a54c8](https://github.com/lwouis/alt-tab-macos/commit/f4a54c8))
+* very rare crash on quit ([007edc6](https://github.com/lwouis/alt-tab-macos/commit/007edc6))
+
+
+### Features
+
+* support setups with non latin keyboard layouts (closes [#5607](https://github.com/lwouis/alt-tab-macos/issues/5607)) ([f0e195d](https://github.com/lwouis/alt-tab-macos/commit/f0e195d))
+
 ## [11.0.1](https://github.com/lwouis/alt-tab-macos/compare/v11.0.0...v11.0.1) (2026-05-22)
 
 
