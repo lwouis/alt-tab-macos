@@ -45,9 +45,30 @@ class TabGroup {
     static func updateState(_ activeTab: Window, _ siblingTitles: [String]?) -> Bool {
         var changed = false
         guard let titles = siblingTitles else {
-            // only clear state if this window was the active tab of its group;
-            // inactive tabs report nil titles (no AXTabGroup child) but are still tabbed
-            if activeTab.tabbedSiblingWids != nil && !activeTab.isTabbed {
+            // inactive tabs report nil titles (no AXTabGroup child) but are still tabbed,
+            // so we only act when this was the active tab of its group (i.e. !isTabbed).
+            // when an active tab becomes standalone (drag-out), we must also reconcile
+            // former siblings — they receive no AX event of their own.
+            if !activeTab.isTabbed, let oldSiblings = activeTab.tabbedSiblingWids {
+                let activeWid = activeTab.cgWindowId
+                let remainingWids = oldSiblings.filter { $0 != activeWid }
+                let remainingSiblings = Windows.list.filter { w in
+                    w !== activeTab && w.cgWindowId != nil && remainingWids.contains(w.cgWindowId!)
+                }
+                if remainingSiblings.count <= 1 {
+                    for s in remainingSiblings where s.isTabbed || s.tabbedSiblingWids != nil {
+                        s.tabbedSiblingWids = nil
+                        s.isTabbed = false
+                        s.recomputeIsInvisible()
+                        changed = true
+                    }
+                } else {
+                    for s in remainingSiblings where s.tabbedSiblingWids != remainingWids {
+                        s.tabbedSiblingWids = remainingWids
+                        s.recomputeIsInvisible()
+                        changed = true
+                    }
+                }
                 activeTab.tabbedSiblingWids = nil
                 changed = true
             }
@@ -66,6 +87,7 @@ class TabGroup {
             if let sibling = (Windows.list.first { s in
                 s !== activeTab && s.application.pid == pid && s.title == title
                     && !matchedSiblings.contains(where: { $0 === s })
+                    && positionsCompatibleForTabSiblings(activeTab, s)
             }) {
                 matchedSiblings.append(sibling)
                 if let wid = sibling.cgWindowId { siblingWids.append(wid) }
@@ -94,5 +116,13 @@ class TabGroup {
             }
         }
         return changed
+    }
+
+    /// Tabs of one window share the parent's geometry. If both positions are known and differ
+    /// noticeably, the candidate is no longer in the same window (likely dragged out).
+    /// When either position is unknown (e.g. an inactive tab not yet focused), fall back to title match.
+    private static func positionsCompatibleForTabSiblings(_ a: Window, _ b: Window) -> Bool {
+        guard let pa = a.position, let pb = b.position else { return true }
+        return abs(pa.x - pb.x) < 50 && abs(pa.y - pb.y) < 50
     }
 }
