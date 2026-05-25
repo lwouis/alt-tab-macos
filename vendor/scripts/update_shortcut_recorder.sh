@@ -4,7 +4,7 @@
 set -euo pipefail
 . "$(dirname "$0")/lib/common.sh"
 
-UPSTREAM_COMMIT="594b360e07a8a368ffec2567f77e465477b9994f"
+UPSTREAM_COMMIT="52c6273d233f7794e4fd5d22f50d2de0e4e41b19"
 UPSTREAM_BRANCH="alt-tab-current"
 GIT_URL="https://github.com/lwouis/ShortcutRecorder.git"
 DEST="vendor/ShortcutRecorder"

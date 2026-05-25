@@ -211,6 +211,30 @@ typedef TISInputSourceRef (*_SRKeyCodeTransformerCacheInputSourceCreate)(void);
         }
 
         CFDataRef layoutData = TISGetInputSourceProperty(inputSource, kTISPropertyUnicodeKeyLayoutData);
+        if (!layoutData)
+        {
+            // The current input source has no uchr data — happens when the only enabled
+            // input source is a non-Latin IME (e.g. WeType Pinyin) and no ASCII-capable
+            // keyboard layout is enabled. Fall back to the US layout, which is always
+            // installed on macOS even when not enabled by the user.
+            NSDictionary *filter = @{(__bridge NSString *)kTISPropertyInputSourceID: @"com.apple.keylayout.US"};
+            CFArrayRef sources = TISCreateInputSourceList((__bridge CFDictionaryRef)filter, true);
+            if (sources)
+            {
+                CFAutorelease(sources);
+                if (CFArrayGetCount(sources) > 0)
+                {
+                    TISInputSourceRef usSource = (TISInputSourceRef)CFArrayGetValueAtIndex(sources, 0);
+                    layoutData = TISGetInputSourceProperty(usSource, kTISPropertyUnicodeKeyLayoutData);
+                }
+            }
+            if (!layoutData)
+            {
+                os_trace_error("#Critical No keyboard layout data available, even US fallback failed");
+                return nil;
+            }
+            os_trace_debug("Using US layout fallback (no ASCII-capable keyboard layout enabled)");
+        }
         const UCKeyboardLayout *keyLayout = (const UCKeyboardLayout *)CFDataGetBytePtr(layoutData);
         static const UniCharCount MaxLength = 255;
         UniCharCount actualLength = 0;
