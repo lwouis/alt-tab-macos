@@ -182,7 +182,7 @@ class Application: NSObject {
     @discardableResult
     func addWindowlessWindowIfNeeded() -> Window? {
         guard runningApplication.activationPolicy == .regular && !runningApplication.isTerminated
-               && !(Windows.list.contains { $0.application.pid == pid }) else { return nil }
+               && !(Windows.list.contains { $0.application.pid == pid && !$0.isInvisible }) else { return nil }
         let window = Window(self)
         Windows.appendWindow(window)
         focusedWindow = nil
