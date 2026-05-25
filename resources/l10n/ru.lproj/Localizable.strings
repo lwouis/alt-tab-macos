@@ -52,6 +52,7 @@
 "Application Name - Window Title" = "Название приложения — Заголовок окна";
 "Applies in other Appearances" = "Применяется в других оформлениях";
 "Arrow keys" = "Клавиши со стрелками";
+"Arrow keys already assigned to other actions:\n%@" = "Клавиши со стрелками уже назначены другим действиям:\n%@";
 "Ask whether to send crash reports" = "Спрашивать перед отправкой отчётов о сбоях";
 "Auto" = "Авто";
 "Auto Size — larger previews with few windows, more at once with many" = "Автоматический размер — крупнее при малом числе окон, компактнее при большом";

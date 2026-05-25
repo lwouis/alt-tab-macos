@@ -52,6 +52,7 @@
 "Application Name - Window Title" = "Nazwa aplikacji - Tytuł okna";
 "Applies in other Appearances" = "Stosuje się w innych Wyglądach";
 "Arrow keys" = "Klawisze strzałek";
+"Arrow keys already assigned to other actions:\n%@" = "Klawisze strzałek są już przypisane do innych akcji:\n%@";
 "Ask whether to send crash reports" = "Pytaj o wysyłanie raportów awarii";
 "Auto" = "Automatycznie";
 "Auto Size — larger previews with few windows, more at once with many" = "Automatyczny rozmiar — większe podglądy przy małej liczbie okien, więcej naraz przy dużej";

@@ -52,6 +52,7 @@
 "Application Name - Window Title" = "Tên ứng dụng - Tiêu đề cửa sổ";
 "Applies in other Appearances" = "Áp dụng trong các Giao diện khác";
 "Arrow keys" = "Phím mũi tên";
+"Arrow keys already assigned to other actions:\n%@" = "Phím mũi tên đã được gán cho các hành động khác:\n%@";
 "Ask whether to send crash reports" = "Hỏi trước khi gửi báo cáo sự cố";
 "Auto" = "Tự động";
 "Auto Size — larger previews with few windows, more at once with many" = "Kích cỡ tự động — bản xem trước lớn hơn khi có ít cửa sổ, hiển thị nhiều hơn cùng lúc khi có nhiều cửa sổ";

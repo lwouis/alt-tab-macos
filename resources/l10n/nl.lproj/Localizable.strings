@@ -52,6 +52,7 @@
 "Application Name - Window Title" = "Naam van app - Venstertitel";
 "Applies in other Appearances" = "Geldt in andere weergaven";
 "Arrow keys" = "Pijltjestoetsen";
+"Arrow keys already assigned to other actions:\n%@" = "Pijltjestoetsen zijn al toegewezen aan andere acties:\n%@";
 "Ask whether to send crash reports" = "Vragen of crashrapporten verstuurd moeten worden";
 "Auto" = "Automatisch";
 "Auto Size — larger previews with few windows, more at once with many" = "Automatische grootte — grotere voorvertoningen bij weinig vensters, meer tegelijk bij veel";

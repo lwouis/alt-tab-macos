@@ -52,6 +52,7 @@
 "Application Name - Window Title" = "Uygulama Adı - Pencere Başlığı";
 "Applies in other Appearances" = "Diğer Görünümlerde uygulanır";
 "Arrow keys" = "Ok tuşları";
+"Arrow keys already assigned to other actions:\n%@" = "Ok tuşları zaten başka eylemlere atanmış:\n%@";
 "Ask whether to send crash reports" = "Çökme raporlarının gönderilip gönderilmeyeceğini sor";
 "Auto" = "Otomatik";
 "Auto Size — larger previews with few windows, more at once with many" = "Otomatik Boyut — az pencerede büyük önizlemeler, çok pencerede aynı anda daha fazlası";

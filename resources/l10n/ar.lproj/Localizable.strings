@@ -52,6 +52,7 @@
 "Application Name - Window Title" = "اسم التطبيق - عنوان النافذة";
 "Applies in other Appearances" = "يُطبَّق في المظاهر الأخرى";
 "Arrow keys" = "مفاتيح الأسهم";
+"Arrow keys already assigned to other actions:\n%@" = "مفاتيح الأسهم معيّنة بالفعل لإجراءات أخرى:\n%@";
 "Ask whether to send crash reports" = "السؤال عن إرسال تقارير الأعطال";
 "Auto" = "تلقائي";
 "Auto Size — larger previews with few windows, more at once with many" = "حجم تلقائي — معاينات أكبر مع عدد قليل من النوافذ، وأكثر مرة واحدة مع الكثير منها";

@@ -52,6 +52,7 @@
 "Application Name - Window Title" = "Nom de l'application - Titre de la fenêtre";
 "Applies in other Appearances" = "S'applique aux autres apparences";
 "Arrow keys" = "Touches fléchées";
+"Arrow keys already assigned to other actions:\n%@" = "Touches fléchées déjà affectées à d'autres actions :\n%@";
 "Ask whether to send crash reports" = "Demander avant d'envoyer un rapport de plantage";
 "Auto" = "Auto";
 "Auto Size — larger previews with few windows, more at once with many" = "Taille automatique — aperçus plus grands avec peu de fenêtres, plus à la fois quand il y en a beaucoup";

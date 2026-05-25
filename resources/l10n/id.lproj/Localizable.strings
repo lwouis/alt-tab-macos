@@ -52,6 +52,7 @@
 "Application Name - Window Title" = "Nama Aplikasi - Judul Jendela";
 "Applies in other Appearances" = "Berlaku pada Tampilan lain";
 "Arrow keys" = "Tombol panah";
+"Arrow keys already assigned to other actions:\n%@" = "Tombol panah sudah ditetapkan untuk tindakan lain:\n%@";
 "Ask whether to send crash reports" = "Tanya apakah akan mengirim laporan kerusakan";
 "Auto" = "Otomatis";
 "Auto Size — larger previews with few windows, more at once with many" = "Ukuran Otomatis — pratinjau lebih besar saat jendela sedikit, lebih banyak sekaligus saat jendela banyak";

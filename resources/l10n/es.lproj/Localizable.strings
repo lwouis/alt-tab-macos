@@ -52,6 +52,7 @@
 "Application Name - Window Title" = "Nombre de la aplicación - Título de la ventana";
 "Applies in other Appearances" = "Se aplica en otras Apariencias";
 "Arrow keys" = "Teclas de flecha";
+"Arrow keys already assigned to other actions:\n%@" = "Teclas de flecha ya asignadas a otras acciones:\n%@";
 "Ask whether to send crash reports" = "Preguntar si enviar los informes de problema";
 "Auto" = "Automático";
 "Auto Size — larger previews with few windows, more at once with many" = "Tamaño automático — previsualizaciones más grandes con pocas ventanas, más a la vez con muchas";

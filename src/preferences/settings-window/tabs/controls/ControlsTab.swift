@@ -51,6 +51,7 @@ class ControlsTab {
         "showAppsOrWindows",
     ]
     private static let arrowKeys = ["←", "→", "↑", "↓"]
+    private static let arrowKeyCodes: Set<KeyCode> = [.leftArrow, .rightArrow, .upArrow, .downArrow]
     private static let vimKeyActions = [
         "h": "vimCycleLeft",
         "l": "vimCycleRight",
@@ -92,7 +93,7 @@ class ControlsTab {
     static func initializePreferencesDependentState() {
         applyActiveShortcutPreferences()
         staticManagedShortcutPreferences.forEach { applyShortcutPreference($0) }
-        applyArrowKeysPreference()
+        applyArrowKeysPreferenceWithoutDialogs()
         applyVimKeysPreferenceWithoutDialogs()
     }
 
@@ -123,8 +124,8 @@ class ControlsTab {
             // An override key changed (e.g. user picked a different value, or remembered-restore wrote).
             refreshUnlinkButtons()
             AppearanceTab.refreshAllOverrideInfoLabels()
-        case "arrowKeysEnabled":
-            applyArrowKeysPreference()
+        case "arrowKeysEnabled" where arrowKeysCheckbox == nil:
+            applyArrowKeysPreferenceWithoutDialogs()
         case "vimKeysEnabled" where vimKeysCheckbox == nil:
             applyVimKeysPreferenceWithoutDialogs()
         default:
@@ -1197,7 +1198,42 @@ class ControlsTab {
     }
 
     @objc static func arrowKeysEnabledCallback(_ sender: NSControl) {
-        applyArrowKeysPreference()
+        if (sender as! Switch).state == .on {
+            if isClearArrowKeysSuccessful() {
+                arrowKeys.forEach { addShortcut(.down, .local, Shortcut(keyEquivalent: $0)!, $0, nil) }
+            } else {
+                (sender as! Switch).state = .off
+                Preferences.set("arrowKeysEnabled", "false", false)
+            }
+        } else {
+            arrowKeys.forEach { removeShortcutIfExists($0) }
+        }
+    }
+
+    private static func isClearArrowKeysSuccessful() -> Bool {
+        var conflicts = [String: String]()
+        shortcuts.forEach {
+            guard arrowKeyCodes.contains($1.shortcut.keyCode) else { return }
+            guard !arrowKeys.contains($1.id) else { return }
+            if let label = conflictLabel($1.id) {
+                conflicts[$1.id] = label
+            }
+        }
+        if !conflicts.isEmpty {
+            if SettingsWindow.shared == nil || !shouldClearConflictingShortcuts(conflicts.map { $0.value }, NSLocalizedString("Arrow keys already assigned to other actions:\n%@", comment: "")) {
+                return false
+            }
+            conflicts.forEach {
+                removeShortcutIfExists($0.key)
+                let existing = shortcutControls[$0.key]
+                if existing != nil {
+                    existing!.0.objectValue = nil
+                    shortcutChangedCallback(existing!.0)
+                    LabelAndControl.controlWasChanged(existing!.0, $0.key)
+                }
+            }
+        }
+        return true
     }
 
     @objc static func vimKeysEnabledCallback(_ sender: NSControl) {
@@ -1226,7 +1262,7 @@ class ControlsTab {
             }
         }
         if !conflicts.isEmpty {
-            if SettingsWindow.shared == nil || !shouldClearConflictingShortcuts(conflicts.map { $0.value }) {
+            if SettingsWindow.shared == nil || !shouldClearConflictingShortcuts(conflicts.map { $0.value }, NSLocalizedString("Vim keys already assigned to other actions:\n%@", comment: "")) {
                 return false
             }
             conflicts.forEach {
@@ -1255,12 +1291,12 @@ class ControlsTab {
         return nil
     }
 
-    private static func shouldClearConflictingShortcuts(_ conflicts: [String]) -> Bool {
+    private static func shouldClearConflictingShortcuts(_ conflicts: [String], _ messageFormat: String) -> Bool {
         let alert = NSAlert()
         alert.alertStyle = .warning
         alert.messageText = NSLocalizedString("Conflicting shortcut", comment: "")
         let informativeText = conflicts.map { "• " + $0 }.joined(separator: "\n")
-        alert.informativeText = String(format: NSLocalizedString("Vim keys already assigned to other actions:\n%@", comment: ""), informativeText.replacingOccurrences(of: " ", with: "\u{00A0}"))
+        alert.informativeText = String(format: messageFormat, informativeText.replacingOccurrences(of: " ", with: "\u{00A0}"))
         alert.addButton(withTitle: NSLocalizedString("Unassign existing shortcut and continue", comment: "")).setAccessibilityFocused(true)
         let cancelButton = alert.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))
         cancelButton.keyEquivalent = "\u{1b}"
@@ -1323,11 +1359,23 @@ class ControlsTab {
         return Shortcut(code: baseShortcut.keyCode, modifierFlags: [holdShortcut.modifierFlags, baseShortcut.modifierFlags], characters: baseShortcut.characters, charactersIgnoringModifiers: baseShortcut.charactersIgnoringModifiers)
     }
 
-    private static func applyArrowKeysPreference() {
-        if Preferences.arrowKeysEnabled {
-            arrowKeys.forEach { addShortcut(.down, .local, Shortcut(keyEquivalent: $0)!, $0, nil) }
-        } else {
+    private static func applyArrowKeysPreferenceWithoutDialogs() {
+        guard Preferences.arrowKeysEnabled else {
             arrowKeys.forEach { removeShortcutIfExists($0) }
+            return
+        }
+        if hasArrowKeysConflictWithoutUi() {
+            arrowKeys.forEach { removeShortcutIfExists($0) }
+            Preferences.set("arrowKeysEnabled", "false", false)
+            return
+        }
+        arrowKeys.forEach { addShortcut(.down, .local, Shortcut(keyEquivalent: $0)!, $0, nil) }
+    }
+
+    private static func hasArrowKeysConflictWithoutUi() -> Bool {
+        return shortcuts.values.contains {
+            guard arrowKeyCodes.contains($0.shortcut.keyCode) else { return false }
+            return !arrowKeys.contains($0.id)
         }
     }
 

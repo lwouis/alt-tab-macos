@@ -52,6 +52,7 @@
 "Application Name - Window Title" = "應用程式名稱 - 視窗標題";
 "Applies in other Appearances" = "套用至其他外觀";
 "Arrow keys" = "方向鍵";
+"Arrow keys already assigned to other actions:\n%@" = "方向鍵已指派給其他動作：\n%@";
 "Ask whether to send crash reports" = "詢問是否傳送當機報告";
 "Auto" = "自動";
 "Auto Size — larger previews with few windows, more at once with many" = "自動調整大小 — 視窗少時預覽較大，視窗多時一次顯示更多";

@@ -52,6 +52,7 @@
 "Application Name - Window Title" = "ชื่อแอปพลิเคชัน - ชื่อหน้าต่าง";
 "Applies in other Appearances" = "ใช้ในลักษณะอื่น";
 "Arrow keys" = "ปุ่มลูกศร";
+"Arrow keys already assigned to other actions:\n%@" = "ปุ่มลูกศรถูกกำหนดให้กับการกระทำอื่นแล้ว:\n%@";
 "Ask whether to send crash reports" = "ถามว่าจะส่งรายงานการขัดข้องหรือไม่";
 "Auto" = "อัตโนมัติ";
 "Auto Size — larger previews with few windows, more at once with many" = "ขนาดอัตโนมัติ — ภาพตัวอย่างใหญ่ขึ้นเมื่อมีหน้าต่างน้อย แสดงพร้อมกันมากขึ้นเมื่อมีหน้าต่างเยอะ";

@@ -52,6 +52,7 @@
 "Application Name - Window Title" = "アプリケーション名 - ウインドウタイトル";
 "Applies in other Appearances" = "他の外観にも適用されます";
 "Arrow keys" = "矢印キー";
+"Arrow keys already assigned to other actions:\n%@" = "矢印キーはすでに他のアクションに割り当てられています:\n%@";
 "Ask whether to send crash reports" = "クラッシュレポートの送信を毎回確認";
 "Auto" = "自動";
 "Auto Size — larger previews with few windows, more at once with many" = "自動サイズ — ウインドウが少ないと大きく、多いとまとめて表示";

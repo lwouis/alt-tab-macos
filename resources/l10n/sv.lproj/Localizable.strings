@@ -52,6 +52,7 @@
 "Application Name - Window Title" = "Programnamn - Fönstertitel";
 "Applies in other Appearances" = "Gäller i andra Utseenden";
 "Arrow keys" = "Piltangenter";
+"Arrow keys already assigned to other actions:\n%@" = "Piltangenter är redan tilldelade andra åtgärder:\n%@";
 "Ask whether to send crash reports" = "Fråga om kraschrapporter ska skickas";
 "Auto" = "Auto";
 "Auto Size — larger previews with few windows, more at once with many" = "Automatisk storlek — större förhandsvisningar med få fönster, fler åt gången med många";

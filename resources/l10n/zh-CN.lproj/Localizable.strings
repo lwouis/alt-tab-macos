@@ -52,6 +52,7 @@
 "Application Name - Window Title" = "应用名称 - 窗口标题";
 "Applies in other Appearances" = "适用于其他外观";
 "Arrow keys" = "方向键";
+"Arrow keys already assigned to other actions:\n%@" = "方向键已分配给其他操作：\n%@";
 "Ask whether to send crash reports" = "询问是否发送崩溃报告";
 "Auto" = "自动";
 "Auto Size — larger previews with few windows, more at once with many" = "自动大小 — 窗口较少时预览更大,窗口较多时一次显示更多";

@@ -52,6 +52,7 @@
 "Application Name - Window Title" = "응용 프로그램 이름 - 윈도우 제목";
 "Applies in other Appearances" = "다른 모양에도 적용됨";
 "Arrow keys" = "화살표 키";
+"Arrow keys already assigned to other actions:\n%@" = "화살표 키가 이미 다른 동작에 할당되어 있습니다:\n%@";
 "Ask whether to send crash reports" = "충돌 보고서 전송 여부 물어보기";
 "Auto" = "자동";
 "Auto Size — larger previews with few windows, more at once with many" = "자동 크기 — 윈도우가 적으면 미리보기가 크고, 많으면 한 번에 더 많이 표시";

@@ -161,6 +161,9 @@
 "Arrow keys" = "Arrow keys";
 
 /* No comment provided by engineer. */
+"Arrow keys already assigned to other actions:\n%@" = "Arrow keys already assigned to other actions:\n%@";
+
+/* No comment provided by engineer. */
 "Ask whether to send crash reports" = "Ask whether to send crash reports";
 
 /* No comment provided by engineer. */

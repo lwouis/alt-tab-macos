@@ -41,15 +41,39 @@ class CustomRecorderControl: RecorderControl {
         set(allowedModifierFlags: CustomRecorderControl.allowedModifiers.subtracting(restrictedModifiers), requiredModifierFlags: [], allowsEmptyModifierFlags: true)
     }
 
+    private enum ShortcutConflict {
+        case arrow
+        case vim
+        case regular(control: CustomRecorderControl, label: String)
+        case unknown
+
+        var label: String {
+            switch self {
+            case .arrow: return "Arrow keys"
+            case .vim: return "Vim keys"
+            case .regular(_, let label): return label
+            case .unknown: return "an unknown action"
+            }
+        }
+
+        static func classify(_ id: String) -> ShortcutConflict {
+            if ["←", "→", "↑", "↓"].contains(id) { return .arrow }
+            if id.starts(with: "vimCycle") { return .vim }
+            if let existing = ControlsTab.shortcutControls[id] {
+                return .regular(control: existing.0, label: existing.1)
+            }
+            assertionFailure("conflict id '\(id)' missing from shortcutControls")
+            return .unknown
+        }
+    }
+
     func alertIfSameShortcutAlreadyAssigned(_ candidateShortcut: Shortcut, _ shortcutAlreadyAssigned: String) {
-        let isArrowKeys = ["←", "→", "↑", "↓"].contains(shortcutAlreadyAssigned)
-        let isVimKeys = shortcutAlreadyAssigned.starts(with: "vimCycle")
-        let existingShortcut = ControlsTab.shortcutControls[shortcutAlreadyAssigned]!
+        let conflict = ShortcutConflict.classify(shortcutAlreadyAssigned)
         let alert = NSAlert()
         alert.alertStyle = .warning
         alert.messageText = NSLocalizedString("Conflicting shortcut", comment: "")
         alert.informativeText = String(format: NSLocalizedString("Shortcut already assigned to another action: %@", comment: ""),
-                                       (isArrowKeys ? "Arrow keys" : (isVimKeys ? "Vim keys" : existingShortcut.1)).replacingOccurrences(of: " ", with: "\u{00A0}"))
+                                       conflict.label.replacingOccurrences(of: " ", with: "\u{00A0}"))
         if !id.starts(with: "holdShortcut") {
             alert.addButton(withTitle: NSLocalizedString("Unassign existing shortcut and continue", comment: "")).setAccessibilityFocused(true)
         }
@@ -59,22 +83,26 @@ class CustomRecorderControl: RecorderControl {
             cancelButton.setAccessibilityFocused(true)
         }
         let userChoice = alert.runModal()
-        if !id.starts(with: "holdShortcut") && userChoice == .alertFirstButtonReturn {
-            if isArrowKeys, let cb = ControlsTab.arrowKeysCheckbox {
+        guard !id.starts(with: "holdShortcut"), userChoice == .alertFirstButtonReturn else { return }
+        switch conflict {
+        case .arrow:
+            if let cb = ControlsTab.arrowKeysCheckbox {
                 cb.state = .off
                 ControlsTab.arrowKeysEnabledCallback(cb)
                 LabelAndControl.controlWasChanged(cb, nil)
-            } else if isVimKeys, let cb = ControlsTab.vimKeysCheckbox {
+            }
+        case .vim:
+            if let cb = ControlsTab.vimKeysCheckbox {
                 cb.state = .off
                 ControlsTab.vimKeysEnabledCallback(cb)
                 LabelAndControl.controlWasChanged(cb, nil)
-            } else {
-                updateShortcut(existingShortcut.0, nil, existingShortcut.0, shortcutAlreadyAssigned)
             }
-            if let target = ControlsTab.shortcutControls[id]?.0 {
-                updateShortcut(target, candidateShortcut, self, id)
-            }
+        case .regular(let existingControl, _):
+            updateShortcut(existingControl, nil, existingControl, shortcutAlreadyAssigned)
+        case .unknown:
+            return
         }
+        updateShortcut(self, candidateShortcut, self, id)
     }
 
     func updateShortcut(_ control: CustomRecorderControl, _ objectValue: Shortcut?, _ senderControl: NSControl, _ id: String) {
@@ -84,22 +112,24 @@ class CustomRecorderControl: RecorderControl {
     }
 
     func alertIfShortcutReservedByMacos(_ candidateShortcut: Shortcut, _ shortcutReservedByMacos: String) {
-        let existingShortcutLabel = ControlsTab.shortcutControls[shortcutReservedByMacos]!.1
+        let existing = ControlsTab.shortcutControls[shortcutReservedByMacos]
+        if existing == nil {
+            assertionFailure("reserved-by-macos id '\(shortcutReservedByMacos)' missing from shortcutControls")
+        }
         let alert = NSAlert()
         alert.alertStyle = .warning
         alert.messageText = NSLocalizedString("Conflicting shortcut", comment: "")
-        alert.informativeText = String(format: NSLocalizedString("macOS reserves ⌘⌥⎋, ⌘⌥⇧⎋, and ⌘⌥⇧⌃⎋ for Force Quit and they cannot be unbound. AltTab cannot use them.\n\nYour change would assign one of these to: %@.", comment: ""), existingShortcutLabel)
+        alert.informativeText = String(format: NSLocalizedString("macOS reserves ⌘⌥⎋, ⌘⌥⇧⎋, and ⌘⌥⇧⌃⎋ for Force Quit and they cannot be unbound. AltTab cannot use them.\n\nYour change would assign one of these to: %@.", comment: ""), existing?.1 ?? "an unknown action")
         alert.addButton(withTitle: NSLocalizedString("Unassign existing shortcut and continue", comment: ""))
         let cancelButton = alert.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))
         cancelButton.keyEquivalent = "\u{1b}"
         cancelButton.setAccessibilityFocused(true)
         let userChoice = alert.runModal()
-        if userChoice == .alertFirstButtonReturn {
-            guard id != shortcutReservedByMacos else { return }
-            let existingShortcut = ControlsTab.shortcutControls[shortcutReservedByMacos]!
-            updateShortcut(existingShortcut.0, nil, existingShortcut.0, shortcutReservedByMacos)
-            updateShortcut(ControlsTab.shortcutControls[id]!.0, candidateShortcut, self, id)
+        guard userChoice == .alertFirstButtonReturn, id != shortcutReservedByMacos else { return }
+        if let existing {
+            updateShortcut(existing.0, nil, existing.0, shortcutReservedByMacos)
         }
+        updateShortcut(self, candidateShortcut, self, id)
     }
 
     func save(_ candidateShortcut: Shortcut) {

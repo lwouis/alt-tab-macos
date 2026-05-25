@@ -52,6 +52,7 @@
 "Application Name - Window Title" = "Anwendungsname - Fenstertitel";
 "Applies in other Appearances" = "Gilt in anderen Darstellungen";
 "Arrow keys" = "Pfeiltasten";
+"Arrow keys already assigned to other actions:\n%@" = "Pfeiltasten sind bereits anderen Aktionen zugewiesen:\n%@";
 "Ask whether to send crash reports" = "Fragen, ob Absturzberichte gesendet werden sollen";
 "Auto" = "Automatisch";
 "Auto Size — larger previews with few windows, more at once with many" = "Automatische Größe — größere Vorschauen bei wenigen Fenstern, mehr auf einmal bei vielen";

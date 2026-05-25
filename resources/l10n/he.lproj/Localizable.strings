@@ -52,6 +52,7 @@
 "Application Name - Window Title" = "שם היישום - כותרת החלון";
 "Applies in other Appearances" = "חל במראים אחרים";
 "Arrow keys" = "מקשי חצים";
+"Arrow keys already assigned to other actions:\n%@" = "מקשי חצים כבר משויכים לפעולות אחרות:\n%@";
 "Ask whether to send crash reports" = "שאל לפני שליחת דיווחי קריסה";
 "Auto" = "אוטומטי";
 "Auto Size — larger previews with few windows, more at once with many" = "גודל אוטומטי — תצוגות מקדימות גדולות יותר עם מעט חלונות, יותר בבת אחת עם רבים";

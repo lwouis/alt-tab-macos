@@ -52,6 +52,7 @@
 "Application Name - Window Title" = "Application Name - Window Title";
 "Applies in other Appearances" = "Applies in other Appearances";
 "Arrow keys" = "Arrow keys";
+"Arrow keys already assigned to other actions:\n%@" = "Arrow keys already assigned to other actions:\n%@";
 "Ask whether to send crash reports" = "Ask whether to send crash reports";
 "Auto" = "Auto";
 "Auto Size — larger previews with few windows, more at once with many" = "Auto Size — larger previews with few windows, more at once with many";

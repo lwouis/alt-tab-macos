@@ -52,6 +52,7 @@
 "Application Name - Window Title" = "Nome dell'applicazione - Titolo della finestra";
 "Applies in other Appearances" = "Si applica negli altri Aspetti";
 "Arrow keys" = "Tasti freccia";
+"Arrow keys already assigned to other actions:\n%@" = "Tasti freccia già assegnati ad altre azioni:\n%@";
 "Ask whether to send crash reports" = "Chiedi se inviare i resoconti di arresti anomali";
 "Auto" = "Automatico";
 "Auto Size — larger previews with few windows, more at once with many" = "Dimensione automatica — anteprime più grandi con poche finestre, più contemporaneamente con molte";

@@ -52,6 +52,7 @@
 "Application Name - Window Title" = "Nome do Aplicativo - Título da Janela";
 "Applies in other Appearances" = "Aplica-se a outras aparências";
 "Arrow keys" = "Teclas de seta";
+"Arrow keys already assigned to other actions:\n%@" = "Teclas de seta já atribuídas a outras ações:\n%@";
 "Ask whether to send crash reports" = "Perguntar se deve enviar relatórios de falha";
 "Auto" = "Automático";
 "Auto Size — larger previews with few windows, more at once with many" = "Tamanho automático — pré-visualizações maiores com poucas janelas, mais janelas de uma vez quando houver muitas";
