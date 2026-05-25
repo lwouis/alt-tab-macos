@@ -33,19 +33,11 @@ final class ProStateTracker: ObservableObject {
             self.customerEmail = "preview@example.com"
             self.isLifetimeVariant = true
         } else {
-            // Defer keychain access off the main thread so window init doesn't block
-            DispatchQueue.global().async {
-                let state = LicenseManager.shared.state
-                let isLocked = LicenseManager.shared.isProLocked
-                let email = LicenseManager.shared.customerEmail
-                let lifetime = LicenseManager.shared.isLifetimeVariant
-                DispatchQueue.main.async {
-                    self.licenseState = state
-                    self.isProLocked = isLocked
-                    self.customerEmail = email
-                    self.isLifetimeVariant = lifetime
-                }
-            }
+            // Synchronous read — LicenseManager properties are cheap (computed from state + defaults)
+            self.licenseState = LicenseManager.shared.state
+            self.isProLocked = LicenseManager.shared.isProLocked
+            self.customerEmail = LicenseManager.shared.customerEmail
+            self.isLifetimeVariant = LicenseManager.shared.isLifetimeVariant
         }
         // Always listen for Pro state changes so views update after activation/deactivation
         proLockObserver = NotificationCenter.default.addObserver(
@@ -63,20 +55,13 @@ final class ProStateTracker: ObservableObject {
     }
 
     func refresh() {
-        // Avoid keychain access on the main thread
-        DispatchQueue.global().async {
-            LicenseManager.shared.refreshState()
-            let state = LicenseManager.shared.state
-            let isLocked = LicenseManager.shared.isProLocked
-            let email = LicenseManager.shared.customerEmail
-            let lifetime = LicenseManager.shared.isLifetimeVariant
-            DispatchQueue.main.async {
-                self.licenseState = state
-                self.isProLocked = isLocked
-                self.customerEmail = email
-                self.isLifetimeVariant = lifetime
-            }
-        }
+        // Synchronous on main thread — avoids race with SwiftUI layout engine.
+        // No refreshState() call: the notification already signals that state changed,
+        // and calling refreshState() would overwrite explicit mock/activation values.
+        self.licenseState = LicenseManager.shared.state
+        self.isProLocked = LicenseManager.shared.isProLocked
+        self.customerEmail = LicenseManager.shared.customerEmail
+        self.isLifetimeVariant = LicenseManager.shared.isLifetimeVariant
     }
 
     /// Used by Pro-gated controls: if locked and user taps a Pro value, bounce to Upgrade.

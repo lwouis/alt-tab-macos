@@ -4,6 +4,7 @@ import SwiftUI
 struct AppearanceTabView: View {
     @EnvironmentObject var store: PreferencesStore
     @EnvironmentObject var proTracker: ProStateTracker
+    @EnvironmentObject var searchVM: SearchViewModel
     private let proGatedStyleIndices: Set<Int> = [1, 2]
 
     private static let navigateToUpgrade = Notification.Name(
@@ -19,58 +20,97 @@ struct AppearanceTabView: View {
 
     var body: some View {
         SwiftUI.ScrollView {
-            VStack(alignment: .leading, spacing: 20) {
-                // 主要外观设置
-                GroupBox {
-                    VStack(spacing: 0) {
-                        styleRow
-                        RowDivider()
-                        sizeRow
-                        RowDivider()
-                        themeRow
-                        RowDivider()
-                        afterReleaseRow
-                        RowDivider()
-                        previewWindowRow
+            ScrollViewReader { proxy in
+                VStack(alignment: .leading, spacing: 20) {
+                    SearchableSection(
+                        sectionId: "appearance-style",
+                        searchableText: [
+                            NSLocalizedString("Size", comment: ""),
+                            NSLocalizedString("Theme", comment: ""),
+                            NSLocalizedString("After keys are released", comment: ""),
+                            NSLocalizedString("Preview selected window", comment: ""),
+                            NSLocalizedString("Appearance", comment: ""),
+                            AppearanceStylePreference.thumbnails.localizedString,
+                            AppearanceStylePreference.appIcons.localizedString,
+                            AppearanceStylePreference.titles.localizedString,
+                        ]
+                    ) {
+                        SectionLabel(title: "Appearance")
+                    } content: {
+                        VStack(spacing: 0) {
+                            styleRow
+                            RowDivider()
+                            sizeRow
+                            RowDivider()
+                            themeRow
+                            RowDivider()
+                            afterReleaseRow
+                            RowDivider()
+                            previewWindowRow
+                        }
+                        .padding(.top, 4)
                     }
-                    .padding(.top, 4)
-                } label: {
-                    SectionLabel(title: "Appearance")
-                }
 
-                // 自定义选项 - 使用已有字符串组合
-                GroupBox {
-                    VStack(spacing: 0) {
-                        hideStatusIconsRow
-                        RowDivider()
-                        hideSpaceNumberLabelsRow
-                        RowDivider()
-                        hideColoredCirclesRow
-                        RowDivider()
-                        showTitlesRow
-                        RowDivider()
-                        titleTruncationRow
+                    SearchableSection(
+                        sectionId: "appearance-window-style",
+                        searchableText: [
+                            NSLocalizedString("Window Style", comment: ""),
+                            NSLocalizedString("Hide status icons", comment: ""),
+                            NSLocalizedString("Hide Space number labels", comment: ""),
+                            NSLocalizedString("Hide colored circles on mouse hover", comment: ""),
+                            NSLocalizedString("Show titles", comment: ""),
+                            NSLocalizedString("Title truncation", comment: ""),
+                        ]
+                    ) {
+                        SectionLabel(title: "Window Style")
+                    } content: {
+                        VStack(spacing: 0) {
+                            hideStatusIconsRow
+                            RowDivider()
+                            hideSpaceNumberLabelsRow
+                            RowDivider()
+                            hideColoredCirclesRow
+                            RowDivider()
+                            showTitlesRow
+                            RowDivider()
+                            titleTruncationRow
+                        }
+                        .padding(.top, 4)
                     }
-                    .padding(.top, 4)
-                } label: {
-                    SectionLabel(title: "Window Style")
-                }
 
-                // 动画
-                GroupBox {
-                    animationsContent
-                } label: {
-                    SectionLabel(title: "Animations")
-                }
+                    SearchableSection(
+                        sectionId: "appearance-animations",
+                        searchableText: [
+                            NSLocalizedString("Animations", comment: ""),
+                            NSLocalizedString("Apparition delay of Switcher", comment: ""),
+                            NSLocalizedString("Fade out animation of Switcher", comment: ""),
+                            NSLocalizedString("Fade in animation of Preview", comment: ""),
+                        ]
+                    ) {
+                        SectionLabel(title: "Animations")
+                    } content: {
+                        animationsContent
+                    }
 
-                // 多屏幕设置
-                GroupBox {
-                    multipleScreensContent
-                } label: {
-                    SectionLabel(title: "Multiple screens")
+                    SearchableSection(
+                        sectionId: "appearance-screens",
+                        searchableText: [
+                            NSLocalizedString("Multiple screens", comment: ""),
+                            NSLocalizedString("Show on", comment: ""),
+                        ]
+                    ) {
+                        SectionLabel(title: "Multiple screens")
+                    } content: {
+                        multipleScreensContent
+                    }
+                }
+                .padding(30)
+                .onChange(of: searchVM.firstMatchSectionId) { id in
+                    if let id {
+                        withAnimation { proxy.scrollTo(id, anchor: .top) }
+                    }
                 }
             }
-            .padding(30)
         }
         .frame(minWidth: SwiftUISettingsWindow.contentWidth)
     }
@@ -382,4 +422,5 @@ private struct SectionLabel: View {
     return AppearanceTabView()
         .environmentObject(PreferencesStore())
         .environmentObject(ProStateTracker())
+        .environmentObject(SearchViewModel())
 }

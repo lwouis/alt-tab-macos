@@ -217,6 +217,7 @@
 "Settings imported" = "设置已导入";
 "Settings…" = "设置";
 "Shortcut" = "快捷键";
+"Shortcut %d" = "快捷键 %d";
 "Shortcut already assigned to another action: %@" = "快捷键已分配给其他操作：%@";
 "Shortcuts When Active" = "激活时的快捷键";
 "Shortcuts when active…" = "激活时的快捷键";

@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		04AF649B1AE93763C23355A8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E63E06568186D76D7DD746 /* ContentView.swift */; };
+		0F1E2D3C4B5A6F7E8D9C0B1A /* SharedRowComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8B7C6D5E4F3A2B1C0D9E8F /* SharedRowComponents.swift */; };
+		F2E1D0C9B8A7F6E5D4C3B2A1 /* SearchableSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F6A7B8C9D0E1F2 /* SearchableSection.swift */; };
 		1C96101BC5817A7F85FA1F8D /* titles_show_running_applications_light@2x.heic in Resources */ = {isa = PBXBuildFile; fileRef = 1C961F57248D4E2377A9038E /* titles_show_running_applications_light@2x.heic */; };
 		1C96108A0CB2565233FE100B /* TableGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C961FB3DCF4906FEEF4A23D /* TableGroupView.swift */; };
 		1C9610F8AF7AD8CA53B62913 /* titles_hide_status_icons_light@2x.heic in Resources */ = {isa = PBXBuildFile; fileRef = 1C961E64CF8FB6E3FDAA3DAA /* titles_hide_status_icons_light@2x.heic */; };
@@ -428,6 +430,7 @@
 		8267C2EB27C90D0F4BF2455F /* OverrideIndicatorButton.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = OverrideIndicatorButton.swift; path = "src/preferences-swiftui/Shared/OverrideIndicatorButton.swift"; sourceTree = SOURCE_ROOT; };
 		8691059B363B5F27CB8A792C /* SearchViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SearchViewModel.swift; path = "src/preferences-swiftui/ViewModel/SearchViewModel.swift"; sourceTree = SOURCE_ROOT; };
 		926405CF6572761F8A7BAB5D /* PreferencesStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PreferencesStore.swift; path = "src/preferences-swiftui/ViewModel/PreferencesStore.swift"; sourceTree = SOURCE_ROOT; };
+		9A8B7C6D5E4F3A2B1C0D9E8F /* SharedRowComponents.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SharedRowComponents.swift; path = "src/preferences-swiftui/Shared/SharedRowComponents.swift"; sourceTree = SOURCE_ROOT; };
 		A0E63E06568186D76D7DD746 /* ContentView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ContentView.swift; path = "src/preferences-swiftui/ContentView.swift"; sourceTree = SOURCE_ROOT; };
 		AA0C8A000000000000000001 /* AXCallScheduler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AXCallScheduler.swift; sourceTree = "<group>"; };
 		AA0C8B000000000000000002 /* UsageStats.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsageStats.swift; sourceTree = "<group>"; };
@@ -439,6 +442,7 @@
 		BB0000000000000000000001 /* TabGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabGroup.swift; sourceTree = "<group>"; };
 		BBCA47564751659B67FB9AF1 /* ProStateTracker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ProStateTracker.swift; path = "src/preferences-swiftui/ViewModel/ProStateTracker.swift"; sourceTree = SOURCE_ROOT; };
 		BBCEF306874E127C7D163C1C /* SearchHighlightModifier.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SearchHighlightModifier.swift; path = "src/preferences-swiftui/Shared/SearchHighlightModifier.swift"; sourceTree = SOURCE_ROOT; };
+		A1B2C3D4E5F6A7B8C9D0E1F2 /* SearchableSection.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SearchableSection.swift; path = "src/preferences-swiftui/Shared/SearchableSection.swift"; sourceTree = SOURCE_ROOT; };
 		BC07818D6FCBEFC756C64296 /* menubar-2.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "menubar-2.pdf"; sourceTree = "<group>"; };
 		BC6A46F95605FAB3078FC0FF /* ImageRadioGroup.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageRadioGroup.swift; path = "src/preferences-swiftui/Shared/ImageRadioGroup.swift"; sourceTree = SOURCE_ROOT; };
 		BF0C800363086A5ED019FE11 /* google_translate_all_terms_locally.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = google_translate_all_terms_locally.py; sourceTree = "<group>"; };
@@ -606,7 +610,7 @@
 		D04BA7F8F1F44D5D9844BFF5 /* ar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ar; path = InfoPlist.strings; sourceTree = "<group>"; };
 		D04BA812B8DCB915B8F4B915 /* contributors.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = contributors.md; sourceTree = "<group>"; };
 		D04BA8209A337A2960716E3B /* zh-CN */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = Localizable.strings; sourceTree = "<group>"; };
-		D04BA82F792DF53958D92572 /* AltTab-Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AltTab-Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D04BA82F792DF53958D92572 /* AltTab-SwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AltTab-SwiftUI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D04BA84F172AE89F210CA01D /* Pipfile.lock */ = {isa = PBXFileReference; lastKnownFileType = file.lock; path = Pipfile.lock; sourceTree = "<group>"; };
 		D04BA8AC77465E1B2BC947CF /* StackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackView.swift; sourceTree = "<group>"; };
 		D04BA8DB8AA7E5570DAC568A /* Sysctl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sysctl.swift; sourceTree = "<group>"; };
@@ -872,6 +876,8 @@
 				8267C2EB27C90D0F4BF2455F /* OverrideIndicatorButton.swift */,
 				6DE800F4EDC5384D6B0A5159 /* ProBadge.swift */,
 				BBCEF306874E127C7D163C1C /* SearchHighlightModifier.swift */,
+				A1B2C3D4E5F6A7B8C9D0E1F2 /* SearchableSection.swift */,
+				9A8B7C6D5E4F3A2B1C0D9E8F /* SharedRowComponents.swift */,
 				819DAF18153BDA29F50E16C2 /* AppearanceTabView.swift */,
 				567D32A1B1341AECFF935C29 /* ControlsTabView.swift */,
 				D0065541922189658D0185E1 /* ExceptionsTabView.swift */,
@@ -1205,7 +1211,7 @@
 		D04BA1A461BBB5A9BE15E015 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D04BA82F792DF53958D92572 /* AltTab-Dev.app */,
+				D04BA82F792DF53958D92572 /* AltTab-SwiftUI.app */,
 				BF0C832DEED422648209CCD2 /* unit-tests.xctest */,
 			);
 			name = Products;
@@ -1645,7 +1651,7 @@
 			);
 			name = "alt-tab-macos";
 			productName = "alt-tab-macos";
-			productReference = D04BA82F792DF53958D92572 /* AltTab-Dev.app */;
+			productReference = D04BA82F792DF53958D92572 /* AltTab-SwiftUI.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -2030,6 +2036,8 @@
 				64384A82E8334213B8F45348 /* OverrideIndicatorButton.swift in Sources */,
 				26ED14A38E70D7206C6A7C45 /* ProBadge.swift in Sources */,
 				EEE329A0434B8C80ABFF59B4 /* SearchHighlightModifier.swift in Sources */,
+				0F1E2D3C4B5A6F7E8D9C0B1A /* SharedRowComponents.swift in Sources */,
+				F2E1D0C9B8A7F6E5D4C3B2A1 /* SearchableSection.swift in Sources */,
 				5987091C6522A7640760D6D1 /* AppearanceTabView.swift in Sources */,
 				958AFC5A09EADD1911C2D0BD /* ControlsTabView.swift in Sources */,
 				6051AC1218469D1B23793207 /* ExceptionsTabView.swift in Sources */,

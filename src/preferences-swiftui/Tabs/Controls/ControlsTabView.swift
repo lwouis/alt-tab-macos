@@ -11,6 +11,7 @@ struct ControlsTabView: View {
     @State private var selectedSegment: Int = 0
     @State private var showShortcutsSheet = false
     @State private var showAdditionalControlsSheet = false
+    @State private var showGestureInfo = false
 
     private let sidebarWidth: CGFloat = 175
     private var editorWidth: CGFloat {
@@ -28,7 +29,12 @@ struct ControlsTabView: View {
                     maxCount: Preferences.maxShortcutCount,
                     minCount: Preferences.minShortcutCount,
                     isProLocked: proTracker.isProLocked,
-                    onProGateViolation: { /* TODO: navigate to upgrade */  }
+                    onProGateViolation: {
+                        NotificationCenter.default.post(
+                            name: Notification.Name("NavigateToUpgradeTab"),
+                            object: nil
+                        )
+                    }
                 )
                 .frame(width: sidebarWidth)
 
@@ -67,6 +73,17 @@ struct ControlsTabView: View {
             }
         }
         .padding(20)
+        .sheet(isPresented: $showShortcutsSheet) {
+            ShortcutsWhenActiveSheetView()
+                .environmentObject(store)
+                .environmentObject(proTracker)
+                .frame(width: 500)
+        }
+        .sheet(isPresented: $showAdditionalControlsSheet) {
+            AdditionalControlsSheetView()
+                .environmentObject(store)
+                .frame(width: 500)
+        }
     }
 
     @ViewBuilder
@@ -93,7 +110,8 @@ struct ControlsTabView: View {
                         shortcut: store.shortcutBinding(
                             for: vm.holdShortcutKey
                         ),
-                        label: NSLocalizedString("Hold", comment: "")
+                        label: NSLocalizedString("Hold", comment: ""),
+                        preferenceKey: vm.holdShortcutKey
                     )
                     .frame(height: 22)
 
@@ -105,7 +123,8 @@ struct ControlsTabView: View {
                         label: NSLocalizedString(
                             "Select next window",
                             comment: ""
-                        )
+                        ),
+                        preferenceKey: vm.nextWindowShortcutKey
                     )
                     .frame(height: 22)
                     Text(NSLocalizedString("Select next window", comment: ""))
@@ -119,40 +138,7 @@ struct ControlsTabView: View {
 
             Spacer().frame(height: 10)
 
-            // Tab control
-            Picker("", selection: $selectedSegment) {
-                Text(NSLocalizedString("Filtering", comment: "")).tag(0)
-                Text(NSLocalizedString("Appearance", comment: "")).tag(1)
-                Text(NSLocalizedString("Ordering & Grouping", comment: "")).tag(
-                    2
-                )
-            }
-            .pickerStyle(.segmented)
-            .frame(width: editorWidth - 32)
-
-            Spacer().frame(height: 8)
-
-            // Tab content
-            Group {
-                switch selectedSegment {
-                case 0: FilteringSection(index: index)
-                case 1: AppearanceOverrideSectionView(index: index)
-                case 2: OrderingSectionView(index: index)
-                default: EmptyView()
-                }
-            }
-            .frame(minHeight: 300)
-        }
-        .sheet(isPresented: $showShortcutsSheet) {
-            ShortcutsWhenActiveSheetView()
-                .environmentObject(store)
-                .environmentObject(proTracker)
-                .frame(width: 500)
-        }
-        .sheet(isPresented: $showAdditionalControlsSheet) {
-            AdditionalControlsSheetView()
-                .environmentObject(store)
-                .frame(width: 500)
+            ShortcutTabContentSection(index: index, selectedSegment: $selectedSegment, editorWidth: editorWidth)
         }
     }
 
@@ -174,17 +160,22 @@ struct ControlsTabView: View {
                         }
                     }
 
-                    SwiftUI.Button(action: { /* open Trackpad Settings */  }) {
+                    SwiftUI.Button(action: { showGestureInfo = true }) {
                         Image(systemName: "info.circle")
                     }
                     .buttonStyle(.plain)
                     .foregroundColor(.accentColor)
-                    .help(
-                        NSLocalizedString(
-                            "You may need to disable some conflicting system gestures",
-                            comment: ""
-                        )
-                    )
+                    .popover(isPresented: $showGestureInfo) {
+                        VStack(alignment: .leading, spacing: 12) {
+                            Text(NSLocalizedString("You may need to disable some conflicting system gestures", comment: ""))
+                                .fixedSize(horizontal: false, vertical: true)
+                            SwiftUI.Button(NSLocalizedString("Open Trackpad Settings…", comment: "")) {
+                                NSWorkspace.shared.open(URL(string: "x-apple.systempreferences:com.apple.Trackpad-Settings.extension")!)
+                            }
+                        }
+                        .padding(12)
+                        .frame(width: 280)
+                    }
                 }
                 .padding(.vertical, 8)
                 .padding(.horizontal, 10)
@@ -192,7 +183,43 @@ struct ControlsTabView: View {
                 Text(NSLocalizedString("Trigger", comment: ""))
                     .font(.system(size: 13, weight: .medium))
             }
-            Spacer()
+
+            Spacer().frame(height: 10)
+
+            ShortcutTabContentSection(index: Preferences.gestureIndex, selectedSegment: $selectedSegment, editorWidth: editorWidth)
+        }
+    }
+}
+
+// MARK: - Shared tab content section (Filtering / Appearance / Ordering)
+
+@available(macOS 13.0, *)
+struct ShortcutTabContentSection: View {
+    let index: Int
+    @Binding var selectedSegment: Int
+    let editorWidth: CGFloat
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            Picker("", selection: $selectedSegment) {
+                Text(NSLocalizedString("Filtering", comment: "")).tag(0)
+                Text(NSLocalizedString("Appearance", comment: "")).tag(1)
+                Text(NSLocalizedString("Ordering & Grouping", comment: "")).tag(2)
+            }
+            .pickerStyle(.segmented)
+            .frame(width: editorWidth - 32)
+
+            Spacer().frame(height: 8)
+
+            Group {
+                switch selectedSegment {
+                case 0: FilteringSection(index: index)
+                case 1: AppearanceOverrideSectionView(index: index)
+                case 2: OrderingSectionView(index: index)
+                default: EmptyView()
+                }
+            }
+            .frame(minHeight: 300)
         }
     }
 }
@@ -255,7 +282,13 @@ struct ShortcutSidebarView: View {
     private func shortcutRowView(index: Int) -> some View {
         ShortcutSidebarRowView(index: index, isSelected: selectedIndex == index)
             .contentShape(Rectangle())
-            .onTapGesture { selectedIndex = index }
+            .onTapGesture {
+                if isProLocked && index >= 1 {
+                    onProGateViolation()
+                } else {
+                    selectedIndex = index
+                }
+            }
             .background(
                 selectedIndex == index ? Color.accentColor : Color.clear
             )
@@ -268,7 +301,13 @@ struct ShortcutSidebarView: View {
             isSelected: selectedIndex == Preferences.gestureIndex
         )
         .contentShape(Rectangle())
-        .onTapGesture { selectedIndex = Preferences.gestureIndex }
+        .onTapGesture {
+            if isProLocked {
+                onProGateViolation()
+            } else {
+                selectedIndex = Preferences.gestureIndex
+            }
+        }
         .background(
             selectedIndex == Preferences.gestureIndex
                 ? Color.accentColor : Color.clear
@@ -682,7 +721,8 @@ struct ShortcutsWhenActiveSheetView: View {
                             .frame(width: 220, alignment: .leading)
                             ShortcutRecorderField(
                                 shortcut: store.shortcutBinding(for: key),
-                                label: NSLocalizedString(label, comment: "")
+                                label: NSLocalizedString(label, comment: ""),
+                                preferenceKey: key
                             )
                             .frame(height: 22)
                             Spacer()
@@ -827,6 +867,7 @@ struct AdditionalControlsSheetView: View {
     return ControlsTabView()
         .environmentObject(PreferencesStore())
         .environmentObject(ProStateTracker())
+        .environmentObject(SearchViewModel())
 }
 
 @available(macOS 13.0, *)
@@ -852,6 +893,7 @@ struct AdditionalControlsSheetView: View {
     return ControlsTabView()
         .environmentObject(PreferencesStore())
         .environmentObject(proState)
+        .environmentObject(SearchViewModel())
 }
 
 @available(macOS 13.0, *)
@@ -879,5 +921,6 @@ struct AdditionalControlsSheetView: View {
     Preferences.registerDefaults()
     return AdditionalControlsSheetView()
         .environmentObject(PreferencesStore())
+        .environmentObject(SearchViewModel())
         .frame(width: 500)
 }

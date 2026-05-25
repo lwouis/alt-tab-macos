@@ -3,61 +3,83 @@ import SwiftUI
 @available(macOS 13.0, *)
 struct GeneralTabView: View {
     @EnvironmentObject var store: PreferencesStore
+    @EnvironmentObject var searchVM: SearchViewModel
 
     var body: some View {
         SwiftUI.ScrollView {
-            VStack(alignment: .leading, spacing: 20) {
-                GroupBox {
-                    VStack(spacing: 0) {
-                        startAtLoginRow
-                        RowDivider()
-                        menubarIconRow
-                        RowDivider()
-                        captureWindowsRow
-                        RowDivider()
-                        languageRow
-                    }
-                    .padding(.top, 4)
-                } label: {
-                    SectionLabel(title: "General")
-                }
-
-                GroupBox {
-                    VStack(spacing: 0) {
-                        updatesRow
-                        RowDivider()
-                        crashPolicyRow
-                    }
-                    .padding(.top, 4)
-                } label: {
-                    SectionLabel(title: "Updates")
-                }
-
-                HStack(spacing: 12) {
-                    SwiftUI.Button(
-                        NSLocalizedString("Export settings…", comment: ""),
-                        action: exportSettings
-                    )
-                    SwiftUI.Button(
-                        NSLocalizedString("Import settings…", comment: ""),
-                        action: importSettings
-                    )
-                    Spacer()
-                    SwiftUI.Button(
-                        NSLocalizedString("Check for updates now…", comment: "")
+            ScrollViewReader { proxy in
+                VStack(alignment: .leading, spacing: 20) {
+                    SearchableSection(
+                        sectionId: "general-main",
+                        searchableText: [
+                            NSLocalizedString("Start at login", comment: ""),
+                            NSLocalizedString("Menubar icon", comment: ""),
+                            NSLocalizedString("Capture windows in the background", comment: ""),
+                            NSLocalizedString("Language", comment: ""),
+                        ]
                     ) {
-                        App.updaterController?.checkForUpdates(nil)
+                        SectionLabel(title: "General")
+                    } content: {
+                        VStack(spacing: 0) {
+                            startAtLoginRow
+                            RowDivider()
+                            menubarIconRow
+                            RowDivider()
+                            captureWindowsRow
+                            RowDivider()
+                            languageRow
+                        }
+                        .padding(.top, 4)
                     }
-                    SwiftUI.Button(
-                        NSLocalizedString(
-                            "Reset settings and restart…",
-                            comment: ""
-                        ),
-                        action: confirmReset
-                    )
+
+                    SearchableSection(
+                        sectionId: "general-updates",
+                        searchableText: [
+                            NSLocalizedString("Updates policy", comment: ""),
+                            NSLocalizedString("Crash reports policy", comment: ""),
+                        ]
+                    ) {
+                        SectionLabel(title: "Updates")
+                    } content: {
+                        VStack(spacing: 0) {
+                            updatesRow
+                            RowDivider()
+                            crashPolicyRow
+                        }
+                        .padding(.top, 4)
+                    }
+
+                    HStack(spacing: 12) {
+                        SwiftUI.Button(
+                            NSLocalizedString("Export settings…", comment: ""),
+                            action: exportSettings
+                        )
+                        SwiftUI.Button(
+                            NSLocalizedString("Import settings…", comment: ""),
+                            action: importSettings
+                        )
+                        Spacer()
+                        SwiftUI.Button(
+                            NSLocalizedString("Check for updates now…", comment: "")
+                        ) {
+                            App.updaterController?.checkForUpdates(nil)
+                        }
+                        SwiftUI.Button(
+                            NSLocalizedString(
+                                "Reset settings and restart…",
+                                comment: ""
+                            ),
+                            action: confirmReset
+                        )
+                    }
+                }
+                .padding(30)
+                .onChange(of: searchVM.firstMatchSectionId) { id in
+                    if let id {
+                        withAnimation { proxy.scrollTo(id, anchor: .top) }
+                    }
                 }
             }
-            .padding(30)
         }
         .frame(minWidth: SwiftUISettingsWindow.contentWidth)
     }
@@ -251,45 +273,6 @@ private struct SectionLabel: View {
     }
 }
 
-// MARK: - Shared row components
-
-@available(macOS 13.0, *)
-struct LabeledRow<Content: View>: View {
-    let label: String
-    @ViewBuilder let content: () -> Content
-    init(_ label: String, @ViewBuilder content: @escaping () -> Content) {
-        self.label = label
-        self.content = content
-    }
-    var body: some View {
-        HStack(alignment: .center, spacing: 12) {
-            Text(label)
-            Spacer()
-            content()
-        }
-        .padding(.vertical, 6).padding(.horizontal, 12)
-    }
-}
-
-@available(macOS 13.0, *)
-struct FullWidthRow<Content: View>: View {
-    @ViewBuilder let content: () -> Content
-    init(@ViewBuilder content: @escaping () -> Content) {
-        self.content = content
-    }
-    var body: some View {
-        content()
-            .padding(.vertical, 6).padding(.horizontal, 12)
-    }
-}
-
-@available(macOS 13.0, *)
-struct RowDivider: View {
-    var body: some View {
-        Divider().padding(.vertical, 4)
-    }
-}
-
 // MARK: - Preview
 
 @available(macOS 13.0, *)
@@ -297,4 +280,5 @@ struct RowDivider: View {
     Preferences.registerDefaults()
     return GeneralTabView()
         .environmentObject(PreferencesStore())
+        .environmentObject(SearchViewModel())
 }

@@ -62,6 +62,11 @@ struct ContentView: View {
         }
         .onAppear { searchVM.applySearch() }
         .onChange(of: searchVM.query) { _ in searchVM.applySearch() }
+        .onChange(of: searchVM.visibleTabIds) { _ in
+            if let current = selectedTab, current != .upgrade, !filteredTabs.contains(current) {
+                selectedTab = filteredTabs.first
+            }
+        }
         .onReceive(
             NotificationCenter.default.publisher(
                 for: Notification.Name("NavigateToUpgradeTab")
@@ -75,7 +80,9 @@ struct ContentView: View {
 
     private var filteredTabs: [SettingsTab] {
         SettingsTab.allCases.filter { tab in
-            if tab == .upgrade { return true }
+            if tab == .upgrade {
+                return SettingsSearch.isQueryEmpty(searchVM.query)
+            }
             return searchVM.isTabVisible(tab.id)
         }
     }
