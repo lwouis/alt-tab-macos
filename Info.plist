@@ -23,9 +23,9 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>10.12.0</string>
+	<string>#VERSION#</string>
 	<key>CFBundleVersion</key>
-	<string>10.12.0</string>
+	<string>#VERSION#</string>
 	<key>FeedbackToken</key>
 	<string></string>
 	<key>LSApplicationCategoryType</key>
@@ -47,9 +47,9 @@
 	<key>SUEnableJavaScript</key>
 	<string>true</string>
 	<key>SUFeedURL</key>
-	<string>https://example.invalid/AltAtlTab/appcast.xml</string>
+	<string>#SUFeedURL#</string>
 	<key>SUPublicEDKey</key>
-	<string>2e9SQOBoaKElchSa/4QDli/nvYkyuDNfynfzBF6vJK4=</string>
+	<string>#SPARKLE_PUBLIC_KEY#</string>
 	<key>SUScheduledCheckInterval</key>
 	<string>604800</string>
 </dict>

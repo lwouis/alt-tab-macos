@@ -2,31 +2,28 @@ on:
   push:
     branches:
       - master
+
+permissions:
+  contents: write
+
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  APPCENTER_SECRET: ${{ secrets.APPCENTER_SECRET }}
-  APPCENTER_TOKEN: ${{ secrets.APPCENTER_TOKEN }}
-  APPLE_ID: ${{ secrets.APPLE_ID }}
-  APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
-  APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-  APPLE_P12_CERTIFICATE: ${{ secrets.APPLE_P12_CERTIFICATE }}
-  FEEDBACK_TOKEN: ${{ secrets.FEEDBACK_TOKEN }}
-  CLOUDFLARE_WEBHOOK: ${{ secrets.CLOUDFLARE_WEBHOOK }}
+  HOMEBREW_TAP_GITHUB_TOKEN: ${{ secrets.HOMEBREW_TAP_GITHUB_TOKEN }}
   SPARKLE_ED_PRIVATE_KEY: ${{ secrets.SPARKLE_ED_PRIVATE_KEY }}
+  SPARKLE_PUBLIC_KEY: ${{ secrets.SPARKLE_PUBLIC_KEY }}
   GITHUB_EVENT_BEFORE: ${{ github.event.before }}
   GITHUB_EVENT_AFTER: ${{ github.event.after }}
   BUILD_DIR: ${{ github.workspace }}
   XCODE_BUILD_PATH: DerivedData/Build/Products/Release
   VERSION_FILE: VERSION.txt
-  APP_NAME: AltTab
+  APP_NAME: AltAtlTab
+  HOMEBREW_TAP_REPO: odrinateur/homebrew-altatltab
+  HOMEBREW_TAP_BRANCH: main
+
 jobs:
-  build:
-    runs-on: macos-15 # all options: https://github.com/actions/runner-images/tree/main
-    environment: production
+  release:
+    runs-on: macos-15
     steps:
-#      - env:
-#          GITHUB_CONTEXT: ${{ toJSON(github) }}
-#        run: echo "$GITHUB_CONTEXT"
       - id: pre-checkout
         env:
           COMMITS: ${{ toJson(github.event.commits) }}
@@ -37,33 +34,51 @@ jobs:
             COUNT=1
           fi
           echo "fetch-depth=$COUNT" >> "$GITHUB_OUTPUT"
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: ${{ steps.pre-checkout.outputs.fetch-depth }}
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
-          node-version: 16
-          cache: 'npm'
-      - run: sudo xcode-select -s /Applications/Xcode_26.0.1.app/Contents/Developer
-      - run: scripts/print_env.sh
+          node-version: 20
+          cache: npm
       - run: npm ci
       - run: npx commitlint --from "$GITHUB_EVENT_BEFORE" --to "$GITHUB_EVENT_AFTER" --verbose
       - run: scripts/ensure_generated_files_are_up_to_date.sh
-      - run: scripts/determine_next_version.sh
+      - id: version
+        run: scripts/determine_next_version.sh
+      - name: Stop when no release is required
+        if: steps.version.outputs.skip == 'true'
+        run: echo "No release required"
       - run: scripts/replace_environment_variables_in_app.sh
-      - run: scripts/codesign/setup_ci_master.sh
+        if: steps.version.outputs.skip != 'true'
+      - run: scripts/codesign/setup_ci_pr.sh
+        if: steps.version.outputs.skip != 'true'
       - run: scripts/run_tests.sh
+        if: steps.version.outputs.skip != 'true'
       - run: scripts/build_app.sh
-      - run: scripts/package_and_notarize_release.sh
-      - run: scripts/upload_symbols_to_appcenter.sh
+        if: steps.version.outputs.skip != 'true'
+      - run: scripts/package_release.sh
+        if: steps.version.outputs.skip != 'true'
       - run: scripts/update_appcast.sh
-      - run: scripts/update_readme_and_website.sh
+        if: steps.version.outputs.skip != 'true'
+      - run: scripts/update_readme_release.sh
+        if: steps.version.outputs.skip != 'true'
       - run: npx semantic-release
+        if: steps.version.outputs.skip != 'true'
+        env:
+          GIT_AUTHOR_NAME: github-actions[bot]
+          GIT_AUTHOR_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+          GIT_COMMITTER_NAME: github-actions[bot]
+          GIT_COMMITTER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
       - id: set_release_info
+        if: steps.version.outputs.skip != 'true'
         run: scripts/extract_latest_changelog.sh
-      - uses: softprops/action-gh-release@v1
+      - uses: softprops/action-gh-release@v2
+        if: steps.version.outputs.skip != 'true'
         with:
           tag_name: ${{ steps.set_release_info.outputs.tag_name }}
+          name: AltAtlTab ${{ steps.version.outputs.version }}
           body: ${{ steps.set_release_info.outputs.body }}
           files: ${{ env.XCODE_BUILD_PATH }}/*.zip
-      - run: scripts/update_website.sh
+      - run: scripts/update_homebrew_tap.sh
+        if: steps.version.outputs.skip != 'true'
