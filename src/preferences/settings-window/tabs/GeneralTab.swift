@@ -3,20 +3,20 @@ import Sparkle
 
 class GeneralTab {
     static var menubarIconDropdown: NSPopUpButton?
+    static var menuIconShownToggle: Switch?
     static var updatesPolicyDropdown: NSPopUpButton?
     static var crashPolicyDropdown: NSPopUpButton?
     static var policyLock = false
-    private static var menubarIsVisibleObserver: NSKeyValueObservation?
 
     static func initTab() -> NSView {
         let startAtLogin = TableGroupView.Row(leftTitle: NSLocalizedString("Start at login", comment: ""),
             rightViews: [LabelAndControl.makeSwitch("startAtLogin")])
         menubarIconDropdown = LabelAndControl.makeDropdown("menubarIcon", MenubarIconPreference.allCases)
-        let menuIconShownToggle = LabelAndControl.makeSwitch("menubarIconShown")
+        menuIconShownToggle = LabelAndControl.makeSwitch("menubarIconShown")
         let menubarIcon = TableGroupView.Row(leftTitle: NSLocalizedString("Menubar icon", comment: ""),
             rightViews: [
                 menubarIconDropdown!,
-                menuIconShownToggle,
+                menuIconShownToggle!,
             ])
         let language = TableGroupView.Row(leftTitle: NSLocalizedString("Language", comment: ""),
             rightViews: [LabelAndControl.makeDropdown("language", LanguagePreference.allCases, extraAction: setLanguageCallback)])
@@ -36,7 +36,6 @@ class GeneralTab {
         cell.bezelStyle = .regularSquare
         cell.arrowPosition = .arrowAtBottom
         cell.imagePosition = .imageOverlaps
-        enableDraggingOffMenubarIcon(menuIconShownToggle)
         let captureWindowsInBackground = TableGroupView.Row(leftTitle: NSLocalizedString("Capture windows in the background", comment: ""),
             subTitle: NSLocalizedString("When disabled, avoids the macOS purple screen-recording indicator, and avoids flickers when playing DRM video. Thumbnails will be less up-to-date.", comment: ""),
             rightViews: [LabelAndControl.makeSwitch("captureWindowsInBackground")])
@@ -67,9 +66,8 @@ class GeneralTab {
     }
 
     static func cleanup() {
-        // KVO observer is invalidated by nil-out
-        menubarIsVisibleObserver = nil
         menubarIconDropdown = nil
+        menuIconShownToggle = nil
         updatesPolicyDropdown = nil
         crashPolicyDropdown = nil
     }
@@ -79,17 +77,6 @@ class GeneralTab {
         menubarIconDropdown?.isEnabled = Preferences.menubarIconShown
         updatesPolicyDropdown?.selectItem(at: CachedUserDefaults.intFromMacroPref("updatePolicy", UpdatePolicyPreference.allCases))
         crashPolicyDropdown?.selectItem(at: CachedUserDefaults.intFromMacroPref("crashPolicy", CrashPolicyPreference.allCases))
-    }
-
-    private static func enableDraggingOffMenubarIcon(_ menuIconShownToggle: Switch) {
-        Menubar.statusItem.behavior = .removalAllowed
-        menubarIsVisibleObserver = Menubar.statusItem.observe(\.isVisible, options: [.old, .new]) { _, change in
-            Logger.debug { "---- \(change)" }
-            if change.oldValue == true && change.newValue == false {
-                menuIconShownToggle.state = .off
-                LabelAndControl.controlWasChanged(menuIconShownToggle, nil)
-            }
-        }
     }
 
     @objc static func resetPreferences() {
