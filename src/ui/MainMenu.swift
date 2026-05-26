@@ -53,7 +53,7 @@ class MainMenu {
     // MARK: - Menu builders
 
     private static func appMenuItem() -> NSMenuItem {
-        let menu = NSMenu(title: "AltTab")
+        let menu = NSMenu(title: "AltAtlTab")
         menu.addItem(item("Preferences…", "orderFrontPreferencesPanel:", ","))
         menu.addItem(.separator())
         let servicesItem = NSMenuItem(title: "Services", action: nil, keyEquivalent: "")
@@ -64,7 +64,7 @@ class MainMenu {
         menu.addItem(.separator())
         menu.addItem(item("Show All", "unhideAllApplications:"))
         menu.addItem(.separator())
-        menu.addItem(item("Quit AltTab", "terminate:", "q"))
+        menu.addItem(item("Quit AltAtlTab", "terminate:", "q"))
         return menuBarItem(menu)
     }
 
@@ -248,7 +248,7 @@ class MainMenu {
 
     private static func helpMenuItem() -> NSMenuItem {
         let menu = NSMenu(title: "Help")
-        menu.addItem(item("AltTab Help", "showHelp:", "?"))
+        menu.addItem(item("AltAtlTab Help", "showHelp:", "?"))
         NSApp.helpMenu = menu
         return menuBarItem(menu)
     }

@@ -85,7 +85,7 @@ class Menubar {
 
 class PermissionCallout: StackView {
     convenience init() {
-        let label = NSTextField(wrappingLabelWithString: NSLocalizedString("AltTab is running without Screen Recording permissions. Thumbnails won’t show.", comment: "Menubar callout"))
+        let label = NSTextField(wrappingLabelWithString: NSLocalizedString("AltAtlTab is running without Screen Recording permissions. Thumbnails won’t show.", comment: "Menubar callout"))
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .white
         label.preferredMaxLayoutWidth = 250

@@ -43,7 +43,7 @@ class AppCenterCrash: NSObject {
             let alert = NSAlert()
             alert.alertStyle = .warning
             alert.messageText = NSLocalizedString("Send a crash report?", comment: "")
-            alert.informativeText = NSLocalizedString("AltTab crashed last time you used it. Sending a crash report will help get the issue fixed", comment: "")
+            alert.informativeText = NSLocalizedString("AltAtlTab crashed last time you used it. Sending a crash report will help get the issue fixed", comment: "")
             alert.addButton(withTitle: NSLocalizedString("Send", comment: "")).setAccessibilityFocused(true)
             let cancelButton = alert.addButton(withTitle: NSLocalizedString("Don’t send", comment: ""))
             cancelButton.keyEquivalent = "\u{1b}"

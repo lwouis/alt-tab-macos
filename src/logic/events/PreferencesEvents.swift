@@ -18,7 +18,7 @@ class PreferencesEvents {
         "RunAtLoad": true,
         "LimitLoadToSessionType": "Aqua",
         // starting from macOS 13, AssociatedBundleIdentifiers is required, otherwise the UI in
-        // System Settings > General > Login Items, will show "Louis Pontoise" instead of "AltTab.app"
+        // System Settings > General > Login Items, will show "Louis Pontoise" instead of "AltAtlTab.app"
         "AssociatedBundleIdentifiers": App.bundleIdentifier,
         // "ProcessType: If left unspecified, the system will apply light resource limits to the job,
         //               throttling its CPU usage and I/O bandwidth"
@@ -94,7 +94,7 @@ class PreferencesEvents {
             try FileManager.default.createDirectory(at: launchAgentsPath, withIntermediateDirectories: false)
             Logger.debug { launchAgentsPath.absoluteString + " created" }
         }
-        launchAgentsPath.appendPathComponent("com.lwouis.alt-tab-macos.plist", isDirectory: false)
+        launchAgentsPath.appendPathComponent("com.local.altatltab.plist", isDirectory: false)
         if enabled {
             let data = try PropertyListSerialization.data(fromPropertyList: launchAgentPlist, format: .xml, options: 0)
             try data.write(to: launchAgentsPath, options: [.atomic])

@@ -18,7 +18,7 @@ class KeyboardEvents {
             DispatchQueue.main.async {
                 let modifiers = NSEvent.ModifierFlags(rawValue: UInt(cgEvent.flags.rawValue))
                 // TODO: ideally, we want to absorb all modifier keys except holdShortcut
-                // it was pressed down before AltTab was triggered, so we should let the up event through
+                // it was pressed down before AltAtlTab was triggered, so we should let the up event through
                 handleKeyboardEvent(nil, nil, nil, modifiers, false)
             }
         } else if (type == .tapDisabledByUserInput || type == .tapDisabledByTimeout) {

@@ -1,12 +1,12 @@
 <div align = center>
 
-# AltTab
+# AltAtlTab
 
 [![Screenshot](docs/public/demo/frontpage.jpg)](docs/public/demo/frontpage.jpg)
 
-**AltTab** brings the power of Windows alt-tab to macOS
+**AltAtlTab** is a lightly rebranded fork of AltTab v10.12.0.
 
-[Official website](https://alt-tab.app/)<br/><sub>15K stars</sub> | [Download](https://github.com/lwouis/alt-tab-macos/releases/download/v10.12.0/AltTab-10.12.0.zip)<br/><sub>7.4M downloads</sub>
+[Original project](https://github.com/lwouis/alt-tab-macos)<br/><sub>15K stars</sub> | [Download](https://github.com/lwouis/alt-tab-macos/releases/download/v10.12.0/AltTab-10.12.0.zip)<br/><sub>7.4M downloads</sub>
 -|-
 
 <div align="right">

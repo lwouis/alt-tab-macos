@@ -156,7 +156,7 @@ class ShowHideIllustratedView {
         hideStatusIcons.checkedImage = "hide_status_icons"
         hideStatusIcons.supportedStyles = [.thumbnails, .titles]
         hideStatusIcons.leftViews = [TableGroupView.makeText(NSLocalizedString("Hide status icons", comment: ""))]
-        hideStatusIcons.subTitle = NSLocalizedString("AltTab will show if the window is currently minimized or fullscreen with a status icon.", comment: "")
+        hideStatusIcons.subTitle = NSLocalizedString("AltAtlTab will show if the window is currently minimized or fullscreen with a status icon.", comment: "")
         hideStatusIcons.rightViews.append(LabelAndControl.makeInfoButton(searchableTooltipTexts: [hideStatusIcons.subTitle!], onMouseEntered: { event, view in
             Popover.shared.show(event: event, positioningView: view, message: hideStatusIcons.subTitle!)
         }, onMouseExited: { event, view in
@@ -186,14 +186,14 @@ class ShowHideIllustratedView {
             self.onCheckboxClicked(sender: sender, rowId: hideColoredCircles.rowId)
         }))
         showHideRows.append(hideColoredCircles)
-        let featureUnavailable = NSLocalizedString("AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows.", comment: "")
+        let featureUnavailable = NSLocalizedString("AltAtlTab is currently set to show Applications. This setting is only available when AltAtlTab is set to show Windows.", comment: "")
         var showTabsAsWindows = ShowHideRowInfo()
         showTabsAsWindows.rowId = "showTabsAsWindows"
         showTabsAsWindows.uncheckedImage = "hide_tabs_as_windows"
         showTabsAsWindows.checkedImage = "show_tabs_as_windows"
         showTabsAsWindows.supportedStyles = [.thumbnails, .appIcons, .titles]
         showTabsAsWindows.leftViews = [TableGroupView.makeText(NSLocalizedString("Show standard tabs as windows", comment: ""))]
-        showTabsAsWindows.subTitle = NSLocalizedString("Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately.", comment: "")
+        showTabsAsWindows.subTitle = NSLocalizedString("Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltAtlTab can't list those separately.", comment: "")
         showTabsAsWindows.rightViews.append(LabelAndControl.makeInfoButton(searchableTooltipTexts: [featureUnavailable, showTabsAsWindows.subTitle!], onMouseEntered: { event, view in
             if ShowHideIllustratedView.isDisabledOnApplications(showTabsAsWindows) {
                 Popover.shared.show(event: event, positioningView: view, message: featureUnavailable)

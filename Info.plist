@@ -7,7 +7,7 @@
 	<key>AppCenterApplicationForwarderEnabled</key>
 	<string>0</string>
 	<key>AppCenterSecret</key>
-	<string>#APPCENTER_SECRET#</string>
+	<string></string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>
@@ -23,11 +23,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>#VERSION#</string>
+	<string>10.12.0</string>
 	<key>CFBundleVersion</key>
-	<string>#VERSION#</string>
+	<string>10.12.0</string>
 	<key>FeedbackToken</key>
-	<string>#FEEDBACK_TOKEN#</string>
+	<string></string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.utilities</string>
 	<key>LSMinimumSystemVersion</key>
@@ -43,11 +43,11 @@
 	<key>NSSupportsSuddenTermination</key>
 	<string>false</string>
 	<key>SUEnableAutomaticChecks</key>
-	<string>true</string>
+	<string>false</string>
 	<key>SUEnableJavaScript</key>
 	<string>true</string>
 	<key>SUFeedURL</key>
-	<string>https://alt-tab.app/appcast.xml</string>
+	<string>https://example.invalid/AltAtlTab/appcast.xml</string>
 	<key>SUPublicEDKey</key>
 	<string>2e9SQOBoaKElchSa/4QDli/nvYkyuDNfynfzBF6vJK4=</string>
 	<key>SUScheduledCheckInterval</key>
