@@ -1,3 +1,10 @@
+## [10.13.2](https://github.com/odrinateur/alt-alt-tab-macos/compare/v10.13.1...v10.13.2) (2026-05-26)
+
+
+### Bug Fixes
+
+* update Homebrew cask for Homebrew 5 depends_on syntax ([5426966](https://github.com/odrinateur/alt-alt-tab-macos/commit/5426966))
+
 ## [10.13.1](https://github.com/odrinateur/alt-alt-tab-macos/compare/v10.13.0...v10.13.1) (2026-05-26)
 
 # [10.13.0](https://github.com/odrinateur/alt-alt-tab-macos/compare/v10.12.0...v10.13.0) (2026-05-26)
