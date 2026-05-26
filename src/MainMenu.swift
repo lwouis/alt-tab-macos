@@ -27,6 +27,9 @@ class MainMenu {
         for (item, keyEquivalent) in menuItemsWithShortcut {
             item.keyEquivalent = enabled ? keyEquivalent : ""
         }
+        // toggle() also touches Edit items; keep editToggleState in sync so a
+        // following toggleEditMenu(true) doesn't no-op and leave them disabled.
+        editToggleState = enabled
     }
 
     static func toggleEditMenu(_ enabled: Bool) {
