@@ -5,6 +5,20 @@
     <language>en</language>
 
     <item>
+      <title>Version 10.13.1</title>
+      <pubDate>Tue, 26 May 2026 20:57:27 +0000</pubDate>
+      <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
+      <sparkle:releaseNotesLink>https://github.com/odrinateur/alt-alt-tab-macos/blob/master/docs/changelog.md</sparkle:releaseNotesLink>
+      <enclosure
+        url="https://github.com/odrinateur/alt-alt-tab-macos/releases/download/v10.13.1/AltAtlTab-10.13.1.zip"
+        sparkle:version="10.13.1"
+        sparkle:shortVersionString="10.13.1"
+        sparkle:edSignature="Oxay2vxcx1f3LCXVUu9XQEaNoDTSvtpwkeBrGFlBoBDIp//D/rd3+4QTp/PCVYTksaxGfRBHZbP6nHySz5HbBA==" length="11611551"
+        type="application/octet-stream"/>
+    </item>
+
+
+    <item>
       <title>Version 10.13.0</title>
       <pubDate>Tue, 26 May 2026 20:50:18 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
