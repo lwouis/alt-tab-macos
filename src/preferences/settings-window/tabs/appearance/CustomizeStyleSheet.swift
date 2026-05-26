@@ -1,6 +1,24 @@
 import Cocoa
 
 class CustomizeStyleSheet: SheetWindow {
+    // Local labels (rows owned by this sheet). The Show/Hide rows below are sourced from
+    // `ShowHideIllustratedView`'s static constants so each NSLocalizedString call lives in
+    // exactly one place across the codebase.
+    private static let labelShowTitles = NSLocalizedString("Show titles", comment: "")
+    private static let labelTitleTruncation = NSLocalizedString("Title truncation", comment: "")
+
+    /// Pre-build search index for the open-button. See `SettingsSearchIndex.sheetSearchableStrings`.
+    static let searchableStrings: [String] = [
+        labelShowTitles,
+        labelTitleTruncation,
+        ShowHideIllustratedView.hideStatusIconsLabel,
+        ShowHideIllustratedView.hideStatusIconsSubtitle,
+        ShowHideIllustratedView.hideSpaceNumberLabelsLabel,
+        ShowHideIllustratedView.hideColoredCirclesLabel,
+        IllustratedImageThemeView.placeholderLabelText,
+    ] + ShowTitlesPreference.allCases.map { $0.localizedString }
+      + TitleTruncationPreference.allCases.map { $0.localizedString }
+
     static let illustratedImageWidth = width
 
     let style = Preferences.appearanceStyle
@@ -17,7 +35,7 @@ class CustomizeStyleSheet: SheetWindow {
         showHideIllustratedView = ShowHideIllustratedView(style, illustratedImageView)
         let showHideView = showHideIllustratedView.makeView()
         let advancedTable = TableGroupView(width: CustomizeStyleSheet.width)
-        let showTitles = TableGroupView.Row(leftTitle: NSLocalizedString("Show titles", comment: ""),
+        let showTitles = TableGroupView.Row(leftTitle: Self.labelShowTitles,
             rightViews: [LabelAndControl.makeDropdown(
                 "showTitles", ShowTitlesPreference.allCases, extraAction: { [weak self] _ in
                     self?.showTitlesIllustratedImage()
@@ -25,7 +43,7 @@ class CustomizeStyleSheet: SheetWindow {
         advancedTable.addRow(showTitles, onMouseEntered: { [weak self] _, _ in
             self?.showTitlesIllustratedImage()
         })
-        let titleTruncation = TableGroupView.Row(leftTitle: NSLocalizedString("Title truncation", comment: ""),
+        let titleTruncation = TableGroupView.Row(leftTitle: Self.labelTitleTruncation,
             rightViews: LabelAndControl.makeRadioButtons("titleTruncation", TitleTruncationPreference.allCases))
         advancedTable.addRow(titleTruncation)
         advancedTable.onMouseExited = { [weak self] event, view in

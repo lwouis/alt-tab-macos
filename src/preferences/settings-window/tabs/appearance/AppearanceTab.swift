@@ -19,6 +19,10 @@ struct ShowHideRowInfo {
 class IllustratedImageThemeView: ClickHoverImageView {
     override var acceptsFirstResponder: Bool { false }
     static let padding = CGFloat(4)
+    /// Shown when the current Appearance style doesn't support a Show/Hide option (the illustration
+    /// is for another style). Exposed so `CustomizeStyleSheet.searchableStrings` can reference it
+    /// without re-`NSLocalizedString`-ing the same English text.
+    static let placeholderLabelText = NSLocalizedString("Applies in other Appearances", comment: "")
     var style: AppearanceStylePreference!
     var theme: String!
     var imageName: String!
@@ -62,7 +66,7 @@ class IllustratedImageThemeView: ClickHoverImageView {
             imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: IllustratedImageThemeView.padding),
             imageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -IllustratedImageThemeView.padding),
         ])
-        let placeholder = NSTextField(labelWithString: NSLocalizedString("Applies in other Appearances", comment: ""))
+        let placeholder = NSTextField(labelWithString: IllustratedImageThemeView.placeholderLabelText)
         placeholder.font = NSFont.systemFont(ofSize: NSFont.systemFontSize + 3)
         placeholder.textColor = .secondaryLabelColor
         placeholder.alignment = .center
@@ -146,6 +150,14 @@ class IllustratedImageThemeView: ClickHoverImageView {
 }
 
 class ShowHideIllustratedView {
+    // Row labels exposed so `CustomizeStyleSheet.searchableStrings` can reference them without
+    // duplicating `NSLocalizedString` calls. Each is the single source of truth for that row's
+    // localized text; `setupItems` below uses these constants when building the rows.
+    static let hideStatusIconsLabel = NSLocalizedString("Hide status icons", comment: "")
+    static let hideStatusIconsSubtitle = NSLocalizedString("AltTab will show if the window is currently minimized or fullscreen with a status icon.", comment: "")
+    static let hideSpaceNumberLabelsLabel = NSLocalizedString("Hide Space number labels", comment: "")
+    static let hideColoredCirclesLabel = NSLocalizedString("Hide colored circles on mouse hover", comment: "")
+
     private let style: AppearanceStylePreference
     private var showHideRows = [ShowHideRowInfo]()
     var illustratedImageView: IllustratedImageThemeView!
@@ -180,8 +192,8 @@ class ShowHideIllustratedView {
         hideStatusIcons.uncheckedImage = "show_status_icons"
         hideStatusIcons.checkedImage = "hide_status_icons"
         hideStatusIcons.supportedStyles = [.thumbnails, .titles]
-        hideStatusIcons.leftViews = [TableGroupView.makeText(NSLocalizedString("Hide status icons", comment: ""))]
-        hideStatusIcons.subTitle = NSLocalizedString("AltTab will show if the window is currently minimized or fullscreen with a status icon.", comment: "")
+        hideStatusIcons.leftViews = [TableGroupView.makeText(ShowHideIllustratedView.hideStatusIconsLabel)]
+        hideStatusIcons.subTitle = ShowHideIllustratedView.hideStatusIconsSubtitle
         hideStatusIcons.rightViews.append(LabelAndControl.makeInfoButton(searchableTooltipTexts: [hideStatusIcons.subTitle!], onMouseEntered: { event, view in
             Popover.shared.show(event: event, positioningView: view, message: hideStatusIcons.subTitle!)
         }, onMouseExited: { event, view in
@@ -196,7 +208,7 @@ class ShowHideIllustratedView {
         hideSpaceNumberLabels.uncheckedImage = "show_space_number_labels"
         hideSpaceNumberLabels.checkedImage = "hide_space_number_labels"
         hideSpaceNumberLabels.supportedStyles = [.thumbnails, .titles]
-        hideSpaceNumberLabels.leftViews = [TableGroupView.makeText(NSLocalizedString("Hide Space number labels", comment: ""))]
+        hideSpaceNumberLabels.leftViews = [TableGroupView.makeText(ShowHideIllustratedView.hideSpaceNumberLabelsLabel)]
         hideSpaceNumberLabels.rightViews.append(LabelAndControl.makeSwitch(hideSpaceNumberLabels.rowId, extraAction: { sender in
             self.onCheckboxClicked(sender: sender, rowId: hideSpaceNumberLabels.rowId)
         }))
@@ -206,7 +218,7 @@ class ShowHideIllustratedView {
         hideColoredCircles.uncheckedImage = "show_colored_circles"
         hideColoredCircles.checkedImage = "hide_colored_circles"
         hideColoredCircles.supportedStyles = [.thumbnails]
-        hideColoredCircles.leftViews = [TableGroupView.makeText(NSLocalizedString("Hide colored circles on mouse hover", comment: ""))]
+        hideColoredCircles.leftViews = [TableGroupView.makeText(ShowHideIllustratedView.hideColoredCirclesLabel)]
         hideColoredCircles.rightViews.append(LabelAndControl.makeSwitch(hideColoredCircles.rowId, extraAction: { sender in
             self.onCheckboxClicked(sender: sender, rowId: hideColoredCircles.rowId)
         }))
@@ -366,6 +378,14 @@ extension Popover: NSPopoverDelegate {
 }
 
 class AppearanceTab: NSObject {
+    // Localized labels for the per-setting rows. Exposed so `ShortcutEditor.AppearancePane`
+    // (the per-shortcut override pane) can reference the same string for each conceptual
+    // setting instead of re-`NSLocalizedString`-ing them.
+    static let labelSize = NSLocalizedString("Size", comment: "")
+    static let labelTheme = NSLocalizedString("Theme", comment: "")
+    static let labelShortcutStyle = NSLocalizedString("After keys are released", comment: "")
+    static let labelPreviewSelectedWindow = NSLocalizedString("Preview selected window", comment: "")
+
     static var customizeStyleButton: NSButton!
     static var animationsButton: NSButton!
     static var customizeStyleSheet: CustomizeStyleSheet!
@@ -389,8 +409,9 @@ class AppearanceTab: NSObject {
     static func initTab() -> NSView {
         customizeStyleButton = NSButton(title: getCustomizeStyleButtonTitle(), target: self, action: #selector(showCustomizeStyleSheet))
         animationsButton = NSButton(title: NSLocalizedString("Animations…", comment: ""), target: self, action: #selector(showAnimationsSheet))
-        customizeStyleSheet = CustomizeStyleSheet()
-        animationsSheet = AnimationsSheet()
+        // Sheets are constructed lazily on first show — see `showCustomizeStyleSheet` /
+        // `showAnimationsSheet`. Pre-build search is satisfied by the sheets' static
+        // `searchableStrings`, consulted through `SettingsSearchIndex`.
         if proLockObserver == nil {
             proLockObserver = NotificationCenter.default.addObserver(
                 forName: ProTransitionManager.proLockStateDidChangeNotification,
@@ -470,9 +491,9 @@ class AppearanceTab: NSObject {
             guard let sizeControl else { return }
             refreshAutoSegmentAppearance(sizeControl)
         }
-        table.addRow(leftText: NSLocalizedString("Size", comment: ""),
+        table.addRow(leftText: AppearanceTab.labelSize,
             rightViews: [sizeControl, makeOverrideIcon("appearanceSizeOverride")])
-        table.addRow(leftText: NSLocalizedString("Theme", comment: ""),
+        table.addRow(leftText: AppearanceTab.labelTheme,
             rightViews: [LabelAndControl.makeSegmentedControl("appearanceTheme", AppearanceThemePreference.allCases, segmentWidth: 105, extraAction: { _ in
                 ControlsTab.syncOverrideControlsToGlobal()
                 refreshAllOverrideInfoLabels()
@@ -560,7 +581,7 @@ class AppearanceTab: NSObject {
             guard let control else { return }
             refreshShortcutStyleSegmentAppearance(control)
         }
-        table.addRow(leftText: NSLocalizedString("After keys are released", comment: ""),
+        table.addRow(leftText: AppearanceTab.labelShortcutStyle,
             rightViews: [control, makeOverrideIcon("shortcutStyleOverride")])
     }
 
@@ -601,7 +622,7 @@ class AppearanceTab: NSObject {
             ControlsTab.syncOverrideControlsToGlobal()
             refreshAllOverrideInfoLabels()
         })
-        previewSelectedWindowRowInfo = table.addRow(leftText: NSLocalizedString("Preview selected window", comment: ""),
+        previewSelectedWindowRowInfo = table.addRow(leftText: AppearanceTab.labelPreviewSelectedWindow,
             rightViews: [switchControl, makeOverrideIcon("previewFocusedWindowOverride")])
         updatePreviewSelectedWindowState()
     }
@@ -637,14 +658,18 @@ class AppearanceTab: NSObject {
     }
 
     @objc static func toggleCustomizeStyleButton() {
+        // Recreate the sheet so the next open rebuilds with current style preference baked in.
+        // (This is the "appearance style changed → reset the customize sheet" path.)
         customizeStyleSheet = CustomizeStyleSheet()
     }
 
     @objc static func showCustomizeStyleSheet() {
+        if customizeStyleSheet == nil { customizeStyleSheet = CustomizeStyleSheet() }
         SettingsWindow.shared.beginSheetWithSearchHighlight(customizeStyleSheet)
     }
 
     @objc static func showAnimationsSheet() {
+        if animationsSheet == nil { animationsSheet = AnimationsSheet() }
         SettingsWindow.shared.beginSheetWithSearchHighlight(animationsSheet)
     }
 

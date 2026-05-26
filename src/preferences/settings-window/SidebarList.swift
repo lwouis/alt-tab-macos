@@ -181,6 +181,23 @@ class SidebarListRow: ClickHoverStackView {
         toolTip = summary.isEmpty ? title : "\(title)\n\(summary)"
     }
 
+    /// Register the row's current title + summary text into the active `SettingsSearchIndex.Builder`
+    /// (if any), along with highlight targets for both labels. Call this *after* `setContent` so the
+    /// indexed strings match what the user sees. A no-op outside an `indexed { ... }` scope.
+    ///
+    /// Why this exists: the fallback `SettingsWindow.collectSearchContent` walk *does* find these
+    /// labels via the generic `NSTextField` branch — but ControlsTab's sidebar rows are populated
+    /// by `refreshShortcutRows` (called from `initTab` *inside* the indexed scope, and again from
+    /// `preferenceChanged` *outside* it). The fallback walk only runs once per section, so rows
+    /// recreated after the section is added would silently drop out of the index without this
+    /// explicit registration.
+    func registerSearchContent() {
+        SettingsSearchIndex.registerString(titleLabel.stringValue)
+        SettingsSearchIndex.registerString(summaryLabel.stringValue)
+        SettingsSearchIndex.registerTarget(SettingsSearchHighlight.highlightTarget(titleLabel))
+        SettingsSearchIndex.registerTarget(SettingsSearchHighlight.highlightTarget(summaryLabel))
+    }
+
     /// Updates only the summary line, leaving title/icon untouched. Use when the underlying
     /// data changed in a way that only affects the summary (e.g. dropdown selection changed
     /// but app identity is the same).

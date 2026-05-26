@@ -2,6 +2,7 @@
 
 SWIFT_VERSION = 5.8
 SWIFT_TREAT_WARNINGS_AS_ERRORS = YES
+MACOSX_DEPLOYMENT_TARGET = 10.13
 CODE_SIGNING_REQUIRED = NO // no need for codesign
 CODE_SIGNING_ALLOWED = NO // no need for codesign
 ONLY_ACTIVE_ARCH = YES // only need to run on the host machine

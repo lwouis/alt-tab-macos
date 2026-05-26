@@ -31,7 +31,7 @@ enum ProGradient {
     }
 
     static func makeProImage(font: NSFont) -> NSImage {
-        return makeGradientTextImage(NSLocalizedString("Pro", comment: ""), font: font)
+        return makeGradientTextImage(ProBadgeView.proLabel, font: font)
     }
 
     static func makeGradientTextImage(_ string: String, font: NSFont) -> NSImage {
@@ -62,7 +62,7 @@ enum ProGradient {
     }
 
     static func makeProTextAttachment(font: NSFont, baselineOffset: CGFloat = 0) -> NSAttributedString {
-        return makeGradientTextAttachment(NSLocalizedString("Pro", comment: ""), font: font, baselineOffset: baselineOffset)
+        return makeGradientTextAttachment(ProBadgeView.proLabel, font: font, baselineOffset: baselineOffset)
     }
 
     /// Render any string as a gradient `NSImage` wrapped in an `NSTextAttachment`, ready to be
@@ -216,6 +216,11 @@ class ProBadgeView: NSView {
     /// Inset between the badge and the segmented control's trailing edge.
     static let segmentTrailingPadding: CGFloat = 4
 
+    /// The literal text rendered on the badge. Exposed as a constant so the search index can
+    /// reference the same string (e.g. `ShortcutsWhenActiveSheet.searchableStrings`) without
+    /// duplicating the `NSLocalizedString` call.
+    static let proLabel = NSLocalizedString("Pro", comment: "")
+
     /// Bundle returned from `attach(to:segmentIndex:)`: the badge plus the icon and label
     /// overlays we render on top of the Pro segment. Callers store this to drive
     /// `refreshSelection` after click / window-key / Pro-lock transitions.
@@ -321,7 +326,7 @@ class ProBadgeView: NSView {
         overlay.label.needsDisplay = true
     }
 
-    private let label = NSTextField(labelWithString: NSLocalizedString("Pro", comment: ""))
+    private let label = NSTextField(labelWithString: ProBadgeView.proLabel)
     private let fillGradient = ProGradient.makeLayer(alpha: 0.1)
     private let borderGradient = ProGradient.makeLayer(alpha: 0.7)
     private let textGradient = ProGradient.makeLayer(alpha: 1)
@@ -333,6 +338,10 @@ class ProBadgeView: NSView {
 
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
+        // Register the "Pro" tag with the search index if a section build is in progress —
+        // mirrors what the post-construction walk in `SettingsWindow.collectSearchContent` does
+        // when it spots a `ProBadgeView`, just without needing the walk to find it after.
+        SettingsSearchIndex.registerString(ProBadgeView.proLabel)
         translatesAutoresizingMaskIntoConstraints = false
         wantsLayer = true
         layer?.cornerRadius = 4
@@ -353,7 +362,7 @@ class ProBadgeView: NSView {
         borderMask.strokeColor = NSColor.white.cgColor
         borderMask.lineWidth = 1
         borderGradient.mask = borderMask
-        textMask.string = NSLocalizedString("Pro", comment: "")
+        textMask.string = ProBadgeView.proLabel
         textMask.font = NSFont.systemFont(ofSize: 9, weight: .semibold)
         textMask.fontSize = 9
         textMask.foregroundColor = NSColor.white.cgColor
@@ -401,6 +410,16 @@ class ProBadgeView: NSView {
                 self?.updateColors()
             })
         }
+        // Resync colors + force a layout pass for the current key state. This matters when the
+        // badge is built lazily (e.g. the per-shortcut Appearance pane's `Size` Pro segment,
+        // created when the user clicks the Appearance tab while Settings is already key) —
+        // `init` ran with `window=nil`, so `updateColors` picked the not-key branch, and the
+        // `didBecomeKey` observer never fires because there's no actual state change. Without
+        // this nudge the badge's `layout()` may not run before the first display, leaving the
+        // `borderMask.path` and `textMask.frame` unset and only the 10%-alpha fill layer visible
+        // — i.e. the "faded" badge regression.
+        updateColors()
+        needsLayout = true
     }
 
     func setSelected(_ selected: Bool) {

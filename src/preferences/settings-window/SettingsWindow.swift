@@ -4,44 +4,11 @@ private struct SettingsSectionDefinition {
     let id: String
     let title: String
     let symbol: Symbols
-    let view: NSView
-}
-
-private final class SettingsSearchHighlightTarget {
-    private let matchRanges: (String) -> [Range<Int>]
-    private let applyHighlight: ([Range<Int>]) -> Void
-    private let clearHighlight: () -> Void
-
-    init(_ matchRanges: @escaping (String) -> [Range<Int>], _ applyHighlight: @escaping ([Range<Int>]) -> Void, _ clearHighlight: @escaping () -> Void) {
-        self.matchRanges = matchRanges
-        self.applyHighlight = applyHighlight
-        self.clearHighlight = clearHighlight
-    }
-
-    convenience init(_ hasMatch: @escaping (String) -> Bool, _ applyHighlight: @escaping () -> Void, _ clearHighlight: @escaping () -> Void) {
-        self.init({ query in
-            hasMatch(query) ? [0..<1] : []
-        }, { _ in
-            applyHighlight()
-        }, clearHighlight)
-    }
-
-    func hasMatch(_ query: String) -> Bool {
-        !matchRanges(query).isEmpty
-    }
-
-    func updateHighlight(_ query: String) {
-        let ranges = matchRanges(query)
-        if ranges.isEmpty {
-            clearHighlight()
-        } else {
-            applyHighlight(ranges)
-        }
-    }
-
-    func clear() {
-        clearHighlight()
-    }
+    /// Deferred view builder so `addSection` can wrap construction in
+    /// `SettingsSearchIndex.indexed { ... }` and harvest inline-registered search strings +
+    /// highlight targets as the section's factories build their widgets. The closure is invoked
+    /// exactly once, in `addSection`.
+    let builder: () -> NSView
 }
 
 private final class SettingsSection {
@@ -303,11 +270,6 @@ class SettingsWindow: NSWindow {
     /// `NSTableView.style = .sourceList` already inserts the cell content into its rounded
     /// highlight pill, so we only add a small visual breathing-room here.
     static let sidebarItemContentInset = CGFloat(4)
-    private static let roundedHighlightLayerName = "settingsSearchRoundedHighlight"
-    private static let roundedHighlightCornerRadius = CGFloat(4)
-    private static let roundedHighlightHorizontalInset = CGFloat(1.5)
-    private static let roundedHighlightVerticalInset = CGFloat(0.8)
-    private static let roundedHighlightLeadingTrim = CGFloat(1.4)
     private static let controlHighlightLayerName = "settingsSearchControlHighlight"
     private static let segmentedControlHighlightLayerName = "settingsSearchSegmentHighlight"
     private static let controlHighlightInset = CGFloat(1)
@@ -563,10 +525,10 @@ class SettingsWindow: NSWindow {
 
     private func sectionDefinitions() -> [SettingsSectionDefinition] {
         [
-            SettingsSectionDefinition(id: "appearance", title: NSLocalizedString("Appearance", comment: ""), symbol: .paintpalette, view: AppearanceTab.initTab()),
-            SettingsSectionDefinition(id: "controls", title: NSLocalizedString("Controls", comment: ""), symbol: .command, view: ControlsTab.initTab()),
-            SettingsSectionDefinition(id: "general", title: NSLocalizedString("General", comment: ""), symbol: .gearshape, view: GeneralTab.initTab()),
-            SettingsSectionDefinition(id: "exceptions", title: NSLocalizedString("Exceptions", comment: ""), symbol: .handRaised, view: ExceptionsTab.initTab()),
+            SettingsSectionDefinition(id: "appearance", title: NSLocalizedString("Appearance", comment: ""), symbol: .paintpalette, builder: AppearanceTab.initTab),
+            SettingsSectionDefinition(id: "controls", title: NSLocalizedString("Controls", comment: ""), symbol: .command, builder: ControlsTab.initTab),
+            SettingsSectionDefinition(id: "general", title: NSLocalizedString("General", comment: ""), symbol: .gearshape, builder: GeneralTab.initTab),
+            SettingsSectionDefinition(id: "exceptions", title: NSLocalizedString("Exceptions", comment: ""), symbol: .handRaised, builder: ExceptionsTab.initTab),
         ]
     }
 
@@ -575,21 +537,35 @@ class SettingsWindow: NSWindow {
     }
 
     private func addSection(_ definition: SettingsSectionDefinition) {
-        let sectionTitle = TableGroupView.makeText(definition.title, bold: true)
-        sectionTitle.font = NSFont.systemFont(ofSize: 15, weight: .medium)
-        sectionTitle.lineBreakMode = .byWordWrapping
-        sectionTitle.maximumNumberOfLines = 0
+        // Wrap the tab's view construction in an `indexed { ... }` scope so that every factory
+        // call inside (`LabelAndControl.makeDropdown`, `TableGroupView.makeText`, `ProBadgeView`,
+        // etc.) pushes its searchable strings and highlight targets into a per-section `Builder`.
+        // The harvested results become the section's `searchableStrings` / `highlightTargets`
+        // directly — no second-pass walk over the view tree. The section title is also produced
+        // here so its label registration is captured by the same indexed scope.
+        let sectionTitleBox: (title: LightLabel, view: NSView)
+        let (built, builder) = SettingsSearchIndex.indexed { () -> (title: LightLabel, view: NSView) in
+            let sectionTitle = TableGroupView.makeText(definition.title, bold: true)
+            sectionTitle.font = NSFont.systemFont(ofSize: 15, weight: .medium)
+            sectionTitle.lineBreakMode = .byWordWrapping
+            sectionTitle.maximumNumberOfLines = 0
+            let view = definition.builder()
+            return (sectionTitle, view)
+        }
+        sectionTitleBox = built
+        let sectionTitle = sectionTitleBox.title
+        let sectionView = sectionTitleBox.view
         let container = NSView()
         let spacer = NSView()
         container.addSubview(sectionTitle)
-        container.addSubview(definition.view)
+        container.addSubview(sectionView)
         container.addSubview(spacer)
         sectionTitle.translatesAutoresizingMaskIntoConstraints = false
-        definition.view.translatesAutoresizingMaskIntoConstraints = false
+        sectionView.translatesAutoresizingMaskIntoConstraints = false
         spacer.translatesAutoresizingMaskIntoConstraints = false
         container.translatesAutoresizingMaskIntoConstraints = false
         let titleTopConstraint = sectionTitle.topAnchor.constraint(equalTo: container.topAnchor)
-        let interSectionSpacingConstraint = spacer.topAnchor.constraint(equalTo: definition.view.bottomAnchor, constant: Self.sectionInterSectionSpacing)
+        let interSectionSpacingConstraint = spacer.topAnchor.constraint(equalTo: sectionView.bottomAnchor, constant: Self.sectionInterSectionSpacing)
         let spacerHeightConstraint = spacer.heightAnchor.constraint(equalToConstant: Self.sectionBottomSpacing)
         NSLayoutConstraint.activate([
             titleTopConstraint,
@@ -599,12 +575,12 @@ class SettingsWindow: NSWindow {
             // to also account for the TGV's internal `TableGroupView.padding` so they line up.
             sectionTitle.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: Self.sectionContentHorizontalMargin + TableGroupView.padding),
             sectionTitle.trailingAnchor.constraint(equalTo: container.trailingAnchor),
-            definition.view.topAnchor.constraint(equalTo: sectionTitle.bottomAnchor, constant: Self.sectionTitleSpacing),
+            sectionView.topAnchor.constraint(equalTo: sectionTitle.bottomAnchor, constant: Self.sectionTitleSpacing),
             // 15pt horizontal margin between the section's left/right and the TGV's rounded
             // background, so the gray-bg block floats inside the section instead of touching
             // the splitview divider / window edge.
-            definition.view.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: Self.sectionContentHorizontalMargin),
-            definition.view.trailingAnchor.constraint(lessThanOrEqualTo: container.trailingAnchor, constant: -Self.sectionContentHorizontalMargin),
+            sectionView.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: Self.sectionContentHorizontalMargin),
+            sectionView.trailingAnchor.constraint(lessThanOrEqualTo: container.trailingAnchor, constant: -Self.sectionContentHorizontalMargin),
             interSectionSpacingConstraint,
             spacer.leadingAnchor.constraint(equalTo: container.leadingAnchor),
             spacer.trailingAnchor.constraint(equalTo: container.trailingAnchor),
@@ -613,13 +589,20 @@ class SettingsWindow: NSWindow {
         ])
         sectionsStack.addArrangedSubview(container)
         container.widthAnchor.constraint(equalTo: sectionsStack.widthAnchor).isActive = true
-        let (searchableStrings, highlightTargets) = collectSearchContent(sectionTitle, definition.view)
+        // Inline-registered strings/targets are the source of truth; `collectSearchContent` still
+        // runs as a safety net to catch direct widget creation in tabs (NSTextField, NSButton
+        // etc. created outside the LabelAndControl/TableGroupView factories) that hasn't been
+        // migrated to inline registration yet. The walk's results get unioned in via `Set` below.
+        var (searchableStrings, highlightTargets) = collectSearchContent(sectionTitle, sectionView)
+        searchableStrings.append(contentsOf: builder.strings)
+        highlightTargets.append(contentsOf: builder.targets)
+        let uniqueStrings = Array(Set(searchableStrings))
         let section = SettingsSection(definition.id,
                                       definition.title,
                                       sidebarImage(definition),
                                       container,
                                       sectionTitle,
-                                      searchableStrings,
+                                      uniqueStrings,
                                       highlightTargets,
                                       interSectionSpacingConstraint,
                                       spacerHeightConstraint,
@@ -637,11 +620,11 @@ class SettingsWindow: NSWindow {
         }
     }
 
-    private func collectSearchContent(_ sectionTitle: NSTextField, _ root: NSView) -> ([String], [SettingsSearchHighlightTarget]) {
+    private func collectSearchContent(_ sectionTitle: LightLabel, _ root: NSView) -> ([String], [SettingsSearchHighlightTarget]) {
         var textValues = [String]()
         var highlightTargets = [SettingsSearchHighlightTarget]()
         textValues.append(sectionTitle.stringValue)
-        if let target = highlightTarget(sectionTitle) {
+        if let target = SettingsSearchHighlight.highlightTarget(sectionTitle) {
             highlightTargets.append(target)
         }
         collectSearchContent(root, &textValues, &highlightTargets)
@@ -659,7 +642,7 @@ class SettingsWindow: NSWindow {
             let value = textField.stringValue.trimmingCharacters(in: .whitespacesAndNewlines)
             if !value.isEmpty {
                 textValues.append(value)
-                if let target = highlightTarget(textField) {
+                if let target = SettingsSearchHighlight.highlightTarget(textField) {
                     highlightTargets.append(target)
                 }
             }
@@ -674,7 +657,7 @@ class SettingsWindow: NSWindow {
                     textValues.append(value)
                 }
             }
-            if let target = highlightTarget(popUpButton) {
+            if let target = SettingsWindow.highlightTarget(popUpButton) {
                 highlightTargets.append(target)
             }
         } else if let button = root as? NSButton {
@@ -682,7 +665,7 @@ class SettingsWindow: NSWindow {
             if !value.isEmpty {
                 textValues.append(value)
             }
-            if let target = highlightTarget(button) {
+            if let target = SettingsWindow.highlightTarget(button) {
                 highlightTargets.append(target)
             }
         } else if let segmentedControl = root as? NSSegmentedControl {
@@ -692,14 +675,14 @@ class SettingsWindow: NSWindow {
                     textValues.append(value)
                 }
             }
-            if let target = highlightTarget(segmentedControl) {
+            if let target = SettingsWindow.highlightTarget(segmentedControl) {
                 highlightTargets.append(target)
             }
         } else if let infoButton = root as? ClickHoverImageView {
             SettingsWindow.searchStrings(infoButton).forEach {
                 textValues.append($0)
             }
-            if let target = highlightTarget(infoButton) {
+            if let target = SettingsWindow.highlightTarget(infoButton) {
                 highlightTargets.append(target)
             }
         } else if let textView = root as? NSTextView {
@@ -711,50 +694,30 @@ class SettingsWindow: NSWindow {
         root.subviews.forEach { collectSearchContent($0, &textValues, &highlightTargets) }
     }
 
-    private func highlightTarget(_ textField: NSTextField) -> SettingsSearchHighlightTarget? {
-        guard !textField.stringValue.isEmpty else { return nil }
-        var baseAttributedString: NSAttributedString?
-        var highlightedText = ""
-        var isHighlighted = false
-        return SettingsSearchHighlightTarget({ query in
-            SettingsSearch.match(query, in: textField.stringValue)?.ranges ?? []
-        }, { ranges in
-            let text = textField.stringValue
-            if !isHighlighted || highlightedText != text {
-                baseAttributedString = textField.attributedStringValue
-                highlightedText = text
-            }
-            let mutable = NSMutableAttributedString(attributedString: baseAttributedString ?? textField.attributedStringValue)
-            let nsRanges = ranges.compactMap { SettingsWindow.characterRangeToNSRange($0, in: text) }
-            nsRanges.forEach {
-                mutable.addAttribute(.foregroundColor, value: Appearance.searchMatchForegroundColor, range: $0)
-            }
-            textField.attributedStringValue = mutable
-            SettingsWindow.applyRoundedHighlights(to: textField, attributedString: mutable, ranges: nsRanges)
-            isHighlighted = true
-        }, {
-            guard isHighlighted else { return }
-            if let baseAttributedString {
-                textField.attributedStringValue = baseAttributedString
-            }
-            SettingsWindow.clearRoundedHighlights(from: textField)
-            baseAttributedString = nil
-            highlightedText = ""
-            isHighlighted = false
-        })
-    }
-
-    private func highlightTarget(_ popUpButton: NSPopUpButton) -> SettingsSearchHighlightTarget? {
+    static func highlightTarget(_ popUpButton: NSPopUpButton) -> SettingsSearchHighlightTarget? {
         controlHighlightTarget(popUpButton) {
             SettingsWindow.searchStrings(popUpButton)
         }
     }
 
-    private func highlightTarget(_ button: NSButton) -> SettingsSearchHighlightTarget? {
-        guard SettingsWindow.sheet(forSearchButton: button) != nil else { return nil }
+    static func highlightTarget(_ button: NSButton) -> SettingsSearchHighlightTarget? {
+        // Buttons that open one of the known sheets are search targets. Pre-build path: consult
+        // the sheet class's static `searchableStrings`. Post-build path: also walk the live view
+        // tree so any string the static list doesn't cover (or is added later inside the sheet)
+        // still matches. Either path makes the button itself the visual highlight target — we
+        // don't try to dive into the sheet's controls for in-sheet highlighting from out here.
+        let staticStrings: [String]?
+        if let action = button.action {
+            staticStrings = SettingsSearchIndex.sheetSearchableStrings(forButtonAction: action)
+        } else {
+            staticStrings = nil
+        }
+        let hasSheet = SettingsWindow.sheet(forSearchButton: button) != nil
+        guard staticStrings != nil || hasSheet else { return nil }
         return controlHighlightTarget(button) {
             var values = [String]()
             SettingsWindow.appendTrimmed(button.title, &values)
+            if let staticStrings { values.append(contentsOf: staticStrings) }
             if let sheet = SettingsWindow.sheet(forSearchButton: button) {
                 values.append(contentsOf: SettingsWindow.sheetSearchStrings(sheet))
             }
@@ -762,17 +725,18 @@ class SettingsWindow: NSWindow {
         }
     }
 
-    private func highlightTarget(_ segmentedControl: NSSegmentedControl) -> SettingsSearchHighlightTarget? {
+    static func highlightTarget(_ segmentedControl: NSSegmentedControl) -> SettingsSearchHighlightTarget? {
         let segmentLabels = (0..<segmentedControl.segmentCount).map {
             SettingsWindow.trimmedText(segmentedControl.label(forSegment: $0) ?? "")
         }
         if segmentLabels.allSatisfy(\.isEmpty) { return nil }
-        // For tab controls that surface different content panels per segment (the Filtering /
-        // Appearance toggle in `ControlsTab`), register the per-segment content view in
-        // `ControlsTab.tabSegmentSubtrees`. A query that matches anything inside a segment's
-        // content view will then turn that segment yellow — same affordance as sheet buttons,
-        // which highlight when their sheet contents match the query.
-        let subtrees = ControlsTab.tabSegmentSubtrees[ObjectIdentifier(segmentedControl)]
+        // For tab controls that surface different content per segment (the Filtering / Appearance
+        // / Ordering toggle in ShortcutEditor — and the gesture editor's clone of the same), the
+        // per-segment searchable strings are registered in `ControlsTab.tabSegmentSearchableStrings`.
+        // A query that matches anything in a segment's content lights that segment up yellow —
+        // including content for *unbuilt* panes (the Filtering/Appearance/Ordering panes are
+        // constructed lazily, see `ShortcutEditor.ensurePaneBuilt`).
+        let perSegmentStrings = ControlsTab.tabSegmentSearchableStrings[ObjectIdentifier(segmentedControl)]
         var matchingSegmentIndexes = [Int]()
         return SettingsSearchHighlightTarget({ query in
             matchingSegmentIndexes = []
@@ -781,8 +745,8 @@ class SettingsWindow: NSWindow {
                     matchingSegmentIndexes.append(index)
                     return
                 }
-                if let subtrees, index < subtrees.count,
-                   SettingsWindow.subtreeContainsMatch(subtrees[index], query: query) {
+                if let perSegmentStrings, index < perSegmentStrings.count,
+                   perSegmentStrings[index].contains(where: { SettingsSearch.match(query, in: $0) != nil }) {
                     matchingSegmentIndexes.append(index)
                 }
             }
@@ -828,13 +792,13 @@ class SettingsWindow: NSWindow {
         return view.subviews.contains { subtreeContainsMatch($0, query: query) }
     }
 
-    private func highlightTarget(_ infoButton: ClickHoverImageView) -> SettingsSearchHighlightTarget? {
+    static func highlightTarget(_ infoButton: ClickHoverImageView) -> SettingsSearchHighlightTarget? {
         controlHighlightTarget(infoButton) {
             SettingsWindow.searchStrings(infoButton)
         }
     }
 
-    private func controlHighlightTarget(_ control: NSView, _ searchableStrings: @escaping () -> [String]) -> SettingsSearchHighlightTarget? {
+    static func controlHighlightTarget(_ control: NSView, _ searchableStrings: @escaping () -> [String]) -> SettingsSearchHighlightTarget? {
         if searchableStrings().isEmpty { return nil }
         return SettingsSearchHighlightTarget({ query in
             searchableStrings().contains {
@@ -845,17 +809,6 @@ class SettingsWindow: NSWindow {
         }, {
             SettingsWindow.clearControlHighlight(from: control)
         })
-    }
-
-    private static func characterRangeToNSRange(_ range: Range<Int>, in text: String) -> NSRange? {
-        if range.lowerBound < 0 || range.upperBound > text.count || range.isEmpty { return nil }
-        let start = text.index(text.startIndex, offsetBy: range.lowerBound)
-        let end = text.index(text.startIndex, offsetBy: range.upperBound)
-        return NSRange(start..<end, in: text)
-    }
-
-    private static func clearRoundedHighlights(from view: NSView) {
-        view.layer?.sublayers?.filter { $0.name == roundedHighlightLayerName }.forEach { $0.removeFromSuperlayer() }
     }
 
     private static func clearControlHighlight(from view: NSView) {
@@ -920,55 +873,6 @@ class SettingsWindow: NSWindow {
         let cornerRadius = min(max(rect.height * 0.35, controlHighlightMinCornerRadius), controlHighlightMaxCornerRadius)
         layer.path = CGPath(roundedRect: rect, cornerWidth: cornerRadius, cornerHeight: cornerRadius, transform: nil)
         view.layer?.insertSublayer(layer, at: 0)
-    }
-
-    private static func applyRoundedHighlights(to textField: NSTextField,
-                                               attributedString: NSAttributedString,
-                                               ranges: [NSRange]) {
-        clearRoundedHighlights(from: textField)
-        guard !ranges.isEmpty else { return }
-        textField.layoutSubtreeIfNeeded()
-        let textRect = textDrawingRect(textField)
-        guard textRect.width > 0, textRect.height > 0 else { return }
-        textField.wantsLayer = true
-        let textStorage = NSTextStorage(attributedString: attributedString)
-        let layoutManager = NSLayoutManager()
-        let textContainer = NSTextContainer(size: NSSize(width: textRect.width, height: CGFloat.greatestFiniteMagnitude))
-        textContainer.lineFragmentPadding = 0
-        textContainer.maximumNumberOfLines = textField.maximumNumberOfLines
-        textContainer.lineBreakMode = textField.lineBreakMode
-        layoutManager.addTextContainer(textContainer)
-        textStorage.addLayoutManager(layoutManager)
-        layoutManager.ensureLayout(for: textContainer)
-        let usedRect = layoutManager.usedRect(for: textContainer)
-        let horizontalOffset = textRect.minX
-        let verticalOffset = textRect.minY + max(0, (textRect.height - usedRect.height) / 2)
-        ranges.forEach { range in
-            let glyphRange = layoutManager.glyphRange(forCharacterRange: range, actualCharacterRange: nil)
-            guard glyphRange.length > 0 else { return }
-            layoutManager.enumerateEnclosingRects(forGlyphRange: glyphRange, withinSelectedGlyphRange: NSRange(location: NSNotFound, length: 0), in: textContainer) { rect, _ in
-                var highlightRect = rect.offsetBy(dx: horizontalOffset, dy: verticalOffset)
-                highlightRect = highlightRect.insetBy(dx: -roundedHighlightHorizontalInset, dy: -roundedHighlightVerticalInset)
-                highlightRect = leadingTrimmedHighlightRect(highlightRect, textField)
-                let layer = noAnimation { CAShapeLayer() }
-                layer.name = roundedHighlightLayerName
-                layer.fillColor = Appearance.searchMatchHighlightColor.cgColor
-                layer.path = CGPath(roundedRect: highlightRect, cornerWidth: roundedHighlightCornerRadius, cornerHeight: roundedHighlightCornerRadius, transform: nil)
-                textField.layer?.insertSublayer(layer, at: 0)
-            }
-        }
-    }
-
-    private static func leadingTrimmedHighlightRect(_ rect: CGRect, _ textField: NSTextField) -> CGRect {
-        let trimmedWidth = max(rect.width - roundedHighlightLeadingTrim, 0.5)
-        if textField.userInterfaceLayoutDirection == .rightToLeft {
-            return CGRect(x: rect.minX, y: rect.minY, width: trimmedWidth, height: rect.height)
-        }
-        return CGRect(x: rect.minX + roundedHighlightLeadingTrim, y: rect.minY, width: trimmedWidth, height: rect.height)
-    }
-
-    private static func textDrawingRect(_ textField: NSTextField) -> CGRect {
-        textField.cell?.drawingRect(forBounds: textField.bounds) ?? textField.bounds
     }
 
     private static func appendTrimmed(_ text: String, _ values: inout [String]) {
@@ -1089,19 +993,19 @@ class SettingsWindow: NSWindow {
 
     private func collectSheetHighlightTargets(_ root: NSView, _ targets: inout [SettingsSearchHighlightTarget]) {
         if let textField = root as? NSTextField {
-            if let target = highlightTarget(textField) {
+            if let target = SettingsSearchHighlight.highlightTarget(textField) {
                 targets.append(target)
             }
         } else if let popUpButton = root as? NSPopUpButton {
-            if let target = highlightTarget(popUpButton) {
+            if let target = SettingsWindow.highlightTarget(popUpButton) {
                 targets.append(target)
             }
         } else if let segmentedControl = root as? NSSegmentedControl {
-            if let target = highlightTarget(segmentedControl) {
+            if let target = SettingsWindow.highlightTarget(segmentedControl) {
                 targets.append(target)
             }
         } else if let infoButton = root as? ClickHoverImageView {
-            if let target = highlightTarget(infoButton) {
+            if let target = SettingsWindow.highlightTarget(infoButton) {
                 targets.append(target)
             }
         }

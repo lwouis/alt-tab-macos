@@ -266,4 +266,56 @@ final class ProBadgeViewSegmentTests: XCTestCase {
         badge.setSelected(false)
         XCTAssertFalse(badge.isSelectedState)
     }
+
+    // MARK: - Layout / viewDidMoveToWindow (regression coverage)
+
+    /// `layout()` is where the badge sizes its three gradient sublayers and — critically — sets
+    /// `borderMask.path` and `textMask.frame`. If `layout()` is ever broken (e.g. an earlier
+    /// attempt no-op'd `_layoutSubtreeWithOldSize:` as a cascade-stop, which also suppressed the
+    /// `layout()` callback), the masks stay unconfigured and the badge renders with only its
+    /// 10%-alpha fill — the "faded" look. This pins that `layout()` produces sized sublayers.
+    func testLayoutConfiguresGradientSublayerFrames() {
+        let badge = ProBadgeView()
+        let host = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 200, height: 100),
+                            styleMask: [.titled], backing: .buffered, defer: false)
+        host.contentView?.addSubview(badge)
+        badge.frame = NSRect(x: 0, y: 0, width: 30, height: 14)
+        badge.layoutSubtreeIfNeeded()
+        guard let sublayers = badge.layer?.sublayers, sublayers.count >= 3 else {
+            return XCTFail("badge must own three gradient sublayers (fill / border / text) — got \(badge.layer?.sublayers?.count ?? 0)")
+        }
+        for (i, sublayer) in sublayers.prefix(3).enumerated() {
+            XCTAssertGreaterThan(sublayer.frame.width, 0,
+                "regression: badge gradient sublayer \(i) has zero width after `layout()` — the gradient frames weren't sized, so the badge can't render its border/text gradients")
+            XCTAssertGreaterThan(sublayer.frame.height, 0,
+                "regression: badge gradient sublayer \(i) has zero height after `layout()`")
+        }
+        host.orderOut(nil)
+    }
+
+    /// Regression pin for the "faded badge in a lazily-built pane" bug.
+    ///
+    /// When the badge is created off-window (the per-shortcut Appearance pane is built lazily,
+    /// while Settings is already key) its `init` runs with `window == nil`, so `updateColors`
+    /// resolves the *not-key* branch. The `didBecomeKey` notification observer registered in
+    /// `viewDidMoveToWindow` never fires (the window was already key — no state *change*), so
+    /// without an explicit resync the badge stays stuck in the state `init` left it in.
+    ///
+    /// The fix is the `updateColors()` call in `viewDidMoveToWindow`. `updateColors()` always
+    /// invokes `onWindowKeyChanged`, which gives us a deterministic, window-key-independent hook
+    /// to assert on: entering a window must re-run `updateColors` exactly because of that call.
+    func testViewDidMoveToWindowResyncsColors() {
+        let badge = ProBadgeView()
+        var resyncCount = 0
+        // `onWindowKeyChanged` is invoked from inside `updateColors()`. We set it *after* init
+        // (init's own `updateColors` call already ran, before this closure existed) so the only
+        // way the counter increments is a fresh `updateColors` triggered by entering the window.
+        badge.onWindowKeyChanged = { resyncCount += 1 }
+        let host = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 200, height: 100),
+                            styleMask: [.titled], backing: .buffered, defer: false)
+        host.contentView?.addSubview(badge)
+        XCTAssertGreaterThan(resyncCount, 0,
+            "regression: `ProBadgeView.viewDidMoveToWindow` must call `updateColors()` so a badge added to an already-key window resyncs its visual state — otherwise a selected badge built in a lazy pane stays in the gradient state `init` chose when `window` was nil")
+        host.orderOut(nil)
+    }
 }

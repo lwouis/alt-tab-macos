@@ -440,21 +440,20 @@ class TableGroupView: ClickHoverStackView {
         return rowView
     }
 
-    static func makeText(_ leftText: String?, bold: Bool = false) -> NSTextField {
-        let leftLabel = NSTextField(labelWithString: leftText ?? "")
+    static func makeText(_ leftText: String?, bold: Bool = false) -> LightLabel {
+        // Use `LightLabel` (custom NSView + `NSAttributedString.draw`) instead of `NSTextField`.
+        // For static row titles, NSTextField pays a per-redraw cost on every key-state cascade
+        // (NSCell setup, TextKit2 layout, the Tahoe SwiftUI-text bridge) that LightLabel avoids.
+        // Same visible behavior; substantially cheaper at scale (hundreds of labels per window).
+        let leftLabel = LightLabel(leftText ?? "")
         if bold {
             leftLabel.font = NSFont.systemFont(ofSize: 13, weight: .medium)
         }
         leftLabel.alignment = .left
-        // Truncate (with ellipsis) instead of wrap. The row is laid out with a fixed
-        // `mainRow.fittingSize.height` from `setMainRow`, so a wrapped second line would have
-        // nowhere to render and visually clip. `allowsExpansionToolTips` is the AppKit-native
-        // "show the full text in a popup on hover when truncated" affordance — no need for us
-        // to set a manual `toolTip`, AppKit only shows it when the label actually overflows.
         leftLabel.lineBreakMode = .byTruncatingTail
         leftLabel.maximumNumberOfLines = 1
-        leftLabel.cell?.usesSingleLineMode = true
-        leftLabel.allowsExpansionToolTips = true
+        SettingsSearchIndex.registerString(leftText)
+        SettingsSearchIndex.registerTarget(SettingsSearchHighlight.highlightTarget(leftLabel))
         return leftLabel
     }
 

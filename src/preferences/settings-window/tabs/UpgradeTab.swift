@@ -1,7 +1,7 @@
 import Cocoa
 
 class UpgradeTab {
-    private static var statusLabel: NSTextField!
+    private static var statusLabel: LightLabel!
     private static var usageHero: UsageStatHeroView!
     private static var heroButton: ProHeroButton!
     private static var guaranteeLabel: NSTextField!
