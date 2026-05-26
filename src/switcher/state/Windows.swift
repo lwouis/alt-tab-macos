@@ -3,8 +3,6 @@ import Cocoa
 class Windows {
     static var list = [Window]()
     private(set) static var byWindowId = [CGWindowID: Window]()
-    // we use this to track if the focused window changed while alt-tab was open
-    private static var lastFocusedWindowTarget: String?
     private static var lastWindowActivityType = WindowActivityType.none
     private static var shouldSelectBestMatchOnSearchChange = false
     private static var shouldRestoreDefaultSelectionOnSearchClear = false
@@ -187,6 +185,69 @@ class Windows {
 
     static func setInitialSelectedAndHoveredWindowIndex() {
         guard let session = SwitcherSession.current else { return }
+        let snapshot = selectionSnapshot()
+        let inputs = makeSelectionInputs(snapshot, session: session)
+        let pickIndex = SelectionResolver.initialPickIndex(inputs)
+        resetForInitialPick(session)
+        if let idx = pickIndex {
+            updateSelectedAndHoveredWindowIndex(idx)
+        }
+    }
+
+    static func updateSelectedWindow() {
+        guard let session = SwitcherSession.current else { return }
+        let snapshot = selectionSnapshot()
+        let inputs = makeSelectionInputs(snapshot, session: session)
+        let decision = SelectionResolver.decide(inputs)
+        shouldRestoreDefaultSelectionOnSearchClear = false
+        shouldSelectBestMatchOnSearchChange = false
+        applySelectionDecision(decision, session: session)
+    }
+
+    /// Project `list` into the kernel's window view (just the fields selection needs).
+    private static func selectionSnapshot() -> [SelectionWindow] {
+        list.map {
+            SelectionWindow(id: $0.id,
+                            visible: shouldDisplay($0),
+                            lastFocusOrder: $0.lastFocusOrder,
+                            isMinimized: $0.isMinimized,
+                            isWindowlessApp: $0.isWindowlessApp)
+        }
+    }
+
+    private static func makeSelectionInputs(_ snapshot: [SelectionWindow], session: SwitcherSession) -> SelectionInputs {
+        SelectionInputs(
+            list: snapshot,
+            selectedIndex: session.selectedIndex,
+            selectedTarget: session.selectedTarget,
+            useLastFocusedRule: Applications.frontmostPid != nil
+                && Preferences.windowOrder[session.shortcutIndex] != .recentlyFocused,
+            restoreDefaultOnSearchClear: shouldRestoreDefaultSelectionOnSearchClear,
+            bestMatchOnSearchChange: shouldSelectBestMatchOnSearchChange)
+    }
+
+    private static func applySelectionDecision(_ decision: SelectionDecision, session: SwitcherSession) {
+        switch decision {
+        case .clearTargetAndHover:
+            session.selectedTarget = nil
+            session.hoveredIndex = nil
+        case .resetThenSelect(let idx):
+            resetForInitialPick(session)
+            updateSelectedAndHoveredWindowIndex(idx)
+        case .resetWithoutSelection:
+            resetForInitialPick(session)
+        case .selectAt(let idx):
+            updateSelectedAndHoveredWindowIndex(idx)
+        case .ensureTargetSet(let idx):
+            if session.selectedTarget == nil && idx < list.count {
+                session.selectedTarget = list[idx].id
+            }
+        }
+    }
+
+    /// Wrapper-side reset that mirrors the first half of the old `setInitialSelectedAndHoveredWindowIndex`:
+    /// clear `selectedTarget`, reset `selectedIndex` to 0, redraw the old highlight, drop hover.
+    private static func resetForInitialPick(_ session: SwitcherSession) {
         let oldIndex = session.selectedIndex
         session.selectedIndex = 0
         session.selectedTarget = nil
@@ -194,95 +255,6 @@ class Windows {
         if let oldHovered = session.hoveredIndex {
             session.hoveredIndex = nil
             TilesView.highlight(oldHovered)
-        }
-        if Applications.frontmostPid != nil,
-           Preferences.windowOrder[session.shortcutIndex] != .recentlyFocused,
-           let lastFocusedOrderWindowIndex = getLastFocusedOrderWindowIndex() {
-            updateSelectedAndHoveredWindowIndex(lastFocusedOrderWindowIndex)
-        } else {
-            // edge-case: when the 2 most recently focused windows are both minimized, select the first
-            if list.count >= 2 && list[0].isMinimized && list[1].isMinimized {
-                updateSelectedAndHoveredWindowIndex(0)
-            } else {
-                cycleSelectedWindowIndex(1)
-                if session.selectedIndex == 0 {
-                    updateSelectedAndHoveredWindowIndex(0)
-                }
-            }
-        }
-    }
-
-    static func updateSelectedWindow() {
-        guard let session = SwitcherSession.current else { return }
-        let focusedWindowTarget = currentFocusedWindowTarget()
-        defer { lastFocusedWindowTarget = focusedWindowTarget }
-        if shouldRestoreDefaultSelectionOnSearchClear {
-            shouldRestoreDefaultSelectionOnSearchClear = false
-            setInitialSelectedAndHoveredWindowIndex()
-            return
-        }
-        let visibleIndexes = visibleWindowIndexes()
-        guard let firstVisibleIndex = visibleIndexes.first else {
-            session.selectedTarget = nil
-            session.hoveredIndex = nil
-            return
-        }
-        if shouldSelectBestMatchOnSearchChange {
-            shouldSelectBestMatchOnSearchChange = false
-            updateSelectedAndHoveredWindowIndex(firstVisibleIndex)
-            return
-        }
-        if shouldSelectFromScratch(focusedWindowTarget) {
-            setInitialSelectedAndHoveredWindowIndex()
-            return
-        }
-        if restoreSelectionTargetIfVisible() { return }
-        adaptSelectionToVisibleIndexes(visibleIndexes, firstVisibleIndex)
-    }
-
-    private static func visibleWindowIndexes() -> [Int] {
-        list.indices.filter { shouldDisplay(list[$0]) }
-    }
-
-    private static func currentFocusedWindowTarget() -> String? {
-        getLastFocusedOrderWindowIndex().map { list[$0].id }
-    }
-
-    private static func shouldSelectFromScratch(_ focusedWindowTarget: String?) -> Bool {
-        SwitcherSession.current?.selectedTarget == nil || focusedWindowChangedWhileShowing(focusedWindowTarget)
-    }
-
-    private static func focusedWindowChangedWhileShowing(_ focusedWindowTarget: String?) -> Bool {
-        guard let session = SwitcherSession.current, Search.normalizedQuery(session.searchQuery).isEmpty else { return false }
-        guard let lastFocusedWindowTarget, let focusedWindowTarget else { return false }
-        return focusedWindowTarget != lastFocusedWindowTarget
-    }
-
-    private static func restoreSelectionTargetIfVisible() -> Bool {
-        guard let session = SwitcherSession.current, let target = session.selectedTarget else { return false }
-        guard let index = list.firstIndex(where: { $0.id == target && shouldDisplay($0) }) else { return false }
-        if index == session.selectedIndex { return true }
-        updateSelectedAndHoveredWindowIndex(index)
-        return true
-    }
-
-    private static func adaptSelectionToVisibleIndexes(_ visibleIndexes: [Int], _ firstVisibleIndex: Int) {
-        guard let session = SwitcherSession.current, let lastVisibleIndex = visibleIndexes.last else { return }
-        if !visibleIndexes.contains(session.selectedIndex) {
-            let closest = visibleIndexes.last(where: { $0 < session.selectedIndex }) ?? lastVisibleIndex
-            updateSelectedAndHoveredWindowIndex(closest)
-            return
-        }
-        if session.selectedIndex > lastVisibleIndex {
-            updateSelectedAndHoveredWindowIndex(lastVisibleIndex)
-            return
-        }
-        if session.selectedIndex < firstVisibleIndex {
-            updateSelectedAndHoveredWindowIndex(firstVisibleIndex)
-            return
-        }
-        if session.selectedTarget == nil {
-            session.selectedTarget = list[session.selectedIndex].id
         }
     }
 
@@ -545,7 +517,6 @@ class Windows {
         if addWindowlessWindowIfNeeded {
             windows.forEach { $0.application.addWindowlessWindowIfNeeded() }
         }
-        lastFocusedWindowTarget = getLastFocusedOrderWindowIndex().map { list[$0].id }
         App.refreshOpenUiAfterExternalEvent([], windowRemoved: true)
     }
 }

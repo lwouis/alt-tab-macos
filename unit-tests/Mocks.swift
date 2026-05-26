@@ -19,6 +19,18 @@ extension NSImage {
     }
 }
 
+// `LightLabel` and `ProBadgeView` live in the test target's source membership (they're pulled
+// in by `ProBadgeViewSegmentTests`) but reference `Appearance` and `SettingsSearchIndex` —
+// types not in the test target. Minimal stubs so the test target compiles. Tests never exercise
+// these code paths; the stubs just satisfy the type checker.
+enum SettingsSearchIndex {
+    static func registerString(_ s: String?) {}
+}
+
+class Appearance {
+    static var searchMatchHighlightColor: NSColor = .yellow
+}
+
 enum SearchKeyResult {
     case handled
     case passToField
