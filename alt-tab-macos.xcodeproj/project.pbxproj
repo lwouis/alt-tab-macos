@@ -1758,7 +1758,6 @@
 			isa = PBXGroup;
 			children = (
 				5F3C6CCF2F8CE7120021CEDF /* extract_latest_changelog.sh */,
-				5FAE000A2F13B49800FE6246 /* update_readme_and_website.sh */,
 				5FE2AF752EAE849F004A4AC5 /* xcbeautify */,
 				D04BA4B5292629AA6B560216 /* package_and_notarize_release.sh */,
 				D04BAC6AFC7F06D1A567F27A /* replace_environment_variables_in_app.sh */,
@@ -1766,7 +1765,6 @@
 				D04BA4FB0047656BEA21F1BE /* codesign */,
 				D04BAD65AA870A49D2F89DBC /* ensure_generated_files_are_up_to_date.sh */,
 				D04BA4D5DF349429527824A2 /* determine_next_version.sh */,
-				D04BAAE6E6823304D66B74F8 /* update_website.sh */,
 				D04BA6ED38651224DB117A5A /* upload_symbols_to_appcenter.sh */,
 				BF0C81D602ED642A48D50B78 /* notarytool */,
 				1C9618B3872558FBDE74D073 /* install_swiftformat.js */,
@@ -2073,27 +2071,9 @@
 			isa = PBXGroup;
 			children = (
 				5F3A72C12F8CE76D00E2D433 /* appcast.xml */,
-				5F895B8D2F8CE336007842A1 /* changelog-wrapper.md */,
-				5F895B8E2F8CE336007842A1 /* privacy.md */,
-				5F895B8F2F8CE336007842A1 /* terms.md */,
-				5F13C6762F8144DB0069C088 /* _redirects */,
-				5FC4AD532F805E060081593C /* .ruby-version */,
-				D04BAAB62DCBD7AF93B7EF89 /* study-material */,
 				D04BAADF01EB8FF8A15AECC6 /* acknowledgments.md */,
 				D04BA812B8DCB915B8F4B915 /* contributors.md */,
 				D04BAED450528DC3C28FABDE /* changelog.md */,
-				D04BAA4B2A70759DD5128364 /* public */,
-				D04BA9CBAF7E9F9E30A6941A /* _layouts */,
-				D04BAA127E73B3114B75098A /* Gemfile */,
-				D04BA85F10205D5CDE8B34C4 /* _config.yml */,
-				D04BAD215A8F61F2D9952181 /* introduction.md */,
-				D04BA18B55AA6C9EE41985D0 /* contributing.md */,
-				D04BA765138B5E1C512245BE /* thanks.md */,
-				D04BA177B11330ED7E08E6C2 /* _includes */,
-				D04BADB5AA570748C717D31A /* changelog-bare.md */,
-				BF0C815B4782DEEEDB2C76C5 /* support.md */,
-				BF0C8880DFDFAC86CE1E2E31 /* Gemfile.lock */,
-				5F1217512F8140C0006F5A11 /* google24a020170798641a.html */,
 			);
 			path = docs;
 			sourceTree = "<group>";

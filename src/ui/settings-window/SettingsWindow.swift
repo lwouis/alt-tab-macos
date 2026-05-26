@@ -507,7 +507,6 @@ class SettingsWindow: NSWindow {
     private let rightScrollView = NSScrollView()
     private let sectionsDocumentView = SettingsFlippedView(frame: .zero)
     private let sectionsStack = NSStackView()
-    private let supportButton = AboutTab.makeSupportProjectButton()
     private let resetButton = NSButton(title: NSLocalizedString("Reset settings and restart…", comment: ""), target: nil, action: nil)
     private let quitButton = NSButton(title: String(format: NSLocalizedString("Quit %@", comment: "%@ is AltTab"), App.name), target: nil, action: #selector(NSApplication.terminate(_:)))
     private var sections = [SettingsSection]()
@@ -575,7 +574,6 @@ class SettingsWindow: NSWindow {
         setupSearchField(sidebarContainer)
         setupQuitButton(sidebarContainer)
         setupResetButton(sidebarContainer)
-        setupSupportButton(sidebarContainer)
         setupSidebarTable(sidebarContainer)
     }
 
@@ -665,23 +663,12 @@ class SettingsWindow: NSWindow {
             sidebarScrollView.topAnchor.constraint(equalTo: searchField.bottomAnchor, constant: 12),
             sidebarScrollView.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: Self.sidebarHorizontalPadding - 2),
             sidebarScrollView.trailingAnchor.constraint(equalTo: parent.trailingAnchor, constant: -(Self.sidebarHorizontalPadding - 2)),
-            sidebarScrollView.bottomAnchor.constraint(equalTo: supportButton.topAnchor, constant: -10),
+            sidebarScrollView.bottomAnchor.constraint(equalTo: resetButton.topAnchor, constant: -10),
         ])
     }
 
     @objc private func resetPreferences() {
         GeneralTab.resetPreferences()
-    }
-
-    private func setupSupportButton(_ parent: NSView) {
-        supportButton.toolTip = supportButton.title
-        supportButton.translatesAutoresizingMaskIntoConstraints = false
-        parent.addSubview(supportButton)
-        NSLayoutConstraint.activate([
-            supportButton.centerXAnchor.constraint(equalTo: parent.centerXAnchor),
-            supportButton.bottomAnchor.constraint(equalTo: resetButton.topAnchor, constant: -20),
-            supportButton.widthAnchor.constraint(lessThanOrEqualTo: parent.widthAnchor, constant: -Self.sidebarHorizontalPadding * 2),
-        ])
     }
 
     private func setupResetButton(_ parent: NSView) {
