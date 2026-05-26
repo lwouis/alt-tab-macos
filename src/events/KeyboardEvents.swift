@@ -86,8 +86,15 @@ class KeyboardEvents {
 
     private static func unregisterHotKeyIfNeeded(_ controlId: String, _ shortcut: Shortcut) {
         if shortcut.keyCode != .none {
+            let key = shortcut.carbonKeyCode
+            let mods = shortcut.carbonModifierFlags
             if let ref = eventHotKeyRefs[controlId] {
-                UnregisterEventHotKey(ref)
+                let status = UnregisterEventHotKey(ref)
+                if status == noErr {
+                    Logger.debug { "unregistered \(controlId) keyCode:\(key) modifiers:\(mods)" }
+                } else {
+                    Logger.error { "UnregisterEventHotKey failed for \(controlId) keyCode:\(key) modifiers:\(mods) status:\(status)" }
+                }
                 eventHotKeyRefs[controlId] = nil
             }
         }
@@ -101,7 +108,12 @@ class KeyboardEvents {
             let mods = shortcut.carbonModifierFlags
             let options = UInt32(kEventHotKeyNoOptions)
             var shortcutsReference: EventHotKeyRef?
-            RegisterEventHotKey(key, mods, hotkeyId, shortcutEventTarget, options, &shortcutsReference)
+            let status = RegisterEventHotKey(key, mods, hotkeyId, shortcutEventTarget, options, &shortcutsReference)
+            if status == noErr {
+                Logger.debug { "registered \(controlId) keyCode:\(key) modifiers:\(mods)" }
+            } else {
+                Logger.error { "RegisterEventHotKey failed for \(controlId) keyCode:\(key) modifiers:\(mods) status:\(status)" }
+            }
             eventHotKeyRefs[controlId] = shortcutsReference
         }
     }
