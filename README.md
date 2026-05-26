@@ -4,6 +4,14 @@
 
 **AltAtlTab** is a lightly rebranded fork of AltTab v10.12.0.
 
-[Original project](https://github.com/lwouis/alt-tab-macos) | [Download latest release](https://github.com/odrinateur/alt-alt-tab-macos/releases/latest)
+[Original project](https://github.com/lwouis/alt-tab-macos)
+
+## Install
+
+```bash
+brew install odrinateur/altatltab/altatltab
+```
+
+Or [download the latest release](https://github.com/odrinateur/alt-alt-tab-macos/releases/latest).
 
 </div>
