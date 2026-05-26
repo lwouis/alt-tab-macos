@@ -1,3 +1,10 @@
+# [10.13.0](https://github.com/odrinateur/alt-alt-tab-macos/compare/v10.12.0...v10.13.0) (2026-05-26)
+
+
+### Features
+
+* rebrand app as AltAtlTab ([378b94e](https://github.com/odrinateur/alt-alt-tab-macos/commit/378b94e))
+
 # [10.12.0](https://github.com/lwouis/alt-tab-macos/compare/v10.11.0...v10.12.0) (2026-04-13)
 
 

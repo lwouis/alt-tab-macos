@@ -3,5 +3,19 @@
   <channel>
     <title>AltAtlTab</title>
     <language>en</language>
+
+    <item>
+      <title>Version 10.13.0</title>
+      <pubDate>Tue, 26 May 2026 20:50:18 +0000</pubDate>
+      <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
+      <sparkle:releaseNotesLink>https://github.com/odrinateur/alt-alt-tab-macos/blob/master/docs/changelog.md</sparkle:releaseNotesLink>
+      <enclosure
+        url="https://github.com/odrinateur/alt-alt-tab-macos/releases/download/v10.13.0/AltAtlTab-10.13.0.zip"
+        sparkle:version="10.13.0"
+        sparkle:shortVersionString="10.13.0"
+        sparkle:edSignature="R9xWu4pdtVoLz9P09Kie7UVeLeh5ZktlwvXO2RjT9G0ZswNEDnlNmXhub03ny5Cg+Aj2tnkC871PGf5oTSSaDg==" length="11611552"
+        type="application/octet-stream"/>
+    </item>
+
   </channel>
 </rss>
