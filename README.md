@@ -4,7 +4,7 @@
 
 **AltAtlTab** is a lightly rebranded fork of AltTab v10.12.0.
 
-[Original project](https://github.com/lwouis/alt-tab-macos)
+Based on [AltTab](https://github.com/lwouis/alt-tab-macos) by lwouis and contributors, licensed under GPL-3.0.
 
 ## Install
 

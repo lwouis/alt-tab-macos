@@ -14,11 +14,12 @@ class AboutTab {
             BoldLabel(App.name),
             NSTextField(wrappingLabelWithString: NSLocalizedString("Version", comment: "") + " " + App.version),
             NSTextField(wrappingLabelWithString: App.licence),
+            HyperlinkLabel(NSLocalizedString("Based on AltTab by lwouis and contributors, licensed under GPL-3.0.", comment: ""), App.upstreamRepository),
             HyperlinkLabel(NSLocalizedString("Source code repository", comment: ""), App.repository),
             HyperlinkLabel(NSLocalizedString("Latest releases", comment: ""), App.repository + "/releases"),
         ], .vertical)
         appText.spacing = GridView.interPadding / 2
-        let rowToSeparate = 3
+        let rowToSeparate = 4
         appText.views[rowToSeparate].topAnchor.constraint(equalTo: appText.views[rowToSeparate - 1].bottomAnchor, constant: GridView.interPadding).isActive = true
         let appInfo = NSStackView(views: [appIcon, appText])
         appIcon.translatesAutoresizingMaskIntoConstraints = false

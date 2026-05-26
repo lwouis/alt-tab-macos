@@ -14,6 +14,7 @@ class App: AppCenterApplication {
     static let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String
     static let licence = Bundle.main.object(forInfoDictionaryKey: "NSHumanReadableCopyright") as! String
     static let repository = "https://github.com/odrinateur/alt-alt-tab-macos"
+    static let upstreamRepository = "https://github.com/lwouis/alt-tab-macos"
     static let appIcon = CGImage.named("app.icns")
     override class var shared: App { super.shared as! App }
     static var isTerminating = false
