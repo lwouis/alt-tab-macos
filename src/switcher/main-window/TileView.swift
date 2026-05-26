@@ -374,7 +374,8 @@ class TileView: FlippedView {
         }
         if Preferences.showTitles == .appNameAndWindowTitle {
             let appName = window_?.application.localizedName ?? ""
-            let offset = appName.isEmpty ? 0 : (appName + " - ").count
+            let windowTitle = window_?.title ?? ""
+            let offset = (appName.isEmpty || appName == windowTitle) ? 0 : (appName + " - ").count
             for result in window_?.swAppResults ?? [] {
                 spanRanges.append(NSRange(location: result.span.lowerBound, length: result.span.count))
             }
@@ -572,6 +573,9 @@ class TileView: FlippedView {
         if Preferences.onlyShowApplications() || Preferences.showTitles == .appName {
             return appName ?? ""
         } else if Preferences.showTitles == .appNameAndWindowTitle {
+            if appName == windowTitle {
+                return appName ?? ""
+            }
             return [appName, windowTitle].compactMap { $0 }.joined(separator: " - ")
         }
         return windowTitle ?? ""
