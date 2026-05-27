@@ -1,25 +1,34 @@
 import Cocoa
 import ApplicationServices.HIServices.AXNotificationConstants
 
+@dynamicMemberLookup
 class Application: NSObject {
     // kvObservers should be listed first, so it gets deinit'ed first; otherwise it can crash
     var kvObservers: [NSKeyValueObservation]?
+    /// Canonical data record this application exposes to the switcher's logic kernels (see
+    /// `ApplicationState`). The subscript below forwards `app.pid` / `app.bundleIdentifier` /
+    /// `app.localizedName` / `app.isHidden` through here, so call sites read/write `state`'s
+    /// fields by their original names without per-property boilerplate on this class.
+    var state: ApplicationState
     var runningApplication: NSRunningApplication
     var axUiElement: AXUIElement?
     var axObserver: AXObserver?
     var isReallyFinishedLaunching = false
-    var localizedName: String?
-    var bundleIdentifier: String?
     var bundleURL: URL?
     var executableURL: URL?
-    var pid: pid_t
-    var isHidden: Bool
     var hasBeenActiveOnce: Bool
     var icon: CGImage?
     var dockLabel: String?
     var focusedWindow: Window? = nil
     var alreadyRequestedToQuit = false
     var debugId: String
+
+    /// Forwards every `ApplicationState` field by name — `app.pid` resolves to `state.pid`,
+    /// `app.isHidden = true` writes through. Replaces a stack of one-per-field computed properties.
+    subscript<T>(dynamicMember keyPath: WritableKeyPath<ApplicationState, T>) -> T {
+        get { state[keyPath: keyPath] }
+        set { state[keyPath: keyPath] = newValue }
+    }
 
     static let notifications = [
         kAXApplicationActivatedNotification,
@@ -72,14 +81,15 @@ class Application: NSObject {
 
     init(_ runningApplication: NSRunningApplication) {
         self.runningApplication = runningApplication
-        pid = runningApplication.processIdentifier
-        isHidden = runningApplication.isHidden
+        state = ApplicationState(
+            pid: runningApplication.processIdentifier,
+            bundleIdentifier: runningApplication.bundleIdentifier,
+            localizedName: runningApplication.localizedName,
+            isHidden: runningApplication.isHidden)
         hasBeenActiveOnce = runningApplication.isActive
-        localizedName = runningApplication.localizedName
-        bundleIdentifier = runningApplication.bundleIdentifier
         bundleURL = runningApplication.bundleURL
         executableURL = runningApplication.executableURL
-        debugId = "(pid:\(pid) \(bundleIdentifier ?? bundleURL?.absoluteString ?? executableURL?.absoluteString ?? localizedName))"
+        debugId = "(pid:\(state.pid) \(state.bundleIdentifier ?? bundleURL?.absoluteString ?? executableURL?.absoluteString ?? state.localizedName))"
         super.init()
         Logger.info { self.debugId }
         observeEventsIfEligible()
@@ -127,10 +137,10 @@ class Application: NSObject {
     func observeEventsIfEligible() {
         if runningApplication.activationPolicy != .prohibited && !isReallyFinishedLaunching {
             if axUiElement == nil {
-                axUiElement = AXUIElementCreateApplication(pid)
+                axUiElement = AXUIElementCreateApplication(self.pid)
             }
             if axObserver == nil {
-                AXObserverCreate(pid, AccessibilityEvents.axObserverCallback, &axObserver)
+                AXObserverCreate(self.pid, AccessibilityEvents.axObserverCallback, &axObserver)
             }
             observeEvents()
         }
@@ -149,7 +159,7 @@ class Application: NSObject {
 
     private func observeEvents() {
         guard let axObserver else { return }
-        AXCallScheduler.shared.schedule(key: "sub-app-\(pid)", context: debugId, pid: pid) { [weak self] in
+        AXCallScheduler.shared.schedule(key: "sub-app-\(self.pid)", context: debugId, pid: self.pid) { [weak self] in
             guard let self, !self.isReallyFinishedLaunching else { return }
             if try self.axUiElement!.subscribeToNotification(axObserver, Application.notifications.first!) {
                 Logger.debug { "Subscribed to app: \(self.debugId)" }
@@ -182,7 +192,7 @@ class Application: NSObject {
     @discardableResult
     func addWindowlessWindowIfNeeded() -> Window? {
         guard runningApplication.activationPolicy == .regular && !runningApplication.isTerminated
-               && !(Windows.list.contains { $0.application.pid == pid && !$0.isInvisible }) else { return nil }
+               && !(Windows.list.contains { $0.application.pid == self.pid && !$0.isInvisible }) else { return nil }
         let window = Window(self)
         Windows.appendWindow(window)
         focusedWindow = nil
@@ -191,7 +201,7 @@ class Application: NSObject {
     }
 
     func removeWindowlessAppWindow() {
-        guard let windowlessAppWindow = (Windows.list.first { $0.isWindowlessApp == true && $0.application.pid == pid }) else { return }
+        guard let windowlessAppWindow = (Windows.list.first { $0.isWindowlessApp == true && $0.application.pid == self.pid }) else { return }
         Windows.removeWindows([windowlessAppWindow], false)
         App.refreshOpenUiAfterExternalEvent([])
     }
@@ -205,7 +215,7 @@ class Application: NSObject {
     }
 
     func canBeQuit() -> Bool {
-        return bundleIdentifier != "com.apple.finder" || Preferences.finderShowsQuitMenuItem
+        return self.bundleIdentifier != "com.apple.finder" || Preferences.finderShowsQuitMenuItem
     }
 
     func quit() {

@@ -46,14 +46,6 @@ class Windows {
         }
     }
 
-    private static func compareByAppNameThenWindowTitle(_ w1: Window, _ w2: Window) -> ComparisonResult {
-        let order = w1.application.localizedName.localizedStandardCompare(w2.application.localizedName)
-        if order == .orderedSame {
-            return w1.title.localizedStandardCompare(w2.title)
-        }
-        return order
-    }
-
     static func voiceOverWindow(_ windowIndex: Int = (SwitcherSession.current?.selectedIndex ?? 0)) {
         guard SwitcherSession.isActive && TilesPanel.shared.isKeyWindow else { return }
         if TilesView.isSearchEditing { return }
@@ -110,41 +102,26 @@ class Windows {
         }
     }
 
-    private static func shouldHideWindow(_ window: Window, _ entry: ExceptionEntry) -> Bool {
-        switch entry.hide {
-        case .none:
-            return false
-        case .always:
-            return true
-        case .whenNoOpenWindow:
-            return window.isWindowlessApp
-        case .windowTitleContains:
-            guard let patterns = entry.windowTitleContains, !patterns.isEmpty else {
-                return false
-            }
-            return patterns.contains { !$0.isEmpty && window.title.contains($0) }
-        }
-    }
-
     private static func refreshIfWindowShouldBeShownToTheUser(_ window: Window, _ f: WindowFilters) {
-        window.shouldShowTheUser =
-            !window.isInvisible &&
-            !(window.application.bundleIdentifier.flatMap { id in
-                f.exceptions.contains {
-                    !$0.bundleIdentifier.isEmpty && id.hasPrefix($0.bundleIdentifier) && shouldHideWindow(window, $0)
-                }
-            } ?? false) &&
-            !(f.appsToShow == .active && window.application.pid != Applications.frontmostPid) &&
-            !(f.appsToShow == .nonActive && window.application.pid == Applications.frontmostPid) &&
-            !(!(f.showHiddenWindows != .hide) && window.isHidden) &&
-            ((f.showWindowlessApps != .hide && window.isWindowlessApp) ||
-                !window.isWindowlessApp &&
-                !(!(f.showFullscreenWindows != .hide) && window.isFullscreen) &&
-                !(!(f.showMinimizedWindows != .hide) && window.isMinimized) &&
-                !(f.spacesToShow == .visible && !Spaces.visibleSpaces.contains { visibleSpace in window.spaceIds.contains { $0 == visibleSpace } }) &&
-                !(f.spacesToShow == .nonVisible && Spaces.visibleSpaces.contains { visibleSpace in window.spaceIds.contains { $0 == visibleSpace } }) &&
-                !(f.screensToShow == .showingAltTab && !window.isOnScreen(NSScreen.preferred)) &&
-                (f.groupTabs == .separateWindows || !window.isTabbed))
+        // `isOnPreferredScreen` is the one irreducibly OS-coupled fact (touches `Spaces.screenSpacesMap` +
+        // multi-screen quartz math); passed as `@autoclosure` so it's only evaluated if the cheaper
+        // filters above don't already exclude the window.
+        window.shouldShowTheUser = WindowFilterResolver.shouldShow(
+            window.state, window.application.state,
+            onlyFrontmostApp: f.appsToShow == .active,
+            excludeFrontmostApp: f.appsToShow == .nonActive,
+            hideHidden: f.showHiddenWindows == .hide,
+            hideWindowless: f.showWindowlessApps == .hide,
+            hideFullscreen: f.showFullscreenWindows == .hide,
+            hideMinimized: f.showMinimizedWindows == .hide,
+            onlyVisibleSpaces: f.spacesToShow == .visible,
+            onlyNonVisibleSpaces: f.spacesToShow == .nonVisible,
+            onlyPreferredScreen: f.screensToShow == .showingAltTab,
+            separateTabs: f.groupTabs == .separateWindows,
+            frontmostPid: Applications.frontmostPid,
+            visibleSpaceIds: Spaces.visibleSpaces,
+            exceptions: f.exceptions,
+            isOnPreferredScreen: window.isOnScreen(NSScreen.preferred))
     }
 
     /// Selects the most appropriate main window from a given list of windows.
@@ -345,59 +322,40 @@ class Windows {
     private static func sort() {
         let trimmedQuery = Search.normalizedQuery((SwitcherSession.current?.searchQuery ?? ""))
         let shortcutIndex = (SwitcherSession.current?.shortcutIndex ?? 0)
-        let showWindowlessApps = Preferences.showWindowlessApps(shortcutIndex)
-        let showHiddenWindows = Preferences.showHiddenWindows(shortcutIndex)
-        let showMinimizedWindows = Preferences.showMinimizedWindows(shortcutIndex)
-        let sortType = Preferences.windowOrder(shortcutIndex)
+        // Hoisted once per sort: locals are captured by the comparator closure so each of the
+        // O(n log n) comparisons reads them directly.
+        let searchActive = !trimmedQuery.isEmpty
+        let windowlessAtEnd = Preferences.showWindowlessApps(shortcutIndex) == .showAtTheEnd
+        let hiddenAtEnd = Preferences.showHiddenWindows(shortcutIndex) == .showAtTheEnd
+        let minimizedAtEnd = Preferences.showMinimizedWindows(shortcutIndex) == .showAtTheEnd
+        let sortType = orderSortType(Preferences.windowOrder(shortcutIndex))
+        // Precompute each window's ordering facts once (O(n) Search calls), then sort on the snapshots.
+        let facts = Dictionary(uniqueKeysWithValues: list.map { (ObjectIdentifier($0), orderWindow($0, trimmedQuery)) })
         list.sort {
-            if !trimmedQuery.isEmpty {
-                let matches0 = Search.matches($0, query: trimmedQuery)
-                let matches1 = Search.matches($1, query: trimmedQuery)
-                if matches0 != matches1 { return matches0 }
-                let score0 = Search.relevance(for: $0, query: trimmedQuery)
-                let score1 = Search.relevance(for: $1, query: trimmedQuery)
-                if score0 != score1 { return score0 > score1 }
-                return $0.lastFocusOrder < $1.lastFocusOrder
-            }
-            // separate buckets for these types of windows
-            if showWindowlessApps == .showAtTheEnd && $0.isWindowlessApp != $1.isWindowlessApp {
-                return $1.isWindowlessApp
-            }
-            if showHiddenWindows == .showAtTheEnd && $0.isHidden != $1.isHidden {
-                return $1.isHidden
-            }
-            if showMinimizedWindows == .showAtTheEnd && $0.isMinimized != $1.isMinimized {
-                return $1.isMinimized
-            }
-            // sort within each buckets
-            if sortType == .recentlyFocused {
-                return $0.lastFocusOrder < $1.lastFocusOrder
-            }
-            if sortType == .recentlyCreated {
-                return $1.creationOrder < $0.creationOrder
-            }
-            var order = ComparisonResult.orderedSame
-            if sortType == .alphabetical {
-                order = compareByAppNameThenWindowTitle($0, $1)
-            }
-            if sortType == .space {
-                if $0.isOnAllSpaces && $1.isOnAllSpaces {
-                    order = .orderedSame
-                } else if $0.isOnAllSpaces {
-                    order = .orderedAscending
-                } else if $1.isOnAllSpaces {
-                    order = .orderedDescending
-                } else if let spaceIndex0 = $0.spaceIndexes.first, let spaceIndex1 = $1.spaceIndexes.first {
-                    order = spaceIndex0.compare(spaceIndex1)
-                }
-                if order == .orderedSame {
-                    order = compareByAppNameThenWindowTitle($0, $1)
-                }
-            }
-            if order == .orderedSame {
-                order = $0.lastFocusOrder.compare($1.lastFocusOrder)
-            }
-            return order == .orderedAscending
+            WindowOrderResolver.isOrderedBefore(
+                facts[ObjectIdentifier($0)]!, facts[ObjectIdentifier($1)]!,
+                searchActive: searchActive,
+                windowlessAtEnd: windowlessAtEnd,
+                hiddenAtEnd: hiddenAtEnd,
+                minimizedAtEnd: minimizedAtEnd,
+                sortType: sortType)
+        }
+    }
+
+    private static func orderWindow(_ window: Window, _ query: String) -> OrderWindow {
+        OrderWindow(
+            state: window.state,
+            app: window.application.state,
+            searchMatches: query.isEmpty ? false : Search.matches(window, query: query),
+            searchRelevance: query.isEmpty ? 0 : Search.relevance(for: window, query: query))
+    }
+
+    private static func orderSortType(_ p: WindowOrderPreference) -> OrderSortType {
+        switch p {
+            case .recentlyFocused: return .recentlyFocused
+            case .recentlyCreated: return .recentlyCreated
+            case .alphabetical: return .alphabetical
+            case .space: return .space
         }
     }
 

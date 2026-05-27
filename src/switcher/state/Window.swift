@@ -1,5 +1,6 @@
 import Cocoa
 
+@dynamicMemberLookup
 class Window {
     private static let notifications = [
         kAXUIElementDestroyedNotification,
@@ -11,27 +12,20 @@ class Window {
     ]
     private static var globalCreationCounter = Int.zero
 
-    var id: String
+    /// Canonical data record this window exposes to the switcher's logic kernels (see
+    /// `WindowState`). The subscript below forwards every `WindowState` field by name —
+    /// `window.title` / `window.isFullscreen` / `window.spaceIds` / etc. resolve to `state`'s
+    /// fields — so call sites stay unchanged without per-property boilerplate on this class.
+    var state: WindowState
     var cgWindowId: CGWindowID?
-    var lastFocusOrder = Int.zero
-    var creationOrder = Int.zero
-    var title: String!
     var thumbnail: CALayerContents?
     var icon: CGImage? { get { application.icon } }
     var shouldShowTheUser = true
-    var isTabbed: Bool = false
     var tabbedSiblingWids: [CGWindowID]?
     var isHidden: Bool { get { application.isHidden } }
     var dockLabel: String? { get { application.dockLabel } }
-    var isFullscreen = false
-    var isMinimized = false
-    var isOnAllSpaces = false
-    var isInvisible = false
-    var isWindowlessApp: Bool { get { cgWindowId == nil } }
     var position: CGPoint?
     var size: CGSize?
-    var spaceIds = [CGSSpaceID.max]
-    var spaceIndexes = [SpaceIndex.max]
     var screenId: ScreenUuid?
     var axUiElement: AXUIElement?
     var application: Application
@@ -43,8 +37,20 @@ class Window {
     var swTitleResults: [SWResult] = []
     var swBestSimilarity = 0.0
 
+    /// Forwards every `WindowState` field by name — `window.title` resolves to `state.title`,
+    /// `window.isFullscreen = true` writes through. Replaces a stack of one-per-field computed
+    /// properties.
+    subscript<T>(dynamicMember keyPath: WritableKeyPath<WindowState, T>) -> T {
+        get { state[keyPath: keyPath] }
+        set { state[keyPath: keyPath] = newValue }
+    }
+
     init(_ axUiElement: AXUIElement, _ application: Application, _ wid: CGWindowID, _ title: String?, _ isFullscreen: Bool?, _ isMinimized: Bool?, _ position: CGPoint?, _ size: CGSize?) {
-        id = "wid-\(wid)"
+        state = WindowState(
+            id: "wid-\(wid)", isInvisible: false, isWindowlessApp: false,
+            isFullscreen: false, isMinimized: false, isTabbed: false,
+            isOnAllSpaces: false, spaceIds: [CGSSpaceID.max], spaceIndexes: [SpaceIndex.max],
+            lastFocusOrder: .zero, creationOrder: .zero, title: "")
         self.axUiElement = axUiElement
         self.application = application
         cgWindowId = wid
@@ -52,7 +58,7 @@ class Window {
         updateFromAxAttributes(title, size, position, isFullscreen, isMinimized)
         debugId = "\(self.application.debugId) (wid:\(cgWindowId) title:\(self.title))"
         Window.globalCreationCounter += 1
-        creationOrder = Window.globalCreationCounter
+        self.creationOrder = Window.globalCreationCounter
         application.removeWindowlessAppWindow()
         // the app may have timed out trying to subscribe to app notifications
         // It may be responsive now since it has a window; we attempt again
@@ -65,12 +71,16 @@ class Window {
     }
 
     init(_ application: Application) {
-        id = "pid-\(application.pid)"
+        state = WindowState(
+            id: "pid-\(application.pid)", isInvisible: false, isWindowlessApp: true,
+            isFullscreen: false, isMinimized: false, isTabbed: false,
+            isOnAllSpaces: false, spaceIds: [CGSSpaceID.max], spaceIndexes: [SpaceIndex.max],
+            lastFocusOrder: .zero, creationOrder: .zero, title: "")
         self.application = application
-        title = bestEffortTitle(nil)
+        self.title = bestEffortTitle(nil)
         Window.globalCreationCounter += 1
-        creationOrder = Window.globalCreationCounter
-        debugId = "\(application.debugId) (title:\(title))"
+        self.creationOrder = Window.globalCreationCounter
+        debugId = "\(application.debugId) (title:\(self.title))"
         // fetch app icon only if we display that app in the switcher
         application.fetchAppIcon()
         Logger.debug { self.debugId }
@@ -112,7 +122,7 @@ class Window {
     /// Doesn't catch alpha=0 (Outlook reminders) — those keep a Space; Applications.refreshIsInvisible is the catch-all.
     /// Reuses the spaceIds already populated by updateSpaces (cgWindowId.spaces()) — no new CGS call.
     func recomputeIsInvisible() {
-        isInvisible = spaceIds.isEmpty && !isTabbed && !isMinimized && !isHidden
+        self.isInvisible = self.spaceIds.isEmpty && !self.isTabbed && !self.isMinimized && !self.isHidden
     }
 
     func isEqualRobust(_ otherWindowAxUiElement: AXUIElement, _ otherWindowWid: CGWindowID?) -> Bool {
@@ -157,7 +167,7 @@ class Window {
     }
 
     func canBeClosed() -> Bool {
-        return !isWindowlessApp
+        return !self.isWindowlessApp
     }
 
     func close() {
@@ -189,7 +199,7 @@ class Window {
     }
 
     func canBeMinDeminOrFullscreened() -> Bool {
-        return !isWindowlessApp && !isTabbed
+        return !self.isWindowlessApp && !self.isTabbed
     }
 
     func minDemin() {
@@ -198,7 +208,7 @@ class Window {
             return
         }
         if let altTabWindow = altTabWindow() {
-            isMinimized ? altTabWindow.deminiaturize(nil) : altTabWindow.miniaturize(nil)
+            self.isMinimized ? altTabWindow.deminiaturize(nil) : altTabWindow.miniaturize(nil)
             return
         }
         BackgroundWork.accessibilityCommandsQueue.addOperation { [weak self] in
@@ -236,8 +246,8 @@ class Window {
             App.shared.activate(ignoringOtherApps: true)
             altTabWindow.makeKeyAndOrderFront(nil)
             WindowThumbnails.previewSelectedIfNeeded()
-        } else if isWindowlessApp || cgWindowId == nil {
-            if let bundleUrl = application.bundleURL, isWindowlessApp {
+        } else if self.isWindowlessApp || cgWindowId == nil {
+            if let bundleUrl = application.bundleURL, self.isWindowlessApp {
                 if (try? NSWorkspace.shared.launchApplication(at: bundleUrl, configuration: [:])) == nil {
                     application.runningApplication.activate(options: .activateAllWindows)
                 }
@@ -316,7 +326,7 @@ class Window {
     func isOnScreen(_ screen: NSScreen) -> Bool {
         if NSScreen.screensHaveSeparateSpaces {
             if let screenUuid = screen.cachedUuid(), let screenSpaces = Spaces.screenSpacesMap[screenUuid] {
-                return screenSpaces.contains { screenSpace in spaceIds.contains { $0 == screenSpace } }
+                return screenSpaces.contains { screenSpace in self.spaceIds.contains { $0 == screenSpace } }
             }
         } else {
             let referenceWindow = referenceWindowForTabbedWindow()
@@ -334,7 +344,7 @@ class Window {
         // if the window is tabbed, we can't know its position/size before it's focused, so we use the currently
         // visible window-tab. Its data will match the tabbed window's
         // fallback to the focusedWindow
-        isTabbed ? (TabGroup.activeTabSibling(of: self) ?? application.focusedWindow) : self
+        self.isTabbed ? (TabGroup.activeTabSibling(of: self) ?? application.focusedWindow) : self
     }
 
     // Determines if this window is the main application window

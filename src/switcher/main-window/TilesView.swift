@@ -2,12 +2,6 @@ import Cocoa
 import Carbon.HIToolbox.Events
 import ShortcutRecorder
 
-enum SearchMode {
-    case off
-    case editing
-    case locked
-}
-
 enum SearchKeyResult {
     case handled
     case passToField
@@ -50,7 +44,7 @@ class TilesView {
     static func startSearchSession(_ startInSearchMode: Bool) {
         searchField.stringValue = ""
         Windows.updateSearchQuery("")
-        searchMode = startInSearchMode ? .editing : .off
+        searchMode = SearchModeResolver.startMode(startInSearch: startInSearchMode)
         updateSearchFieldEditability()
     }
 
@@ -63,17 +57,14 @@ class TilesView {
     }
 
     static func toggleSearchModeFromShortcut() {
-        if searchMode == .off {
-            enableSearchEditing()
-        } else if searchMode == .editing {
-            disableSearchMode()
-        } else {
-            enableSearchEditing()
+        switch SearchModeResolver.toggle(mode: searchMode) {
+            case .enterEditing: enableSearchEditing()
+            case .disable: disableSearchMode()
         }
     }
 
     static func disableSearchMode() {
-        guard searchMode != .off else { return }
+        guard SearchModeResolver.disable(mode: searchMode) == .exitToOff else { return }
         TilesPanel.shared.resetFrozenPosition()
         searchMode = .off
         updateSearchFieldEditability()
@@ -85,47 +76,74 @@ class TilesView {
     }
 
     static func lockSearchMode() {
-        if !ProFeature.lockSearchInSwitcher.attemptUse() { return }
-        if searchMode == .editing {
-            searchMode = .locked
-            updateSearchFieldEditability()
-            focusSelectedTileIfPossible()
-        } else if searchMode == .locked {
-            enableSearchEditing()
+        switch SearchModeResolver.lock(mode: searchMode, canLockSearch: ProFeature.lockSearchInSwitcher.attemptUse()) {
+            case .lockResults:
+                searchMode = .locked
+                updateSearchFieldEditability()
+                focusSelectedTileIfPossible()
+            case .unlockToEditing:
+                enableSearchEditing()
+            default:
+                return
         }
     }
 
     static func enableSearchEditing() {
-        if !ProFeature.searchInSwitcher.attemptUse() { return }
-        guard searchMode != .editing else {
-            placeSearchCaretAtEnd()
-            return
+        switch SearchModeResolver.enableEditing(mode: searchMode, canSearch: ProFeature.searchInSwitcher.attemptUse()) {
+            case .placeCaretOnly:
+                placeSearchCaretAtEnd()
+            case .enterEditing(let refreshUi):
+                searchMode = .editing
+                updateSearchFieldEditability()
+                SwitcherSession.current?.forceDoNothingOnRelease = true
+                clearHover()
+                stopKeyRepeatTimers()
+                if refreshUi {
+                    App.refreshUi(true)
+                }
+                TilesPanel.shared.makeFirstResponder(searchField)
+                placeSearchCaretAtEnd()
+            default:
+                return
         }
-        let wasOff = searchMode == .off
-        searchMode = .editing
-        updateSearchFieldEditability()
-        SwitcherSession.current?.forceDoNothingOnRelease = true
-        clearHover()
-        stopKeyRepeatTimers()
-        if wasOff {
-            App.refreshUi(true)
-        }
-        TilesPanel.shared.makeFirstResponder(searchField)
-        placeSearchCaretAtEnd()
     }
 
     static func handleSearchEditingKeyDown(_ event: NSEvent) -> SearchKeyResult {
-        if hasMarkedText() || ContextMenuEvents.isMenuOpen { return .passToField }
-        let keyCode = event.keyCode
-        if keyCode == UInt16(kVK_LeftArrow) { App.cycleSelection(.left); return .handled }
-        if keyCode == UInt16(kVK_RightArrow) { App.cycleSelection(.right); return .handled }
-        if keyCode == UInt16(kVK_UpArrow) { App.cycleSelection(.up); return .handled }
-        if keyCode == UInt16(kVK_DownArrow) { App.cycleSelection(.down); return .handled }
-        if keyCode == UInt16(kVK_Tab) { return .handled }
-        if matchesShortcut(event, "cancelShortcut") ||
-            matchesShortcut(event, "lockSearchShortcut") ||
-            matchesShortcut(event, "focusWindowShortcut") { return .passToShortcuts }
-        return .passToField
+        let decision = SearchModeResolver.routeKey(
+            hasMarkedText: hasMarkedText(),
+            isMenuOpen: ContextMenuEvents.isMenuOpen,
+            arrow: arrowCycleDirection(event.keyCode),
+            isTab: Int(event.keyCode) == kVK_Tab,
+            matchesCancel: matchesShortcut(event, "cancelShortcut"),
+            matchesLockSearch: matchesShortcut(event, "lockSearchShortcut"),
+            matchesFocus: matchesShortcut(event, "focusWindowShortcut"))
+        switch decision {
+            case .cycleSelection(let direction):
+                App.cycleSelection(cycleToDirection(direction))
+                return .handled
+            case .handled: return .handled
+            case .passToShortcuts: return .passToShortcuts
+            case .passToField: return .passToField
+        }
+    }
+
+    private static func arrowCycleDirection(_ keyCode: UInt16) -> CycleDirection? {
+        switch Int(keyCode) {
+            case kVK_LeftArrow: return .left
+            case kVK_RightArrow: return .right
+            case kVK_UpArrow: return .up
+            case kVK_DownArrow: return .down
+            default: return nil
+        }
+    }
+
+    private static func cycleToDirection(_ direction: CycleDirection) -> Direction {
+        switch direction {
+            case .left: return .left
+            case .right: return .right
+            case .up: return .up
+            case .down: return .down
+        }
     }
 
     private static func configureNoWindowLabel() {
@@ -215,7 +233,7 @@ class TilesView {
     }
 
     private static func updateSearchFieldEditability() {
-        let editable = searchMode == .editing
+        let editable = SearchModeResolver.isFieldEditable(searchMode)
         searchField.isEditable = editable
         searchField.isSelectable = editable
         if SwitcherSession.isActive {

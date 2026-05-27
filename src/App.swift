@@ -370,13 +370,10 @@ class App: AppCenterApplication {
 
     static func checkIfShortcutsShouldBeDisabled(_ activeWindow: Window?, _ activeApp: Application?) {
         let app = activeWindow?.application ?? activeApp!
-        let shortcutsShouldBeDisabled = Preferences.exceptions.contains { exception in
-            if let id = app.bundleIdentifier {
-                return !exception.bundleIdentifier.isEmpty && id.hasPrefix(exception.bundleIdentifier) &&
-                    (exception.ignore == .always || (exception.ignore == .whenFullscreen && (activeWindow?.isFullscreen ?? false)))
-            }
-            return false
-        }
+        let shortcutsShouldBeDisabled = ExceptionMatcher.disablesShortcuts(
+            app.state,
+            isFullscreen: activeWindow?.isFullscreen ?? false,
+            exceptions: Preferences.exceptions)
         KeyboardEvents.toggleGlobalShortcuts(shortcutsShouldBeDisabled)
         if shortcutsShouldBeDisabled && SwitcherSession.isActive {
             hideUi()

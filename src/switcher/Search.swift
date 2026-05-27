@@ -23,7 +23,7 @@ final class Search {
         let cacheKey = normalized + "|3"
         if window.lastSearchQuery == cacheKey { return }
         let appName = window.application.localizedName ?? ""
-        let title = window.title ?? ""
+        let title = window.title
         let appResult = SearchTestable.tierMatch(query: originalQuery, text: appName)
         let titleResult = SearchTestable.tierMatch(query: originalQuery, text: title)
         window.swAppResults = appResult.map { [$0.toSWResult()] } ?? []
