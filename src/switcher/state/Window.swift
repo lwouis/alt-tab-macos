@@ -236,7 +236,7 @@ class Window {
             App.shared.activate(ignoringOtherApps: true)
             altTabWindow.makeKeyAndOrderFront(nil)
             WindowThumbnails.previewSelectedIfNeeded()
-        } else if isWindowlessApp || cgWindowId == nil || Preferences.onlyShowApplications() {
+        } else if isWindowlessApp || cgWindowId == nil {
             if let bundleUrl = application.bundleURL, isWindowlessApp {
                 if (try? NSWorkspace.shared.launchApplication(at: bundleUrl, configuration: [:])) == nil {
                     application.runningApplication.activate(options: .activateAllWindows)

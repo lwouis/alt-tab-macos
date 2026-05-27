@@ -366,7 +366,7 @@ final class OrderingPane {
     /// See `FilteringPane.searchableStrings`.
     static let searchableStrings: [String] = [
         labelGroupApps, labelGroupTabs, labelWindowOrder,
-    ] + ShowAppsOrWindowsPreference.allCases.map { $0.localizedString }
+    ] + GroupAppsPreference.allCases.map { $0.localizedString }
       + GroupTabsPreference.allCases.map { $0.localizedString }
       + WindowOrderPreference.allCases.map { $0.localizedString }
 
@@ -376,7 +376,7 @@ final class OrderingPane {
     private let windowOrder: ShortcutBoundDropdown
 
     init(width: CGFloat) {
-        showAppsOrWindows = ShortcutBoundDropdown(baseName: "showAppsOrWindows", cases: ShowAppsOrWindowsPreference.allCases)
+        showAppsOrWindows = ShortcutBoundDropdown(baseName: "showAppsOrWindows", cases: GroupAppsPreference.allCases)
         showTabsAsWindows = ShortcutBoundDropdown(baseName: "showTabsAsWindows", cases: GroupTabsPreference.allCases)
         windowOrder = ShortcutBoundDropdown(baseName: "windowOrder", cases: WindowOrderPreference.allCases)
 

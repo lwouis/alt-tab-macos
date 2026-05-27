@@ -95,7 +95,7 @@ class Windows {
     }
 
     static func refreshWhichWindowsToShowTheUser() {
-        if Preferences.onlyShowApplications() {
+        if Preferences.onlyShowMainWindows() {
             // Group windows by application and select the optimal main window
             let windowsGroupedByApp = Dictionary(grouping: list) { $0.application.pid }
             windowsGroupedByApp.forEach { (app, windows) in

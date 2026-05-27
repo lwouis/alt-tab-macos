@@ -217,14 +217,14 @@ enum TitleTruncationPreference: CaseIterable, MacroPreference {
     }
 }
 
-enum ShowAppsOrWindowsPreference: CaseIterable, MacroPreference {
-    case applications
-    case windows
+enum GroupAppsPreference: CaseIterable, MacroPreference {
+    case mainWindow
+    case allWindows
 
     var localizedString: LocalizedString {
         switch self {
-            case .applications: return NSLocalizedString("Show main window", comment: "")
-            case .windows: return NSLocalizedString("Show all windows", comment: "")
+            case .mainWindow: return NSLocalizedString("Show main window", comment: "")
+            case .allWindows: return NSLocalizedString("Show all windows", comment: "")
         }
     }
 }

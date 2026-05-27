@@ -390,7 +390,6 @@ class AppearanceTab: NSObject {
     static var animationsButton: NSButton!
     static var customizeStyleSheet: CustomizeStyleSheet!
     static var animationsSheet: AnimationsSheet!
-    static var previewSelectedWindowRowInfo: TableGroupView.RowInfo!
 
     // References used by `refreshProLockUi()` to update Pro-lock affordances while Settings stays open.
     private static weak var styleButtonsStack: NSStackView?
@@ -433,7 +432,6 @@ class AppearanceTab: NSObject {
         animationsButton = nil
         customizeStyleSheet = nil
         animationsSheet = nil
-        previewSelectedWindowRowInfo = nil
         autoSegmentOverlayRef = nil
         shortcutStyleSegmentOverlayRef = nil
         overrideInfoIcons.removeAll()
@@ -459,7 +457,6 @@ class AppearanceTab: NSObject {
             width: SettingsWindow.contentWidth)
         let styleButtons = LabelAndControl.makeImageRadioButtons("appearanceStyle", AppearanceStylePreference.allCases, extraAction: { _ in
             toggleCustomizeStyleButton()
-            updatePreviewSelectedWindowState()
             ControlsTab.syncOverrideControlsToGlobal()
             refreshAllOverrideInfoLabels()
         }, buttonSpacing: 10, proGatedIndices: proGatedAppearanceStyleIndices())
@@ -622,28 +619,8 @@ class AppearanceTab: NSObject {
             ControlsTab.syncOverrideControlsToGlobal()
             refreshAllOverrideInfoLabels()
         })
-        previewSelectedWindowRowInfo = table.addRow(leftText: AppearanceTab.labelPreviewSelectedWindow,
+        _ = table.addRow(leftText: AppearanceTab.labelPreviewSelectedWindow,
             rightViews: [switchControl, makeOverrideIcon("previewFocusedWindowOverride")])
-        updatePreviewSelectedWindowState()
-    }
-
-    static func updatePreviewSelectedWindowState() {
-        guard let rowInfo = previewSelectedWindowRowInfo else { return }
-        let isEnabled = !isPreviewSelectedWindowDisabled()
-        rowInfo.leftViews?.forEach { view in
-            if let textField = view as? NSTextField {
-                textField.textColor = isEnabled ? .textColor : .gray
-            }
-        }
-        rowInfo.rightViews?.forEach { view in
-            if let switchControl = view as? Switch {
-                switchControl.isEnabled = isEnabled
-            }
-        }
-    }
-
-    private static func isPreviewSelectedWindowDisabled() -> Bool {
-        return Preferences.onlyShowApplications()
     }
 
     private static func makeMultipleScreensView() -> NSView {

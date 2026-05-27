@@ -5,7 +5,7 @@ import Cocoa
 enum WindowThumbnails {
     static func previewSelectedIfNeeded() {
         if let session = SwitcherSession.current, ScreenRecordingPermission.status == .granted
-               && Preferences.effectivePreviewSelectedWindow(session.shortcutIndex) && !Preferences.onlyShowApplications(session.shortcutIndex)
+               && Preferences.effectivePreviewSelectedWindow(session.shortcutIndex)
                && TilesPanel.shared.isKeyWindow,
            let window = Windows.selectedWindow(),
            let id = window.cgWindowId,
@@ -22,7 +22,6 @@ enum WindowThumbnails {
     static func refreshAsync(_ windows: [Window], _ source: RefreshCausedBy, windowRemoved: Bool = false, prioritizedIds: Set<CGWindowID>? = nil) {
         let shortcutIndex = SwitcherSession.activeShortcutIndex
         guard (!windows.isEmpty || windowRemoved) && ScreenRecordingPermission.status == .granted
-               && !Preferences.onlyShowApplications(shortcutIndex)
                && (!Appearance.hideThumbnails || Preferences.effectivePreviewSelectedWindow(shortcutIndex))
                && (Preferences.captureWindowsInBackground || SwitcherSession.isActive) else { return }
         var eligibleWindows = [Window]()
