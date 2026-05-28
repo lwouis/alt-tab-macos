@@ -46,3 +46,4 @@ Mirrors `OverrideClickResolverTests.swift` 1:1.
 - **testValueAtIndexEncoderIsHonored** — the persisted string comes from `valueAtIndex`, not the raw index.
 - **testStoredOverrideMalformedFallsThroughToWrite** — corrupt stored value (non-Int) → treated as displayed -1 → `.write`.
 - **testNilStoredOverrideWithMatchingGlobalIsSkip** — nil stored value, override unset, click the global → `.skip`.
+- **testHasOverrideTrueWithNilStoredFallsThroughToWrite** — inconsistent state (override marked SET but stored value is nil) → treated as displayed -1 → `.write` (defensive: don't silently no-op).

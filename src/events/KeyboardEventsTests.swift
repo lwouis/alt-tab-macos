@@ -187,6 +187,30 @@ final class KeyboardEventsUtilsTests: XCTestCase {
         XCTAssertEqual(ControlsTab.shortcutsActionsTriggered, [])
     }
 
+    // MARK: - Modifier flag filtering (NSEvent.ModifierFlags.cleaned)
+    //
+    // NSEvent.addLocalMonitorForEvents sometimes emits modifier flags with bits we don't care about
+    // (function-key bit; raw bits like 0x120 that AppKit hands back unfiltered). `cleaned()` is the
+    // intersection that strips those down to the supported set before the matcher sees them. Lives
+    // in `ATShortcut.swift` next to the matcher that calls it; tested here because no
+    // ATShortcutTests.swift exists yet and modifier handling is the keyboard-events neighborhood.
+
+    func testCleanedKeepsValidModifierBits() {
+        let valid: NSEvent.ModifierFlags = [.command, .shift, .option, .control, .capsLock]
+        XCTAssertEqual(valid.cleaned(), valid, "every supported bit should survive cleaning")
+    }
+
+    func testCleanedDropsFunctionAndUnknownBits() {
+        let dirty: NSEvent.ModifierFlags = [.option, .function]
+        XCTAssertEqual(dirty.cleaned(), [.option], "the function bit is not a modifier we support")
+        let withGarbage = NSEvent.ModifierFlags(rawValue: NSEvent.ModifierFlags.option.rawValue | 0x120)
+        XCTAssertEqual(withGarbage.cleaned(), [.option], "stray AppKit bits (e.g. 0x120) are dropped")
+    }
+
+    func testCleanedEmptyIsEmpty() {
+        XCTAssertEqual(NSEvent.ModifierFlags([]).cleaned(), [])
+    }
+
     private let escapeKeycode: UInt32 = 53 // kVK_Escape
 
     private let keycodeMap: [Character: UInt32] = [

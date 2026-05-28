@@ -158,8 +158,14 @@ enum ReservedMacosShortcut: CaseIterable {
 }
 
 extension Shortcut {
-    /// ShortcutRecorder doesn't provide a Shortcut.toString() that outputs the same format as Shortcut.init(keyEquivalent:)
-    /// This helper provides this, on a limited range of shortcuts, since it used only for testing
+    /// Inverse of `Shortcut.init(keyEquivalent:)`: turns a `Shortcut` back into the same compact
+    /// glyph form (e.g. `⌘⌥⇥`). ShortcutRecorder's built-in `readableStringRepresentation`
+    /// returns the long form ("Command-Option-Tab"); this property rewrites that into the
+    /// keyEquivalent glyphs.
+    ///
+    /// Used in production by `ControlsTab.shortcutSummary(_:)` to render the sidebar row's
+    /// "summary" string ("⌘⌥ + ⇥"); also handy in tests for asserting against a recorded
+    /// shortcut's glyph form.
     var keyEquivalent: String {
         get {
             let readableStringRepresentation = self.readableStringRepresentation(isASCII: true).lowercased()

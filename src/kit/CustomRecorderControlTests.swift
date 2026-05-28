@@ -73,4 +73,70 @@ final class CustomRecorderControlTests: XCTestCase {
     func testIsShortcutAcceptable_cmdHoldShortcutNoLongerBlockedByGameOverlay() {
         XCTAssertEqual(CustomRecorderControlTestable.isShortcutAcceptable("holdShortcut", Shortcut(keyEquivalent: "⌘")!), .accepted)
     }
+
+    // MARK: - combinedModifiersMatch
+
+    // Per the kernel's doc-comment: the function checks whether two modifier sets match once each is
+    // OR-ed with the configured holdShortcut's modifiers. This is what lets the matcher recognize a
+    // chord like commandShiftTab whose modifiers are physically split between a holdShortcut (e.g.
+    // ⌘⌥) and a local shortcut (e.g. ⇧).
+
+    /// A modifier set OR-ed with the hold modifiers matches itself — the trivial case keyed by the
+    /// hold-modifier union, not by raw equality.
+    func testCombinedModifiersMatchEqualToItself() {
+        ControlsTab.shortcuts = ControlsTab.defaultShortcuts
+        let modifiers = Shortcut(keyEquivalent: "⌥")!.carbonModifierFlags
+        XCTAssertTrue(CustomRecorderControlTestable.combinedModifiersMatch(modifiers, modifiers))
+    }
+
+    /// With holdShortcut at ⌥, two physically different modifier sets that produce the same union
+    /// (`holdMods | x`) for some hold slot match. Here both ⌘⌥ and ⌥ collapse to ⌘⌥ once OR-ed
+    /// with the ⌘⌥ hold modifiers from slot 1.
+    func testCombinedModifiersMatchUnifiesWhenHoldModifiersDominate() {
+        ControlsTab.shortcuts = ControlsTab.defaultShortcuts
+        ControlsTab.shortcuts["holdShortcut"] = ATShortcut(Shortcut(keyEquivalent: "⌘⌥")!, "holdShortcut", .global, .up)
+        defer { ControlsTab.shortcuts = ControlsTab.defaultShortcuts }
+        let cmdOpt = Shortcut(keyEquivalent: "⌘⌥")!.carbonModifierFlags
+        let opt = Shortcut(keyEquivalent: "⌥")!.carbonModifierFlags
+        XCTAssertTrue(CustomRecorderControlTestable.combinedModifiersMatch(cmdOpt, opt),
+            "⌘⌥ | ⌘⌥ == ⌘⌥, and ⌘⌥ | ⌥ == ⌘⌥ — both equal, so they match.")
+    }
+
+    /// Disjoint modifier sets that can't be unified by any holdShortcut union do not match.
+    /// We clear every hold slot first so the test isn't sensitive to which slots the
+    /// defaults populate.
+    func testCombinedModifiersMatchRejectsDisjointModifiers() {
+        let original = ControlsTab.shortcuts
+        for i in 0..<Preferences.maxShortcutCount {
+            ControlsTab.shortcuts[Preferences.indexToName("holdShortcut", i)] = nil
+        }
+        ControlsTab.shortcuts["holdShortcut"] = ATShortcut(Shortcut(keyEquivalent: "⌥")!, "holdShortcut", .global, .up)
+        defer { ControlsTab.shortcuts = original }
+        let cmd = Shortcut(keyEquivalent: "⌘")!.carbonModifierFlags
+        let ctrl = Shortcut(keyEquivalent: "⌃")!.carbonModifierFlags
+        // ⌥|⌘ == ⌘⌥, ⌥|⌃ == ⌃⌥ — different, so no match.
+        XCTAssertFalse(CustomRecorderControlTestable.combinedModifiersMatch(cmd, ctrl))
+    }
+
+    /// When no holdShortcut is configured at any slot, the function returns false — no slot can
+    /// produce a union to compare against.
+    func testCombinedModifiersMatchReturnsFalseWhenNoHoldShortcuts() {
+        let original = ControlsTab.shortcuts
+        for i in 0..<Preferences.maxShortcutCount {
+            ControlsTab.shortcuts[Preferences.indexToName("holdShortcut", i)] = nil
+        }
+        defer { ControlsTab.shortcuts = original }
+        let opt = Shortcut(keyEquivalent: "⌥")!.carbonModifierFlags
+        XCTAssertFalse(CustomRecorderControlTestable.combinedModifiersMatch(opt, opt))
+    }
+
+    // Note on `Shortcut.keyEquivalent` (defined in `CustomRecorderControlTestable.swift`):
+    // It's used in production by `ControlsTab.shortcutSummary` (not just "for testing" as the old
+    // comment claimed — see the corrected doc-comment on the getter). It shows as 0% coverage
+    // here because the getter calls ShortcutRecorder's `readableStringRepresentation(isASCII:)`
+    // which throws `NSInternalInconsistencyException: Unable to find bundle with resources` when
+    // the framework's bundle isn't loaded — i.e. in the unit-test target. Testing it would
+    // require either loading the ShortcutRecorder bundle in test setup or extracting the
+    // formatting logic so it doesn't depend on `readableStringRepresentation`. Left alone here
+    // to avoid that bigger refactor; flagged in `CustomRecorderControlSpecs.md`.
 }

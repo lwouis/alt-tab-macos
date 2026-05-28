@@ -74,7 +74,7 @@ enum SelectionResolver {
             return .selectAt(targetIndex)
         }
         // 6) Target gone — adapt to the closest visible.
-        return adapt(i, visibleIndexes: visibleIndexes, firstVisible: firstVisibleIndex, lastVisible: visibleIndexes.last!)
+        return adapt(i, visibleIndexes: visibleIndexes, lastVisible: visibleIndexes.last!)
     }
 
     /// Mirrors `setInitialSelectedAndHoveredWindowIndex` — picks the index, defers reset to wrapper.
@@ -90,18 +90,19 @@ enum SelectionResolver {
     }
 
     /// Cycles from index 0 by step +1, wrapping around the list, stopping at the first visible
-    /// window. Returns 0 if only index 0 is visible (cycle wraps back). Returns nil if no
-    /// visible window exists.
+    /// window. Returns 0 if only index 0 is visible (the wrap lands back on it). Returns nil if
+    /// the list is empty or no window is visible.
     static func cycleFromZero(_ list: [SelectionWindow]) -> Int? {
-        guard !list.isEmpty, list.contains(where: { $0.visible }) else { return nil }
-        var idx = 0
-        for _ in 0..<list.count {
-            idx = (idx + 1) % list.count
+        guard !list.isEmpty else { return nil }
+        // Try indices 1, 2, …, count-1, then 0 (wrap). Single return point — the trailing
+        // `return nil` covers the "no window visible" case without needing a separate guard.
+        for offset in 1...list.count {
+            let idx = offset % list.count
             if list[idx].visible {
                 return idx
             }
         }
-        return 0 // only list[0] is visible — cycle wrapped back
+        return nil
     }
 
     /// Returns the index of the visible non-windowless window with the lowest `lastFocusOrder`.
@@ -134,24 +135,17 @@ enum SelectionResolver {
         return .resetWithoutSelection
     }
 
-    /// Mirrors `adaptSelectionToVisibleIndexes`. `visibleIndexes` is non-empty by caller's guard.
-    private static func adapt(_ i: SelectionInputs, visibleIndexes: [Int], firstVisible: Int, lastVisible: Int) -> SelectionDecision {
+    /// Mirrors `adaptSelectionToVisibleIndexes`. `visibleIndexes` is non-empty by caller's guard,
+    /// and `decide()` only invokes `adapt` after the `selectedTarget == nil` early-return — so
+    /// the only branching here is "is `selectedIndex` still in `visibleIndexes`?"
+    private static func adapt(_ i: SelectionInputs, visibleIndexes: [Int], lastVisible: Int) -> SelectionDecision {
         if !visibleIndexes.contains(i.selectedIndex) {
             let closest = visibleIndexes.last(where: { $0 < i.selectedIndex }) ?? lastVisible
             return .selectAt(closest)
         }
-        if i.selectedIndex > lastVisible {
-            return .selectAt(lastVisible)
-        }
-        if i.selectedIndex < firstVisible {
-            return .selectAt(firstVisible)
-        }
-        if i.selectedTarget == nil {
-            return .ensureTargetSet(i.selectedIndex)
-        }
-        // selectedIndex valid AND target already set — nothing to do.
-        // We still return `ensureTargetSet` (idempotent: same target value) to keep the enum
-        // surface minimal. The wrapper treats a no-change as a no-op.
+        // selectedIndex is in visibleIndexes (so it's already between firstVisible and lastVisible),
+        // and the target is set (non-nil) by decide()'s contract. Return an idempotent target
+        // backfill — the wrapper treats a no-change as a no-op.
         return .ensureTargetSet(i.selectedIndex)
     }
 }

@@ -27,6 +27,27 @@ final class AppearanceTests: XCTestCase {
 
     }
 
+    /// Screens that don't report their physical dimensions (`physicalWidth == nil`) get the 0.9
+    /// default — the same clamp Windows 11 uses. Without this, ultrawides would fall to 0.45 just
+    /// because we lack the data, which is worse than picking a sane default.
+    func testComfortableWidthFallsBackToDefaultWhenPhysicalWidthIsNil() throws {
+        XCTAssertEqual(AppearanceTestable.comfortableWidth(nil), 0.9)
+    }
+
+    /// Portrait-oriented usage (aspectRatio < 1) takes the second formula branch with different
+    /// constants. The fixture above is horizontal-only; this pins the portrait path.
+    func testGoodValuesForThumbnailsWidthMinMaxPortrait() throws {
+        // aspectRatio = 0.5, rowsCount = 4 → minRatio = 1.3/4 = 0.325, maxRatio = 2.1/4 = 0.525
+        // Then clamp: lo = max(0.09, 0.325) = 0.325, hi = min(0.30, 0.525) = 0.30
+        let (lo, hi) = AppearanceTestable.goodValuesForThumbnailsWidthMinMax(0.5, 4)
+        XCTAssertEqual(lo, 0.325, accuracy: 0.001)
+        XCTAssertEqual(hi, 0.30, accuracy: 0.001)
+        // smaller portrait ratio with more rows → both fall into the clamp zone
+        let (lo2, hi2) = AppearanceTestable.goodValuesForThumbnailsWidthMinMax(0.5, 16)
+        XCTAssertEqual(lo2, max(0.09, 1.3 / 16), accuracy: 0.001)
+        XCTAssertEqual(hi2, min(0.30, 2.1 / 16), accuracy: 0.001)
+    }
+
     private let screens: [(String, (CGFloat, CGFloat), (CGFloat, CGFloat), (CGFloat, CGFloat), [(Int, CGFloat, CGFloat)])] = [
         // screen model, (widthInPixels, heightInPixels), (physicalWidthInMM, physicalHeightInMM), (expectedWidthForHorizontal, expectedWidthForVertical), (rowCount, expectedMinWidth, expectedMaxWidth)
         ("11\" Laptop: MacBook Air 11\": HD", (1366, 768), (255.7, 178.6), (0.90, 0.90), [(3, 0.12, 0.25), (4, 0.09, 0.19), (5, 0.09, 0.15)]),

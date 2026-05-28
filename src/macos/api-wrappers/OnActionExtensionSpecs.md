@@ -33,6 +33,7 @@ Mirrors `OnActionExtensionTests.swift` 1:1.
 - **testSetterConfiguresTargetAndAction** — assigning a closure populates `target` and `action`.
 - **testSetterReplacesPreviousClosure** — a second assignment replaces the first; only the new one fires.
 - **testSettingNilClearsTargetAndAction** — assigning nil clears `target`, `action`, and the closure.
+- **testActionFiresClosureViaTargetActionPlumbing** — invoking the wired action (the real AppKit call path: `target.perform(action, with: control)`) reaches the stored closure through `SelectorWrapper.callClosure`, with the sender forwarded.
 
 ### C. Wrap pattern (the AppearanceTab use case)
 - **testWrapPatternInvokesPreviousClosureOnFallthrough** — a wrapper that calls `original?(c)` runs both the wrapper and the captured original.

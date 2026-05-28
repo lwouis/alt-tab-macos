@@ -60,9 +60,11 @@ Mirrors `WindowOrderResolverTests.swift` 1:1.
 - **testAlphabeticalTiebreaksByLastFocusOrder** — identical app+title → `lastFocusOrder`.
 
 ### F. Space
-- **testSpaceAllSpacesWindowsFirst** — all-spaces windows precede space-bound ones.
+- **testSpaceAllSpacesWindowsFirst** — all-spaces windows precede space-bound ones (a on all spaces).
 - **testSpaceLowerSpaceIndexFirst** — lower space index first.
 - **testSpaceTiebreaksByAppName** — same space → alphabetical.
+- **testSpaceBothOnAllSpacesTiebreaksByAppName** — both on all spaces → no space-index ordering; fall through to alphabetical.
+- **testSpaceOnlyBOnAllSpacesSortsBFirst** — mirror of `testSpaceAllSpacesWindowsFirst`: only b on all spaces → b sorts first (pins comparator symmetry).
 
 ### G. Tiebreak / symmetry
 - **testEqualWindowsAreNotOrderedBeforeEachOther** — equal facts are not ordered before each other.

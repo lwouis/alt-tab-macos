@@ -167,4 +167,18 @@ final class OverrideClickResolverTests: XCTestCase {
             valueAtIndex: identity)
         XCTAssertEqual(decision, .skip)
     }
+
+    /// Defensive: the inconsistent state where the persisted "has override" flag is set but the
+    /// stored value is nil shouldn't crash and shouldn't silently treat a click on the global as a
+    /// no-op. Treat it like the malformed-string case: displayed = -1 → any click writes.
+    func testHasOverrideTrueWithNilStoredFallsThroughToWrite() {
+        let decision = OverrideClickResolver.decide(
+            newIndex: 0,
+            hasOverride: true,
+            storedOverrideValue: nil,
+            globalIndex: 0,
+            valueAtIndex: identity)
+        XCTAssertEqual(decision, .write(value: "0"),
+            "An override marked SET with no stored value is treated as displayed -1, so the click writes.")
+    }
 }

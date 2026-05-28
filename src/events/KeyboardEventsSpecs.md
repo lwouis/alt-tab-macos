@@ -39,3 +39,11 @@ Mirrors `KeyboardEventsTests.swift` 1:1.
 - **testTransitionFromOneShortcutToAnother** — switching slots mid-stream is handled.
 - **testEscapeFiresCancelShortcutWhileSwitcherActiveWithOptionHeld** — Escape → cancel while active.
 - **testEscapeDoesNothingWhenSwitcherIsClosed** — Escape is a no-op when the switcher is closed.
+
+## Adjacent: `NSEvent.ModifierFlags.cleaned()` (defined in `ATShortcut.swift`, exercised here)
+
+AppKit's local event monitors occasionally emit modifier flags with extra bits (function-key bit, raw `0x120`-style garbage). `cleaned()` is the intersection that strips them before the matcher sees them. Tested here as the closest existing home until an `ATShortcutTests.swift` lands.
+
+- **testCleanedKeepsValidModifierBits** — `[.command, .shift, .option, .control, .capsLock]` survives cleaning.
+- **testCleanedDropsFunctionAndUnknownBits** — `.function` and stray bits like `0x120` are dropped.
+- **testCleanedEmptyIsEmpty** — empty flags stay empty.

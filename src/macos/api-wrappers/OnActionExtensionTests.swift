@@ -45,6 +45,27 @@ final class OnActionExtensionTests: XCTestCase {
         XCTAssertEqual(secondCalls, 1)
     }
 
+    /// AppKit invokes the wired action via the target/action pair, NOT by calling the stored
+    /// closure directly. The other tests exercise the getter path (`control.onAction?(c)`); this
+    /// pins the `SelectorWrapper.callClosure` indirection that is what AppKit actually triggers
+    /// when a click hits the control.
+    func testActionFiresClosureViaTargetActionPlumbing() {
+        let control = NSControl()
+        var calls = 0
+        var receivedSender: AnyObject? = nil
+        control.onAction = { sender in
+            calls += 1
+            receivedSender = sender
+        }
+        // AppKit's real call site is `[target performSelector:action with:sender]`. Using
+        // perform(_:with:) here matches what the runtime does, going through SelectorWrapper.
+        _ = control.target?.perform(control.action!, with: control)
+        XCTAssertEqual(calls, 1,
+            "SelectorWrapper.callClosure must forward the target/action invocation to the stored closure.")
+        XCTAssertTrue(receivedSender === control,
+            "The sender forwarded to the closure must be the control AppKit invoked the action on.")
+    }
+
     func testSettingNilClearsTargetAndAction() {
         let control = NSControl()
         control.onAction = { _ in }

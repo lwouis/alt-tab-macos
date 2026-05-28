@@ -495,4 +495,25 @@ final class SearchTests: XCTestCase {
         XCTAssertEqual(SearchTestable.damerauLevenshtein(Array("tkyo"), Array("tokyo"), k: 1), 1) // transposition
         XCTAssertNil(SearchTestable.damerauLevenshtein(Array("abcd"), Array("efgh"), k: 1))
     }
+
+    // MARK: - MatchResult → SWResult bridging
+
+    /// `toSWResult` is called by `Search.swift` to hand match data to the rendering layer. It
+    /// derives similarity from score / 1200, copies span and subspans verbatim, and clears `ops`
+    /// (operations metadata is unused downstream).
+    func testToSWResultBridgesMatchResultFields() {
+        let m = MatchResult(score: 1200, tier: 1, span: 0..<5, subspans: [0..<2, 3..<5])
+        let sw = m.toSWResult()
+        XCTAssertEqual(sw.score, 1200)
+        XCTAssertEqual(sw.similarity, 1.0, accuracy: 0.001, "1200/1200 normalizes to 1.0")
+        XCTAssertEqual(sw.span, 0..<5)
+        XCTAssertEqual(sw.subspans, [0..<2, 3..<5])
+        XCTAssertTrue(sw.ops.isEmpty, "ops is dropped on the way out — unused by the renderer")
+    }
+
+    func testToSWResultScalesSimilarityProportionally() {
+        let m = MatchResult(score: 600, tier: 3, span: 1..<3, subspans: [])
+        let sw = m.toSWResult()
+        XCTAssertEqual(sw.similarity, 0.5, accuracy: 0.001, "600 / 1200 = 0.5")
+    }
 }

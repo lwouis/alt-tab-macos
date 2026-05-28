@@ -23,8 +23,19 @@ existing AltTab shortcut or a macOS-reserved one.
 
 Mirrors `CustomRecorderControlTests.swift` 1:1.
 
+### isShortcutAcceptable
 - **testIsShortcutAcceptable_accepted** — a valid key+modifier combo is accepted.
 - **testIsShortcutAcceptable_modifiersOnlyButContainsKeycode** — modifiers-only flags but with a real keycode → accepted.
 - **testIsShortcutAcceptable_conflictWithExistingShortcut** — collides with an existing shortcut → rejected.
 - **testIsShortcutAcceptable_reservedByMacos** — a macOS-reserved combo → rejected.
 - **testIsShortcutAcceptable_cmdHoldShortcutNoLongerBlockedByGameOverlay** — regression #5585: a Cmd hold shortcut is accepted (Game Overlay no longer blocks it).
+
+### combinedModifiersMatch
+Used by the keyboard matcher to recognize a chord whose modifiers are physically split between the configured `holdShortcut` and a local shortcut (e.g. commandShiftTab = ⌘⌥-hold + ⇧).
+- **testCombinedModifiersMatchEqualToItself** — a modifier set matches itself (trivial union).
+- **testCombinedModifiersMatchUnifiesWhenHoldModifiersDominate** — two different inputs that produce the same union with the configured hold modifiers match.
+- **testCombinedModifiersMatchRejectsDisjointModifiers** — modifier sets that can't be unified by any holdShortcut union don't match.
+- **testCombinedModifiersMatchReturnsFalseWhenNoHoldShortcuts** — no holdShortcut configured at any slot → no union possible → false.
+
+### Not tested: `Shortcut.keyEquivalent` (in `CustomRecorderControlTestable.swift`)
+This getter is used in production by `ControlsTab.shortcutSummary` (to render the Settings sidebar row summary) — not "for testing only" as the older comment in the source incorrectly claimed (now fixed). It's effectively untestable from the `unit-tests` target: it calls ShortcutRecorder's `readableStringRepresentation(isASCII:)`, which throws `NSInternalInconsistencyException: Unable to find bundle with resources` when the framework's bundle isn't loaded (the case for unit tests). Testing it would need either bundle-loading test setup or extracting the formatting logic away from `readableStringRepresentation`. Left alone for now; recorded here so the 0% line coverage on this getter isn't mistaken for a forgotten gap.
