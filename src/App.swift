@@ -69,11 +69,11 @@ class App: AppCenterApplication {
         ContextMenuEvents.toggle(false)
         CursorEvents.toggle(false)
         TrackpadEvents.reset()
+        Tooltips.hideAll()
         hideTilesPanelWithoutChangingKeyWindow()
         if !keepPreview {
             PreviewPanel.shared.orderOut(nil)
         }
-        Tooltips.hideAll()
         MainMenu.toggle(true)
         ProTransitionManager.shared.onSwitcherDismissed()
     }
