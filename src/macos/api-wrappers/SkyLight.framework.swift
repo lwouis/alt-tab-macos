@@ -161,12 +161,6 @@ func CGSGetWindowLevel(_ cid: CGSConnectionID, _ wid: CGWindowID, _ level: Unsaf
 @_silgen_name("SLSRequestScreenCaptureAccess") @discardableResult
 func SLSRequestScreenCaptureAccess() -> UInt8
 
-enum CGSSymbolicHotKey: Int, CaseIterable {
-    case commandTab = 1
-    case commandShiftTab = 2
-    case commandKeyAboveTab = 6 // see keyAboveTabDependingOnInputSource
-}
-
 /// enables/disables a symbolic hotkeys. These are system shortcuts such as command+tab or Spotlight
 /// it is possible to find all the existing hotkey IDs by using CGSGetSymbolicHotKeyValue on the first few hundred numbers
 /// note: the effect of enabling/disabling persists after the app is quit

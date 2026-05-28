@@ -53,6 +53,11 @@
 		5E0DE2A0000000000000D102 /* WindowOrderResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E0DE2A0000000000000D101 /* WindowOrderResolverTests.swift */; };
 		5E2A571E000000000000A002 /* WindowState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2A571E000000000000A001 /* WindowState.swift */; };
 		5E2A571E000000000000A003 /* WindowState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2A571E000000000000A001 /* WindowState.swift */; };
+		5FC5980000000000000C0002 /* CGSSymbolicHotKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC5980000000000000C0001 /* CGSSymbolicHotKey.swift */; };
+		5FC5980000000000000C0003 /* CGSSymbolicHotKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC5980000000000000C0001 /* CGSSymbolicHotKey.swift */; };
+		5FC5980000000000000A0002 /* NativeHotkeyResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC5980000000000000A0001 /* NativeHotkeyResolver.swift */; };
+		5FC5980000000000000A0003 /* NativeHotkeyResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC5980000000000000A0001 /* NativeHotkeyResolver.swift */; };
+		5FC5980000000000000A0102 /* NativeHotkeyResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC5980000000000000A0101 /* NativeHotkeyResolverTests.swift */; };
 		5E2A571E000000000000A202 /* ApplicationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2A571E000000000000A201 /* ApplicationState.swift */; };
 		5E2A571E000000000000A203 /* ApplicationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2A571E000000000000A201 /* ApplicationState.swift */; };
 		D04BAE2200000000ED004T11 /* SettingsSearchHighlightTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAE2200000000ED004T12 /* SettingsSearchHighlightTests.swift */; };
@@ -506,6 +511,9 @@
 		BF0C8B5D1A9658E64F8ECB56 /* SystemScrollerStyleEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemScrollerStyleEvents.swift; sourceTree = "<group>"; };
 		BF0C8B841E890CA0D68FFD86 /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		BF0C8B94D7994AB9007F6391 /* SkyLight.framework.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkyLight.framework.swift; sourceTree = "<group>"; };
+		5FC5980000000000000C0001 /* CGSSymbolicHotKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGSSymbolicHotKey.swift; sourceTree = "<group>"; };
+		5FC5980000000000000A0001 /* NativeHotkeyResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeHotkeyResolver.swift; sourceTree = "<group>"; };
+		5FC5980000000000000A0101 /* NativeHotkeyResolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeHotkeyResolverTests.swift; sourceTree = "<group>"; };
 		BF0C8BA452332236D972C60E /* ATShortcut.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ATShortcut.swift; sourceTree = "<group>"; };
 		BF0C8C0FF1B21F5F7CE16B79 /* print_env.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = print_env.sh; sourceTree = "<group>"; };
 		BF0C8C5B74E5DA2CC31E52F4 /* extract_l10n_strings.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = extract_l10n_strings.sh; sourceTree = "<group>"; };
@@ -829,6 +837,8 @@
 				D04BAE1F00000000ED001002 /* ShortcutEditor.swift */,
 				69A2E38AF41E866D3CDE71BF /* OverrideClickResolver.swift */,
 				4B4409E4B3D98C491503CE5D /* OverrideClickResolverTests.swift */,
+				5FC5980000000000000A0001 /* NativeHotkeyResolver.swift */,
+				5FC5980000000000000A0101 /* NativeHotkeyResolverTests.swift */,
 				5F21C9DF2C6E94240091F72F /* ShortcutsWhenActiveSheet.swift */,
 				5F21C9E12C6E94410091F72F /* AdditionalControlsSheet.swift */,
 			);
@@ -1268,6 +1278,7 @@
 				BF0C83EE9730BCFA41D840A9 /* README.md */,
 				BF0C8C5C0FF5D567BF190DE5 /* ApplicationServices.HIServices.framework.swift */,
 				BF0C8B94D7994AB9007F6391 /* SkyLight.framework.swift */,
+				5FC5980000000000000C0001 /* CGSSymbolicHotKey.swift */,
 			);
 			path = "api-wrappers";
 			sourceTree = "<group>";
@@ -1793,6 +1804,8 @@
 				A053BAD6681629878E72B1F7 /* ProBadgeViewSegmentTests.swift in Sources */,
 				DC8CF4F01C999497352736F1 /* OverrideClickResolverTests.swift in Sources */,
 				DC06402457ECCE6C902FEAE4 /* OverrideClickResolver.swift in Sources */,
+				5FC5980000000000000A0003 /* NativeHotkeyResolver.swift in Sources */,
+				5FC5980000000000000A0102 /* NativeHotkeyResolverTests.swift in Sources */,
 				5E1EC110000000000000C003 /* SelectionResolver.swift in Sources */,
 				5E1EC110000000000000C102 /* SelectionResolverTests.swift in Sources */,
 				5E5EA12C0000000000000003 /* SearchModeResolver.swift in Sources */,
@@ -1805,6 +1818,7 @@
 				5E0DE2A0000000000000D102 /* WindowOrderResolverTests.swift in Sources */,
 				5E2A571E000000000000A003 /* WindowState.swift in Sources */,
 				5E2A571E000000000000A203 /* ApplicationState.swift in Sources */,
+				5FC5980000000000000C0003 /* CGSSymbolicHotKey.swift in Sources */,
 				D04BAE2200000000ED004T11 /* SettingsSearchHighlightTests.swift in Sources */,
 				D04BAE2200000000ED004003 /* SettingsSearchHighlight.swift in Sources */,
 				D04BAE2200000000ED004T01 /* TableGroupView.swift in Sources */,
@@ -1958,6 +1972,7 @@
 				D04BADA3F2DAB820D6FC6E75 /* AppCenterApplication.m in Sources */,
 				6E800CF06EE430DCCF9CE47B /* ObjCExceptionCatcher.m in Sources */,
 				D04BAA16F21AC41A23DDA63D /* ControlsTab.swift in Sources */,
+				5FC5980000000000000A0002 /* NativeHotkeyResolver.swift in Sources */,
 				D04BAE1F00000000ED001001 /* ShortcutEditor.swift in Sources */,
 				DD6771EE8ACE714C2599FEB7 /* OverrideClickResolver.swift in Sources */,
 				D04BADE4DDF7597749FB13BD /* SettingsWindow.swift in Sources */,
@@ -1996,6 +2011,7 @@
 				BF0C8A49891371E4027E0641 /* MacroPreferences.swift in Sources */,
 				BF0C8E366BC25171C0A3881C /* ApplicationServices.HIServices.framework.swift in Sources */,
 				BF0C803A13C409E7F01FBCAB /* SkyLight.framework.swift in Sources */,
+				5FC5980000000000000C0002 /* CGSSymbolicHotKey.swift in Sources */,
 				BF0C80C69EFEF93C18539925 /* PreferencesMigrations.swift in Sources */,
 				BF0C8A2F6E4C85A7D9B63B12 /* Throttler.swift in Sources */,
 				AA0C8A100000000000000001 /* AXCallScheduler.swift in Sources */,

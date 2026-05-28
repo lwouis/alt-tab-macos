@@ -747,19 +747,17 @@ class ControlsTab {
         KeyboardEvents.anyShortcutUsesEscape = shortcuts.values.contains { $0.shortcut.carbonKeyCode == kVK_Escape }
     }
 
+    /// Thin adapter over `NativeHotkeyResolver.resolve` — builds the snapshot inputs from the live
+    /// shortcut registry and applies the resolver's verdict via the symbolic-hotkey API. See
+    /// `NativeHotkeyResolverSpecs.md` for the kernel's invariants and #5653's root cause.
     static func toggleNativeCommandTabIfNeeded() {
-        let nativeHotkeys: [CGSSymbolicHotKey: (Shortcut) -> Bool] = [
-            .commandTab: { shortcut in shortcut.carbonModifierFlags == cmdKey && shortcut.carbonKeyCode == kVK_Tab },
-            .commandShiftTab: { shortcut in CustomRecorderControlTestable.combinedModifiersMatch(shortcut.carbonModifierFlags, UInt32(cmdKey | shiftKey)) && shortcut.carbonKeyCode == kVK_Tab },
-            .commandKeyAboveTab: { shortcut in shortcut.carbonModifierFlags == cmdKey && shortcut.carbonKeyCode == kVK_ANSI_Grave },
-        ]
-        var overlappingHotkeys = shortcuts.values.compactMap { atShortcut in nativeHotkeys.first { $1(atShortcut.shortcut) }?.key }
-        if overlappingHotkeys.contains(.commandTab) && !overlappingHotkeys.contains(.commandShiftTab) {
-            overlappingHotkeys.append(.commandShiftTab)
+        let snapshots = shortcuts.values.map { ShortcutSnapshot(modifiers: $0.shortcut.carbonModifierFlags, keyCode: $0.shortcut.carbonKeyCode) }
+        let holdShortcutModifiers: [UInt32] = (0..<Preferences.holdShortcut.count).compactMap { i in
+            shortcuts[Preferences.indexToName("holdShortcut", i)]?.shortcut.carbonModifierFlags
         }
-        let nonOverlappingHotkeys: [CGSSymbolicHotKey] = Array(Set(nativeHotkeys.keys).symmetricDifference(Set(overlappingHotkeys)))
-        setNativeCommandTabEnabled(false, overlappingHotkeys)
-        setNativeCommandTabEnabled(true, nonOverlappingHotkeys)
+        let result = NativeHotkeyResolver.resolve(shortcuts: snapshots, holdShortcutModifiers: holdShortcutModifiers)
+        setNativeCommandTabEnabled(false, Array(result.disable))
+        setNativeCommandTabEnabled(true, Array(result.enable))
     }
 
     @objc static func shortcutChangedCallback(_ sender: NSControl) {
