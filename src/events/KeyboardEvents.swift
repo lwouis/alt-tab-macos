@@ -11,6 +11,7 @@ class KeyboardEvents {
     private static var hotKeyReleasedEventHandler: EventHandlerRef?
     private static var globalShortcutsAreDisabled = false
     private static var eventTap: CFMachPort?
+    private static var localEventMonitor: Any?
 
     /// Set by `ControlsTab` when the configured shortcuts change. When true and `SwitcherSession.isActive`,
     /// our `cghidEventTap` absorbs Esc keyDowns and routes them through the matcher. Issue #5585:
@@ -120,7 +121,7 @@ class KeyboardEvents {
 
     // TODO: handle this on a background thread?
     private static func addLocalMonitorForKeyDownAndKeyUp() {
-        NSEvent.addLocalMonitorForEvents(matching: [.keyDown, .keyUp]) { (event: NSEvent) in
+        localEventMonitor = NSEvent.addLocalMonitorForEvents(matching: [.keyDown, .keyUp]) { (event: NSEvent) in
             let keyCode = event.type == .keyDown ? UInt32(event.keyCode) : nil
             let isARepeat = event.type == .keyDown ? event.isARepeat : false
             let shouldAbsorbEvent = handleKeyboardEvent(nil, nil, keyCode, event.modifierFlags, isARepeat, event)
