@@ -161,7 +161,7 @@ class Application: NSObject {
         guard let axObserver else { return }
         AXCallScheduler.shared.schedule(key: "sub-app-\(self.pid)", context: debugId, pid: self.pid) { [weak self] in
             guard let self, !self.isReallyFinishedLaunching else { return }
-            if try self.axUiElement!.subscribeToNotification(axObserver, Application.notifications.first!) {
+            if try self.axUiElement!.subscribeToNotification(axObserver, Application.notifications.first!, AccessibilityEvents.subscriptionRefcon(self.pid)) {
                 Logger.debug { "Subscribed to app: \(self.debugId)" }
                 if !self.isReallyFinishedLaunching {
                     // some apps have `isFinishedLaunching == true` but are actually not finished, and will return .cannotComplete
@@ -170,7 +170,8 @@ class Application: NSObject {
                     self.isReallyFinishedLaunching = true
                     for notification in Application.notifications.dropFirst() {
                         AXCallScheduler.shared.schedule(key: "sub-app-\(self.pid)-\(notification)", context: self.debugId, pid: self.pid) { [weak self] in
-                            try self?.axUiElement!.subscribeToNotification(axObserver, notification)
+                            guard let self else { return }
+                            try self.axUiElement!.subscribeToNotification(axObserver, notification, AccessibilityEvents.subscriptionRefcon(self.pid))
                         }
                     }
                     DispatchQueue.main.async { [weak self] in

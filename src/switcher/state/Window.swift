@@ -136,11 +136,12 @@ class Window {
         guard let axObserver else { return }
         AXCallScheduler.shared.schedule(key: "sub-win-\(cgWindowId)", context: debugId, pid: application.pid) { [weak self] in
             guard let self else { return }
-            if try self.axUiElement!.subscribeToNotification(axObserver, Window.notifications.first!) {
+            if try self.axUiElement!.subscribeToNotification(axObserver, Window.notifications.first!, AccessibilityEvents.subscriptionRefcon(self.application.pid, self.cgWindowId ?? 0)) {
                 Logger.debug { "Subscribed to window: \(self.debugId)" }
                 for notification in Window.notifications.dropFirst() {
                     AXCallScheduler.shared.schedule(key: "sub-win-\(cgWindowId)-\(notification)", context: self.debugId, pid: self.application.pid) { [weak self] in
-                        try self?.axUiElement!.subscribeToNotification(axObserver, notification)
+                        guard let self else { return }
+                        try self.axUiElement!.subscribeToNotification(axObserver, notification, AccessibilityEvents.subscriptionRefcon(self.application.pid, self.cgWindowId ?? 0))
                     }
                 }
             }

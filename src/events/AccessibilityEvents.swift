@@ -3,13 +3,29 @@ import ApplicationServices.HIServices.AXUIElement
 import ApplicationServices.HIServices.AXNotificationConstants
 
 class AccessibilityEvents {
-    static let axObserverCallback: AXObserverCallback = { _, element, notificationName, _ in
+    static let axObserverCallback: AXObserverCallback = { _, element, notificationName, refcon in
         let type = notificationName as String
         Logger.debug { type }
+        // The subscription baked the owning (pid, wid) into `refcon`, so we get the identity without an
+        // AX round-trip. Window-level subs carry a real wid; app-level subs carry wid 0 (their subject
+        // window varies per event, so focus/main/created still resolve it from `element`).
+        let (pid, wid) = decodeSubscriptionRefcon(refcon)
         AXCallScheduler.shared.submit {
-            do { try handleEvent(type, element) }
+            do { try handleEvent(type, element, pid, wid) }
             catch { Logger.debug { "handleEvent threw for \(type): stale element" } }
         }
+    }
+
+    /// Bake (pid, wid) into a subscription's refcon (see `AXUIElement.subscribeToNotification`). Window-level
+    /// subscriptions pass a real wid; app-level subscriptions pass wid 0 (their subject window is per-event).
+    static func subscriptionRefcon(_ pid: pid_t, _ wid: CGWindowID = 0) -> UnsafeMutableRawPointer? {
+        let packed = (UInt(UInt32(bitPattern: pid)) << 32) | UInt(wid)
+        return UnsafeMutableRawPointer(bitPattern: packed)
+    }
+
+    private static func decodeSubscriptionRefcon(_ refcon: UnsafeMutableRawPointer?) -> (pid: pid_t, wid: CGWindowID) {
+        let packed = UInt(bitPattern: refcon)
+        return (pid_t(bitPattern: UInt32(truncatingIfNeeded: packed >> 32)), CGWindowID(truncatingIfNeeded: packed))
     }
 
     /// events that hit the same branch in `handleEventWindow` are interchangeable, so they share a throttle bucket.
@@ -23,15 +39,17 @@ class AccessibilityEvents {
         }
     }
 
-    private static func handleEvent(_ type: String, _ element: AXUIElement) throws {
-        let pid = try element.pid()
+    private static func handleEvent(_ type: String, _ element: AXUIElement, _ refconPid: pid_t, _ refconWid: CGWindowID) throws {
+        // identity comes from the subscription refcon; fall back to an AX round-trip only when it didn't
+        // carry it — pid for legacy/nil-refcon subs, wid for the app-level focus/main/created events.
+        let pid = refconPid != 0 ? refconPid : (try element.pid())
         Logger.debug { "\(type) pid:\(pid)" }
         if [kAXApplicationActivatedNotification, kAXApplicationHiddenNotification, kAXApplicationShownNotification].contains(type) {
             AXCallScheduler.shared.schedule(key: "pid-\(pid)", context: "(pid:\(pid))", pid: pid) {
                 try handleEventApp(type, pid, element)
             }
         } else {
-            let wid = (try? element.cgWindowId()) ?? 0
+            let wid = refconWid != 0 ? refconWid : ((try? element.cgWindowId()) ?? 0)
             guard wid != 0 || type == kAXUIElementDestroyedNotification,
                   wid != TilesPanel.shared.windowNumber else { return }
             if type == kAXUIElementDestroyedNotification {
