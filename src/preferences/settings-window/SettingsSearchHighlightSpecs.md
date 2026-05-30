@@ -21,7 +21,9 @@ that work and are pinned here:
   yields a nil target.
 - Highlighting applies the search color to exactly the matched range and fully reverts on clear.
 - `makeText` registers into whatever builder is active; called **outside** an indexed scope (no active
-  builder) it silently no-ops — safe to call from any context (e.g. `refreshShortcutRows`).
+  builder) it silently no-ops. Content rebuilt after the section's build scope (sidebar rows recreated
+  by `refreshShortcutRows`) is therefore re-published through `SettingsWindow.refreshSectionSearchContent`,
+  which re-opens an `indexed { ... }` scope — see [[SettingsSectionSearchContent]].
 
 ## Test scenarios
 

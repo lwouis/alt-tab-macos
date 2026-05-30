@@ -218,9 +218,10 @@ final class TriggerBinding {
     private let nextRecorder: CustomRecorderControl
     private let holdLabel = NSTextField(labelWithString: "")
     private let andPressLabel: NSTextField
-    private let selectNextLabel: NSTextField
     private static let holdLabelText = NSLocalizedString("Hold", comment: "")
     private static let andPressText = NSLocalizedString("and press", comment: "")
+    // Not shown as a trigger-row label anymore; kept as the next-window recorder's human-readable
+    // name in `shortcutControls`, used by ControlsTab's conflict dialogs (see `conflictLabel`).
     private static let selectNextText = NSLocalizedString("Select next window", comment: "")
     private var currentIndex: Int = -1
 
@@ -231,9 +232,8 @@ final class TriggerBinding {
 
         let holdLabelField = LabelAndControl.makeLabel(TriggerBinding.holdLabelText)
         andPressLabel = LabelAndControl.makeLabel(TriggerBinding.andPressText)
-        selectNextLabel = LabelAndControl.makeLabel(TriggerBinding.selectNextText)
 
-        let stack = NSStackView(views: [holdLabelField, holdRecorder, andPressLabel, nextRecorder, selectNextLabel])
+        let stack = NSStackView(views: [holdLabelField, holdRecorder, andPressLabel, nextRecorder])
         stack.orientation = .horizontal
         stack.alignment = .centerY
         stack.spacing = TableGroupView.spacing

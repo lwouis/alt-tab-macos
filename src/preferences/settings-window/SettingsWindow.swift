@@ -9,6 +9,13 @@ private struct SettingsSectionDefinition {
     /// highlight targets as the section's factories build their widgets. The closure is invoked
     /// exactly once, in `addSection`.
     let builder: () -> NSView
+    /// Optional hook for sections whose searchable content includes sidebar rows that are rebuilt
+    /// *after* the initial build (ControlsTab's shortcut rows). When set, `addSection` skips
+    /// `SidebarListRow`s in the build-time walk — they'd otherwise be captured as base targets that
+    /// go stale on the next rebuild — and this closure re-registers the current rows into the
+    /// section's *dynamic* search content (at build time, and again after each rebuild via
+    /// `refreshSectionSearchContent`). nil for sections with no such rows.
+    let registerDynamicSearchContent: (() -> Void)?
 }
 
 private final class SettingsSection {
@@ -17,8 +24,10 @@ private final class SettingsSection {
     let icon: NSImage
     let container: NSView
     let anchor: NSView
-    let searchableStrings: [String]
-    let highlightTargets: [SettingsSearchHighlightTarget]
+    let search: SettingsSectionSearchContent
+    /// See `SettingsSectionDefinition.registerDynamicSearchContent`. Re-run inside a fresh indexed
+    /// scope by `refreshSectionSearchContent` to refresh this section's dynamic search content.
+    let registerDynamicSearchContent: (() -> Void)?
     let interSectionSpacingConstraint: NSLayoutConstraint
     let bottomSpacingConstraint: NSLayoutConstraint
     let titleTopConstraint: NSLayoutConstraint
@@ -28,8 +37,8 @@ private final class SettingsSection {
          _ icon: NSImage,
          _ container: NSView,
          _ anchor: NSView,
-         _ searchableStrings: [String],
-         _ highlightTargets: [SettingsSearchHighlightTarget],
+         _ search: SettingsSectionSearchContent,
+         _ registerDynamicSearchContent: (() -> Void)?,
          _ interSectionSpacingConstraint: NSLayoutConstraint,
          _ bottomSpacingConstraint: NSLayoutConstraint,
          _ titleTopConstraint: NSLayoutConstraint) {
@@ -38,25 +47,27 @@ private final class SettingsSection {
         self.icon = icon
         self.container = container
         self.anchor = anchor
-        self.searchableStrings = searchableStrings
-        self.highlightTargets = highlightTargets
+        self.search = search
+        self.registerDynamicSearchContent = registerDynamicSearchContent
         self.interSectionSpacingConstraint = interSectionSpacingConstraint
         self.bottomSpacingConstraint = bottomSpacingConstraint
         self.titleTopConstraint = titleTopConstraint
     }
 
+    func setDynamicSearchContent(_ strings: [String], _ targets: [SettingsSearchHighlightTarget]) {
+        search.setDynamic(strings: strings, targets: targets)
+    }
+
     func matches(_ query: String) -> Bool {
-        if SettingsSearch.isQueryEmpty(query) { return true }
-        if searchableStrings.contains(where: { SettingsSearch.match(query, in: $0) != nil }) { return true }
-        return highlightTargets.contains { $0.hasMatch(query) }
+        search.matches(query)
     }
 
     func highlightMatches(_ query: String) {
-        highlightTargets.forEach { $0.updateHighlight(query) }
+        search.highlightMatches(query)
     }
 
     func clearHighlights() {
-        highlightTargets.forEach { $0.clear() }
+        search.clearHighlights()
     }
 }
 
@@ -362,6 +373,10 @@ class SettingsWindow: NSWindow {
         setupContentPane()
         sectionDefinitions().forEach { addSection($0) }
         refreshControlsFromSettings()
+        // Publish each section's dynamic search content (its rebuilt-after-build sidebar rows) now
+        // that the section objects exist. Uses `self` directly — `SettingsWindow.shared` isn't
+        // assigned until `init` finishes, so ControlsTab's own refresh calls no-op until then.
+        sections.forEach { refreshSectionSearchContent($0.id) }
         applySearch("")
     }
 
@@ -525,10 +540,10 @@ class SettingsWindow: NSWindow {
 
     private func sectionDefinitions() -> [SettingsSectionDefinition] {
         [
-            SettingsSectionDefinition(id: "appearance", title: NSLocalizedString("Appearance", comment: ""), symbol: .paintpalette, builder: AppearanceTab.initTab),
-            SettingsSectionDefinition(id: "controls", title: NSLocalizedString("Controls", comment: ""), symbol: .command, builder: ControlsTab.initTab),
-            SettingsSectionDefinition(id: "general", title: NSLocalizedString("General", comment: ""), symbol: .gearshape, builder: GeneralTab.initTab),
-            SettingsSectionDefinition(id: "exceptions", title: NSLocalizedString("Exceptions", comment: ""), symbol: .handRaised, builder: ExceptionsTab.initTab),
+            SettingsSectionDefinition(id: "appearance", title: NSLocalizedString("Appearance", comment: ""), symbol: .paintpalette, builder: AppearanceTab.initTab, registerDynamicSearchContent: nil),
+            SettingsSectionDefinition(id: "controls", title: NSLocalizedString("Controls", comment: ""), symbol: .command, builder: ControlsTab.initTab, registerDynamicSearchContent: ControlsTab.registerSidebarRowsSearchContent),
+            SettingsSectionDefinition(id: "general", title: NSLocalizedString("General", comment: ""), symbol: .gearshape, builder: GeneralTab.initTab, registerDynamicSearchContent: nil),
+            SettingsSectionDefinition(id: "exceptions", title: NSLocalizedString("Exceptions", comment: ""), symbol: .handRaised, builder: ExceptionsTab.initTab, registerDynamicSearchContent: nil),
         ]
     }
 
@@ -593,21 +608,42 @@ class SettingsWindow: NSWindow {
         // runs as a safety net to catch direct widget creation in tabs (NSTextField, NSButton
         // etc. created outside the LabelAndControl/TableGroupView factories) that hasn't been
         // migrated to inline registration yet. The walk's results get unioned in via `Set` below.
-        var (searchableStrings, highlightTargets) = collectSearchContent(sectionTitle, sectionView)
+        // Sections that manage rebuilt-after-build sidebar rows (`registerDynamicSearchContent`)
+        // skip those rows here and publish them as dynamic content instead — see that hook.
+        let skipSidebarRows = definition.registerDynamicSearchContent != nil
+        var (searchableStrings, highlightTargets) = collectSearchContent(sectionTitle, sectionView, skipSidebarRows: skipSidebarRows)
         searchableStrings.append(contentsOf: builder.strings)
         highlightTargets.append(contentsOf: builder.targets)
-        let uniqueStrings = Array(Set(searchableStrings))
+        let search = SettingsSectionSearchContent(strings: Array(Set(searchableStrings)), targets: highlightTargets)
         let section = SettingsSection(definition.id,
                                       definition.title,
                                       sidebarImage(definition),
                                       container,
                                       sectionTitle,
-                                      uniqueStrings,
-                                      highlightTargets,
+                                      search,
+                                      definition.registerDynamicSearchContent,
                                       interSectionSpacingConstraint,
                                       spacerHeightConstraint,
                                       titleTopConstraint)
         sections.append(section)
+    }
+
+    /// Re-publish a section's dynamic search content (its sidebar rows) into the index. A section's
+    /// rows are rebuilt *outside* the build-time `indexed { }` scope (e.g. ControlsTab's
+    /// `refreshShortcutRows` from the +/- buttons, a recorder edit, an input-source change, or the
+    /// pro-lock observer), so the rows' own `registerSearchContent` no-ops there. This re-opens a
+    /// scope, re-registers the *current* rows, and swaps them into the section wholesale — no stale
+    /// targets for removed rows, and freshly-added rows become searchable. Re-applies the active
+    /// query so rebuilt rows light up immediately. Called once per section at the end of
+    /// `setupView`, then by the owning tab after every rebuild.
+    func refreshSectionSearchContent(_ id: String) {
+        guard let section = sections.first(where: { $0.id == id }),
+              let register = section.registerDynamicSearchContent else { return }
+        let (_, builder) = SettingsSearchIndex.indexed { register() }
+        section.setDynamicSearchContent(builder.strings, builder.targets)
+        if !SettingsSearch.isQueryEmpty(searchField.stringValue) {
+            applySearch(searchField.stringValue)
+        }
     }
 
     private func updateVisibleSectionsSpacing() {
@@ -620,20 +656,26 @@ class SettingsWindow: NSWindow {
         }
     }
 
-    private func collectSearchContent(_ sectionTitle: LightLabel, _ root: NSView) -> ([String], [SettingsSearchHighlightTarget]) {
+    private func collectSearchContent(_ sectionTitle: LightLabel, _ root: NSView, skipSidebarRows: Bool) -> ([String], [SettingsSearchHighlightTarget]) {
         var textValues = [String]()
         var highlightTargets = [SettingsSearchHighlightTarget]()
         textValues.append(sectionTitle.stringValue)
         if let target = SettingsSearchHighlight.highlightTarget(sectionTitle) {
             highlightTargets.append(target)
         }
-        collectSearchContent(root, &textValues, &highlightTargets)
+        collectSearchContent(root, &textValues, &highlightTargets, skipSidebarRows: skipSidebarRows)
         return (Array(Set(textValues)), highlightTargets)
     }
 
     private func collectSearchContent(_ root: NSView,
                                       _ textValues: inout [String],
-                                      _ highlightTargets: inout [SettingsSearchHighlightTarget]) {
+                                      _ highlightTargets: inout [SettingsSearchHighlightTarget],
+                                      skipSidebarRows: Bool) {
+        // Sections that rebuild their sidebar rows after construction publish those rows as dynamic
+        // search content (see `refreshSectionSearchContent`). Skipping `SidebarListRow`s here keeps
+        // targets for since-removed rows out of the section's fixed base — that staleness was the
+        // "typing 'sho' no longer highlights Shortcut N" bug.
+        if skipSidebarRows, root is SidebarListRow { return }
         if root is ProBadgeView {
             textValues.append(NSLocalizedString("Pro", comment: ""))
             return
@@ -691,7 +733,7 @@ class SettingsWindow: NSWindow {
                 textValues.append(value)
             }
         }
-        root.subviews.forEach { collectSearchContent($0, &textValues, &highlightTargets) }
+        root.subviews.forEach { collectSearchContent($0, &textValues, &highlightTargets, skipSidebarRows: skipSidebarRows) }
     }
 
     static func highlightTarget(_ popUpButton: NSPopUpButton) -> SettingsSearchHighlightTarget? {

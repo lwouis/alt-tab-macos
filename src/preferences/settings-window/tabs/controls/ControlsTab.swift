@@ -40,7 +40,7 @@ class ControlsTab {
 
     // MARK: - Layout constants (unchanged from the old monolithic editor)
 
-    private static let shortcutSidebarWidth = CGFloat(175)
+    private static let shortcutSidebarWidth = CGFloat(180)
     private static let sidebarRowHeight = CGFloat(52)
     private static let sidebarHorizontalPadding = TableGroupView.padding
     private static let shortcutEditorTopBottomPadding = TableGroupView.padding
@@ -282,6 +282,9 @@ class ControlsTab {
         rows.spacing = 0
         rows.translatesAutoresizingMaskIntoConstraints = false
         shortcutRowsStackView = rows
+        // Start the recycled row pool empty and bound to this freshly-built stack view;
+        // `refreshShortcutRows` grows it on demand. (`cleanup` also clears it on window close.)
+        shortcutRows.removeAll()
         let rowsScrollView = ForwardingVerticalScrollView()
         rowsScrollView.translatesAutoresizingMaskIntoConstraints = false
         rowsScrollView.drawsBackground = false
@@ -477,29 +480,30 @@ class ControlsTab {
     private static func refreshShortcutRows() {
         guard let rows = shortcutRowsStackView else { return }
         setHoveredShortcutRow(nil)
+        let count = Preferences.shortcutCount
         clearArrangedSubviews(rows)
-        shortcutRows.removeAll(keepingCapacity: true)
-        for index in 0..<Preferences.shortcutCount {
-            let row = SidebarListRow()
+        // Recycle the row instances: grow/shrink the pool to `count`, creating new `SidebarListRow`s
+        // only when the count actually increases. Reusing instances avoids rebuilding the
+        // label/observer machinery on every refresh (this runs on +/- clicks, recorder edits,
+        // input-source changes, and the pro-lock observer). The search index is re-published below
+        // regardless, so added/removed rows stay correct.
+        while shortcutRows.count < count {
+            shortcutRows.append(makeShortcutRow(index: shortcutRows.count))
+        }
+        if shortcutRows.count > count {
+            shortcutRows.removeLast(shortcutRows.count - count)
+        }
+        for index in 0..<count {
+            let row = shortcutRows[index]
             row.setContent(shortcutTitle(index), shortcutSummary(index))
             row.setSelected(index == selectedShortcutIndex && selectedShortcutIndex != gestureSelectionIndex)
-            if index >= 1 {
-                row.setProBadge(true)
-            }
-            row.onClick = { _, _ in selectShortcut(index) }
-            row.onMouseEntered = { _, view in setHoveredShortcutRow(view as? SidebarListRow) }
-            row.onMouseExited = { _, _ in setHoveredShortcutRow(nil) }
+            row.setProBadge(index >= 1)
             rows.addArrangedSubview(row)
+            // Re-create the row↔stack width constraint each layout: AppKit drops it when the row is
+            // removed from the stack by `clearArrangedSubviews`. The row's height constraint is
+            // row-internal, set once in `makeShortcutRow`, and survives the remove/re-add cycle.
             row.widthAnchor.constraint(equalTo: rows.widthAnchor).isActive = true
-            row.heightAnchor.constraint(equalToConstant: sidebarRowHeight).isActive = true
-            shortcutRows.append(row)
-            // Push the row's static title+summary into the active search index so a query that
-            // matches "Sho..." lights up the sidebar row. The fallback `collectSearchContent`
-            // walk *should* also catch these via the `NSTextField` cast, but the inline path is
-            // more robust against ordering (`refreshShortcutRows` may run on the second pass via
-            // `preferenceChanged`, after the section index has already been frozen).
-            row.registerSearchContent()
-            if index < Preferences.shortcutCount - 1 {
+            if index < count - 1 {
                 let separator = sidebarSeparatorView()
                 rows.addArrangedSubview(separator)
                 separator.leadingAnchor.constraint(equalTo: rows.leadingAnchor, constant: TableGroupView.padding).isActive = true
@@ -508,6 +512,21 @@ class ControlsTab {
             }
         }
         syncShortcutSidebarHoverState()
+        // The rows were (re)built outside the section's build-time `indexed { }` scope, so their own
+        // `registerSearchContent` can't reach an active builder. Ask the window to re-publish the
+        // Controls section's dynamic search content from the current rows so a "sho" query keeps
+        // highlighting them. No-ops until `SettingsWindow.shared` is set (initial build is covered
+        // by `SettingsWindow.setupView`).
+        SettingsWindow.shared?.refreshSectionSearchContent("controls")
+    }
+
+    private static func makeShortcutRow(index: Int) -> SidebarListRow {
+        let row = SidebarListRow()
+        row.onClick = { _, _ in selectShortcut(index) }
+        row.onMouseEntered = { _, view in setHoveredShortcutRow(view as? SidebarListRow) }
+        row.onMouseExited = { _, _ in setHoveredShortcutRow(nil) }
+        row.heightAnchor.constraint(equalToConstant: sidebarRowHeight).isActive = true
+        return row
     }
 
     private static func refreshShortcutSelection() {
@@ -631,9 +650,18 @@ class ControlsTab {
         guard let gestureSidebarRow else { return }
         gestureSidebarRow.setContent(gestureTitle(), gestureSummary())
         gestureSidebarRow.setSelected(selectedShortcutIndex == gestureSelectionIndex)
-        // See `SidebarListRow.registerSearchContent` — the inline registration here is what
-        // lets the search query light up the Gesture sidebar row's label.
-        gestureSidebarRow.registerSearchContent()
+    }
+
+    /// Register the current sidebar rows (the shortcut rows + the persistent gesture row) into the
+    /// active search-index builder. Invoked by `SettingsWindow.refreshSectionSearchContent("controls")`
+    /// inside a fresh `indexed { }` scope — at build time and after every `refreshShortcutRows`. The
+    /// rows can't self-register at creation because they're (re)built outside the build scope; this
+    /// is the single place that publishes them, so a "sho" query lights up "Shortcut 1"/"Shortcut 2"
+    /// and "Gesture". Targets read the labels' `stringValue` live, so in-place content edits don't
+    /// need re-registration.
+    static func registerSidebarRowsSearchContent() {
+        shortcutRows.forEach { $0.registerSearchContent() }
+        gestureSidebarRow?.registerSearchContent()
     }
 
     // MARK: - Hover state

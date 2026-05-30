@@ -185,12 +185,14 @@ class SidebarListRow: ClickHoverStackView {
     /// (if any), along with highlight targets for both labels. Call this *after* `setContent` so the
     /// indexed strings match what the user sees. A no-op outside an `indexed { ... }` scope.
     ///
-    /// Why this exists: the fallback `SettingsWindow.collectSearchContent` walk *does* find these
-    /// labels via the generic `NSTextField` branch — but ControlsTab's sidebar rows are populated
-    /// by `refreshShortcutRows` (called from `initTab` *inside* the indexed scope, and again from
-    /// `preferenceChanged` *outside* it). The fallback walk only runs once per section, so rows
-    /// recreated after the section is added would silently drop out of the index without this
-    /// explicit registration.
+    /// Sidebar rows are rebuilt *after* the section's build-time `indexed` scope (ControlsTab's
+    /// `refreshShortcutRows`), so they can't register themselves at creation — there's no active
+    /// builder. Instead the owning tab re-publishes all its rows through
+    /// `SettingsWindow.refreshSectionSearchContent`, which re-opens an `indexed { ... }` scope and
+    /// calls this on each current row (at build time and after every rebuild). The build-time walk
+    /// deliberately skips `SidebarListRow`s so those rows live solely in the section's replaceable
+    /// dynamic content — no stale targets for since-removed rows. Targets read the labels'
+    /// `stringValue` live, so in-place content edits don't need re-registration.
     func registerSearchContent() {
         SettingsSearchIndex.registerString(titleLabel.stringValue)
         SettingsSearchIndex.registerString(summaryLabel.stringValue)
@@ -240,7 +242,13 @@ class SidebarListRow: ClickHoverStackView {
     }
 
     func setProBadge(_ show: Bool) {
-        proBadge?.removeFromSuperview()
+        // No-op if already in the requested state. Rows are recycled across refreshes, so this is
+        // called repeatedly with the same value; without this guard each call would leave the old
+        // (now badge-less) `wrapper` in `titleRow` and append a new one — the wrappers pile up,
+        // each adding `titleRow.spacing`, progressively squeezing and truncating the title.
+        guard show != (proBadge != nil) else { return }
+        // Remove the whole wrapper from `titleRow`, not just the badge from the wrapper.
+        proBadge?.superview?.removeFromSuperview()
         proBadge = nil
         if show {
             let badge = ProBadgeView()
