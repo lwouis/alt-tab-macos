@@ -28,7 +28,7 @@
 "Alphabetical Order" = "Thứ tự bảng chữ cái";
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab đã gặp sự cố ở lần dùng trước. Gửi báo cáo sự cố sẽ giúp khắc phục vấn đề";
 "AltTab is a free, open-source window switcher for macOS. Pro features are available with a 14-day free trial." = "AltTab là trình chuyển đổi cửa sổ miễn phí, mã nguồn mở cho macOS. Các tính năng Pro có sẵn với bản dùng thử miễn phí 14 ngày.";
-"AltTab is running without Screen Recording permissions. Thumbnails won’t show." = "AltTab đang chạy mà không có quyền Ghi màn hình. Hình thu nhỏ sẽ không hiển thị.";
+"AltTab is running without Screen Recording permissions. %@ won’t show." = "AltTab đang chạy mà không có quyền Ghi màn hình. %@ sẽ không hiển thị.";
 "AltTab needs some permissions" = "AltTab cần một số quyền";
 "AltTab Pro" = "AltTab Pro";
 "AltTab Pro adds 4 features beyond the free switcher." = "AltTab Pro bổ sung 4 tính năng ngoài trình chuyển đổi miễn phí.";
@@ -264,6 +264,7 @@
 "This permission is needed to show thumbnails and preview of open windows" = "Quyền này cần thiết để hiển thị hình thu nhỏ và bản xem trước của các cửa sổ đang mở";
 "This will keep your Downloads folder uncluttered." = "Điều này sẽ giúp thư mục Tải về của bạn gọn gàng.";
 "Thumbnails" = "Hình thu nhỏ";
+"Thumbnails and window previews" = "Hình thu nhỏ và bản xem trước cửa sổ";
 "Title truncation" = "Cắt ngắn tiêu đề";
 "Titles" = "Tiêu đề";
 "Titles appearance" = "Giao diện Tiêu đề";
@@ -298,6 +299,7 @@
 "Window is minimized" = "Cửa sổ đang được thu nhỏ";
 "Window is on every Space" = "Cửa sổ ở trên mọi Không gian";
 "Window is on Space %d" = "Cửa sổ ở trên Không gian %d";
+"Window previews" = "Bản xem trước cửa sổ";
 "window switches" = "lượt chuyển cửa sổ";
 "Window Title" = "Tiêu đề cửa sổ";
 "Window title contains" = "Tiêu đề cửa sổ chứa";

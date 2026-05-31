@@ -28,7 +28,7 @@
 "Alphabetical Order" = "Alfabetik sıra";
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab en son kullandığınızda çöktü. Bir çökme raporu göndermek sorunun düzeltilmesine yardımcı olacaktır";
 "AltTab is a free, open-source window switcher for macOS. Pro features are available with a 14-day free trial." = "AltTab, macOS için ücretsiz ve açık kaynaklı bir pencere değiştiricidir. Pro özellikleri 14 günlük ücretsiz deneme ile kullanılabilir.";
-"AltTab is running without Screen Recording permissions. Thumbnails won’t show." = "AltTab, Ekran Kaydı izinleri olmadan çalışıyor. Küçük resimler gösterilmeyecek.";
+"AltTab is running without Screen Recording permissions. %@ won’t show." = "AltTab, Ekran Kaydı izinleri olmadan çalışıyor. %@ gösterilmeyecek.";
 "AltTab needs some permissions" = "AltTab’ın bazı izinlere ihtiyacı var";
 "AltTab Pro" = "AltTab Pro";
 "AltTab Pro adds 4 features beyond the free switcher." = "AltTab Pro, ücretsiz değiştiriciye ek olarak 4 özellik ekler.";
@@ -264,6 +264,7 @@
 "This permission is needed to show thumbnails and preview of open windows" = "Bu izin, açık pencerelerin küçük resimlerini ve önizlemelerini göstermek için gerekli";
 "This will keep your Downloads folder uncluttered." = "Bu, İndirilenler klasörünüzün düzenli kalmasını sağlar.";
 "Thumbnails" = "Küçük resimler";
+"Thumbnails and window previews" = "Küçük resimler ve pencere önizlemeleri";
 "Title truncation" = "Başlık kısaltma";
 "Titles" = "Başlıklar";
 "Titles appearance" = "Başlıklar görünümü";
@@ -298,6 +299,7 @@
 "Window is minimized" = "Pencere küçültülmüş";
 "Window is on every Space" = "Pencere her Alanda";
 "Window is on Space %d" = "Pencere %d numaralı Alanda";
+"Window previews" = "Pencere önizlemeleri";
 "window switches" = "pencere değişimi";
 "Window Title" = "Pencere Başlığı";
 "Window title contains" = "Pencere başlığı şunu içeriyor";

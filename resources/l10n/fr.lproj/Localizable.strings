@@ -28,7 +28,7 @@
 "Alphabetical Order" = "Ordre alphabétique";
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab a planté lors de votre dernière utilisation. Envoyer un rapport de plantage aidera à résoudre le problème";
 "AltTab is a free, open-source window switcher for macOS. Pro features are available with a 14-day free trial." = "AltTab est un sélecteur de fenêtres gratuit et open source pour macOS. Les fonctionnalités Pro sont disponibles avec un essai gratuit de 14 jours.";
-"AltTab is running without Screen Recording permissions. Thumbnails won’t show." = "AltTab fonctionne sans l'autorisation d'enregistrement de l'écran. Les vignettes ne s'afficheront pas.";
+"AltTab is running without Screen Recording permissions. %@ won’t show." = "AltTab fonctionne sans l'autorisation d'enregistrement de l'écran. %@ ne s'afficheront pas.";
 "AltTab needs some permissions" = "AltTab a besoin de certaines autorisations";
 "AltTab Pro" = "AltTab Pro";
 "AltTab Pro adds 4 features beyond the free switcher." = "AltTab Pro ajoute 4 fonctionnalités au sélecteur gratuit.";
@@ -264,6 +264,7 @@
 "This permission is needed to show thumbnails and preview of open windows" = "Cette autorisation est nécessaire pour afficher les vignettes et l'aperçu des fenêtres ouvertes";
 "This will keep your Downloads folder uncluttered." = "Cela évitera d'encombrer votre dossier Téléchargements.";
 "Thumbnails" = "Vignettes";
+"Thumbnails and window previews" = "Vignettes et aperçus de fenêtre";
 "Title truncation" = "Troncature du titre";
 "Titles" = "Titres";
 "Titles appearance" = "Apparence Titres";
@@ -298,6 +299,7 @@
 "Window is minimized" = "Fenêtre réduite";
 "Window is on every Space" = "Fenêtre sur tous les Bureaux";
 "Window is on Space %d" = "Fenêtre sur le Bureau %d";
+"Window previews" = "Aperçus de fenêtre";
 "window switches" = "changements de fenêtre";
 "Window Title" = "Titre de fenêtre";
 "Window title contains" = "Le titre de la fenêtre contient";

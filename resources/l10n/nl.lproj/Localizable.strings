@@ -28,7 +28,7 @@
 "Alphabetical Order" = "Alfabetische volgorde";
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab is de vorige keer gecrasht. Door een crashrapport te versturen help je het probleem op te lossen";
 "AltTab is a free, open-source window switcher for macOS. Pro features are available with a 14-day free trial." = "AltTab is een gratis, open-source vensterwisselaar voor macOS. Pro-functies zijn beschikbaar met een gratis proefperiode van 14 dagen.";
-"AltTab is running without Screen Recording permissions. Thumbnails won’t show." = "AltTab werkt zonder toegang voor Schermopname. Miniaturen worden niet weergegeven.";
+"AltTab is running without Screen Recording permissions. %@ won’t show." = "AltTab werkt zonder toegang voor Schermopname. %@ worden niet weergegeven.";
 "AltTab needs some permissions" = "AltTab heeft enkele rechten nodig";
 "AltTab Pro" = "AltTab Pro";
 "AltTab Pro adds 4 features beyond the free switcher." = "AltTab Pro voegt 4 functies toe aan de gratis wisselaar.";
@@ -264,6 +264,7 @@
 "This permission is needed to show thumbnails and preview of open windows" = "Deze toegang is nodig om miniaturen en voorvertoningen van open vensters te tonen";
 "This will keep your Downloads folder uncluttered." = "Zo blijft je map Downloads opgeruimd.";
 "Thumbnails" = "Miniaturen";
+"Thumbnails and window previews" = "Miniaturen en venstervoorvertoningen";
 "Title truncation" = "Titel afkappen";
 "Titles" = "Titels";
 "Titles appearance" = "Weergave Titels";
@@ -298,6 +299,7 @@
 "Window is minimized" = "Venster is geminimaliseerd";
 "Window is on every Space" = "Venster op elke Space";
 "Window is on Space %d" = "Venster op Space %d";
+"Window previews" = "Venstervoorvertoningen";
 "window switches" = "vensterwissels";
 "Window Title" = "Venstertitel";
 "Window title contains" = "Venstertitel bevat";

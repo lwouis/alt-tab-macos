@@ -28,7 +28,7 @@
 "Alphabetical Order" = "Alphabetical Order";
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed";
 "AltTab is a free, open-source window switcher for macOS. Pro features are available with a 14-day free trial." = "AltTab is a free, open-source window switcher for macOS. Pro features are available with a 14-day free trial.";
-"AltTab is running without Screen Recording permissions. Thumbnails won’t show." = "AltTab is running without Screen Recording permissions. Thumbnails won’t show.";
+"AltTab is running without Screen Recording permissions. %@ won’t show." = "AltTab is running without Screen Recording permissions. %@ won’t show.";
 "AltTab needs some permissions" = "AltTab needs some permissions";
 "AltTab Pro" = "AltTab Pro";
 "AltTab Pro adds 4 features beyond the free switcher." = "AltTab Pro adds 4 features beyond the free switcher.";
@@ -264,6 +264,7 @@
 "This permission is needed to show thumbnails and preview of open windows" = "This permission is needed to show thumbnails and preview of open windows";
 "This will keep your Downloads folder uncluttered." = "This will keep your Downloads folder uncluttered.";
 "Thumbnails" = "Thumbnails";
+"Thumbnails and window previews" = "Thumbnails and window previews";
 "Title truncation" = "Title truncation";
 "Titles" = "Titles";
 "Titles appearance" = "Titles appearance";
@@ -298,6 +299,7 @@
 "Window is minimized" = "Window is minimized";
 "Window is on every Space" = "Window is on every Space";
 "Window is on Space %d" = "Window is on Space %d";
+"Window previews" = "Window previews";
 "window switches" = "window switches";
 "Window Title" = "Window Title";
 "Window title contains" = "Window title contains";

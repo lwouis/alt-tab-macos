@@ -336,6 +336,24 @@ class Preferences {
         return CachedUserDefaults.bool(indexToName("previewFocusedWindowOverride", index))
     }
 
+    /// Which Screen-Recording-dependent features any shortcut's effective settings rely on: the
+    /// Thumbnails appearance style (window screenshots) and/or the "preview selected window" overlay.
+    /// These are the only features needing the permission, so when none are configured the menubar
+    /// callout that nags about the missing permission is pointless and is suppressed (see #5623). The
+    /// result also drives which feature(s) the callout names. We OR each flag across every shortcut
+    /// slot, so a per-shortcut override that enables Thumbnails/Preview on any one slot flips it on.
+    /// The pure classification lives in `PermissionCalloutResolver` (unit-tested).
+    static var screenRecordingDependentFeatures: PermissionCalloutResolver.DependentFeatures {
+        var usesThumbnails = false
+        var usesPreviews = false
+        for index in 0...maxShortcutCount {
+            usesThumbnails = usesThumbnails || effectiveAppearanceStyle(index) == .thumbnails
+            usesPreviews = usesPreviews || effectivePreviewSelectedWindow(index)
+            if usesThumbnails && usesPreviews { break }
+        }
+        return PermissionCalloutResolver.dependentFeatures(usesThumbnails: usesThumbnails, usesPreviews: usesPreviews)
+    }
+
     /// key-above-tab is ` on US keyboard, but can be different on other keyboards
     static func keyAboveTabDependingOnInputSource() -> String {
         return LiteralKeyCodeTransformer.shared.transformedValue(NSNumber(value: kVK_ANSI_Grave)) ?? "`"

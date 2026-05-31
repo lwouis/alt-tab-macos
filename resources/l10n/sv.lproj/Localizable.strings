@@ -28,7 +28,7 @@
 "Alphabetical Order" = "Alfabetisk ordning";
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab kraschade förra gången du använde den. Att skicka en kraschrapport hjälper till att åtgärda problemet";
 "AltTab is a free, open-source window switcher for macOS. Pro features are available with a 14-day free trial." = "AltTab är en gratis fönsterväxlare med öppen källkod för macOS. Pro-funktioner är tillgängliga med en 14-dagars gratis provperiod.";
-"AltTab is running without Screen Recording permissions. Thumbnails won’t show." = "AltTab körs utan behörighet för Skärminspelning. Miniatyrer visas inte.";
+"AltTab is running without Screen Recording permissions. %@ won’t show." = "AltTab körs utan behörighet för Skärminspelning. %@ visas inte.";
 "AltTab needs some permissions" = "AltTab behöver vissa behörigheter";
 "AltTab Pro" = "AltTab Pro";
 "AltTab Pro adds 4 features beyond the free switcher." = "AltTab Pro lägger till 4 funktioner utöver den kostnadsfria växlaren.";
@@ -264,6 +264,7 @@
 "This permission is needed to show thumbnails and preview of open windows" = "Den här behörigheten behövs för att visa miniatyrer och förhandsvisning av öppna fönster";
 "This will keep your Downloads folder uncluttered." = "Det gör att din Hämtningar-mapp hålls i ordning.";
 "Thumbnails" = "Miniatyrer";
+"Thumbnails and window previews" = "Miniatyrer och fönsterförhandsvisningar";
 "Title truncation" = "Trunkering av titel";
 "Titles" = "Titlar";
 "Titles appearance" = "Utseende för Titlar";
@@ -298,6 +299,7 @@
 "Window is minimized" = "Fönster minimerat";
 "Window is on every Space" = "Fönster på varje skrivbord";
 "Window is on Space %d" = "Fönster på skrivbord %d";
+"Window previews" = "Fönsterförhandsvisningar";
 "window switches" = "fönsterväxlingar";
 "Window Title" = "Fönstertitel";
 "Window title contains" = "Fönstertitel innehåller";

@@ -28,7 +28,7 @@
 "Alphabetical Order" = "依字母順序";
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab 在您上次使用時當機。傳送當機報告有助於修復此問題";
 "AltTab is a free, open-source window switcher for macOS. Pro features are available with a 14-day free trial." = "AltTab 是一款免費、開放原始碼的 macOS 視窗切換器。Pro 功能提供 14 天免費試用。";
-"AltTab is running without Screen Recording permissions. Thumbnails won’t show." = "AltTab 正在執行,但未取得螢幕錄製權限。將不會顯示縮圖。";
+"AltTab is running without Screen Recording permissions. %@ won’t show." = "AltTab 正在執行,但未取得螢幕錄製權限。將不會顯示%@。";
 "AltTab needs some permissions" = "AltTab 需要一些權限";
 "AltTab Pro" = "AltTab Pro";
 "AltTab Pro adds 4 features beyond the free switcher." = "AltTab Pro 在免費版切換器之上加入 4 項功能。";
@@ -264,6 +264,7 @@
 "This permission is needed to show thumbnails and preview of open windows" = "需要此權限才能顯示已開啟視窗的縮圖和預覽";
 "This will keep your Downloads folder uncluttered." = "這樣可以讓您的「下載」檔案夾保持整潔。";
 "Thumbnails" = "縮圖";
+"Thumbnails and window previews" = "縮圖和視窗預覽";
 "Title truncation" = "標題截斷";
 "Titles" = "標題";
 "Titles appearance" = "標題外觀";
@@ -298,6 +299,7 @@
 "Window is minimized" = "視窗已縮到最小";
 "Window is on every Space" = "視窗位於每個空間";
 "Window is on Space %d" = "視窗位於空間 %d";
+"Window previews" = "視窗預覽";
 "window switches" = "次視窗切換";
 "Window Title" = "視窗標題";
 "Window title contains" = "視窗標題包含";

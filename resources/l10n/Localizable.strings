@@ -88,8 +88,8 @@
 /* No comment provided by engineer. */
 "AltTab is a free, open-source window switcher for macOS. Pro features are available with a 14-day free trial." = "AltTab is a free, open-source window switcher for macOS. Pro features are available with a 14-day free trial.";
 
-/* Menubar callout */
-"AltTab is running without Screen Recording permissions. Thumbnails won’t show." = "AltTab is running without Screen Recording permissions. Thumbnails won’t show.";
+/* Menubar callout. %@ is one or more feature names, e.g. Thumbnails */
+"AltTab is running without Screen Recording permissions. %@ won’t show." = "AltTab is running without Screen Recording permissions. %@ won’t show.";
 
 /* No comment provided by engineer. */
 "AltTab needs some permissions" = "AltTab needs some permissions";
@@ -796,6 +796,9 @@
 /* No comment provided by engineer. */
 "Thumbnails" = "Thumbnails";
 
+/* Menubar callout subject */
+"Thumbnails and window previews" = "Thumbnails and window previews";
+
 /* No comment provided by engineer. */
 "Title truncation" = "Title truncation";
 
@@ -897,6 +900,9 @@
 
 /* No comment provided by engineer. */
 "Window is on Space %d" = "Window is on Space %d";
+
+/* Menubar callout subject: the preview-selected-window feature */
+"Window previews" = "Window previews";
 
 /* No comment provided by engineer. */
 "window switches" = "window switches";

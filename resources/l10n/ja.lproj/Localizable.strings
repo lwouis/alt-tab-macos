@@ -28,7 +28,7 @@
 "Alphabetical Order" = "アルファベット順";
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "前回の使用時に AltTab がクラッシュしました。クラッシュレポートを送信すると問題の修正に役立ちます";
 "AltTab is a free, open-source window switcher for macOS. Pro features are available with a 14-day free trial." = "AltTab は macOS 用の無料・オープンソースのウインドウスイッチャーです。Pro 機能は 14 日間の無料トライアルで利用できます。";
-"AltTab is running without Screen Recording permissions. Thumbnails won’t show." = "AltTab は画面収録の権限なしで動作しています。サムネイルは表示されません。";
+"AltTab is running without Screen Recording permissions. %@ won’t show." = "AltTab は画面収録の権限なしで動作しています。%@は表示されません。";
 "AltTab needs some permissions" = "AltTab にはいくつかの権限が必要です";
 "AltTab Pro" = "AltTab Pro";
 "AltTab Pro adds 4 features beyond the free switcher." = "AltTab Pro は無料版に加えて 4 つの機能を追加します。";
@@ -264,6 +264,7 @@
 "This permission is needed to show thumbnails and preview of open windows" = "開いているウインドウのサムネイルとプレビューを表示するために必要な権限です";
 "This will keep your Downloads folder uncluttered." = "ダウンロードフォルダを散らからないようにできます。";
 "Thumbnails" = "サムネイル";
+"Thumbnails and window previews" = "サムネイルとウィンドウプレビュー";
 "Title truncation" = "タイトルの省略";
 "Titles" = "タイトル";
 "Titles appearance" = "タイトルの外観";
@@ -298,6 +299,7 @@
 "Window is minimized" = "最小化されたウインドウ";
 "Window is on every Space" = "すべての Space にあるウインドウ";
 "Window is on Space %d" = "Space %d にあるウインドウ";
+"Window previews" = "ウィンドウプレビュー";
 "window switches" = "ウインドウ切り替え";
 "Window Title" = "ウインドウタイトル";
 "Window title contains" = "ウインドウタイトルに含まれる";
