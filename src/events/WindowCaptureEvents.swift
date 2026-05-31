@@ -94,7 +94,7 @@ class WindowCaptureScreenshots {
         let size = request.size
         let scaleFactor = request.scaleFactor
         // [weak window] avoids keeping a closed Window alive while the capture is queued or in-flight with the OS
-        Applications.captureThrottler.throttleOrProceed(key: "capture-wid-\(scWindow.windowID)", queue: BackgroundWork.screenshotsQueue, priority: isPrioritized ? .high : .normal) { [weak window = request.window] in
+        Applications.screenshotThrottler.throttleOrProceed(key: "capture-wid-\(scWindow.windowID)", queue: BackgroundWork.screenshotsQueue, priority: isPrioritized ? .high : .normal) { [weak window = request.window] in
             guard !App.isTerminating, let window else { return }
             let config = SCStreamConfiguration.forWindow(scWindow, size, scaleFactor, false)
             let filter = SCContentFilter(desktopIndependentWindow: scWindow)
@@ -126,7 +126,7 @@ class WindowCaptureScreenshotsPrivateApi {
         for window in sorted {
             guard let wid = window.cgWindowId else { continue }
             let isPrioritized = prioritized.contains(wid)
-            Applications.captureThrottler.throttleOrProceed(key: "capture-wid-\(wid)", queue: BackgroundWork.screenshotsQueue, priority: isPrioritized ? .high : .normal) { [weak window] in
+            Applications.screenshotThrottler.throttleOrProceed(key: "capture-wid-\(wid)", queue: BackgroundWork.screenshotsQueue, priority: isPrioritized ? .high : .normal) { [weak window] in
                 guard source != .refreshOnlyThumbnailsAfterShowUi || SwitcherSession.isActive else { return }
                 guard let wid = window?.cgWindowId, let cgImage = oneTimeCapture(wid) else { return }
                 guard source != .refreshOnlyThumbnailsAfterShowUi || SwitcherSession.isActive else { return }

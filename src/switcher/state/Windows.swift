@@ -460,8 +460,8 @@ class Windows {
         for w in windows {
             if let wid = w.cgWindowId {
                 AXCallScheduler.shared.removeEntries(withPrefix: "wid-\(wid)-")
-                Applications.windowListUpdateThrottler.removeEntries(withPrefix: "\(wid)-")
-                Applications.captureThrottler.removeEntry(withKey: "capture-wid-\(wid)")
+                Applications.windowAttributesThrottler.removeEntries(withPrefix: "\(wid)-")
+                Applications.screenshotThrottler.removeEntry(withKey: "capture-wid-\(wid)")
             }
             // Detach the per-window AX observer's runloop source. Without this the AX events
             // thread's runloop accumulates one orphaned source per window-ever-opened (leak #1,

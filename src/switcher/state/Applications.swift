@@ -4,15 +4,16 @@ import ApplicationServices
 class Applications {
     static var list = [Application]()
     static var frontmostPid = NSWorkspace.shared.frontmostApplication?.processIdentifier
-    // Layer 0: global throttle on manuallyRefreshAllWindows (panel show full-sync)
-    static let manualRefreshThrottler = Throttler(delayInMs: 1000)
-    // Layer 1 (AX IPC throttle + retry + concurrency) is handled by AXCallScheduler.shared
-    // Layer 2: throttle mutations to Applications.list / Windows.list on main thread
-    static let appListUpdateThrottler = ThrottlerWithKey(delayInMs: 200)
-    static let windowListUpdateThrottler = ThrottlerWithKey(delayInMs: 200)
-    static let badgesThrottler = Throttler(delayInMs: 1000)
-    // Layer 3: throttle per-WID screenshot captures (gates SCScreenshotManager / CGSHWCaptureWindowList)
-    static let captureThrottler = ThrottlerWithKey(delayInMs: 200)
+    // Throttlers coalesce redundant work. They are SEPARATE from AXCallScheduler, which is a pure executor
+    // (bounded pools + retry, no throttle). Each one below states what it coalesces and why:
+    // A — suppress redundant inbound events: coalesce resize/move/title bursts to ≤1 attribute read per window
+    static let windowAttributesThrottler = ThrottlerWithKey(delayInMs: 200)
+    // B — suppress redundant recompute: ≤1 full window-inventory scan per second (on switcher show)
+    static let fullRescanThrottler = Throttler(delayInMs: 1000)
+    // B — ≤1 Dock-badge fetch per second
+    static let dockBadgeThrottler = Throttler(delayInMs: 1000)
+    // C — cap a resource: ≤1 thumbnail capture per window per 200ms
+    static let screenshotThrottler = ThrottlerWithKey(delayInMs: 200)
 
     static func initialDiscovery() {
         addInitialRunningApplications()
@@ -24,7 +25,7 @@ class Applications {
     }
 
     static func manuallyRefreshAllWindows() {
-        manualRefreshThrottler.throttleOrProceed {
+        fullRescanThrottler.throttleOrProceed {
             removeZombieWindows()
             addMissingWindows()
             reviewExistingWindows()
@@ -44,7 +45,7 @@ class Applications {
     }
 
     static func manuallyUpdateWindows(_ app: Application) {
-        AXCallScheduler.shared.schedule(key: "pid-\(app.pid)", context: app.debugId, pid: app.pid) { [weak app] in
+        AXCallScheduler.shared.schedule(key: "pid-\(app.pid)", context: app.debugId, pid: app.pid, scan: true) { [weak app] in
             guard let app, let axUiElement = app.axUiElement else { return }
             let axWindows = try axUiElement.allWindows(app.pid)
             guard !axWindows.isEmpty else {
@@ -68,7 +69,7 @@ class Applications {
     /// Unified window attribute fetch + main-thread update. Used by both manual sync and reviewExistingWindows.
     /// Uses the "generic" bucket so a real focus event (which lives in the "focus" bucket) is never clobbered.
     static func updateWindowAttributes(_ axWindow: AXUIElement, _ wid: CGWindowID, _ app: Application) {
-        AXCallScheduler.shared.schedule(key: "wid-\(wid)-generic", context: app.debugId, pid: app.pid) { [weak app] in
+        AXCallScheduler.shared.schedule(key: "wid-\(wid)-generic", context: app.debugId, pid: app.pid, scan: true) { [weak app] in
             guard let app else { return }
             guard wid != 0 && wid != TilesPanel.shared.windowNumber else { return }
             let level = wid.level()
@@ -78,7 +79,7 @@ class Applications {
             let tabSiblingTitles = isSelf ? nil : TabGroup.extractTabTitles(a.children)
             DispatchQueue.main.async { [weak app] in
                 guard let app else { return }
-                windowListUpdateThrottler.throttleOrProceed(key: "\(wid)-generic") {
+                windowAttributesThrottler.throttleOrProceed(key: "\(wid)-generic") {
                     let findOrCreate = Windows.findOrCreate(axWindow, wid, app, level, a.title, a.subrole, a.role, a.size, a.position, a.isFullscreen, a.isMinimized)
                     guard let window = findOrCreate.0 else { return }
                     var tabStateChanged = false
@@ -209,15 +210,15 @@ class Applications {
         for tApp in terminatingApps {
             let pid = tApp.processIdentifier
             AXCallScheduler.shared.removeEntry(key: "pid-\(pid)")
+            AXCallScheduler.shared.removeEntries(withPrefix: "pid-\(pid)-")
             AXCallScheduler.shared.removeUnresponsivePid(pid)
-            appListUpdateThrottler.removeEntry(withKey: "\(pid)")
         }
         App.refreshOpenUiAfterExternalEvent([])
     }
 
     static func refreshBadgesAsync() {
         guard SwitcherSession.isActive else { return }
-        badgesThrottler.throttleOrProceed {
+        dockBadgeThrottler.throttleOrProceed {
             let dockPid = list.first { $0.bundleIdentifier == "com.apple.dock" }?.pid
             AXCallScheduler.shared.schedule(key: "badges", context: "badges", pid: dockPid) {
                 guard let dockPid,

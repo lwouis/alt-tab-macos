@@ -1,7 +1,7 @@
 import Cocoa
 
 class ScreensEvents {
-    private static let throttler = Throttler(delayInMs: 200)
+    private static let screenChangeThrottler = Throttler(delayInMs: 200)
 
     static func observe() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleEvent), name: NSApplication.didChangeScreenParametersNotification, object: nil)
@@ -9,7 +9,7 @@ class ScreensEvents {
 
     @objc private static func handleEvent(_ notification: Notification) {
         // screen notifications often arrive in groups (e.g. 2 in a row in a short time)
-        throttler.throttleOrProceed {
+        screenChangeThrottler.throttleOrProceed {
             Logger.debug { notification.name.rawValue }
             Spaces.refresh()
             Screens.refresh()

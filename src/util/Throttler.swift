@@ -12,17 +12,18 @@ class Throttler {
     func throttleOrProceed(_ block: @escaping () -> Void) {
         dispatchPrecondition(condition: .onQueue(.main))
         let now = DispatchTime.now().uptimeNanoseconds
-        let (elapsed, overflow) = now.subtractingReportingOverflow(lastTimeInNanoseconds)
-        if !overflow, elapsed >= delayInNanoseconds {
-            lastTimeInNanoseconds = now
-            block()
-            return
-        }
-        guard !nextScheduled else { return }
-        nextScheduled = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + .nanoseconds(Int(delayInNanoseconds) + 10_000_000)) { [self] in
-            nextScheduled = false
-            throttleOrProceed(block)
+        switch ThrottleDecision.decide(lastFireNs: lastTimeInNanoseconds, nowNs: now, delayNs: delayInNanoseconds, tailScheduled: nextScheduled) {
+            case .runNow:
+                lastTimeInNanoseconds = now
+                block()
+            case .coalesce:
+                break
+            case .scheduleTail:
+                nextScheduled = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + .nanoseconds(Int(delayInNanoseconds) + 10_000_000)) { [self] in
+                    nextScheduled = false
+                    throttleOrProceed(block)
+                }
         }
     }
 }
@@ -61,39 +62,37 @@ class ThrottlerWithKey {
     }
 
     func throttleOrProceed(key: String, queue: LabeledOperationQueue? = nil, priority: Operation.QueuePriority = .normal, _ block: @escaping () -> Void) {
-        let shouldThrottle = map.withLock { map in
+        let shouldThrottle = map.withLock { map -> Bool in
             let now = DispatchTime.now().uptimeNanoseconds
-            if let state = map[key] {
-                let elapsed = now >= state.time ? (now - state.time) : delayInNanoseconds
-                if elapsed < delayInNanoseconds {
-                    if !state.tailScheduled {
-                        map[key] = ThrottleState(time: state.time, tailScheduled: true)
-                        let remaining = delayInNanoseconds - elapsed
-                        let tailBlock = {
-                            let shouldExecute = self.map.withLock { map -> Bool in
-                                guard let state = map[key], state.tailScheduled else { return false }
-                                map[key] = ThrottleState(time: DispatchTime.now().uptimeNanoseconds, tailScheduled: false)
-                                return true
-                            }
-                            if shouldExecute { block() }
+            switch ThrottleDecision.decide(lastFireNs: map[key]?.time, nowNs: now, delayNs: delayInNanoseconds, tailScheduled: map[key]?.tailScheduled ?? false) {
+                case .runNow:
+                    map[key] = ThrottleState(time: now, tailScheduled: false)
+                    return false
+                case .coalesce:
+                    return true
+                case .scheduleTail(let remaining):
+                    map[key] = ThrottleState(time: map[key]!.time, tailScheduled: true)
+                    let tailBlock = {
+                        let shouldExecute = self.map.withLock { map -> Bool in
+                            guard let state = map[key], state.tailScheduled else { return false }
+                            map[key] = ThrottleState(time: DispatchTime.now().uptimeNanoseconds, tailScheduled: false)
+                            return true
                         }
-                        if let queue {
-                            queue.strongUnderlyingQueue.asyncAfter(deadline: .now() + .nanoseconds(Int(remaining))) { [weak queue] in
-                                guard let queue else { return }
-                                let op = BlockOperation(block: tailBlock)
-                                op.queuePriority = priority
-                                queue.addOperation(op)
-                            }
-                        } else {
-                            let callerQueue = OperationQueue.current?.underlyingQueue ?? DispatchQueue.main
-                            callerQueue.asyncAfter(deadline: .now() + .nanoseconds(Int(remaining)), execute: tailBlock)
+                        if shouldExecute { block() }
+                    }
+                    if let queue {
+                        queue.strongUnderlyingQueue.asyncAfter(deadline: .now() + .nanoseconds(Int(remaining))) { [weak queue] in
+                            guard let queue else { return }
+                            let op = BlockOperation(block: tailBlock)
+                            op.queuePriority = priority
+                            queue.addOperation(op)
                         }
+                    } else {
+                        let callerQueue = OperationQueue.current?.underlyingQueue ?? DispatchQueue.main
+                        callerQueue.asyncAfter(deadline: .now() + .nanoseconds(Int(remaining)), execute: tailBlock)
                     }
                     return true
-                }
             }
-            map[key] = ThrottleState(time: now, tailScheduled: false)
-            return false
         }
         if !shouldThrottle {
             if let queue {

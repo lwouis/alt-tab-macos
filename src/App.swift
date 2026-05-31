@@ -36,7 +36,7 @@ class App: AppCenterApplication {
     static var updaterController: SPUStandardUpdaterController?
     // don't queue multiple delayed rebuildUi() calls
     private static var delayedDisplayScheduled = 0
-    private static let refreshOpenUiThrottler = Throttler(delayInMs: 200)
+    private static let switcherUiRefreshThrottler = Throttler(delayInMs: 200)
 
     override init() {
         super.init()
@@ -283,7 +283,7 @@ class App: AppCenterApplication {
 
     static func refreshOpenUiAfterExternalEvent(_ windowsToScreenshot: [Window], windowRemoved: Bool = false) {
         WindowThumbnails.refreshAsync(windowsToScreenshot, .refreshUiAfterExternalEvent, windowRemoved: windowRemoved)
-        refreshOpenUiThrottler.throttleOrProceed {
+        switcherUiRefreshThrottler.throttleOrProceed {
             guard SwitcherSession.isActive else { return }
             if !Windows.updatesBeforeShowing() { hideUi(); return }
             refreshUi(true)

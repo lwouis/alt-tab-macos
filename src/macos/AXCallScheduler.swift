@@ -1,91 +1,77 @@
 import Foundation
 
+/// Pure executor for outgoing AX calls. Two jobs, on purpose nothing else:
+///   1. don't explode threads — calls run on bounded pools (a blocked AX call ties a worker for the 1s
+///      messaging timeout, and the process has a ~64-thread hard limit).
+///   2. don't hang on unresponsive apps — a call that times out is retried with backoff on a quarantine
+///      pool, so one beach-balling app can't starve calls to the responsive ones.
+///
+/// It does NOT throttle/coalesce. Coalescing self-flooding inputs (resize/move/title) is the job of an
+/// explicit `Throttler` at the call site (e.g. `Applications.windowAttributesThrottler`). The only
+/// dedup here is per-key in-flight: a second call for a key already running is held as `pendingBlock`
+/// and run once the current one finishes — never two concurrent calls for the same key.
 class AXCallScheduler {
     static let shared = AXCallScheduler()
 
-    let fastQueue: LabeledOperationQueue
-    let retryQueue: LabeledOperationQueue
+    // first-try: event-driven reads · scan: the bursty periodic inventory, isolated · retry: quarantine for timed-out apps
+    let axQueryFirstTryQueue: LabeledOperationQueue
+    let axQueryScanQueue: LabeledOperationQueue
+    let axQueryRetryQueue: LabeledOperationQueue
 
     private let lock = NSLock()
     private var keyStates = [String: KeyState]()
     private var unresponsivePids = Set<pid_t>()
 
-    private static let throttleDelayNs: UInt64 = 200_000_000
-    private static let giveUpAfterSeconds: Float = 60.0
-    private static let backoffStepsNs: [UInt64] = [200_000_000, 1_000_000_000, 2_000_000_000, 5_000_000_000]
-
     private enum Phase {
         case idle
-        case throttled
         case executing
         case retrying
     }
 
     private struct KeyState {
         var phase: Phase = .idle
-        var lastExecutionTime: UInt64 = 0
-        var retryStartTime: UInt64 = 0
         var retryCount = 0
+        var scan = false
         var pendingBlock: (() throws -> Void)?
         var pendingPid: pid_t?
         var pendingContext: String?
+        var pendingScan = false
         var cancelRetries = false
     }
 
     private init() {
-        fastQueue = LabeledOperationQueue("axCallsFast", .userInteractive, 16)
-        retryQueue = LabeledOperationQueue("axCallsRetry", .userInteractive, 8)
+        axQueryFirstTryQueue = LabeledOperationQueue("axQueryFirstTry", .userInteractive, 10)
+        axQueryScanQueue = LabeledOperationQueue("axQueryScan", .userInteractive, 6)
+        axQueryRetryQueue = LabeledOperationQueue("axQueryRetry", .userInteractive, 8)
     }
 
-    func schedule(key: String, file: String = #file, function: String = #function, line: Int = #line, context: String = "", pid: pid_t? = nil, block: @escaping () throws -> Void) {
+    /// Run an outgoing AX call, retrying with backoff if the app is unresponsive. `scan: true` routes the
+    /// first attempt to the isolated scan pool so a bulk re-scan can't starve event-driven reads. No
+    /// throttling — coalesce at the call site if the input self-floods.
+    func schedule(key: String, file: String = #file, function: String = #function, line: Int = #line, context: String = "", pid: pid_t? = nil, scan: Bool = false, block: @escaping () throws -> Void) {
         lock.lock()
         var state = keyStates[key] ?? KeyState()
         switch state.phase {
         case .idle:
-            let now = DispatchTime.now().uptimeNanoseconds
-            let elapsed = now >= state.lastExecutionTime ? (now - state.lastExecutionTime) : Self.throttleDelayNs
-            if elapsed >= Self.throttleDelayNs {
-                state.phase = .executing
-                keyStates[key] = state
-                lock.unlock()
-                submitToQueue(key: key, pid: pid, file: file, function: function, line: line, context: context, block: block)
-            } else {
-                state.phase = .throttled
-                state.pendingBlock = block
-                state.pendingPid = pid
-                state.pendingContext = context
-                keyStates[key] = state
-                let remaining = Self.throttleDelayNs - elapsed
-                lock.unlock()
-                let queue = queueForPid(pid)
-                queue.addOperationAfter(deadline: .now() + .nanoseconds(Int(remaining))) { [self] in
-                    fireThrottled(key: key, file: file, function: function, line: line)
-                }
-            }
-        case .throttled:
-            state.pendingBlock = block
-            state.pendingPid = pid
-            state.pendingContext = context
+            state.phase = .executing
+            state.scan = scan
             keyStates[key] = state
             lock.unlock()
-        case .executing:
+            submitToQueue(key: key, pid: pid, scan: scan, file: file, function: function, line: line, context: context, block: block)
+        case .executing, .retrying:
+            // a call for this key is already in flight: hold the latest, run it when the current one finishes
             state.pendingBlock = block
             state.pendingPid = pid
             state.pendingContext = context
-            keyStates[key] = state
-            lock.unlock()
-        case .retrying:
-            state.pendingBlock = block
-            state.pendingPid = pid
-            state.pendingContext = context
-            state.cancelRetries = true
+            state.pendingScan = scan
+            if state.phase == .retrying { state.cancelRetries = true }
             keyStates[key] = state
             lock.unlock()
         }
     }
 
     func submit(_ block: @escaping () -> Void) {
-        fastQueue.addOperation(block)
+        axQueryFirstTryQueue.addOperation(block)
     }
 
     func removeEntry(key: String) {
@@ -108,32 +94,17 @@ class AXCallScheduler {
         lock.unlock()
     }
 
-    private func queueForPid(_ pid: pid_t?) -> LabeledOperationQueue {
-        if let pid, unresponsivePids.contains(pid) {
-            return retryQueue
+    private func queueForPid(_ pid: pid_t?, scan: Bool) -> LabeledOperationQueue {
+        let unresponsive = pid.map { unresponsivePids.contains($0) } ?? false
+        switch AxEventRouting.pool(unresponsive: unresponsive, scan: scan) {
+            case .firstTry: return axQueryFirstTryQueue
+            case .scan: return axQueryScanQueue
+            case .retry: return axQueryRetryQueue
         }
-        return fastQueue
     }
 
-    private func fireThrottled(key: String, file: String, function: String, line: Int) {
-        lock.lock()
-        guard var state = keyStates[key], state.phase == .throttled, let block = state.pendingBlock else {
-            lock.unlock()
-            return
-        }
-        let pid = state.pendingPid
-        let context = state.pendingContext ?? ""
-        state.pendingBlock = nil
-        state.pendingPid = nil
-        state.pendingContext = nil
-        state.phase = .executing
-        keyStates[key] = state
-        lock.unlock()
-        attemptBlock(key: key, pid: pid, file: file, function: function, line: line, context: context, retryStartTime: DispatchTime.now().uptimeNanoseconds, block: block)
-    }
-
-    private func submitToQueue(key: String, pid: pid_t?, file: String, function: String, line: Int, context: String, block: @escaping () throws -> Void) {
-        let queue = queueForPid(pid)
+    private func submitToQueue(key: String, pid: pid_t?, scan: Bool, file: String, function: String, line: Int, context: String, block: @escaping () throws -> Void) {
+        let queue = queueForPid(pid, scan: scan)
         queue.addOperation { [self] in
             attemptBlock(key: key, pid: pid, file: file, function: function, line: line, context: context, retryStartTime: DispatchTime.now().uptimeNanoseconds, block: block)
         }
@@ -167,9 +138,8 @@ class AXCallScheduler {
             lock.unlock()
         }
 
-        let elapsed = Float(DispatchTime.now().uptimeNanoseconds - retryStartTime) / 1_000_000_000
-        if elapsed >= Self.giveUpAfterSeconds {
-            Logger.info { "AX call timed out after \(Int(Self.giveUpAfterSeconds))s. \(Self.logContext(file, function, line, context))" }
+        if RetryPolicy.shouldGiveUp(elapsedSinceStartNs: DispatchTime.now().uptimeNanoseconds - retryStartTime) {
+            Logger.info { "AX call timed out after \(RetryPolicy.giveUpAfterNs / 1_000_000_000)s. \(Self.logContext(file, function, line, context))" }
             if let pid {
                 lock.lock()
                 unresponsivePids.remove(pid)
@@ -184,17 +154,16 @@ class AXCallScheduler {
         lock.lock()
         if var state = keyStates[key] {
             state.phase = .retrying
-            let step = min(state.retryCount, Self.backoffStepsNs.count - 1)
-            delayNs = Self.backoffStepsNs[step]
+            delayNs = RetryPolicy.backoffDelayNs(retryCount: state.retryCount)
             state.retryCount += 1
             keyStates[key] = state
         } else {
-            delayNs = Self.backoffStepsNs[0]
+            delayNs = RetryPolicy.backoffDelayNs(retryCount: 0)
         }
         lock.unlock()
 
         Logger.debug { "Retrying AX call in \(delayNs / 1_000_000)ms. \(Self.logContext(file, function, line, context))" }
-        retryQueue.addOperationAfter(deadline: .now() + .nanoseconds(Int(delayNs))) { [self] in
+        axQueryRetryQueue.addOperationAfter(deadline: .now() + .nanoseconds(Int(delayNs))) { [self] in
             attemptBlock(key: key, pid: pid, file: file, function: function, line: line, context: context, retryStartTime: retryStartTime, block: block)
         }
     }
@@ -202,7 +171,6 @@ class AXCallScheduler {
     private func onComplete(key: String, file: String, function: String, line: Int) {
         lock.lock()
         if var state = keyStates[key] {
-            state.lastExecutionTime = DispatchTime.now().uptimeNanoseconds
             state.phase = .idle
             state.cancelRetries = false
             state.retryCount = 0
@@ -225,35 +193,17 @@ class AXCallScheduler {
         }
         let pid = state.pendingPid
         let context = state.pendingContext ?? ""
+        let scan = state.pendingScan
         state.pendingBlock = nil
         state.pendingPid = nil
         state.pendingContext = nil
+        state.pendingScan = false
         state.cancelRetries = false
-
-        // apply throttle check before executing pending block
-        let now = DispatchTime.now().uptimeNanoseconds
-        let elapsed = now >= state.lastExecutionTime ? (now - state.lastExecutionTime) : Self.throttleDelayNs
-        if elapsed >= Self.throttleDelayNs {
-            state.phase = .executing
-            keyStates[key] = state
-            lock.unlock()
-            let queue = queueForPid(pid)
-            queue.addOperation { [self] in
-                attemptBlock(key: key, pid: pid, file: file, function: function, line: line, context: context, retryStartTime: DispatchTime.now().uptimeNanoseconds, block: block)
-            }
-        } else {
-            state.phase = .throttled
-            state.pendingBlock = block
-            state.pendingPid = pid
-            state.pendingContext = context
-            keyStates[key] = state
-            let remaining = Self.throttleDelayNs - elapsed
-            lock.unlock()
-            let queue = queueForPid(pid)
-            queue.addOperationAfter(deadline: .now() + .nanoseconds(Int(remaining))) { [self] in
-                fireThrottled(key: key, file: file, function: function, line: line)
-            }
-        }
+        state.phase = .executing
+        state.scan = scan
+        keyStates[key] = state
+        lock.unlock()
+        submitToQueue(key: key, pid: pid, scan: scan, file: file, function: function, line: line, context: context, block: block)
     }
 
     private static func logContext(_ file: String, _ function: String, _ line: Int, _ context: String) -> String {

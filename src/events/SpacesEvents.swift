@@ -1,14 +1,14 @@
 import Cocoa
 
 class SpacesEvents {
-    private static let throttler = Throttler(delayInMs: 200)
+    private static let spaceChangeThrottler = Throttler(delayInMs: 200)
 
     static func observe() {
         NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(handleEvent), name: NSWorkspace.activeSpaceDidChangeNotification, object: nil)
     }
 
     @objc private static func handleEvent(_ notification: Notification) {
-        throttler.throttleOrProceed {
+        spaceChangeThrottler.throttleOrProceed {
             Logger.debug { notification.name.rawValue }
             // Workaround for Safari full-screen videos
             // when full-screening a video, Safari spawns a second full-screen window called "Safari"

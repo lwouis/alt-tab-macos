@@ -13,6 +13,7 @@ class BackgroundWork {
     static var repeatingKeyQueue: LabeledOperationQueue!
     static var screenshotsQueue: LabeledOperationQueue!
     static var accessibilityCommandsQueue: LabeledOperationQueue!
+    static var focusOrderQueue: LabeledOperationQueue!
     static var crashReportsQueue: LabeledOperationQueue!
     static var permissionsCheckOnTimerQueue: LabeledOperationQueue!
     static var permissionsSystemCallsQueue: LabeledOperationQueue!
@@ -33,6 +34,10 @@ class BackgroundWork {
         // calls to focus/close/minimize/etc windows
         // They are tried once and if they timeout we don't retry. The OS seems to still execute them even if the call timed out
         accessibilityCommandsQueue = LabeledOperationQueue("axCommands", .userInteractive, 4)
+        // focus/activation order updates run here, isolated from the axQuery* pools (which the bulk
+        // window-refresh floods) and un-throttled, so the MRU order is fresh before the next switcher summon.
+        // serial preserves OS delivery order; the work is IPC-free (just a wid lookup + reorder) so it never blocks.
+        focusOrderQueue = LabeledOperationQueue("focusOrder", .userInteractive, 1)
         // we time key repeat on a background queue. We handle their consequence on the main-thread
         repeatingKeyQueue = LabeledOperationQueue("repeatingKey", .userInteractive, 1)
         // we observe app and windows notifications. They arrive on this thread, and are handled off the main thread initially
@@ -62,7 +67,7 @@ class BackgroundWork {
     // useful during development to inspect how many threads are used by AltTab
     private static func logThreadsAndQueuesOnRepeat() {
         // if Logger.decideLevel() == .debug {
-            debugMenu = DebugMenu([screenshotsQueue, accessibilityCommandsQueue, AXCallScheduler.shared.fastQueue, AXCallScheduler.shared.retryQueue])
+            debugMenu = DebugMenu([screenshotsQueue, accessibilityCommandsQueue, AXCallScheduler.shared.axQueryFirstTryQueue, AXCallScheduler.shared.axQueryScanQueue, AXCallScheduler.shared.axQueryRetryQueue])
             debugMenu.orderFront(nil)
             debugMenu.start()
             // Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
@@ -73,7 +78,7 @@ class BackgroundWork {
     }
 
     private static func logQueues() -> Void {
-        let queues = [screenshotsQueue, accessibilityCommandsQueue, AXCallScheduler.shared.fastQueue, AXCallScheduler.shared.retryQueue, crashReportsQueue].compactMap { $0 }
+        let queues = [screenshotsQueue, accessibilityCommandsQueue, AXCallScheduler.shared.axQueryFirstTryQueue, AXCallScheduler.shared.axQueryScanQueue, AXCallScheduler.shared.axQueryRetryQueue, crashReportsQueue].compactMap { $0 }
         var map = [String:Int]()
         for queue in queues {
             map[queue.underlyingQueue!.label] = queue.operations.reduce(0) { $1.isExecuting ? $0 + 1 : $0 }
