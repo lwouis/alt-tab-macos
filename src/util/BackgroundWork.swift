@@ -18,7 +18,6 @@ class BackgroundWork {
     static var permissionsCheckOnTimerQueue: LabeledOperationQueue!
     static var permissionsSystemCallsQueue: LabeledOperationQueue!
 
-    private static var debugMenu: DebugMenu!
     private static var totalPotentialThreadCount = 0
 
     static func preStart() {
@@ -48,7 +47,6 @@ class BackgroundWork {
         missionControlThread = BackgroundThreadWithRunLoop("missionControl", .userInteractive)
         // we listen to CLI commands (CFMessagePort events)
         cliEventsThread = BackgroundThreadWithRunLoop("cliMessages", .userInteractive)
-       // logThreadsAndQueuesOnRepeat()
     }
 
     static func startCrashReportsQueue() {
@@ -64,19 +62,8 @@ class BackgroundWork {
         assert(totalPotentialThreadCount <= 45)
     }
 
-    // useful during development to inspect how many threads are used by AltTab
-    private static func logThreadsAndQueuesOnRepeat() {
-        // if Logger.decideLevel() == .debug {
-            debugMenu = DebugMenu([screenshotsQueue, accessibilityCommandsQueue, AXCallScheduler.shared.axQueryFirstTryQueue, AXCallScheduler.shared.axQueryScanQueue, AXCallScheduler.shared.axQueryRetryQueue])
-            debugMenu.orderFront(nil)
-            debugMenu.start()
-            // Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
-            //     logThreads()
-            //     logQueues()
-            // }
-        // }
-    }
-
+    #if DEBUG
+    // dev-only helpers to inspect thread count / queue depth; call from lldb when diagnosing
     private static func logQueues() -> Void {
         let queues = [screenshotsQueue, accessibilityCommandsQueue, AXCallScheduler.shared.axQueryFirstTryQueue, AXCallScheduler.shared.axQueryScanQueue, AXCallScheduler.shared.axQueryRetryQueue, crashReportsQueue].compactMap { $0 }
         var map = [String:Int]()
@@ -114,6 +101,7 @@ class BackgroundWork {
         Logger.info { "\(namedThreads.count) named threads:\(namedThreads.sorted())" }
         Logger.info { "\(unnamedThreadsCount) unnamed threads (e.g. from GCD queues)" }
     }
+    #endif
 
     class BackgroundThreadWithRunLoop: Thread {
         var runLoop: CFRunLoop?

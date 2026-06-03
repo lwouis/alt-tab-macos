@@ -1,17 +1,53 @@
+#if DEBUG
 import Cocoa
 import CoreText
 
 final class DebugMenu: NSPanel {
     static let width = CGFloat(400)
     static let height = CGFloat(200)
+    static var shared: DebugMenu?
+
     private let graphView = QueueGraphView()
-    private var monitorThread: Thread?
-    private var running = false
+    private var timer: DispatchSourceTimer?
+    private let samplers: [Sampler]
 
-    private var queues: [LabeledOperationQueue] = []
+    struct Sampler {
+        let label: String
+        let read: () -> Double
+    }
 
-    init(_ queues: [LabeledOperationQueue]) {
-        self.queues = queues
+    // Single entry point, driven by the QAMenu "Live queue graph" checkbox (and restored on launch
+    // when previously left on). `on` creates+shows+starts; `off` stops all sampling and hides.
+    static func setEnabled(_ on: Bool) {
+        if on {
+            if shared == nil { shared = DebugMenu(makeSamplers()) }
+            shared?.orderFront(nil)
+            shared?.start()
+        } else {
+            shared?.stop()
+            shared?.orderOut(nil)
+        }
+    }
+
+    // Queue depths only — each spikes with work and falls back to 0 when idle. focusOrder is the
+    // serial queue behind the #5665 fix; a backlog there is the regression signal.
+    private static func makeSamplers() -> [Sampler] {
+        let scheduler = AXCallScheduler.shared
+        let queues: [LabeledOperationQueue] = [
+            BackgroundWork.screenshotsQueue,
+            BackgroundWork.accessibilityCommandsQueue,
+            BackgroundWork.focusOrderQueue,
+            scheduler.axQueryFirstTryQueue,
+            scheduler.axQueryScanQueue,
+            scheduler.axQueryRetryQueue,
+        ]
+        return queues.map { queue in
+            Sampler(label: queue.strongUnderlyingQueue.label) { Double(queue.operationCount) }
+        }
+    }
+
+    init(_ samplers: [Sampler]) {
+        self.samplers = samplers
 
         let screenHeight = NSScreen.main!.frame.height
         let frame = NSRect(x: 0, y: screenHeight - DebugMenu.height, width: DebugMenu.width, height: DebugMenu.height)
@@ -27,27 +63,27 @@ final class DebugMenu: NSPanel {
         contentView = graphView
     }
 
+    // A cancelable timer source (not a hand-rolled Thread+sleep): `stop()` cancels it and no handler can
+    // fire afterward, so "toggled off → stops all computation" holds, and a fast off→on can't leave a
+    // zombie sampler running.
     func start() {
+        guard timer == nil else { return }
         graphView.reset()
-        running = true
-
-        monitorThread = Thread { [weak self] in
+        let t = DispatchSource.makeTimerSource(queue: DispatchQueue(label: "debugMenuSampler", qos: .utility))
+        t.schedule(deadline: .now(), repeating: .milliseconds(100))
+        t.setEventHandler { [weak self] in
             guard let self else { return }
-            while self.running {
-                var sample: [String: Double] = [:]
-                for queue in self.queues {
-                    sample[queue.strongUnderlyingQueue.label] = Double(queue.operationCount + queue.activeCallbacks)
-                }
-                DispatchQueue.main.async { self.graphView.addData(sample) }
-                Thread.sleep(forTimeInterval: 0.1)
-            }
+            var sample: [String: Double] = [:]
+            for s in self.samplers { sample[s.label] = s.read() }
+            DispatchQueue.main.async { self.graphView.addData(sample) }
         }
-        monitorThread?.start()
+        t.resume()
+        timer = t
     }
 
     func stop() {
-        running = false
-        monitorThread = nil
+        timer?.cancel()
+        timer = nil
     }
 }
 
@@ -217,3 +253,4 @@ private final class QueueGraphView: NSView {
         CTLineCreateWithAttributedString(NSAttributedString(string: text, attributes: attributes))
     }
 }
+#endif

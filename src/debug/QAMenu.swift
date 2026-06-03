@@ -10,10 +10,15 @@ final class QAMenu: NSPanel {
     private static let autosaveName = "QAMenu"
     private static let openSettingsOnLaunchKey = "debug.openSettingsOnLaunch"
     private static let proSectionExpandedKey = "debug.proSectionExpanded"
+    private static let graphEnabledKey = "debug.graphEnabled"
     private static let sectionSpacing: CGFloat = 16
 
     static var openSettingsOnLaunch: Bool {
         UserDefaults.standard.bool(forKey: openSettingsOnLaunchKey)
+    }
+
+    static var graphEnabled: Bool {
+        UserDefaults.standard.bool(forKey: graphEnabledKey)
     }
 
     static func toggleVisibility() {
@@ -77,6 +82,13 @@ final class QAMenu: NSPanel {
         openOnLaunchCheckbox.onAction = { sender in
             UserDefaults.standard.set((sender as! NSButton).state == .on, forKey: Self.openSettingsOnLaunchKey)
         }
+        let graphCheckbox = NSButton(checkboxWithTitle: "Live queue graph", target: nil, action: nil)
+        graphCheckbox.state = Self.graphEnabled ? .on : .off
+        graphCheckbox.onAction = { sender in
+            let on = (sender as! NSButton).state == .on
+            UserDefaults.standard.set(on, forKey: Self.graphEnabledKey)
+            DebugMenu.setEnabled(on)
+        }
         let quitButton = NSButton(title: "Quit", target: nil, action: nil)
         quitButton.onAction = { _ in App.shared.terminate(nil) }
         let topRow = NSStackView()
@@ -87,6 +99,7 @@ final class QAMenu: NSPanel {
         topRow.addView(quitButton, in: .trailing)
         stack.addArrangedSubview(topRow)
         topRow.trailingAnchor.constraint(equalTo: stack.trailingAnchor, constant: -stack.edgeInsets.right).isActive = true
+        stack.addArrangedSubview(graphCheckbox)
         stack.addArrangedSubview(langDropdown)
         addProTransitionButtons()
     }
