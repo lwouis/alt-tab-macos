@@ -211,6 +211,10 @@ class Applications {
             let pid = tApp.processIdentifier
             AXCallScheduler.shared.removeEntry(key: "pid-\(pid)")
             AXCallScheduler.shared.removeEntries(withPrefix: "pid-\(pid)-")
+            // one-shot subscription keys (see Application.observeEvents) use the `sub-app-` prefix, which
+            // the `pid-` cleanup above misses; strip them here too or they leak 6 entries per app.
+            AXCallScheduler.shared.removeEntry(key: "sub-app-\(pid)")
+            AXCallScheduler.shared.removeEntries(withPrefix: "sub-app-\(pid)-")
             AXCallScheduler.shared.removeUnresponsivePid(pid)
         }
         App.refreshOpenUiAfterExternalEvent([])

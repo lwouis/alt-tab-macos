@@ -460,6 +460,10 @@ class Windows {
         for w in windows {
             if let wid = w.cgWindowId {
                 AXCallScheduler.shared.removeEntries(withPrefix: "wid-\(wid)-")
+                // one-shot subscription keys (see Window.observeEvents) use the `sub-win-` prefix, so the
+                // `wid-` cleanup above misses them; strip them here too or they leak 6 entries per window.
+                AXCallScheduler.shared.removeEntry(key: "sub-win-\(wid)")
+                AXCallScheduler.shared.removeEntries(withPrefix: "sub-win-\(wid)-")
                 Applications.windowAttributesThrottler.removeEntries(withPrefix: "\(wid)-")
                 Applications.screenshotThrottler.removeEntry(withKey: "capture-wid-\(wid)")
             }
