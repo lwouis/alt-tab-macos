@@ -6,6 +6,9 @@ import SwiftUI
 struct UpgradeTabView: View {
     @EnvironmentObject var proTracker: ProStateTracker
     @StateObject private var usageStats = UsageStatsObserver()
+    @State private var easterEggTapCount = 0
+    @State private var easterEggTimer: Timer?
+    @State private var showFireworks = false
 
     var body: some View {
         SwiftUI.ScrollView {
@@ -40,6 +43,12 @@ struct UpgradeTabView: View {
             }
             .frame(maxWidth: .infinity)
             .padding(30)
+        }
+        .overlay {
+            if showFireworks {
+                FireworksOverlay()
+                    .allowsHitTesting(false)
+            }
         }
     }
 
@@ -76,12 +85,27 @@ struct UpgradeTabView: View {
                 .foregroundStyle(
                     LinearGradient(colors: [.blue, .purple], startPoint: .leading, endPoint: .trailing)
                 )
+                .onTapGesture { handleEasterEggTap() }
             Text(statusText)
                 .font(.system(size: 12))
                 .foregroundColor(.secondary)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.horizontal, 10)
+    }
+
+    private func handleEasterEggTap() {
+        easterEggTapCount += 1
+        easterEggTimer?.invalidate()
+        if easterEggTapCount >= 5 {
+            easterEggTapCount = 0
+            showFireworks = true
+            LicenseManager.shared.mockEasterEgg()
+        } else {
+            easterEggTimer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { _ in
+                easterEggTapCount = 0
+            }
+        }
     }
 
     // MARK: - Usage stats

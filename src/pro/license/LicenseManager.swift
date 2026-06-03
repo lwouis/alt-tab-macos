@@ -277,4 +277,19 @@ class LicenseManager {
         state = .pro
     }
     #endif
+
+    func mockEasterEgg() {
+        keychain.setValue("MOCK-PRO-LICENSE-KEY", account: Self.keychainKeyAccount)
+        keychain.setValue("mock-instance-id", account: Self.keychainInstanceAccount)
+        var components = DateComponents()
+        components.year = Calendar(identifier: .gregorian).component(.year, from: clock.now) + 1
+        components.month = 1
+        components.day = 1
+        let nextYear = Calendar(identifier: .gregorian).date(from: components)!
+        defaults.set(nextYear.timeIntervalSince1970, forKey: "lastValidation")
+        defaults.set(true, forKey: "lastValidationResult")
+        defaults.set("john@cool-software.com", forKey: Self.customerEmailKey)
+        onBeforeProUnlock()
+        state = .pro
+    }
 }

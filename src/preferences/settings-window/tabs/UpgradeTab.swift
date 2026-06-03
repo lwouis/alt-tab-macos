@@ -11,6 +11,8 @@ class UpgradeTab {
     private static var featuresList: NSStackView!
     private static var isActivating = false
     private static var isInitialized = false
+    private static var easterEggTapCount = 0
+    private static var easterEggTimer: Timer?
 
     static func initTab() -> NSView {
         let view = makeView()
@@ -138,6 +140,8 @@ class UpgradeTab {
         // label's intrinsic height so the subtitle below it isn't pushed off.
         let titleWrapper = NSView()
         titleWrapper.translatesAutoresizingMaskIntoConstraints = false
+        let clickRecognizer = NSClickGestureRecognizer(target: self, action: #selector(handleEasterEggClick))
+        titleWrapper.addGestureRecognizer(clickRecognizer)
         titleWrapper.addSubview(titleLabel)
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: titleWrapper.topAnchor, constant: 0.5),
@@ -418,6 +422,26 @@ class UpgradeTab {
                 if alert.runModal() == .alertSecondButtonReturn {
                     openAccountPage()
                 }
+            }
+        }
+    }
+
+    @objc private static func handleEasterEggClick() {
+        easterEggTapCount += 1
+        easterEggTimer?.invalidate()
+        if easterEggTapCount >= 5 {
+            easterEggTapCount = 0
+            LicenseManager.shared.mockEasterEgg()
+            refreshStatus()
+            if let contentView = SettingsWindow.shared?.contentView {
+                let fireworks = FireworksOverlayView()
+                fireworks.frame = contentView.bounds
+                fireworks.autoresizingMask = [.width, .height]
+                contentView.addSubview(fireworks, positioned: NSWindow.OrderingMode.above, relativeTo: nil)
+            }
+        } else {
+            easterEggTimer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { _ in
+                easterEggTapCount = 0
             }
         }
     }

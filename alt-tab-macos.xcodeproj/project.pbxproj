@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		04AF649B1AE93763C23355A8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E63E06568186D76D7DD746 /* ContentView.swift */; };
 		0F1E2D3C4B5A6F7E8D9C0B1A /* SharedRowComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8B7C6D5E4F3A2B1C0D9E8F /* SharedRowComponents.swift */; };
-		F2E1D0C9B8A7F6E5D4C3B2A1 /* SearchableSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F6A7B8C9D0E1F2 /* SearchableSection.swift */; };
+		112CED202FC6D6D00096DB50 /* FireworksOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112CED1F2FC6D6D00096DB50 /* FireworksOverlayView.swift */; };
 		1C96101BC5817A7F85FA1F8D /* titles_show_running_applications_light@2x.heic in Resources */ = {isa = PBXBuildFile; fileRef = 1C961F57248D4E2377A9038E /* titles_show_running_applications_light@2x.heic */; };
 		1C96108A0CB2565233FE100B /* TableGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C961FB3DCF4906FEEF4A23D /* TableGroupView.swift */; };
 		1C9610F8AF7AD8CA53B62913 /* titles_hide_status_icons_light@2x.heic in Resources */ = {isa = PBXBuildFile; fileRef = 1C961E64CF8FB6E3FDAA3DAA /* titles_hide_status_icons_light@2x.heic */; };
@@ -299,6 +299,7 @@
 		F00DCAFE0000000000001002 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00DCAFE0000000000000002 /* Search.swift */; };
 		F00DCAFE0000000000001003 /* SearchTestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00DCAFE0000000000000003 /* SearchTestable.swift */; };
 		F00DCAFE0000000000001103 /* SearchTestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00DCAFE0000000000000003 /* SearchTestable.swift */; };
+		F2E1D0C9B8A7F6E5D4C3B2A1 /* SearchableSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F6A7B8C9D0E1F2 /* SearchableSection.swift */; };
 		F68AB1FCD0079CD078766A6E /* SearchFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F204DA47D6F64AEEE5FD2645 /* SearchFieldView.swift */; };
 /* End PBXBuildFile section */
 
@@ -318,6 +319,7 @@
 
 /* Begin PBXFileReference section */
 		02540420CE27E6C973652426 /* menubar-0.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "menubar-0.pdf"; sourceTree = "<group>"; };
+		112CED1F2FC6D6D00096DB50 /* FireworksOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireworksOverlayView.swift; sourceTree = "<group>"; };
 		126D5AA615CEE89F73C22DA7 /* menubar-1.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "menubar-1.pdf"; sourceTree = "<group>"; };
 		1C961003A0D16B9AE3932B3F /* thumbnails_show_colored_circles_light@2x.heic */ = {isa = PBXFileReference; lastKnownFileType = image.heic; path = "thumbnails_show_colored_circles_light@2x.heic"; sourceTree = "<group>"; };
 		1C9610B2E76F1E429C8D3660 /* titles_show_running_windows_light@2x.heic */ = {isa = PBXFileReference; lastKnownFileType = image.heic; path = "titles_show_running_windows_light@2x.heic"; sourceTree = "<group>"; };
@@ -432,6 +434,7 @@
 		926405CF6572761F8A7BAB5D /* PreferencesStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PreferencesStore.swift; path = "src/preferences-swiftui/ViewModel/PreferencesStore.swift"; sourceTree = SOURCE_ROOT; };
 		9A8B7C6D5E4F3A2B1C0D9E8F /* SharedRowComponents.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SharedRowComponents.swift; path = "src/preferences-swiftui/Shared/SharedRowComponents.swift"; sourceTree = SOURCE_ROOT; };
 		A0E63E06568186D76D7DD746 /* ContentView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ContentView.swift; path = "src/preferences-swiftui/ContentView.swift"; sourceTree = SOURCE_ROOT; };
+		A1B2C3D4E5F6A7B8C9D0E1F2 /* SearchableSection.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SearchableSection.swift; path = "src/preferences-swiftui/Shared/SearchableSection.swift"; sourceTree = SOURCE_ROOT; };
 		AA0C8A000000000000000001 /* AXCallScheduler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AXCallScheduler.swift; sourceTree = "<group>"; };
 		AA0C8B000000000000000002 /* UsageStats.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsageStats.swift; sourceTree = "<group>"; };
 		AA0C8B000000000000000004 /* UsageStatsTestable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsageStatsTestable.swift; sourceTree = "<group>"; };
@@ -442,7 +445,6 @@
 		BB0000000000000000000001 /* TabGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabGroup.swift; sourceTree = "<group>"; };
 		BBCA47564751659B67FB9AF1 /* ProStateTracker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ProStateTracker.swift; path = "src/preferences-swiftui/ViewModel/ProStateTracker.swift"; sourceTree = SOURCE_ROOT; };
 		BBCEF306874E127C7D163C1C /* SearchHighlightModifier.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SearchHighlightModifier.swift; path = "src/preferences-swiftui/Shared/SearchHighlightModifier.swift"; sourceTree = SOURCE_ROOT; };
-		A1B2C3D4E5F6A7B8C9D0E1F2 /* SearchableSection.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SearchableSection.swift; path = "src/preferences-swiftui/Shared/SearchableSection.swift"; sourceTree = SOURCE_ROOT; };
 		BC07818D6FCBEFC756C64296 /* menubar-2.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "menubar-2.pdf"; sourceTree = "<group>"; };
 		BC6A46F95605FAB3078FC0FF /* ImageRadioGroup.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageRadioGroup.swift; path = "src/preferences-swiftui/Shared/ImageRadioGroup.swift"; sourceTree = SOURCE_ROOT; };
 		BF0C800363086A5ED019FE11 /* google_translate_all_terms_locally.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = google_translate_all_terms_locally.py; sourceTree = "<group>"; };
@@ -759,6 +761,7 @@
 				5FA001000000000000000017 /* ProPromptHost.swift */,
 				5FA001000000000000000021 /* ProPromptHeader.swift */,
 				5FA001000000000000000023 /* UsageStatHeroView.swift */,
+				112CED1F2FC6D6D00096DB50 /* FireworksOverlayView.swift */,
 			);
 			path = ui;
 			sourceTree = "<group>";
@@ -1976,6 +1979,7 @@
 				AECF000000000000000000A2 /* Endpoints.swift in Sources */,
 				AECF000000000000000000B2 /* Secrets.swift in Sources */,
 				D04BADA3F2DAB820D6FC6E75 /* AppCenterApplication.m in Sources */,
+				112CED202FC6D6D00096DB50 /* FireworksOverlayView.swift in Sources */,
 				D04BAA16F21AC41A23DDA63D /* ControlsTab.swift in Sources */,
 				DD6771EE8ACE714C2599FEB7 /* OverrideClickResolver.swift in Sources */,
 				D04BADE4DDF7597749FB13BD /* SettingsWindow.swift in Sources */,
@@ -2485,10 +2489,12 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = "${TEAM_ID}";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -2513,6 +2519,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lwouis.alt-tab-macos.unit-tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -2523,9 +2530,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D04BA62D5EACAAAD7BCD3E79 /* release.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
-				DEVELOPMENT_TEAM = "${TEAM_ID}";
-				"DEVELOPMENT_TEAM[sdk=macosx*]" = 9H9AXS5ZLL;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9H9AXS5ZLL;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};
@@ -2533,9 +2542,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D04BA1232AFEEFE90D5CC827 /* debug.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=macosx*]" = 9H9AXS5ZLL;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9H9AXS5ZLL;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
