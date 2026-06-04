@@ -1,3 +1,30 @@
+# [11.2.0](https://github.com/lwouis/alt-tab-macos/compare/v11.1.0...v11.2.0) (2026-06-04)
+
+
+### Bug Fixes
+
+* always persist menubar icon removal from dragging ([#5654](https://github.com/lwouis/alt-tab-macos/issues/5654)) ([a354fde](https://github.com/lwouis/alt-tab-macos/commit/a354fde))
+* better handle some shortcut conflicts (related to 3059dc23) ([cddc89d](https://github.com/lwouis/alt-tab-macos/commit/cddc89d))
+* command+tab would sometimes not bind correctly (closes [#5653](https://github.com/lwouis/alt-tab-macos/issues/5653)) ([c75aac5](https://github.com/lwouis/alt-tab-macos/commit/c75aac5))
+* focus issues with show-main-window setting (closes [#5684](https://github.com/lwouis/alt-tab-macos/issues/5684)) ([0899f61](https://github.com/lwouis/alt-tab-macos/commit/0899f61))
+* improve processing of accessibility events (closes [#5665](https://github.com/lwouis/alt-tab-macos/issues/5665)) ([e0b1778](https://github.com/lwouis/alt-tab-macos/commit/e0b1778))
+* only show screen recording callout when it's needed (closes [#5623](https://github.com/lwouis/alt-tab-macos/issues/5623)) ([9a9994b](https://github.com/lwouis/alt-tab-macos/commit/9a9994b))
+* preserve switcher selection across reorders (closes [#5665](https://github.com/lwouis/alt-tab-macos/issues/5665)) ([5bd746d](https://github.com/lwouis/alt-tab-macos/commit/5bd746d))
+* settings window search and controls editor edge-cases ([c143ec2](https://github.com/lwouis/alt-tab-macos/commit/c143ec2))
+* text shortcuts like cmd+a work in search mode (closes [#5675](https://github.com/lwouis/alt-tab-macos/issues/5675)) ([d483c5a](https://github.com/lwouis/alt-tab-macos/commit/d483c5a))
+* very minor memory leak ([7d60d55](https://github.com/lwouis/alt-tab-macos/commit/7d60d55))
+
+
+### Features
+
+* do not repeat title if window title is app name (closes [#5672](https://github.com/lwouis/alt-tab-macos/issues/5672)) ([30eb5f2](https://github.com/lwouis/alt-tab-macos/commit/30eb5f2))
+
+
+### Performance Improvements
+
+* carry (pid, wid) in AX subscription refcon to skip identity calls ([a39816e](https://github.com/lwouis/alt-tab-macos/commit/a39816e))
+* improve performance of the settings window ([3059dc2](https://github.com/lwouis/alt-tab-macos/commit/3059dc2))
+
 # [11.1.0](https://github.com/lwouis/alt-tab-macos/compare/v11.0.1...v11.1.0) (2026-05-25)
 
 
