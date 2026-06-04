@@ -22,6 +22,7 @@ class WindowDiscriminator {
             isAlwaysOnTopScrcpy(app, level, role, subrole)
         let standardSubrole = [kAXStandardWindowSubrole, kAXDialogSubrole].contains(subrole)
         let appSpecificSubrole = openBoard(app) || adobeAudition(app, subrole) || adobeAfterEffects(app, subrole) ||
+            adobePremierePro(app, subrole) ||
             steam(app, title, role) || worldOfWarcraft(app, role) || battleNetBootstrapper(app, role) ||
             firefox(app, role, size) || vlcFullscreenVideo(app, role) || sanGuoShaAirWD(app) ||
             dvdFab(app) || drBetotte(app) || androidEmulator(app, title) || autocad(app, subrole)
@@ -94,11 +95,17 @@ class WindowDiscriminator {
     }
 
     private static func adobeAudition(_ app: Application, _ subrole: String?) -> Bool {
-        return app.bundleIdentifier == "com.adobe.Audition" && subrole == kAXFloatingWindowSubrole
+        // recent Adobe bundle ids gained a version/".application" suffix, so we match by prefix
+        return (app.bundleIdentifier?.hasPrefix("com.adobe.Audition") ?? false) && subrole == kAXFloatingWindowSubrole
     }
 
     private static func adobeAfterEffects(_ app: Application, _ subrole: String?) -> Bool {
-        return app.bundleIdentifier == "com.adobe.AfterEffects" && subrole == kAXFloatingWindowSubrole
+        // AE 2026's bundle id became "com.adobe.AfterEffects.application" (was "com.adobe.AfterEffects"); match by prefix
+        return (app.bundleIdentifier?.hasPrefix("com.adobe.AfterEffects") ?? false) && subrole == kAXFloatingWindowSubrole
+    }
+
+    private static func adobePremierePro(_ app: Application, _ subrole: String?) -> Bool {
+        return (app.bundleIdentifier?.hasPrefix("com.adobe.PremierePro") ?? false) && subrole == kAXFloatingWindowSubrole
     }
 
     private static func books(_ app: Application) -> Bool {
