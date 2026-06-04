@@ -21,7 +21,15 @@ class TrackpadEvents {
     }
 
     static func reEnableTapIfNeeded() {
-        guard let eventTap, shouldBeEnabled, !CGEvent.tapIsEnabled(tap: eventTap) else { return }
+        guard let eventTap, shouldBeEnabled else { return }
+        if !CFMachPortIsValid(eventTap) {
+            // The mach port became invalid (can happen after extended uptime without sleep/wake).
+            // tapDisabledByTimeout won't fire in this case, so we recreate the tap entirely.
+            Logger.warning { "recreating" }
+            observe_()
+            return
+        }
+        guard !CGEvent.tapIsEnabled(tap: eventTap) else { return }
         Logger.warning { "" }
         CGEvent.tapEnable(tap: eventTap, enable: true)
     }
@@ -44,6 +52,13 @@ class TrackpadEvents {
             callback: handleEvent,
             userInfo: nil)
         if let eventTap {
+            // Detect when macOS silently invalidates the mach port (can happen after extended uptime
+            // without sleep/wake). tapDisabledByTimeout won't fire once the port is gone, so we
+            // need this callback to trigger a full tap recreation.
+            CFMachPortSetInvalidationCallBack(eventTap) { _, _ in
+                guard shouldBeEnabled else { return }
+                DispatchQueue.main.async { observe_() }
+            }
             let runLoopSource = CFMachPortCreateRunLoopSource(nil, eventTap, 0)
             CFRunLoopAddSource(BackgroundWork.keyboardAndMouseAndTrackpadEventsThread.runLoop, runLoopSource, .commonModes)
         } else {
