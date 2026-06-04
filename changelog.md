@@ -1,3 +1,10 @@
+# [11.3.0](https://github.com/lwouis/alt-tab-macos/compare/v11.2.0...v11.3.0) (2026-06-04)
+
+
+### Features
+
+* better support adobe apps (closes [#5707](https://github.com/lwouis/alt-tab-macos/issues/5707)) ([f3fe535](https://github.com/lwouis/alt-tab-macos/commit/f3fe535))
+
 # [11.2.0](https://github.com/lwouis/alt-tab-macos/compare/v11.1.0...v11.2.0) (2026-06-04)
 
 
