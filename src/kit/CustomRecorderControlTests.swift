@@ -27,6 +27,25 @@ final class CustomRecorderControlTests: XCTestCase {
         XCTAssertEqual(CustomRecorderControlTestable.isShortcutAcceptable("nextWindowShortcut", Shortcut(keyEquivalent: "⇧")!), .conflictWithExistingShortcut(shortcutAlreadyAssigned: "previousWindowShortcut"))
     }
 
+    /// Regression: S1 = ⌥+Tab, S2 = ⌘+Tab. Changing S2's *hold* from ⌘ to ⌥ makes it ⌥+Tab, which must
+    /// conflict with S1. The registry here mirrors PRODUCTION, where `nextWindowShortcut` is stored
+    /// COMBINED (hold ∪ key) — unlike `defaultShortcuts`, which stores it raw, which is precisely why
+    /// the existing tests never exercised this. Without stripping S2's current ⌘ hold before applying
+    /// the new ⌥, the chord is mis-computed as ⌥⌘+Tab and the conflict is silently accepted.
+    func testIsShortcutAcceptable_holdChangeStripsOldHoldFromCombinedNextWindow() {
+        ControlsTab.shortcuts = [
+            "holdShortcut": ATShortcut(Shortcut(keyEquivalent: "⌥")!, "holdShortcut", .global, .up, 0),
+            "nextWindowShortcut": ATShortcut(Shortcut(keyEquivalent: "⌥⇥")!, "nextWindowShortcut", .global, .down),
+            "holdShortcut2": ATShortcut(Shortcut(keyEquivalent: "⌘")!, "holdShortcut2", .global, .up, 1),
+            "nextWindowShortcut2": ATShortcut(Shortcut(keyEquivalent: "⌘⇥")!, "nextWindowShortcut2", .global, .down),
+        ]
+        defer { ControlsTab.shortcuts = ControlsTab.defaultShortcuts }
+        XCTAssertEqual(CustomRecorderControlTestable.isShortcutAcceptable("holdShortcut2", Shortcut(keyEquivalent: "⌥")!),
+            .conflictWithExistingShortcut(shortcutAlreadyAssigned: "nextWindowShortcut"))
+        // The mirror case: changing the hold to something that does NOT collide stays accepted.
+        XCTAssertEqual(CustomRecorderControlTestable.isShortcutAcceptable("holdShortcut2", Shortcut(keyEquivalent: "⌃")!), .accepted)
+    }
+
     func testIsShortcutAcceptable_reservedByMacos() {
         XCTAssertEqual(CustomRecorderControlTestable.isShortcutAcceptable("previousWindowShortcut", Shortcut(keyEquivalent: "⌘⇧")!), .accepted) // ⌘⎋
         XCTAssertEqual(CustomRecorderControlTestable.isShortcutAcceptable("previousWindowShortcut", Shortcut(keyEquivalent: "⌘⌃⇧")!), .accepted) // ⌘⎋
@@ -72,6 +91,30 @@ final class CustomRecorderControlTests: XCTestCase {
     // freely.
     func testIsShortcutAcceptable_cmdHoldShortcutNoLongerBlockedByGameOverlay() {
         XCTAssertEqual(CustomRecorderControlTestable.isShortcutAcceptable("holdShortcut", Shortcut(keyEquivalent: "⌘")!), .accepted)
+    }
+
+    // MARK: - isWellFormedCandidateId
+
+    /// Regression guard for the conflict dialog that silently stopped appearing under the recycled
+    /// `ShortcutEditor`: the recorder handed the kernel a frozen placeholder id (`"nextWindowShortcut0"`,
+    /// whose `nameToIndex` is -1), which matched no shortcut, so `isShortcutAcceptable` returned
+    /// `.accepted` and no dialog showed. `isWellFormedCandidateId` rejects exactly that shape — and a
+    /// `#if DEBUG` assert in `isShortcutAcceptable` now trips loudly if such an id ever reaches it.
+    func testIsWellFormedCandidateId() {
+        // hold/next ids must resolve to an in-range shortcut index (shortcutCount == 3 in the mock).
+        XCTAssertTrue(CustomRecorderControlTestable.isWellFormedCandidateId("holdShortcut"))         // index 0
+        XCTAssertTrue(CustomRecorderControlTestable.isWellFormedCandidateId("nextWindowShortcut"))    // index 0
+        XCTAssertTrue(CustomRecorderControlTestable.isWellFormedCandidateId("nextWindowShortcut2"))   // index 1
+        XCTAssertTrue(CustomRecorderControlTestable.isWellFormedCandidateId("holdShortcut3"))         // index 2
+        // The regressing placeholders: trailing "0" → nameToIndex -1 → out of range.
+        XCTAssertFalse(CustomRecorderControlTestable.isWellFormedCandidateId("nextWindowShortcut0"))
+        XCTAssertFalse(CustomRecorderControlTestable.isWellFormedCandidateId("holdShortcut0"))
+        // Beyond shortcutCount is also malformed.
+        XCTAssertFalse(CustomRecorderControlTestable.isWellFormedCandidateId("nextWindowShortcut4"))  // index 3
+        // Static "when active" / arrow / vim ids are well-formed regardless of any index.
+        XCTAssertTrue(CustomRecorderControlTestable.isWellFormedCandidateId("cancelShortcut"))
+        XCTAssertTrue(CustomRecorderControlTestable.isWellFormedCandidateId("←"))
+        XCTAssertTrue(CustomRecorderControlTestable.isWellFormedCandidateId("vimCycleLeft"))
     }
 
     // MARK: - combinedModifiersMatch

@@ -217,7 +217,7 @@
 "Settings imported" = "설정을 가져왔습니다";
 "Settings…" = "설정…";
 "Shortcut" = "단축키";
-"Shortcut already assigned to another action: %@" = "단축키가 이미 다른 동작에 할당되어 있습니다: %@";
+"Shortcut already assigned to: %@" = "단축키가 이미 할당되어 있습니다: %@";
 "Shortcuts When Active" = "활성 시 단축키";
 "Shortcuts when active…" = "활성 시 단축키…";
 "Show" = "보이기";

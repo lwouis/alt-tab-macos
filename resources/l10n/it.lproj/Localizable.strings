@@ -217,7 +217,7 @@
 "Settings imported" = "Impostazioni importate";
 "Settings…" = "Impostazioni…";
 "Shortcut" = "Scorciatoia";
-"Shortcut already assigned to another action: %@" = "Scorciatoia già assegnata a un'altra azione: %@";
+"Shortcut already assigned to: %@" = "Scorciatoia già assegnata a: %@";
 "Shortcuts When Active" = "Scorciatoie quando attivo";
 "Shortcuts when active…" = "Scorciatoie quando attivo…";
 "Show" = "Mostra";

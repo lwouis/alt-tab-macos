@@ -217,7 +217,7 @@
 "Settings imported" = "นำเข้าการตั้งค่าแล้ว";
 "Settings…" = "การตั้งค่า…";
 "Shortcut" = "ทางลัด";
-"Shortcut already assigned to another action: %@" = "ทางลัดถูกกำหนดให้กับการกระทำอื่นแล้ว: %@";
+"Shortcut already assigned to: %@" = "ทางลัดถูกกำหนดไว้แล้ว: %@";
 "Shortcuts When Active" = "ทางลัดเมื่อทำงานอยู่";
 "Shortcuts when active…" = "ทางลัดเมื่อทำงานอยู่…";
 "Show" = "แสดง";

@@ -217,7 +217,7 @@
 "Settings imported" = "Ajustes importados";
 "Settings…" = "Ajustes…";
 "Shortcut" = "Atalho";
-"Shortcut already assigned to another action: %@" = "Atalho já atribuído a outra ação: %@";
+"Shortcut already assigned to: %@" = "Atalho já atribuído a: %@";
 "Shortcuts When Active" = "Atalhos quando ativo";
 "Shortcuts when active…" = "Atalhos quando ativo…";
 "Show" = "Mostrar";

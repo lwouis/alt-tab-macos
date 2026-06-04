@@ -217,7 +217,7 @@
 "Settings imported" = "已輸入設定";
 "Settings…" = "設定…";
 "Shortcut" = "快捷鍵";
-"Shortcut already assigned to another action: %@" = "快捷鍵已指派給另一項動作:%@";
+"Shortcut already assigned to: %@" = "快捷鍵已指派給:%@";
 "Shortcuts When Active" = "作用中時的快捷鍵";
 "Shortcuts when active…" = "作用中時的快捷鍵…";
 "Show" = "顯示";

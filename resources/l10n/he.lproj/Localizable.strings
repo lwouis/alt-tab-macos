@@ -217,7 +217,7 @@
 "Settings imported" = "ההגדרות יובאו";
 "Settings…" = "הגדרות…";
 "Shortcut" = "קיצור דרך";
-"Shortcut already assigned to another action: %@" = "קיצור הדרך כבר משויך לפעולה אחרת: %@";
+"Shortcut already assigned to: %@" = "קיצור הדרך כבר משויך: %@";
 "Shortcuts When Active" = "קיצורי דרך כאשר פעיל";
 "Shortcuts when active…" = "קיצורי דרך כאשר פעיל…";
 "Show" = "הצג";

@@ -217,7 +217,7 @@
 "Settings imported" = "Einstellungen importiert";
 "Settings…" = "Einstellungen…";
 "Shortcut" = "Tastenkürzel";
-"Shortcut already assigned to another action: %@" = "Tastenkürzel ist bereits einer anderen Aktion zugewiesen: %@";
+"Shortcut already assigned to: %@" = "Tastenkürzel ist bereits zugewiesen: %@";
 "Shortcuts When Active" = "Tastenkürzel bei Aktivität";
 "Shortcuts when active…" = "Tastenkürzel bei Aktivität…";
 "Show" = "Anzeigen";

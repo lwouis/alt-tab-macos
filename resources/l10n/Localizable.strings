@@ -656,7 +656,7 @@
 "Shortcut" = "Shortcut";
 
 /* No comment provided by engineer. */
-"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+"Shortcut already assigned to: %@" = "Shortcut already assigned to: %@";
 
 /* No comment provided by engineer. */
 "Shortcuts When Active" = "Shortcuts When Active";

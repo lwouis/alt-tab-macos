@@ -18,6 +18,11 @@ existing AltTab shortcut or a macOS-reserved one.
 - A combo **reserved by macOS** is rejected.
 - Regression (#5585): a Cmd-based hold shortcut is **no longer blocked** by the macOS 26 Game Overlay
   reservation — that specific over-broad rejection was removed.
+- The `candidateId` handed in must be a **well-formed bound preference key** (`isWellFormedCandidateId`):
+  a `holdShortcut`/`nextWindowShortcut` id has to resolve to an in-range shortcut index. The recycled
+  `ShortcutEditor` regression fed a frozen placeholder (`"nextWindowShortcut0"`, index -1) that matched
+  nothing and silently returned `.accepted`, so the conflict dialog stopped appearing. A `#if DEBUG`
+  assert now trips loudly if a malformed id ever reaches the check.
 
 ## Test scenarios
 
@@ -27,8 +32,13 @@ Mirrors `CustomRecorderControlTests.swift` 1:1.
 - **testIsShortcutAcceptable_accepted** — a valid key+modifier combo is accepted.
 - **testIsShortcutAcceptable_modifiersOnlyButContainsKeycode** — modifiers-only flags but with a real keycode → accepted.
 - **testIsShortcutAcceptable_conflictWithExistingShortcut** — collides with an existing shortcut → rejected.
+- **testIsShortcutAcceptable_holdChangeStripsOldHoldFromCombinedNextWindow** — changing a shortcut's hold (e.g. ⌘→⌥) so its chord now duplicates another shortcut is detected; the same-index nextWindow is stored COMBINED with the old hold, so the old hold is stripped before applying the new one (else ⌥⌘+Tab is compared instead of ⌥+Tab and the conflict is missed).
 - **testIsShortcutAcceptable_reservedByMacos** — a macOS-reserved combo → rejected.
 - **testIsShortcutAcceptable_cmdHoldShortcutNoLongerBlockedByGameOverlay** — regression #5585: a Cmd hold shortcut is accepted (Game Overlay no longer blocks it).
+
+### isWellFormedCandidateId
+Guards the recycled-`ShortcutEditor` regression where a stale recorder id (id/identifier drift) reached the conflict check and silently suppressed the dialog.
+- **testIsWellFormedCandidateId** — hold/next ids must resolve to an in-range index; the `"…Shortcut0"` placeholders (index -1) and out-of-range ids are rejected; static/arrow/vim ids are always well-formed.
 
 ### combinedModifiersMatch
 Used by the keyboard matcher to recognize a chord whose modifiers are physically split between the configured `holdShortcut` and a local shortcut (e.g. commandShiftTab = ⌘⌥-hold + ⇧).

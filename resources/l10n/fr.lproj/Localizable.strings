@@ -217,7 +217,7 @@
 "Settings imported" = "Réglages importés";
 "Settings…" = "Réglages…";
 "Shortcut" = "Raccourci";
-"Shortcut already assigned to another action: %@" = "Raccourci déjà affecté à une autre action : %@";
+"Shortcut already assigned to: %@" = "Raccourci déjà affecté à : %@";
 "Shortcuts When Active" = "Raccourcis pendant l'utilisation";
 "Shortcuts when active…" = "Raccourcis pendant l'utilisation…";
 "Show" = "Afficher";

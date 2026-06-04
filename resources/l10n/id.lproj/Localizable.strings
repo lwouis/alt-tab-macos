@@ -217,7 +217,7 @@
 "Settings imported" = "Pengaturan diimpor";
 "Settings…" = "Pengaturan…";
 "Shortcut" = "Pintasan";
-"Shortcut already assigned to another action: %@" = "Pintasan sudah ditetapkan untuk tindakan lain: %@";
+"Shortcut already assigned to: %@" = "Pintasan sudah ditetapkan untuk: %@";
 "Shortcuts When Active" = "Pintasan Saat Aktif";
 "Shortcuts when active…" = "Pintasan saat aktif…";
 "Show" = "Tampilkan";

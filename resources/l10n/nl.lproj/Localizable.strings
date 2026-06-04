@@ -217,7 +217,7 @@
 "Settings imported" = "Instellingen geïmporteerd";
 "Settings…" = "Instellingen…";
 "Shortcut" = "Sneltoets";
-"Shortcut already assigned to another action: %@" = "Sneltoets is al toegewezen aan een andere actie: %@";
+"Shortcut already assigned to: %@" = "Sneltoets is al toegewezen aan: %@";
 "Shortcuts When Active" = "Sneltoetsen wanneer actief";
 "Shortcuts when active…" = "Sneltoetsen wanneer actief…";
 "Show" = "Toon";

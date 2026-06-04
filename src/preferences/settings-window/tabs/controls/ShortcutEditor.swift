@@ -220,8 +220,7 @@ final class TriggerBinding {
     private let andPressLabel: NSTextField
     private static let holdLabelText = NSLocalizedString("Hold", comment: "")
     private static let andPressText = NSLocalizedString("and press", comment: "")
-    // Not shown as a trigger-row label anymore; kept as the next-window recorder's human-readable
-    // name in `shortcutControls`, used by ControlsTab's conflict dialogs (see `conflictLabel`).
+    // The next-window recorder's human-readable name, stored alongside it in `shortcutControls`.
     private static let selectNextText = NSLocalizedString("Select next window", comment: "")
     private var currentIndex: Int = -1
 

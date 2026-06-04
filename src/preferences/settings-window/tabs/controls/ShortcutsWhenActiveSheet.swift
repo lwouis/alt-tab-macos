@@ -2,16 +2,18 @@ import Cocoa
 
 class ShortcutsWhenActiveSheet: SheetWindow {
     private static let title = NSLocalizedString("Shortcuts When Active", comment: "")
-    private static let labelFocus = NSLocalizedString("Focus selected window", comment: "")
-    private static let labelPrevious = NSLocalizedString("Select previous window", comment: "")
-    private static let labelCancel = NSLocalizedString("Cancel", comment: "")
-    private static let labelSearch = NSLocalizedString("Search", comment: "")
-    private static let labelLockSearch = NSLocalizedString("Lock search", comment: "")
-    private static let labelClose = NSLocalizedString("Close window", comment: "")
-    private static let labelMinDemin = NSLocalizedString("Minimize/Deminimize window", comment: "")
-    private static let labelFullscreen = NSLocalizedString("Fullscreen/Defullscreen window", comment: "")
-    private static let labelQuit = NSLocalizedString("Quit app", comment: "")
-    private static let labelHideShow = NSLocalizedString("Hide/Show app", comment: "")
+    // Row titles come from `ControlsTab.staticShortcutLabels` (single source of truth, also used by
+    // the conflict dialog to name these actions).
+    private static let labelFocus = ControlsTab.staticShortcutLabels["focusWindowShortcut"]!
+    private static let labelPrevious = ControlsTab.staticShortcutLabels["previousWindowShortcut"]!
+    private static let labelCancel = ControlsTab.staticShortcutLabels["cancelShortcut"]!
+    private static let labelSearch = ControlsTab.staticShortcutLabels["searchShortcut"]!
+    private static let labelLockSearch = ControlsTab.staticShortcutLabels["lockSearchShortcut"]!
+    private static let labelClose = ControlsTab.staticShortcutLabels["closeWindowShortcut"]!
+    private static let labelMinDemin = ControlsTab.staticShortcutLabels["minDeminWindowShortcut"]!
+    private static let labelFullscreen = ControlsTab.staticShortcutLabels["toggleFullscreenWindowShortcut"]!
+    private static let labelQuit = ControlsTab.staticShortcutLabels["quitAppShortcut"]!
+    private static let labelHideShow = ControlsTab.staticShortcutLabels["hideShowAppShortcut"]!
 
     /// Pre-build search index for the open-button. See `SettingsSearchIndex.sheetSearchableStrings`.
     /// `ProBadgeView.proLabel` contributes the "Pro" tag rendered on the search/lock-search rows.

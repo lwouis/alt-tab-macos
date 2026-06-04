@@ -217,7 +217,7 @@
 "Settings imported" = "Settings imported";
 "Settings…" = "Settings…";
 "Shortcut" = "Shortcut";
-"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+"Shortcut already assigned to: %@" = "Shortcut already assigned to: %@";
 "Shortcuts When Active" = "Shortcuts When Active";
 "Shortcuts when active…" = "Shortcuts when active…";
 "Show" = "Show";

@@ -3,7 +3,19 @@ import Carbon.HIToolbox.Events
 import ShortcutRecorder
 
 class CustomRecorderControlTestable {
+    /// A `holdShortcut`/`nextWindowShortcut` candidate id must resolve to an in-range shortcut index;
+    /// every other id (the static "when active" shortcuts, arrow, vim) is well-formed by definition.
+    /// This is the contract the recycled `ShortcutEditor` must uphold: the id handed to the conflict
+    /// check is the bound preference key, not a stale placeholder. The regression that hid the
+    /// conflict dialog was exactly a malformed id — the recorder's frozen `"nextWindowShortcut0"`,
+    /// whose `nameToIndex` is -1 — silently matching nothing and returning `.accepted`.
+    static func isWellFormedCandidateId(_ id: String) -> Bool {
+        guard id.hasPrefix("holdShortcut") || id.hasPrefix("nextWindowShortcut") else { return true }
+        return (0..<Preferences.shortcutCount).contains(Preferences.nameToIndex(id))
+    }
+
     static func isShortcutAcceptable(_ candidateId: String, _ candidateShortcut: Shortcut) -> ShortcutAcceptance {
+        assert(isWellFormedCandidateId(candidateId), "malformed candidateId '\(candidateId)' reached the conflict check — recycled editor id/identifier drift?")
         if let currentShortcutWithSameId = ControlsTab.shortcuts[candidateId]?.shortcut,
            candidateShortcut.carbonKeyCode == currentShortcutWithSameId.carbonKeyCode && candidateShortcut.carbonModifierFlags == currentShortcutWithSameId.carbonModifierFlags {
             return .accepted
@@ -32,11 +44,16 @@ class CustomRecorderControlTestable {
                       && !(atShortcut.shortcut.keyCode == .none && atShortcut.shortcut.modifierFlags == []) else { continue }
             // candidate is holdShortcut
             if candidateId.starts(with: "holdShortcut") {
-                // combine with local shortcut
-                if (!atShortcut.id.starts(with: "holdShortcut") && !atShortcut.id.starts(with: "nextWindowShortcut"))
-                    // combine with nextWindowShortcut of same index
-                    || (atShortcut.id.starts(with: "nextWindowShortcut") && Preferences.nameToIndex(candidateId) == Preferences.nameToIndex(atShortcut.id)) {
+                // combine the candidate's (new) hold modifiers with a local shortcut, which is stored raw
+                if !atShortcut.id.starts(with: "holdShortcut") && !atShortcut.id.starts(with: "nextWindowShortcut") {
                     combos.append((atShortcut.id, Shortcut(code: atShortcut.shortcut.keyCode, modifierFlags: [candidateShortcut.modifierFlags, atShortcut.shortcut.modifierFlags], characters: nil, charactersIgnoringModifiers: nil)))
+                // combine with the nextWindowShortcut of the same index. That shortcut is stored COMBINED
+                // with the CURRENT (old) hold, so strip the old hold before applying the candidate's new
+                // hold — otherwise changing the hold (e.g. ⌘→⌥) leaks the old modifier (⌥⌘⇥ instead of
+                // ⌥⇥) and a real conflict is missed. (No-op when nextWindow is stored raw, e.g. in tests.)
+                } else if atShortcut.id.starts(with: "nextWindowShortcut") && Preferences.nameToIndex(candidateId) == Preferences.nameToIndex(atShortcut.id) {
+                    let oldHoldModifiers = ControlsTab.shortcuts[Preferences.indexToName("holdShortcut", Preferences.nameToIndex(candidateId))]?.shortcut.modifierFlags ?? []
+                    combos.append((atShortcut.id, Shortcut(code: atShortcut.shortcut.keyCode, modifierFlags: [candidateShortcut.modifierFlags, atShortcut.shortcut.modifierFlags.subtracting(oldHoldModifiers)], characters: nil, charactersIgnoringModifiers: nil)))
                 }
             // candidate is nextWindowShortcut
             } else if candidateId.starts(with: "nextWindowShortcut") {

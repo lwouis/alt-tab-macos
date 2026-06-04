@@ -217,7 +217,7 @@
 "Settings imported" = "Inställningar importerade";
 "Settings…" = "Inställningar…";
 "Shortcut" = "Kortkommando";
-"Shortcut already assigned to another action: %@" = "Kortkommandot är redan tilldelat en annan åtgärd: %@";
+"Shortcut already assigned to: %@" = "Kortkommandot är redan tilldelat: %@";
 "Shortcuts When Active" = "Kortkommandon när aktiv";
 "Shortcuts when active…" = "Kortkommandon när aktiv…";
 "Show" = "Visa";

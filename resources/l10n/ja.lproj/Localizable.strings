@@ -217,7 +217,7 @@
 "Settings imported" = "設定を読み込みました";
 "Settings…" = "設定…";
 "Shortcut" = "ショートカット";
-"Shortcut already assigned to another action: %@" = "ショートカットはすでに別のアクションに割り当てられています: %@";
+"Shortcut already assigned to: %@" = "ショートカットはすでに割り当てられています: %@";
 "Shortcuts When Active" = "アクティブ時のショートカット";
 "Shortcuts when active…" = "アクティブ時のショートカット…";
 "Show" = "表示";

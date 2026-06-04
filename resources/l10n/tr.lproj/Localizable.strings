@@ -217,7 +217,7 @@
 "Settings imported" = "Ayarlar içe aktarıldı";
 "Settings…" = "Ayarlar…";
 "Shortcut" = "Kısayol";
-"Shortcut already assigned to another action: %@" = "Kısayol zaten başka bir eyleme atanmış: %@";
+"Shortcut already assigned to: %@" = "Kısayol zaten şuna atanmış: %@";
 "Shortcuts When Active" = "Etkinken Kullanılan Kısayollar";
 "Shortcuts when active…" = "Etkinken kullanılan kısayollar…";
 "Show" = "Göster";

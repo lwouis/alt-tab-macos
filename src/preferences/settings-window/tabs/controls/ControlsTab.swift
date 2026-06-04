@@ -52,6 +52,21 @@ class ControlsTab {
         "focusWindowShortcut", "previousWindowShortcut", "cancelShortcut", "searchShortcut", "lockSearchShortcut",
         "closeWindowShortcut", "minDeminWindowShortcut", "toggleFullscreenWindowShortcut", "quitAppShortcut", "hideShowAppShortcut",
     ]
+    /// Canonical id → localized label for the always-active ("when active") shortcuts. Single source
+    /// of truth: `ShortcutsWhenActiveSheet` reads its row titles from here, and `conflictLabel(_:)`
+    /// uses it to name a conflicting shortcut without needing its (possibly-unbuilt) sheet control.
+    static let staticShortcutLabels = [
+        "focusWindowShortcut": NSLocalizedString("Focus selected window", comment: ""),
+        "previousWindowShortcut": NSLocalizedString("Select previous window", comment: ""),
+        "cancelShortcut": NSLocalizedString("Cancel", comment: ""),
+        "searchShortcut": NSLocalizedString("Search", comment: ""),
+        "lockSearchShortcut": NSLocalizedString("Lock search", comment: ""),
+        "closeWindowShortcut": NSLocalizedString("Close window", comment: ""),
+        "minDeminWindowShortcut": NSLocalizedString("Minimize/Deminimize window", comment: ""),
+        "toggleFullscreenWindowShortcut": NSLocalizedString("Fullscreen/Defullscreen window", comment: ""),
+        "quitAppShortcut": NSLocalizedString("Quit app", comment: ""),
+        "hideShowAppShortcut": NSLocalizedString("Hide/Show app", comment: ""),
+    ]
     private static let removableShortcutPreferences = [
         "holdShortcut", "nextWindowShortcut",
         "appsToShow", "spacesToShow", "screensToShow",
@@ -916,17 +931,37 @@ class ControlsTab {
         return true
     }
 
-    private static func conflictLabel(_ controlId: String) -> String? {
-        if let shortcutControl = shortcutControls[controlId] {
-            return shortcutControl.1
+    /// Human-readable label for the action bound to `id`, resolved purely from the model — the id's
+    /// shape plus `staticShortcutLabels` — NOT from `shortcutControls`. This is what lets the conflict
+    /// dialog name a shortcut that isn't currently displayed in the recycled editor (which keeps only
+    /// the on-screen shortcut in `shortcutControls`). Returns nil for ids with no known action.
+    ///
+    /// A numbered shortcut's hold and "and press" both belong to that shortcut's Trigger, so they
+    /// resolve to e.g. "Shortcut 2 - Trigger" — naming WHICH shortcut, since "Select next window"
+    /// alone doesn't disambiguate when several shortcuts exist.
+    static func conflictLabel(_ id: String) -> String? {
+        if arrowKeys.contains(id) { return NSLocalizedString("Arrow keys", comment: "") }
+        if vimKeyActions.values.contains(id) { return NSLocalizedString("Vim keys", comment: "") }
+        if id.hasPrefix("holdShortcut") || id.hasPrefix("nextWindowShortcut") {
+            return shortcutTitle(Preferences.nameToIndex(id)) + " - " + ShortcutEditor.triggerLabel
         }
-        if arrowKeys.contains(controlId) {
-            return NSLocalizedString("Arrow keys", comment: "")
-        }
-        if vimKeyActions.values.contains(controlId) {
-            return NSLocalizedString("Vim keys", comment: "")
-        }
-        return nil
+        return staticShortcutLabels[id]
+    }
+
+    /// Clear the shortcut bound to `id` and let the normal preference-change pipeline reconcile the
+    /// registry and UI. Used by the conflict dialog's "Unassign existing shortcut and continue" for a
+    /// shortcut that may not be on screen, so it goes through `Preferences` (cached UserDefaults)
+    /// rather than mutating a live recorder. If that recorder happens to be displayed, sync it too.
+    ///
+    /// For a numbered shortcut's Trigger the hold can't stand alone, so "unassign" clears the "and
+    /// press" (nextWindowShortcut) part — e.g. ⌥+Tab becomes ⌥+(unassigned) — whether the conflict
+    /// was reported against the hold or the press.
+    static func unassignShortcut(_ id: String) {
+        let keyToClear = (id.hasPrefix("holdShortcut") || id.hasPrefix("nextWindowShortcut"))
+            ? Preferences.indexToName("nextWindowShortcut", Preferences.nameToIndex(id))
+            : id
+        Preferences.setShortcut(keyToClear, nil)
+        shortcutControls[keyToClear]?.0.objectValue = nil
     }
 
     private static func shouldClearConflictingShortcuts(_ conflicts: [String], _ messageFormat: String) -> Bool {

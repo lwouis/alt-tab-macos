@@ -217,7 +217,7 @@
 "Settings imported" = "تم استيراد الإعدادات";
 "Settings…" = "الإعدادات…";
 "Shortcut" = "اختصار";
-"Shortcut already assigned to another action: %@" = "الاختصار معيّن بالفعل لإجراء آخر: %@";
+"Shortcut already assigned to: %@" = "الاختصار معيّن بالفعل: %@";
 "Shortcuts When Active" = "الاختصارات عند النشاط";
 "Shortcuts when active…" = "الاختصارات عند النشاط…";
 "Show" = "إظهار";

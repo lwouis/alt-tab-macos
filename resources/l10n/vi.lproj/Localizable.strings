@@ -217,7 +217,7 @@
 "Settings imported" = "Đã nhập cài đặt";
 "Settings…" = "Cài đặt…";
 "Shortcut" = "Phím tắt";
-"Shortcut already assigned to another action: %@" = "Phím tắt đã được gán cho một hành động khác: %@";
+"Shortcut already assigned to: %@" = "Phím tắt đã được gán cho: %@";
 "Shortcuts When Active" = "Phím tắt khi hoạt động";
 "Shortcuts when active…" = "Phím tắt khi hoạt động…";
 "Show" = "Hiển thị";

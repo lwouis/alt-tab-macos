@@ -217,7 +217,7 @@
 "Settings imported" = "Настройки импортированы";
 "Settings…" = "Настройки…";
 "Shortcut" = "Сочетание клавиш";
-"Shortcut already assigned to another action: %@" = "Сочетание клавиш уже назначено другому действию: %@";
+"Shortcut already assigned to: %@" = "Сочетание клавиш уже назначено: %@";
 "Shortcuts When Active" = "Сочетания клавиш при активном переключателе";
 "Shortcuts when active…" = "Сочетания клавиш при активном переключателе…";
 "Show" = "Показать";

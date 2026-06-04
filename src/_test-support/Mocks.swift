@@ -220,6 +220,8 @@ class Preferences {
     static var holdShortcut = ["⌥", "⌥", "⌥"]
     static let minShortcutCount = 1
     static let maxShortcutCount = 9
+    // Matches `defaultShortcuts` (3 hold slots: holdShortcut / holdShortcut2 / holdShortcut3).
+    static var shortcutCount = 3
 
     static func indexToName(_ baseName: String, _ index: Int) -> String {
         return baseName + (index == 0 ? "" : String(index + 1))

@@ -5,7 +5,10 @@ import ShortcutRecorder
 class CustomRecorderControl: RecorderControl {
     static let allowedModifiers = NSEvent.ModifierFlags(arrayLiteral: [.command, .control, .option, .shift])
     var clearable: Bool!
-    var id: String!
+    /// The preference key this recorder edits. Derived from `identifier` (set in `init` and re-aimed
+    /// by `TriggerBinding.bind` as the recycled editor switches shortcuts) so it can never drift out
+    /// of sync with the key the write path (`controlWasChanged`) and the conflict detector key off.
+    var id: String { identifier!.rawValue }
 
     convenience init(_ shortcutString: String, _ clearable: Bool, _ id: String) {
         self.init(Shortcut(keyEquivalent: shortcutString), clearable, id)
@@ -15,7 +18,7 @@ class CustomRecorderControl: RecorderControl {
         self.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
         self.clearable = clearable
-        self.id = id
+        identifier = NSUserInterfaceItemIdentifier(id)
         delegate = self
         allowsEscapeToCancelRecording = false
         allowsDeleteToClearShortcutAndEndRecording = false
@@ -41,49 +44,39 @@ class CustomRecorderControl: RecorderControl {
         set(allowedModifierFlags: CustomRecorderControl.allowedModifiers.subtracting(restrictedModifiers), requiredModifierFlags: [], allowsEmptyModifierFlags: true)
     }
 
+    /// How to clear the conflicting shortcut when the user picks "Unassign and continue". Resolved
+    /// from the id alone — arrow/vim are toggled off via their checkboxes; everything else is cleared
+    /// through `Preferences` by id (so a shortcut that isn't on screen is handled correctly). The
+    /// human-readable label shown in the dialog comes separately from `ControlsTab.conflictLabel`.
     private enum ShortcutConflict {
         case arrow
         case vim
-        case regular(control: CustomRecorderControl, label: String)
-        case unknown
-
-        var label: String {
-            switch self {
-            case .arrow: return "Arrow keys"
-            case .vim: return "Vim keys"
-            case .regular(_, let label): return label
-            case .unknown: return "an unknown action"
-            }
-        }
+        case regular(id: String)
 
         static func classify(_ id: String) -> ShortcutConflict {
             if ["←", "→", "↑", "↓"].contains(id) { return .arrow }
             if id.starts(with: "vimCycle") { return .vim }
-            if let existing = ControlsTab.shortcutControls[id] {
-                return .regular(control: existing.0, label: existing.1)
-            }
-            assertionFailure("conflict id '\(id)' missing from shortcutControls")
-            return .unknown
+            return .regular(id: id)
         }
     }
 
     func alertIfSameShortcutAlreadyAssigned(_ candidateShortcut: Shortcut, _ shortcutAlreadyAssigned: String) {
         let conflict = ShortcutConflict.classify(shortcutAlreadyAssigned)
+        // `conflictLabel` returns nil only for an id with no known action, which can't happen for a
+        // real detected conflict; keep the prior plain-string fallback (not a new l10n key).
+        let label = ControlsTab.conflictLabel(shortcutAlreadyAssigned) ?? "an unknown action"
         let alert = NSAlert()
         alert.alertStyle = .warning
         alert.messageText = NSLocalizedString("Conflicting shortcut", comment: "")
-        alert.informativeText = String(format: NSLocalizedString("Shortcut already assigned to another action: %@", comment: ""),
-                                       conflict.label.replacingOccurrences(of: " ", with: "\u{00A0}"))
-        if !id.starts(with: "holdShortcut") {
-            alert.addButton(withTitle: NSLocalizedString("Unassign existing shortcut and continue", comment: "")).setAccessibilityFocused(true)
-        }
+        alert.informativeText = String(format: NSLocalizedString("Shortcut already assigned to: %@", comment: ""),
+                                       label.replacingOccurrences(of: " ", with: "\u{00A0}"))
+        // Always offer to resolve it, including when editing a Hold: unassigning a conflicting Trigger
+        // clears its "and press" part (the hold itself is never the thing unassigned).
+        alert.addButton(withTitle: NSLocalizedString("Unassign existing shortcut and continue", comment: "")).setAccessibilityFocused(true)
         let cancelButton = alert.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))
         cancelButton.keyEquivalent = "\u{1b}"
-        if id.starts(with: "holdShortcut") {
-            cancelButton.setAccessibilityFocused(true)
-        }
         let userChoice = alert.runModal()
-        guard !id.starts(with: "holdShortcut"), userChoice == .alertFirstButtonReturn else { return }
+        guard userChoice == .alertFirstButtonReturn else { return }
         switch conflict {
         case .arrow:
             if let cb = ControlsTab.arrowKeysCheckbox {
@@ -97,10 +90,8 @@ class CustomRecorderControl: RecorderControl {
                 ControlsTab.vimKeysEnabledCallback(cb)
                 LabelAndControl.controlWasChanged(cb, nil)
             }
-        case .regular(let existingControl, _):
-            updateShortcut(existingControl, nil, existingControl, shortcutAlreadyAssigned)
-        case .unknown:
-            return
+        case .regular(let conflictingId):
+            ControlsTab.unassignShortcut(conflictingId)
         }
         updateShortcut(self, candidateShortcut, self, id)
     }
@@ -112,23 +103,18 @@ class CustomRecorderControl: RecorderControl {
     }
 
     func alertIfShortcutReservedByMacos(_ candidateShortcut: Shortcut, _ shortcutReservedByMacos: String) {
-        let existing = ControlsTab.shortcutControls[shortcutReservedByMacos]
-        if existing == nil {
-            assertionFailure("reserved-by-macos id '\(shortcutReservedByMacos)' missing from shortcutControls")
-        }
+        let label = ControlsTab.conflictLabel(shortcutReservedByMacos) ?? "an unknown action"
         let alert = NSAlert()
         alert.alertStyle = .warning
         alert.messageText = NSLocalizedString("Conflicting shortcut", comment: "")
-        alert.informativeText = String(format: NSLocalizedString("macOS reserves ⌘⌥⎋, ⌘⌥⇧⎋, and ⌘⌥⇧⌃⎋ for Force Quit and they cannot be unbound. AltTab cannot use them.\n\nYour change would assign one of these to: %@.", comment: ""), existing?.1 ?? "an unknown action")
+        alert.informativeText = String(format: NSLocalizedString("macOS reserves ⌘⌥⎋, ⌘⌥⇧⎋, and ⌘⌥⇧⌃⎋ for Force Quit and they cannot be unbound. AltTab cannot use them.\n\nYour change would assign one of these to: %@.", comment: ""), label)
         alert.addButton(withTitle: NSLocalizedString("Unassign existing shortcut and continue", comment: ""))
         let cancelButton = alert.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))
         cancelButton.keyEquivalent = "\u{1b}"
         cancelButton.setAccessibilityFocused(true)
         let userChoice = alert.runModal()
         guard userChoice == .alertFirstButtonReturn, id != shortcutReservedByMacos else { return }
-        if let existing {
-            updateShortcut(existing.0, nil, existing.0, shortcutReservedByMacos)
-        }
+        ControlsTab.unassignShortcut(shortcutReservedByMacos)
         updateShortcut(self, candidateShortcut, self, id)
     }
 
