@@ -189,6 +189,7 @@
 		BF0C8992399A3277A9A02FFB /* LightImageLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C8E64BE7394A6591E74E1 /* LightImageLayer.swift */; };
 		BF0C89B4B17D7843C32A102E /* Markdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C8353097840D7DB1E0E2E /* Markdown.swift */; };
 		BF0C8A1B5C3D7E9F01234567 /* SleepWakeEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C8B2C6D4E8FA012345678 /* SleepWakeEvents.swift */; };
+		BF0C8C3D7E5F90A123456789 /* ScreenLockEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C8D4E8F60A1B234567890 /* ScreenLockEvents.swift */; };
 		BF0C8A2F6E4C85A7D9B63B12 /* Throttler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C8A1E7D3F94B6E8C52A01 /* Throttler.swift */; };
 		BF0C8A3F32B2177AF407DC7E /* DockEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C870C14C20C936BA4AF40 /* DockEvents.swift */; };
 		BF0C8A49891371E4027E0641 /* MacroPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C8998862E0E04D60CACBC /* MacroPreferences.swift */; };
@@ -529,6 +530,7 @@
 		BF0C8B25934F02B9AC8B2B84 /* PrivateApis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivateApis.swift; sourceTree = "<group>"; };
 		BF0C8B2C057099EDABE46779 /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		BF0C8B2C6D4E8FA012345678 /* SleepWakeEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SleepWakeEvents.swift; sourceTree = "<group>"; };
+		BF0C8D4E8F60A1B234567890 /* ScreenLockEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenLockEvents.swift; sourceTree = "<group>"; };
 		BF0C8B5D1A9658E64F8ECB56 /* SystemScrollerStyleEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemScrollerStyleEvents.swift; sourceTree = "<group>"; };
 		BF0C8B841E890CA0D68FFD86 /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		BF0C8B94D7994AB9007F6391 /* SkyLight.framework.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkyLight.framework.swift; sourceTree = "<group>"; };
@@ -819,6 +821,7 @@
 			children = (
 				BF0C870C14C20C936BA4AF40 /* DockEvents.swift */,
 				BF0C8B2C6D4E8FA012345678 /* SleepWakeEvents.swift */,
+				BF0C8D4E8F60A1B234567890 /* ScreenLockEvents.swift */,
 				BF0C869E544F968051715452 /* SystemAppearanceEvents.swift */,
 				BF0C8B5D1A9658E64F8ECB56 /* SystemScrollerStyleEvents.swift */,
 				BF0C8F8E1B7A3C4D5E6F7081 /* ContextMenuEvents.swift */,
@@ -2050,6 +2053,7 @@
 				BF0C80484AA63306D0DB4DB2 /* SpacesEvents.swift in Sources */,
 				BF0C8203D0EFEDEED0F908E8 /* ScreensEvents.swift in Sources */,
 				BF0C8A1B5C3D7E9F01234567 /* SleepWakeEvents.swift in Sources */,
+				BF0C8C3D7E5F90A123456789 /* ScreenLockEvents.swift in Sources */,
 				BF0C896B5D08B7DA8F2024AC /* KeyRepeatTimer.swift in Sources */,
 				BF0C8249228867A3188E13F3 /* SystemAppearanceEvents.swift in Sources */,
 				BF0C827A169F0DE86C8F12AD /* SystemScrollerStyleEvents.swift in Sources */,

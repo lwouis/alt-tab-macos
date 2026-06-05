@@ -95,7 +95,7 @@ class WindowCaptureScreenshots {
         let scaleFactor = request.scaleFactor
         // [weak window] avoids keeping a closed Window alive while the capture is queued or in-flight with the OS
         Applications.screenshotThrottler.throttleOrProceed(key: "capture-wid-\(scWindow.windowID)", queue: BackgroundWork.screenshotsQueue, priority: isPrioritized ? .high : .normal) { [weak window = request.window] in
-            guard !App.isTerminating, let window else { return }
+            guard !App.isTerminating, !ScreenLockEvents.isScreenLocked, let window else { return }
             let config = SCStreamConfiguration.forWindow(scWindow, size, scaleFactor, false)
             let filter = SCContentFilter(desktopIndependentWindow: scWindow)
             ActiveWindowCaptures.increment()
@@ -139,7 +139,7 @@ class WindowCaptureScreenshotsPrivateApi {
     }
 
     private static func oneTimeCapture(_ wid: CGWindowID) -> CGImage? {
-        guard !App.isTerminating else { return nil }
+        guard !App.isTerminating, !ScreenLockEvents.isScreenLocked else { return nil }
         // we use CGSHWCaptureWindowList because it can screenshot minimized windows, which CGWindowListCreateImage can't
         var windowId_ = wid
         ActiveWindowCaptures.increment()

@@ -22,6 +22,7 @@ enum WindowThumbnails {
     static func refreshAsync(_ windows: [Window], _ source: RefreshCausedBy, windowRemoved: Bool = false, prioritizedIds: Set<CGWindowID>? = nil) {
         let shortcutIndex = SwitcherSession.activeShortcutIndex
         guard (!windows.isEmpty || windowRemoved) && ScreenRecordingPermission.status == .granted
+               && !ScreenLockEvents.isScreenLocked
                && (!Appearance.hideThumbnails || Preferences.effectivePreviewSelectedWindow(shortcutIndex))
                && (Preferences.captureWindowsInBackground || SwitcherSession.isActive) else { return }
         var eligibleWindows = [Window]()
