@@ -22,6 +22,7 @@ class StatusIconsView: FlippedView {
     var icons: [Icon]
     private var visibleCount = 0
     private var tooltipsDirty = true
+    private var tooltipStrings: [NSView.ToolTipTag: String] = [:]
     /// Single-character cell size, cached at init for the layout cache
     let iconCellSize: NSSize
 
@@ -101,6 +102,7 @@ class StatusIconsView: FlippedView {
         guard tooltipsDirty else { return }
         tooltipsDirty = false
         removeAllToolTips()
+        tooltipStrings.removeAll()
         let iconWidth = TilesView.layoutCache.iconWidth
         let iconHeight = TilesView.layoutCache.iconHeight
         let isLTR = App.shared.userInterfaceLayoutDirection == .leftToRight
@@ -111,9 +113,14 @@ class StatusIconsView: FlippedView {
             offset += iconWidth
             let x = isLTR ? frame.width - offset : offset - iconWidth
             if let tooltip = icon.tooltip {
-                _ = addToolTip(NSRect(x: x, y: yOffset, width: iconWidth, height: iconHeight), owner: tooltip as NSString, userData: nil)
+                let tag = addToolTip(NSRect(x: x, y: yOffset, width: iconWidth, height: iconHeight), owner: self, userData: nil)
+                tooltipStrings[tag] = tooltip
             }
         }
+    }
+
+    @objc func view(_ view: NSView, stringForToolTip tag: NSView.ToolTipTag, point: NSPoint, userData data: UnsafeMutableRawPointer?) -> String {
+        return tooltipStrings[tag] ?? ""
     }
 
     override func draw(_ dirtyRect: NSRect) {
