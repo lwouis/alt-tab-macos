@@ -327,6 +327,26 @@
 		F00DCAFE0000000000001002 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00DCAFE0000000000000002 /* Search.swift */; };
 		F00DCAFE0000000000001003 /* SearchTestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00DCAFE0000000000000003 /* SearchTestable.swift */; };
 		F00DCAFE0000000000001103 /* SearchTestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00DCAFE0000000000000003 /* SearchTestable.swift */; };
+		C87ABFDCC797AD7FAFCB046F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148457CA2984AD20F6E277F2 /* ContentView.swift */; };
+		121061DE7C5477A0BD41A63A /* PreferencesWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E6DE46316DF865B9B3D85C /* PreferencesWindow.swift */; };
+		93517E94227B6BF59617C02B /* ImageRadioGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 990CEEBC4AD52204ECFB7EDF /* ImageRadioGroup.swift */; };
+		910174088B04C0F55A58CC99 /* OverrideIndicatorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6C02030791F55F5770270FD /* OverrideIndicatorButton.swift */; };
+		F0B7213D0939A2C99BF2C855 /* ProBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DAB5155A7C76E0AEB5B1AE /* ProBadge.swift */; };
+		49886A3B84845D86343E252C /* SearchHighlightModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9A9CF04F9CCB144741FC58 /* SearchHighlightModifier.swift */; };
+		B4AEEF35403CA603CBDD3B88 /* SearchableSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FFE5053C18F796DEC2DCB2 /* SearchableSection.swift */; };
+		9413C3F2B543A9A3F9E6D97E /* SegmentedPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E60A03900A2C17096345BCF /* SegmentedPicker.swift */; };
+		71CA18AE642F1718CEEBCC23 /* SharedRowComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2735D931AA739DF15C29B0 /* SharedRowComponents.swift */; };
+		EC08B294526AA0E3E231A118 /* AppearanceTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B8E46D11646F3603719D6C /* AppearanceTabView.swift */; };
+		EB1A0A1FFF27CC51552AEE88 /* ControlsTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54736FB6405F369D47E5BB1F /* ControlsTabView.swift */; };
+		3E44667FD2D3BE78A339060A /* ExceptionsTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF3B550A2841A1D21265A5F /* ExceptionsTabView.swift */; };
+		ADA2CEAA08503DD14DB32CE7 /* GeneralTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D2FD6BAE11A1DF8410F9B8 /* GeneralTabView.swift */; };
+		083019891CB2EAD2FC6F5C5F /* UpgradeTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED20551043C5BB808975149 /* UpgradeTabView.swift */; };
+		FF793CE9ECBDEBF62FAD65CE /* PreferencesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6D930B224DA465FBDB336B /* PreferencesStore.swift */; };
+		882EA6A38F67A6956728437D /* ProStateTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1636066902DA334F2E8EB53B /* ProStateTracker.swift */; };
+		A5CA55700AD8AA308CBBE37E /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23332F5D5EC6380FEDF49035 /* SearchViewModel.swift */; };
+		A4E2D92195CFD38AF3F3FC24 /* ShortcutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82A166F3BDCD69FAF0F2DA7 /* ShortcutViewModel.swift */; };
+		3DDD86020B41BBA18F7C81C3 /* SearchFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3079F9AC2108626CA7BEA0CF /* SearchFieldView.swift */; };
+		E4CE78614F226205CE76D291 /* ShortcutRecorderField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CBC220764EE575670D88E35 /* ShortcutRecorderField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -701,6 +721,26 @@
 		E70C8A1100000000000SP001 /* SparkleDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SparkleDelegate.swift; sourceTree = "<group>"; };
 		F00DCAFE0000000000000002 /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		F00DCAFE0000000000000003 /* SearchTestable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTestable.swift; sourceTree = "<group>"; };
+		148457CA2984AD20F6E277F2 /* ContentView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ContentView.swift; path = "src/preferences-swiftui/ContentView.swift"; sourceTree = SOURCE_ROOT; };
+		D7E6DE46316DF865B9B3D85C /* PreferencesWindow.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PreferencesWindow.swift; path = "src/preferences-swiftui/PreferencesWindow.swift"; sourceTree = SOURCE_ROOT; };
+		990CEEBC4AD52204ECFB7EDF /* ImageRadioGroup.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageRadioGroup.swift; path = "src/preferences-swiftui/Shared/ImageRadioGroup.swift"; sourceTree = SOURCE_ROOT; };
+		F6C02030791F55F5770270FD /* OverrideIndicatorButton.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = OverrideIndicatorButton.swift; path = "src/preferences-swiftui/Shared/OverrideIndicatorButton.swift"; sourceTree = SOURCE_ROOT; };
+		C0DAB5155A7C76E0AEB5B1AE /* ProBadge.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ProBadge.swift; path = "src/preferences-swiftui/Shared/ProBadge.swift"; sourceTree = SOURCE_ROOT; };
+		DD9A9CF04F9CCB144741FC58 /* SearchHighlightModifier.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SearchHighlightModifier.swift; path = "src/preferences-swiftui/Shared/SearchHighlightModifier.swift"; sourceTree = SOURCE_ROOT; };
+		50FFE5053C18F796DEC2DCB2 /* SearchableSection.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SearchableSection.swift; path = "src/preferences-swiftui/Shared/SearchableSection.swift"; sourceTree = SOURCE_ROOT; };
+		4E60A03900A2C17096345BCF /* SegmentedPicker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SegmentedPicker.swift; path = "src/preferences-swiftui/Shared/SegmentedPicker.swift"; sourceTree = SOURCE_ROOT; };
+		2E2735D931AA739DF15C29B0 /* SharedRowComponents.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SharedRowComponents.swift; path = "src/preferences-swiftui/Shared/SharedRowComponents.swift"; sourceTree = SOURCE_ROOT; };
+		85B8E46D11646F3603719D6C /* AppearanceTabView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AppearanceTabView.swift; path = "src/preferences-swiftui/Tabs/Appearance/AppearanceTabView.swift"; sourceTree = SOURCE_ROOT; };
+		54736FB6405F369D47E5BB1F /* ControlsTabView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ControlsTabView.swift; path = "src/preferences-swiftui/Tabs/Controls/ControlsTabView.swift"; sourceTree = SOURCE_ROOT; };
+		CEF3B550A2841A1D21265A5F /* ExceptionsTabView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExceptionsTabView.swift; path = "src/preferences-swiftui/Tabs/Exceptions/ExceptionsTabView.swift"; sourceTree = SOURCE_ROOT; };
+		94D2FD6BAE11A1DF8410F9B8 /* GeneralTabView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GeneralTabView.swift; path = "src/preferences-swiftui/Tabs/General/GeneralTabView.swift"; sourceTree = SOURCE_ROOT; };
+		4ED20551043C5BB808975149 /* UpgradeTabView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = UpgradeTabView.swift; path = "src/preferences-swiftui/Tabs/Upgrade/UpgradeTabView.swift"; sourceTree = SOURCE_ROOT; };
+		8E6D930B224DA465FBDB336B /* PreferencesStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PreferencesStore.swift; path = "src/preferences-swiftui/ViewModel/PreferencesStore.swift"; sourceTree = SOURCE_ROOT; };
+		1636066902DA334F2E8EB53B /* ProStateTracker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ProStateTracker.swift; path = "src/preferences-swiftui/ViewModel/ProStateTracker.swift"; sourceTree = SOURCE_ROOT; };
+		23332F5D5EC6380FEDF49035 /* SearchViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SearchViewModel.swift; path = "src/preferences-swiftui/ViewModel/SearchViewModel.swift"; sourceTree = SOURCE_ROOT; };
+		B82A166F3BDCD69FAF0F2DA7 /* ShortcutViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ShortcutViewModel.swift; path = "src/preferences-swiftui/ViewModel/ShortcutViewModel.swift"; sourceTree = SOURCE_ROOT; };
+		3079F9AC2108626CA7BEA0CF /* SearchFieldView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SearchFieldView.swift; path = "src/preferences-swiftui/Wrappers/SearchFieldView.swift"; sourceTree = SOURCE_ROOT; };
+		1CBC220764EE575670D88E35 /* ShortcutRecorderField.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ShortcutRecorderField.swift; path = "src/preferences-swiftui/Wrappers/ShortcutRecorderField.swift"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2079,7 +2119,27 @@
 				BF0C8A5FA46C5E74A071FF4C /* ScrollwheelEvents.swift in Sources */,
 				BF0C82E9AB495AAAA182764A /* CursorEvents.swift in Sources */,
 				BF0C8F8F1B7A3C4D5E6F7082 /* ContextMenuEvents.swift in Sources */,
-			);
+			
+				C87ABFDCC797AD7FAFCB046F /* ContentView.swift in Sources */,
+				121061DE7C5477A0BD41A63A /* PreferencesWindow.swift in Sources */,
+				93517E94227B6BF59617C02B /* ImageRadioGroup.swift in Sources */,
+				910174088B04C0F55A58CC99 /* OverrideIndicatorButton.swift in Sources */,
+				F0B7213D0939A2C99BF2C855 /* ProBadge.swift in Sources */,
+				49886A3B84845D86343E252C /* SearchHighlightModifier.swift in Sources */,
+				B4AEEF35403CA603CBDD3B88 /* SearchableSection.swift in Sources */,
+				9413C3F2B543A9A3F9E6D97E /* SegmentedPicker.swift in Sources */,
+				71CA18AE642F1718CEEBCC23 /* SharedRowComponents.swift in Sources */,
+				EC08B294526AA0E3E231A118 /* AppearanceTabView.swift in Sources */,
+				EB1A0A1FFF27CC51552AEE88 /* ControlsTabView.swift in Sources */,
+				3E44667FD2D3BE78A339060A /* ExceptionsTabView.swift in Sources */,
+				ADA2CEAA08503DD14DB32CE7 /* GeneralTabView.swift in Sources */,
+				083019891CB2EAD2FC6F5C5F /* UpgradeTabView.swift in Sources */,
+				FF793CE9ECBDEBF62FAD65CE /* PreferencesStore.swift in Sources */,
+				882EA6A38F67A6956728437D /* ProStateTracker.swift in Sources */,
+				A5CA55700AD8AA308CBBE37E /* SearchViewModel.swift in Sources */,
+				A4E2D92195CFD38AF3F3FC24 /* ShortcutViewModel.swift in Sources */,
+				3DDD86020B41BBA18F7C81C3 /* SearchFieldView.swift in Sources */,
+				E4CE78614F226205CE76D291 /* ShortcutRecorderField.swift in Sources */,);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */

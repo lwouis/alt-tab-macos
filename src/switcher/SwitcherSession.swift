@@ -21,4 +21,8 @@ final class SwitcherSession {
     var hoveredIndex: Int?
     var selectedTarget: String?
     var searchQuery: String = ""
+
+    /// Modifier mask of the active hold shortcut. The trigger event is the `flagsChanged`
+    /// where the current modifiers no longer fully satisfy this mask.
+    var holdMask: NSEvent.ModifierFlags = []
 }

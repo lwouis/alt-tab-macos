@@ -87,6 +87,9 @@ class App: AppCenterApplication {
 
     private static func allSecondaryWindowsCanBecomeKey(_ canBecomeKey_: Bool) {
         SettingsWindow.canBecomeKey_ = canBecomeKey_
+        if #available(macOS 13.0, *) {
+            SwiftUISettingsWindow.canBecomeKey_ = canBecomeKey_
+        }
         AboutWindow.canBecomeKey_ = canBecomeKey_
         PermissionsWindow.canBecomeKey_ = canBecomeKey_
         FeedbackWindow.canBecomeKey_ = canBecomeKey_
@@ -139,12 +142,24 @@ class App: AppCenterApplication {
             pendingShowSettingsWindow = true
             return
         }
-        initializeSettingsWindowIfNeeded()
-        showSecondaryWindow(SettingsWindow.shared!)
-        if SettingsWindow.shared!.isVisible != true {
-            let window = SettingsWindow()
-            showSecondaryWindow(window)
-            window.orderFrontRegardless()
+        if #available(macOS 13.0, *) {
+            if SwiftUISettingsWindow.shared == nil {
+                _ = SwiftUISettingsWindow()
+            }
+            showSecondaryWindow(SwiftUISettingsWindow.shared!)
+            if SwiftUISettingsWindow.shared!.isVisible != true {
+                let window = SwiftUISettingsWindow()
+                showSecondaryWindow(window)
+                window.orderFrontRegardless()
+            }
+        } else {
+            initializeSettingsWindowIfNeeded()
+            showSecondaryWindow(SettingsWindow.shared!)
+            if SettingsWindow.shared!.isVisible != true {
+                let window = SettingsWindow()
+                showSecondaryWindow(window)
+                window.orderFrontRegardless()
+            }
         }
     }
 
@@ -167,7 +182,13 @@ class App: AppCenterApplication {
     }
 
     private static func initializeSettingsWindowIfNeeded() {
-        if SettingsWindow.shared == nil { _ = SettingsWindow() }
+        if #available(macOS 13.0, *) {
+            if SwiftUISettingsWindow.shared == nil {
+                _ = SwiftUISettingsWindow()
+            }
+        } else {
+            if SettingsWindow.shared == nil { _ = SettingsWindow() }
+        }
     }
 
     private static func initializeAboutWindowIfNeeded() {
@@ -225,7 +246,10 @@ class App: AppCenterApplication {
     /// showing so the user sees the window in the middle of the screen.
     private static func showAndCenterSettingsWindowOnFirstLaunch() {
         showSettingsWindow()
-        if let window = SettingsWindow.shared {
+        if #available(macOS 13.0, *), let window = SwiftUISettingsWindow.shared {
+            NSScreen.preferred.repositionPanel(window)
+            window.center()
+        } else if let window = SettingsWindow.shared {
             NSScreen.preferred.repositionPanel(window)
             window.center()
         }
@@ -321,6 +345,10 @@ class App: AppCenterApplication {
             }
             session.isFirstSummon = false
             session.shortcutIndex = shortcutIndex
+            session.holdMask =
+                ControlsTab.shortcuts[
+                    Preferences.indexToName("holdShortcut", shortcutIndex)
+                ]?.shortcut.modifierFlags ?? []
             // Hide instantly so the rebuild for a different shortcut (Appearance change, layout
             // recalc) is invisible. `TilesPanel.show()` flips alpha back to 1 once everything is
             // in its final state. No-op on first summon (panel was orderOut'd with alpha=0).
@@ -445,6 +473,14 @@ extension App: NSApplicationDelegate {
         #endif
         AXUIElement.setGlobalTimeout()
         Preferences.initialize()
+
+        // Skip LicenseManager / permission checks when running in Xcode SwiftUI Preview
+        let isRunningInPreview = ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1"
+        if isRunningInPreview {
+            // Preview uses ProStateTracker with default (locked) state — no keychain, no permissions
+            return
+        }
+
         LicenseManager.shared.onBeforeProUnlock = { ProTransitionManager.shared.onProUnlocked() }
         LicenseManager.shared.onStateChanged = { state in
             Menubar.refreshLicenseMenuItems()
