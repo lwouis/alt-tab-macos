@@ -179,6 +179,9 @@
 "Automatic activation failed" = "Automatic activation failed";
 
 /* No comment provided by engineer. */
+"Behavior" = "Behavior";
+
+/* No comment provided by engineer. */
 "Brief description of the bug" = "Brief description of the bug";
 
 /* No comment provided by engineer. */
@@ -194,6 +197,9 @@
 "Capture windows in the background" = "Capture windows in the background";
 
 /* No comment provided by engineer. */
+"Check for updates" = "Check for updates";
+
+/* No comment provided by engineer. */
 "Check for updates now…" = "Check for updates now…";
 
 /* No comment provided by engineer. */
@@ -207,6 +213,9 @@
 
 /* No comment provided by engineer. */
 "Close window" = "Close window";
+
+/* No comment provided by engineer. */
+"Colored" = "Colored";
 
 /* No comment provided by engineer. */
 "Conflicting shortcut" = "Conflicting shortcut";
@@ -248,6 +257,9 @@
 "Dark Mode, live preview, window controls, trackpad gestures, and more" = "Dark Mode, live preview, window controls, trackpad gestures, and more";
 
 /* No comment provided by engineer. */
+"Deactivate" = "Deactivate";
+
+/* No comment provided by engineer. */
 "Deactivate and activate here" = "Deactivate and activate here";
 
 /* No comment provided by engineer. */
@@ -255,6 +267,9 @@
 
 /* No comment provided by engineer. */
 "Deactivate license on this machine" = "Deactivate license on this machine";
+
+/* No comment provided by engineer. */
+"Deactivate license?" = "Deactivate license?";
 
 /* No comment provided by engineer. */
 "Deactivation failed" = "Deactivation failed";
@@ -296,6 +311,9 @@
 "Exceptions" = "Exceptions";
 
 /* No comment provided by engineer. */
+"Export settings" = "Export settings";
+
+/* No comment provided by engineer. */
 "Export settings…" = "Export settings…";
 
 /* No comment provided by engineer. */
@@ -315,6 +333,9 @@
 
 /* No comment provided by engineer. */
 "Feature" = "Feature";
+
+/* No comment provided by engineer. */
+"Filled" = "Filled";
 
 /* No comment provided by engineer. */
 "Filtering" = "Filtering";
@@ -395,6 +416,9 @@
 "Ignore shortcuts" = "Ignore shortcuts";
 
 /* No comment provided by engineer. */
+"Import settings" = "Import settings";
+
+/* No comment provided by engineer. */
 "Import settings…" = "Import settings…";
 
 /* No comment provided by engineer. */
@@ -464,6 +488,9 @@
 "My Account" = "My Account";
 
 /* No comment provided by engineer. */
+"Needed for protected content (DRM, some videogames). May increase the number of permissions requested from the system." = "Needed for protected content (DRM, some videogames). May increase the number of permissions requested from the system.";
+
+/* No comment provided by engineer. */
 "Never" = "Never";
 
 /* No comment provided by engineer. */
@@ -506,6 +533,9 @@
 "Open Screen Recording Settings…" = "Open Screen Recording Settings…";
 
 /* No comment provided by engineer. */
+"Open Settings…" = "Open Settings…";
+
+/* No comment provided by engineer. */
 "Open Trackpad Settings…" = "Open Trackpad Settings…";
 
 /* No comment provided by engineer. */
@@ -515,10 +545,16 @@
 "Ordering & Grouping" = "Ordering & Grouping";
 
 /* No comment provided by engineer. */
+"Outlined" = "Outlined";
+
+/* No comment provided by engineer. */
 "Overridden in Shortcut:" = "Overridden in Shortcut:";
 
 /* No comment provided by engineer. */
 "Paste your license key:" = "Paste your license key:";
+
+/* No comment provided by engineer. */
+"Permissions" = "Permissions";
 
 /* No comment provided by engineer. */
 "Pick a machine to deactivate so you can activate here." = "Pick a machine to deactivate so you can activate here.";
@@ -575,10 +611,31 @@
 "Remember my choice" = "Remember my choice";
 
 /* No comment provided by engineer. */
+"Remove override" = "Remove override";
+
+/* No comment provided by engineer. */
+"Remove selected" = "Remove selected";
+
+/* No comment provided by engineer. */
 "Report a bug" = "Report a bug";
 
 /* No comment provided by engineer. */
 "Report on current version" = "Report on current version";
+
+/* No comment provided by engineer. */
+"Required to focus windows after you release the shortcut." = "Required to focus windows after you release the shortcut.";
+
+/* No comment provided by engineer. */
+"Required to show thumbnails and previews of open windows." = "Required to show thumbnails and previews of open windows.";
+
+/* No comment provided by engineer. */
+"Reset all settings?" = "Reset all settings?";
+
+/* No comment provided by engineer. */
+"Reset and restart" = "Reset and restart";
+
+/* No comment provided by engineer. */
+"Reset settings" = "Reset settings";
 
 /* No comment provided by engineer. */
 "Reset settings and restart" = "Reset settings and restart";
@@ -612,6 +669,12 @@
 
 /* No comment provided by engineer. */
 "Search — find a window by typing" = "Search — find a window by typing";
+
+/* No comment provided by engineer. */
+"Select a section" = "Select a section";
+
+/* No comment provided by engineer. */
+"Select an app or add a new one" = "Select an app or add a new one";
 
 /* No comment provided by engineer. */
 "Select next window" = "Select next window";
@@ -660,6 +723,9 @@
 
 /* No comment provided by engineer. */
 "Shortcuts When Active" = "Shortcuts When Active";
+
+/* No comment provided by engineer. */
+"Shortcuts when active" = "Shortcuts when active";
 
 /* No comment provided by engineer. */
 "Shortcuts when active…" = "Shortcuts when active…";
@@ -794,6 +860,9 @@
 "This will keep your Downloads folder uncluttered." = "This will keep your Downloads folder uncluttered.";
 
 /* No comment provided by engineer. */
+"This will restart AltTab with default settings." = "This will restart AltTab with default settings.";
+
+/* No comment provided by engineer. */
 "Thumbnails" = "Thumbnails";
 
 /* No comment provided by engineer. */
@@ -845,7 +914,13 @@
 "Update now" = "Update now";
 
 /* No comment provided by engineer. */
+"Updates" = "Updates";
+
+/* No comment provided by engineer. */
 "Updates policy" = "Updates policy";
+
+/* No comment provided by engineer. */
+"Upgrade" = "Upgrade";
 
 /* No comment provided by engineer. */
 "Usage" = "Usage";
@@ -899,6 +974,9 @@
 "Window is on Space %d" = "Window is on Space %d";
 
 /* No comment provided by engineer. */
+"Window Style" = "Window Style";
+
+/* No comment provided by engineer. */
 "window switches" = "window switches";
 
 /* No comment provided by engineer. */
@@ -906,6 +984,9 @@
 
 /* No comment provided by engineer. */
 "Window title contains" = "Window title contains";
+
+/* No comment provided by engineer. */
+"You can re-activate on this or another machine later." = "You can re-activate on this or another machine later.";
 
 /* No comment provided by engineer. */
 "You can’t undo this action." = "You can’t undo this action.";

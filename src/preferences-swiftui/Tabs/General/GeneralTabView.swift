@@ -5,6 +5,9 @@ struct GeneralTabView: View {
     @EnvironmentObject var store: PreferencesStore
     @EnvironmentObject var searchVM: SearchViewModel
 
+    @State private var accessibilityStatus: PermissionStatus = .notGranted
+    @State private var screenRecordingStatus: PermissionStatus = .notGranted
+
     var body: some View {
         SwiftUI.ScrollView {
             ScrollViewReader { proxy in
@@ -28,6 +31,24 @@ struct GeneralTabView: View {
                             captureWindowsRow
                             RowDivider()
                             languageRow
+                        }
+                        .padding(.top, 4)
+                    }
+
+                    SearchableSection(
+                        sectionId: "general-permissions",
+                        searchableText: [
+                            NSLocalizedString("Permissions", comment: ""),
+                            NSLocalizedString("Accessibility", comment: ""),
+                            NSLocalizedString("Screen Recording", comment: ""),
+                        ]
+                    ) {
+                        SectionLabel(title: "Permissions")
+                    } content: {
+                        VStack(spacing: 0) {
+                            accessibilityPermissionRow
+                            RowDivider()
+                            screenRecordingPermissionRow
                         }
                         .padding(.top, 4)
                     }
@@ -82,6 +103,7 @@ struct GeneralTabView: View {
             }
         }
         .frame(minWidth: SwiftUISettingsWindow.contentWidth)
+        .onAppear { refreshPermissionStatus() }
     }
 
     // MARK: - General rows
@@ -207,6 +229,91 @@ struct GeneralTabView: View {
                 }
             }
         }
+    }
+
+    // MARK: - Permissions rows
+
+    private var accessibilityPermissionRow: some View {
+        permissionStatusRow(
+            label: NSLocalizedString("Accessibility", comment: ""),
+            status: accessibilityStatus,
+            description: NSLocalizedString(
+                "Required to focus windows after you release the shortcut.",
+                comment: ""
+            ),
+            settingsURL: "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility"
+        )
+    }
+
+    private var screenRecordingPermissionRow: some View {
+        permissionStatusRow(
+            label: NSLocalizedString("Screen Recording", comment: ""),
+            status: screenRecordingStatus,
+            description: NSLocalizedString(
+                "Required to show thumbnails and previews of open windows.",
+                comment: ""
+            ),
+            settingsURL: "x-apple.systempreferences:com.apple.preference.security?Privacy_ScreenCapture"
+        )
+    }
+
+    private func permissionStatusRow(
+        label: String,
+        status: PermissionStatus,
+        description: String,
+        settingsURL: String
+    ) -> some View {
+        VStack(alignment: .leading, spacing: 2) {
+            HStack(alignment: .center, spacing: 12) {
+                Text(label)
+                Spacer()
+                HStack(spacing: 6) {
+                    Text(permissionStatusLabel(status))
+                        .foregroundColor(permissionStatusColor(status))
+                        .fontWeight(.medium)
+                    SwiftUI.Button(
+                        NSLocalizedString("Open Settings…", comment: "")
+                    ) {
+                        NSWorkspace.shared.open(URL(string: settingsURL)!)
+                    }
+                }
+            }
+            .padding(.vertical, 6).padding(.horizontal, 12)
+            Text(description)
+                .font(.caption).foregroundColor(.secondary)
+                .fixedSize(horizontal: false, vertical: true)
+                .padding(.horizontal, 12)
+                .padding(.bottom, 6)
+        }
+    }
+
+    private func permissionStatusLabel(_ status: PermissionStatus) -> String {
+        switch status {
+        case .granted:
+            return NSLocalizedString("Allowed", comment: "")
+        case .notGranted:
+            return NSLocalizedString("Not allowed", comment: "")
+        case .skipped:
+            return NSLocalizedString("Skipped", comment: "")
+        }
+    }
+
+    private func permissionStatusColor(_ status: PermissionStatus) -> Color {
+        switch status {
+        case .granted:
+            return .green
+        case .notGranted:
+            return .red
+        case .skipped:
+            return .orange
+        }
+    }
+
+    private func refreshPermissionStatus() {
+        AccessibilityPermission.update()
+        accessibilityStatus = AccessibilityPermission.status
+        ScreenRecordingPermission.update()
+        screenRecordingStatus = ScreenRecordingPermission.status
     }
 
     // MARK: - Actions
