@@ -334,13 +334,10 @@ class SettingsWindow: NSWindow {
         maxSize = NSSize(width: windowWidth, height: CGFloat.greatestFiniteMagnitude)
         setupWindow()
         setupView()
-        // Reading the autosaved frame BEFORE calling `setFrameAutosaveName` is the only reliable
-        // way to know whether AppKit will overwrite our `contentRect` size with a persisted frame.
-        // `setFrameAutosaveName` itself returns a Bool, but it reports whether the name was set
-        // — not whether a saved frame was applied. We need the latter to decide whether to force
-        // our default height on first launch.
-        let hasSavedFrame = UserDefaults.standard.string(forKey: "NSWindow Frame SettingsWindow") != nil
-        setFrameAutosaveName("SettingsWindow")
+        // setFrameAutosaveNameSafely applies the persisted frame (dropping a corrupt one that would
+        // otherwise abort the app) and returns whether a VALID saved frame existed — false on first
+        // launch OR when the saved frame was corrupt, both of which should fall through to the default.
+        let hasSavedFrame = setFrameAutosaveNameSafely("SettingsWindow")
         if !hasSavedFrame {
             // No saved frame → enforce the default size and center on the active screen. AppKit's
             // `init(contentRect:)` isn't load-bearing here because the unified toolbar can shift

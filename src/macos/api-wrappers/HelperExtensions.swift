@@ -325,6 +325,23 @@ extension NSWindow {
             App.shared.hide(nil)
         }
     }
+
+    /// Safe replacement for `setFrameAutosaveName`: that call doesn't just register a name, it
+    /// immediately applies the frame persisted under "NSWindow Frame <name>". A corrupt persisted
+    /// frame makes that apply throw and aborts the app (FeedbackWindow crash f481d5b0). Drop the bad
+    /// value first so AppKit never sees it. Returns whether a valid saved frame is present.
+    @discardableResult
+    func setFrameAutosaveNameSafely(_ name: NSWindow.FrameAutosaveName) -> Bool {
+        let key = "NSWindow Frame \(name)"
+        let saved = UserDefaults.standard.string(forKey: key)
+        let valid = saved.map { Self.isValidPersistedFrame($0) } ?? false
+        if saved != nil && !valid {
+            Logger.debug { "Dropping corrupt persisted frame for \(key): \(saved)" }
+            UserDefaults.standard.removeObject(forKey: key)
+        }
+        setFrameAutosaveName(name)
+        return valid
+    }
 }
 
 extension CaseIterable where Self: Equatable {

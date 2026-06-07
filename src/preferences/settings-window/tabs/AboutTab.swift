@@ -75,7 +75,7 @@ class AboutWindow: NSPanel {
         self.init(contentRect: NSRect(x: 0, y: 0, width: 380, height: 450), styleMask: [.titled, .closable, .fullSizeContentView], backing: .buffered, defer: false)
         setupWindow()
         setupView()
-        setFrameAutosaveName("AboutWindow2")
+        setFrameAutosaveNameSafely("AboutWindow2")
         Self.shared = self
     }
 

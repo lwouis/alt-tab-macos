@@ -58,3 +58,20 @@ extension CGImage {
         return context.makeImage()!
     }
 }
+
+extension NSWindow {
+    /// AppKit persists window frames in `UserDefaults` as space-separated numbers ("x y w h",
+    /// optionally followed by the save-time screen "x y w h"). On restore it rejects any frame that
+    /// isn't finite or escapes Int32 bounds (CGRectContainsRect against INT_MIN..INT_MAX) by
+    /// throwing NSInternalInconsistencyException — which aborts the app. Mirror that exact rule so a
+    /// poison value (seen in the field after display reconfiguration) can be dropped before AppKit
+    /// ever applies it. See `setFrameAutosaveNameSafely`.
+    static func isValidPersistedFrame(_ string: String) -> Bool {
+        let n = string.split(separator: " ").compactMap { Double($0) }
+        guard n.count >= 4 else { return false } // need at least the window frame
+        let lo = Double(Int32.min), hi = Double(Int32.max)
+        guard n.allSatisfy({ $0.isFinite && $0 >= lo && $0 <= hi }) else { return false }
+        let x = n[0], y = n[1], w = n[2], h = n[3]
+        return w >= 0 && h >= 0 && (x + w) <= hi && (y + h) <= hi // w/h non-negative, no overflow
+    }
+}

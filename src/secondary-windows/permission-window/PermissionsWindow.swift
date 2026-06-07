@@ -12,7 +12,7 @@ class PermissionsWindow: NSWindow {
         delegate = self
         setupWindow()
         setupView()
-        setFrameAutosaveName("PermissionsWindow")
+        setFrameAutosaveNameSafely("PermissionsWindow")
         Self.shared = self
     }
 

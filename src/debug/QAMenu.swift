@@ -54,10 +54,11 @@ final class QAMenu: NSPanel {
         ])
         contentView = container
         sizeToFitContent()
-        if !setFrameUsingName(Self.autosaveName) {
+        // setFrameAutosaveNameSafely drops a corrupt persisted frame (which would abort the app) and
+        // applies a valid one; it returns whether a valid saved frame existed, so center otherwise.
+        if !setFrameAutosaveNameSafely(Self.autosaveName) {
             center()
         }
-        setFrameAutosaveName(Self.autosaveName)
     }
 
     private func addBaseButtons() {

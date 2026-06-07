@@ -157,8 +157,11 @@ class App: AppCenterApplication {
         NSScreen.updatePreferred()
         App.shared.activate(ignoringOtherApps: true)
         window.makeKeyAndOrderFront(nil)
-        // if the window was resized/repositioned by the user, restore the window the way it was
-        let restored = window.setFrameUsingName(window.frameAutosaveName)
+        // if the window was resized/repositioned by the user, restore the window the way it was.
+        // ObjCExceptionCatcher guards a corrupt persisted frame (non-finite / out of Int32 bounds):
+        // applying it throws NSInternalInconsistencyException and would abort the app (f481d5b0).
+        var restored = false
+        ObjCExceptionCatcher.catching { restored = window.setFrameUsingName(window.frameAutosaveName) }
         if !restored {
             NSScreen.preferred.repositionPanel(window)
             // Use the center function to continue to center, the `repositionPanel` function cannot center, it may be a system bug

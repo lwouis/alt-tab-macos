@@ -54,7 +54,7 @@ class FeedbackWindow: NSWindow {
     convenience init() {
         self.init(contentRect: .zero, styleMask: [.titled, .miniaturizable, .closable, .fullSizeContentView], backing: .buffered, defer: false)
         setupWindow()
-        setFrameAutosaveName("FeedbackWindow")
+        setFrameAutosaveNameSafely("FeedbackWindow")
         Self.shared = self
         reset()
     }

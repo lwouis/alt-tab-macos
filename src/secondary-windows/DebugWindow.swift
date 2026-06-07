@@ -33,7 +33,7 @@ class DebugWindow: NSPanel {
                   backing: .buffered, defer: false)
         setupWindow()
         setupView()
-        setFrameAutosaveName("DebugWindow")
+        setFrameAutosaveNameSafely("DebugWindow")
         Self.shared = self
     }
 
