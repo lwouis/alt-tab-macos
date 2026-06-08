@@ -14,7 +14,7 @@ import Foundation
 /// without dragging in `Spaces` / SkyLight.
 struct WindowState: Equatable {
     var id: String
-    var isInvisible: Bool
+    var isPhantom: Bool
     var isWindowlessApp: Bool
     var isFullscreen: Bool
     var isMinimized: Bool

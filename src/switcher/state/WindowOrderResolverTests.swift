@@ -14,7 +14,7 @@ final class WindowOrderResolverTests: XCTestCase {
                    isOnAllSpaces: Bool = false, spaceIndexes: [Int] = [],
                    lastFocusOrder: Int = 0, creationOrder: Int = 0,
                    appName: String = "App", windowTitle: String = "Title") -> OrderWindow {
-        let state = WindowState(id: "w", isInvisible: false, isWindowlessApp: isWindowlessApp,
+        let state = WindowState(id: "w", isPhantom: false, isWindowlessApp: isWindowlessApp,
                                 isFullscreen: false, isMinimized: isMinimized, isTabbed: false,
                                 isOnAllSpaces: isOnAllSpaces, spaceIds: [], spaceIndexes: spaceIndexes,
                                 lastFocusOrder: lastFocusOrder, creationOrder: creationOrder, title: windowTitle)

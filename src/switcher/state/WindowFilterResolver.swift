@@ -10,7 +10,7 @@ import Foundation
 enum WindowFilterResolver {
     /// True iff the window passes every active filter. Mirrors the original predicate term-for-term;
     /// `isOnPreferredScreen` is an `@autoclosure` so the (relatively expensive) OS call only fires
-    /// when the short-circuit reaches it — invisible / hidden / windowless windows never trigger it.
+    /// when the short-circuit reaches it — phantom / hidden / windowless windows never trigger it.
     static func shouldShow(_ s: WindowState, _ app: ApplicationState,
                            onlyFrontmostApp: Bool = false,       // appsToShow == .active
                            excludeFrontmostApp: Bool = false,    // appsToShow == .nonActive
@@ -26,7 +26,7 @@ enum WindowFilterResolver {
                            visibleSpaceIds: [UInt64] = [],       // CGSSpaceID === UInt64
                            exceptions: [ExceptionEntry] = [],
                            isOnPreferredScreen: @autoclosure () -> Bool) -> Bool {
-        !s.isInvisible &&
+        !s.isPhantom &&
             !ExceptionMatcher.hidesWindow(s, app, exceptions: exceptions) &&
             !(onlyFrontmostApp && !(frontmostPid == app.pid)) &&
             !(excludeFrontmostApp && frontmostPid == app.pid) &&

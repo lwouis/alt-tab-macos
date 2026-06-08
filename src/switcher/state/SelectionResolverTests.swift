@@ -272,7 +272,7 @@ final class SelectionResolverTests: XCTestCase {
     /// stale session, or a window destroyed before refresh ran).
     func testEdgeStaleSelectedTarget() {
         let list = [w("a"), w("b"), w("c")]
-        let i = inputs(list: list, selectedIndex: 1, selectedTarget: "ghost")
+        let i = inputs(list: list, selectedIndex: 1, selectedTarget: "missing")
         // target lookup fails → adapt → selectedIndex=1 in [0,1,2], in range, target was non-nil
         // so the no-target-set branch doesn't trigger; tail returns ensureTargetSet(1).
         XCTAssertEqual(SelectionResolver.decide(i), .ensureTargetSet(1))

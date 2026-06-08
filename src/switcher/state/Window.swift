@@ -47,7 +47,7 @@ class Window {
 
     init(_ axUiElement: AXUIElement, _ application: Application, _ wid: CGWindowID, _ title: String?, _ isFullscreen: Bool?, _ isMinimized: Bool?, _ position: CGPoint?, _ size: CGSize?) {
         state = WindowState(
-            id: "wid-\(wid)", isInvisible: false, isWindowlessApp: false,
+            id: "wid-\(wid)", isPhantom: false, isWindowlessApp: false,
             isFullscreen: false, isMinimized: false, isTabbed: false,
             isOnAllSpaces: false, spaceIds: [CGSSpaceID.max], spaceIndexes: [SpaceIndex.max],
             lastFocusOrder: .zero, creationOrder: .zero, title: "")
@@ -72,7 +72,7 @@ class Window {
 
     init(_ application: Application) {
         state = WindowState(
-            id: "pid-\(application.pid)", isInvisible: false, isWindowlessApp: true,
+            id: "pid-\(application.pid)", isPhantom: false, isWindowlessApp: true,
             isFullscreen: false, isMinimized: false, isTabbed: false,
             isOnAllSpaces: false, spaceIds: [CGSSpaceID.max], spaceIndexes: [SpaceIndex.max],
             lastFocusOrder: .zero, creationOrder: .zero, title: "")
@@ -114,15 +114,17 @@ class Window {
         self.isFullscreen = isFullscreen ?? false
         self.isMinimized = isMinimized ?? false
         lastSearchQuery = nil
-        recomputeIsInvisible()
+        recomputeIsPhantom()
     }
 
-    /// Local "ghost" signal: window has no Space (CGS lost track of it).
-    /// Catches Joplin / Sprig / "show:false" Electron windows at creation time.
-    /// Doesn't catch alpha=0 (Outlook reminders) — those keep a Space; Applications.refreshIsInvisible is the catch-all.
-    /// Reuses the spaceIds already populated by updateSpaces (cgWindowId.spaces()) — no new CGS call.
-    func recomputeIsInvisible() {
-        self.isInvisible = self.spaceIds.isEmpty && !self.isTabbed && !self.isMinimized && !self.isHidden
+    /// Synchronous "phantom" detection — assert-only (may set `isPhantom`, never clears it). Catches the
+    /// strong signal (no Space at all: Joplin / Sprig / "show:false" Electron) at creation/show time,
+    /// reusing the spaceIds already populated by updateSpaces (cgWindowId.spaces()) — no new CGS call.
+    /// Clearing is owned by Applications.refreshIsPhantom (the authoritative CGS-based catch-all that
+    /// also handles alpha=0 / orderOut: phantoms that keep a Space); clearing here would clobber it on
+    /// every show. See PhantomWindowDetector.syncVerdict and PhantomWindowDetection.swift (#5714).
+    func recomputeIsPhantom() {
+        self.isPhantom = PhantomWindowDetector.syncVerdict(state, application.state)
     }
 
     func isEqualRobust(_ otherWindowAxUiElement: AXUIElement, _ otherWindowWid: CGWindowID?) -> Bool {
@@ -316,7 +318,7 @@ class Window {
         self.spaceIds = spaceIds
         self.spaceIndexes = spaceIds.compactMap { spaceId in Spaces.idsAndIndexes.first { $0.0 == spaceId }?.1 }
         self.isOnAllSpaces = spaceIds.count > 1
-        recomputeIsInvisible()
+        recomputeIsPhantom()
     }
 
     private func updateScreenId() {

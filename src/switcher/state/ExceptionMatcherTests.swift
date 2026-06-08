@@ -13,7 +13,7 @@ final class ExceptionMatcherTests: XCTestCase {
     }
 
     private func ws(title: String = "", isWindowlessApp: Bool = false) -> WindowState {
-        WindowState(id: "w", isInvisible: false, isWindowlessApp: isWindowlessApp,
+        WindowState(id: "w", isPhantom: false, isWindowlessApp: isWindowlessApp,
                     isFullscreen: false, isMinimized: false, isTabbed: false, isOnAllSpaces: false,
                     spaceIds: [], spaceIndexes: [], lastFocusOrder: 0, creationOrder: 0, title: title)
     }

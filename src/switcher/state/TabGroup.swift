@@ -59,13 +59,13 @@ class TabGroup {
                     for s in remainingSiblings where s.isTabbed || s.tabbedSiblingWids != nil {
                         s.tabbedSiblingWids = nil
                         s.isTabbed = false
-                        s.recomputeIsInvisible()
+                        s.recomputeIsPhantom()
                         changed = true
                     }
                 } else {
                     for s in remainingSiblings where s.tabbedSiblingWids != remainingWids {
                         s.tabbedSiblingWids = remainingWids
-                        s.recomputeIsInvisible()
+                        s.recomputeIsPhantom()
                         changed = true
                     }
                 }
@@ -96,7 +96,7 @@ class TabGroup {
         if activeTab.tabbedSiblingWids != siblingWids { changed = true }
         activeTab.tabbedSiblingWids = siblingWids
         activeTab.isTabbed = false
-        activeTab.recomputeIsInvisible()
+        activeTab.recomputeIsPhantom()
         for sibling in matchedSiblings {
             if !sibling.isTabbed || sibling.tabbedSiblingWids != siblingWids || sibling.spaceIds != activeTab.spaceIds { changed = true }
             sibling.tabbedSiblingWids = siblingWids
@@ -104,14 +104,14 @@ class TabGroup {
             sibling.spaceIds = activeTab.spaceIds
             sibling.spaceIndexes = activeTab.spaceIndexes
             sibling.isOnAllSpaces = activeTab.isOnAllSpaces
-            sibling.recomputeIsInvisible()
+            sibling.recomputeIsPhantom()
         }
         for window in Windows.list where window !== activeTab && window.application.pid == pid
                 && !matchedSiblings.contains(where: { $0 === window }) {
             if window.tabbedSiblingWids != nil {
                 window.tabbedSiblingWids = nil
                 window.isTabbed = false
-                window.recomputeIsInvisible()
+                window.recomputeIsPhantom()
                 changed = true
             }
         }

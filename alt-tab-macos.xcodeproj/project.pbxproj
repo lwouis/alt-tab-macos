@@ -51,6 +51,9 @@
 		5F117E40000000000000F002 /* WindowFilterResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F117E40000000000000F001 /* WindowFilterResolver.swift */; };
 		5F117E40000000000000F003 /* WindowFilterResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F117E40000000000000F001 /* WindowFilterResolver.swift */; };
 		5F117E40000000000000F102 /* WindowFilterResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F117E40000000000000F101 /* WindowFilterResolverTests.swift */; };
+		5F117E41000000000000F002 /* PhantomWindowDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F117E41000000000000F001 /* PhantomWindowDetector.swift */; };
+		5F117E41000000000000F003 /* PhantomWindowDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F117E41000000000000F001 /* PhantomWindowDetector.swift */; };
+		5F117E41000000000000F102 /* PhantomWindowDetectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F117E41000000000000F101 /* PhantomWindowDetectorTests.swift */; };
 		5E7C0F70000000000000E002 /* ExceptionMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C0F70000000000000E001 /* ExceptionMatcher.swift */; };
 		5E7C0F70000000000000E003 /* ExceptionMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C0F70000000000000E001 /* ExceptionMatcher.swift */; };
 		5E7C0F70000000000000E102 /* ExceptionMatcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C0F70000000000000E101 /* ExceptionMatcherTests.swift */; };
@@ -394,6 +397,8 @@
 		5E5EA12C0000000000000101 /* SearchModeResolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModeResolverTests.swift; sourceTree = "<group>"; };
 		5F117E40000000000000F001 /* WindowFilterResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowFilterResolver.swift; sourceTree = "<group>"; };
 		5F117E40000000000000F101 /* WindowFilterResolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowFilterResolverTests.swift; sourceTree = "<group>"; };
+		5F117E41000000000000F001 /* PhantomWindowDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhantomWindowDetector.swift; sourceTree = "<group>"; };
+		5F117E41000000000000F101 /* PhantomWindowDetectorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhantomWindowDetectorTests.swift; sourceTree = "<group>"; };
 		5E7C0F70000000000000E001 /* ExceptionMatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionMatcher.swift; sourceTree = "<group>"; };
 		5E7C0F70000000000000E101 /* ExceptionMatcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionMatcherTests.swift; sourceTree = "<group>"; };
 		5E0DE2A0000000000000D001 /* WindowOrderResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowOrderResolver.swift; sourceTree = "<group>"; };
@@ -407,7 +412,7 @@
 		5F05D0E62F31441A004A95F9 /* AGENTS.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = AGENTS.md; sourceTree = "<group>"; };
 		5F05D0E72F31441A004A95F9 /* CLAUDE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CLAUDE.md; sourceTree = "<group>"; };
 		5F084EAF2EF15E6B00CD212A /* TabbedWindowDetection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbedWindowDetection.swift; sourceTree = "<group>"; };
-		5F084EB02EF15E6B00CD212B /* GhostWindowDetection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GhostWindowDetection.swift; sourceTree = "<group>"; };
+		5F084EB02EF15E6B00CD212B /* PhantomWindowDetection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhantomWindowDetection.swift; sourceTree = "<group>"; };
 		5F0A63002F82D97C00AE4C38 /* RemoteLicenseClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteLicenseClient.swift; sourceTree = "<group>"; };
 		5F0A63012F82D97C00AE4C38 /* LicenseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseManager.swift; sourceTree = "<group>"; };
 		5F0A63022F82D97C00AE4C38 /* LicenseState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseState.swift; sourceTree = "<group>"; };
@@ -930,10 +935,12 @@
 				5E1EC110000000000000C001 /* SelectionResolver.swift */,
 				5E5EA12C0000000000000001 /* SearchModeResolver.swift */,
 				5F117E40000000000000F001 /* WindowFilterResolver.swift */,
+				5F117E41000000000000F001 /* PhantomWindowDetector.swift */,
 				5E7C0F70000000000000E001 /* ExceptionMatcher.swift */,
 				5E0DE2A0000000000000D001 /* WindowOrderResolver.swift */,
 				5E5EA12C0000000000000101 /* SearchModeResolverTests.swift */,
 				5F117E40000000000000F101 /* WindowFilterResolverTests.swift */,
+				5F117E41000000000000F101 /* PhantomWindowDetectorTests.swift */,
 				5E7C0F70000000000000E101 /* ExceptionMatcherTests.swift */,
 				5E0DE2A0000000000000D101 /* WindowOrderResolverTests.swift */,
 				5E1EC110000000000000C101 /* SelectionResolverTests.swift */,
@@ -964,7 +971,7 @@
 			isa = PBXGroup;
 			children = (
 				5F084EAF2EF15E6B00CD212A /* TabbedWindowDetection.swift */,
-				5F084EB02EF15E6B00CD212B /* GhostWindowDetection.swift */,
+				5F084EB02EF15E6B00CD212B /* PhantomWindowDetection.swift */,
 				BF0C8070A1BBA8B425C8EF34 /* IOKit.swift */,
 				BF0C8EAF02309B9C489E65F4 /* README.md */,
 				BF0C8B25934F02B9AC8B2B84 /* PrivateApis.swift */,
@@ -1859,6 +1866,8 @@
 				5E5EA12C0000000000000102 /* SearchModeResolverTests.swift in Sources */,
 				5F117E40000000000000F003 /* WindowFilterResolver.swift in Sources */,
 				5F117E40000000000000F102 /* WindowFilterResolverTests.swift in Sources */,
+				5F117E41000000000000F003 /* PhantomWindowDetector.swift in Sources */,
+				5F117E41000000000000F102 /* PhantomWindowDetectorTests.swift in Sources */,
 				5F117E40000000000000F203 /* PermissionCalloutResolver.swift in Sources */,
 				5F117E40000000000000F212 /* PermissionCalloutResolverTests.swift in Sources */,
 				5E7C0F70000000000000E003 /* ExceptionMatcher.swift in Sources */,
@@ -1920,6 +1929,7 @@
 				5E1EC110000000000000C002 /* SelectionResolver.swift in Sources */,
 				5E5EA12C0000000000000002 /* SearchModeResolver.swift in Sources */,
 				5F117E40000000000000F002 /* WindowFilterResolver.swift in Sources */,
+				5F117E41000000000000F002 /* PhantomWindowDetector.swift in Sources */,
 				5E7C0F70000000000000E002 /* ExceptionMatcher.swift in Sources */,
 				5E0DE2A0000000000000D002 /* WindowOrderResolver.swift in Sources */,
 				5E2A571E000000000000A002 /* WindowState.swift in Sources */,

@@ -9,10 +9,10 @@ import XCTest
 /// F minimized · G spaces · H screens · I tabs · J combinations.
 final class WindowFilterResolverTests: XCTestCase {
 
-    private func ws(isInvisible: Bool = false, isWindowlessApp: Bool = false, isFullscreen: Bool = false,
+    private func ws(isPhantom: Bool = false, isWindowlessApp: Bool = false, isFullscreen: Bool = false,
                     isMinimized: Bool = false, isTabbed: Bool = false, isOnAllSpaces: Bool = false,
                     spaceIds: [UInt64] = [], title: String = "Title") -> WindowState {
-        WindowState(id: "w", isInvisible: isInvisible, isWindowlessApp: isWindowlessApp,
+        WindowState(id: "w", isPhantom: isPhantom, isWindowlessApp: isWindowlessApp,
                     isFullscreen: isFullscreen, isMinimized: isMinimized, isTabbed: isTabbed,
                     isOnAllSpaces: isOnAllSpaces, spaceIds: spaceIds, spaceIndexes: [],
                     lastFocusOrder: 0, creationOrder: 0, title: title)
@@ -28,8 +28,8 @@ final class WindowFilterResolverTests: XCTestCase {
         XCTAssertTrue(WindowFilterResolver.shouldShow(ws(), appState(), isOnPreferredScreen: true))
     }
 
-    func testInvisibleIsHidden() {
-        XCTAssertFalse(WindowFilterResolver.shouldShow(ws(isInvisible: true), appState(), isOnPreferredScreen: true))
+    func testPhantomIsHidden() {
+        XCTAssertFalse(WindowFilterResolver.shouldShow(ws(isPhantom: true), appState(), isOnPreferredScreen: true))
     }
 
     func testHiddenByExceptionIsHidden() {
@@ -173,8 +173,8 @@ final class WindowFilterResolverTests: XCTestCase {
             frontmostPid: 100, visibleSpaceIds: [1], isOnPreferredScreen: true))
     }
 
-    func testInvisibleBeatsWindowlessShow() {
-        XCTAssertFalse(WindowFilterResolver.shouldShow(ws(isInvisible: true, isWindowlessApp: true), appState(),
+    func testPhantomBeatsWindowlessShow() {
+        XCTAssertFalse(WindowFilterResolver.shouldShow(ws(isPhantom: true, isWindowlessApp: true), appState(),
                                                        hideWindowless: false, isOnPreferredScreen: true))
     }
 }

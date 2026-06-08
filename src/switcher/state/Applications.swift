@@ -29,7 +29,7 @@ class Applications {
             removeZombieWindows()
             addMissingWindows()
             reviewExistingWindows()
-            refreshIsInvisible()
+            refreshIsPhantom()
         }
     }
 
@@ -136,11 +136,11 @@ class Applications {
         }
     }
 
-    /// detect "ghost" windows: windows that the OS has tagged invisible (alpha=0, orderOut:, etc.)
+    /// detect "phantom" windows: windows that the OS has tagged invisible (alpha=0, orderOut:, etc.)
     /// but that AX still hands us as live windows. Disambiguates against the other reasons a
     /// window can be in the CGS-invisible bucket (tabs, minimized, hidden app, other-Space).
-    /// see src/experimentations/GhostWindowDetection.swift
-    static func refreshIsInvisible() {
+    /// see src/experimentations/PhantomWindowDetection.swift
+    static func refreshIsPhantom() {
         let widsAndWindows: [(CGWindowID, Window)] = Windows.list.compactMap { w in
             guard let wid = w.cgWindowId, wid != CGWindowID(bitPattern: -1) else { return nil }
             return (wid, w)
@@ -153,10 +153,13 @@ class Applications {
             DispatchQueue.main.async {
                 var changed = [Window]()
                 for (wid, window) in widsAndWindows {
-                    let newValue = computeIsInvisible(window, wid, visibleCgsWindowIds, allCgsWindowIds)
-                    if window.isInvisible != newValue {
-                        Logger.debug { "GhostDetect flip \(window.debugId) wid=\(wid) isInvisible=\(newValue) (inVisible=\(visibleCgsWindowIds.contains(wid)) inAll=\(allCgsWindowIds.contains(wid)) isMinimized=\(window.isMinimized) isHidden=\(window.isHidden) isTabbed=\(window.isTabbed) spaceIds=\(window.spaceIds))" }
-                        window.isInvisible = newValue
+                    let newValue = PhantomWindowDetector.cgsVerdict(window.state, window.application.state,
+                        inVisibleList: visibleCgsWindowIds.contains(wid),
+                        inAllList: allCgsWindowIds.contains(wid),
+                        visibleSpaceIds: Spaces.visibleSpaces)
+                    if window.isPhantom != newValue {
+                        Logger.debug { "PhantomDetect flip \(window.debugId) wid=\(wid) isPhantom=\(newValue) (inVisible=\(visibleCgsWindowIds.contains(wid)) inAll=\(allCgsWindowIds.contains(wid)) isMinimized=\(window.isMinimized) isHidden=\(window.isHidden) isTabbed=\(window.isTabbed) spaceIds=\(window.spaceIds))" }
+                        window.isPhantom = newValue
                         changed.append(window)
                     }
                 }
@@ -165,17 +168,6 @@ class Applications {
                 }
             }
         }
-    }
-
-    private static func computeIsInvisible(_ w: Window, _ wid: CGWindowID, _ visibleCgsWindowIds: Set<CGWindowID>, _ allCgsWindowIds: Set<CGWindowID>) -> Bool {
-        // strongest signal: CGS has dropped the WID entirely from every space (Joplin, Sprig, "show:false" Electron windows)
-        if !allCgsWindowIds.contains(wid) { return true }
-        // tagged "invisible" by CGS — disambiguate against legitimate reasons
-        if visibleCgsWindowIds.contains(wid) { return false }
-        if w.isMinimized || w.isHidden || w.isTabbed { return false }
-        // window has known spaceIds and none of them are visible → legitimate other-Space window
-        if !w.spaceIds.isEmpty && !w.spaceIds.contains(where: { Spaces.visibleSpaces.contains($0) }) { return false }
-        return true
     }
 
     static func addRunningApplications(_ runningApps: [NSRunningApplication], _ needToVerifyFrontmostPid: Bool) {

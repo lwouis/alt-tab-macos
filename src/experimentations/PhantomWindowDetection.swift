@@ -1,7 +1,7 @@
-// Ghost Window Detection — Investigation Results
+// Phantom Window Detection — Investigation Results
 // =================================================
 //
-// "Ghost windows" are windows that exist in macOS APIs (AX returns them as standard
+// "Phantom windows" are windows that exist in macOS APIs (AX returns them as standard
 // windows with valid CGWindowIDs) but are invisible to the user. Common producers:
 //
 //   - Microsoft Outlook reminders (alpha=0 NSWindow kept alive after dismissal)
@@ -23,7 +23,7 @@
 //   visibleCgsWindowIds = windowsInSpaces(allSpaces, false)  // excludes .invisible1/.invisible2
 //   allCgsWindowIds     = windowsInSpaces(allSpaces, true)   // includes them
 //
-// Two strengths of "ghost":
+// Two strengths of "phantom":
 //
 //   1. Strongest: WID is missing from BOTH queries. CGS has dropped the window
 //      entirely from every space. Empirically this is what Joplin's invisible
@@ -42,7 +42,7 @@
 //   isTabbed = !visibleCgsWindowIds.contains(wid)
 // The CGS "invisible" bucket is a SUPERSET of:
 //
-//   { ghost windows ∪ inactive OS tabs ∪ minimized ∪ other-Space ∪ hidden-app }
+//   { phantom windows ∪ inactive OS tabs ∪ minimized ∪ other-Space ∪ hidden-app }
 //
 // So that v10.9 heuristic produced false positives — Teams/WeChat windows that
 // hide themselves were misclassified as tabs (see TabbedWindowDetection.swift
@@ -52,23 +52,23 @@
 // (src/switcher/state/TabGroup.swift). isTabbed is now definitive and authoritative.
 //
 // With AX carving tabs out of the bucket, the remaining members of the CGS
-// invisible bucket are exactly { minimized, other-Space, hidden-app, ghost }.
+// invisible bucket are exactly { minimized, other-Space, hidden-app, phantom }.
 // We already track the first three on Window — so subtracting them leaves
-// ghost windows alone.
+// phantom windows alone.
 //
 // MARK: - Disambiguation table (in order)
 //
-//   wid not in allCgsWindowIds?              →  GHOST (strongest signal — Joplin et al.)
-//   wid in visibleCgsWindowIds?              →  not a ghost (currently rendered)
-//   isMinimized?                             →  not a ghost (legitimate, showMinimizedWindows)
-//   application.isHidden?                    →  not a ghost (legitimate, showHiddenWindows)
-//   isTabbed?                                →  not a ghost (legitimate inactive tab; AX-confirmed)
-//   spaceIds non-empty AND ∩ visibleSpaces == ∅?  →  not a ghost (other-Space window)
-//   else                                     →  ghost (alpha=0 case)
+//   wid not in allCgsWindowIds?              →  PHANTOM (strongest signal — Joplin et al.)
+//   wid in visibleCgsWindowIds?              →  not a phantom (currently rendered)
+//   isMinimized?                             →  not a phantom (legitimate, showMinimizedWindows)
+//   application.isHidden?                    →  not a phantom (legitimate, showHiddenWindows)
+//   isTabbed?                                →  not a phantom (legitimate inactive tab; AX-confirmed)
+//   spaceIds non-empty AND ∩ visibleSpaces == ∅?  →  not a phantom (other-Space window)
+//   else                                     →  phantom (alpha=0 case)
 //
 // Important: empty spaceIds is NOT "on another Space" — it's "CGS doesn't know where it
-// is", which itself is a ghost signal. The earlier draft of this code conflated the two
-// and let Joplin's ghosts through.
+// is", which itself is a phantom signal. The earlier draft of this code conflated the two
+// and let Joplin's phantoms through.
 //
 // MARK: - Why we run the check post-show, off-main
 //
@@ -83,7 +83,7 @@
 //   - by the time we read isTabbed, the AX hops in (C) have landed on main
 //   - the CGS call happens off-main via AXCallScheduler.shared.submit
 //
-// First show may briefly include a ghost; the next show (or this same show after
+// First show may briefly include a phantom; the next show (or this same show after
 // the 250 ms refresh) clears it.
 //
 // MARK: - Approaches considered and rejected
@@ -98,7 +98,7 @@
 //    other parts of the codebase trust.
 //
 // 3. Filtering at WindowDiscriminator.isActualWindow (one-time at discovery)
-//    Doesn't work — ghost state often appears AFTER discovery (e.g. an Outlook
+//    Doesn't work — phantom state often appears AFTER discovery (e.g. an Outlook
 //    reminder that fires hours after launch).
 //
 // 4. Per-app exception list expansion only

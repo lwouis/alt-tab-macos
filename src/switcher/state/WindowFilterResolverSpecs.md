@@ -11,7 +11,7 @@ extracted as a pure kernel. The caller passes the window's `WindowState`, the ow
 space ids, exceptions list) as labeled parameters with `false` / `nil` / `[]` defaults — so each test
 spells out only the knob it exercises. The only comparatively expensive fact — `isOnScreen` (multi-
 screen quartz / `Spaces.screenSpacesMap`) — is passed as `@autoclosure` so the kernel evaluates it
-**only when the short-circuit reaches it** (an invisible / hidden / windowless window never triggers an
+**only when the short-circuit reaches it** (a phantom / hidden / windowless window never triggers an
 `isOnScreen` computation). The other two derived facts (exception match, visible-space membership) are
 pure expressions over the inputs, evaluated inline inside the same short-circuit chain so they're cheap
 to keep eager. This makes the "why is/isn't this window showing?" logic — easily the most combinatorially
@@ -21,7 +21,7 @@ fiddly part of the app — fully unit-testable *without* losing the original boo
 
 The predicate, in order:
 
-1. **Invisible** windows are always excluded (unconditional, first).
+1. **Phantom** windows are always excluded (unconditional, first).
 2. Windows matching a **hide-exception** (by bundle-id prefix + the exception's hide rule) are excluded.
 3. **App scope** (`appsToShow`): `.active` keeps only the frontmost app's windows; `.nonActive` excludes them.
 4. **Hidden apps** (⌘H): excluded when the "hide hidden" dropdown is set.
@@ -32,7 +32,7 @@ The predicate, in order:
    (`.visible`) or in a visible space (`.nonVisible`), windows off the preferred screen
    (`.showingAltTab`), and non-frontmost native **tabs** (unless tabs are shown as separate windows).
 
-Precedence matters: `isInvisible` wins over everything (even a would-be-shown windowless row).
+Precedence matters: `isPhantom` wins over everything (even a would-be-shown windowless row).
 
 ## Test scenarios
 
@@ -40,7 +40,7 @@ Mirrors `WindowFilterResolverTests.swift` 1:1. Each test flips one knob from an 
 
 ### A. Defaults & always-excluded
 - **testDefaultsShowARealWindow** — a plain visible window with no filters shows.
-- **testInvisibleIsHidden** — invisible → hidden.
+- **testPhantomIsHidden** — phantom → hidden.
 - **testHiddenByExceptionIsHidden** — a hide-exception match → hidden.
 
 ### B. App scope (`appsToShow`)
@@ -75,4 +75,4 @@ Mirrors `WindowFilterResolverTests.swift` 1:1. Each test flips one knob from an 
 
 ### J. Combinations
 - **testAllFiltersOnAndWindowPassesEachShows** — every filter on, a window that satisfies all of them shows.
-- **testInvisibleBeatsWindowlessShow** — `isInvisible` overrides the windowless "show" path.
+- **testPhantomBeatsWindowlessShow** — `isPhantom` overrides the windowless "show" path.
