@@ -402,6 +402,7 @@ class App: AppCenterApplication {
         SystemScrollerStyleEvents.observe()
         InputSourceEvents.observe()
         ScreenLockEvents.observe()
+        SleepWakeEvents.observe()
         Applications.initialDiscovery()
         KeyboardEvents.addEventHandlers()
         CursorEvents.observe()
