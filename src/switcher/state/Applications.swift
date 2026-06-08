@@ -26,10 +26,39 @@ class Applications {
 
     static func manuallyRefreshAllWindows() {
         fullRescanThrottler.throttleOrProceed {
+            addMissingApps()
             removeZombieWindows()
             addMissingWindows()
             reviewExistingWindows()
             refreshIsPhantom()
+        }
+    }
+
+    /// we may not be tracking an app at all: we failed to subscribe to it, or it never entered our list.
+    /// that is fine as long as it has no window; but once it owns an on-screen window, we can trace that
+    /// window back to its owner pid and backfill the app. this is the non-AX twin of the
+    /// `handleEventWindow` → `findOrCreate` backfill, which only fires for apps we already subscribe to.
+    /// note: `CGWindowList` is current-Space-only (#1324), so this complements (does not replace) the
+    /// brute-force remote-token discovery that finds other-Space windows.
+    static func addMissingApps() {
+        let knownPids = Set(list.map { $0.pid })
+        // CGWindowListCopyWindowInfo is a synchronous WindowServer IPC call; run it off the main thread
+        AXCallScheduler.shared.submit {
+            let untrackedPids = Set(CGWindow.windows(.optionOnScreenOnly).compactMap { window -> pid_t? in
+                // most-selective check first: nearly every on-screen window belongs to an already-tracked app,
+                // so the knownPids lookup short-circuits before we test layer (layer 0 == normal windows;
+                // skips menubar/UI/floating chrome, see CGWindow.isNotMenubarOrOthers)
+                guard let pid = window.ownerPID(), !knownPids.contains(pid), window.layer() == 0 else { return nil }
+                return pid
+            })
+            guard !untrackedPids.isEmpty else { return }
+            DispatchQueue.main.async {
+                for pid in untrackedPids {
+                    guard let app = findOrCreate(pid, false) else { continue }
+                    Logger.info { "addMissingApps found untracked app with window:\(app.debugId)" }
+                    manuallyUpdateWindows(app)
+                }
+            }
         }
     }
 

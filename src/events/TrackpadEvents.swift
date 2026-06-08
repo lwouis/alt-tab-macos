@@ -156,9 +156,9 @@ class TriggerSwipeDetector {
         guard swipeStillPossible && !gestureTracker.isNewGesture(activeTouches) else { return false }
         maxFingersDownDuringTrigger = max(maxFingersDownDuringTrigger, fingersDown)
         let distances = gestureTracker.computeDistance(activeTouches)
+        let horizontal = Preferences.nextWindowGesture.isHorizontal() // loop-invariant; hoisted out of the per-touch loop
         for distance in distances {
             let (absX, absY) = (abs(distance.x), abs(distance.y))
-            let horizontal = Preferences.nextWindowGesture.isHorizontal()
             let distanceInRightDirection = horizontal ? absX : absY
             let distanceInWrongDirection = horizontal ? absY : absX
             swipeStillPossible = distanceInWrongDirection < MAX_SWIPE_DISTANCE_IN_WRONG_DIRECTION
