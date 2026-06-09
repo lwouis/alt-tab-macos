@@ -6,6 +6,8 @@ class DebugWindow: NSPanel {
     override var canBecomeKey: Bool { Self.canBecomeKey_ }
     private var scrollView: NSScrollView!
     private var textView: NSTextView!
+    private var copyLogsButton: NSButton!
+    private var copyFeedbackTimer: Timer?
     private var filterControl: NSSegmentedControl!
     private var selectedMinLevel: LogLevel = .debug
     private var isAutoScrolling = true
@@ -122,6 +124,17 @@ class DebugWindow: NSPanel {
         NotificationCenter.default.addObserver(self, selector: #selector(scrollViewDidScroll),
                                                name: NSView.boundsDidChangeNotification,
                                                object: scrollView.contentView)
+        // Copy-all-logs button, floating over the top-right corner of the log view
+        copyLogsButton = NSButton(title: "Copy all", target: nil, action: nil)
+        copyLogsButton.translatesAutoresizingMaskIntoConstraints = false
+        copyLogsButton.bezelStyle = .rounded
+        copyLogsButton.controlSize = .small
+        copyLogsButton.font = NSFont.systemFont(ofSize: NSFont.smallSystemFontSize)
+        if #available(macOS 11.0, *) {
+            copyLogsButton.image = NSImage(systemSymbolName: "doc.on.doc", accessibilityDescription: nil)
+            copyLogsButton.imagePosition = .imageLeading
+        }
+        copyLogsButton.onAction = { [weak self] _ in self?.copyAllLogs() }
         // Inspect group box
         let inspectBox = NSBox()
         inspectBox.translatesAutoresizingMaskIntoConstraints = false
@@ -144,6 +157,8 @@ class DebugWindow: NSPanel {
         logBox.contentView = NSView()
         logBox.contentView!.addSubview(filterRow)
         logBox.contentView!.addSubview(scrollView)
+        // added after scrollView so it floats on top, in the upper-right corner of the logs
+        logBox.contentView!.addSubview(copyLogsButton)
         NSLayoutConstraint.activate([
             filterRow.topAnchor.constraint(equalTo: filterRow.superview!.topAnchor, constant: 8),
             filterRow.leadingAnchor.constraint(equalTo: logBox.contentView!.leadingAnchor, constant: 4),
@@ -151,6 +166,8 @@ class DebugWindow: NSPanel {
             scrollView.leadingAnchor.constraint(equalTo: logBox.contentView!.leadingAnchor, constant: 4),
             scrollView.trailingAnchor.constraint(equalTo: logBox.contentView!.trailingAnchor, constant: -4),
             scrollView.bottomAnchor.constraint(equalTo: logBox.contentView!.bottomAnchor, constant: -4),
+            copyLogsButton.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 6),
+            copyLogsButton.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -6),
         ])
         // Main container
         let container = NSView()
@@ -235,6 +252,26 @@ class DebugWindow: NSPanel {
         }
     }
 
+    private func copyAllLogs() {
+        // copy the full unfiltered buffer, so a shared log isn't missing lines hidden by the level filter
+        let text = entries.map { $0.1 }.joined(separator: "\n")
+        NSPasteboard.general.clearContents()
+        NSPasteboard.general.setString(text, forType: .string)
+        // brief "Copied!" confirmation, like the copy buttons on code blocks
+        copyLogsButton.title = "Copied!"
+        if #available(macOS 11.0, *) {
+            copyLogsButton.image = NSImage(systemSymbolName: "checkmark", accessibilityDescription: nil)
+        }
+        copyFeedbackTimer?.invalidate()
+        copyFeedbackTimer = Timer.scheduledTimer(withTimeInterval: 1.2, repeats: false) { [weak self] _ in
+            guard let self else { return }
+            self.copyLogsButton.title = "Copy all"
+            if #available(macOS 11.0, *) {
+                self.copyLogsButton.image = NSImage(systemSymbolName: "doc.on.doc", accessibilityDescription: nil)
+            }
+        }
+    }
+
     private func scrollToBottom() {
         textView.layoutManager?.ensureLayout(for: textView.textContainer!)
         guard let documentView = scrollView.documentView else { return }
@@ -264,6 +301,12 @@ class DebugWindow: NSPanel {
         stopInspecting()
         stopListening()
         clearInspectData()
+        copyFeedbackTimer?.invalidate()
+        copyFeedbackTimer = nil
+        copyLogsButton.title = "Copy all"
+        if #available(macOS 11.0, *) {
+            copyLogsButton.image = NSImage(systemSymbolName: "doc.on.doc", accessibilityDescription: nil)
+        }
         entries.removeAll()
         textView.textStorage?.setAttributedString(NSAttributedString())
         selectedMinLevel = .debug
