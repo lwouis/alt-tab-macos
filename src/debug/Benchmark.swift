@@ -6,15 +6,10 @@ final class BenchmarkRunner {
     static let showDuration = 500
     static let hideDuration = 500
     static let shortcutIndex = 0
-    private static var config: BenchmarkConfig?
     private static var remainingCycles = 0
 
-    static func configureFromArgs(_ args: [String]) {
-        config = BenchmarkConfig.parse(args)
-    }
-
     static func startIfNeeded() {
-        guard let config else { return }
+        guard let config = BenchmarkConfig.parse(CommandLine.arguments) else { return }
         switch config.mode {
         case .launch:
             scheduleTerminate(after: launchDuration)
