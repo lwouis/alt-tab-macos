@@ -72,11 +72,26 @@ class CustomRecorderControlTestable {
         return combos
     }
 
+    /// Whether `existingId`'s chords are already represented in `newCombinationsFromCandidate`,
+    /// so it must be left out of the "old" combos. For the candidate's same-index trigger pair:
+    /// the `nextWindowShortcut` always (its chord is what's being recomputed, whether the candidate
+    /// is the hold or the press), but the `holdShortcut` only when the candidate replaces it. A
+    /// press edit keeps its hold, and that hold still combines with the local shortcuts (arrows /
+    /// vim / statics) — excluding it meant e.g. press=→ with arrow-keys selection enabled was only
+    /// flagged when ANOTHER shortcut shared the same hold modifiers (the default double-⌥ holds
+    /// caught ⌥+→ by luck while ⌃+→ recorded with no conflict dialog).
+    static func isRecomputedInNewCombinations(_ candidateId: String, _ existingId: String) -> Bool {
+        guard (candidateId.starts(with: "holdShortcut") || candidateId.starts(with: "nextWindowShortcut"))
+                  && (existingId.starts(with: "holdShortcut") || existingId.starts(with: "nextWindowShortcut"))
+                  && Preferences.nameToIndex(candidateId) == Preferences.nameToIndex(existingId) else { return false }
+        return existingId.starts(with: "nextWindowShortcut") || candidateId.starts(with: "holdShortcut")
+    }
+
     static func oldCombinationsExcludingTargetOfCandidate(_ candidateId: String) -> [(String, Shortcut)] {
         var holds = [ATShortcut]()
         var nonHolds = [ATShortcut]()
         for atShortcut in ControlsTab.shortcuts.values {
-            guard !((candidateId.starts(with: "holdShortcut") || candidateId.starts(with: "nextWindowShortcut")) && (atShortcut.id.starts(with: "holdShortcut") || atShortcut.id.starts(with: "nextWindowShortcut")) && Preferences.nameToIndex(candidateId) == Preferences.nameToIndex(atShortcut.id) )
+            guard !isRecomputedInNewCombinations(candidateId, atShortcut.id)
                       && !(atShortcut.shortcut.keyCode == .none && atShortcut.shortcut.modifierFlags == []) else { continue }
             if atShortcut.id.starts(with: "holdShortcut") {
                 holds.append(atShortcut)

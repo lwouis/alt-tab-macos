@@ -46,6 +46,31 @@ final class CustomRecorderControlTests: XCTestCase {
         XCTAssertEqual(CustomRecorderControlTestable.isShortcutAcceptable("holdShortcut2", Shortcut(keyEquivalent: "⌃")!), .accepted)
     }
 
+    /// Regression: S1 = ⌃+→, enable "Select windows using arrow keys", accept the dialog's
+    /// "Unassign and continue" (clears S1's press, keeps its ⌃ hold), then re-record → as the
+    /// press. Under S1's OWN hold, → is ambiguous (cycle vs select), so it must be rejected —
+    /// but `oldCombinationsExcludingTargetOfCandidate` excluded the same-index hold for a press
+    /// candidate, so arrows were only combined with the OTHER shortcuts' holds. With every
+    /// default hold being ⌥, the ⌥+→ variant was caught by luck via Shortcut 2's identical hold,
+    /// while ⌃+→ (a hold no other shortcut shares) recorded silently with no conflict dialog.
+    func testIsShortcutAcceptable_pressConflictsWithLocalShortcutsUnderItsOwnHold() {
+        // the post-"unassign and continue" state: the press is gone from the registry, the hold remains
+        ControlsTab.shortcuts["nextWindowShortcut"] = nil
+        defer { ControlsTab.shortcuts = ControlsTab.defaultShortcuts }
+        // ⌥ hold: was already caught pre-fix, but only via holdShortcut2's identical ⌥ — pin it
+        XCTAssertEqual(CustomRecorderControlTestable.isShortcutAcceptable("nextWindowShortcut", Shortcut(keyEquivalent: "→")!),
+            .conflictWithExistingShortcut(shortcutAlreadyAssigned: "→"))
+        // ⌃ hold, shared with no other shortcut: the conflict must be found via S1's own hold
+        ControlsTab.shortcuts["holdShortcut"] = ATShortcut(Shortcut(keyEquivalent: "⌃")!, "holdShortcut", .global, .up, 0)
+        XCTAssertEqual(CustomRecorderControlTestable.isShortcutAcceptable("nextWindowShortcut", Shortcut(keyEquivalent: "→")!),
+            .conflictWithExistingShortcut(shortcutAlreadyAssigned: "→"))
+        // same mechanism covers the static locals (Space = focus selected window)
+        XCTAssertEqual(CustomRecorderControlTestable.isShortcutAcceptable("nextWindowShortcut", Shortcut(keyEquivalent: " ")!),
+            .conflictWithExistingShortcut(shortcutAlreadyAssigned: "focusWindowShortcut"))
+        // a press that collides with nothing stays accepted
+        XCTAssertEqual(CustomRecorderControlTestable.isShortcutAcceptable("nextWindowShortcut", Shortcut(keyEquivalent: "t")!), .accepted)
+    }
+
     func testIsShortcutAcceptable_reservedByMacos() {
         XCTAssertEqual(CustomRecorderControlTestable.isShortcutAcceptable("previousWindowShortcut", Shortcut(keyEquivalent: "⌘⇧")!), .accepted) // ⌘⎋
         XCTAssertEqual(CustomRecorderControlTestable.isShortcutAcceptable("previousWindowShortcut", Shortcut(keyEquivalent: "⌘⌃⇧")!), .accepted) // ⌘⎋
