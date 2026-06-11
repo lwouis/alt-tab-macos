@@ -32,7 +32,7 @@ class Day12HeadsUpPopover {
         getPro.translatesAutoresizingMaskIntoConstraints = false
         getPro.bezelStyle = .rounded
         getPro.controlSize = .small
-        getPro.keyEquivalent = "\r"
+        // no .keyEquivalent: this prompt steals focus, so a stray Return must not trigger checkout (#5738)
         getPro.onAction = { _ in
             popover.performClose(nil)
             ProTransitionManager.openCheckout()

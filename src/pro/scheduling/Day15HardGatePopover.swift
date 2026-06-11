@@ -19,7 +19,7 @@ class Day15HardGatePopover {
         purchaseButton.translatesAutoresizingMaskIntoConstraints = false
         purchaseButton.controlSize = .small
         purchaseButton.bezelStyle = .rounded
-        purchaseButton.keyEquivalent = "\r"
+        // no .keyEquivalent: this prompt steals focus, so a stray Return must not trigger checkout (#5738)
         purchaseButton.onAction = { _ in
             popover.performClose(nil)
             ProTransitionManager.openCheckout()

@@ -60,7 +60,7 @@ class Day15FullUpgradeWindow: ProPromptWindow {
         purchaseButton.translatesAutoresizingMaskIntoConstraints = false
         purchaseButton.bezelStyle = .rounded
         if #available(macOS 11.0, *) { purchaseButton.controlSize = .large }
-        purchaseButton.keyEquivalent = "\r"
+        // no .keyEquivalent: this prompt steals focus, so a stray Return must not trigger checkout (#5738)
         purchaseButton.onAction = { _ in ProTransitionManager.openCheckout() }
 
         let continueLink = NotAdvisedButton(NSLocalizedString("Continue with Free", comment: ""))
