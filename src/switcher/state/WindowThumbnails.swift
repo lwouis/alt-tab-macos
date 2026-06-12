@@ -31,9 +31,11 @@ enum WindowThumbnails {
             }
         }
         guard (!eligibleWindows.isEmpty || windowRemoved) else { return }
-        if #available(macOS 14.0, *),
-           // mitigate macOS 15 bugs with ScreenCapture Kit (see https://github.com/lwouis/alt-tab-macos/issues/5190)
-           ProcessInfo.processInfo.operatingSystemVersion.majorVersion != 15 {
+        let captureMethod = WindowCaptureMethodResolver.method(
+            osMajorVersion: ProcessInfo.processInfo.operatingSystemVersion.majorVersion,
+            stageManagerEnabled: StageManager.isEnabled
+        )
+        if #available(macOS 14.0, *), captureMethod == .screenCaptureKit {
             WindowCaptureScreenshots.oneTimeScreenshots(eligibleWindows, source, prioritizedIds: prioritizedIds)
         } else {
             WindowCaptureScreenshotsPrivateApi.oneTimeScreenshots(eligibleWindows, source, prioritizedIds: prioritizedIds)
