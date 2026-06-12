@@ -10,6 +10,10 @@ class SpacesEvents {
     @objc private static func handleEvent(_ notification: Notification) {
         spaceChangeThrottler.throttleOrProceed {
             Logger.debug { notification.name.rawValue }
+            // Refresh the Space topology (visible/current Space, ids) here, on the rare Space-switch event,
+            // instead of synchronously on every switcher summon. This is what lets `updatesBeforeShowing`
+            // read `Spaces.visibleSpaces` from cache without a blocking SkyLight round-trip on the hot path (#5721).
+            Spaces.refresh()
             // Workaround for Safari full-screen videos
             // when full-screening a video, Safari spawns a second full-screen window called "Safari"
             // this window doesn't emit resize/move events. It doesn't pass isActualWindow on creation. It's added on focusedWindowChanged

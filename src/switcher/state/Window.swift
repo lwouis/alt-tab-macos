@@ -54,7 +54,11 @@ class Window {
         self.axUiElement = axUiElement
         self.application = application
         cgWindowId = wid
-        self.updateSpacesAndScreen()
+        // Default a new window to the current Space rather than fetching its Space here: that fetch is a
+        // blocking CGS call and `Window.init` runs on the main thread (#5721). A brand-new window is on the
+        // current Space ~always; the rare exception (an app restoring a window onto another Space) is
+        // corrected off-main by Applications.syncSpacesState.
+        self.updateSpacesAndScreen([wid: [Spaces.currentSpaceId]])
         updateFromAxAttributes(title, size, position, isFullscreen, isMinimized)
         debugId = "\(self.application.debugId) (wid:\(cgWindowId) title:\(self.title))"
         Window.globalCreationCounter += 1
@@ -308,9 +312,21 @@ class Window {
         updateScreenId()
     }
 
+    /// Apply a freshly-queried window→Spaces map (from `Applications.syncSpacesState`), returning whether
+    /// `spaceIds` changed — the filter-relevant input — so the caller can skip a re-render when nothing
+    /// moved. `spaceIndexes`/`isOnAllSpaces`/`screenId` all derive from `spaceIds`.
+    @discardableResult
+    func applySpacesAndScreen(_ windowToSpacesMap: [CGWindowID: [CGSSpaceID]]) -> Bool {
+        let beforeSpaceIds = self.spaceIds
+        updateSpacesAndScreen(windowToSpacesMap)
+        return self.spaceIds != beforeSpaceIds
+    }
+
     private func updateSpaces(_ windowToSpacesMap: [CGWindowID: [CGSSpaceID]]? = nil) {
         guard let cgWindowId else { return }
-        var spaceIds = windowToSpacesMap?[cgWindowId] ?? cgWindowId.spaces()
+        // No blocking CGS fallback here: callers always supply the map (resolved off-main, or the current
+        // Space at creation). A window absent from the map is treated as on no queried Space (#5721).
+        var spaceIds = windowToSpacesMap?[cgWindowId] ?? []
         // inactive tabs return no space from CGSCopySpacesForWindows; use the active tab sibling's space
         if spaceIds.isEmpty, let activeTab = TabGroup.activeTabSibling(of: self) {
             spaceIds = activeTab.spaceIds
@@ -348,15 +364,6 @@ class Window {
         // visible window-tab. Its data will match the tabbed window's
         // fallback to the focusedWindow
         self.isTabbed ? (TabGroup.activeTabSibling(of: self) ?? application.focusedWindow) : self
-    }
-
-    // Determines if this window is the main application window
-    func isAppMainWindow() -> Bool {
-        // AX calls done on main thread. They can block thus freeze the UI
-        // TODO: find a better approach
-        guard let appAxUiElement = application.axUiElement,
-              let mainWindow = try? appAxUiElement.attributes([kAXMainWindowAttribute]).mainWindow else { return false }
-        return (try? mainWindow.cgWindowId()) == cgWindowId
     }
 
     private func altTabWindow() -> NSWindow? {

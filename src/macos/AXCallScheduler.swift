@@ -70,8 +70,11 @@ class AXCallScheduler {
         }
     }
 
-    func submit(_ block: @escaping () -> Void) {
-        axQueryFirstTryQueue.addOperation(block)
+    /// `scan: true` routes to the isolated bursty-inventory pool instead of the event-read pool, so heavy
+    /// off-main work (e.g. the per-Space `windowsInSpaces` fan-out in `Applications.syncSpacesState`) can't
+    /// starve latency-critical focused-window reads.
+    func submit(scan: Bool = false, _ block: @escaping () -> Void) {
+        (scan ? axQueryScanQueue : axQueryFirstTryQueue).addOperation(block)
     }
 
     func removeEntry(key: String) {

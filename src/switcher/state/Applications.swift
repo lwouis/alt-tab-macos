@@ -26,11 +26,33 @@ class Applications {
 
     static func manuallyRefreshAllWindows() {
         fullRescanThrottler.throttleOrProceed {
+            syncSpacesState()
             addMissingApps()
             removeZombieWindows()
             addMissingWindows()
             reviewExistingWindows()
             refreshIsPhantom()
+        }
+    }
+
+    /// Refresh Space topology + per-window Space/screen membership via SkyLight, OFF the main thread, then
+    /// reconcile the open switcher only if something moved. This is the per-summon Space refresh that used
+    /// to block `Windows.updatesBeforeShowing` (#5721) — relocated here (runs ~0.25s after show, throttled),
+    /// and first so its correction lands before the best-effort window passes. Mirrors `refreshIsPhantom`'s
+    /// capture-on-main → query-off-main → apply-on-main pattern.
+    static func syncSpacesState() {
+        let mainScreenUuid = Spaces.mainScreenUuid()
+        AXCallScheduler.shared.submit(scan: true) {
+            let snapshot = Spaces.query(mainScreenUuid, includeWindowMap: true)
+            DispatchQueue.main.async {
+                var changed = Spaces.applyTopology(snapshot)
+                for window in Windows.list {
+                    if window.applySpacesAndScreen(snapshot.windowToSpacesMap) { changed = true }
+                }
+                if changed && SwitcherSession.isActive {
+                    App.refreshOpenUiAfterExternalEvent([])
+                }
+            }
         }
     }
 
@@ -103,7 +125,7 @@ class Applications {
             guard wid != 0 && wid != TilesPanel.shared.windowNumber else { return }
             let level = wid.level()
             let isSelf = app.pid == ProcessInfo.processInfo.processIdentifier
-            let keys = [kAXTitleAttribute, kAXSubroleAttribute, kAXRoleAttribute, kAXSizeAttribute, kAXPositionAttribute, kAXFullscreenAttribute, kAXMinimizedAttribute] + (isSelf ? [] : [kAXChildrenAttribute])
+            let keys = [kAXTitleAttribute, kAXSubroleAttribute, kAXRoleAttribute, kAXSizeAttribute, kAXPositionAttribute, kAXFullscreenAttribute, kAXMinimizedAttribute, kAXMainAttribute] + (isSelf ? [] : [kAXChildrenAttribute])
             let a = try axWindow.attributes(keys)
             let tabSiblingTitles = isSelf ? nil : TabGroup.extractTabTitles(a.children)
             DispatchQueue.main.async { [weak app] in
@@ -111,6 +133,7 @@ class Applications {
                 windowAttributesThrottler.throttleOrProceed(key: "\(wid)-generic") {
                     let findOrCreate = Windows.findOrCreate(axWindow, wid, app, level, a.title, a.subrole, a.role, a.size, a.position, a.isFullscreen, a.isMinimized)
                     guard let window = findOrCreate.0 else { return }
+                    window.isMainWindow = a.isMain ?? false
                     var tabStateChanged = false
                     if tabSiblingTitles != nil || window.tabbedSiblingWids != nil {
                         tabStateChanged = TabGroup.updateState(window, tabSiblingTitles)
@@ -142,24 +165,14 @@ class Applications {
         // snapshot wids on main thread where Windows.list is safe to read
         let wIds = Windows.list.compactMap { $0.cgWindowId }
         guard !wIds.isEmpty else { return }
-        // CGWindowListCreateDescriptionFromArray is a synchronous WindowServer IPC call; run it off main thread
-        AXCallScheduler.shared.submit {
-            let rawIds: CFArray = wIds.map { UnsafeRawPointer(bitPattern: UInt($0)) }.withUnsafeBufferPointer {
-                CFArrayCreate(nil, UnsafeMutablePointer(mutating: $0.baseAddress), $0.count, nil)
-            }
-            let descriptions = CGWindowListCreateDescriptionFromArray(rawIds) as? [[CFString: Any]]
-            let existingWids = descriptions?.compactMap { $0[kCGWindowNumber] } as? [CGWindowID]
-            guard let existingWids else { return }
-            let believedAlive = Set(wIds)
-            let confirmedAlive = Set(existingWids)
-            let zombies = believedAlive.subtracting(confirmedAlive)
+        CGSCallScheduler.existingWindowIds(among: wIds) { alive in
+            guard let alive else { return } // query failed; don't garbage-collect on incomplete data
+            let zombies = Set(wIds).subtracting(alive)
             guard !zombies.isEmpty else { return }
-            DispatchQueue.main.async {
-                for window in Windows.list.reversed() {
-                    if let wid = window.cgWindowId, zombies.contains(wid) {
-                        Logger.debug { window.debugId }
-                        Windows.removeWindows([window], true)
-                    }
+            for window in Windows.list.reversed() {
+                if let wid = window.cgWindowId, zombies.contains(wid) {
+                    Logger.debug { window.debugId }
+                    Windows.removeWindows([window], true)
                 }
             }
         }
@@ -177,8 +190,8 @@ class Applications {
         guard !widsAndWindows.isEmpty else { return }
         let spaceIds = Spaces.idsAndIndexes.map { $0.0 }
         AXCallScheduler.shared.submit {
-            let visibleCgsWindowIds = Set(Spaces.windowsInSpaces(spaceIds, false))
-            let allCgsWindowIds = Set(Spaces.windowsInSpaces(spaceIds, true))
+            let visibleCgsWindowIds = Set(CGSCallScheduler.windowsInSpaces(spaceIds, false))
+            let allCgsWindowIds = Set(CGSCallScheduler.windowsInSpaces(spaceIds, true))
             DispatchQueue.main.async {
                 var changed = [Window]()
                 for (wid, window) in widsAndWindows {
@@ -200,17 +213,28 @@ class Applications {
     }
 
     static func addRunningApplications(_ runningApps: [NSRunningApplication], _ needToVerifyFrontmostPid: Bool) {
-        runningApps.forEach {
-            let bundleIdentifier = $0.bundleIdentifier
-            let processIdentifier = $0.processIdentifier
+        runningApps.forEach { runningApp in
+            let bundleIdentifier = runningApp.bundleIdentifier
+            let processIdentifier = runningApp.processIdentifier
             if bundleIdentifier == "com.apple.dock" {
                 DockEvents.observe(processIdentifier)
             }
             // com.apple.universalcontrol always fails subscribeToNotification. We blacklist it to save resources on everyone's machines
-            if bundleIdentifier != "com.apple.universalcontrol" {
-                findOrCreate(processIdentifier, needToVerifyFrontmostPid)
+            guard bundleIdentifier != "com.apple.universalcontrol" else { return }
+            // classify off-main (process & sysctl IPC), then create on main if it's a real app (#5721).
+            // findOrCreate stays synchronous for the rarer AX-event new-pid path (it re-checks the list).
+            ProcessCallScheduler.isActualApplication(processIdentifier, bundleIdentifier) { isActual in
+                if isActual { createActualApp(runningApp) }
             }
         }
+    }
+
+    // The post-classification half of findOrCreate, for the discovery path where classification already
+    // ran off-main via ProcessCallScheduler. Runs on main; dedups by pid so it can't race a parallel creation.
+    private static func createActualApp(_ runningApp: NSRunningApplication) {
+        let pid = runningApp.processIdentifier
+        guard !(list.contains { $0.pid == pid }) else { return }
+        list.append(Application(runningApp))
     }
 
     static func removeRunningApplications(_ terminatingApps: [NSRunningApplication]) {

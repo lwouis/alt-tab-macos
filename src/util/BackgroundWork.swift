@@ -58,8 +58,9 @@ class BackgroundWork {
 
     static func addPotentialThreadCount(_ additionalCount: Int) {
         totalPotentialThreadCount += additionalCount
-        // a macos process has a soft limit of 64 threads. We need to be careful to don't spawn too many threads through DispatchQueues
-        assert(totalPotentialThreadCount <= 45)
+        // a macos process has a soft limit of 64 threads. We need to be careful to don't spawn too many threads through DispatchQueues.
+        // budget: BackgroundWork (~20) + AXCallScheduler (24) + CGSCallScheduler (2) + ProcessCallScheduler (2) + crashReports (1) = 49
+        assert(totalPotentialThreadCount <= 50)
     }
 
     #if DEBUG

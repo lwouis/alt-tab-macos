@@ -63,27 +63,22 @@ class Windows {
     static func updatesBeforeShowing() -> Bool {
         if MissionControl.state() == .showAllWindows || MissionControl.state() == .showFrontWindows { return false }
         if list.isEmpty { return true }
-        // TODO: find a way to update space info when spaces are changed, instead of on every trigger
-        // workaround: when Preferences > Mission Control > "Displays have separate Spaces" is unchecked,
-        // switching between displays doesn't trigger .activeSpaceDidChangeNotification; we get the latest manually
-        Spaces.refresh()
-        let windowToSpacesMap = shouldBatchSpaceUpdates() ? Spaces.buildWindowToSpacesMap() : nil
+        // Space/screen membership is refreshed OFF the hot path now (#5721): reactively on Space/screen
+        // change (SpacesEvents/ScreensEvents), and after show in `Applications.syncSpacesState`. Here we
+        // only read the cached values, so there is no blocking SkyLight IPC on the way to rendering. A
+        // one-frame staleness (e.g. a window just dragged to another Space) self-corrects via the deferred
+        // reconcile. `recomputeIsPhantom` is kept here: it's pure (no IPC) and reads the cached `spaceIds`.
         // Per-shortcut prefs and `exceptions` don't change for the duration of one show, but each
         // computed-property access rebuilds the underlying array via N×`CachedUserDefaults.macroPref`
         // calls. Snapshot them once and pass into the per-window helper.
         let filters = WindowFilters.snapshot()
         for window in list {
-            window.updateSpacesAndScreen(windowToSpacesMap)
+            window.recomputeIsPhantom()
             refreshIfWindowShouldBeShownToTheUser(window, filters)
         }
         refreshWhichWindowsToShowTheUser()
         sort()
         return true
-    }
-
-    private static func shouldBatchSpaceUpdates() -> Bool {
-        let trackedWindowCount = list.reduce(0) { $0 + ($1.cgWindowId == nil ? 0 : 1) }
-        return trackedWindowCount > Spaces.idsAndIndexes.count
     }
 
     static func refreshWhichWindowsToShowTheUser() {
@@ -140,10 +135,11 @@ class Windows {
             } else if window2.application.focusedWindow?.cgWindowId == window2.cgWindowId {
                 return false
             }
-            // Prefer the main window
-            if window1.isAppMainWindow() && !window2.isAppMainWindow() {
+            // Prefer the main window (cached AXMain flag — refreshed off-main with the window's other
+            // attributes; avoids AX IPC in this comparator on the show path, see #5721 audit)
+            if window1.isMainWindow && !window2.isMainWindow {
                 return true
-            } else if !window1.isAppMainWindow() && window2.isAppMainWindow() {
+            } else if !window1.isMainWindow && window2.isMainWindow {
                 return false
             }
             return true
@@ -299,22 +295,26 @@ class Windows {
     /// lastFocusOrder methods
     //////////////////////////////
 
-    /// Updates windows "lastFocusOrder" to ensure unique values based on window z-order.
-    /// Windows are ordered by their position in Spaces.windowsInSpaces() results,
-    /// with topmost windows first.
+    /// Seeds "lastFocusOrder" from window z-order (top-most first) on the first summon, so the initial MRU
+    /// order reflects screen stacking before any focus events arrive. The z-order query is a blocking CGS
+    /// call, so it runs off-main via CGSCallScheduler (#5721); the list reseed + a refresh land on main when
+    /// it returns. (First-summon-only, so the seed lands a frame after that first show — acceptable.)
     static func sortByLevel() {
-        var windowLevelMap = [CGWindowID?: Int]()
-        for (index, cgWindowId) in Spaces.windowsInSpaces(Spaces.visibleSpaces).enumerated() {
-            windowLevelMap[cgWindowId] = index
-        }
-        list = list
-        .sorted { w1, w2 in
-            (windowLevelMap[w1.cgWindowId] ?? .max) < (windowLevelMap[w2.cgWindowId] ?? .max)
-        }
-        .enumerated()
-        .map { (index, window) -> Window in
-            window.lastFocusOrder = index
-            return window
+        CGSCallScheduler.windowsInSpaces(Spaces.visibleSpaces) { wids in
+            var windowLevelMap = [CGWindowID?: Int]()
+            for (index, cgWindowId) in wids.enumerated() {
+                windowLevelMap[cgWindowId] = index
+            }
+            list = list
+            .sorted { w1, w2 in
+                (windowLevelMap[w1.cgWindowId] ?? .max) < (windowLevelMap[w2.cgWindowId] ?? .max)
+            }
+            .enumerated()
+            .map { (index, window) -> Window in
+                window.lastFocusOrder = index
+                return window
+            }
+            if SwitcherSession.isActive { App.refreshOpenUiAfterExternalEvent(Windows.list) }
         }
     }
 

@@ -144,6 +144,8 @@
 		8B4A0B173EEB0648424219B5 /* ProBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F0A63072F82D97C00AE4C3A /* ProBadgeView.swift */; };
 		A053BAD6681629878E72B1F7 /* ProBadgeViewSegmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25966EE691FC6871588D796B /* ProBadgeViewSegmentTests.swift */; };
 		AA0C8A100000000000000001 /* AXCallScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0C8A000000000000000001 /* AXCallScheduler.swift */; };
+		AA0C8A1000000000000000B1 /* CGSCallScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0C8A0000000000000000B1 /* CGSCallScheduler.swift */; };
+		AA0C8A1000000000000000B2 /* ProcessCallScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0C8A0000000000000000B2 /* ProcessCallScheduler.swift */; };
 		AA0C8B000000000000000001 /* UsageStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0C8B000000000000000002 /* UsageStats.swift */; };
 		AA0C8B000000000000000003 /* UsageStatsTestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0C8B000000000000000004 /* UsageStatsTestable.swift */; };
 		AA0C8B000000000000000005 /* UsageStatsTestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0C8B000000000000000004 /* UsageStatsTestable.swift */; };
@@ -475,6 +477,8 @@
 		5FE2AF752EAE849F004A4AC5 /* xcbeautify */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = xcbeautify; sourceTree = "<group>"; };
 		69A2E38AF41E866D3CDE71BF /* OverrideClickResolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverrideClickResolver.swift; sourceTree = "<group>"; };
 		AA0C8A000000000000000001 /* AXCallScheduler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AXCallScheduler.swift; sourceTree = "<group>"; };
+		AA0C8A0000000000000000B1 /* CGSCallScheduler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGSCallScheduler.swift; sourceTree = "<group>"; };
+		AA0C8A0000000000000000B2 /* ProcessCallScheduler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProcessCallScheduler.swift; sourceTree = "<group>"; };
 		AA0C8B000000000000000002 /* UsageStats.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsageStats.swift; sourceTree = "<group>"; };
 		AA0C8B000000000000000004 /* UsageStatsTestable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsageStatsTestable.swift; sourceTree = "<group>"; };
 		AA0C8B000000000000000010 /* MoveToApplicationsFolder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveToApplicationsFolder.swift; sourceTree = "<group>"; };
@@ -1093,6 +1097,8 @@
 				5F117E40000000000000F211 /* PermissionCalloutResolverTests.swift */,
 				5FA001000000000000000019 /* LoginItem.swift */,
 				AA0C8A000000000000000001 /* AXCallScheduler.swift */,
+				AA0C8A0000000000000000B1 /* CGSCallScheduler.swift */,
+				AA0C8A0000000000000000B2 /* ProcessCallScheduler.swift */,
 				D04BA5BB6FB4E7D8F7AD357C /* api-wrappers */,
 			);
 			path = macos;
@@ -2083,6 +2089,8 @@
 				BF0C8A2F6E4C85A7D9B63B12 /* Throttler.swift in Sources */,
 				5EA8E110000000000000F202 /* SchedulingPolicy.swift in Sources */,
 				AA0C8A100000000000000001 /* AXCallScheduler.swift in Sources */,
+				AA0C8A1000000000000000B1 /* CGSCallScheduler.swift in Sources */,
+				AA0C8A1000000000000000B2 /* ProcessCallScheduler.swift in Sources */,
 				BF0C8973EC078169170F2634 /* CliEvents.swift in Sources */,
 				BF0C8521DA3078516615C414 /* HelperExtensionsTestable.swift in Sources */,
 				BF0C8991399A3277A9A02FFA /* LightImageView.swift in Sources */,

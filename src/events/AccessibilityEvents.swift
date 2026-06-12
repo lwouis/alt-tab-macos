@@ -142,7 +142,7 @@ class AccessibilityEvents {
         let level = wid.level()
         // if we query .children on ourselves, AppKit calls layout directly from our thread instead of IPC; we avoid this
         let isSelf = pid == ProcessInfo.processInfo.processIdentifier
-        let keys = [kAXTitleAttribute, kAXSubroleAttribute, kAXRoleAttribute, kAXSizeAttribute, kAXPositionAttribute, kAXFullscreenAttribute, kAXMinimizedAttribute] + (isSelf ? [] : [kAXChildrenAttribute])
+        let keys = [kAXTitleAttribute, kAXSubroleAttribute, kAXRoleAttribute, kAXSizeAttribute, kAXPositionAttribute, kAXFullscreenAttribute, kAXMinimizedAttribute, kAXMainAttribute] + (isSelf ? [] : [kAXChildrenAttribute])
         let a = try element.attributes(keys)
         let tabSiblingTitles = isSelf ? nil : TabGroup.extractTabTitles(a.children)
         DispatchQueue.main.async {
@@ -156,6 +156,7 @@ class AccessibilityEvents {
                 }
                 return
             }
+            window.isMainWindow = a.isMain ?? false
             Logger.debug { "\(type) win:\(window.debugId)" }
             var tabStateChanged = false
             if tabSiblingTitles != nil || window.tabbedSiblingWids != nil {
@@ -194,7 +195,11 @@ class AccessibilityEvents {
     }
 
     private static func windowResizedOrMoved(_ window: Window) {
-        window.updateSpacesAndScreen()
-        App.refreshOpenUiAfterExternalEvent([window])
+        // a move can change the window's Space; fetch it off-main (this runs on main) then apply + refresh
+        guard let wid = window.cgWindowId else { App.refreshOpenUiAfterExternalEvent([window]); return }
+        CGSCallScheduler.windowSpaces(wid) { spaceIds in
+            window.applySpacesAndScreen([wid: spaceIds])
+            App.refreshOpenUiAfterExternalEvent([window])
+        }
     }
 }

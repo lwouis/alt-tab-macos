@@ -80,6 +80,7 @@ extension AXUIElement {
             case kAXStatusLabelAttribute: result.statusLabel = castSafely(value)
             case kAXMinimizedAttribute: result.isMinimized = castSafely(value)
             case kAXFullscreenAttribute: result.isFullscreen = castSafely(value)
+            case kAXMainAttribute: result.isMain = castSafely(value)
             case kAXIsApplicationRunningAttribute: result.appIsRunning = castSafely(value)
             case kAXURLAttribute: result.url = castSafely(value)
             case kAXParentAttribute: result.parent = castSafely(value)
@@ -229,6 +230,7 @@ struct AXAttributes {
     var subrole: String?
     var isMinimized: Bool?
     var isFullscreen: Bool?
+    var isMain: Bool?
     var parent: AXUIElement?
     var children: [AXUIElement]?
     var focusedWindow: AXUIElement?

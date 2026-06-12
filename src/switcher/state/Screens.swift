@@ -41,8 +41,10 @@ extension NSScreen {
               // we are not ready to create applications yet
               let frontmostApp = (Applications.list.first { $0.pid == frontmostPid }) else { return nil }
         guard let focusedWindow = frontmostApp.focusedWindow else { return NSScreen.withActiveMenubar() }
-        // on the very first summon, this window may not have its spaces updated, which may land the wrong active screen
-        focusedWindow.updateSpacesAndScreen()
+        // Read the focused window's cached screen rather than refreshing it here: this runs on the show
+        // path (NSScreen.updatePreferred), and updateSpacesAndScreen() does a synchronous CGS call (#5721).
+        // The screen is kept fresh off-main on focus events and by Applications.syncSpacesState; the only
+        // cost is a possibly-wrong active screen on the very first summon of a never-yet-resolved window.
         guard let screenId = focusedWindow.screenId else { return nil }
         return Screens.all[screenId]
     }

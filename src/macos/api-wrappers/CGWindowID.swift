@@ -11,10 +11,6 @@ extension CGWindowID {
         return level
     }
 
-    func spaces() -> [CGSSpaceID] {
-        return CGSCopySpacesForWindows(CGS_CONNECTION, CGSSpaceMask.all.rawValue, [self] as CFArray) as! [CGSSpaceID]
-    }
-
     private func cgProperty<T>(_ key: String, _ type: T.Type) -> T? {
         var value: AnyObject?
         CGSCopyWindowProperty(CGS_CONNECTION, self, key as CFString, &value)
