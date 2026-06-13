@@ -1,4 +1,5 @@
 import Cocoa
+import Carbon.HIToolbox.Events
 import ShortcutRecorder
 
 class KeyRepeatTimer {
@@ -18,7 +19,11 @@ class KeyRepeatTimer {
 
     static func startRepeatingKeyNextWindow() {
         let nextWindowShortcutName = Preferences.indexToName("nextWindowShortcut", SwitcherSession.current?.shortcutIndex ?? 0)
-        if let shortcut = ControlsTab.shortcuts[nextWindowShortcutName] {
+        if let shortcut = ControlsTab.shortcuts[nextWindowShortcutName],
+           // Esc is delivered via the cghid event tap (#5585), which emits real OS key-repeats; an artificial
+           // timer would never stop, because the absorbed keyDown gives Carbon no release event to pair with,
+           // so it cycles selection to the very end (#5742). Same rationale as startRepeatingKeyPreviousWindow().
+           shortcut.shortcut.carbonKeyCode != kVK_Escape {
             startTimerForRepeatingKey(shortcut) {
                 ShortcutActions.execute(Preferences.indexToName("nextWindowShortcut", SwitcherSession.current?.shortcutIndex ?? 0))
             }
