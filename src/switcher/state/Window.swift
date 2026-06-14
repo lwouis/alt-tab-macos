@@ -268,29 +268,24 @@ class Window {
             // You can reproduce this buggy behaviour by clicking on the dock icon, proving it's an OS bug
             BackgroundWork.accessibilityCommandsQueue.addOperation { [weak self] in
                 guard let self else { return }
+                // Focusing another app's window reliably takes the steps below. The public APIs alone don't
+                // move key focus across apps (macOS 14 downgraded NSRunningApplication.activate to an advisory
+                // "request").
+                //   1. _SLPSSetFrontProcessWithOptions: tell the WindowServer this process and window are front
+                //   2. makeKeyWindow: make it key, via a synthetic mouse-down/up aimed just outside the
+                //      window, so it becomes key without actually clicking its content (a top-left click
+                //      would hit fullscreen UI, #5381).
+                //   3. focusWindow (kAXRaiseAction): raise it within the app's own window stack
                 var psn = ProcessSerialNumber()
                 GetProcessForPID(self.application.pid, &psn)
                 _SLPSSetFrontProcessWithOptions(&psn, self.cgWindowId!, SLPSMode.userGenerated.rawValue)
-                self.makeKeyWindow(&psn)
+                makeKeyWindow(&psn, self.cgWindowId!)
                 try? self.axUiElement!.focusWindow()
                 DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) {
                     WindowThumbnails.previewSelectedIfNeeded()
                 }
             }
         }
-    }
-
-    /// The following function was ported from https://github.com/Hammerspoon/hammerspoon/issues/370#issuecomment-545545468
-    private func makeKeyWindow(_ psn: inout ProcessSerialNumber) -> Void {
-        var bytes = [UInt8](repeating: 0, count: 0xf8)
-        bytes[0x04] = 0xf8
-        bytes[0x3a] = 0x10
-        memcpy(&bytes[0x3c], &cgWindowId, MemoryLayout<UInt32>.size)
-        memset(&bytes[0x20], 0xff, 0x10)
-        bytes[0x08] = 0x01
-        SLPSPostEventRecordTo(&psn, &bytes)
-        bytes[0x08] = 0x02
-        SLPSPostEventRecordTo(&psn, &bytes)
     }
 
     // for some windows (e.g. Slack), the AX API doesn't return a title; we try CG API; finally we resort to the app name

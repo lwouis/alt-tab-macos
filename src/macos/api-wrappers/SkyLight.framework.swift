@@ -177,10 +177,12 @@ func setNativeCommandTabEnabled(_ isEnabled: Bool, _ hotkeys: [CGSSymbolicHotKey
 @_silgen_name("CGSCopyActiveMenuBarDisplayIdentifier")
 func CGSCopyActiveMenuBarDisplayIdentifier(_ cid: CGSConnectionID) -> ScreenUuid
 
+/// Flags for `_SLPSSetFrontProcessWithOptions` (yabai's `kCPS*`). They pick which of the fronted
+/// process's windows come forward, and whether the switch counts as user-initiated.
 enum SLPSMode: UInt32 {
-    case allWindows = 0x100
-    case userGenerated = 0x200
-    case noWindows = 0x400
+    case allWindows = 0x100    // bring all of the app's windows forward
+    case userGenerated = 0x200 // mark the front-switch as user-initiated (what we pass; avoids suppression)
+    case noWindows = 0x400     // front the process without raising any window (e.g. yabai fronting Finder)
 }
 
 /// focuses the front process
@@ -193,3 +195,56 @@ func _SLPSSetFrontProcessWithOptions(_ psn: UnsafeMutablePointer<ProcessSerialNu
 /// * macOS 10.12+
 @_silgen_name("SLPSPostEventRecordTo") @discardableResult
 func SLPSPostEventRecordTo(_ psn: UnsafeMutablePointer<ProcessSerialNumber>, _ bytes: UnsafeMutablePointer<UInt8>) -> CGError
+
+/// Byte layout of the `CGSEventRecord` posted in `makeKeyWindow` to make another app's window key.
+/// Offsets and field meanings are reverse-engineered from CGSInternal's CGSEvent.h:
+/// https://github.com/NUIKit/CGSInternal/blob/master/CGSEvent.h
+private enum MakeKeyWindowEvent {
+    /// Bytes we allocate. The record itself is `recordLength` (0xf8) bytes; we allocate a little more,
+    /// zeroed, because on macOS 14.7.4+ the WindowServer's `CGSEncodeEventRecord` reads past the record
+    /// and would otherwise SIGABRT on out-of-bounds heap garbage
+    /// (https://github.com/karinushka/paneru/issues/123). yabai allocates the same 0x100.
+    static let bufferSize = 0x100
+    /// 0x04: the record's own declared length. Stays 0xf8 regardless of `bufferSize`, so the event the
+    /// WindowServer parses is identical to before we widened the buffer.
+    static let lengthOffset = 0x04
+    static let recordLength: UInt8 = 0xf8
+    /// 0x08: the `CGSEventType`. We post a left-mouse-down then -up; the pair makes the window key. These
+    /// match the public `CGEventType` values.
+    static let eventTypeOffset = 0x08
+    static let leftMouseDown: UInt8 = 0x01 // kCGEventLeftMouseDown
+    static let leftMouseUp: UInt8 = 0x02 // kCGEventLeftMouseUp
+    /// 0x20: `windowLocation`, the window-relative click point (a 16-byte CGPoint). We aim just outside the
+    /// window's top-left corner: the mouse-down still makes it key, but the point hit-tests to no view, so
+    /// nothing is clicked (avoids #5381's top-left hit in fullscreen, and any top-left chrome when windowed).
+    /// Kept small: a wild value risks an app clamping it back to (0,0), i.e. onto real content.
+    static let windowLocationOffset = 0x20
+    static let offContentPoint = CGPoint(x: -1, y: -1)
+    /// 0x3c: the target `CGWindowID`. The event is delivered to this window by id, not by the coordinate.
+    static let windowIdOffset = 0x3c
+    /// 0x3a: purpose undocumented. yabai and Hammerspoon set it to 0x10.
+    static let unknownFlagOffset = 0x3a
+    static let unknownFlagValue: UInt8 = 0x10
+}
+
+/// Makes the window `wid` the key window of its app by posting a synthetic left-click (down then up) to
+/// the WindowServer. No public API moves key focus across apps. Ported from
+/// https://github.com/Hammerspoon/hammerspoon/issues/370#issuecomment-545545468 (yabai's
+/// `window_manager_make_key_window`). The click is aimed just outside the window (see `offContentPoint`)
+/// so it makes the window key without actually clicking any of its content.
+func makeKeyWindow(_ psn: inout ProcessSerialNumber, _ wid: CGWindowID) {
+    var wid = wid
+    var point = MakeKeyWindowEvent.offContentPoint
+    var bytes = [UInt8](repeating: 0, count: MakeKeyWindowEvent.bufferSize)
+    bytes[MakeKeyWindowEvent.lengthOffset] = MakeKeyWindowEvent.recordLength
+    bytes[MakeKeyWindowEvent.unknownFlagOffset] = MakeKeyWindowEvent.unknownFlagValue
+    // deliver the event to this specific window by id (not by the click point below)
+    memcpy(&bytes[MakeKeyWindowEvent.windowIdOffset], &wid, MemoryLayout<CGWindowID>.size)
+    // window-relative click point just outside the frame: makes the window key, but hit-tests to no view
+    memcpy(&bytes[MakeKeyWindowEvent.windowLocationOffset], &point, MemoryLayout<CGPoint>.size)
+    // post a left-mouse-down then -up; the app reads the pair as "you are now key"
+    bytes[MakeKeyWindowEvent.eventTypeOffset] = MakeKeyWindowEvent.leftMouseDown
+    SLPSPostEventRecordTo(&psn, &bytes)
+    bytes[MakeKeyWindowEvent.eventTypeOffset] = MakeKeyWindowEvent.leftMouseUp
+    SLPSPostEventRecordTo(&psn, &bytes)
+}
