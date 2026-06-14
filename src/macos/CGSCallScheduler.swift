@@ -16,6 +16,11 @@ class CGSCallScheduler {
     // inline on the caller's thread. Kept small on purpose — see BackgroundWork's thread-count budget.
     private static let queue = LabeledOperationQueue("cgsCall", .userInitiated, 2)
 
+    #if DEBUG
+    // read-only handle for the "Live queue graph" sampler (DebugMenu); keeps `queue` private otherwise
+    static var debugQueue: LabeledOperationQueue { queue }
+    #endif
+
     /// The Space(s) a window currently belongs to. Fetched off-main, delivered on main.
     static func windowSpaces(_ wid: CGWindowID, thenMain: @escaping ([CGSSpaceID]) -> Void) {
         queue.addOperation {

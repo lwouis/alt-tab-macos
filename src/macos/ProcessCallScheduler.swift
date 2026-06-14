@@ -7,6 +7,11 @@ class ProcessCallScheduler {
     // drains in well under a second, and it runs async so it never blocks launch.
     private static let queue = LabeledOperationQueue("processCall", .userInitiated, 2)
 
+    #if DEBUG
+    // read-only handle for the "Live queue graph" sampler (DebugMenu); keeps `queue` private otherwise
+    static var debugQueue: LabeledOperationQueue { queue }
+    #endif
+
     /// Whether a pid is a real, switchable application. The XPC / zombie / emulator checks behind this do
     /// process & sysctl IPC, so we run them off-main and deliver the verdict on main.
     static func isActualApplication(_ pid: pid_t, _ bundleId: String?, thenMain: @escaping (Bool) -> Void) {
