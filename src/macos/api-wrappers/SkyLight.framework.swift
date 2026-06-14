@@ -190,6 +190,14 @@ enum SLPSMode: UInt32 {
 @_silgen_name("_SLPSSetFrontProcessWithOptions") @discardableResult
 func _SLPSSetFrontProcessWithOptions(_ psn: UnsafeMutablePointer<ProcessSerialNumber>, _ wid: CGWindowID, _ mode: SLPSMode.RawValue) -> CGError
 
+/// Sets the front process for a SINGLE Space, from a normal connection (yabai uses it in
+/// `window_manager_send_window_to_space`). Unlike `_SLPSSetFrontProcessWithOptions`, it doesn't set the
+/// global front or touch other Spaces' front-window memory — so we use it to focus a window on the current
+/// Space without clobbering other Spaces, which is the #4507 cross-Space bleed.
+/// * macOS 10.10+
+@_silgen_name("SLSSpaceSetFrontPSN") @discardableResult
+func SLSSpaceSetFrontPSN(_ cid: CGSConnectionID, _ sid: CGSSpaceID, _ psn: ProcessSerialNumber) -> CGError
+
 /// sends bytes to the WindowServer
 /// more context: https://github.com/Hammerspoon/hammerspoon/issues/370#issuecomment-545545468
 /// * macOS 10.12+
