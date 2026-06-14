@@ -271,6 +271,9 @@ class Window {
             let originFrontPid = targetOnCurrentSpace ? nil : NSWorkspace.shared.frontmostApplication?.processIdentifier
             BackgroundWork.accessibilityCommandsQueue.addOperation { [weak self] in
                 guard let self else { return }
+                if self.isMinimized {
+                    try? self.axUiElement!.setAttribute(kAXMinimizedAttribute, false)
+                }
                 // Focusing another app's window reliably takes the steps below. The public APIs alone don't
                 // move key focus across apps (macOS 14 downgraded NSRunningApplication.activate to an advisory
                 // "request").
