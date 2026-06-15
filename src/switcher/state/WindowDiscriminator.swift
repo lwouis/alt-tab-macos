@@ -30,7 +30,8 @@ class WindowDiscriminator {
             guard mustHaveIfJetbrainApp(app, title, subrole, size) &&
                 mustHaveIfSteam(app, title, role) &&
                 mustHaveIfFusion360(app, title, role) &&
-                mustHaveIfColorSlurp(app, subrole) else {
+                mustHaveIfColorSlurp(app, subrole) &&
+                mustHaveIfAndroidEmulator(app, title) else {
                 Logger.debug { logTemplate("of a hardcoded rule for this app", app, wid, level, title, subrole, role, size) }
                 return false
             }
@@ -172,8 +173,18 @@ class WindowDiscriminator {
     }
 
     private static func androidEmulator(_ app: Application, _ title: String?) -> Bool {
-        // android emulator small vertical menu is a "window" with empty title; we exclude it
+        // rescue a titled emulator window that has a non-standard subrole (so isStandardSubrole missed it).
+        // empty-title emulator windows are dropped elsewhere: the side menu by the size guard, the
+        // transient overlay by mustHaveIfAndroidEmulator.
         return title != "" && ApplicationDiscriminator.isAndroidEmulator(app.bundleIdentifier, app.pid)
+    }
+
+    private static func mustHaveIfAndroidEmulator(_ app: Application, _ title: String?) -> Bool {
+        // The emulator spawns a transient ~device-sized AXDialog with an empty title on every focus
+        // change/summon; with a standard subrole it slips past the accept gate and flickers into the
+        // switcher as "qemu-system-aarch64" (#5740). The real device window always has a title
+        // ("Android Emulator - <avd>:<port>"), so require a non-empty title for emulator windows.
+        return !ApplicationDiscriminator.isAndroidEmulator(app.bundleIdentifier, app.pid) || (title != nil && title != "")
     }
 
     private static func crossoverWindow(_ app: Application, _ role: String?, _ subrole: String?, _ level: CGWindowLevel) -> Bool {
