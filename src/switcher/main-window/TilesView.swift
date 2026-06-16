@@ -774,11 +774,11 @@ class TilesDocumentView: FlippedView {
 
     override func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
         defer { resetDraggingState(false) }
-        guard let target = targetView(sender.draggingLocation) ?? dragTarget,
-              let window = target.window_,
-              let appUrl = window.application.bundleURL else { return false }
-        guard let urls = sender.draggingPasteboard.readObjects(forClasses: [NSURL.self]) as? [URL],
-              !urls.isEmpty else { return false }
+        let target = targetView(sender.draggingLocation) ?? dragTarget
+        let appUrl = target?.window_?.application.bundleURL
+        let urls = (sender.draggingPasteboard.readObjects(forClasses: [NSURL.self]) as? [URL]) ?? []
+        guard DragAndDropResolver.canDrop(hasTarget: target != nil, hasWindow: target?.window_ != nil, hasAppBundleURL: appUrl != nil, urlCount: urls.count),
+              let appUrl else { return false }
         let open = try? NSWorkspace.shared.open(urls, withApplicationAt: appUrl, options: [], configuration: [:])
         if open != nil { App.hideUi() }
         return open != nil
@@ -789,25 +789,27 @@ class TilesDocumentView: FlippedView {
     }
 
     private func dragOperation(_ location: NSPoint) -> NSDragOperation {
-        guard let target = targetView(location) else {
+        let target = targetView(location)
+        let pastDeadzone = target != nil && (window.map { CursorEvents.isAllowedToReactToPointerMovement($0.convertPoint(toScreen: location)) } ?? false)
+        let decision = DragAndDropResolver.dragOver(
+            hasTarget: target != nil,
+            pastDeadzone: pastDeadzone,
+            targetChanged: dragTarget !== target,
+            movedBeyondResetRadius: DragAndDropResolver.movedBeyondResetRadius(from: timerResetLocation, to: location, resetRadius: Self.dragAndDropTimerResetDistance))
+        switch decision {
+        case .noTarget:
             resetDraggingState(true)
             return []
-        }
-        if let window, CursorEvents.isAllowedToReactToPointerMovement(window.convertPoint(toScreen: location)) {
-            if dragTarget !== target {
+        case .inDeadzone:
+            return .link
+        case .track(let restartTimer):
+            if let target {
                 dragTarget = target
-                restartDraggingTimer(location)
-            } else if shouldRestartDraggingTimer(location) {
-                restartDraggingTimer(location)
+                if restartTimer { restartDraggingTimer(location) }
+                target.mouseMovedCallback()
             }
-            target.mouseMovedCallback()
+            return .link
         }
-        return .link
-    }
-
-    private func shouldRestartDraggingTimer(_ location: NSPoint) -> Bool {
-        guard let timerResetLocation else { return true }
-        return hypot(location.x - timerResetLocation.x, location.y - timerResetLocation.y) >= Self.dragAndDropTimerResetDistance
     }
 
     private func restartDraggingTimer(_ location: NSPoint) {

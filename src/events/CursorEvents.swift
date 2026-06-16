@@ -6,6 +6,10 @@ class CursorEvents {
     private static var shouldBeEnabled: Bool!
     private static var mouseDownTarget: AnyObject?
     private static var mouseDownInsideSearchField = false
+    /// true once the tap has observed a leftMouseDown since the switcher showed (reset per gesture and on
+    /// each show). A drag from another app started before the switcher showed, so its down was never seen —
+    /// that is how `handleLeftMouseUp` recognizes a drop's up and yields it (see `DragAndDropResolver`).
+    private static var sawLeftMouseDown = false
     static var deadZoneInitialPosition: CGPoint?
     static var isAllowedToMouseHover = true
 
@@ -18,6 +22,8 @@ class CursorEvents {
         shouldBeEnabled = enabled
         if !enabled {
             deadZoneInitialPosition = nil
+        } else {
+            sawLeftMouseDown = false // fresh session: a drag in flight when we show has no down we saw
         }
         if let eventTap {
             CGEvent.tapEnable(tap: eventTap, enable: enabled)
@@ -67,6 +73,7 @@ class CursorEvents {
     }
 
     private static func handleLeftMouseDown(_ cgEvent: CGEvent) -> Unmanaged<CGEvent>? {
+        sawLeftMouseDown = true // this gesture's down is ours; its up is a click, not a foreign drop
         if TilesView.hasMarkedText() || ContextMenuEvents.isMenuOpen { return Unmanaged.passUnretained(cgEvent) }
         if isPointerInsideSearchField() {
             mouseDownInsideSearchField = true
@@ -79,6 +86,15 @@ class CursorEvents {
     }
 
     private static func handleLeftMouseUp(_ cgEvent: CGEvent) -> Unmanaged<CGEvent>? {
+        let sawDown = sawLeftMouseDown
+        sawLeftMouseDown = false
+        // a drag from another app ends with a leftMouseUp whose matching down we never saw (it happened
+        // before the switcher showed). Don't swallow it, or the drop never concludes and the file stays
+        // stuck on the cursor — whether released on a tile, the padding around the tiles, or outside the
+        // panel. Let AppKit / the source app conclude the drop (see DragAndDropResolver).
+        if DragAndDropResolver.passesThroughMouseUp(mouseDownWasSeen: sawDown) {
+            return Unmanaged.passUnretained(cgEvent)
+        }
         if TilesView.hasMarkedText() || ContextMenuEvents.isMenuOpen { return Unmanaged.passUnretained(cgEvent) }
         if mouseDownInsideSearchField || isPointerInsideSearchField() {
             mouseDownInsideSearchField = false

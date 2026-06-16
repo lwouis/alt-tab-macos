@@ -42,6 +42,9 @@
 		5EA8E110000000000000F002 /* AxEventRouting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA8E110000000000000F001 /* AxEventRouting.swift */; };
 		5EA8E110000000000000F003 /* AxEventRouting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA8E110000000000000F001 /* AxEventRouting.swift */; };
 		5EA8E110000000000000F102 /* AxEventRoutingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA8E110000000000000F101 /* AxEventRoutingTests.swift */; };
+		5EA8E110000000000000DA02 /* DragAndDropResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA8E110000000000000DA01 /* DragAndDropResolver.swift */; };
+		5EA8E110000000000000DA03 /* DragAndDropResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA8E110000000000000DA01 /* DragAndDropResolver.swift */; };
+		5EA8E110000000000000DA12 /* DragAndDropResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA8E110000000000000DA11 /* DragAndDropResolverTests.swift */; };
 		5EA8E110000000000000F202 /* SchedulingPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA8E110000000000000F201 /* SchedulingPolicy.swift */; };
 		5EA8E110000000000000F203 /* SchedulingPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA8E110000000000000F201 /* SchedulingPolicy.swift */; };
 		5EA8E110000000000000F212 /* SchedulingPolicyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA8E110000000000000F211 /* SchedulingPolicyTests.swift */; };
@@ -393,6 +396,8 @@
 		5E1EC110000000000000C101 /* SelectionResolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionResolverTests.swift; sourceTree = "<group>"; };
 		5EA8E110000000000000F001 /* AxEventRouting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxEventRouting.swift; sourceTree = "<group>"; };
 		5EA8E110000000000000F101 /* AxEventRoutingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AxEventRoutingTests.swift; sourceTree = "<group>"; };
+		5EA8E110000000000000DA01 /* DragAndDropResolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DragAndDropResolver.swift; sourceTree = "<group>"; };
+		5EA8E110000000000000DA11 /* DragAndDropResolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragAndDropResolverTests.swift; sourceTree = "<group>"; };
 		5EA8E110000000000000F201 /* SchedulingPolicy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchedulingPolicy.swift; sourceTree = "<group>"; };
 		5EA8E110000000000000F211 /* SchedulingPolicyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulingPolicyTests.swift; sourceTree = "<group>"; };
 		5E5EA12C0000000000000001 /* SearchModeResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModeResolver.swift; sourceTree = "<group>"; };
@@ -1406,6 +1411,8 @@
 				D04BAA998119CAA8B70A2B67 /* TilesView.swift */,
 				D04BAFC0A1B2C3D4E5F60001 /* TileOverView.swift */,
 				D04BAFC2A1B2C3D4E5F60003 /* TileUnderLayer.swift */,
+				5EA8E110000000000000DA01 /* DragAndDropResolver.swift */,
+				5EA8E110000000000000DA11 /* DragAndDropResolverTests.swift */,
 			);
 			path = "main-window";
 			sourceTree = "<group>";
@@ -1855,6 +1862,8 @@
 				5EA8E110000000000000F102 /* AxEventRoutingTests.swift in Sources */,
 				5EA8E110000000000000F203 /* SchedulingPolicy.swift in Sources */,
 				5EA8E110000000000000F212 /* SchedulingPolicyTests.swift in Sources */,
+				5EA8E110000000000000DA03 /* DragAndDropResolver.swift in Sources */,
+				5EA8E110000000000000DA12 /* DragAndDropResolverTests.swift in Sources */,
 				5F4753072CEE5A2E002C6C5E /* AppearanceTestable.swift in Sources */,
 				BF0C8B787C76D9B961CC2F45 /* KeyboardEventsTests.swift in Sources */,
 				BF0CAAAA0000000000001001 /* SearchTests.swift in Sources */,
@@ -1976,6 +1985,7 @@
 				D04BAD2A7F2E8BF64EE982E9 /* TextArea.swift in Sources */,
 				5F17452E2F1A908D00128EF8 /* WindowDiscriminator.swift in Sources */,
 				D04BA11E56383D082D7BE5A5 /* TilesView.swift in Sources */,
+				5EA8E110000000000000DA02 /* DragAndDropResolver.swift in Sources */,
 				D04BAFC1A1B2C3D4E5F60002 /* TileOverView.swift in Sources */,
 				D04BAFC3A1B2C3D4E5F60004 /* TileUnderLayer.swift in Sources */,
 				5F21C9E42C6E94700091F72F /* CustomizeStyleSheet.swift in Sources */,
