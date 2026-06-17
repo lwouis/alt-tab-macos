@@ -62,8 +62,12 @@ enum LoginItem {
         if let loginItems = LSSharedFileListCreate(nil, kLSSharedFileListSessionLoginItems.takeRetainedValue(), nil)?.takeRetainedValue(),
            let loginItemsSnapshot = LSSharedFileListCopySnapshot(loginItems, nil)?.takeRetainedValue() as? [LSSharedFileListItem] {
             let appUrl = URL(fileURLWithPath: Bundle.main.bundlePath)
+            // resolve without mounting: a login item's bookmark can point to an SMB share, and the
+            // default flags (0) mount it synchronously, freezing the main thread on a dead/stale
+            // server (#5773). We only read lastPathComponent below, which needs no mount.
+            let flags = LSSharedFileListResolutionFlags(kLSSharedFileListNoUserInteraction | kLSSharedFileListDoNotMountVolumes)
             for item in loginItemsSnapshot {
-                let itemUrl = LSSharedFileListItemCopyResolvedURL(item, 0, nil)?.takeRetainedValue() as? URL
+                let itemUrl = LSSharedFileListItemCopyResolvedURL(item, flags, nil)?.takeRetainedValue() as? URL
                 if itemUrl?.lastPathComponent == appUrl.lastPathComponent {
                     LSSharedFileListItemRemove(loginItems, item)
                     removed = true

@@ -293,9 +293,12 @@ class PreferencesMigrations {
                     let loginItemsSnapshot = loginItemsSnapshotWrapped.takeRetainedValue() as! [LSSharedFileListItem]
                     let itemName = Bundle.main.bundleURL.lastPathComponent as CFString
                     let itemUrl = URL(fileURLWithPath: Bundle.main.bundlePath) as CFURL
+                    // resolve without mounting so a login item bookmark pointing to a dead SMB share
+                    // can't freeze the main thread mounting it synchronously (#5773)
+                    let flags = LSSharedFileListResolutionFlags(kLSSharedFileListNoUserInteraction | kLSSharedFileListDoNotMountVolumes)
                     loginItemsSnapshot.forEach {
                         if (LSSharedFileListItemCopyDisplayName($0).takeRetainedValue() == itemName) ||
-                               (LSSharedFileListItemCopyResolvedURL($0, 0, nil)?.takeRetainedValue() == itemUrl) {
+                               (LSSharedFileListItemCopyResolvedURL($0, flags, nil)?.takeRetainedValue() == itemUrl) {
                             LSSharedFileListItemRemove(loginItems, $0)
                         }
                     }
