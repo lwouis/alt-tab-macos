@@ -61,6 +61,9 @@ class Preferences {
             values[indexToName("showFullscreenWindows", index)] = ShowHowPreference.show.indexAsString
             values[indexToName("showWindowlessApps", index)] = ShowHowPreference.showAtTheEnd.indexAsString
             values[indexToName("windowOrder", index)] = WindowOrderPreference.recentlyFocused.indexAsString
+            values[indexToName("restoreState", index)] = "false"
+            values[indexToName("usePreviousSelectedApp", index)] = "false"
+            values[indexToName("selectLastFocusedWindow", index)] = "false"
             values[indexToName("shortcutStyle", index)] = ShortcutStylePreference.focusOnRelease.indexAsString
             values[indexToName("showAppsOrWindows", index)] = GroupAppsPreference.allWindows.indexAsString
             values[indexToName("showTabsAsWindows", index)] = GroupTabsPreference.singleWindow.indexAsString
@@ -150,6 +153,9 @@ class Preferences {
     static func showFullscreenWindows(_ i: Int) -> ShowHowPreference { CachedUserDefaults.macroPref(indexToName("showFullscreenWindows", i), ShowHowPreference.allCases) }
     static func showWindowlessApps(_ i: Int) -> ShowHowPreference { CachedUserDefaults.macroPref(indexToName("showWindowlessApps", i), ShowHowPreference.allCases) }
     static func windowOrder(_ i: Int) -> WindowOrderPreference { CachedUserDefaults.macroPref(indexToName("windowOrder", i), WindowOrderPreference.allCases) }
+    static func restoreState(_ i: Int) -> Bool { CachedUserDefaults.bool(indexToName("restoreState", i)) }
+    static func usePreviousSelectedApp(_ i: Int) -> Bool { CachedUserDefaults.bool(indexToName("usePreviousSelectedApp", i)) }
+    static func selectLastFocusedWindow(_ i: Int) -> Bool { CachedUserDefaults.bool(indexToName("selectLastFocusedWindow", i)) }
     static func groupApps(_ i: Int) -> GroupAppsPreference { CachedUserDefaults.macroPref(indexToName("showAppsOrWindows", i), GroupAppsPreference.allCases) }
     static func groupTabs(_ i: Int) -> GroupTabsPreference { CachedUserDefaults.macroPref(indexToName("showTabsAsWindows", i), GroupTabsPreference.allCases) }
     static var shortcutStyle: ShortcutStylePreference { ProGatedPreferences.shortcutStyle.read() }

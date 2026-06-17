@@ -64,6 +64,7 @@ class App: AppCenterApplication {
         Logger.info { "active:\(SwitcherSession.isActive)" }
         guard SwitcherSession.current != nil else { return } // already hidden
         SwitcherSession.current = nil
+        SwitcherSession.sessionOverrides = [:]
         UsageStats.resetSession()
         TilesView.endSearchSession()
         ContextMenuEvents.toggle(false)
@@ -308,15 +309,42 @@ class App: AppCenterApplication {
     }
 
     static func showUiOrCycleSelection(_ shortcutIndex: Int, _ forceDoNothingOnRelease_: Bool) {
-        let session = SwitcherSession.current ?? {
+        var session = SwitcherSession.current ?? {
             let new = SwitcherSession()
             SwitcherSession.current = new
             return new
         }()
         session.forceDoNothingOnRelease = forceDoNothingOnRelease_
-        Logger.debug { "isFirstSummon:\(session.isFirstSummon) shortcutIndex:\(shortcutIndex)" }
+        let shortcutSwitching = !session.isFirstSummon && shortcutIndex != session.shortcutIndex
+        Logger.debug { "isFirstSummon:\(session.isFirstSummon) shortcutIndex:\(shortcutIndex) shortcutSwitching:\(shortcutSwitching)" }
         UsageStats.recordTrigger(shortcutIndex)
-        if session.isFirstSummon || shortcutIndex != session.shortcutIndex {
+        if session.isFirstSummon || shortcutSwitching {
+            var restoreState = false
+            SwitcherSession.frontmostPidOverride = nil
+            SwitcherSession.useLastFocusedRuleOverride = nil
+            if shortcutSwitching {
+                if Preferences.restoreState(session.shortcutIndex) {
+                    SwitcherSession.sessionOverrides[session.shortcutIndex] = session.copy()
+                }
+                if Preferences.usePreviousSelectedApp(shortcutIndex) {
+                    SwitcherSession.frontmostPidOverride = Windows.selectedWindow()?.application.pid
+                }
+                if Preferences.selectLastFocusedWindow(shortcutIndex) {
+                    SwitcherSession.useLastFocusedRuleOverride = true
+                }
+                if
+                    Preferences.restoreState(shortcutIndex),
+                    let sessionOverride = SwitcherSession.sessionOverrides[shortcutIndex]
+                {
+                    SwitcherSession.current = sessionOverride
+                    session = sessionOverride
+                    restoreState = true
+                } else {
+                    let newSession = SwitcherSession()
+                    SwitcherSession.current = newSession
+                    session = newSession
+                }
+            }
             NSScreen.updatePreferred()
             if isVeryFirstSummon {
                 Windows.sortByLevel()
@@ -335,7 +363,11 @@ class App: AppCenterApplication {
                 session.forceDoNothingOnRelease = true
             }
             if !Windows.updatesBeforeShowing() { hideUi(); return }
-            Windows.setInitialSelectedAndHoveredWindowIndex()
+            if restoreState {
+                Windows.cycleSelectedWindowIndex(1, allowWrap: true)
+            } else {
+                Windows.setInitialSelectedAndHoveredWindowIndex()
+            }
             if Preferences.windowDisplayDelay == DispatchTimeInterval.milliseconds(0) {
                 buildUiAndShowPanel()
             } else {

@@ -170,6 +170,9 @@
 "Open Screen Recording Settings…" = "Open Screen Recording Settings…";
 "Open Trackpad Settings…" = "Open Trackpad Settings…";
 "Order windows by" = "Order windows by";
+"Restore state when switching shortcut" = "Restore state when switching shortcut";
+"Use previous selected app as active app when switching shortcut" = "Use previous selected app as active app when switching shortcut";
+"Select last focused window when switching shortcut" = "Select last focused window when switching shortcut";
 "Ordering & Grouping" = "Ordering & Grouping";
 "Overridden in Shortcut:" = "Overridden in Shortcut:";
 "Paste your license key:" = "Paste your license key:";

@@ -12,6 +12,9 @@ final class SwitcherSession {
     /// The shortcut index of the currently-active session, or 0 when no session is active.
     /// Used by every per-shortcut effective preference read in `Appearance`, `TileView`, etc.
     static var activeShortcutIndex: Int { current?.shortcutIndex ?? 0 }
+    static var sessionOverrides: [Int: SwitcherSession] = [:]
+    static var frontmostPidOverride: pid_t?
+    static var useLastFocusedRuleOverride: Bool?
 
     var shortcutIndex: Int = 0
     var isFirstSummon: Bool = true
@@ -21,4 +24,16 @@ final class SwitcherSession {
     var hoveredIndex: Int?
     var selectedTarget: String?
     var searchQuery: String = ""
+    
+    func copy() -> SwitcherSession {
+        let session = SwitcherSession()
+        session.shortcutIndex = shortcutIndex
+        session.isFirstSummon = isFirstSummon
+        session.forceDoNothingOnRelease = forceDoNothingOnRelease
+        session.selectedIndex = selectedIndex
+        session.hoveredIndex = hoveredIndex
+        session.selectedTarget = selectedTarget
+        session.searchQuery = searchQuery
+        return session
+    }
 }
