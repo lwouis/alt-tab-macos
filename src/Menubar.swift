@@ -400,6 +400,7 @@ private final class MenubarMenuDelegate: NSObject, NSMenuDelegate {
 
 class PermissionCallout: StackView {
     private var label: NSTextField!
+    private var button: NSButton!
 
     convenience init() {
         let label = NSTextField(wrappingLabelWithString: "")
@@ -411,20 +412,40 @@ class PermissionCallout: StackView {
         let button = NSButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.attributedTitle = NSAttributedString(string: NSLocalizedString("Grant permission", comment: "Menubar callout button"), attributes: [NSAttributedString.Key.foregroundColor: NSColor.white])
-        button.onAction = { _ in
-            Preferences.remove("screenRecordingPermissionSkipped")
-            App.restart()
-        }
         self.init([label, button], .vertical, true, top: 8, right: 15, bottom: 10, left: 15)
         self.label = label
+        self.button = button
         wantsLayer = true
         layer!.backgroundColor = NSColor.purple.cgColor
+    }
+
+    // NSControl target/action never fires inside an NSMenuItem custom view: the menu's modal
+    // tracking loop swallows the click before the button's own mouse-tracking can call sendAction.
+    // So we route the click through the container exactly like `UpgradeMenuItemView` — `hitTest`
+    // keeps the button visual-only, and `mouseUp` runs the action and dismisses the menu. (#5771)
+    override func hitTest(_ point: NSPoint) -> NSView? {
+        super.hitTest(point) != nil ? self : nil
+    }
+
+    override func mouseUp(with event: NSEvent) {
+        let location = convert(event.locationInWindow, from: nil)
+        guard button.frame.contains(location) else { return }
+        enclosingMenuItem?.menu?.cancelTracking()
+        Preferences.remove("screenRecordingPermissionSkipped")
+        App.restart()
     }
 
     // Name only the feature(s) the user actually enabled, so we never promise back a feature they
     // don't use. The wrapped label's height depends on the message, so re-fit after setting it.
     func update(_ dependentFeatures: PermissionCalloutResolver.DependentFeatures) {
         label.stringValue = PermissionCallout.message(dependentFeatures)
+        // The earlier fit() pinned our height with a required constraint sized for the previous
+        // (initially empty) message. While it stays active, fittingSize keeps reporting that stale
+        // height, so re-fitting can't grow to fit the new text and the last line clips. Drop the
+        // self-imposed size constraints first so fit() measures the real content. (#5771)
+        constraints.filter {
+            ($0.firstAnchor == widthAnchor || $0.firstAnchor == heightAnchor) && $0.secondAnchor == nil
+        }.forEach { $0.isActive = false }
         fit()
     }
 
