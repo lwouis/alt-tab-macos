@@ -366,13 +366,14 @@ class TileView: FlippedView {
 
     private func searchSpanRanges() -> [NSRange] {
         var spanRanges = [NSRange]()
-        if Preferences.showTitles == .appName {
+        let showTitles = Preferences.effectiveAppearanceStyle(SwitcherSession.activeShortcutIndex) == .appIcons ? Preferences.showTitlesForAppIcons : Preferences.showTitles
+        if showTitles == .appName {
             for result in window_?.swAppResults ?? [] {
                 spanRanges.append(NSRange(location: result.span.lowerBound, length: result.span.count))
             }
             return spanRanges
         }
-        if Preferences.showTitles == .appNameAndWindowTitle {
+        if showTitles == .appNameAndWindowTitle {
             let appName = window_?.application.localizedName ?? ""
             let windowTitle = window_?.title ?? ""
             let offset = (appName.isEmpty || appName == windowTitle) ? 0 : (appName + " - ").count
@@ -570,9 +571,10 @@ class TileView: FlippedView {
     private func getAppOrAndWindowTitle() -> String {
         let appName = window_?.application.localizedName
         let windowTitle = window_?.title
-        if Preferences.showTitles == .appName {
+        let showTitles = Preferences.effectiveAppearanceStyle(SwitcherSession.activeShortcutIndex) == .appIcons ? Preferences.showTitlesForAppIcons : Preferences.showTitles
+        if showTitles == .appName {
             return appName ?? ""
-        } else if Preferences.showTitles == .appNameAndWindowTitle {
+        } else if showTitles == .appNameAndWindowTitle {
             if appName == windowTitle {
                 return appName ?? ""
             }

@@ -5,11 +5,13 @@ class CustomizeStyleSheet: SheetWindow {
     // `ShowHideIllustratedView`'s static constants so each NSLocalizedString call lives in
     // exactly one place across the codebase.
     private static let labelShowTitles = NSLocalizedString("Show titles", comment: "")
+    private static let labelShowTitlesForAppIcons = NSLocalizedString("Show titles for app icons", comment: "")
     private static let labelTitleTruncation = NSLocalizedString("Title truncation", comment: "")
 
     /// Pre-build search index for the open-button. See `SettingsSearchIndex.sheetSearchableStrings`.
     static let searchableStrings: [String] = [
         labelShowTitles,
+        labelShowTitlesForAppIcons,
         labelTitleTruncation,
         ShowHideIllustratedView.hideStatusIconsLabel,
         ShowHideIllustratedView.hideStatusIconsSubtitle,
@@ -43,6 +45,14 @@ class CustomizeStyleSheet: SheetWindow {
         advancedTable.addRow(showTitles, onMouseEntered: { [weak self] _, _ in
             self?.showTitlesIllustratedImage()
         })
+        let showTitlesForAppIcons = TableGroupView.Row(leftTitle: Self.labelShowTitlesForAppIcons,
+            rightViews: [LabelAndControl.makeDropdown(
+                "showTitlesForAppIcons", ShowTitlesPreference.allCases, extraAction: { [weak self] _ in
+                    self?.showTitlesForAppIconsIllustratedImage()
+                })])
+        advancedTable.addRow(showTitlesForAppIcons, onMouseEntered: { [weak self] _, _ in
+            self?.showTitlesForAppIconsIllustratedImage()
+        })
         let titleTruncation = TableGroupView.Row(leftTitle: Self.labelTitleTruncation,
             rightViews: LabelAndControl.makeRadioButtons("titleTruncation", TitleTruncationPreference.allCases))
         advancedTable.addRow(titleTruncation)
@@ -56,5 +66,9 @@ class CustomizeStyleSheet: SheetWindow {
 
     private func showTitlesIllustratedImage() {
         illustratedImageView.highlight(true, Preferences.showTitles.image.name)
+    }
+    
+    private func showTitlesForAppIconsIllustratedImage() {
+        illustratedImageView.highlight(false)
     }
 }

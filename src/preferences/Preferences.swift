@@ -30,6 +30,7 @@ class Preferences {
             "showOnScreen": ShowOnScreenPreference.active.indexAsString,
             "titleTruncation": TitleTruncationPreference.end.indexAsString,
             "showTitles": ShowTitlesPreference.windowTitle.indexAsString,
+            "showTitlesForAppIcons": ShowTitlesPreference.appName.indexAsString,
             "fadeOutAnimation": "false",
             "previewFadeInAnimation": "true",
             "startAtLogin": "true",
@@ -137,6 +138,7 @@ class Preferences {
     static var showOnScreen: ShowOnScreenPreference { CachedUserDefaults.macroPref("showOnScreen", ShowOnScreenPreference.allCases) }
     static var titleTruncation: TitleTruncationPreference { CachedUserDefaults.macroPref("titleTruncation", TitleTruncationPreference.allCases) }
     static var showTitles: ShowTitlesPreference { CachedUserDefaults.macroPref("showTitles", ShowTitlesPreference.allCases) }
+    static var showTitlesForAppIcons: ShowTitlesPreference { CachedUserDefaults.macroPref("showTitlesForAppIcons", ShowTitlesPreference.allCases) }
     static var updatePolicy: UpdatePolicyPreference { CachedUserDefaults.macroPref("updatePolicy", UpdatePolicyPreference.allCases) }
     static var crashPolicy: CrashPolicyPreference { CachedUserDefaults.macroPref("crashPolicy", CrashPolicyPreference.allCases) }
     static var appsToShow: [AppsToShowPreference] { (0...maxShortcutCount).map { CachedUserDefaults.macroPref(indexToName("appsToShow", $0), AppsToShowPreference.allCases) } }
