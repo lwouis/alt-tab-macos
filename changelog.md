@@ -1,3 +1,30 @@
+## [11.3.1](https://github.com/lwouis/alt-tab-macos/compare/v11.3.0...v11.3.1) (2026-06-18)
+
+
+### Bug Fixes
+
+* be more resilient to sleep-wake macos bugs (closes [#5723](https://github.com/lwouis/alt-tab-macos/issues/5723)) ([44d6a85](https://github.com/lwouis/alt-tab-macos/commit/44d6a85))
+* check for missing apps on trigger (closes [#5563](https://github.com/lwouis/alt-tab-macos/issues/5563)) ([3907038](https://github.com/lwouis/alt-tab-macos/commit/3907038))
+* could block apple-watch screen unlock (closes [#5713](https://github.com/lwouis/alt-tab-macos/issues/5713)) ([3f89de0](https://github.com/lwouis/alt-tab-macos/commit/3f89de0))
+* drag-and-drop files onto switcher tiles (closes [#5603](https://github.com/lwouis/alt-tab-macos/issues/5603)) ([1f3902a](https://github.com/lwouis/alt-tab-macos/commit/1f3902a))
+* focus side-effect when focusing across spaces (closes [#4507](https://github.com/lwouis/alt-tab-macos/issues/4507)) ([cd9d56d](https://github.com/lwouis/alt-tab-macos/commit/cd9d56d))
+* hide android emulator empty-title windows (closes [#5740](https://github.com/lwouis/alt-tab-macos/issues/5740)) ([c5eaa7a](https://github.com/lwouis/alt-tab-macos/commit/c5eaa7a))
+* improve phantom window detection (closes [#5714](https://github.com/lwouis/alt-tab-macos/issues/5714)) ([4617360](https://github.com/lwouis/alt-tab-macos/commit/4617360))
+* issue when screen-recording permission was skipped (closes [#5739](https://github.com/lwouis/alt-tab-macos/issues/5739)) ([0c65486](https://github.com/lwouis/alt-tab-macos/commit/0c65486)), closes [#5548](https://github.com/lwouis/alt-tab-macos/issues/5548) [#5548](https://github.com/lwouis/alt-tab-macos/issues/5548)
+* menubar permission callout was not clickable (closes [#5771](https://github.com/lwouis/alt-tab-macos/issues/5771)) ([9134175](https://github.com/lwouis/alt-tab-macos/commit/9134175))
+* possible launch lag when user has network-drives ([6fc44b0](https://github.com/lwouis/alt-tab-macos/commit/6fc44b0)), closes [/github.com/lwouis/alt-tab-macos/issues/5773#issuecomment-4730964795](https://github.com//github.com/lwouis/alt-tab-macos/issues/5773/issues/issuecomment-4730964795)
+* prevent setting conflicting arrow shortcuts (closes [#5732](https://github.com/lwouis/alt-tab-macos/issues/5732)) ([0baabd3](https://github.com/lwouis/alt-tab-macos/commit/0baabd3))
+* un-minimizing could bring other windows forward (closes [#5439](https://github.com/lwouis/alt-tab-macos/issues/5439)) ([4377a7b](https://github.com/lwouis/alt-tab-macos/commit/4377a7b))
+* using escape to trigger the switcher had issues (closes [#5742](https://github.com/lwouis/alt-tab-macos/issues/5742)) ([374edf1](https://github.com/lwouis/alt-tab-macos/commit/374edf1))
+* very rare crash due to tooltip (appcenter) ([b9f6375](https://github.com/lwouis/alt-tab-macos/commit/b9f6375))
+* very rare crash when restoring feedback-window (appcenter) ([55ba603](https://github.com/lwouis/alt-tab-macos/commit/55ba603))
+* window focus with no side-effects (closes [#5381](https://github.com/lwouis/alt-tab-macos/issues/5381)) ([782f1fe](https://github.com/lwouis/alt-tab-macos/commit/782f1fe))
+
+
+### Performance Improvements
+
+* avoid blocking calls on main-thread (closes [#5721](https://github.com/lwouis/alt-tab-macos/issues/5721)) ([5aa2ea3](https://github.com/lwouis/alt-tab-macos/commit/5aa2ea3))
+
 # [11.3.0](https://github.com/lwouis/alt-tab-macos/compare/v11.2.0...v11.3.0) (2026-06-04)
 
 
