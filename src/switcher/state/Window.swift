@@ -267,8 +267,13 @@ class Window {
             // but quickly switches back to another window in that space
             // You can reproduce this buggy behaviour by clicking on the dock icon, proving it's an OS bug
             let originSpaceId = Spaces.currentSpaceId
-            let targetOnCurrentSpace = self.spaceIds.contains(originSpaceId)
-            let originFrontPid = targetOnCurrentSpace ? nil : NSWorkspace.shared.frontmostApplication?.processIdentifier
+            // Only repair the origin Space (step 4) when we KNOW the target is on another Space. Empty spaceIds
+            // means "Space unknown": the window was missing from the last CGS map (Slack windows drop out of it,
+            // and it goes stale after sleep/monitor changes until syncSpacesState re-queries). Treating unknown
+            // as cross-Space ran SLSSpaceSetFrontPSN on the CURRENT Space, re-fronting the previous app and
+            // undoing the raise while the window stayed key (#5586, the Slack-after-sleep variant).
+            let targetMaybeCrossSpace = !self.spaceIds.isEmpty && !self.spaceIds.contains(originSpaceId)
+            let originFrontPid = targetMaybeCrossSpace ? NSWorkspace.shared.frontmostApplication?.processIdentifier : nil
             BackgroundWork.accessibilityCommandsQueue.addOperation { [weak self] in
                 guard let self else { return }
                 if self.isMinimized {
