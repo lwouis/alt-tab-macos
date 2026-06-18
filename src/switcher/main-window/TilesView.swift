@@ -257,15 +257,16 @@ class TilesView {
         let kind = requiredEffectViewKind()
         contentView = cachedEffectView(for: kind)
         currentEffectViewKind = kind
+        let host = contentView.hostView
         scrollView?.removeFromSuperview()
         scrollView = ScrollView()
         if searchMode != .off {
-            contentView.addSubview(searchField)
+            host.addSubview(searchField)
         } else {
             searchField.removeFromSuperview()
         }
-        contentView.addSubview(scrollView)
-        contentView.addSubview(noWindowLabel)
+        host.addSubview(scrollView)
+        host.addSubview(noWindowLabel)
     }
 
     static func swapBackgroundViewIfNeeded() {
@@ -274,11 +275,12 @@ class TilesView {
         guard desired != currentEffectViewKind else { return }
         let newView = cachedEffectView(for: desired)
         currentEffectViewKind = desired
-        if searchField.superview === contentView {
-            newView.addSubview(searchField)
+        let host = newView.hostView
+        if searchField.superview === contentView.hostView {
+            host.addSubview(searchField)
         }
-        newView.addSubview(scrollView)
-        newView.addSubview(noWindowLabel)
+        host.addSubview(scrollView)
+        host.addSubview(noWindowLabel)
         contentView = newView
         TilesPanel.shared.contentView = newView
     }
@@ -566,13 +568,17 @@ class TilesView {
             originY = originY - Appearance.intraCellPadding - labelHeight
         }
         contentView.frame.size = NSSize(width: frameWidth, height: frameHeight)
+        let host = contentView.hostView
+        if host !== contentView {
+            host.frame = CGRect(origin: .zero, size: NSSize(width: frameWidth, height: frameHeight))
+        }
         let scrollHeight = max(0, min(maxY, heightMax) - appIconsBottomViewportPadding * 2)
         scrollView.frame.size = NSSize(width: TilesView.thumbnailsWidth, height: scrollHeight)
         scrollView.frame.origin = CGPoint(x: originX, y: originY + appIconsBottomViewportPadding * 2)
         scrollView.contentView.frame.size = scrollView.frame.size
         if searchMode != .off {
-            if searchField.superview !== contentView {
-                contentView.addSubview(searchField)
+            if searchField.superview !== host {
+                host.addSubview(searchField)
             }
             let searchWidth = minSearchWidth
             searchField.frame.size = NSSize(width: searchWidth, height: searchBarHeight)
