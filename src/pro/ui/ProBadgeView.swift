@@ -263,6 +263,7 @@ class ProBadgeView: NSView {
             segmentedControl.setToolTip(label, forSegment: segmentIndex)
         }
         let segmentLeading = (0..<segmentIndex).reduce(CGFloat(0)) { $0 + segmentedControl.width(forSegment: $1) }
+        let segmentTrailing = ((segmentIndex + 1)..<segmentedControl.segmentCount).reduce(CGFloat(0)) { $0 + segmentedControl.width(forSegment: $1) }
         let colorProvider = segmentColorProvider(for: segmentedControl, segmentIndex: segmentIndex)
         let iconView = DynamicColorImageView()
         iconView.colorProvider = colorProvider
@@ -304,6 +305,7 @@ class ProBadgeView: NSView {
         } else {
             leadingOffset = segmentLeading + max(maxContentRightEdge - contentWidth, 8)
         }
+        let trailingOffset = segmentTrailingPadding + segmentTrailing
         NSLayoutConstraint.activate([
             iconView.leadingAnchor.constraint(equalTo: segmentedControl.leadingAnchor, constant: leadingOffset),
             iconView.centerYAnchor.constraint(equalTo: segmentedControl.centerYAnchor),
@@ -312,7 +314,7 @@ class ProBadgeView: NSView {
             textLabel.trailingAnchor.constraint(lessThanOrEqualTo: badge.leadingAnchor),
             textLabel.widthAnchor.constraint(lessThanOrEqualToConstant: availableWidth - iconWidth - 2),
             badge.centerYAnchor.constraint(equalTo: segmentedControl.centerYAnchor),
-            badge.trailingAnchor.constraint(equalTo: segmentedControl.trailingAnchor, constant: -segmentTrailingPadding),
+            badge.trailingAnchor.constraint(equalTo: segmentedControl.trailingAnchor, constant: -trailingOffset),
         ])
         return SegmentOverlay(badge: badge, icon: iconView, label: textLabel)
     }

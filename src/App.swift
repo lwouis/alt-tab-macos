@@ -98,7 +98,8 @@ class App: AppCenterApplication {
         guard SwitcherSession.isActive else { return } // already hidden
         let selectedWindow = Windows.selectedWindow()
         Logger.info { selectedWindow?.debugId }
-        focusSelectedWindow(selectedWindow)
+        let forceIsWindowlessApp = Preferences.effectiveShortcutStyle(SwitcherSession.activeShortcutIndex) == .openOnRelease
+        focusSelectedWindow(selectedWindow, forceIsWindowlessApp)
     }
 
     @objc static func checkForUpdatesNow(_ sender: NSMenuItem) {
@@ -264,11 +265,11 @@ class App: AppCenterApplication {
         KeyRepeatTimer.startRepeatingKeyPreviousWindow()
     }
 
-    static func focusSelectedWindow(_ selectedWindow: Window?) {
+    static func focusSelectedWindow(_ selectedWindow: Window?, _ forceIsWindowlessApp: Bool) {
         guard SwitcherSession.isActive else { return } // already hidden
         hideUi(true)
         if let window = selectedWindow, MissionControl.state() == .inactive || MissionControl.state() == .showDesktop {
-            window.focus()
+            window.focus(forceIsWindowlessApp)
             if Preferences.cursorFollowFocus == .always || (
                 Preferences.cursorFollowFocus == .differentScreen && (Spaces.screenSpacesMap.first { $0.value.contains { space in window.spaceIds.contains(space) } })?.key != NSScreen.active()?.cachedUuid()) {
                 moveCursorToSelectedWindow(window)

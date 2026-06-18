@@ -297,7 +297,10 @@ class TileView: FlippedView {
         updateAppIcon(element, title)
         updateDockLabelIcon(element.dockLabel)
         setAccessibilityHelp(getAccessibilityHelp(element.application.localizedName, element.dockLabel))
-        mouseUpCallback = { () -> Void in App.focusSelectedWindow(element) }
+        mouseUpCallback = { () -> Void in
+            let forceIsWindowlessApp = Preferences.effectiveShortcutStyle(SwitcherSession.activeShortcutIndex) == .openOnRelease
+            App.focusSelectedWindow(element, forceIsWindowlessApp)
+        }
         mouseMovedCallback = { () -> Void in Windows.updateSelectedAndHoveredWindowIndex(index, true) }
     }
 

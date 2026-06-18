@@ -35,6 +35,7 @@ enum Symbols: String {
     case cursorarrowRays = "􀇰"       // cursorarrow.rays
     case pauseRectangle = "􀊛"        // pause.rectangle
     case magnifyingglass = "􀊫"       // magnifyingglass
+    case arrowUpForwardApp = "􀮵"                   // arrow.up.forward.app
     // AppearanceSizePreference
     case moonphaseWaningGibbousInverse = "􁐎"   // moonphase.waning.gibbous.inverse
     case moonphaseLastQuarterInverse = "􁐏"     // moonphase.last.quarter.inverse

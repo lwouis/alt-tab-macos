@@ -248,12 +248,12 @@ class Window {
         }
     }
 
-    func focus() {
+    func focus(_ forceIsWindowlessApp: Bool = false) {
         if let altTabWindow = altTabWindow() {
             App.shared.activate(ignoringOtherApps: true)
             altTabWindow.makeKeyAndOrderFront(nil)
             WindowThumbnails.previewSelectedIfNeeded()
-        } else if self.isWindowlessApp || cgWindowId == nil {
+        } else if forceIsWindowlessApp || self.isWindowlessApp || cgWindowId == nil {
             if let bundleUrl = application.bundleURL, self.isWindowlessApp {
                 if (try? NSWorkspace.shared.launchApplication(at: bundleUrl, configuration: [:])) == nil {
                     application.runningApplication.activate(options: .activateAllWindows)

@@ -242,7 +242,7 @@ private final class SidebarSearchField: NSSearchField {
 }
 
 class SettingsWindow: NSWindow {
-    static let contentWidth = CGFloat(710)
+    static let contentWidth = CGFloat(790)
     static let width = contentWidth
     /// Horizontal margin inside each section between the section's container and the
     /// TableGroupView's rounded background, so the gray-bg blocks "float" inside the section
