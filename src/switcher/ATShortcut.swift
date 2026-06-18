@@ -41,23 +41,22 @@ class ATShortcut {
     }
 
     private func modifiersMatch(_ modifiers: CarbonModifierFlags) -> Bool {
-        let modifiersCleaned = modifiers.cleaned()
-        let shortcutModifiersCleaned = shortcut.carbonModifierFlags.cleaned()
-        // holdShortcut: contains at least
-        if id.hasPrefix("holdShortcut") {
-            return modifiersCleaned == (modifiersCleaned | shortcutModifiersCleaned)
-        }
         let session = SwitcherSession.current
-        // other shortcuts: contains exactly or exactly + holdShortcut modifiers
         let holdModifiersCleaned = ControlsTab.shortcuts[Preferences.indexToName("holdShortcut", session?.shortcutIndex ?? 0)]?.shortcut.carbonModifierFlags.cleaned() ?? 0
-        // nextWindowShortcut when panel is open: also match base key without holdShortcut modifiers
-        if session != nil && id.hasPrefix("nextWindowShortcut") {
-            let baseModifiersCleaned = shortcutModifiersCleaned & ~holdModifiersCleaned
-            if modifiersCleaned == baseModifiersCleaned {
-                return true
-            }
-        }
-        return modifiersCleaned == shortcutModifiersCleaned || modifiersCleaned == (shortcutModifiersCleaned | holdModifiersCleaned)
+        let shortcutModifiersCleaned = shortcut.carbonModifierFlags.cleaned()
+        // The match decision (incl. the search-editing gate for modifier-only shortcuts like
+        // previousWindow = ⇧) is a pure kernel so its branch order is unit-tested; see
+        // `ShortcutModifierResolverTests`. This stays a thin adapter that gathers the inputs.
+        return ShortcutModifierResolver.matches(
+            eventModifiers: modifiers.cleaned(),
+            shortcutModifiers: shortcutModifiersCleaned,
+            holdModifiers: holdModifiersCleaned,
+            isHoldShortcut: id.hasPrefix("holdShortcut"),
+            isNextWindowShortcut: id.hasPrefix("nextWindowShortcut"),
+            sessionActive: session != nil,
+            isModifierOnly: shortcut.keyCode == .none,
+            isSearchEditing: TilesView.isSearchEditing,
+            shortcutHasCommandModifier: (shortcutModifiersCleaned & (UInt32(cmdKey) | UInt32(controlKey))) != 0)
     }
 
     func shouldTrigger() -> Bool {

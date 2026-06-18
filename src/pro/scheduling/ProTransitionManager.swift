@@ -47,7 +47,6 @@ extension HardGateReason {
         case .feature(.extraShortcut):
             return .extraShortcut
         case .feature(.searchInSwitcher),
-             .feature(.lockSearchInSwitcher),
              .feature(.searchOnReleaseShortcut):
             return .search
         case .feature(.appIconsAndTitlesStyle):

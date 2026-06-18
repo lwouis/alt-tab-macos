@@ -140,7 +140,6 @@
 "License doesn't cover this version" = "许可证不包含此版本";
 "License will remain valid and usable to activate AltTab on any machine" = "许可证仍然有效，可在任何设备上激活 AltTab";
 "Light" = "浅色";
-"Lock search" = "锁定搜索";
 "Machine %@" = "设备 %@";
 "macOS reserves ⌘⌥⎋, ⌘⌥⇧⎋, and ⌘⌥⇧⌃⎋ for Force Quit and they cannot be unbound. AltTab cannot use them.\n\nYour change would assign one of these to: %@." = "macOS 将 ⌘⌥⎋、⌘⌥⇧⎋ 和 ⌘⌥⇧⌃⎋ 保留用于强制退出，无法解除绑定。AltTab 无法使用它们。\n\n您的更改会将其中之一分配给：%@。";
 "Manage activations, view receipts, etc" = "管理激活、查看收据等";

@@ -51,6 +51,9 @@
 		5E5EA12C0000000000000002 /* SearchModeResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E5EA12C0000000000000001 /* SearchModeResolver.swift */; };
 		5E5EA12C0000000000000003 /* SearchModeResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E5EA12C0000000000000001 /* SearchModeResolver.swift */; };
 		5E5EA12C0000000000000102 /* SearchModeResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E5EA12C0000000000000101 /* SearchModeResolverTests.swift */; };
+		5E5EA12D0000000000000002 /* ShortcutModifierResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E5EA12D0000000000000001 /* ShortcutModifierResolver.swift */; };
+		5E5EA12D0000000000000003 /* ShortcutModifierResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E5EA12D0000000000000001 /* ShortcutModifierResolver.swift */; };
+		5E5EA12D0000000000000102 /* ShortcutModifierResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E5EA12D0000000000000101 /* ShortcutModifierResolverTests.swift */; };
 		5F117E40000000000000F002 /* WindowFilterResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F117E40000000000000F001 /* WindowFilterResolver.swift */; };
 		5F117E40000000000000F003 /* WindowFilterResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F117E40000000000000F001 /* WindowFilterResolver.swift */; };
 		5F117E40000000000000F102 /* WindowFilterResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F117E40000000000000F101 /* WindowFilterResolverTests.swift */; };
@@ -402,6 +405,8 @@
 		5EA8E110000000000000F211 /* SchedulingPolicyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulingPolicyTests.swift; sourceTree = "<group>"; };
 		5E5EA12C0000000000000001 /* SearchModeResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModeResolver.swift; sourceTree = "<group>"; };
 		5E5EA12C0000000000000101 /* SearchModeResolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModeResolverTests.swift; sourceTree = "<group>"; };
+		5E5EA12D0000000000000001 /* ShortcutModifierResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutModifierResolver.swift; sourceTree = "<group>"; };
+		5E5EA12D0000000000000101 /* ShortcutModifierResolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutModifierResolverTests.swift; sourceTree = "<group>"; };
 		5F117E40000000000000F001 /* WindowFilterResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowFilterResolver.swift; sourceTree = "<group>"; };
 		5F117E40000000000000F101 /* WindowFilterResolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowFilterResolverTests.swift; sourceTree = "<group>"; };
 		5F117E41000000000000F001 /* PhantomWindowDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhantomWindowDetector.swift; sourceTree = "<group>"; };
@@ -943,11 +948,13 @@
 				D04BA7CF9C2D1BEC7C05AB24 /* Spaces.swift */,
 				5E1EC110000000000000C001 /* SelectionResolver.swift */,
 				5E5EA12C0000000000000001 /* SearchModeResolver.swift */,
+				5E5EA12D0000000000000001 /* ShortcutModifierResolver.swift */,
 				5F117E40000000000000F001 /* WindowFilterResolver.swift */,
 				5F117E41000000000000F001 /* PhantomWindowDetector.swift */,
 				5E7C0F70000000000000E001 /* ExceptionMatcher.swift */,
 				5E0DE2A0000000000000D001 /* WindowOrderResolver.swift */,
 				5E5EA12C0000000000000101 /* SearchModeResolverTests.swift */,
+				5E5EA12D0000000000000101 /* ShortcutModifierResolverTests.swift */,
 				5F117E40000000000000F101 /* WindowFilterResolverTests.swift */,
 				5F117E41000000000000F101 /* PhantomWindowDetectorTests.swift */,
 				5E7C0F70000000000000E101 /* ExceptionMatcherTests.swift */,
@@ -1879,6 +1886,8 @@
 				5E1EC110000000000000C102 /* SelectionResolverTests.swift in Sources */,
 				5E5EA12C0000000000000003 /* SearchModeResolver.swift in Sources */,
 				5E5EA12C0000000000000102 /* SearchModeResolverTests.swift in Sources */,
+				5E5EA12D0000000000000003 /* ShortcutModifierResolver.swift in Sources */,
+				5E5EA12D0000000000000102 /* ShortcutModifierResolverTests.swift in Sources */,
 				5F117E40000000000000F003 /* WindowFilterResolver.swift in Sources */,
 				5F117E40000000000000F102 /* WindowFilterResolverTests.swift in Sources */,
 				5F117E41000000000000F003 /* PhantomWindowDetector.swift in Sources */,
@@ -1943,6 +1952,7 @@
 				D04BAFB973C3D28718FAEB87 /* Windows.swift in Sources */,
 				5E1EC110000000000000C002 /* SelectionResolver.swift in Sources */,
 				5E5EA12C0000000000000002 /* SearchModeResolver.swift in Sources */,
+				5E5EA12D0000000000000002 /* ShortcutModifierResolver.swift in Sources */,
 				5F117E40000000000000F002 /* WindowFilterResolver.swift in Sources */,
 				5F117E41000000000000F002 /* PhantomWindowDetector.swift in Sources */,
 				5E7C0F70000000000000E002 /* ExceptionMatcher.swift in Sources */,

@@ -39,7 +39,6 @@ class TilesView {
 
     static var isSearchModeOn: Bool { searchMode != .off }
     static var isSearchEditing: Bool { searchMode == .editing }
-    static var isSearchLocked: Bool { searchMode == .locked }
 
     static func startSearchSession(_ startInSearchMode: Bool) {
         searchField.stringValue = ""
@@ -75,32 +74,17 @@ class TilesView {
         focusSelectedTileIfPossible()
     }
 
-    static func lockSearchMode() {
-        switch SearchModeResolver.lock(mode: searchMode, canLockSearch: ProFeature.lockSearchInSwitcher.attemptUse()) {
-            case .lockResults:
-                searchMode = .locked
-                updateSearchFieldEditability()
-                focusSelectedTileIfPossible()
-            case .unlockToEditing:
-                enableSearchEditing()
-            default:
-                return
-        }
-    }
-
     static func enableSearchEditing() {
         switch SearchModeResolver.enableEditing(mode: searchMode, canSearch: ProFeature.searchInSwitcher.attemptUse()) {
             case .placeCaretOnly:
                 placeSearchCaretAtEnd()
-            case .enterEditing(let refreshUi):
+            case .enterEditing:
                 searchMode = .editing
                 updateSearchFieldEditability()
                 SwitcherSession.current?.forceDoNothingOnRelease = true
                 clearHover()
                 stopKeyRepeatTimers()
-                if refreshUi {
-                    App.refreshUi(true)
-                }
+                App.refreshUi(true)
                 TilesPanel.shared.makeFirstResponder(searchField)
                 placeSearchCaretAtEnd()
             default:
@@ -109,14 +93,13 @@ class TilesView {
     }
 
     static func handleSearchEditingKeyDown(_ event: NSEvent) -> SearchKeyResult {
+        let isPrintable = eventProducesText(event)
         let decision = SearchModeResolver.routeKey(
             hasMarkedText: hasMarkedText(),
             isMenuOpen: ContextMenuEvents.isMenuOpen,
             arrow: arrowCycleDirection(event.keyCode),
             isTab: Int(event.keyCode) == kVK_Tab,
-            matchesCancel: matchesShortcut(event, "cancelShortcut"),
-            matchesLockSearch: matchesShortcut(event, "lockSearchShortcut"),
-            matchesFocus: matchesShortcut(event, "focusWindowShortcut"))
+            matchesShortcut: matchesAnyWhenActiveShortcut(event, isPrintable))
         switch decision {
             case .cycleSelection(let direction):
                 App.cycleSelection(cycleToDirection(direction))
@@ -222,14 +205,39 @@ class TilesView {
         (searchField.currentEditor() as? NSTextView)?.hasMarkedText() == true
     }
 
-    private static func matchesShortcut(_ event: NSEvent, _ shortcutId: String) -> Bool {
+    /// While editing the search field, any when-active shortcut (close / minimize / quit / fullscreen /
+    /// hide / focus / cancel / search) can be triggered by re-pressing the hold modifiers (e.g.
+    /// Cmd+Option+W); a bare printable key still types into the field. `Preferences.staticShortcutKeys`
+    /// is the single source of truth for the set. See `SearchModeResolver.editingShortcutMatch`.
+    private static func matchesAnyWhenActiveShortcut(_ event: NSEvent, _ isPrintable: Bool) -> Bool {
+        Preferences.staticShortcutKeys.contains { matchesShortcut(event, $0, isPrintable) }
+    }
+
+    private static func matchesShortcut(_ event: NSEvent, _ shortcutId: String, _ isPrintable: Bool) -> Bool {
         guard let shortcut = ControlsTab.shortcuts[shortcutId]?.shortcut else { return false }
         if shortcut.keyCode == .none || shortcut.carbonKeyCode != UInt32(event.keyCode) { return false }
         let shortcutIndex = SwitcherSession.current?.shortcutIndex ?? 0
         let holdModifiers = ControlsTab.shortcuts[Preferences.indexToName("holdShortcut", shortcutIndex)]?.shortcut.carbonModifierFlags.cleaned() ?? 0
         let eventModifiers = cocoaToCarbonFlags(event.modifierFlags).cleaned()
         let shortcutModifiers = shortcut.carbonModifierFlags.cleaned()
-        return eventModifiers == shortcutModifiers || eventModifiers == (shortcutModifiers | holdModifiers)
+        let hasCommandModifier = (shortcutModifiers & (UInt32(cmdKey) | UInt32(controlKey))) != 0
+        return SearchModeResolver.editingShortcutMatch(
+            eventModifiers: eventModifiers,
+            shortcutModifiers: shortcutModifiers,
+            holdModifiers: holdModifiers,
+            isPrintable: isPrintable,
+            shortcutHasCommandModifier: hasCommandModifier)
+    }
+
+    /// Whether this key-down inserts text into the field (a letter / digit / punctuation / space) as
+    /// opposed to a control key (Escape / Return / Tab / arrows / function keys). Lets a plain typed
+    /// key beat a when-active shortcut bound to it. See `SearchModeResolver.editingShortcutMatch`.
+    private static func eventProducesText(_ event: NSEvent) -> Bool {
+        guard let scalar = event.charactersIgnoringModifiers?.unicodeScalars.first else { return false }
+        let v = scalar.value
+        if v < 0x20 || v == 0x7F { return false }      // C0 control characters + delete
+        if v >= 0xF700 && v <= 0xF8FF { return false } // arrows / function keys (NSEvent reserved range)
+        return true
     }
 
     private static func updateSearchFieldEditability() {

@@ -10,7 +10,6 @@ class Preferences {
             "focusWindowShortcut": defaultShortcut(returnKeyEquivalent()),
             "previousWindowShortcut": defaultShortcut("⇧"),
             "cancelShortcut": defaultShortcut("⎋"),
-            "lockSearchShortcut": defaultShortcut("Space"),
             "closeWindowShortcut": defaultShortcut("W"),
             "minDeminWindowShortcut": defaultShortcut("M"),
             "toggleFullscreenWindowShortcut": defaultShortcut("F"),
@@ -80,7 +79,7 @@ class Preferences {
     // system preferences
     static var finderShowsQuitMenuItem: Bool { UserDefaults(suiteName: "com.apple.Finder")?.bool(forKey: "QuitMenuItem") ?? false }
     static let staticShortcutKeys = [
-        "focusWindowShortcut", "previousWindowShortcut", "cancelShortcut", "lockSearchShortcut", "closeWindowShortcut",
+        "focusWindowShortcut", "previousWindowShortcut", "cancelShortcut", "closeWindowShortcut",
         "minDeminWindowShortcut", "toggleFullscreenWindowShortcut", "quitAppShortcut", "hideShowAppShortcut", "searchShortcut",
     ]
     static var allShortcutPreferenceKeys: [String] {
@@ -97,7 +96,6 @@ class Preferences {
     static var focusWindowShortcut: Shortcut? { CachedUserDefaults.shortcut("focusWindowShortcut") }
     static var previousWindowShortcut: Shortcut? { CachedUserDefaults.shortcut("previousWindowShortcut") }
     static var cancelShortcut: Shortcut? { CachedUserDefaults.shortcut("cancelShortcut") }
-    static var lockSearchShortcut: Shortcut? { CachedUserDefaults.shortcut("lockSearchShortcut") }
     static var closeWindowShortcut: Shortcut? { CachedUserDefaults.shortcut("closeWindowShortcut") }
     static var minDeminWindowShortcut: Shortcut? { CachedUserDefaults.shortcut("minDeminWindowShortcut") }
     static var toggleFullscreenWindowShortcut: Shortcut? { CachedUserDefaults.shortcut("toggleFullscreenWindowShortcut") }

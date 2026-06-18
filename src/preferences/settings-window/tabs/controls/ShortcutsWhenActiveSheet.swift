@@ -8,7 +8,6 @@ class ShortcutsWhenActiveSheet: SheetWindow {
     private static let labelPrevious = ControlsTab.staticShortcutLabels["previousWindowShortcut"]!
     private static let labelCancel = ControlsTab.staticShortcutLabels["cancelShortcut"]!
     private static let labelSearch = ControlsTab.staticShortcutLabels["searchShortcut"]!
-    private static let labelLockSearch = ControlsTab.staticShortcutLabels["lockSearchShortcut"]!
     private static let labelClose = ControlsTab.staticShortcutLabels["closeWindowShortcut"]!
     private static let labelMinDemin = ControlsTab.staticShortcutLabels["minDeminWindowShortcut"]!
     private static let labelFullscreen = ControlsTab.staticShortcutLabels["toggleFullscreenWindowShortcut"]!
@@ -16,11 +15,11 @@ class ShortcutsWhenActiveSheet: SheetWindow {
     private static let labelHideShow = ControlsTab.staticShortcutLabels["hideShowAppShortcut"]!
 
     /// Pre-build search index for the open-button. See `SettingsSearchIndex.sheetSearchableStrings`.
-    /// `ProBadgeView.proLabel` contributes the "Pro" tag rendered on the search/lock-search rows.
+    /// `ProBadgeView.proLabel` contributes the "Pro" tag rendered on the search row.
     static let searchableStrings: [String] = [
         title,
         labelFocus, labelPrevious, labelCancel,
-        labelSearch, labelLockSearch,
+        labelSearch,
         labelClose, labelMinDemin, labelFullscreen, labelQuit, labelHideShow,
         ProBadgeView.proLabel,
     ]
@@ -49,9 +48,6 @@ class ShortcutsWhenActiveSheet: SheetWindow {
         let searchRow = table.addRow(leftText: Self.labelSearch,
             rightViews: [LabelAndControl.makeLabelWithRecorder(Self.labelSearch, "searchShortcut", Preferences.searchShortcut, labelPosition: .right)[0]])
         addProBadgeToLeftLabel(searchRow)
-        let lockSearchRow = table.addRow(leftText: Self.labelLockSearch,
-            rightViews: [LabelAndControl.makeLabelWithRecorder(Self.labelLockSearch, "lockSearchShortcut", Preferences.lockSearchShortcut, labelPosition: .right)[0]])
-        addProBadgeToLeftLabel(lockSearchRow)
         _ = table.addRow(closeWindowShortcut)
         _ = table.addRow(minDeminWindowShortcut)
         _ = table.addRow(toggleFullscreenWindowShortcut)

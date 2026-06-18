@@ -140,7 +140,6 @@
 "License doesn't cover this version" = "A licença não cobre esta versão";
 "License will remain valid and usable to activate AltTab on any machine" = "A licença permanecerá válida e poderá ser usada para ativar o AltTab em qualquer máquina";
 "Light" = "Clara";
-"Lock search" = "Bloquear busca";
 "Machine %@" = "Máquina %@";
 "macOS reserves ⌘⌥⎋, ⌘⌥⇧⎋, and ⌘⌥⇧⌃⎋ for Force Quit and they cannot be unbound. AltTab cannot use them.\n\nYour change would assign one of these to: %@." = "O macOS reserva ⌘⌥⎋, ⌘⌥⇧⎋ e ⌘⌥⇧⌃⎋ para Forçar Encerrar e eles não podem ser desvinculados. O AltTab não pode usá-los.\n\nSua alteração atribuiria um deles a: %@.";
 "Manage activations, view receipts, etc" = "Gerenciar ativações, ver recibos etc.";

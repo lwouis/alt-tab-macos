@@ -140,7 +140,6 @@
 "License doesn't cover this version" = "Lisans bu sürümü kapsamıyor";
 "License will remain valid and usable to activate AltTab on any machine" = "Lisans geçerli kalmaya devam edecek ve herhangi bir makinede AltTab’ı etkinleştirmek için kullanılabilecek";
 "Light" = "Açık";
-"Lock search" = "Aramayı kilitle";
 "Machine %@" = "Makine %@";
 "macOS reserves ⌘⌥⎋, ⌘⌥⇧⎋, and ⌘⌥⇧⌃⎋ for Force Quit and they cannot be unbound. AltTab cannot use them.\n\nYour change would assign one of these to: %@." = "macOS, ⌘⌥⎋, ⌘⌥⇧⎋ ve ⌘⌥⇧⌃⎋ tuşlarını Çıkmaya Zorla için ayırmıştır ve bunların bağlantısı kaldırılamaz. AltTab bunları kullanamaz.\n\nYaptığınız değişiklik bunlardan birini şuna atayacaktır: %@.";
 "Manage activations, view receipts, etc" = "Etkinleştirmeleri yönetin, makbuzları görüntüleyin vb.";

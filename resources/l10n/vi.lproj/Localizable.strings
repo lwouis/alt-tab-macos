@@ -140,7 +140,6 @@
 "License doesn't cover this version" = "Giấy phép không áp dụng cho phiên bản này";
 "License will remain valid and usable to activate AltTab on any machine" = "Giấy phép sẽ vẫn hợp lệ và có thể dùng để kích hoạt AltTab trên bất kỳ máy nào";
 "Light" = "Sáng";
-"Lock search" = "Khóa tìm kiếm";
 "Machine %@" = "Máy %@";
 "macOS reserves ⌘⌥⎋, ⌘⌥⇧⎋, and ⌘⌥⇧⌃⎋ for Force Quit and they cannot be unbound. AltTab cannot use them.\n\nYour change would assign one of these to: %@." = "macOS dành riêng ⌘⌥⎋, ⌘⌥⇧⎋, và ⌘⌥⇧⌃⎋ cho Buộc thoát và không thể gỡ bỏ. AltTab không thể sử dụng chúng.\n\nThay đổi của bạn sẽ gán một trong số đó cho: %@.";
 "Manage activations, view receipts, etc" = "Quản lý kích hoạt, xem biên lai, v.v.";

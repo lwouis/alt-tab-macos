@@ -49,7 +49,7 @@ class ControlsTab {
     static var shortcutEditorContentWidth: CGFloat { shortcutEditorWidth - shortcutEditorRightPadding }
     private static let gestureSelectionIndex = -1
     private static let staticManagedShortcutPreferences = [
-        "focusWindowShortcut", "previousWindowShortcut", "cancelShortcut", "searchShortcut", "lockSearchShortcut",
+        "focusWindowShortcut", "previousWindowShortcut", "cancelShortcut", "searchShortcut",
         "closeWindowShortcut", "minDeminWindowShortcut", "toggleFullscreenWindowShortcut", "quitAppShortcut", "hideShowAppShortcut",
     ]
     /// Canonical id → localized label for the always-active ("when active") shortcuts. Single source
@@ -60,7 +60,6 @@ class ControlsTab {
         "previousWindowShortcut": NSLocalizedString("Select previous window", comment: ""),
         "cancelShortcut": NSLocalizedString("Cancel", comment: ""),
         "searchShortcut": NSLocalizedString("Search", comment: ""),
-        "lockSearchShortcut": NSLocalizedString("Lock search", comment: ""),
         "closeWindowShortcut": NSLocalizedString("Close window", comment: ""),
         "minDeminWindowShortcut": NSLocalizedString("Minimize/Deminimize window", comment: ""),
         "toggleFullscreenWindowShortcut": NSLocalizedString("Fullscreen/Defullscreen window", comment: ""),

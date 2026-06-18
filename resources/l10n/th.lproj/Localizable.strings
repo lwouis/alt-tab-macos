@@ -140,7 +140,6 @@
 "License doesn't cover this version" = "สิทธิ์ใช้งานไม่ครอบคลุมเวอร์ชันนี้";
 "License will remain valid and usable to activate AltTab on any machine" = "สิทธิ์ใช้งานจะยังคงใช้งานได้และสามารถเปิดใช้งาน AltTab บนเครื่องใดก็ได้";
 "Light" = "สว่าง";
-"Lock search" = "ล็อกการค้นหา";
 "Machine %@" = "เครื่อง %@";
 "macOS reserves ⌘⌥⎋, ⌘⌥⇧⎋, and ⌘⌥⇧⌃⎋ for Force Quit and they cannot be unbound. AltTab cannot use them.\n\nYour change would assign one of these to: %@." = "macOS สงวน ⌘⌥⎋, ⌘⌥⇧⎋ และ ⌘⌥⇧⌃⎋ ไว้สำหรับการบังคับออก และไม่สามารถยกเลิกการกำหนดได้ AltTab ไม่สามารถใช้ปุ่มเหล่านี้\n\nการเปลี่ยนแปลงของคุณจะกำหนดปุ่มหนึ่งในเหล่านี้ให้กับ: %@";
 "Manage activations, view receipts, etc" = "จัดการการเปิดใช้งาน ดูใบเสร็จ ฯลฯ";

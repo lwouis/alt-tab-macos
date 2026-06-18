@@ -140,7 +140,6 @@
 "License doesn't cover this version" = "授權不涵蓋此版本";
 "License will remain valid and usable to activate AltTab on any machine" = "授權仍然有效，可在任何裝置上啟用 AltTab";
 "Light" = "淺色";
-"Lock search" = "鎖定搜尋";
 "Machine %@" = "裝置 %@";
 "macOS reserves ⌘⌥⎋, ⌘⌥⇧⎋, and ⌘⌥⇧⌃⎋ for Force Quit and they cannot be unbound. AltTab cannot use them.\n\nYour change would assign one of these to: %@." = "macOS 將 ⌘⌥⎋、⌘⌥⇧⎋ 和 ⌘⌥⇧⌃⎋ 保留作「強制結束」之用，且無法解除指派。AltTab 無法使用這些組合鍵。\n\n您的變更會將其中之一指派給：%@。";
 "Manage activations, view receipts, etc" = "管理啟用、查看收據等";

@@ -13,7 +13,6 @@ enum ProFeature: Equatable, Hashable {
     // Hard-gated runtime actions. No stored preference; gated at use-time.
     case extraShortcut(index: Int)
     case searchInSwitcher
-    case lockSearchInSwitcher
 
     enum GateKind {
         /// Silent fallback only. Stored value is downgraded on lock; no [C] from this alone.
@@ -28,7 +27,7 @@ enum ProFeature: Equatable, Hashable {
         switch self {
         case .autoSize: return .degradable
         case .appIconsAndTitlesStyle, .searchOnReleaseShortcut: return .degradableAndHardGated
-        case .extraShortcut, .searchInSwitcher, .lockSearchInSwitcher: return .hardGated
+        case .extraShortcut, .searchInSwitcher: return .hardGated
         }
     }
 
@@ -39,19 +38,20 @@ enum ProFeature: Equatable, Hashable {
         case .appIconsAndTitlesStyle: return ProGatedPreferences.appearanceStyle.erased
         case .autoSize: return ProGatedPreferences.appearanceSize.erased
         case .searchOnReleaseShortcut: return ProGatedPreferences.shortcutStyle.erased
-        case .extraShortcut, .searchInSwitcher, .lockSearchInSwitcher: return nil
+        case .extraShortcut, .searchInSwitcher: return nil
         }
     }
 
     /// The marketing copy used in feature lists (Day 1 table, Day 15 Full Upgrade, UpgradeTab, etc.).
-    /// Multiple cases can share the same marketing line (e.g. search + lockSearch both map to "Search").
+    /// Multiple cases can share the same marketing line (e.g. extraShortcut + searchOnReleaseShortcut
+    /// both map to "keyboard shortcuts").
     var copy: String {
         switch self {
         case .appIconsAndTitlesStyle: return ProFeatureCopy.appIconsAndTitles
         case .autoSize: return ProFeatureCopy.autoSize
         case .searchOnReleaseShortcut: return ProFeatureCopy.extraShortcuts // grouped under "keyboard shortcuts"
         case .extraShortcut: return ProFeatureCopy.extraShortcuts
-        case .searchInSwitcher, .lockSearchInSwitcher: return ProFeatureCopy.search
+        case .searchInSwitcher: return ProFeatureCopy.search
         }
     }
 
@@ -69,13 +69,13 @@ enum ProFeature: Equatable, Hashable {
     /// consults the free-pass ladder in `ProTransitionManager`. Degradable-only features
     /// always return `true` because they are gated at preference-write time, not at use time.
     /// During an active free-pass session every feature is allowed without re-consuming the
-    /// free pass — the user is mid-session with one Pro summon, so search, lock-search, and
-    /// extra-shortcut chords inside that session must work without firing [C] inline.
+    /// free pass — the user is mid-session with one Pro summon, so search and extra-shortcut
+    /// chords inside that session must work without firing [C] inline.
     func attemptUse() -> Bool {
         if LicenseManager.shared.isProAvailable { return true }
         if ProTransitionManager.shared.isFreePassSessionActive { return true }
         switch self {
-        case .extraShortcut, .searchInSwitcher, .lockSearchInSwitcher:
+        case .extraShortcut, .searchInSwitcher:
             return ProTransitionManager.shared.attemptHardGatedFeature(self)
         case .appIconsAndTitlesStyle, .autoSize, .searchOnReleaseShortcut:
             return true
