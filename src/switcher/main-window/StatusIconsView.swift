@@ -11,12 +11,14 @@ class StatusIconsView: FlippedView {
     static let hiddenIdx = 1
     static let fullscreenIdx = 2
     static let minimizedIdx = 3
+    static let moreWindowsIdx = 4
 
     private static let defaultSymbols: [(Symbols, String?)] = [
         (.circledNumber0, nil),
         (.circledSlashSign, NSLocalizedString("App is hidden", comment: "")),
         (.circledPlusSign, NSLocalizedString("Window is fullscreen", comment: "")),
         (.circledMinusSign, NSLocalizedString("Window is minimized", comment: "")),
+        (.macwindowStack, NSLocalizedString("More windows", comment: ""))
     ]
 
     var icons: [Icon]
@@ -60,11 +62,12 @@ class StatusIconsView: FlippedView {
 
     var totalWidth: CGFloat { CGFloat(visibleCount) * TilesView.layoutCache.iconWidth }
 
-    func update(isHidden: Bool, isFullscreen: Bool, isMinimized: Bool, showSpace: Bool) {
+    func update(isHidden: Bool, isFullscreen: Bool, isMinimized: Bool, showSpace: Bool, showMoreWindows: Bool) {
         icons[Self.hiddenIdx].visible = isHidden
         icons[Self.fullscreenIdx].visible = isFullscreen
         icons[Self.minimizedIdx].visible = isMinimized
         icons[Self.spaceIdx].visible = showSpace
+        icons[Self.moreWindowsIdx].visible = showMoreWindows
         visibleCount = icons.count(where: { $0.visible })
     }
 

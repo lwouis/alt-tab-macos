@@ -42,6 +42,7 @@ class Preferences {
             "crashPolicy": CrashPolicyPreference.ask.indexAsString,
             "hideThumbnails": "false",
             "hideSpaceNumberLabels": "false",
+            "hideMoreWindowsIcon": "false",
             "hideStatusIcons": "false",
             "previewFocusedWindow": "false",
             "captureWindowsInBackground": "true",
@@ -120,6 +121,7 @@ class Preferences {
     static var fadeOutAnimation: Bool { CachedUserDefaults.bool("fadeOutAnimation") }
     static var previewFadeInAnimation: Bool { CachedUserDefaults.bool("previewFadeInAnimation") }
     static var hideSpaceNumberLabels: Bool { CachedUserDefaults.bool("hideSpaceNumberLabels") }
+    static var hideMoreWindowsIcon: Bool { CachedUserDefaults.bool("hideMoreWindowsIcon") }
     static var hideStatusIcons: Bool { CachedUserDefaults.bool("hideStatusIcons") }
     // periphery:ignore
     static var startAtLogin: Bool { CachedUserDefaults.bool("startAtLogin") }

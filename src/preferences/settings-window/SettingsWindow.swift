@@ -1264,6 +1264,10 @@ extension SettingsWindow: NSWindowDelegate {
             SettingsWindow.shared = nil
         }
     }
+    
+    func window(_ window: NSWindow, willPositionSheet sheet: NSWindow, using rect: NSRect) -> NSRect {
+        return NSRect(x: rect.origin.x, y: window.frame.height, width: rect.width, height: rect.height)
+    }
 }
 
 extension SettingsWindow: NSSearchFieldDelegate {

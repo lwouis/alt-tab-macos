@@ -265,7 +265,8 @@ class TileView: FlippedView {
                 return Preferences.spacesToShow[shortcutIndex] == .visible && (
                     NSScreen.screens.count < 2 || Preferences.screensToShow[shortcutIndex] == .showingAltTab
                 )
-            }())
+            }()),
+            showMoreWindows: !Preferences.hideMoreWindowsIcon && Preferences.groupApps(SwitcherSession.activeShortcutIndex) == .mainWindow && !element.isWindowlessApp && Windows.list.contains { $0.application.pid == element.application.pid && !$0.shouldShowTheUser && !$0.isPhantom && (Preferences.groupTabs(SwitcherSession.activeShortcutIndex) == .separateWindows || !$0.isTabbed) }
         )
         if !thumbnail.isHidden {
             if let screenshot = element.thumbnail {

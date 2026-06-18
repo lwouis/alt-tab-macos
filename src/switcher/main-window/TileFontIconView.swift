@@ -13,6 +13,7 @@ enum Symbols: String {
     case circledStar = "􀕬"           // star.circle
     case filledCircledStar = "􀕭"     // star.circle.fill
     case circledInfo = "􀅴"           // info.circle
+    case macwindowStack = "􃑷"        // macwindow.stack
     // Preferences sidebar tab icons
     case paintpalette = "􀝥"          // paintpalette
     case command = "􀆔"               // command
