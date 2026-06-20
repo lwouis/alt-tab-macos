@@ -44,6 +44,9 @@ extension AXUIElement {
 
 /// Attributes
 extension AXUIElement {
+    /// our own process's pid, cached. used to spot same-process AX elements (see `attributes(_:pid:)`).
+    static let currentProcessPid = ProcessInfo.processInfo.processIdentifier
+
     // periphery:ignore
     func id() -> AXUIElementID? {
         let pointer = UnsafeRawPointer(Unmanaged.passUnretained(self).toOpaque()).advanced(by: 0x20)
@@ -97,6 +100,18 @@ extension AXUIElement {
         return result
     }
 
+    /// Same-process variant of `attributes(_:)`. `AXUIElementCopyMultipleAttributeValues` on an element in
+    /// OUR process does no IPC: it dispatches straight into AppKit's accessibility implementation on the
+    /// CALLING thread (e.g. `-[_NSPopoverWindow accessibilityTitle]`). AppKit is main-thread-only, so doing
+    /// that off-main races AppKit's teardown of transient windows and traps in `__CF_IS_OBJC`. So for our own
+    /// `pid` we run the read on the main thread (local call, cheap); other pids are real IPC, read inline.
+    func attributes(_ keys: [String], pid: pid_t) throws -> AXAttributes {
+        if pid == Self.currentProcessPid, !Thread.isMainThread {
+            return try DispatchQueue.main.sync { try attributes(keys) }
+        }
+        return try attributes(keys)
+    }
+
     func castSafely<T>(_ value: CFTypeRef) -> T? {
         switch CFGetTypeID(value) {
         case AXValueGetTypeID():
@@ -134,6 +149,12 @@ extension AXUIElement {
     /// with only normal approach: we miss other-Spaces windows
     /// with only brute-force approach: we miss windows when the app launches (e.g. launch Note.app: first window is not found by brute-force)
     func allWindows(_ pid: pid_t) throws -> [AXUIElement] {
+        if pid == Self.currentProcessPid {
+            // our own windows are always on the current Space, so the brute-force other-Space scan adds
+            // nothing; and its per-element subrole reads would run AppKit off-main (see `attributes(_:pid:)`).
+            // a single main-thread `windows()` read is enough and is safe.
+            return Thread.isMainThread ? try windows() : try DispatchQueue.main.sync { try windows() }
+        }
         let aWindows = try windows()
         let bWindows = Self.windowsByBruteForce(pid)
         return Array(Set(aWindows + bWindows))

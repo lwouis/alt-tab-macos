@@ -124,9 +124,9 @@ class Applications {
             guard let app else { return }
             guard wid != 0 && wid != TilesPanel.shared.windowNumber else { return }
             let level = wid.level()
-            let isSelf = app.pid == ProcessInfo.processInfo.processIdentifier
+            let isSelf = app.pid == AXUIElement.currentProcessPid
             let keys = [kAXTitleAttribute, kAXSubroleAttribute, kAXRoleAttribute, kAXSizeAttribute, kAXPositionAttribute, kAXFullscreenAttribute, kAXMinimizedAttribute, kAXMainAttribute] + (isSelf ? [] : [kAXChildrenAttribute])
-            let a = try axWindow.attributes(keys)
+            let a = try axWindow.attributes(keys, pid: app.pid)
             let tabSiblingTitles = isSelf ? nil : TabGroup.extractTabTitles(a.children)
             DispatchQueue.main.async { [weak app] in
                 guard let app else { return }

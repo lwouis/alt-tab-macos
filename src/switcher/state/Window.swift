@@ -399,7 +399,7 @@ class Window {
         let app = application
         guard let appAxUiElement = app.axUiElement else { return }
         AXCallScheduler.shared.schedule(key: "wid-\(cgWindowId)-focus", context: debugId, pid: app.pid) { [weak app] in
-            guard let app, let focusedWindow = try appAxUiElement.attributes([kAXFocusedWindowAttribute]).focusedWindow else { return }
+            guard let app, let focusedWindow = try appAxUiElement.attributes([kAXFocusedWindowAttribute], pid: app.pid).focusedWindow else { return }
             let focusedWid = try focusedWindow.cgWindowId()
             DispatchQueue.main.async {
                 guard let window = (Windows.list.first { $0.isEqualRobust(focusedWindow, focusedWid) }) else { return }

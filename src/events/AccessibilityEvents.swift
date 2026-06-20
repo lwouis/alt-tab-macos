@@ -93,7 +93,7 @@ class AccessibilityEvents {
     }
 
     private static func handleEventApp(_ type: String, _ pid: pid_t, _ element: AXUIElement) throws {
-        let appFocusedWindow = try element.attributes([kAXFocusedWindowAttribute]).focusedWindow
+        let appFocusedWindow = try element.attributes([kAXFocusedWindowAttribute], pid: pid).focusedWindow
         let wid = try appFocusedWindow?.cgWindowId()
         DispatchQueue.main.async {
             guard let app = Applications.findOrCreate(pid, false) else { return }
@@ -141,9 +141,9 @@ class AccessibilityEvents {
     static func handleEventWindow(_ type: String, _ wid: CGWindowID, _ pid: pid_t, _ element: AXUIElement) throws {
         let level = wid.level()
         // if we query .children on ourselves, AppKit calls layout directly from our thread instead of IPC; we avoid this
-        let isSelf = pid == ProcessInfo.processInfo.processIdentifier
+        let isSelf = pid == AXUIElement.currentProcessPid
         let keys = [kAXTitleAttribute, kAXSubroleAttribute, kAXRoleAttribute, kAXSizeAttribute, kAXPositionAttribute, kAXFullscreenAttribute, kAXMinimizedAttribute, kAXMainAttribute] + (isSelf ? [] : [kAXChildrenAttribute])
-        let a = try element.attributes(keys)
+        let a = try element.attributes(keys, pid: pid)
         let tabSiblingTitles = isSelf ? nil : TabGroup.extractTabTitles(a.children)
         DispatchQueue.main.async {
             guard let app = Applications.findOrCreate(pid, false) else { return }
