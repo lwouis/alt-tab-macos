@@ -242,7 +242,7 @@ private final class SidebarSearchField: NSSearchField {
 }
 
 class SettingsWindow: NSWindow {
-    static let contentWidth = CGFloat(710)
+    static let contentWidth = CGFloat(790)
     static let width = contentWidth
     /// Horizontal margin inside each section between the section's container and the
     /// TableGroupView's rounded background, so the gray-bg blocks "float" inside the section
@@ -1263,6 +1263,10 @@ extension SettingsWindow: NSWindowDelegate {
             UpgradeTab.cleanup()
             SettingsWindow.shared = nil
         }
+    }
+    
+    func window(_ window: NSWindow, willPositionSheet sheet: NSWindow, using rect: NSRect) -> NSRect {
+        return NSRect(x: rect.origin.x, y: window.frame.height, width: rect.width, height: rect.height)
     }
 }
 

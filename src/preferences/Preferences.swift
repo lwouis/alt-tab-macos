@@ -30,6 +30,7 @@ class Preferences {
             "showOnScreen": ShowOnScreenPreference.active.indexAsString,
             "titleTruncation": TitleTruncationPreference.end.indexAsString,
             "showTitles": ShowTitlesPreference.windowTitle.indexAsString,
+            "showTitlesForAppIcons": ShowTitlesPreference.appName.indexAsString,
             "fadeOutAnimation": "false",
             "previewFadeInAnimation": "true",
             "startAtLogin": "true",
@@ -41,6 +42,7 @@ class Preferences {
             "crashPolicy": CrashPolicyPreference.ask.indexAsString,
             "hideThumbnails": "false",
             "hideSpaceNumberLabels": "false",
+            "hideMoreWindowsIcon": "false",
             "hideStatusIcons": "false",
             "previewFocusedWindow": "false",
             "captureWindowsInBackground": "true",
@@ -61,6 +63,9 @@ class Preferences {
             values[indexToName("showFullscreenWindows", index)] = ShowHowPreference.show.indexAsString
             values[indexToName("showWindowlessApps", index)] = ShowHowPreference.showAtTheEnd.indexAsString
             values[indexToName("windowOrder", index)] = WindowOrderPreference.recentlyFocused.indexAsString
+            values[indexToName("restoreState", index)] = "false"
+            values[indexToName("usePreviousSelectedApp", index)] = "false"
+            values[indexToName("selectLastFocusedWindow", index)] = "false"
             values[indexToName("shortcutStyle", index)] = ShortcutStylePreference.focusOnRelease.indexAsString
             values[indexToName("showAppsOrWindows", index)] = GroupAppsPreference.allWindows.indexAsString
             values[indexToName("showTabsAsWindows", index)] = GroupTabsPreference.singleWindow.indexAsString
@@ -116,6 +121,7 @@ class Preferences {
     static var fadeOutAnimation: Bool { CachedUserDefaults.bool("fadeOutAnimation") }
     static var previewFadeInAnimation: Bool { CachedUserDefaults.bool("previewFadeInAnimation") }
     static var hideSpaceNumberLabels: Bool { CachedUserDefaults.bool("hideSpaceNumberLabels") }
+    static var hideMoreWindowsIcon: Bool { CachedUserDefaults.bool("hideMoreWindowsIcon") }
     static var hideStatusIcons: Bool { CachedUserDefaults.bool("hideStatusIcons") }
     // periphery:ignore
     static var startAtLogin: Bool { CachedUserDefaults.bool("startAtLogin") }
@@ -134,6 +140,7 @@ class Preferences {
     static var showOnScreen: ShowOnScreenPreference { CachedUserDefaults.macroPref("showOnScreen", ShowOnScreenPreference.allCases) }
     static var titleTruncation: TitleTruncationPreference { CachedUserDefaults.macroPref("titleTruncation", TitleTruncationPreference.allCases) }
     static var showTitles: ShowTitlesPreference { CachedUserDefaults.macroPref("showTitles", ShowTitlesPreference.allCases) }
+    static var showTitlesForAppIcons: ShowTitlesPreference { CachedUserDefaults.macroPref("showTitlesForAppIcons", ShowTitlesPreference.allCases) }
     static var updatePolicy: UpdatePolicyPreference { CachedUserDefaults.macroPref("updatePolicy", UpdatePolicyPreference.allCases) }
     static var crashPolicy: CrashPolicyPreference { CachedUserDefaults.macroPref("crashPolicy", CrashPolicyPreference.allCases) }
     static var appsToShow: [AppsToShowPreference] { (0...maxShortcutCount).map { CachedUserDefaults.macroPref(indexToName("appsToShow", $0), AppsToShowPreference.allCases) } }
@@ -150,6 +157,9 @@ class Preferences {
     static func showFullscreenWindows(_ i: Int) -> ShowHowPreference { CachedUserDefaults.macroPref(indexToName("showFullscreenWindows", i), ShowHowPreference.allCases) }
     static func showWindowlessApps(_ i: Int) -> ShowHowPreference { CachedUserDefaults.macroPref(indexToName("showWindowlessApps", i), ShowHowPreference.allCases) }
     static func windowOrder(_ i: Int) -> WindowOrderPreference { CachedUserDefaults.macroPref(indexToName("windowOrder", i), WindowOrderPreference.allCases) }
+    static func restoreState(_ i: Int) -> Bool { CachedUserDefaults.bool(indexToName("restoreState", i)) }
+    static func usePreviousSelectedApp(_ i: Int) -> Bool { CachedUserDefaults.bool(indexToName("usePreviousSelectedApp", i)) }
+    static func selectLastFocusedWindow(_ i: Int) -> Bool { CachedUserDefaults.bool(indexToName("selectLastFocusedWindow", i)) }
     static func groupApps(_ i: Int) -> GroupAppsPreference { CachedUserDefaults.macroPref(indexToName("showAppsOrWindows", i), GroupAppsPreference.allCases) }
     static func groupTabs(_ i: Int) -> GroupTabsPreference { CachedUserDefaults.macroPref(indexToName("showTabsAsWindows", i), GroupTabsPreference.allCases) }
     static var shortcutStyle: ShortcutStylePreference { ProGatedPreferences.shortcutStyle.read() }

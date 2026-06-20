@@ -17,4 +17,4 @@ fi
 # synthesized at runtime in StatusIconsView.symbolForSpace.
 "$(pipenv --venv)"/bin/pyftsubset "$SOURCE_FONT" \
   --output-file=resources/SF-Pro-Text-Regular.otf \
-  --text="􀀁􀅴􀁎􀁌􀕧􀀸􀀺􀀼􀀾􀁀􀁂􀁄􀑱􀁆􀁈􀁊􀑳􀓵􀓶􀓷􀓸􀓹􀓺􀓻􀓼􀓽􀓾􀓿􀔀􀔁􀔂􀔃􀔄􀔅􀔆􀔇􀔈􀔉􀕬􀀹􀀻􀀽􀀿􀁁􀘘􀁃􀁅􀑲􀁇􀁉􀁋􀑴􀔔􀔕􀔖􀔗􀔘􀔙􀔚􀔛􀔜􀔝􀔞􀔟􀔠􀔡􀔢􀔣􀔤􀔥􀔦􀔧􀔨􀕭􀝥􀆔􀣋􀉻􀉣􀙠􀕾􀢹􀯔􀛭􀅼􀅽􀁏􀇰􀊛􀊫􁐎􁐏􁐐􀆿􀆭􀆺􀟛􀋃"
+  --text="􀀁􀅴􀁎􀁌􀕧􀀸􀀺􀀼􀀾􀁀􀁂􀁄􀑱􀁆􀁈􀁊􀑳􀓵􀓶􀓷􀓸􀓹􀓺􀓻􀓼􀓽􀓾􀓿􀔀􀔁􀔂􀔃􀔄􀔅􀔆􀔇􀔈􀔉􀕬􀀹􀀻􀀽􀀿􀁁􀘘􀁃􀁅􀑲􀁇􀁉􀁋􀑴􀔔􀔕􀔖􀔗􀔘􀔙􀔚􀔛􀔜􀔝􀔞􀔟􀔠􀔡􀔢􀔣􀔤􀔥􀔦􀔧􀔨􀕭􃑷􀝥􀆔􀣋􀉻􀉣􀙠􀕾􀢹􀯔􀛭􀅼􀅽􀁏􀇰􀊛􀊫􀮵􁐎􁐏􁐐􀆿􀆭􀆺􀟛􀋃"

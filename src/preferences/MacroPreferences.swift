@@ -101,12 +101,14 @@ enum ShortcutStylePreference: CaseIterable, SfSymbolMacroPreference {
     case focusOnRelease
     case doNothingOnRelease
     case searchOnRelease
+    case openOnRelease
 
     var localizedString: LocalizedString {
         switch self {
             case .focusOnRelease: return NSLocalizedString("Focus", comment: "")
             case .doNothingOnRelease: return NSLocalizedString("Hold", comment: "")
             case .searchOnRelease: return NSLocalizedString("Search", comment: "")
+            case .openOnRelease: return NSLocalizedString("Open", comment: "")
         }
     }
 
@@ -115,6 +117,7 @@ enum ShortcutStylePreference: CaseIterable, SfSymbolMacroPreference {
             case .focusOnRelease: return .cursorarrowRays
             case .doNothingOnRelease: return .pauseRectangle
             case .searchOnRelease: return .magnifyingglass
+            case .openOnRelease: return .arrowUpForwardApp
         }
     }
 }

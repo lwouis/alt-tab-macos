@@ -8,8 +8,8 @@ class NonHitTestingView: NSView {
 
 struct ShowHideRowInfo {
     var rowId: String!
-    var uncheckedImage: String!
-    var checkedImage: String!
+    var uncheckedImage: String?
+    var checkedImage: String?
     var supportedStyles: [AppearanceStylePreference]!
     var subTitle: String?
     var leftViews = [NSView]()
@@ -156,6 +156,7 @@ class ShowHideIllustratedView {
     static let hideStatusIconsLabel = NSLocalizedString("Hide status icons", comment: "")
     static let hideStatusIconsSubtitle = NSLocalizedString("AltTab will show if the window is currently minimized or fullscreen with a status icon.", comment: "")
     static let hideSpaceNumberLabelsLabel = NSLocalizedString("Hide Space number labels", comment: "")
+    static let hideMoreWindowsIconLabel = NSLocalizedString("Hide more windows icon", comment: "")
     static let hideColoredCirclesLabel = NSLocalizedString("Hide colored circles on mouse hover", comment: "")
 
     private let style: AppearanceStylePreference
@@ -213,6 +214,16 @@ class ShowHideIllustratedView {
             self.onCheckboxClicked(sender: sender, rowId: hideSpaceNumberLabels.rowId)
         }))
         showHideRows.append(hideSpaceNumberLabels)
+        var hideMoreWindowsIcon = ShowHideRowInfo()
+        hideMoreWindowsIcon.rowId = "hideMoreWindowsIcon"
+        hideMoreWindowsIcon.uncheckedImage = nil
+        hideMoreWindowsIcon.checkedImage = nil
+        hideMoreWindowsIcon.supportedStyles = [.thumbnails, .titles]
+        hideMoreWindowsIcon.leftViews = [TableGroupView.makeText(ShowHideIllustratedView.hideMoreWindowsIconLabel)]
+        hideMoreWindowsIcon.rightViews.append(LabelAndControl.makeSwitch(hideMoreWindowsIcon.rowId, extraAction: { sender in
+            self.onCheckboxClicked(sender: sender, rowId: hideMoreWindowsIcon.rowId)
+        }))
+        showHideRows.append(hideMoreWindowsIcon)
         var hideColoredCircles = ShowHideRowInfo()
         hideColoredCircles.rowId = "hideColoredCircles"
         hideColoredCircles.uncheckedImage = "show_colored_circles"
@@ -244,8 +255,11 @@ class ShowHideIllustratedView {
             illustratedImageView.showPlaceholder()
             return
         }
-        let imageName = isChecked ? row.checkedImage : row.uncheckedImage
-        illustratedImageView.highlight(true, imageName!)
+        if let imageName = isChecked ? row.checkedImage : row.uncheckedImage {
+            illustratedImageView.highlight(true, imageName)
+        } else {
+            illustratedImageView.highlight(false)
+        }
     }
 
     private func updateImageView(rowId: String) {
@@ -257,8 +271,11 @@ class ShowHideIllustratedView {
         row.rightViews.forEach { view in
             if let checkbox = view as? NSButton {
                 let isChecked = checkbox.state == .on
-                let imageName = isChecked ? row.checkedImage : row.uncheckedImage
-                illustratedImageView.highlight(true, imageName!)
+                if let imageName = isChecked ? row.checkedImage : row.uncheckedImage {
+                    illustratedImageView.highlight(true, imageName)
+                } else {
+                    illustratedImageView.highlight(false)
+                }
             }
         }
     }

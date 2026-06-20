@@ -113,7 +113,7 @@ class Windows {
             onlyNonVisibleSpaces: f.spacesToShow == .nonVisible,
             onlyPreferredScreen: f.screensToShow == .showingAltTab,
             separateTabs: f.groupTabs == .separateWindows,
-            frontmostPid: Applications.frontmostPid,
+            frontmostPid: SwitcherSession.frontmostPidOverride ?? Applications.frontmostPid,
             visibleSpaceIds: Spaces.visibleSpaces,
             exceptions: f.exceptions,
             isOnPreferredScreen: window.isOnScreen(NSScreen.preferred))
@@ -193,8 +193,8 @@ class Windows {
             list: snapshot,
             selectedIndex: session.selectedIndex,
             selectedTarget: session.selectedTarget,
-            useLastFocusedRule: Applications.frontmostPid != nil
-                && Preferences.windowOrder[session.shortcutIndex] != .recentlyFocused,
+            useLastFocusedRule: SwitcherSession.useLastFocusedRuleOverride ?? (Applications.frontmostPid != nil
+                && Preferences.windowOrder[session.shortcutIndex] != .recentlyFocused),
             restoreDefaultOnSearchClear: shouldRestoreDefaultSelectionOnSearchClear,
             bestMatchOnSearchChange: shouldSelectBestMatchOnSearchChange)
     }

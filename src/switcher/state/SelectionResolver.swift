@@ -94,15 +94,17 @@ enum SelectionResolver {
     /// the list is empty or no window is visible.
     static func cycleFromZero(_ list: [SelectionWindow]) -> Int? {
         guard !list.isEmpty else { return nil }
-        // Try indices 1, 2, …, count-1, then 0 (wrap). Single return point — the trailing
-        // `return nil` covers the "no window visible" case without needing a separate guard.
-        for offset in 1...list.count {
-            let idx = offset % list.count
+        var firstVisible: Int?
+        for idx in 0..<list.count {
             if list[idx].visible {
-                return idx
+                if firstVisible == nil {
+                    firstVisible = idx
+                } else {
+                    return idx
+                }
             }
         }
-        return nil
+        return firstVisible
     }
 
     /// Returns the index of the visible non-windowless window with the lowest `lastFocusOrder`.

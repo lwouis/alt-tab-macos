@@ -265,7 +265,8 @@ class TileView: FlippedView {
                 return Preferences.spacesToShow[shortcutIndex] == .visible && (
                     NSScreen.screens.count < 2 || Preferences.screensToShow[shortcutIndex] == .showingAltTab
                 )
-            }())
+            }()),
+            showMoreWindows: !Preferences.hideMoreWindowsIcon && Preferences.groupApps(SwitcherSession.activeShortcutIndex) == .mainWindow && !element.isWindowlessApp && Windows.list.contains { $0.application.pid == element.application.pid && !$0.shouldShowTheUser && !$0.isPhantom && (Preferences.groupTabs(SwitcherSession.activeShortcutIndex) == .separateWindows || !$0.isTabbed) }
         )
         if !thumbnail.isHidden {
             if let screenshot = element.thumbnail {
@@ -297,7 +298,10 @@ class TileView: FlippedView {
         updateAppIcon(element, title)
         updateDockLabelIcon(element.dockLabel)
         setAccessibilityHelp(getAccessibilityHelp(element.application.localizedName, element.dockLabel))
-        mouseUpCallback = { () -> Void in App.focusSelectedWindow(element) }
+        mouseUpCallback = { () -> Void in
+            let forceIsWindowlessApp = Preferences.effectiveShortcutStyle(SwitcherSession.activeShortcutIndex) == .openOnRelease
+            App.focusSelectedWindow(element, forceIsWindowlessApp)
+        }
         mouseMovedCallback = { () -> Void in Windows.updateSelectedAndHoveredWindowIndex(index, true) }
     }
 
@@ -366,13 +370,14 @@ class TileView: FlippedView {
 
     private func searchSpanRanges() -> [NSRange] {
         var spanRanges = [NSRange]()
-        if Preferences.showTitles == .appName {
+        let showTitles = Preferences.effectiveAppearanceStyle(SwitcherSession.activeShortcutIndex) == .appIcons ? Preferences.showTitlesForAppIcons : Preferences.showTitles
+        if showTitles == .appName {
             for result in window_?.swAppResults ?? [] {
                 spanRanges.append(NSRange(location: result.span.lowerBound, length: result.span.count))
             }
             return spanRanges
         }
-        if Preferences.showTitles == .appNameAndWindowTitle {
+        if showTitles == .appNameAndWindowTitle {
             let appName = window_?.application.localizedName ?? ""
             let windowTitle = window_?.title ?? ""
             let offset = (appName.isEmpty || appName == windowTitle) ? 0 : (appName + " - ").count
@@ -570,9 +575,10 @@ class TileView: FlippedView {
     private func getAppOrAndWindowTitle() -> String {
         let appName = window_?.application.localizedName
         let windowTitle = window_?.title
-        if Preferences.showTitles == .appName {
+        let showTitles = Preferences.effectiveAppearanceStyle(SwitcherSession.activeShortcutIndex) == .appIcons ? Preferences.showTitlesForAppIcons : Preferences.showTitles
+        if showTitles == .appName {
             return appName ?? ""
-        } else if Preferences.showTitles == .appNameAndWindowTitle {
+        } else if showTitles == .appNameAndWindowTitle {
             if appName == windowTitle {
                 return appName ?? ""
             }

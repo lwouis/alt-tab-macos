@@ -64,6 +64,7 @@ class App: AppCenterApplication {
         Logger.info { "active:\(SwitcherSession.isActive)" }
         guard SwitcherSession.current != nil else { return } // already hidden
         SwitcherSession.current = nil
+        SwitcherSession.sessionOverrides = [:]
         UsageStats.resetSession()
         TilesView.endSearchSession()
         ContextMenuEvents.toggle(false)
@@ -97,7 +98,8 @@ class App: AppCenterApplication {
         guard SwitcherSession.isActive else { return } // already hidden
         let selectedWindow = Windows.selectedWindow()
         Logger.info { selectedWindow?.debugId }
-        focusSelectedWindow(selectedWindow)
+        let forceIsWindowlessApp = Preferences.effectiveShortcutStyle(SwitcherSession.activeShortcutIndex) == .openOnRelease
+        focusSelectedWindow(selectedWindow, forceIsWindowlessApp)
     }
 
     @objc static func checkForUpdatesNow(_ sender: NSMenuItem) {
@@ -263,11 +265,11 @@ class App: AppCenterApplication {
         KeyRepeatTimer.startRepeatingKeyPreviousWindow()
     }
 
-    static func focusSelectedWindow(_ selectedWindow: Window?) {
+    static func focusSelectedWindow(_ selectedWindow: Window?, _ forceIsWindowlessApp: Bool) {
         guard SwitcherSession.isActive else { return } // already hidden
         hideUi(true)
         if let window = selectedWindow, MissionControl.state() == .inactive || MissionControl.state() == .showDesktop {
-            window.focus()
+            window.focus(forceIsWindowlessApp)
             if Preferences.cursorFollowFocus == .always || (
                 Preferences.cursorFollowFocus == .differentScreen && (Spaces.screenSpacesMap.first { $0.value.contains { space in window.spaceIds.contains(space) } })?.key != NSScreen.active()?.cachedUuid()) {
                 moveCursorToSelectedWindow(window)
@@ -308,15 +310,42 @@ class App: AppCenterApplication {
     }
 
     static func showUiOrCycleSelection(_ shortcutIndex: Int, _ forceDoNothingOnRelease_: Bool) {
-        let session = SwitcherSession.current ?? {
+        var session = SwitcherSession.current ?? {
             let new = SwitcherSession()
             SwitcherSession.current = new
             return new
         }()
         session.forceDoNothingOnRelease = forceDoNothingOnRelease_
-        Logger.debug { "isFirstSummon:\(session.isFirstSummon) shortcutIndex:\(shortcutIndex)" }
+        let shortcutSwitching = !session.isFirstSummon && shortcutIndex != session.shortcutIndex
+        Logger.debug { "isFirstSummon:\(session.isFirstSummon) shortcutIndex:\(shortcutIndex) shortcutSwitching:\(shortcutSwitching)" }
         UsageStats.recordTrigger(shortcutIndex)
-        if session.isFirstSummon || shortcutIndex != session.shortcutIndex {
+        if session.isFirstSummon || shortcutSwitching {
+            var restoreState = false
+            SwitcherSession.frontmostPidOverride = nil
+            SwitcherSession.useLastFocusedRuleOverride = nil
+            if shortcutSwitching {
+                if Preferences.restoreState(session.shortcutIndex) {
+                    SwitcherSession.sessionOverrides[session.shortcutIndex] = session.copy()
+                }
+                if Preferences.usePreviousSelectedApp(shortcutIndex) {
+                    SwitcherSession.frontmostPidOverride = Windows.selectedWindow()?.application.pid
+                }
+                if Preferences.selectLastFocusedWindow(shortcutIndex) {
+                    SwitcherSession.useLastFocusedRuleOverride = true
+                }
+                if
+                    Preferences.restoreState(shortcutIndex),
+                    let sessionOverride = SwitcherSession.sessionOverrides[shortcutIndex]
+                {
+                    SwitcherSession.current = sessionOverride
+                    session = sessionOverride
+                    restoreState = true
+                } else {
+                    let newSession = SwitcherSession()
+                    SwitcherSession.current = newSession
+                    session = newSession
+                }
+            }
             NSScreen.updatePreferred()
             if isVeryFirstSummon {
                 Windows.sortByLevel()
@@ -335,7 +364,11 @@ class App: AppCenterApplication {
                 session.forceDoNothingOnRelease = true
             }
             if !Windows.updatesBeforeShowing() { hideUi(); return }
-            Windows.setInitialSelectedAndHoveredWindowIndex()
+            if restoreState {
+                Windows.cycleSelectedWindowIndex(1, allowWrap: true)
+            } else {
+                Windows.setInitialSelectedAndHoveredWindowIndex()
+            }
             if Preferences.windowDisplayDelay == DispatchTimeInterval.milliseconds(0) {
                 buildUiAndShowPanel()
             } else {

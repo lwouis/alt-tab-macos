@@ -361,10 +361,13 @@ final class OrderingPane {
     private static let labelGroupApps = NSLocalizedString("Group apps", comment: "")
     private static let labelGroupTabs = NSLocalizedString("Group tabs", comment: "")
     private static let labelWindowOrder = NSLocalizedString("Order windows by", comment: "")
+    private static let labelRestoreState = NSLocalizedString("Restore state when switching shortcut", comment: "")
+    private static let labelUsePreviousSelectedApp = NSLocalizedString("Use previous selected app as active app when switching shortcut", comment: "")
+    private static let labelSelectLastFocusedWindow = NSLocalizedString("Select last focused window when switching shortcut", comment: "")
 
     /// See `FilteringPane.searchableStrings`.
     static let searchableStrings: [String] = [
-        labelGroupApps, labelGroupTabs, labelWindowOrder,
+        labelGroupApps, labelGroupTabs, labelWindowOrder, labelRestoreState, labelUsePreviousSelectedApp, labelSelectLastFocusedWindow
     ] + GroupAppsPreference.allCases.map { $0.localizedString }
       + GroupTabsPreference.allCases.map { $0.localizedString }
       + WindowOrderPreference.allCases.map { $0.localizedString }
@@ -373,16 +376,25 @@ final class OrderingPane {
     private let showAppsOrWindows: ShortcutBoundDropdown
     private let showTabsAsWindows: ShortcutBoundDropdown
     private let windowOrder: ShortcutBoundDropdown
+    private let restoreState: ShortcutBoundSwitch
+    private let usePreviousSelectedApp: ShortcutBoundSwitch
+    private let selectLastFocusedWindow: ShortcutBoundSwitch
 
     init(width: CGFloat) {
         showAppsOrWindows = ShortcutBoundDropdown(baseName: "showAppsOrWindows", cases: GroupAppsPreference.allCases)
         showTabsAsWindows = ShortcutBoundDropdown(baseName: "showTabsAsWindows", cases: GroupTabsPreference.allCases)
         windowOrder = ShortcutBoundDropdown(baseName: "windowOrder", cases: WindowOrderPreference.allCases)
+        restoreState = ShortcutBoundSwitch(baseName: "restoreState")
+        usePreviousSelectedApp = ShortcutBoundSwitch(baseName: "usePreviousSelectedApp")
+        selectLastFocusedWindow = ShortcutBoundSwitch(baseName: "selectLastFocusedWindow")
 
         let table = TableGroupView(width: width)
         table.addRow(TableGroupView.Row(leftTitle: Self.labelGroupApps, rightViews: [showAppsOrWindows]))
         table.addRow(TableGroupView.Row(leftTitle: Self.labelGroupTabs, rightViews: [showTabsAsWindows]))
         table.addRow(TableGroupView.Row(leftTitle: Self.labelWindowOrder, rightViews: [windowOrder]))
+        table.addRow(TableGroupView.Row(leftTitle: Self.labelRestoreState, rightViews: [restoreState.toggle]))
+        table.addRow(TableGroupView.Row(leftTitle: Self.labelUsePreviousSelectedApp, rightViews: [usePreviousSelectedApp.toggle]))
+        table.addRow(TableGroupView.Row(leftTitle: Self.labelSelectLastFocusedWindow, rightViews: [selectLastFocusedWindow.toggle]))
         view = table
     }
 
@@ -390,6 +402,9 @@ final class OrderingPane {
         showAppsOrWindows.bind(toShortcut: index)
         showTabsAsWindows.bind(toShortcut: index)
         windowOrder.bind(toShortcut: index)
+        restoreState.bind(toShortcut: index)
+        usePreviousSelectedApp.bind(toShortcut: index)
+        selectLastFocusedWindow.bind(toShortcut: index)
     }
 }
 
@@ -521,6 +536,36 @@ final class ShortcutBoundDropdown: PopupButtonLikeSystemSettings {
         let selectedIndex = CachedUserDefaults.intFromMacroPref(key, cases)
         let clamped = max(0, min(selectedIndex, numberOfItems - 1))
         selectItem(at: clamped)
+    }
+}
+
+final class ShortcutBoundSwitch {
+    let toggle: Switch
+
+    private let baseName: String
+    private var currentShortcutIndex: Int = 0
+
+    init(baseName: String) {
+        self.baseName = baseName
+        toggle = LabelAndControl.makeSwitch(Preferences.indexToName(baseName, 0), extraAction: nil)
+
+        let weakSelf = WeakRef(self)
+        toggle.onAction = { c in
+            weakSelf.value?.handleToggle(c as! Switch)
+        }
+    }
+
+    func bind(toShortcut index: Int) {
+        currentShortcutIndex = index
+        let key = Preferences.indexToName(baseName, index)
+        toggle.identifier = NSUserInterfaceItemIdentifier(key)
+        let on = CachedUserDefaults.bool(key)
+        toggle.setSilently(on ? .on : .off)
+    }
+
+    private func handleToggle(_ control: Switch) {
+        let key = Preferences.indexToName(baseName, currentShortcutIndex)
+        Preferences.set(key, control.state == .on ? "true" : "false")
     }
 }
 

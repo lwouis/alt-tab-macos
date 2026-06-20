@@ -122,6 +122,7 @@
 "Hide" = "Hide";
 "Hide colored circles on mouse hover" = "Hide colored circles on mouse hover";
 "Hide Space number labels" = "Hide Space number labels";
+"Hide more windows icon" = "Hide more windows icon";
 "Hide status icons" = "Hide status icons";
 "Hide windows" = "Hide windows";
 "Hide/Show app" = "Hide/Show app";
@@ -170,6 +171,9 @@
 "Open Screen Recording Settings…" = "Open Screen Recording Settings…";
 "Open Trackpad Settings…" = "Open Trackpad Settings…";
 "Order windows by" = "Order windows by";
+"Restore state when switching shortcut" = "Restore state when switching shortcut";
+"Use previous selected app as active app when switching shortcut" = "Use previous selected app as active app when switching shortcut";
+"Select last focused window when switching shortcut" = "Select last focused window when switching shortcut";
 "Ordering & Grouping" = "Ordering & Grouping";
 "Overridden in Shortcut:" = "Overridden in Shortcut:";
 "Paste your license key:" = "Paste your license key:";
@@ -201,6 +205,7 @@
 "Screen Recording" = "Screen Recording";
 "Screen showing AltTab" = "Screen showing AltTab";
 "Search" = "Search";
+"Open" = "Open";
 "Search is a Pro feature." = "Search is a Pro feature.";
 "Search windows by typing" = "Search windows by typing";
 "Search — find a window by typing" = "Search — find a window by typing";
@@ -233,6 +238,7 @@
 "Show separate window for each tab" = "Show separate window for each tab";
 "Show single window for all tabs" = "Show single window for all tabs";
 "Show titles" = "Show titles";
+"Show titles for app icons" = "Show titles for app icons";
 "Show windows from applications" = "Show windows from applications";
 "Show windows from screens" = "Show windows from screens";
 "Show windows from Spaces" = "Show windows from Spaces";

@@ -85,10 +85,12 @@ class TrackpadEvents {
         if fingersDown <= TriggerSwipeDetector.maxFingersDownDuringTrigger - requiredFingers {
             if let session = SwitcherSession.current,
                session.shortcutIndex == Preferences.gestureIndex,
-               !session.forceDoNothingOnRelease,
-               Preferences.effectiveShortcutStyle(session.shortcutIndex) == .focusOnRelease {
-                DispatchQueue.main.async {
-                    App.focusTarget()
+               !session.forceDoNothingOnRelease {
+                let style = Preferences.effectiveShortcutStyle(session.shortcutIndex)
+                if style == .focusOnRelease || style == .openOnRelease {
+                    DispatchQueue.main.async {
+                        App.focusTarget()
+                    }
                 }
             }
             return

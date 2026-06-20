@@ -13,6 +13,7 @@ enum Symbols: String {
     case circledStar = "􀕬"           // star.circle
     case filledCircledStar = "􀕭"     // star.circle.fill
     case circledInfo = "􀅴"           // info.circle
+    case macwindowStack = "􃑷"        // macwindow.stack
     // Preferences sidebar tab icons
     case paintpalette = "􀝥"          // paintpalette
     case command = "􀆔"               // command
@@ -35,6 +36,7 @@ enum Symbols: String {
     case cursorarrowRays = "􀇰"       // cursorarrow.rays
     case pauseRectangle = "􀊛"        // pause.rectangle
     case magnifyingglass = "􀊫"       // magnifyingglass
+    case arrowUpForwardApp = "􀮵"                   // arrow.up.forward.app
     // AppearanceSizePreference
     case moonphaseWaningGibbousInverse = "􁐎"   // moonphase.waning.gibbous.inverse
     case moonphaseLastQuarterInverse = "􁐏"     // moonphase.last.quarter.inverse

@@ -67,8 +67,11 @@ class ATShortcut {
                 return true
             }
             if triggerPhase == .up, let session, index == nil || index == session.shortcutIndex,
-               !session.forceDoNothingOnRelease, Preferences.effectiveShortcutStyle(session.shortcutIndex) == .focusOnRelease {
-                return true
+               !session.forceDoNothingOnRelease {
+                let style = Preferences.effectiveShortcutStyle(session.shortcutIndex)
+                if style == .focusOnRelease || style == .openOnRelease {
+                    return true
+                }
             }
         }
         if scope == .local {
@@ -93,13 +96,16 @@ class ATShortcut {
         // Another issue is events being dropped by macOS, which we never receive
         // Knowing this, we handle these edge-cases by double checking if holdShortcut is UP, when any shortcut state is UP
         // If it is, then we trigger the holdShortcut action
-        if let session = SwitcherSession.current, !session.forceDoNothingOnRelease, Preferences.effectiveShortcutStyle(session.shortcutIndex) == .focusOnRelease {
-            if let currentHoldShortcut = ControlsTab.shortcuts[Preferences.indexToName("holdShortcut", session.shortcutIndex)],
-               id == currentHoldShortcut.id {
-                let currentModifiers = cocoaToCarbonFlags(ModifierFlags.current)
-                if currentModifiers != (currentModifiers | (currentHoldShortcut.shortcut.carbonModifierFlags)) {
-                    currentHoldShortcut.state = .up
-                    ShortcutActions.execute(currentHoldShortcut.id)
+        if let session = SwitcherSession.current, !session.forceDoNothingOnRelease {
+            let style = Preferences.effectiveShortcutStyle(session.shortcutIndex)
+            if style == .focusOnRelease || style == .openOnRelease {
+                if let currentHoldShortcut = ControlsTab.shortcuts[Preferences.indexToName("holdShortcut", session.shortcutIndex)],
+                   id == currentHoldShortcut.id {
+                    let currentModifiers = cocoaToCarbonFlags(ModifierFlags.current)
+                    if currentModifiers != (currentModifiers | (currentHoldShortcut.shortcut.carbonModifierFlags)) {
+                        currentHoldShortcut.state = .up
+                        ShortcutActions.execute(currentHoldShortcut.id)
+                    }
                 }
             }
         }
