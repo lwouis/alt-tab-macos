@@ -40,6 +40,26 @@ class CustomRecorderControl: RecorderControl {
         }
     }
 
+    // macOS 26 (Tahoe) stopped swallowing exceptions thrown during AppKit's constraint-update
+    // pass: it now routes them through `+[NSApplication _crashOnException:]`, turning a thrown
+    // NSException into a hard SIGTRAP. `RecorderControl`'s `updateActiveConstraints` /
+    // `updateLabelConstraints` can throw when the control is laid out before it's in a window
+    // (e.g. the `mainRow.fittingSize` snapshot in `TableGroupView.setMainRow` while building the
+    // Settings window): the alignment guide's frame isn't resolved yet, so `updateLabelConstraints`
+    // can compute a non-finite label width, and `-[NSLayoutConstraint setConstant:]` rejects NaN
+    // with an NSException. We catch it here, one frame below AppKit's crash-on-exception wrapper,
+    // so the worst case is a momentarily mis-sized label instead of a crash. Both calls still
+    // return normally, so `RecorderControl.updateConstraints` reaches its `[super updateConstraints]`
+    // and the pass completes (no relayout loop). Seen via applicationShouldHandleReopen building
+    // the Settings window's Controls tab (TableGroupView.setMainRow -> ShortcutEditor trigger row).
+    override func updateActiveConstraints() {
+        ObjCExceptionCatcher.catching { super.updateActiveConstraints() }
+    }
+
+    override func updateLabelConstraints() {
+        ObjCExceptionCatcher.catching { super.updateLabelConstraints() }
+    }
+
     func restrictModifiers(_ restrictedModifiers: NSEvent.ModifierFlags) {
         set(allowedModifierFlags: CustomRecorderControl.allowedModifiers.subtracting(restrictedModifiers), requiredModifierFlags: [], allowsEmptyModifierFlags: true)
     }
