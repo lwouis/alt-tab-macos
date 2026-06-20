@@ -26,10 +26,14 @@ They're independent, which gives two strengths of phantom:
 ## Two entry points
 
 - **`syncVerdict(s, app)`** — synchronous, cheap, runs on every show (`Window.recomputeIsPhantom`). Has
-  only local facts, so it can observe only the strong signal. **Assert-only**: it ORs the strong signal
-  onto the current `s.isPhantom`, so it may raise the flag but never clears it. A weak-signal phantom
-  keeps its Space, which this path can't see; clearing here would clobber `cgsVerdict`'s verdict on every
-  show and the phantom would reappear on every summon (the #5714 bug).
+  only local facts, so it can observe only the strong signal. **Monotonic for the weak signal**: it ORs
+  the strong signal onto the current `s.isPhantom`, so it may raise the flag but never clears it on a
+  non-empty Space. A weak-signal phantom keeps its Space, which this path can't see; clearing there would
+  clobber `cgsVerdict`'s verdict on every show and the phantom would reappear on every summon (the #5714
+  bug). **Exception — `isTabbed` clears**: AX tab detection is authoritative but lands after a window is
+  first seen, so an inactive tab is briefly flagged phantom (empty `spaceIds`, not-yet-known tabbed); once
+  AX confirms the tab this path un-flags it (a real phantom is never part of an AXTabGroup). Without it,
+  the monotonic OR left inactive tabs stuck phantom and "separate window per tab" showed one per app.
 - **`cgsVerdict(s, app, inVisibleList, inAllList, visibleSpaceIds)`** — authoritative, runs ~250ms
   post-show off-main (`Applications.refreshIsPhantom`) with the two CGS lists. Knows both signals; owns
   the full verdict, including clearing. Disambiguation order (first match wins):
@@ -50,6 +54,8 @@ and flips the knobs it exercises.
 - **testNeverClearsAPhantom** — already a phantom + non-empty `spaceIds` → **stays a phantom** (the #5714
   invariant: the synchronous path never clears an authoritative verdict).
 - **testTabbedWithEmptySpacesNotRaised** — empty Space but tabbed → not flagged.
+- **testTabbedClearsAStalePhantom** — already a phantom + empty Space but now tabbed → **cleared** (the
+  inactive-tab regression: AX confirms the tab, so the synchronous path drops the stale verdict).
 - **testMinimizedWithEmptySpacesNotRaised** — empty Space but minimized → not flagged.
 - **testHiddenAppWithEmptySpacesNotRaised** — empty Space but app hidden → not flagged.
 

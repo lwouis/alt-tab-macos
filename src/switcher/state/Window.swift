@@ -121,12 +121,12 @@ class Window {
         recomputeIsPhantom()
     }
 
-    /// Synchronous "phantom" detection — assert-only (may set `isPhantom`, never clears it). Catches the
-    /// strong signal (no Space at all: Joplin / Sprig / "show:false" Electron) at creation/show time,
-    /// reusing the spaceIds already populated by updateSpaces (cgWindowId.spaces()) — no new CGS call.
-    /// Clearing is owned by Applications.refreshIsPhantom (the authoritative CGS-based catch-all that
-    /// also handles alpha=0 / orderOut: phantoms that keep a Space); clearing here would clobber it on
-    /// every show. See PhantomWindowDetector.syncVerdict and PhantomWindowDetection.swift (#5714).
+    /// Synchronous "phantom" detection — monotonic for the weak signal (may set `isPhantom`, never clears
+    /// it on a non-empty Space), but clears once AX confirms a tab. Catches the strong signal (no Space at
+    /// all: Joplin / Sprig / "show:false" Electron) at creation/show time, reusing the spaceIds already
+    /// populated by updateSpaces (cgWindowId.spaces()) — no new CGS call. Clearing the weak/alpha=0 case is
+    /// owned by Applications.refreshIsPhantom (the authoritative CGS-based catch-all); clearing it here
+    /// would clobber that on every show. See PhantomWindowDetector.syncVerdict and PhantomWindowDetection.swift (#5714).
     func recomputeIsPhantom() {
         self.isPhantom = PhantomWindowDetector.syncVerdict(state, application.state)
     }

@@ -39,6 +39,14 @@ final class PhantomWindowDetectorTests: XCTestCase {
         XCTAssertFalse(PhantomWindowDetector.syncVerdict(ws(isTabbed: true, spaceIds: []), appState()))
     }
 
+    func testTabbedClearsAStalePhantom() {
+        // Regression: an inactive tab is transiently flagged phantom (empty spaceIds, before AX tab
+        // detection runs). Once AX confirms it's tabbed, the synchronous path must CLEAR that stale
+        // verdict — the monotonic-only version left it stuck, so "separate window per tab" dropped every
+        // inactive tab and showed only the active one (one window per app).
+        XCTAssertFalse(PhantomWindowDetector.syncVerdict(ws(isPhantom: true, isTabbed: true, spaceIds: []), appState()))
+    }
+
     func testMinimizedWithEmptySpacesNotRaised() {
         XCTAssertFalse(PhantomWindowDetector.syncVerdict(ws(isMinimized: true, spaceIds: []), appState()))
     }
