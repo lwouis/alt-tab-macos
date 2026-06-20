@@ -155,6 +155,24 @@ class Window {
         CFRunLoopAddSource(BackgroundWork.accessibilityEventsThread.runLoop, AXObserverGetRunLoopSource(axObserver), .commonModes)
     }
 
+    /// Swap this window's cached AXUIElement for a fresher one (same wid) and re-subscribe the observer on it.
+    /// Some apps silently rebuild a window's accessibility node, invalidating our ref with no destroyed
+    /// notification (#5586); the old element's subscriptions die with it, so we tear the observer down and
+    /// re-observe, leaving reads AND push events on the live element. Call on the main thread.
+    func rebindAxElement(_ fresh: AXUIElement) {
+        releaseAxObserver()
+        axUiElement = fresh
+        observeEvents()
+    }
+
+    /// Re-resolve this window's current AXUIElement by matching its wid against the app's live windows, to
+    /// recover when the cached ref went stale. Makes AX IPC calls — invoke off the main thread.
+    func refreshedAxElement() -> AXUIElement? {
+        guard let appAxUiElement = application.axUiElement, let wid = cgWindowId,
+              let windows = try? appAxUiElement.allWindows(application.pid) else { return nil }
+        return windows.first { (try? $0.cgWindowId()) == wid }
+    }
+
     func refreshThumbnail(_ screenshot: CALayerContents) {
         thumbnail = screenshot
         if !SwitcherSession.isActive || !shouldShowTheUser { return }
@@ -289,13 +307,22 @@ class Window {
                 //      the origin Space for a cross-Space focus.
                 //   2. makeKeyWindow: make it key, via a synthetic mouse-down/up aimed just outside the window,
                 //      so it becomes key without clicking its content (a top-left click would hit fullscreen UI, #5381).
-                //   3. focusWindow (kAXRaiseAction): raise it within the app's own window stack.
+                //   3. raiseWindow (kAXRaiseAction): raise it within the app's own window stack. If our cached
+                //      element went stale (the app silently rebuilt the window's a11y node, #5586), this returns
+                //      .invalidUIElement and no-ops, so re-resolve the live element by wid, retry, and heal the
+                //      cache; _SLPS/makeKeyWindow above use the wid/psn directly so they're unaffected.
                 //   4. cross-Space only: restore the origin Space's front process (see snapshot above).
                 var psn = ProcessSerialNumber()
                 GetProcessForPID(self.application.pid, &psn)
                 _SLPSSetFrontProcessWithOptions(&psn, self.cgWindowId!, SLPSMode.userGenerated.rawValue)
                 makeKeyWindow(&psn, self.cgWindowId!)
-                try? self.axUiElement!.focusWindow()
+                if self.axUiElement!.raiseWindow() == .invalidUIElement, let fresh = self.refreshedAxElement() {
+                    fresh.raiseWindow()
+                    DispatchQueue.main.async { [weak self] in
+                        guard let self, self.axUiElement != fresh else { return }
+                        self.rebindAxElement(fresh)
+                    }
+                }
                 // step 4 (#4507): undo step 1's clobber of the origin Space. The front-switch made that Space
                 // remember our app as its front; restore the app that was there before (snapshotted above) so
                 // returning shows it, not our window. Cross-Space only (originFrontPid is nil otherwise), and

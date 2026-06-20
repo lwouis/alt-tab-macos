@@ -204,8 +204,12 @@ extension AXUIElement {
 
 /// Actions
 extension AXUIElement {
-    func focusWindow() throws {
-        try performAction(kAXRaiseAction)
+    /// Raise the window within its app's stack. Returns the raw AXError instead of throwing, so callers can
+    /// react to `.invalidUIElement` (a stale element: the app silently rebuilt the window's accessibility node,
+    /// #5586) by re-resolving and retrying, rather than silently no-opping.
+    @discardableResult
+    func raiseWindow() -> AXError {
+        return AXUIElementPerformAction(self, kAXRaiseAction as CFString)
     }
 
     func setAttribute(_ key: String, _ value: Any) throws {
