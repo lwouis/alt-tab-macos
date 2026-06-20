@@ -26,6 +26,15 @@ class WindowlessAppIndicator: NSView {
         super.init(coder: coder)
     }
 
+    /// Re-apply appearance-baked size so a recycled instance survives an appearance change without
+    /// being reallocated (which would free this tooltip owner; see TileView.reapplyAppearance).
+    func reapplyAppearance() {
+        let parameter = Self.getAppearanceParameter()
+        frame.size = NSSize(width: parameter.width, height: parameter.height)
+        cornerRadius = parameter.cornerRadius
+        needsDisplay = true
+    }
+
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
         Appearance.fontColor.withAlphaComponent(0.5).setFill()

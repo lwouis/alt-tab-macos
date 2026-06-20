@@ -48,6 +48,14 @@ class TileTitleView: NSTextField {
         super.draw(dirtyRect)
     }
 
+    /// Re-apply appearance-baked font/color so a recycled instance survives an appearance change
+    /// without being reallocated (which would free this tooltip owner; see TileView.reapplyAppearance).
+    func reapplyAppearance() {
+        font = Appearance.font
+        textColor = Appearance.fontColor
+        fixHeight()
+    }
+
     func fixHeight() {
         frame.size.height = cell!.cellSize.height
     }

@@ -23,8 +23,8 @@ class StatusIconsView: FlippedView {
     private var visibleCount = 0
     private var tooltipsDirty = true
     private var tooltipStrings: [NSView.ToolTipTag: String] = [:]
-    /// Single-character cell size, cached at init for the layout cache
-    let iconCellSize: NSSize
+    /// Single-character cell size, recomputed on appearance changes for the layout cache
+    var iconCellSize: NSSize
 
     @objc func _windowChangedKeyState() {}
     @objc func _layoutSubtreeWithOldSize(_ oldSize: NSSize) {}
@@ -34,11 +34,22 @@ class StatusIconsView: FlippedView {
     }
 
     override init(frame: NSRect) {
+        icons = Self.defaultSymbols.map { Icon(symbol: $0.0.rawValue, tooltip: $0.1) }
+        iconCellSize = Self.measureIconCellSize()
+        super.init(frame: frame)
+    }
+
+    private static func measureIconCellSize() -> NSSize {
         let font = NSFont(name: "SF Pro Text", size: (Appearance.fontHeight * 0.85).rounded())!
         let measureAttrs: [NSAttributedString.Key: Any] = [.font: font, .paragraphStyle: TileFontIconView.paragraphStyle]
-        icons = Self.defaultSymbols.map { Icon(symbol: $0.0.rawValue, tooltip: $0.1) }
-        iconCellSize = NSAttributedString(string: Symbols.circledNumber0.rawValue, attributes: measureAttrs).size()
-        super.init(frame: frame)
+        return NSAttributedString(string: Symbols.circledNumber0.rawValue, attributes: measureAttrs).size()
+    }
+
+    /// Re-apply appearance-baked metrics so a recycled instance survives an appearance change
+    /// without being reallocated (which would free this tooltip owner; see TileView.reapplyAppearance).
+    func reapplyAppearance() {
+        iconCellSize = Self.measureIconCellSize()
+        tooltipsDirty = true
     }
 
     static func cachedAttrString(for symbol: String) -> NSAttributedString {

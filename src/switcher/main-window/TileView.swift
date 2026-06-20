@@ -115,13 +115,7 @@ class TileView: FlippedView {
     }
 
     private func setupSharedSubviews() {
-        let shadow = TileView.makeShadow(Appearance.imagesShadowColor)
-        let appIconShadow = TileView.makeAppIconShadow(Appearance.imagesShadowColor)
-        let thumbnailShadow = TileView.makeThumbnailShadow(Appearance.imagesShadowColor)
         thumbnail.masksToBounds = false // let thumbnail shadows show
-        thumbnail.applyShadow(thumbnailShadow)
-        appIcon.applyShadow(appIconShadow)
-        dockLabelIcon.shadow = shadow
         appIconHighlight.isHidden = true
         layer!.addSublayer(appIconHighlight)
         layer!.addSublayer(appIcon)
@@ -145,6 +139,40 @@ class TileView: FlippedView {
         TileView.disableImplicitLayerAnimations(on: label)
         TileView.disableImplicitLayerAnimations(on: statusIcons)
         TileView.disableImplicitLayerAnimations(on: windowlessAppIndicator)
+        TileView.disableImplicitLayerAnimations(on: dockLabelIcon)
+        applyShadows()
+    }
+
+    /// Re-apply every appearance-baked value on the long-lived subviews so a recycled tile can be
+    /// reused across an appearance/screen/size change instead of being reallocated. Reallocating used
+    /// to be how `TilesView.reset()` picked up these changes, but it freed the tooltip-owning subviews
+    /// (label, statusIcons, windowlessAppIndicator) out from under NSToolTipManager, which crashed when
+    /// an in-flight tooltip timer later fired. Reusing the objects retires that whole class of bug.
+    /// Per-show layout (`updateRecycledCellWithNewContent`) already refreshes frames and content; this
+    /// only covers the state baked at construction time.
+    func reapplyAppearance() {
+        label.reapplyAppearance()
+        statusIcons.reapplyAppearance()
+        windowlessAppIndicator.reapplyAppearance()
+        rebuildDockLabelIcon()
+        applyShadows()
+        applyCurrentStyle()
+    }
+
+    private func applyShadows() {
+        thumbnail.applyShadow(TileView.makeThumbnailShadow(Appearance.imagesShadowColor))
+        appIcon.applyShadow(TileView.makeAppIconShadow(Appearance.imagesShadowColor))
+        dockLabelIcon.shadow = TileView.makeShadow(Appearance.imagesShadowColor)
+    }
+
+    /// dockLabelIcon's badge metrics are baked into `let`s sized from the app-icon size, so it can't
+    /// be reconfigured in place. Unlike the other subviews it owns no tooltip, so it's safe to
+    /// recreate. `applyShadows()` (called right after, by both setup and reapplyAppearance) gives the
+    /// fresh instance its shadow.
+    private func rebuildDockLabelIcon() {
+        dockLabelIcon.removeFromSuperview()
+        dockLabelIcon = TileFontIconView(badgeSize: TileFontIconView.badgeBaseSize(forIconSize: TileView.iconSize().width))
+        addSubview(dockLabelIcon)
         TileView.disableImplicitLayerAnimations(on: dockLabelIcon)
     }
 

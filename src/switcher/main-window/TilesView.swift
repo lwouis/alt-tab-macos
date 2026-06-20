@@ -306,7 +306,6 @@ class TilesView {
     static func reset() {
         // it would be nicer to remove this whole "reset" logic, and instead update each component to check Appearance properties before showing
         // Maybe in some Appkit willDraw() function that triggers before drawing it
-        Tooltips.hideAll()
         NSScreen.updatePreferred()
         Appearance.update()
         // thumbnails are captured continuously. They will pick up the new size on the next cycle
@@ -319,8 +318,11 @@ class TilesView {
         }
         updateBackgroundView()
         TilesPanel.shared.contentView = contentView
-        for i in 0..<TilesView.recycledViews.count {
-            TilesView.recycledViews[i] = TileView()
+        // Reuse the pooled tiles instead of reallocating them: recreating freed the tooltip-owning
+        // subviews while NSToolTipManager still referenced them, crashing when an in-flight tooltip
+        // timer fired. reapplyAppearance() refreshes the construction-time appearance state in place.
+        for view in TilesView.recycledViews {
+            view.reapplyAppearance()
         }
         thumbnailUnderLayer = TileUnderLayer()
         thumbnailOverView = TileOverView()
