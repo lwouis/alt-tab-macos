@@ -350,9 +350,15 @@ class DebugWindow: NSPanel {
         guard let mainScreen = NSScreen.screens.first else { return }
         let cgMousePoint = CGPoint(x: mouseLocation.x, y: mainScreen.frame.height - mouseLocation.y)
         let myWid = CGWindowID(windowNumber)
+        let dockPid = Applications.list.first { $0.bundleIdentifier == "com.apple.dock" }?.pid
         guard let found = CGWindow.windows(.optionOnScreenOnly).first(where: { win in
             guard let wid = win.id(), wid != myWid,
                   let bounds = win.bounds() else { return false }
+            if let dockPid, let ownerPid = win.ownerPID() {
+                guard ownerPid != dockPid else {
+                    return false
+                }
+            }
             return CGRect(x: bounds.origin.x, y: bounds.origin.y, width: bounds.width, height: bounds.height)
                 .contains(cgMousePoint)
         }) else {
