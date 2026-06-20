@@ -64,7 +64,11 @@ class TrackpadEvents {
 
     private static func touchEventHandler(_ cgEvent: CGEvent) -> Bool {
         guard let nsEvent = cgEvent.toNSEvent() else { return false } // don't absorb the touch event
-        let touches = nsEvent.allTouches()
+        // Gesture detection only applies to indirect (trackpad) touches. Drop direct touches up front
+        // (touchscreen, Touch Bar): they aren't trackpad fingers and have no `normalizedPosition`, so
+        // they'd break the gesture math and make GestureTracker's getter throw. This does NOT cover
+        // Universal Control touches (those report as .indirect); GestureTracker guards those reads.
+        let touches = nsEvent.allTouches().filter { $0.type == .indirect }
         // Logger.error { (touches.count, touches.map { $0.phase.readable }) }
         // macOS often sends faulty events with no touches between valid events; we ignore these as they would break our gesture logic
         guard touches.count > 0 else  { return false }
@@ -156,6 +160,9 @@ class TriggerSwipeDetector {
         guard swipeStillPossible && !gestureTracker.isNewGesture(activeTouches) else { return false }
         maxFingersDownDuringTrigger = max(maxFingersDownDuringTrigger, fingersDown)
         let distances = gestureTracker.computeDistance(activeTouches)
+        // If every touch's position was unreadable (see GestureTracker.safeNormalizedPosition), `distances`
+        // is empty and the loop below would fall straight through to triggering the switcher. Guard that.
+        guard !distances.isEmpty else { return false }
         let horizontal = Preferences.nextWindowGesture.isHorizontal() // loop-invariant; hoisted out of the per-touch loop
         for distance in distances {
             let (absX, absY) = (abs(distance.x), abs(distance.y))
@@ -206,12 +213,30 @@ class NavigationSwipeDetector {
 class GestureTracker {
     var startPositions = [String: NSPoint]()
 
+    // `normalizedPosition` is the only API for an indirect touch's position, but its getter throws
+    // NSInternalInconsistencyException for some valid indirect touches (notably ones Universal Control
+    // forwards from another Mac's trackpad). Swift can't catch NSException, so read it through
+    // ObjCExceptionCatcher and treat a throw as "position unavailable"; callers then skip that touch,
+    // so the gesture simply doesn't trigger over Universal Control instead of crashing the app.
+    private static var didWarnUnreadableTouch = false
+    private static func safeNormalizedPosition(_ touch: NSTouch) -> NSPoint? {
+        var position: NSPoint?
+        ObjCExceptionCatcher.attempt { position = touch.normalizedPosition }
+        if position == nil, !didWarnUnreadableTouch {
+            didWarnUnreadableTouch = true
+            Logger.debug { "NSTouch.normalizedPosition unavailable for some touches (e.g. Universal Control); ignoring them for gestures" }
+        }
+        return position
+    }
+
     @discardableResult
     func isNewGesture(_ activeTouches: Set<NSTouch>) -> Bool {
         // if touches are new, record their startPositions
         if (activeTouches.contains { startPositions["\($0.identity)"] == nil }) {
             for touch in activeTouches {
-                startPositions["\(touch.identity)"] = touch.normalizedPosition
+                if let position = GestureTracker.safeNormalizedPosition(touch) {
+                    startPositions["\(touch.identity)"] = position
+                }
             }
             return true
         }
@@ -220,16 +245,22 @@ class GestureTracker {
 
     func computeAverageDistance(_ activeTouches: Set<NSTouch>) -> NSPoint {
         var totalDelta = NSPoint(x: 0, y: 0)
+        var count = 0
         for touch in activeTouches {
-            totalDelta = totalDelta + (touch.normalizedPosition - startPositions["\(touch.identity)"]!)
+            guard let position = GestureTracker.safeNormalizedPosition(touch),
+                  let start = startPositions["\(touch.identity)"] else { continue }
+            totalDelta = totalDelta + (position - start)
+            count += 1
         }
-        return totalDelta / activeTouches.count
+        return count > 0 ? totalDelta / count : totalDelta
     }
 
     func computeDistance(_ activeTouches: Set<NSTouch>) -> Array<NSPoint> {
         var deltas: Array<NSPoint> = []
         for touch in activeTouches {
-            deltas.append(touch.normalizedPosition - startPositions["\(touch.identity)"]!)
+            guard let position = GestureTracker.safeNormalizedPosition(touch),
+                  let start = startPositions["\(touch.identity)"] else { continue }
+            deltas.append(position - start)
         }
         return deltas
     }
@@ -240,13 +271,15 @@ class GestureTracker {
 
     func resetX(_ activeTouches: Set<NSTouch>) {
         for touch in activeTouches {
-            startPositions["\(touch.identity)"]!.x = touch.normalizedPosition.x
+            guard let position = GestureTracker.safeNormalizedPosition(touch) else { continue }
+            startPositions["\(touch.identity)"]?.x = position.x
         }
     }
 
     func resetY(_ activeTouches: Set<NSTouch>) {
         for touch in activeTouches {
-            startPositions["\(touch.identity)"]!.y = touch.normalizedPosition.y
+            guard let position = GestureTracker.safeNormalizedPosition(touch) else { continue }
+            startPositions["\(touch.identity)"]?.y = position.y
         }
     }
 }
