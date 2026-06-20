@@ -92,7 +92,12 @@ class AppCenterCrash: NSObject {
 
 extension AppCenterCrash: CrashesDelegate {
     func attachments(with crashes: Crashes, for errorReport: ErrorReport) -> [ErrorAttachmentLog]? {
-        return [ErrorAttachmentLog.attachment(withText: DebugProfile.make(), filename: "debug-profile.md")!]
+        // This delegate runs on `crashReportsQueue` (off-main; see `confirmationHandler`). `DebugProfile.make()`
+        // must run on the main thread — it reads TIS/AppKit/model state (e.g. `Preferences.all` lazily inits
+        // shortcut defaults via ShortcutRecorder → TIS, which SIGTRAPs off-main on macOS 26). This `.sync` can't
+        // deadlock: the main thread never joins `crashReportsQueue`.
+        let debugProfile = DispatchQueue.main.sync { DebugProfile.make() }
+        return [ErrorAttachmentLog.attachment(withText: debugProfile, filename: "debug-profile.md")!]
     }
 
     func crashes(_ crashes: Crashes, didSucceedSending errorReport: ErrorReport) {

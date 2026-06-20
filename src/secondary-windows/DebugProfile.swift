@@ -8,6 +8,11 @@ class DebugProfile {
     static let bulletPoint = "* "
     static let nestedSeparator = "\n  " + bulletPoint
 
+    /// Must be called on the main thread: it reads TIS/AppKit/model state that's main-thread-only. The
+    /// riskiest is `Preferences.all`, whose first access lazily inits `defaultValues` → `defaultShortcut(...)`
+    /// → ShortcutRecorder → `TISCopyCurrentASCIICapableKeyboardLayoutInputSource`, and TIS trips a libdispatch
+    /// main-queue precondition (SIGTRAP) off-main on macOS 26. The feedback submit path calls us on main; the
+    /// crash-report `attachments` delegate hops to main at its call site.
     static func make() -> String {
         let tuples: [(String, String)] = [
             // identity — kept first so the backend can extract these lines if it wants to
@@ -103,15 +108,7 @@ class DebugProfile {
     }
 
     static func inputSource() -> String {
-        // TIS APIs in `currentInputSource()` need to run on the main thread. Hop only when
-        // we're elsewhere — calling `DispatchQueue.main.sync` from the main thread itself
-        // dispatch-deadlocks (the dispatch waits for main, which is the same thread waiting
-        // for the dispatch). That's exactly what crashed the feedback submit path.
-        if Thread.isMainThread {
-            return InputSourceEvents.currentInputSource()
-        }
-        return DispatchQueue.main.sync {
-            InputSourceEvents.currentInputSource()
-        }
+        // `currentInputSource()`'s TIS APIs require the main thread; `make()` guarantees we're on it.
+        return InputSourceEvents.currentInputSource()
     }
 }
