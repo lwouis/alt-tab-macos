@@ -787,6 +787,7 @@ class ControlsTab {
     /// binds Escape; otherwise Esc passes through to the active app unchanged.
     static func recomputeEscapeAbsorption() {
         KeyboardEvents.anyShortcutUsesEscape = shortcuts.values.contains { $0.shortcut.carbonKeyCode == kVK_Escape }
+        KeyboardEvents.updateEscapeAbsorptionTap()
     }
 
     /// Thin adapter over `NativeHotkeyResolver.resolve` — builds the snapshot inputs from the live

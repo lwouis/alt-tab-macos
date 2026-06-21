@@ -64,6 +64,7 @@ class App: AppCenterApplication {
         Logger.info { "active:\(SwitcherSession.isActive)" }
         guard SwitcherSession.current != nil else { return } // already hidden
         SwitcherSession.current = nil
+        KeyboardEvents.updateEscapeAbsorptionTap() // session closed: stop tapping keyDown (#5766)
         UsageStats.resetSession()
         TilesView.endSearchSession()
         ContextMenuEvents.toggle(false)
@@ -311,6 +312,7 @@ class App: AppCenterApplication {
         let session = SwitcherSession.current ?? {
             let new = SwitcherSession()
             SwitcherSession.current = new
+            KeyboardEvents.updateEscapeAbsorptionTap() // session opened: enable Esc keyDown tap if bound (#5585)
             return new
         }()
         session.forceDoNothingOnRelease = forceDoNothingOnRelease_

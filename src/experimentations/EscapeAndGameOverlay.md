@@ -68,7 +68,17 @@ Use a single `cghidEventTap` + `.headInsertEventTap` + `.defaultTap` listening t
 
 This makes binding `⌘⎋` work cleanly with Game Overlay enabled — no warning dialog, no private-API toggle of GO. The Force-Quit chords (`⌘⌥⎋`, `⌘⌥⇧⎋`, `⌘⌥⇧⌃⎋`) remain blocked at the recorder level because the OS hard-reserves them and we cannot intercept them this way.
 
-Why a single tap instead of two: the existing flags-only tap was already permanently installed at app launch on the same background thread (`BackgroundWork.keyboardAndMouseAndTrackpadEventsThread`); piggy-backing keyDown on it costs one extra integer comparison per keystroke and saves a mach port + runloop source. The promotion from `.listenOnly` to `.defaultTap` is required for absorption; both options need only the Accessibility permission AltTab already has, and SecureInput continues to filter `.keyDown` (passwords aren't observed) while leaving `.flagsChanged` visible.
+The promotion from `.listenOnly` to `.defaultTap` is required for absorption; both options need only the Accessibility permission AltTab already has, and SecureInput continues to filter `.keyDown` (passwords aren't observed) while leaving `.flagsChanged` visible.
+
+### Update (#5766): the keyDown tap must be session-gated, and the flags tap stays on cgSession
+
+The first implementation merged everything into one always-on `cghidEventTap` + `.defaultTap` listening to `.flagsChanged` and `.keyDown`. That put an active HID-level keyDown tap (pre-WindowServer, ahead of input methods) in the path during all typing, for every user (Esc is the default cancel binding, so `anyShortcutUsesEscape` is true out of the box). It corrupted third-party input methods that run their own low-level keyboard tap; the Vietnamese IME EVKey mangled normal typing ([#5766](https://github.com/lwouis/alt-tab-macos/issues/5766)).
+
+Reverted to two taps:
+- Flags tap: back to the pre-11.0 `cgSessionEventTap` + `.listenOnly` (it never absorbs and modifiers aren't composed by IMEs, so it's harmless).
+- Esc tap (`escapeEventTap`): `cghidEventTap` + `.defaultTap` + `.keyDown`, created disabled, enabled only while `anyShortcutUsesEscape && SwitcherSession.isActive` via `KeyboardEvents.updateEscapeAbsorptionTap()`. That gate is driven from `App.showUiOrCycleSelection` (open) and `App.hideUi` (close), plus `ControlsTab.recomputeEscapeAbsorption()` when bindings change. (The call lives in `App`, not a `SwitcherSession` `didSet`, because the `unit-tests` target compiles `SwitcherSession.swift` but not `KeyboardEvents.swift`.)
+
+Esc absorption only ever mattered while the switcher is open, so this preserves #5585 exactly. During normal typing the keyboard tapping is now byte-identical to v10 (flags on cgSession+listenOnly, no active keyDown tap). Note: as of this writing the regression could not be reproduced on macOS 26.5; it reproduces on the reporter's macOS 15.7.7, so this build is what confirms whether the keyboard tap is the cause.
 
 ## Notes for future investigations
 

@@ -10,12 +10,20 @@ class KeyboardEvents {
     private static var hotKeyPressedEventHandler: EventHandlerRef?
     private static var hotKeyReleasedEventHandler: EventHandlerRef?
     private static var globalShortcutsAreDisabled = false
+    /// Permanent `.flagsChanged`-only tap on `cgSessionEventTap` + `.listenOnly` (the pre-11.0 config).
+    /// Drives hold-shortcut triggering; never touches `.keyDown`, so it stays clear of input methods.
     private static var eventTap: CFMachPort?
+    /// `.keyDown` tap on `cghidEventTap` + `.defaultTap`, used only to absorb Esc ahead of macOS 26
+    /// Game Overlay (#5585). Created DISABLED; enabled only while a switcher session is open and a
+    /// shortcut binds Esc (`updateEscapeAbsorptionTap`). Keeping this active HID keyDown tap out of
+    /// normal typing is the #5766 fix (it was breaking third-party IMEs like Vietnamese EVKey).
+    private static var escapeEventTap: CFMachPort?
     private static var localEventMonitor: Any?
 
     /// Set by `ControlsTab` when the configured shortcuts change. When true and `SwitcherSession.isActive`,
-    /// our `cghidEventTap` absorbs Esc keyDowns and routes them through the matcher. Issue #5585:
-    /// this is the only path that beats macOS 26 Game Overlay's hook on `⌘⎋`.
+    /// our `escapeEventTap` absorbs Esc keyDowns and routes them through the matcher. Issue #5585:
+    /// this is the only path that beats macOS 26 Game Overlay's hook on `⌘⎋`. Also gates whether
+    /// `escapeEventTap` is enabled at all (see `updateEscapeAbsorptionTap`).
     static var anyShortcutUsesEscape = false
 
     private static let cgEventHandler: CGEventTapCallBack = { _, type, cgEvent, _ in
@@ -44,7 +52,7 @@ class KeyboardEvents {
             }
             return nil
         case .tapDisabledByUserInput, .tapDisabledByTimeout:
-            CGEvent.tapEnable(tap: eventTap!, enable: true)
+            reEnableTapIfNeeded()
             return Unmanaged.passUnretained(cgEvent)
         default:
             return Unmanaged.passUnretained(cgEvent)
@@ -75,9 +83,23 @@ class KeyboardEvents {
     }
 
     static func reEnableTapIfNeeded() {
-        guard let eventTap, !CGEvent.tapIsEnabled(tap: eventTap) else { return }
-        CGEvent.tapEnable(tap: eventTap, enable: true)
-        Logger.warning { "" }
+        if let eventTap, !CGEvent.tapIsEnabled(tap: eventTap) {
+            CGEvent.tapEnable(tap: eventTap, enable: true)
+            Logger.warning { "" }
+        }
+        updateEscapeAbsorptionTap()
+    }
+
+    /// Enables `escapeEventTap` only while it can do something useful: a switcher session is open AND
+    /// a shortcut binds Esc. Outside that window it stays disabled, so the active HID `.keyDown` tap is
+    /// never in the path during normal typing (#5766). Idempotent; safe from any thread; a no-op before
+    /// the tap exists (e.g. unit tests that set `SwitcherSession.current` directly).
+    static func updateEscapeAbsorptionTap() {
+        guard let escapeEventTap else { return }
+        let shouldEnable = anyShortcutUsesEscape && SwitcherSession.isActive
+        if CGEvent.tapIsEnabled(tap: escapeEventTap) != shouldEnable {
+            CGEvent.tapEnable(tap: escapeEventTap, enable: shouldEnable)
+        }
     }
 
     static func addEventHandlers() {
@@ -130,25 +152,40 @@ class KeyboardEvents {
     }
 
     private static func addCgEventTap() {
-        let eventMask = [CGEventType.flagsChanged, CGEventType.keyDown].reduce(CGEventMask(0), { $0 | (1 << $1.rawValue) })
         // CGEvent.tapCreate returns null if ensureAccessibilityCheckboxIsChecked() didn't pass.
-        // SecureInput does not block `.flagsChanged` events on either cgSession or cghid event taps;
-        // and `.keyDown` events are filtered out at the system level for both. Issue #5585: we use
-        // `.cghidEventTap` (earliest tap point) + `.defaultTap` (can absorb) so we can swallow Esc
-        // ahead of macOS 26 Game Overlay, which hooks downstream of cgSession.
+        // SecureInput does not block `.flagsChanged` on either cgSession or cghid taps; `.keyDown` is
+        // filtered out at the system level for both.
+        //
+        // Two taps. The flags tap is the pre-11.0 config (cgSession + listenOnly): always on, drives
+        // hold-shortcut triggering, never in the keyDown path. The Esc tap is cghid + defaultTap (the
+        // only way to swallow Esc ahead of macOS 26 Game Overlay, #5585); it is created disabled and
+        // only enabled while the switcher is open (updateEscapeAbsorptionTap), so it stays out of
+        // normal typing and can't disturb third-party input methods (#5766).
         eventTap = CGEvent.tapCreate(
+            tap: .cgSessionEventTap,
+            place: .headInsertEventTap,
+            options: .listenOnly,
+            eventsOfInterest: CGEventMask(1 << CGEventType.flagsChanged.rawValue),
+            callback: cgEventHandler,
+            userInfo: nil)
+        guard let eventTap else { App.restart(); return }
+        addToKeyboardRunLoop(eventTap)
+        escapeEventTap = CGEvent.tapCreate(
             tap: .cghidEventTap,
             place: .headInsertEventTap,
             options: .defaultTap,
-            eventsOfInterest: eventMask,
+            eventsOfInterest: CGEventMask(1 << CGEventType.keyDown.rawValue),
             callback: cgEventHandler,
             userInfo: nil)
-        if let eventTap {
-            let runLoopSource = CFMachPortCreateRunLoopSource(nil, eventTap, 0)
-            CFRunLoopAddSource(BackgroundWork.keyboardAndMouseAndTrackpadEventsThread.runLoop, runLoopSource, .commonModes)
-        } else {
-            App.restart()
-        }
+        guard let escapeEventTap else { App.restart(); return }
+        CGEvent.tapEnable(tap: escapeEventTap, enable: false)
+        addToKeyboardRunLoop(escapeEventTap)
+        updateEscapeAbsorptionTap()
+    }
+
+    private static func addToKeyboardRunLoop(_ tap: CFMachPort) {
+        let runLoopSource = CFMachPortCreateRunLoopSource(nil, tap, 0)
+        CFRunLoopAddSource(BackgroundWork.keyboardAndMouseAndTrackpadEventsThread.runLoop, runLoopSource, .commonModes)
     }
 
     private static func addGlobalHandlerIfNeeded(_ shortcut: Shortcut) {
