@@ -425,10 +425,20 @@ class SettingsWindow: NSWindow {
         sectionsStack.translatesAutoresizingMaskIntoConstraints = false
         sectionsDocumentView.addSubview(sectionsStack)
         installContentScrollObserver()
+        // macOS positions the window controls (traffic lights) by the *system* language via
+        // `windowTitlebarLayoutDirection`; our content mirrors by the *app* language. When they
+        // disagree (e.g. an RTL app on an LTR system), the content pane lands on the traffic-light
+        // side. Apple's docs say to consult `windowTitlebarLayoutDirection` when using
+        // `titlebarAppearsTransparent` with controls under the title bar — so in that case inset the
+        // content's top enough to clear the traffic lights. We reuse the sidebar's top inset so the
+        // two panes line up; the lights then float over empty space, like over the sidebar (#5792).
+        let contentPaneIsOnTrafficLightSide = App.shared.userInterfaceLayoutDirection != windowTitlebarLayoutDirection
+        let rightScrollViewTopInset = contentPaneIsOnTrafficLightSide ? Self.sidebarTopInset : 0
+        let rightScrollViewTop = rightScrollView.topAnchor.constraint(equalTo: contentContainer.topAnchor, constant: rightScrollViewTopInset)
         NSLayoutConstraint.activate([
             rightScrollView.leadingAnchor.constraint(equalTo: contentContainer.leadingAnchor),
             rightScrollView.trailingAnchor.constraint(equalTo: contentContainer.trailingAnchor),
-            rightScrollView.topAnchor.constraint(equalTo: contentContainer.topAnchor),
+            rightScrollViewTop,
             rightScrollView.bottomAnchor.constraint(equalTo: contentContainer.bottomAnchor),
             sectionsStack.topAnchor.constraint(equalTo: sectionsDocumentView.topAnchor, constant: Self.contentTopPadding),
             sectionsStack.leadingAnchor.constraint(equalTo: sectionsDocumentView.leadingAnchor, constant: Self.contentHorizontalPadding),
@@ -561,6 +571,9 @@ class SettingsWindow: NSWindow {
             sectionTitle.font = NSFont.systemFont(ofSize: 15, weight: .medium)
             sectionTitle.lineBreakMode = .byWordWrapping
             sectionTitle.maximumNumberOfLines = 0
+            // `makeText` hardcodes `.left`, which parks this full-width title under the LTR traffic
+            // lights when the app is RTL but the system stays LTR (#5792). Follow the app direction.
+            sectionTitle.alignment = App.shared.userInterfaceLayoutDirection == .rightToLeft ? .right : .left
             let view = definition.builder()
             return (sectionTitle, view)
         }
