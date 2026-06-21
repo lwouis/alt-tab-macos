@@ -9,6 +9,7 @@
 
 # Workflow
 - Copy commands from ai/build.sh and run them, to confirm compilation works after you're done with implementing a change
+- Git commit messages must respect our pre-hook conventions, and must be clear and high-level, written for end-users (changelog)
 
 # License / Keychain invariant
 - The app's Developer ID, TeamID, and bundle ID must remain stable across builds. Keychain items are tied to the code signature; changing any of these orphans every user's stored license key and forces mass re-activation. If a rotation is unavoidable, plan a migration first (e.g., a backup-restore handler, or `kSecAttrAccessGroup` with a stable group identifier).
