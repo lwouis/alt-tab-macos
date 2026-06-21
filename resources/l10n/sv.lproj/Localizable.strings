@@ -30,6 +30,8 @@
 "AltTab is a free, open-source window switcher for macOS. Pro features are available with a 14-day free trial." = "AltTab är en gratis fönsterväxlare med öppen källkod för macOS. Pro-funktioner är tillgängliga med en 14-dagars gratis provperiod.";
 "AltTab is running without Screen Recording permissions. %@ won’t show." = "AltTab körs utan behörighet för Skärminspelning. %@ visas inte.";
 "AltTab needs some permissions" = "AltTab behöver vissa behörigheter";
+"AltTab preferences file is a symlink. macOS doesn’t support symlink for preferences. Please use a valid file instead of a symlink here:" = "AltTabs inställningsfil är en symbolisk länk. macOS stöder inte symboliska länkar för inställningar. Använd en giltig fil i stället för en symbolisk länk här:";
+"AltTab preferences file isn’t writable by your account. Please fix ownership and permissions of the file here:" = "AltTabs inställningsfil går inte att skriva till med ditt konto. Korrigera filens ägare och behörigheter här:";
 "AltTab Pro" = "AltTab Pro";
 "AltTab Pro adds 4 features beyond the free switcher." = "AltTab Pro lägger till 4 funktioner utöver den kostnadsfria växlaren.";
 "AltTab Pro is still available" = "AltTab Pro är fortfarande tillgängligt";
@@ -315,5 +317,6 @@
 "Your feedback will be submitted as a public GitHub issue." = "Din feedback skickas in som ett offentligt GitHub-ärende.";
 "Your license doesn't cover this version. Upgrade to Lifetime Pro." = "Din licens täcker inte den här versionen. Uppgradera till Lifetime Pro.";
 "Your Pro trial ends in 2 days" = "Din Pro-provperiod tar slut om 2 dagar";
+"Your settings reset every time AltTab restarts." = "Dina inställningar återställs varje gång AltTab startas om.";
 "Your trial includes Pro features" = "Din provperiod inkluderar Pro-funktioner";
 "YOUR USAGE SO FAR" = "DIN ANVÄNDNING HITTILLS";

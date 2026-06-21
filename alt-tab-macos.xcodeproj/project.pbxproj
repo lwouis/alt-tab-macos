@@ -60,6 +60,10 @@
 		5F117E41000000000000F002 /* PhantomWindowDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F117E41000000000000F001 /* PhantomWindowDetector.swift */; };
 		5F117E41000000000000F003 /* PhantomWindowDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F117E41000000000000F001 /* PhantomWindowDetector.swift */; };
 		5F117E41000000000000F102 /* PhantomWindowDetectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F117E41000000000000F101 /* PhantomWindowDetectorTests.swift */; };
+		5F5790DE7EC7000000000A02 /* PreferencesPersistenceProbe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5790DE7EC7000000000A01 /* PreferencesPersistenceProbe.swift */; };
+		5F5790DE7EC7000000000A03 /* PreferencesPersistenceProbe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5790DE7EC7000000000A01 /* PreferencesPersistenceProbe.swift */; };
+		5F5790DE7EC7000000000B02 /* PreferencesPersistenceCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5790DE7EC7000000000B01 /* PreferencesPersistenceCheck.swift */; };
+		5F5790DE7EC7000000000C02 /* PreferencesPersistenceProbeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5790DE7EC7000000000C01 /* PreferencesPersistenceProbeTests.swift */; };
 		5E7C0F70000000000000E002 /* ExceptionMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C0F70000000000000E001 /* ExceptionMatcher.swift */; };
 		5E7C0F70000000000000E003 /* ExceptionMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C0F70000000000000E001 /* ExceptionMatcher.swift */; };
 		5E7C0F70000000000000E102 /* ExceptionMatcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C0F70000000000000E101 /* ExceptionMatcherTests.swift */; };
@@ -411,6 +415,9 @@
 		5F117E40000000000000F101 /* WindowFilterResolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowFilterResolverTests.swift; sourceTree = "<group>"; };
 		5F117E41000000000000F001 /* PhantomWindowDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhantomWindowDetector.swift; sourceTree = "<group>"; };
 		5F117E41000000000000F101 /* PhantomWindowDetectorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhantomWindowDetectorTests.swift; sourceTree = "<group>"; };
+		5F5790DE7EC7000000000A01 /* PreferencesPersistenceProbe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesPersistenceProbe.swift; sourceTree = "<group>"; };
+		5F5790DE7EC7000000000B01 /* PreferencesPersistenceCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesPersistenceCheck.swift; sourceTree = "<group>"; };
+		5F5790DE7EC7000000000C01 /* PreferencesPersistenceProbeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesPersistenceProbeTests.swift; sourceTree = "<group>"; };
 		5E7C0F70000000000000E001 /* ExceptionMatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionMatcher.swift; sourceTree = "<group>"; };
 		5E7C0F70000000000000E101 /* ExceptionMatcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionMatcherTests.swift; sourceTree = "<group>"; };
 		5E0DE2A0000000000000D001 /* WindowOrderResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowOrderResolver.swift; sourceTree = "<group>"; };
@@ -1143,6 +1150,9 @@
 				BF0C8998862E0E04D60CACBC /* MacroPreferences.swift */,
 				BF0C8F58B38F29B2662E6C2D /* PreferencesMigrations.swift */,
 				5FCEFA110000000000000020 /* PreferencesMigrationsTests.swift */,
+				5F5790DE7EC7000000000A01 /* PreferencesPersistenceProbe.swift */,
+				5F5790DE7EC7000000000B01 /* PreferencesPersistenceCheck.swift */,
+				5F5790DE7EC7000000000C01 /* PreferencesPersistenceProbeTests.swift */,
 				5FA001000000000000000020 /* ShortcutConfiguration.swift */,
 				D04BABCD12CA72B06290C248 /* settings-window */,
 				5FA001000000000000000018 /* PreferenceDefinition.swift */,
@@ -1892,6 +1902,8 @@
 				5F117E40000000000000F102 /* WindowFilterResolverTests.swift in Sources */,
 				5F117E41000000000000F003 /* PhantomWindowDetector.swift in Sources */,
 				5F117E41000000000000F102 /* PhantomWindowDetectorTests.swift in Sources */,
+				5F5790DE7EC7000000000A03 /* PreferencesPersistenceProbe.swift in Sources */,
+				5F5790DE7EC7000000000C02 /* PreferencesPersistenceProbeTests.swift in Sources */,
 				5F117E40000000000000F203 /* PermissionCalloutResolver.swift in Sources */,
 				5F117E40000000000000F212 /* PermissionCalloutResolverTests.swift in Sources */,
 				5E7C0F70000000000000E003 /* ExceptionMatcher.swift in Sources */,
@@ -1955,6 +1967,8 @@
 				5E5EA12D0000000000000002 /* ShortcutModifierResolver.swift in Sources */,
 				5F117E40000000000000F002 /* WindowFilterResolver.swift in Sources */,
 				5F117E41000000000000F002 /* PhantomWindowDetector.swift in Sources */,
+				5F5790DE7EC7000000000A02 /* PreferencesPersistenceProbe.swift in Sources */,
+				5F5790DE7EC7000000000B02 /* PreferencesPersistenceCheck.swift in Sources */,
 				5E7C0F70000000000000E002 /* ExceptionMatcher.swift in Sources */,
 				5E0DE2A0000000000000D002 /* WindowOrderResolver.swift in Sources */,
 				5E2A571E000000000000A002 /* WindowState.swift in Sources */,

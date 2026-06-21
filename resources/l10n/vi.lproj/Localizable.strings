@@ -30,6 +30,8 @@
 "AltTab is a free, open-source window switcher for macOS. Pro features are available with a 14-day free trial." = "AltTab là trình chuyển đổi cửa sổ miễn phí, mã nguồn mở cho macOS. Các tính năng Pro có sẵn với bản dùng thử miễn phí 14 ngày.";
 "AltTab is running without Screen Recording permissions. %@ won’t show." = "AltTab đang chạy mà không có quyền Ghi màn hình. %@ sẽ không hiển thị.";
 "AltTab needs some permissions" = "AltTab cần một số quyền";
+"AltTab preferences file is a symlink. macOS doesn’t support symlink for preferences. Please use a valid file instead of a symlink here:" = "Tệp cài đặt của AltTab là một liên kết tượng trưng. macOS không hỗ trợ liên kết tượng trưng cho cài đặt. Vui lòng dùng một tệp hợp lệ thay cho liên kết tượng trưng tại đây:";
+"AltTab preferences file isn’t writable by your account. Please fix ownership and permissions of the file here:" = "Tệp cài đặt của AltTab không thể ghi bằng tài khoản của bạn. Vui lòng sửa chủ sở hữu và quyền của tệp tại đây:";
 "AltTab Pro" = "AltTab Pro";
 "AltTab Pro adds 4 features beyond the free switcher." = "AltTab Pro bổ sung 4 tính năng ngoài trình chuyển đổi miễn phí.";
 "AltTab Pro is still available" = "AltTab Pro vẫn còn khả dụng";
@@ -315,5 +317,6 @@
 "Your feedback will be submitted as a public GitHub issue." = "Phản hồi của bạn sẽ được gửi dưới dạng GitHub Issue công khai.";
 "Your license doesn't cover this version. Upgrade to Lifetime Pro." = "Giấy phép của bạn không áp dụng cho phiên bản này. Hãy nâng cấp lên Lifetime Pro.";
 "Your Pro trial ends in 2 days" = "Bản dùng thử Pro của bạn kết thúc sau 2 ngày";
+"Your settings reset every time AltTab restarts." = "Cài đặt của bạn bị đặt lại mỗi khi AltTab khởi động lại.";
 "Your trial includes Pro features" = "Bản dùng thử của bạn bao gồm các tính năng Pro";
 "YOUR USAGE SO FAR" = "MỨC SỬ DỤNG CỦA BẠN ĐẾN NAY";

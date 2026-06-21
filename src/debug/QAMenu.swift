@@ -6,10 +6,13 @@ final class QAMenu: NSPanel {
     private let stack = NSStackView()
     private let proSectionContent = NSStackView()
     private var proDisclosure: NSButton!
+    private let corruptedSectionContent = NSStackView()
+    private var corruptedDisclosure: NSButton!
 
     private static let autosaveName = "QAMenu"
     private static let openSettingsOnLaunchKey = "debug.openSettingsOnLaunch"
     private static let proSectionExpandedKey = "debug.proSectionExpanded"
+    private static let corruptedSectionExpandedKey = "debug.corruptedSectionExpanded"
     private static let graphEnabledKey = "debug.graphEnabled"
     private static let sectionSpacing: CGFloat = 16
 
@@ -103,6 +106,45 @@ final class QAMenu: NSPanel {
         stack.addArrangedSubview(graphCheckbox)
         stack.addArrangedSubview(langDropdown)
         addProTransitionButtons()
+        addCorruptedSettingsButtons()
+    }
+
+    private func addCorruptedSettingsButtons() {
+        let isExpanded = UserDefaults.standard.object(forKey: Self.corruptedSectionExpandedKey) as? Bool ?? false
+        corruptedDisclosure = NSButton(title: "", target: nil, action: nil)
+        corruptedDisclosure.bezelStyle = .disclosure
+        corruptedDisclosure.setButtonType(.pushOnPushOff)
+        corruptedDisclosure.state = isExpanded ? .on : .off
+        corruptedDisclosure.onAction = { [weak self] _ in
+            guard let self else { return }
+            let expanded = self.corruptedDisclosure.state == .on
+            UserDefaults.standard.set(expanded, forKey: Self.corruptedSectionExpandedKey)
+            self.corruptedSectionContent.isHidden = !expanded
+            self.sizeToFitContent()
+        }
+        if let prior = stack.arrangedSubviews.last {
+            stack.setCustomSpacing(Self.sectionSpacing, after: prior)
+        }
+        let header = NSStackView(views: [corruptedDisclosure, sectionLabel("Corrupted settings file")])
+        header.orientation = .horizontal
+        header.spacing = 4
+        stack.addArrangedSubview(header)
+        stack.setCustomSpacing(Self.sectionSpacing, after: header)
+
+        corruptedSectionContent.orientation = .vertical
+        corruptedSectionContent.alignment = .leading
+        corruptedSectionContent.spacing = 8
+        corruptedSectionContent.isHidden = !isExpanded
+        stack.addArrangedSubview(corruptedSectionContent)
+
+        corruptedSectionContent.addArrangedSubview(sectionLabel("Show “can’t save settings” dialog:"))
+        let dialogRow = NSStackView(views: [
+            makeButton("Symlink") { PreferencesPersistenceCheck.debugShowDialog(symlinked: true) },
+            makeButton("Unwritable") { PreferencesPersistenceCheck.debugShowDialog(symlinked: false) },
+        ])
+        dialogRow.orientation = .horizontal
+        dialogRow.spacing = 4
+        corruptedSectionContent.addArrangedSubview(dialogRow)
     }
 
     /// Wipe every UserDefaults suite the app uses plus every keychain entry under the license service,

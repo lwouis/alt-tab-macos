@@ -30,6 +30,8 @@
 "AltTab is a free, open-source window switcher for macOS. Pro features are available with a 14-day free trial." = "AltTab は macOS 用の無料・オープンソースのウインドウスイッチャーです。Pro 機能は 14 日間の無料トライアルで利用できます。";
 "AltTab is running without Screen Recording permissions. %@ won’t show." = "AltTab は画面収録の権限なしで動作しています。%@は表示されません。";
 "AltTab needs some permissions" = "AltTab にはいくつかの権限が必要です";
+"AltTab preferences file is a symlink. macOS doesn’t support symlink for preferences. Please use a valid file instead of a symlink here:" = "AltTab の設定ファイルがシンボリックリンクです。macOS は設定にシンボリックリンクをサポートしていません。ここではシンボリックリンクではなく通常のファイルを使用してください:";
+"AltTab preferences file isn’t writable by your account. Please fix ownership and permissions of the file here:" = "AltTab の設定ファイルにあなたのアカウントで書き込みできません。ここでファイルの所有者と権限を修正してください:";
 "AltTab Pro" = "AltTab Pro";
 "AltTab Pro adds 4 features beyond the free switcher." = "AltTab Pro は無料版に加えて 4 つの機能を追加します。";
 "AltTab Pro is still available" = "AltTab Pro は引き続き利用可能です";
@@ -315,5 +317,6 @@
 "Your feedback will be submitted as a public GitHub issue." = "フィードバックは公開の GitHub Issue として送信されます。";
 "Your license doesn't cover this version. Upgrade to Lifetime Pro." = "このバージョンはライセンスの対象外です。Lifetime Pro にアップグレードしてください。";
 "Your Pro trial ends in 2 days" = "Pro トライアルはあと 2 日で終了します";
+"Your settings reset every time AltTab restarts." = "AltTab を再起動するたびに設定がリセットされます。";
 "Your trial includes Pro features" = "トライアルには Pro 機能が含まれます";
 "YOUR USAGE SO FAR" = "これまでの使用状況";

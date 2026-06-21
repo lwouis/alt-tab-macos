@@ -450,6 +450,7 @@ extension App: NSApplicationDelegate {
         #endif
         AXUIElement.setGlobalTimeout()
         Preferences.initialize()
+        PreferencesPersistenceCheck.runInBackground()
         LicenseManager.shared.onBeforeProUnlock = { ProTransitionManager.shared.onProUnlocked() }
         LicenseManager.shared.onStateChanged = { state in
             Menubar.refreshLicenseMenuItems()
