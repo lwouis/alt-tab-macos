@@ -30,6 +30,16 @@ extension NSAppearance {
         }
         return .light
     }
+
+    /// Whether *this* appearance is a dark one (unlike `getThemeName()`, which always reads
+    /// `NSApp.effectiveAppearance`). Used by the dynamic-color provider so AppKit can resolve a
+    /// color for whatever appearance a view is drawing in.
+    var isDarkMode: Bool {
+        if #available(macOS 10.14, *) {
+            return bestMatch(from: [.aqua, .darkAqua]) == .darkAqua
+        }
+        return false
+    }
 }
 
 extension NSColor {
@@ -52,40 +62,43 @@ extension NSColor {
         return NSColor.blue
     }
 
-    class var tableBorderColor: NSColor {
-        // #4b4b4b
-        if NSAppearance.current.getThemeName() == .dark {
-            return NSColor(srgbRed: 75 / 255, green: 75 / 255, blue: 75 / 255, alpha: 0.8)
+    /// A color that resolves itself per-appearance, so AppKit re-renders it automatically on a
+    /// Dark/Light switch with no event observing and no manual repaint (as long as it's drawn by a
+    /// view that re-resolves `NSColor`s, e.g. `NSBox`, rather than baked into `layer.backgroundColor`
+    /// via `.cgColor`). Below 10.15 there's no dynamic-provider API, so it resolves once for the
+    /// current app appearance — fine, since 10.13 has no Dark mode and 10.14 is vanishingly rare.
+    private static func dynamicAppearanceColor(light: NSColor, dark: NSColor) -> NSColor {
+        if #available(macOS 10.15, *) {
+            return NSColor(name: nil) { $0.isDarkMode ? dark : light }
         }
-        // #e5e5e5
-        return NSColor(srgbRed: 229 / 255, green: 229 / 255, blue: 229 / 255, alpha: 0.8)
+        if #available(macOS 10.14, *) {
+            return NSApp.effectiveAppearance.isDarkMode ? dark : light
+        }
+        return light
+    }
+
+    class var tableBorderColor: NSColor {
+        dynamicAppearanceColor(
+            light: NSColor(srgbRed: 229 / 255, green: 229 / 255, blue: 229 / 255, alpha: 0.8),  // #e5e5e5
+            dark: NSColor(srgbRed: 75 / 255, green: 75 / 255, blue: 75 / 255, alpha: 0.8))       // #4b4b4b
     }
 
     class var tableBackgroundColor: NSColor {
-        // #2b2b2b
-        if NSAppearance.current.getThemeName() == .dark {
-            return NSColor(srgbRed: 43 / 255, green: 43 / 255, blue: 43 / 255, alpha: 0.8)
-        }
-        // #f2f2f2
-        return NSColor(srgbRed: 242 / 255, green: 242 / 255, blue: 242 / 255, alpha: 0.8)
+        dynamicAppearanceColor(
+            light: NSColor(srgbRed: 242 / 255, green: 242 / 255, blue: 242 / 255, alpha: 0.8),  // #f2f2f2
+            dark: NSColor(srgbRed: 43 / 255, green: 43 / 255, blue: 43 / 255, alpha: 0.8))       // #2b2b2b
     }
 
     class var tableSeparatorColor: NSColor {
-        // #353535
-        if NSAppearance.current.getThemeName() == .dark {
-            return NSColor(srgbRed: 53 / 255, green: 53 / 255, blue: 53 / 255, alpha: 0.8)
-        }
-        // #e7e7e7
-        return NSColor(srgbRed: 231 / 255, green: 231 / 255, blue: 231 / 255, alpha: 0.8)
+        dynamicAppearanceColor(
+            light: NSColor(srgbRed: 231 / 255, green: 231 / 255, blue: 231 / 255, alpha: 0.8),  // #e7e7e7
+            dark: NSColor(srgbRed: 53 / 255, green: 53 / 255, blue: 53 / 255, alpha: 0.8))       // #353535
     }
 
     class var tableHoverColor: NSColor {
-        // #363636
-        if NSAppearance.current.getThemeName() == .dark {
-            return NSColor(srgbRed: 54 / 255, green: 54 / 255, blue: 54 / 255, alpha: 0.8)
-        }
-        // #ebebeb
-        return NSColor(srgbRed: 235 / 255, green: 235 / 255, blue: 235 / 255, alpha: 0.8)
+        dynamicAppearanceColor(
+            light: NSColor(srgbRed: 235 / 255, green: 235 / 255, blue: 235 / 255, alpha: 0.8),  // #ebebeb
+            dark: NSColor(srgbRed: 54 / 255, green: 54 / 255, blue: 54 / 255, alpha: 0.8))       // #363636
     }
 }
 

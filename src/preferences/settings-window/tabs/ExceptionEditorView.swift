@@ -16,7 +16,6 @@ class ExceptionEditorView: NSView {
     private let ignoreDropdown = PopupButtonLikeSystemSettings()
     private var patternsRow: NSView?
     private var patternsListStack = NSStackView()
-    private var behaviorGroup: NSStackView!
 
     init() {
         super.init(frame: .zero)
@@ -57,9 +56,8 @@ class ExceptionEditorView: NSView {
             outerStack.leadingAnchor.constraint(equalTo: leadingAnchor),
             outerStack.trailingAnchor.constraint(equalTo: trailingAnchor),
             outerStack.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor),
-            // Force the behavior group to fill the editor's full width so its rows can extend
-            // to the right edge. NSStackView's .leading alignment leaves it at intrinsic width
-            // otherwise.
+            // Force the behavior card to fill the editor's full width so its rows can extend to the
+            // right edge. NSStackView's .leading alignment leaves it at intrinsic width otherwise.
             group.trailingAnchor.constraint(equalTo: outerStack.trailingAnchor),
         ])
     }
@@ -80,19 +78,13 @@ class ExceptionEditorView: NSView {
         return row
     }
 
-    private func makeBehaviorGroup() -> NSStackView {
-        let group = NSStackView()
-        group.orientation = .vertical
-        group.alignment = .leading
-        group.spacing = 0
-        group.distribution = .fill
-        group.wantsLayer = true
-        group.layer?.cornerRadius = 8
-        group.layer?.borderWidth = 1
-        group.layer?.borderColor = NSColor.tableSeparatorColor.cgColor
-        group.layer?.backgroundColor = NSColor.tableBackgroundColor.cgColor
-        group.translatesAutoresizingMaskIntoConstraints = false
-        behaviorGroup = group
+    private func makeBehaviorGroup() -> NSView {
+        let rows = NSStackView()
+        rows.orientation = .vertical
+        rows.alignment = .leading
+        rows.spacing = 0
+        rows.distribution = .fill
+        rows.translatesAutoresizingMaskIntoConstraints = false
 
         let bundleRow = makeBundleIdRow()
         let hideRow = makeHideRow()
@@ -100,12 +92,41 @@ class ExceptionEditorView: NSView {
         let ignoreRow = makeIgnoreRow()
         self.patternsRow = patternsRow
 
-        addToGroup(group, view: bundleRow, addSeparator: false)
-        addToGroup(group, view: hideRow, addSeparator: true)
-        group.addArrangedSubview(patternsRow)
-        patternsRow.leadingAnchor.constraint(equalTo: group.leadingAnchor).isActive = true
-        patternsRow.trailingAnchor.constraint(equalTo: group.trailingAnchor).isActive = true
-        addToGroup(group, view: ignoreRow, addSeparator: true)
+        addToGroup(rows, view: bundleRow, addSeparator: false)
+        addToGroup(rows, view: hideRow, addSeparator: true)
+        rows.addArrangedSubview(patternsRow)
+        patternsRow.leadingAnchor.constraint(equalTo: rows.leadingAnchor).isActive = true
+        patternsRow.trailingAnchor.constraint(equalTo: rows.trailingAnchor).isActive = true
+        addToGroup(rows, view: ignoreRow, addSeparator: true)
+
+        // An NSBox painted behind the rows draws the rounded card. Its `fillColor`/`borderColor`
+        // are dynamic NSColors, so AppKit re-resolves them for Dark/Light on every redraw on its
+        // own — no appearance observing, no manual repaint, no baked `.cgColor`. The box is a
+        // background sibling (not the rows' container) so the stack drives the card's size.
+        let card = NSBox()
+        card.boxType = .custom
+        card.titlePosition = .noTitle
+        card.cornerRadius = 8
+        card.borderWidth = 1
+        card.borderColor = .tableSeparatorColor
+        card.fillColor = .tableBackgroundColor
+        card.contentViewMargins = .zero
+        card.translatesAutoresizingMaskIntoConstraints = false
+
+        let group = NSView()
+        group.translatesAutoresizingMaskIntoConstraints = false
+        group.addSubview(card)
+        group.addSubview(rows)
+        NSLayoutConstraint.activate([
+            card.topAnchor.constraint(equalTo: group.topAnchor),
+            card.leadingAnchor.constraint(equalTo: group.leadingAnchor),
+            card.trailingAnchor.constraint(equalTo: group.trailingAnchor),
+            card.bottomAnchor.constraint(equalTo: group.bottomAnchor),
+            rows.topAnchor.constraint(equalTo: group.topAnchor),
+            rows.leadingAnchor.constraint(equalTo: group.leadingAnchor),
+            rows.trailingAnchor.constraint(equalTo: group.trailingAnchor),
+            rows.bottomAnchor.constraint(equalTo: group.bottomAnchor),
+        ])
         return group
     }
 
@@ -122,10 +143,10 @@ class ExceptionEditorView: NSView {
     }
 
     private func makeSeparator() -> NSView {
-        let sep = NSView()
+        // NSBox's native separator adapts to Dark/Light by itself (same as `sidebarSeparatorView()`).
+        let sep = NSBox()
+        sep.boxType = .separator
         sep.translatesAutoresizingMaskIntoConstraints = false
-        sep.wantsLayer = true
-        sep.layer?.backgroundColor = NSColor.tableSeparatorColor.cgColor
         sep.heightAnchor.constraint(equalToConstant: 1).isActive = true
         return sep
     }
