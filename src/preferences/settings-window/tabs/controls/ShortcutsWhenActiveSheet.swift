@@ -57,7 +57,11 @@ class ShortcutsWhenActiveSheet: SheetWindow {
     }
 
     private func addProBadgeToLeftLabel(_ rowInfo: TableGroupView.RowInfo) {
-        guard let label = rowInfo.leftViews?.first as? NSTextField else { return }
+        // Anchor the badge to the row's left label. Don't cast to a concrete view type: the label used
+        // to be an `NSTextField` but `TableGroupView.makeText` now returns a `LightLabel` (an `NSView`),
+        // and the old `as? NSTextField` silently failed that cast, dropping the badge. We only need
+        // NSView anchors, so unwrap as-is and stay agnostic to future label type changes.
+        guard let label = rowInfo.leftViews?.first else { return }
         let badge = ProBadgeView()
         label.superview?.addSubview(badge)
         NSLayoutConstraint.activate([
