@@ -3,6 +3,19 @@ import Cocoa
 class Windows {
     static var list = [Window]()
     private(set) static var byWindowId = [CGWindowID: Window]()
+    /// wids that received a focus event (808) while still untracked (their async discovery was in flight).
+    /// `appendWindow` consumes this to promote the window to the front of the MRU the moment it's added,
+    /// regardless of whether event-discovery or the full rescan adds it — so a freshly-focused window (e.g.
+    /// one of many from spamming cmd-N) isn't stranded at the back. Drained on append; cleared on destroy.
+    static var windowsPendingFocusPromotion = Set<CGWindowID>()
+    /// wids flagged brand-new by a WindowServer `windowCreated` event, not yet promoted in the MRU. A new window
+    /// must land at the front, but the focus event (808) that would do it isn't a reliable trigger: it only
+    /// fires while the window's app is frontmost, and even then can be *processed* a beat late — after the user
+    /// moved on (cmd-N burst, then open AltTab) — where the `isActive` guard in `bumpFocusOrder` drops it and
+    /// strands the window at the back. So `appendWindow` promotes any window in this set the moment it's tracked,
+    /// independent of discovery path (event or full rescan) and of focus events; `bumpFocusOrder` also honors it
+    /// for the create-after-append ordering. Consumed on the first promotion; cleared on destroy/removal.
+    static var recentlyCreatedWindows = Set<CGWindowID>()
     private static var lastWindowActivityType = WindowActivityType.none
     private static var shouldSelectBestMatchOnSearchChange = false
     private static var shouldRestoreDefaultSelectionOnSearchClear = false
@@ -35,15 +48,11 @@ class Windows {
     }
 
     static func updateIsFullscreenOnCurrentSpace() {
-        let windowsOnCurrentSpace = list.filter { !$0.isWindowlessApp }
-        for window in windowsOnCurrentSpace {
-            guard let wid = window.cgWindowId, let axUiElement = window.axUiElement else { continue }
-            AXCallScheduler.shared.schedule(key: "wid-\(wid)-geometry", context: window.debugId, pid: window.application.pid) { [weak window] in
-                guard let window else { return }
-                // we reuse existing code, to update .isFullscreen, as if there was a kAXWindowResizedNotification
-                try AccessibilityEvents.handleEventWindow(kAXWindowResizedNotification, wid, window.application.pid, axUiElement)
-            }
-        }
+        // re-read fullscreen/geometry/minimized from the WindowServer for every tracked window in ONE batched
+        // query (the Safari full-screen-video window emits no resize/move event, so its fullscreen only
+        // refreshes here, on Space change).
+        let wids = list.filter { !$0.isWindowlessApp }.compactMap { $0.cgWindowId }
+        Applications.updateWindowStatesViaWindowServer(wids)
     }
 
     static func voiceOverWindow(_ windowIndex: Int = (SwitcherSession.current?.selectedIndex ?? 0)) {
@@ -63,8 +72,9 @@ class Windows {
     static func updatesBeforeShowing() -> Bool {
         if MissionControl.state() == .showAllWindows || MissionControl.state() == .showFrontWindows { return false }
         if list.isEmpty { return true }
-        // Space/screen membership is refreshed OFF the hot path now (#5721): reactively on Space/screen
-        // change (SpacesEvents/ScreensEvents), and after show in `Applications.syncSpacesState`. Here we
+        // Space/screen membership is refreshed OFF the hot path now (#5721): reactively on Space change
+        // (WindowServerEvents) and screen change (ScreensEvents), and after show in
+        // `Applications.syncSpacesState`. Here we
         // only read the cached values, so there is no blocking SkyLight IPC on the way to rendering. A
         // one-frame staleness (e.g. a window just dragged to another Space) self-corrects via the deferred
         // reconcile. `recomputeIsPhantom` is kept here: it's pure (no IPC) and reads the cached `spaceIds`.
@@ -72,6 +82,9 @@ class Windows {
         // computed-property access rebuilds the underlying array via N×`CachedUserDefaults.macroPref`
         // calls. Snapshot them once and pass into the per-window helper.
         let filters = WindowFilters.snapshot()
+        // Tab grouping (incl. fullscreen siblings) and active→inactive state mirroring are reconciled
+        // reactively on WindowServer events (TabGroup.reconcile), so the model is already grouped here —
+        // doing it in this synchronous show path would reorder tiles mid-render (UI jump).
         for window in list {
             window.recomputeIsPhantom()
             refreshIfWindowShouldBeShownToTheUser(window, filters)
@@ -392,8 +405,8 @@ class Windows {
             // Adopt the freshest element for this wid. Some apps (e.g. Zoom meeting windows) silently rebuild a
             // window's accessibility element while keeping the same CGWindowID, with no destroyed notification,
             // so our cached ref goes stale and every AX call returns kAXErrorInvalidUIElement. Rebinding here
-            // heals it on the sync points that already hand us a fresh element: every show (allWindows), app
-            // activation (kAXFocusedWindowAttribute), and focus/move/etc. notifications (#5586).
+            // heals it on the sync points that already hand us a fresh element: every show (discovery
+            // re-acquires the element), app activation (kAXFocusedWindowAttribute), and focus notifications (#5586).
             if window.axUiElement != windowAxUiElement {
                 window.rebindAxElement(windowAxUiElement)
             }
@@ -412,6 +425,18 @@ class Windows {
         list.append(window)
         if let wid = window.cgWindowId {
             byWindowId[wid] = window
+            WindowServerEvents.subscribe(wid)
+            // Promote a freshly-created window to the front of the MRU the moment it's tracked, no matter which
+            // path discovered it (event or full rescan). `windowsPendingFocusPromotion`: a focus event (808)
+            // outran the async discovery. `recentlyCreatedWindows`: a WindowServer create event flagged it new —
+            // this is what reliably fronts cmd-N-burst windows, since it doesn't depend on each window emitting
+            // its own 808 (some don't) nor on the app still being frontmost when that 808 is processed. Both
+            // flags are consumed so the window is bumped exactly once, here at its first appearance.
+            let wasPendingFocus = windowsPendingFocusPromotion.remove(wid) != nil
+            let wasJustCreated = recentlyCreatedWindows.remove(wid) != nil
+            if wasPendingFocus || wasJustCreated {
+                _ = updateLastFocusOrder(window)
+            }
         }
         if list.count > TilesView.recycledViews.count {
             TilesView.recycledViews.append(TileView())
@@ -443,6 +468,9 @@ class Windows {
             }
             if let wid = w.cgWindowId {
                 byWindowId.removeValue(forKey: wid)
+                windowsPendingFocusPromotion.remove(wid)
+                recentlyCreatedWindows.remove(wid)
+                WindowServerEvents.unsubscribe(wid)
             }
         }
         let toRemove = windows.map { $0.lastFocusOrder }
@@ -468,17 +496,9 @@ class Windows {
         for w in windows {
             if let wid = w.cgWindowId {
                 AXCallScheduler.shared.removeEntries(withPrefix: "wid-\(wid)-")
-                // one-shot subscription keys (see Window.observeEvents) use the `sub-win-` prefix, so the
-                // `wid-` cleanup above misses them; strip them here too or they leak 6 entries per window.
-                AXCallScheduler.shared.removeEntry(key: "sub-win-\(wid)")
-                AXCallScheduler.shared.removeEntries(withPrefix: "sub-win-\(wid)-")
                 Applications.windowAttributesThrottler.removeEntries(withPrefix: "\(wid)-")
                 Applications.screenshotThrottler.removeEntry(withKey: "capture-wid-\(wid)")
             }
-            // Detach the per-window AX observer's runloop source. Without this the AX events
-            // thread's runloop accumulates one orphaned source per window-ever-opened (leak #1,
-            // dominant cause of the 399 GB VM growth in long sessions).
-            w.releaseAxObserver()
             // when a tabbed window is removed, update its former siblings' tab group
             if let siblingWids = w.tabbedSiblingWids {
                 TabGroup.removedWindowFromGroup(wid: w.cgWindowId, siblingWids: siblingWids)

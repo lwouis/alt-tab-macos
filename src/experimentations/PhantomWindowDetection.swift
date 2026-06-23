@@ -72,19 +72,19 @@
 //
 // MARK: - Why we run the check post-show, off-main
 //
-// The check is wired into Applications.manuallyRefreshAllWindows() — the throttled
-// hook that fires ~250 ms after the panel becomes key. It runs after:
-//   removeZombieWindows()  — drops dead WIDs
-//   addMissingWindows()    — discovers new windows
-//   reviewExistingWindows() — refreshes AX attrs, including isTabbed via TabGroup
+// The check is wired into Applications.manuallyRefreshAllWindows() — armed by a one-shot
+// kCFRunLoopObserver(.beforeWaiting) right after the switcher shows. It runs alongside:
+//   syncSpacesState()                — re-derives per-window Space membership
+//   refreshWindowsViaWindowServer()  — discovers new windows + computes the phantom verdict
+//   reviewExistingWindows()          — refreshes the AX-only attrs (title/subrole/tabs/minimized)
+//   discardDeadPhantomWindows()      — drops phantoms the OS confirms are gone
 //
 // This way:
 //   - the synchronous show path (Windows.updatesBeforeShowing) is untouched
-//   - by the time we read isTabbed, the AX hops in (C) have landed on main
-//   - the CGS call happens off-main via AXCallScheduler.shared.submit
+//   - by the time we read isTabbed, the AX reads have landed on main
+//   - the WindowServer/CGS queries happen off-main via CGSCallScheduler
 //
-// First show may briefly include a phantom; the next show (or this same show after
-// the 250 ms refresh) clears it.
+// First show may briefly include a phantom; the next show clears it.
 //
 // MARK: - Approaches considered and rejected
 //

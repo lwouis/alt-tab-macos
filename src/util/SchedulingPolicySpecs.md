@@ -3,7 +3,7 @@
 ## Summary
 
 `SchedulingPolicy` holds the pure timing decisions behind the AX scheduling layer, extracted so they're
-testable without real clocks or queues (same pattern as `SelectionResolver` / `AxEventRouting`):
+testable without real clocks or queues (same pattern as `SelectionResolver` / `AxQueryRouting`):
 
 - **`ThrottleDecision`** — for one `throttleOrProceed` call: run on the leading edge, or (within the
   window) schedule a single trailing run and coalesce the rest. Used by `Throttler` and `ThrottlerWithKey`.

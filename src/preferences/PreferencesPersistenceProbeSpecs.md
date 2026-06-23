@@ -6,7 +6,7 @@
 macOS isn't persisting AltTab's preferences to disk (issue #5790). It takes a list of `SuiteFacts` (the
 filesystem state of each `UserDefaults` suite's backing plist, gathered by the `PreferencesPersistenceCheck`
 shell) and returns a `Verdict`: `.ok`, or `.broken` naming the offending plist paths. It holds no state and
-touches no filesystem — same split as `AxEventRouting` / `DragAndDropResolver`.
+touches no filesystem — same split as `WsEventRouting` / `DragAndDropResolver`.
 
 ## Why a filesystem check, not a write-and-read-back canary
 

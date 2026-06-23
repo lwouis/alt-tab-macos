@@ -7,7 +7,7 @@ the tiles should do (`dragOver`), when the auto-select timer (re)arms (`movedBey
 the global mouse tap must yield the drop's mouse-up (`passesThroughMouseUp`), and whether a drop is valid
 (`canDrop`). It holds no state and touches no AppKit drag session, timer, or event tap — `TilesDocumentView`
 (the `NSDraggingDestination`) and `CursorEvents` (the global tap) turn its decisions into real
-`NSDragOperation`s, timers, and tap pass-through (same pattern as `AxEventRouting`).
+`NSDragOperation`s, timers, and tap pass-through (same pattern as `AxQueryRouting`).
 
 ## Behavior & edge cases
 

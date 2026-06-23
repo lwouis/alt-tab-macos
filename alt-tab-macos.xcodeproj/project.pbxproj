@@ -39,9 +39,19 @@
 		5E1EC110000000000000C002 /* SelectionResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1EC110000000000000C001 /* SelectionResolver.swift */; };
 		5E1EC110000000000000C003 /* SelectionResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1EC110000000000000C001 /* SelectionResolver.swift */; };
 		5E1EC110000000000000C102 /* SelectionResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1EC110000000000000C101 /* SelectionResolverTests.swift */; };
-		5EA8E110000000000000F002 /* AxEventRouting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA8E110000000000000F001 /* AxEventRouting.swift */; };
-		5EA8E110000000000000F003 /* AxEventRouting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA8E110000000000000F001 /* AxEventRouting.swift */; };
-		5EA8E110000000000000F102 /* AxEventRoutingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA8E110000000000000F101 /* AxEventRoutingTests.swift */; };
+		5EA8E110000000000000F002 /* AxQueryRouting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA8E110000000000000F001 /* AxQueryRouting.swift */; };
+		5EA8E110000000000000F003 /* AxQueryRouting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA8E110000000000000F001 /* AxQueryRouting.swift */; };
+		5EA8E110000000000000F102 /* AxQueryRoutingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA8E110000000000000F101 /* AxQueryRoutingTests.swift */; };
+		5C5A1100000000000000A002 /* WsEventRouting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5A1100000000000000A001 /* WsEventRouting.swift */; };
+		5C5A1100000000000000A003 /* WsEventRouting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5A1100000000000000A001 /* WsEventRouting.swift */; };
+		5C5A1100000000000000A102 /* WsEventRoutingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5A1100000000000000A101 /* WsEventRoutingTests.swift */; };
+		5C5A1100000000000000B002 /* WsWindowState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5A1100000000000000B001 /* WsWindowState.swift */; };
+		5C5A1100000000000000B003 /* WsWindowState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5A1100000000000000B001 /* WsWindowState.swift */; };
+		5C5A1100000000000000B102 /* WsWindowStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5A1100000000000000B101 /* WsWindowStateTests.swift */; };
+		5C5A1100000000000000C002 /* WindowAcquisitionPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5A1100000000000000C001 /* WindowAcquisitionPolicy.swift */; };
+		5C5A1100000000000000C003 /* WindowAcquisitionPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5A1100000000000000C001 /* WindowAcquisitionPolicy.swift */; };
+		5C5A1100000000000000D002 /* WindowServerQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5A1100000000000000D001 /* WindowServerQuery.swift */; };
+		5C5A1100000000000000F002 /* WindowElementAcquisition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5A1100000000000000F001 /* WindowElementAcquisition.swift */; };
 		5EA8E110000000000000DA02 /* DragAndDropResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA8E110000000000000DA01 /* DragAndDropResolver.swift */; };
 		5EA8E110000000000000DA03 /* DragAndDropResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA8E110000000000000DA01 /* DragAndDropResolver.swift */; };
 		5EA8E110000000000000DA12 /* DragAndDropResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA8E110000000000000DA11 /* DragAndDropResolverTests.swift */; };
@@ -166,7 +176,7 @@
 		AECF000000000000000000B2 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECF000000000000000000B1 /* Secrets.swift */; };
 		BB0000000000000000000002 /* TabGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000001 /* TabGroup.swift */; };
 		BF0C803A13C409E7F01FBCAB /* SkyLight.framework.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C8B94D7994AB9007F6391 /* SkyLight.framework.swift */; };
-		BF0C80484AA63306D0DB4DB2 /* SpacesEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C8DF008F1EB5F23291A13 /* SpacesEvents.swift */; };
+		BF0C8FACE000000000000002 /* WindowServerEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C8FACE000000000000001 /* WindowServerEvents.swift */; };
 		BF0C807D26E465F467B066F7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C849EBA5A547912BD8BB9 /* Localizable.strings */; };
 		BF0C80C69EFEF93C18539925 /* PreferencesMigrations.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C8F58B38F29B2662E6C2D /* PreferencesMigrations.swift */; };
 		5FCEFA110000000000000001 /* PreferencesMigrations.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C8F58B38F29B2662E6C2D /* PreferencesMigrations.swift */; };
@@ -324,7 +334,6 @@
 		5F117E40000000000000F203 /* PermissionCalloutResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F117E40000000000000F201 /* PermissionCalloutResolver.swift */; };
 		5F117E40000000000000F212 /* PermissionCalloutResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F117E40000000000000F211 /* PermissionCalloutResolverTests.swift */; };
 		D04BADE4DDF7597749FB13BD /* SettingsWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA099FA155FB4D517D66B /* SettingsWindow.swift */; };
-		D04BAE8B16A06A10E2FA94DE /* AccessibilityEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA8FDCF137D892114F5F3 /* AccessibilityEvents.swift */; };
 		D04BAF12DF5D15B9D7D316A4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BA61693F710CD7BD054D7 /* InfoPlist.strings */; };
 		D04BAFB217F9F8E58C3B09AD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BA82BB17B85A88A5D2B87 /* InfoPlist.strings */; };
 		D04BAFB90E00AA5D662EAF24 /* PermissionsWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA9DF10D0CC4CA0C8F814 /* PermissionsWindow.swift */; };
@@ -401,8 +410,15 @@
 		5883F0A729A5182C0071DB65 /* TrackpadEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackpadEvents.swift; sourceTree = "<group>"; };
 		5E1EC110000000000000C001 /* SelectionResolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionResolver.swift; sourceTree = "<group>"; };
 		5E1EC110000000000000C101 /* SelectionResolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionResolverTests.swift; sourceTree = "<group>"; };
-		5EA8E110000000000000F001 /* AxEventRouting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxEventRouting.swift; sourceTree = "<group>"; };
-		5EA8E110000000000000F101 /* AxEventRoutingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AxEventRoutingTests.swift; sourceTree = "<group>"; };
+		5EA8E110000000000000F001 /* AxQueryRouting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxQueryRouting.swift; sourceTree = "<group>"; };
+		5EA8E110000000000000F101 /* AxQueryRoutingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AxQueryRoutingTests.swift; sourceTree = "<group>"; };
+		5C5A1100000000000000A001 /* WsEventRouting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WsEventRouting.swift; sourceTree = "<group>"; };
+		5C5A1100000000000000A101 /* WsEventRoutingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WsEventRoutingTests.swift; sourceTree = "<group>"; };
+		5C5A1100000000000000B001 /* WsWindowState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WsWindowState.swift; sourceTree = "<group>"; };
+		5C5A1100000000000000B101 /* WsWindowStateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WsWindowStateTests.swift; sourceTree = "<group>"; };
+		5C5A1100000000000000C001 /* WindowAcquisitionPolicy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowAcquisitionPolicy.swift; sourceTree = "<group>"; };
+		5C5A1100000000000000D001 /* WindowServerQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowServerQuery.swift; sourceTree = "<group>"; };
+		5C5A1100000000000000F001 /* WindowElementAcquisition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowElementAcquisition.swift; sourceTree = "<group>"; };
 		5EA8E110000000000000DA01 /* DragAndDropResolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DragAndDropResolver.swift; sourceTree = "<group>"; };
 		5EA8E110000000000000DA11 /* DragAndDropResolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragAndDropResolverTests.swift; sourceTree = "<group>"; };
 		5EA8E110000000000000F201 /* SchedulingPolicy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchedulingPolicy.swift; sourceTree = "<group>"; };
@@ -574,7 +590,7 @@
 		BF0C8D606B53D315F2D9927B /* KeyRepeatTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyRepeatTimer.swift; sourceTree = "<group>"; };
 		BF0C8DC2A355E29516DD2FAF /* CustomRecorderControlTestable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomRecorderControlTestable.swift; sourceTree = "<group>"; };
 		BF0C8DCAC388B07C369E9771 /* test-base.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "test-base.xcconfig"; sourceTree = "<group>"; };
-		BF0C8DF008F1EB5F23291A13 /* SpacesEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpacesEvents.swift; sourceTree = "<group>"; };
+		BF0C8FACE000000000000001 /* WindowServerEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowServerEvents.swift; sourceTree = "<group>"; };
 		BF0C8DF400A1AF64EB0CD0B3 /* TrafficLightButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrafficLightButton.swift; sourceTree = "<group>"; };
 		BF0C8E63BE7394A6591E74E0 /* LightImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LightImageView.swift; sourceTree = "<group>"; };
 		BF0C8E64BE7394A6591E74E1 /* LightImageLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LightImageLayer.swift; sourceTree = "<group>"; };
@@ -673,7 +689,6 @@
 		D04BA84F172AE89F210CA01D /* Pipfile.lock */ = {isa = PBXFileReference; lastKnownFileType = file.lock; path = Pipfile.lock; sourceTree = "<group>"; };
 		D04BA8AC77465E1B2BC947CF /* StackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackView.swift; sourceTree = "<group>"; };
 		D04BA8DB8AA7E5570DAC568A /* Sysctl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sysctl.swift; sourceTree = "<group>"; };
-		D04BA8FDCF137D892114F5F3 /* AccessibilityEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessibilityEvents.swift; sourceTree = "<group>"; };
 		D04BA93F02C9B26B05032B7A /* ja */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ja; path = Localizable.strings; sourceTree = "<group>"; };
 		D04BA94A1695D4FF5337C84B /* import_certificate_into_main_keychain.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = import_certificate_into_main_keychain.sh; sourceTree = "<group>"; };
 		D04BA9B93823398A542FF7A0 /* Preferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
@@ -861,17 +876,30 @@
 				BF0C8FAF34022E23582797F3 /* ScrollwheelEvents.swift */,
 				BF0C81DD40D5AAD9B7C09028 /* CursorEvents.swift */,
 				BF0C8C69316EAAF6DC9AE391 /* CliEvents.swift */,
-				D04BA8FDCF137D892114F5F3 /* AccessibilityEvents.swift */,
-				5EA8E110000000000000F001 /* AxEventRouting.swift */,
-				5EA8E110000000000000F101 /* AxEventRoutingTests.swift */,
+				5EA8E110000000000000F001 /* AxQueryRouting.swift */,
+				5EA8E110000000000000F101 /* AxQueryRoutingTests.swift */,
 				D04BA76AEE37D6656EB80126 /* RunningApplicationsEvents.swift */,
-				BF0C8DF008F1EB5F23291A13 /* SpacesEvents.swift */,
+				BF0C8FACE000000000000001 /* WindowServerEvents.swift */,
 				BF0C822D3BEDAB1F1C9F775E /* ScreensEvents.swift */,
 				5FA1E0B12F50000100A1A1A1 /* PreferencesEvents.swift */,
 				D04BA5D9B4EBEB9E4333AE39 /* UserDefaultsEvents.swift */,
 				D04BB102A1B2C3D4E5F60011 /* InputSourceEvents.swift */,
 			);
 			path = events;
+			sourceTree = "<group>";
+		};
+		5C5A1100000000000000E001 /* windowserver */ = {
+			isa = PBXGroup;
+			children = (
+				5C5A1100000000000000A001 /* WsEventRouting.swift */,
+				5C5A1100000000000000A101 /* WsEventRoutingTests.swift */,
+				5C5A1100000000000000B001 /* WsWindowState.swift */,
+				5C5A1100000000000000B101 /* WsWindowStateTests.swift */,
+				5C5A1100000000000000C001 /* WindowAcquisitionPolicy.swift */,
+				5C5A1100000000000000D001 /* WindowServerQuery.swift */,
+				5C5A1100000000000000F001 /* WindowElementAcquisition.swift */,
+			);
+			path = windowserver;
 			sourceTree = "<group>";
 		};
 		5B4341A610A084615576D930 /* license */ = {
@@ -1399,6 +1427,7 @@
 				71FD1536EE94015DF0B9D6E7 /* vendors */,
 				22F7376E535079E83916A3CD /* util */,
 				5230A54090E2067083AB1CD6 /* events */,
+				5C5A1100000000000000E001 /* windowserver */,
 				47EEAE706D50FB2CB6B0A2FD /* secondary-windows */,
 				BF0C8468DF35990A7731D86C /* MainMenu.swift */,
 				D04BAD905546AA93E5117B0A /* Menubar.swift */,
@@ -1875,8 +1904,13 @@
 			files = (
 				5F882F382EC3C63400110A9F /* CustomRecorderControlTestable.swift in Sources */,
 				BF0C81FA62D810342F59291A /* AppearanceTests.swift in Sources */,
-				5EA8E110000000000000F003 /* AxEventRouting.swift in Sources */,
-				5EA8E110000000000000F102 /* AxEventRoutingTests.swift in Sources */,
+				5EA8E110000000000000F003 /* AxQueryRouting.swift in Sources */,
+				5EA8E110000000000000F102 /* AxQueryRoutingTests.swift in Sources */,
+				5C5A1100000000000000A003 /* WsEventRouting.swift in Sources */,
+				5C5A1100000000000000A102 /* WsEventRoutingTests.swift in Sources */,
+				5C5A1100000000000000B003 /* WsWindowState.swift in Sources */,
+				5C5A1100000000000000B102 /* WsWindowStateTests.swift in Sources */,
+				5C5A1100000000000000C003 /* WindowAcquisitionPolicy.swift in Sources */,
 				5EA8E110000000000000F203 /* SchedulingPolicy.swift in Sources */,
 				5EA8E110000000000000F212 /* SchedulingPolicyTests.swift in Sources */,
 				5EA8E110000000000000DA03 /* DragAndDropResolver.swift in Sources */,
@@ -2051,8 +2085,12 @@
 				D04BA7B8D599E1A7A27FF5AE /* AcknowledgmentsTab.swift in Sources */,
 				D04BA8757C9F20F25EB50785 /* TextField.swift in Sources */,
 				5F21C9E02C6E94240091F72F /* ShortcutsWhenActiveSheet.swift in Sources */,
-				D04BAE8B16A06A10E2FA94DE /* AccessibilityEvents.swift in Sources */,
-				5EA8E110000000000000F002 /* AxEventRouting.swift in Sources */,
+				5EA8E110000000000000F002 /* AxQueryRouting.swift in Sources */,
+				5C5A1100000000000000A002 /* WsEventRouting.swift in Sources */,
+				5C5A1100000000000000B002 /* WsWindowState.swift in Sources */,
+				5C5A1100000000000000C002 /* WindowAcquisitionPolicy.swift in Sources */,
+				5C5A1100000000000000D002 /* WindowServerQuery.swift in Sources */,
+				5C5A1100000000000000F002 /* WindowElementAcquisition.swift in Sources */,
 				5883F0A829A5182C0071DB65 /* TrackpadEvents.swift in Sources */,
 				D04BAAAF5CFA991D3B078DB8 /* KeyboardEvents.swift in Sources */,
 				D04BA1766FBCB2E941D081A5 /* RunningApplicationsEvents.swift in Sources */,
@@ -2104,7 +2142,7 @@
 				1C96182D2ECA735740ED474E /* ImageTextButtonView.swift in Sources */,
 				BF0C860F1779DDE8C0171EA0 /* WindowlessAppIndicator.swift in Sources */,
 				BF0C8A3F32B2177AF407DC7E /* DockEvents.swift in Sources */,
-				BF0C80484AA63306D0DB4DB2 /* SpacesEvents.swift in Sources */,
+				BF0C8FACE000000000000002 /* WindowServerEvents.swift in Sources */,
 				BF0C8203D0EFEDEED0F908E8 /* ScreensEvents.swift in Sources */,
 				BF0C8A1B5C3D7E9F01234567 /* SleepWakeEvents.swift in Sources */,
 				BF0C8C3D7E5F90A123456789 /* ScreenLockEvents.swift in Sources */,

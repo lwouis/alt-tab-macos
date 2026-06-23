@@ -34,11 +34,16 @@ enum PhantomWindowDetector {
     /// Disambiguation order matches `PhantomWindowDetection.swift`.
     static func cgsVerdict(_ s: WindowState, _ app: ApplicationState,
                            inVisibleList: Bool, inAllList: Bool, visibleSpaceIds: [UInt64]) -> Bool {
-        // strong signal: CGS dropped the WID from every Space
+        // Legitimate windows CGS may not list in any Space — an inactive tab (CGS lists no background tab,
+        // so its spaceIds are backfilled from the active sibling), a minimized window, a hidden app's
+        // window. They must be cleared BEFORE the strong signal, else "absent from every Space" flags them
+        // phantom even though they're real (the inactive-tab / fullscreen-tab disappearance). A true phantom
+        // is none of these. Mirrors syncVerdict, which exempts the same three from its strong signal.
+        if s.isTabbed || s.isMinimized || app.isHidden { return false }
+        // strong signal: CGS dropped the WID from every Space (Joplin / Sprig / show:false Electron)
         if !inAllList { return true }
         // tagged invisible by CGS — disambiguate against the legitimate reasons a window lives there
         if inVisibleList { return false }
-        if s.isMinimized || app.isHidden || s.isTabbed { return false }
         // known Spaces, none of them visible → legitimate other-Space window
         if !s.spaceIds.isEmpty && !s.spaceIds.contains(where: { visibleSpaceIds.contains($0) }) { return false }
         // weak signal: alpha=0 / orderOut: window still on a visible Space

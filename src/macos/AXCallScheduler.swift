@@ -31,7 +31,6 @@ class AXCallScheduler {
     private struct KeyState {
         var phase: Phase = .idle
         var retryCount = 0
-        var scan = false
         var pendingBlock: (() throws -> Void)?
         var pendingPid: pid_t?
         var pendingContext: String?
@@ -40,9 +39,13 @@ class AXCallScheduler {
     }
 
     private init() {
-        axQueryFirstTryQueue = LabeledOperationQueue("axQueryFirstTry", .userInteractive, 10)
+        // WindowServer now owns geometry/visibility/space reads (moved off these pools), so the event-read
+        // first-try lane carries far less now (focus reads + element acquires); 8 is ample (was 10).
+        axQueryFirstTryQueue = LabeledOperationQueue("axQueryFirstTry", .userInteractive, 8)
         axQueryScanQueue = LabeledOperationQueue("axQueryScan", .userInteractive, 6)
-        axQueryRetryQueue = LabeledOperationQueue("axQueryRetry", .userInteractive, 8)
+        // ...and the unresponsive-app retry lane sees fewer queries too; 6 is ample. Freed budget funds the
+        // wider cgsCall lane (B6).
+        axQueryRetryQueue = LabeledOperationQueue("axQueryRetry", .userInteractive, 6)
     }
 
     /// Run an outgoing AX call, retrying with backoff if the app is unresponsive. `scan: true` routes the
@@ -54,7 +57,6 @@ class AXCallScheduler {
         switch state.phase {
         case .idle:
             state.phase = .executing
-            state.scan = scan
             keyStates[key] = state
             lock.unlock()
             submitToQueue(key: key, pid: pid, scan: scan, file: file, function: function, line: line, context: context, block: block)
@@ -99,7 +101,7 @@ class AXCallScheduler {
 
     private func queueForPid(_ pid: pid_t?, scan: Bool) -> LabeledOperationQueue {
         let unresponsive = pid.map { unresponsivePids.contains($0) } ?? false
-        switch AxEventRouting.pool(unresponsive: unresponsive, scan: scan) {
+        switch AxQueryRouting.pool(unresponsive: unresponsive, scan: scan) {
             case .firstTry: return axQueryFirstTryQueue
             case .scan: return axQueryScanQueue
             case .retry: return axQueryRetryQueue
@@ -203,7 +205,6 @@ class AXCallScheduler {
         state.pendingScan = false
         state.cancelRetries = false
         state.phase = .executing
-        state.scan = scan
         keyStates[key] = state
         lock.unlock()
         submitToQueue(key: key, pid: pid, scan: scan, file: file, function: function, line: line, context: context, block: block)

@@ -1,5 +1,5 @@
 import Cocoa
-import ApplicationServices.HIServices.AXNotificationConstants
+import ApplicationServices.HIServices.AXUIElement
 
 @dynamicMemberLookup
 class Application: NSObject {
@@ -12,11 +12,8 @@ class Application: NSObject {
     var state: ApplicationState
     var runningApplication: NSRunningApplication
     var axUiElement: AXUIElement?
-    var axObserver: AXObserver?
-    var isReallyFinishedLaunching = false
     var bundleURL: URL?
     var executableURL: URL?
-    var hasBeenActiveOnce: Bool
     var icon: CGImage?
     var dockLabel: String?
     var focusedWindow: Window? = nil
@@ -29,15 +26,6 @@ class Application: NSObject {
         get { state[keyPath: keyPath] }
         set { state[keyPath: keyPath] = newValue }
     }
-
-    static let notifications = [
-        kAXApplicationActivatedNotification,
-        kAXMainWindowChangedNotification,
-        kAXFocusedWindowChangedNotification,
-        kAXWindowCreatedNotification,
-        kAXApplicationHiddenNotification,
-        kAXApplicationShownNotification,
-    ]
 
     private static let appIconPadding: CGFloat = {
         // Tahoe redesigned app icons. Keeping their rounded look, and reducing their size; we trim that padding
@@ -86,24 +74,19 @@ class Application: NSObject {
             bundleIdentifier: runningApplication.bundleIdentifier,
             localizedName: runningApplication.localizedName,
             isHidden: runningApplication.isHidden)
-        hasBeenActiveOnce = runningApplication.isActive
         bundleURL = runningApplication.bundleURL
         executableURL = runningApplication.executableURL
         debugId = "(pid:\(state.pid) \(state.bundleIdentifier ?? bundleURL?.absoluteString ?? executableURL?.absoluteString ?? state.localizedName))"
         super.init()
         Logger.info { self.debugId }
-        observeEventsIfEligible()
+        ensureAxUiElement()
         kvObservers = [
-            runningApplication.observe(\.isFinishedLaunching, options: [.new]) { [weak self] _, _ in
-                guard let self else { return }
-                self.observeEventsIfEligible()
-            },
             runningApplication.observe(\.activationPolicy, options: [.new]) { [weak self] _, _ in
                 guard let self else { return }
                 if self.runningApplication.activationPolicy != .regular {
                     self.removeWindowlessAppWindow()
                 }
-                self.observeEventsIfEligible()
+                self.ensureAxUiElement()
             },
         ]
     }
@@ -122,27 +105,11 @@ class Application: NSObject {
         }
     }
 
-    /// Symmetric counterpart to the `CFRunLoopAddSource` in `observeEvents()`. See
-    /// `Window.releaseAxObserver()` for the rationale (orphaned AXObserver sources pile
-    /// up on the AX events thread runloop forever otherwise — issue #5612).
-    /// Called from `Applications.removeRunningApplications`.
-    func releaseAxObserver() {
-        if let axObserver, let runLoop = BackgroundWork.accessibilityEventsThread?.runLoop {
-            CFRunLoopRemoveSource(runLoop, AXObserverGetRunLoopSource(axObserver), .commonModes)
-        }
-        axObserver = nil
-    }
-
-
-    func observeEventsIfEligible() {
-        if runningApplication.activationPolicy != .prohibited && !isReallyFinishedLaunching {
-            if axUiElement == nil {
-                axUiElement = AXUIElementCreateApplication(self.pid)
-            }
-            if axObserver == nil {
-                AXObserverCreate(self.pid, AccessibilityEvents.axObserverCallback, &axObserver)
-            }
-            observeEvents()
+    func ensureAxUiElement() {
+        // AX event subscriptions are gone — WindowServerEvents owns window state. The app's AXUIElement is
+        // still created lazily, for the on-demand reads (subrole/title/tabs) and the window actions.
+        if runningApplication.activationPolicy != .prohibited && axUiElement == nil {
+            axUiElement = AXUIElementCreateApplication(self.pid)
         }
     }
 
@@ -155,39 +122,6 @@ class Application: NSObject {
                 self?.icon = r
             }
         }
-    }
-
-    private func observeEvents() {
-        guard let axObserver else { return }
-        AXCallScheduler.shared.schedule(key: "sub-app-\(self.pid)", context: debugId, pid: self.pid) { [weak self] in
-            guard let self, !self.isReallyFinishedLaunching else { return }
-            if try self.axUiElement!.subscribeToNotification(axObserver, Application.notifications.first!, AccessibilityEvents.subscriptionRefcon(self.pid)) {
-                Logger.debug { "Subscribed to app: \(self.debugId)" }
-                if !self.isReallyFinishedLaunching {
-                    // some apps have `isFinishedLaunching == true` but are actually not finished, and will return .cannotComplete
-                    // we consider them ready when the first subscription succeeds
-                    // windows opened before that point won't send a notification, so check those windows manually here
-                    self.isReallyFinishedLaunching = true
-                    for notification in Application.notifications.dropFirst() {
-                        AXCallScheduler.shared.schedule(key: "sub-app-\(self.pid)-\(notification)", context: self.debugId, pid: self.pid) { [weak self] in
-                            guard let self else { return }
-                            try self.axUiElement!.subscribeToNotification(axObserver, notification, AccessibilityEvents.subscriptionRefcon(self.pid))
-                        }
-                    }
-                    DispatchQueue.main.async { [weak self] in
-                        // apps don't always create kAXApplicationActivatedNotification upon launch; we update frontmostPid in case it has changed
-                        Applications.frontmostPid = NSWorkspace.shared.frontmostApplication?.processIdentifier
-                        // apps don't always send kAXWindowCreatedNotification upon launch; we manually check to prevent missing windows
-                        guard let self else { return }
-                        if addWindowlessWindowIfNeeded() != nil {
-                            App.refreshOpenUiAfterExternalEvent([])
-                        }
-                        Applications.manuallyUpdateWindows(self)
-                    }
-                }
-            }
-        }
-        CFRunLoopAddSource(BackgroundWork.accessibilityEventsThread.runLoop, AXObserverGetRunLoopSource(axObserver), .commonModes)
     }
 
     @discardableResult

@@ -2,7 +2,7 @@ import Cocoa
 
 /// Pure decisions for drag-and-drop over the switcher — extracted from `TilesDocumentView` (the
 /// `NSDraggingDestination`) and `CursorEvents` (the global mouse tap) so the behavior is unit-testable
-/// without AppKit drag sessions, timers, or an event tap (same idea as `AxEventRouting`). The two call
+/// without AppKit drag sessions, timers, or an event tap (same idea as `AxQueryRouting`). The two call
 /// sites turn these decisions into real `NSDragOperation`s, timers, and tap pass-through.
 enum DragAndDropResolver {
     /// what a drag-over of the tiles should do for the cursor position handed to us.

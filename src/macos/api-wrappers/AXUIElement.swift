@@ -26,9 +26,8 @@ extension AXUIElement {
     @discardableResult
     func subscribeToNotification(_ axObserver: AXObserver, _ notification: String, _ refcon: UnsafeMutableRawPointer? = nil) throws -> Bool {
         // `refcon` is handed back verbatim to the AX callback for every delivery of this (element,
-        // notification) pair. We bake the owning (pid, wid) in here so the callback gets the identity
-        // for free — no `pid()` / `cgWindowId()` round-trip per event (and a reliable wid even for a
-        // window that's already been destroyed). See `AccessibilityEvents.subscriptionRefcon`.
+        // notification) pair. The only remaining caller is DockEvents (Mission Control), which passes nil;
+        // the packed-(pid, wid) refcon scheme this supported went away with the per-window AX observers.
         let result = AXObserverAddNotification(axObserver, self, notification as CFString, refcon)
         if result == .success || result == .notificationAlreadyRegistered {
             return true
@@ -44,8 +43,23 @@ extension AXUIElement {
 
 /// Attributes
 extension AXUIElement {
-    /// our own process's pid, cached. used to spot same-process AX elements (see `attributes(_:pid:)`).
+    /// our own process's pid, cached. used to spot same-process AX elements (see `onCorrectThread(pid:_:)`).
     static let currentProcessPid = ProcessInfo.processInfo.processIdentifier
+
+    /// The single place the own-process-AX threading rule lives. An AX read on an element in ANOTHER process is
+    /// real Mach IPC and runs inline on the caller's (off-main) thread. An AX read on an element in our OWN
+    /// process does NO IPC — `AXUIElementCopy*` / `_AXUIElementGetWindow` dispatch straight into AppKit's
+    /// accessibility implementation on the CALLING thread (e.g. `-[_NSPopoverWindow accessibilityTitle]`), and
+    /// AppKit is main-thread-only, so off-main they race AppKit's teardown of transient windows and trap in
+    /// `__CF_IS_OBJC`. So run `body` on the main thread when `pid` is our own process AND we're off-main (a
+    /// `main.sync` from the main thread would deadlock); otherwise run it inline. Every pid-aware AX accessor
+    /// (`attributes(_:pid:)`, `liveness(pid:)`, `cgWindowId(pid:)`, `WindowElementAcquisition`) funnels here.
+    static func onCorrectThread<T>(pid: pid_t, _ body: () throws -> T) rethrows -> T {
+        if pid == currentProcessPid, !Thread.isMainThread {
+            return try DispatchQueue.main.sync { try body() }
+        }
+        return try body()
+    }
 
     // periphery:ignore
     func id() -> AXUIElementID? {
@@ -62,10 +76,28 @@ extension AXUIElement {
         return id
     }
 
+    /// pid-aware `cgWindowId()` — routes the own-process read to main. See `onCorrectThread(pid:_:)`.
+    func cgWindowId(pid: pid_t) throws -> CGWindowID {
+        try Self.onCorrectThread(pid: pid) { try cgWindowId() }
+    }
+
     func pid() throws -> pid_t {
         var pid = pid_t(0)
         try throwIfNotSuccess(AXUIElementGetPid(self, &pid))
         return pid
+    }
+
+    /// A direct liveness probe for the window behind this element. Returns the raw `AXError` so the caller can
+    /// tell a DEAD element (`.invalidUIElement` — the window was closed/destroyed) apart from a merely
+    /// UNRESPONSIVE app (`.cannotComplete` — retry later) or a live one (`.success`). Reads `kAXRole`, the
+    /// cheapest always-present attribute. Used to catch a close that WindowServer's destroy event (804) reports
+    /// late or never — apps like Finder retain the CGWindow for seconds-to-forever after closing the window,
+    /// but the AX element dies within ~20ms. Own-process read routed to main (see `onCorrectThread(pid:_:)`).
+    func liveness(pid: pid_t) -> AXError {
+        Self.onCorrectThread(pid: pid) {
+            var value: CFTypeRef?
+            return AXUIElementCopyAttributeValue(self, kAXRoleAttribute as CFString, &value)
+        }
     }
 
     func attributes(_ keys: [String]) throws -> AXAttributes {
@@ -100,16 +132,9 @@ extension AXUIElement {
         return result
     }
 
-    /// Same-process variant of `attributes(_:)`. `AXUIElementCopyMultipleAttributeValues` on an element in
-    /// OUR process does no IPC: it dispatches straight into AppKit's accessibility implementation on the
-    /// CALLING thread (e.g. `-[_NSPopoverWindow accessibilityTitle]`). AppKit is main-thread-only, so doing
-    /// that off-main races AppKit's teardown of transient windows and traps in `__CF_IS_OBJC`. So for our own
-    /// `pid` we run the read on the main thread (local call, cheap); other pids are real IPC, read inline.
+    /// pid-aware variant of `attributes(_:)` — routes the own-process read to main. See `onCorrectThread(pid:_:)`.
     func attributes(_ keys: [String], pid: pid_t) throws -> AXAttributes {
-        if pid == Self.currentProcessPid, !Thread.isMainThread {
-            return try DispatchQueue.main.sync { try attributes(keys) }
-        }
-        return try attributes(keys)
+        try Self.onCorrectThread(pid: pid) { try attributes(keys) }
     }
 
     func castSafely<T>(_ value: CFTypeRef) -> T? {
@@ -145,24 +170,9 @@ extension AXUIElement {
         }
     }
 
-    /// we combine both the normal approach and brute-force to get all possible windows
-    /// with only normal approach: we miss other-Spaces windows
-    /// with only brute-force approach: we miss windows when the app launches (e.g. launch Note.app: first window is not found by brute-force)
-    func allWindows(_ pid: pid_t) throws -> [AXUIElement] {
-        if pid == Self.currentProcessPid {
-            // our own windows are always on the current Space, so the brute-force other-Space scan adds
-            // nothing; and its per-element subrole reads would run AppKit off-main (see `attributes(_:pid:)`).
-            // a single main-thread `windows()` read is enough and is safe.
-            return Thread.isMainThread ? try windows() : try DispatchQueue.main.sync { try windows() }
-        }
-        let aWindows = try windows()
-        let bWindows = Self.windowsByBruteForce(pid)
-        return Array(Set(aWindows + bWindows))
-    }
-
-    /// doesn't return windows on other Spaces
-    /// use windowsByBruteForce if you want those
-    private func windows() throws -> [AXUIElement] {
+    /// The app's windows on the CURRENT Space (AX `kAXWindows`); does NOT return other-Space windows — use
+    /// `windowByBruteForce` to resolve a specific other-Space wid.
+    func windows() throws -> [AXUIElement] {
         let windows = try attributes([kAXWindowsAttribute]).windows
         if let windows,
            !windows.isEmpty {
@@ -175,30 +185,64 @@ extension AXUIElement {
         return []
     }
 
-    /// brute-force getting the windows of a process by iterating over AXUIElementID one by one
-    private static func windowsByBruteForce(_ pid: pid_t) -> [AXUIElement] {
-        // we use this to call _AXUIElementCreateWithRemoteToken; we reuse the object for performance
-        // tests showed that this remoteToken is 20 bytes: 4 + 4 + 4 + 8; the order of bytes matters
+    /// Wall-clock budget for any brute-force AX scan. The AXUIElementID space is `UInt64` and a long-lived app's
+    /// windows can have high, sparse ids, so TIME — not an id ceiling — is the real bound; a monotonic
+    /// `LightweightTimer` (checked every iteration) makes it reliable. Shared so every brute-force is capped the
+    /// same way. These run on the isolated AX scan pool (`scan: true`), off the main thread.
+    static let bruteForceBudgetMs: Double = 250
+
+    /// Build an element per AXUIElementID for `pid` from a remote token (`_AXUIElementCreateWithRemoteToken` —
+    /// the only way to reach windows absent from every CGS list: other-Space windows and inactive OS tabs) and
+    /// hand it to `inspect`, until `inspect` returns true (it found what it wanted) or the budget elapses.
+    /// IPC per id — off the main thread only. The token's id field is the only part rewritten per iteration.
+    private static func bruteForceElements(_ pid: pid_t, _ inspect: (AXUIElement) -> Bool) {
+        // 20 bytes: pid (4) + 0 (4) + magic 0x636f636f "coco" (4) + AXUIElementID (8); byte order matters.
         var remoteToken = Data(count: 20)
         remoteToken.replaceSubrange(0..<4, with: withUnsafeBytes(of: pid) { Data($0) })
         remoteToken.replaceSubrange(4..<8, with: withUnsafeBytes(of: Int32(0)) { Data($0) })
         remoteToken.replaceSubrange(8..<12, with: withUnsafeBytes(of: Int32(0x636f636f)) { Data($0) })
-        var axWindows = [AXUIElement]()
-        // we iterate to 1000 as a tradeoff between performance, and missing windows of long-lived processes
-        // different apps can take widely different time for this to complete. We stop iterating if we time out
         let timer = LightweightTimer()
-        for axUiElementId: AXUIElementID in 0..<1000 {
+        for axUiElementId: AXUIElementID in 0..<AXUIElementID.max {
             remoteToken.replaceSubrange(12..<20, with: withUnsafeBytes(of: axUiElementId) { Data($0) })
-            if let axUiElement = _AXUIElementCreateWithRemoteToken(remoteToken as CFData)?.takeRetainedValue(),
-               let subrole = try? axUiElement.attributes([kAXSubroleAttribute]).subrole,
-               [kAXStandardWindowSubrole, kAXDialogSubrole].contains(subrole) {
-                axWindows.append(axUiElement)
+            if let candidate = _AXUIElementCreateWithRemoteToken(remoteToken as CFData)?.takeRetainedValue(),
+               inspect(candidate) {
+                return
             }
-            if timer.hasElapsed(milliseconds: 100) {
-                return axWindows
-            }
+            if timer.hasElapsed(milliseconds: bruteForceBudgetMs) { return }
         }
-        return axWindows
+    }
+
+    /// Resolve the AX element for ONE other-Space wid (there is no wid→element API). Returns the INSTANT a
+    /// candidate's window id matches — matching by wid (rather than collecting every window and reading a subrole
+    /// per id) early-exits at the target's index, reaching far higher ids within the budget. Subrole is judged
+    /// downstream by the discriminator; here we only locate.
+    static func windowByBruteForce(_ pid: pid_t, _ wid: CGWindowID) -> AXUIElement? {
+        var found: AXUIElement?
+        bruteForceElements(pid) { candidate in
+            guard (try? candidate.cgWindowId()) == wid else { return false }
+            found = candidate
+            return true
+        }
+        return found
+    }
+
+    /// Find untracked standard windows whose title is one of `titles` — the only way to reach an INACTIVE OS
+    /// TAB's window, which is absent from every CGS list (so normal discovery misses it) yet still reachable
+    /// through the remote token. A tracked window's child elements resolve to its (excluded) wid, so they're
+    /// skipped before the subrole read; only untracked wids pay for it. Returns each match's wid + element +
+    /// title; stops once `titles.count` are found.
+    static func untrackedWindowsByBruteForce(_ pid: pid_t, excluding: Set<CGWindowID>, matching titles: [String]) -> [(CGWindowID, AXUIElement, String)] {
+        var seen = Set<CGWindowID>()
+        var result = [(CGWindowID, AXUIElement, String)]()
+        bruteForceElements(pid) { candidate in
+            guard let wid = try? candidate.cgWindowId(), wid != 0, !excluding.contains(wid), !seen.contains(wid),
+                  let a = try? candidate.attributes([kAXSubroleAttribute, kAXTitleAttribute]),
+                  a.subrole == kAXStandardWindowSubrole, let title = a.title, titles.contains(title) else { return false }
+            seen.insert(wid)
+            result.append((wid, candidate, title))
+            return result.count >= titles.count
+        }
+        return result
     }
 }
 
