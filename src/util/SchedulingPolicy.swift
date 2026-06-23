@@ -2,7 +2,7 @@ import Foundation
 
 /// Pure scheduling decisions extracted from `Throttler` / `ThrottlerWithKey` and `AXCallScheduler`, so the
 /// timing logic is unit-testable without real clocks or queues (same pattern as `SelectionResolver` /
-/// `AxEventRouting`). The owners keep the actual clock reads + queue dispatch; they just branch on these.
+/// `AxQueryRouting`). The owners keep the actual clock reads + queue dispatch; they just branch on these.
 
 /// The coalescing decision for one `throttleOrProceed` call: leading-edge runs immediately; calls within
 /// the window collapse to a single trailing run.

@@ -398,7 +398,6 @@ class App: AppCenterApplication {
         _ = PreviewPanel()
         Spaces.refresh()
         Screens.refresh()
-        SpacesEvents.observe()
         ScreensEvents.observe()
         SystemAppearanceEvents.observe()
         SystemScrollerStyleEvents.observe()
@@ -444,6 +443,10 @@ extension App: NSApplicationDelegate {
         App.shared.disableRelaunchOnLogin()
         Logger.initialize()
         Logger.info { "Launching AltTab \(App.version)" }
+        // The WindowServer event tap is CGS-only (needs no Accessibility, no Preferences, no model), so
+        // install it first — before licensing / the permission gate. The skeleton is then available
+        // immediately and independent of whether the user has granted AX.
+        WindowServerEvents.observe()
         #if DEBUG
         UserDefaults.standard.set(true, forKey: "NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints")
         #endif
@@ -465,6 +468,11 @@ extension App: NSApplicationDelegate {
             // Notify UI observers so Settings rows repaint their ghost/pro-locked styling.
             NotificationCenter.default.post(name: ProTransitionManager.proLockStateDidChangeNotification, object: nil)
         }
+        #if DEBUG
+        // test affordance: `--mock-pro` skips the license keychain round-trip (which prompts/hangs for an
+        // ad-hoc build whose signature doesn't match the real app's keychain items). See QAMenu's Pro button.
+        if CommandLine.arguments.contains("--mock-pro") { LicenseManager.shared.mockProUser() }
+        #endif
         LicenseManager.shared.initialize()
         BackgroundWork.preStart()
         SystemPermissions.ensurePermissionsAreGranted()

@@ -29,14 +29,15 @@ final class DebugMenu: NSPanel {
         }
     }
 
-    // Queue depths only — each spikes with work and falls back to 0 when idle. focusOrder is the
-    // serial queue behind the #5665 fix; a backlog there is the regression signal.
+    // Queue depths only — each spikes with work and falls back to 0 when idle. cgsCall is the WindowServer
+    // read lane (discovery + per-window state + Space topology); a sustained backlog there is the signal a
+    // slow WindowServer query is starving reads. The AX pools (firstTry/scan/retry) carry the remaining
+    // on-demand AX reads + element acquires.
     private static func makeSamplers() -> [Sampler] {
         let scheduler = AXCallScheduler.shared
         let queues: [LabeledOperationQueue] = [
             BackgroundWork.screenshotsQueue,
             BackgroundWork.accessibilityCommandsQueue,
-            BackgroundWork.focusOrderQueue,
             scheduler.axQueryFirstTryQueue,
             scheduler.axQueryScanQueue,
             scheduler.axQueryRetryQueue,

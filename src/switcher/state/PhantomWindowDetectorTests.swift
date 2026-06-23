@@ -93,4 +93,18 @@ final class PhantomWindowDetectorTests: XCTestCase {
         XCTAssertFalse(PhantomWindowDetector.cgsVerdict(ws(isTabbed: true, spaceIds: [1]), appState(),
             inVisibleList: false, inAllList: true, visibleSpaceIds: [1]))
     }
+
+    func testTabbedMissingFromAllListsIsNotPhantom() {
+        // The real inactive background tab: CGS lists no tab in any Space, so it's absent from BOTH lists
+        // even though its spaceIds are backfilled from the active sibling. The legitimate-window exemption
+        // must beat the strong signal, or the tab disappears (fullscreen-tab / "separate window per tab").
+        XCTAssertFalse(PhantomWindowDetector.cgsVerdict(ws(isTabbed: true, spaceIds: [4]), appState(),
+            inVisibleList: false, inAllList: false, visibleSpaceIds: [4]))
+    }
+
+    func testMinimizedMissingFromAllListsIsNotPhantom() {
+        // Same exemption for a minimized window CGS dropped from its per-Space lists.
+        XCTAssertFalse(PhantomWindowDetector.cgsVerdict(ws(isMinimized: true, spaceIds: []), appState(),
+            inVisibleList: false, inAllList: false, visibleSpaceIds: []))
+    }
 }

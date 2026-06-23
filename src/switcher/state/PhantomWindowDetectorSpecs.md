@@ -37,9 +37,10 @@ They're independent, which gives two strengths of phantom:
 - **`cgsVerdict(s, app, inVisibleList, inAllList, visibleSpaceIds)`** — authoritative, runs ~250ms
   post-show off-main (`Applications.refreshIsPhantom`) with the two CGS lists. Knows both signals; owns
   the full verdict, including clearing. Disambiguation order (first match wins):
-  1. not in `inAllList` → **phantom** (strong)
-  2. in `inVisibleList` → not a phantom (currently rendered)
-  3. minimized / hidden app / tabbed → not a phantom (legitimate; tracked elsewhere)
+  1. minimized / hidden app / tabbed → not a phantom (legitimate; CGS may list none of these in any Space —
+     a background tab especially — so they must clear *before* the strong signal or they'd trip it)
+  2. not in `inAllList` → **phantom** (strong)
+  3. in `inVisibleList` → not a phantom (currently rendered)
   4. non-empty `spaceIds` ∩ `visibleSpaceIds` == ∅ → not a phantom (other-Space window)
   5. else → **phantom** (weak: alpha=0 / `orderOut:` on a visible Space)
 
@@ -68,3 +69,9 @@ and flips the knobs it exercises.
 - **testMinimizedIsNotPhantom** — in-all, not-visible, minimized → not a phantom.
 - **testHiddenAppIsNotPhantom** — in-all, not-visible, app hidden → not a phantom.
 - **testTabbedIsNotPhantom** — in-all, not-visible, tabbed → not a phantom.
+- **testTabbedMissingFromAllListsIsNotPhantom** — tabbed but missing from *both* CGS lists (the real
+  inactive background tab: CGS lists no tab, so its `spaceIds` are sibling-backfilled) → not a phantom.
+  Regression for the fullscreen-tab / "separate window per tab" disappearance — the legitimate-window
+  exemption must beat the strong signal.
+- **testMinimizedMissingFromAllListsIsNotPhantom** — minimized and missing from both CGS lists → not a
+  phantom (same exemption: a legitimate window CGS dropped from its per-Space lists).

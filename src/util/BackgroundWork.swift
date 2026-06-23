@@ -1,10 +1,9 @@
 import Foundation
 
-// queues and dedicated threads to observe background events such as keyboard inputs, or accessibility events
+// queues and dedicated threads to observe background events such as keyboard inputs, or Mission Control's accessibility notifications
 class BackgroundWork {
     // we use Threads when the APIs we observe require a RunLoop (e.g. CGEvent.tapCreate, AXObserverGetRunLoopSource, CFMessagePortCreateRunLoopSource)
     // when possible, we prefer OperationQueues
-    static var accessibilityEventsThread: BackgroundThreadWithRunLoop!
     static var keyboardAndMouseAndTrackpadEventsThread: BackgroundThreadWithRunLoop!
     static var missionControlThread: BackgroundThreadWithRunLoop!
     static var cliEventsThread: BackgroundThreadWithRunLoop!
@@ -13,7 +12,6 @@ class BackgroundWork {
     static var repeatingKeyQueue: LabeledOperationQueue!
     static var screenshotsQueue: LabeledOperationQueue!
     static var accessibilityCommandsQueue: LabeledOperationQueue!
-    static var focusOrderQueue: LabeledOperationQueue!
     static var crashReportsQueue: LabeledOperationQueue!
     static var permissionsCheckOnTimerQueue: LabeledOperationQueue!
     static var permissionsSystemCallsQueue: LabeledOperationQueue!
@@ -33,14 +31,8 @@ class BackgroundWork {
         // calls to focus/close/minimize/etc windows
         // They are tried once and if they timeout we don't retry. The OS seems to still execute them even if the call timed out
         accessibilityCommandsQueue = LabeledOperationQueue("axCommands", .userInteractive, 4)
-        // focus/activation order updates run here, isolated from the axQuery* pools (which the bulk
-        // window-refresh floods) and un-throttled, so the MRU order is fresh before the next switcher summon.
-        // serial preserves OS delivery order; the work is IPC-free (just a wid lookup + reorder) so it never blocks.
-        focusOrderQueue = LabeledOperationQueue("focusOrder", .userInteractive, 1)
         // we time key repeat on a background queue. We handle their consequence on the main-thread
         repeatingKeyQueue = LabeledOperationQueue("repeatingKey", .userInteractive, 1)
-        // we observe app and windows notifications. They arrive on this thread, and are handled off the main thread initially
-        accessibilityEventsThread = BackgroundThreadWithRunLoop("axEvents", .userInteractive)
         // we listen to as any keyboard events as possible on a background thread, as it's more available/reliable than the main thread
         keyboardAndMouseAndTrackpadEventsThread = BackgroundThreadWithRunLoop("inputDevices", .userInteractive)
         // we main Mission Control state on a background thread. We protect reads from main-thread with an NSLock
@@ -59,7 +51,7 @@ class BackgroundWork {
     static func addPotentialThreadCount(_ additionalCount: Int) {
         totalPotentialThreadCount += additionalCount
         // a macos process has a soft limit of 64 threads. We need to be careful to don't spawn too many threads through DispatchQueues.
-        // budget: BackgroundWork (~20) + AXCallScheduler (24) + CGSCallScheduler (2) + ProcessCallScheduler (2) + crashReports (1) = 49
+        // budget: BackgroundWork (~20) + AXCallScheduler (20: 8+6+6) + CGSCallScheduler (4) + ProcessCallScheduler (2) + crashReports (1) = 47
         assert(totalPotentialThreadCount <= 50)
     }
 

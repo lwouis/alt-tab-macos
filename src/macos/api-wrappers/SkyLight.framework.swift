@@ -124,16 +124,6 @@ func CGSCopyWindowsWithOptionsAndTags(_ cid: CGSConnectionID, _ owner: Int, _ sp
 @_silgen_name("CGSManagedDisplayGetCurrentSpace")
 func CGSManagedDisplayGetCurrentSpace(_ cid: CGSConnectionID, _ displayUuid: ScreenUuid) -> CGSSpaceID
 
-/// adds the provided windows to the provided spaces
-/// * macOS 10.10-12.2
-@_silgen_name("CGSAddWindowsToSpaces")
-func CGSAddWindowsToSpaces(_ cid: CGSConnectionID, _ windows: NSArray, _ spaces: NSArray) -> Void
-
-/// remove the provided windows from the provided spaces
-/// * macOS 10.10-12.2
-@_silgen_name("CGSRemoveWindowsFromSpaces")
-func CGSRemoveWindowsFromSpaces(_ cid: CGSConnectionID, _ windows: NSArray, _ spaces: NSArray) -> Void
-
 /// returns the provided CGWindow property for the provided CGWindowID
 /// * macOS 10.10+
 @_silgen_name("CGSCopyWindowProperty") @discardableResult
@@ -256,3 +246,78 @@ func makeKeyWindow(_ psn: inout ProcessSerialNumber, _ wid: CGWindowID) {
     bytes[MakeKeyWindowEvent.eventTypeOffset] = MakeKeyWindowEvent.leftMouseUp
     SLPSPostEventRecordTo(&psn, &bytes)
 }
+
+// MARK: - WindowServer notification tap (see WindowServerEvents.swift)
+//
+// SkyLight's notify-proc stream lets us learn about window lifecycle / geometry / Space changes straight
+// from the WindowServer, immune to a busy or AX-lying app. Reverse-engineered + verified on macOS 26.5, and
+// cross-checked against yabai (which uses the same `SLSRequestNotificationsForWindows` mechanism and the same
+// event ids 804/1325/1326). The one switch that gates delivery is the per-window opt-in
+// (`SLSRequestNotificationsForWindows`) — register notify procs + opt windows in, and the WindowServer
+// pushes events. SkyLight calls the proc on whichever thread snarfs the datagram (the `_NSEventThread`); we
+// keep that callback trivial and hop to main ourselves (see WindowServerEvents.notifyProc).
+//
+// Do NOT call `SLSConnectionDispatchNotificationsToMainQueueIfNotMainThread` on the AppKit-shared main
+// connection: it is NOT needed for delivery (the opt-in alone delivers, confirmed at runtime), and on the
+// shared connection it displaced AppKit's own coordinated-notification routing, so AppKit's
+// `activeSpaceChanged:` / appearance handlers fired off-main on the `_NSEventThread` and crashed. It is kept
+// declared below only to document the trap. All symbols exist since ≥10.10 (CoreGraphics re-exports the
+// CGS-named aliases).
+
+/// The per-connection notification callback: (event id, payload, payload length, context, connection id).
+typealias CGSConnectionNotifyProc = @convention(c) (_ event: UInt32, _ data: UnsafeMutableRawPointer?, _ dataLength: Int, _ context: UnsafeMutableRawPointer?, _ cid: CGSConnectionID) -> Void
+
+/// register `proc` to be called when `event` fires on `cid`. macOS 10.10+
+@_silgen_name("SLSRegisterConnectionNotifyProc") @discardableResult
+func SLSRegisterConnectionNotifyProc(_ cid: CGSConnectionID, _ proc: CGSConnectionNotifyProc, _ event: UInt32, _ context: UnsafeMutableRawPointer?) -> CGError
+
+/// route this connection's notifications to the main dispatch queue. NOT needed for delivery, and harmful on
+/// the AppKit-shared connection (see the MARK comment above) — declared only to document why we don't call it.
+@_silgen_name("SLSConnectionDispatchNotificationsToMainQueueIfNotMainThread") @discardableResult
+func SLSConnectionDispatchNotificationsToMainQueueIfNotMainThread(_ cid: CGSConnectionID) -> CGError
+
+/// opt this connection into per-window notifications for the given windows (yabai's mechanism). macOS 10.10+
+@_silgen_name("SLSRequestNotificationsForWindows") @discardableResult
+func SLSRequestNotificationsForWindows(_ cid: CGSConnectionID, _ windowList: UnsafeMutablePointer<CGWindowID>, _ windowCount: Int32) -> CGError
+
+/// fill `list` with the on-screen (current-Space) window ids, top-most first. `owner` 0 = all. macOS 10.10+
+@_silgen_name("SLSGetOnScreenWindowList") @discardableResult
+func SLSGetOnScreenWindowList(_ cid: CGSConnectionID, _ owner: CGSConnectionID, _ count: Int32, _ list: UnsafeMutablePointer<CGWindowID>, _ outCount: UnsafeMutablePointer<Int32>) -> CGError
+
+// MARK: - WindowServer window query (batched snapshot — see windowserver/WindowServerQuery.swift)
+//
+// `SLSWindowQueryWindows` is ONE IPC returning a snapshot of the requested windows; the iterator getters
+// then read that local snapshot (no per-field IPC). `Advance` returns Bool (true = positioned on a window).
+// All since ≥10.10. These back the WindowServer-native model in `windowserver/`.
+
+@_silgen_name("SLSWindowQueryWindows")
+func SLSWindowQueryWindows(_ cid: CGSConnectionID, _ windows: CFArray, _ count: Int32) -> Unmanaged<CFTypeRef>
+
+@_silgen_name("SLSWindowQueryResultCopyWindows")
+func SLSWindowQueryResultCopyWindows(_ query: CFTypeRef) -> Unmanaged<CFTypeRef>
+
+@_silgen_name("SLSWindowIteratorAdvance")
+func SLSWindowIteratorAdvance(_ iterator: CFTypeRef) -> Bool
+
+@_silgen_name("SLSWindowIteratorGetWindowID")
+func SLSWindowIteratorGetWindowID(_ iterator: CFTypeRef) -> CGWindowID
+
+@_silgen_name("SLSWindowIteratorGetPID")
+func SLSWindowIteratorGetPID(_ iterator: CFTypeRef) -> pid_t
+
+@_silgen_name("SLSWindowIteratorGetAttributes")
+func SLSWindowIteratorGetAttributes(_ iterator: CFTypeRef) -> UInt64
+
+@_silgen_name("SLSWindowIteratorGetLevel")
+func SLSWindowIteratorGetLevel(_ iterator: CFTypeRef) -> Int32
+
+@_silgen_name("SLSWindowIteratorGetSpaceTypeMask")
+func SLSWindowIteratorGetSpaceTypeMask(_ iterator: CFTypeRef) -> UInt64
+
+// returns the window frame in top-left-origin global coordinates — same system as kAXPosition/kAXSize and
+// kCGWindowBounds (verified equal to both on macOS 26). The CGRect struct return ABI is confirmed correct.
+@_silgen_name("SLSWindowIteratorGetBounds")
+func SLSWindowIteratorGetBounds(_ iterator: CFTypeRef) -> CGRect
+
+@_silgen_name("SLSWindowIteratorCopyTitle")
+func SLSWindowIteratorCopyTitle(_ iterator: CFTypeRef) -> Unmanaged<CFString>?

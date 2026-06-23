@@ -159,8 +159,15 @@ extension TilesPanel: NSWindowDelegate {
                 MainMenu.toggleEditMenu(true)
             }
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+        // Refresh the window model once the main run loop next goes idle after showing — i.e. after AppKit has
+        // finished ALL the show's main-thread work for this frame. A one-shot kCFRunLoopBeforeWaiting observer
+        // fires only when the loop is about to sleep, so it provably can't preempt the render, yet still runs
+        // ASAP with no timer guess. (Replaces a 0.25s timer, then a CATransaction-commit hook that fired mid
+        // -render and let the reconcile's re-layout race the first frame.)
+        let refreshObserver = CFRunLoopObserverCreateWithHandler(nil, CFRunLoopActivity.beforeWaiting.rawValue, false, 0) { observer, _ in
+            if let observer { CFRunLoopRemoveObserver(CFRunLoopGetMain(), observer, .commonModes) }
             Applications.manuallyRefreshAllWindows()
         }
+        CFRunLoopAddObserver(CFRunLoopGetMain(), refreshObserver, .commonModes)
     }
 }

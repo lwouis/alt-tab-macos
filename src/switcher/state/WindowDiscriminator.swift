@@ -44,6 +44,32 @@ class WindowDiscriminator {
         "Window \(rejectionReason == nil ? "accepted" : "rejected") \(app.debugId)\(rejectionReason == nil ? "" : " because \(rejectionReason)") \((wid, level, title, subrole, role, size))"
     }
 
+    /// First, cheap gate on the raw WindowServer snapshot, before an AX element is even acquired:
+    /// only level-0 application windows are switch candidates (the menu bar, Control Center, the
+    /// Dock, wallpaper, tooltips and menus sit at other levels). Coarse — it can't tell
+    /// AXStandardWindow from AXDialog/AXUnknown — so a window accepted here still goes through
+    /// `isActualWindow` once its AX element is read.
+    static func isApplicationWindow(_ raw: WsRawWindow) -> Bool {
+        guard WsWindowState.isApplicationWindowLevel(raw) else {
+            Logger.debug { "Window rejected (pid:\(raw.pid) wid:\(raw.wid)) because its level \(raw.level) is not an application window level (title:\(raw.title))" }
+            return false
+        }
+        return true
+    }
+
+    /// Acquire the AX element for a WindowServer-discovered wid, rejecting (with a log) when AX can't resolve
+    /// it to a live window: the wid isn't in the app's `kAXWindows` on its Space and no brute-force token
+    /// matched. That's a window CGS still lists but AX no longer backs — a transient that never ordered in
+    /// (Joplin), or a window torn down between the snapshot and this read. Off-main (AX IPC), like the
+    /// underlying `WindowElementAcquisition`.
+    static func acquireElementOrReject(_ wid: CGWindowID, _ pid: pid_t, _ route: WindowAcquisitionPolicy.Route) -> AXUIElement? {
+        guard let element = WindowElementAcquisition.element(for: wid, pid: pid, route: route) else {
+            Logger.debug { "Window rejected (pid:\(pid) wid:\(wid)) because no live AX window element could be acquired for it" }
+            return nil
+        }
+        return element
+    }
+
     private static func isStandardSubrole(_ subrole: String?) -> Bool {
         return [kAXStandardWindowSubrole, kAXDialogSubrole].contains(subrole)
     }
