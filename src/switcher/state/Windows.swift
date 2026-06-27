@@ -91,6 +91,9 @@ class Windows {
         }
         refreshWhichWindowsToShowTheUser()
         sort()
+        Logger.debug { "show-time window snapshot (\(list.count) windows):\n" + list.map { w in
+            "  \(w.application.runningApplication.localizedName ?? "?") wid:\(w.cgWindowId.map { String($0) } ?? "nil") show:\(w.shouldShowTheUser) tabbed:\(w.isTabbed) siblings:\(w.tabbedSiblingWids ?? []) spaceIds:\(w.spaceIds) phantom:\(w.isPhantom) min:\(w.isMinimized) fs:\(w.isFullscreen) size:\(w.size.map { "\(Int($0.width))x\(Int($0.height))" } ?? "nil") title:'\(w.title)'"
+        }.joined(separator: "\n") }
         return true
     }
 

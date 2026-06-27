@@ -152,6 +152,7 @@ class TabGroup {
         var byWid = [CGWindowID: Window]()
         for w in sameApp { byWid[w.cgWindowId!] = w }
         let match = TabGroupResolver.matchSiblings(active: tabWindow(activeTab), axTitles: titles, sameAppWindows: sameApp.map(tabWindow))
+        Logger.debug { "tab match for \(activeTab.application.runningApplication.localizedName ?? "?") active wid:\(activeTab.cgWindowId.map { String($0) } ?? "nil") '\(activeTab.title)': axTitles:\(titles) trackedTitles:\(sameApp.map { "wid:\($0.cgWindowId.map { String($0) } ?? "nil")='\($0.title)'" }) → matched:\(match.matchedWids) untracked:\(match.untrackedTitles) untab:\(match.toUntabWids)" }
         // Some AXTabGroup titles had no tracked window: these are INACTIVE tabs, whose window is in no CGS
         // list so normal discovery never finds them — that's why a tabbed window shows only its focused tab
         // until you click another. The inactive tab's accessibility element is still reachable, so discover
