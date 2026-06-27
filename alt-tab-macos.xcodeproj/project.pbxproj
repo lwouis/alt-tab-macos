@@ -80,6 +80,9 @@
 		5E0DE2A0000000000000D002 /* WindowOrderResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E0DE2A0000000000000D001 /* WindowOrderResolver.swift */; };
 		5E0DE2A0000000000000D003 /* WindowOrderResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E0DE2A0000000000000D001 /* WindowOrderResolver.swift */; };
 		5E0DE2A0000000000000D102 /* WindowOrderResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E0DE2A0000000000000D101 /* WindowOrderResolverTests.swift */; };
+		5E7AB00000000000000D2002 /* TabGroupResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7AB00000000000000D2001 /* TabGroupResolver.swift */; };
+		5E7AB00000000000000D2003 /* TabGroupResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7AB00000000000000D2001 /* TabGroupResolver.swift */; };
+		5E7AB00000000000000D2102 /* TabGroupResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7AB00000000000000D2101 /* TabGroupResolverTests.swift */; };
 		5E2A571E000000000000A002 /* WindowState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2A571E000000000000A001 /* WindowState.swift */; };
 		5E2A571E000000000000A003 /* WindowState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2A571E000000000000A001 /* WindowState.swift */; };
 		5FC5980000000000000C0002 /* CGSSymbolicHotKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC5980000000000000C0001 /* CGSSymbolicHotKey.swift */; };
@@ -438,6 +441,8 @@
 		5E7C0F70000000000000E101 /* ExceptionMatcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionMatcherTests.swift; sourceTree = "<group>"; };
 		5E0DE2A0000000000000D001 /* WindowOrderResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowOrderResolver.swift; sourceTree = "<group>"; };
 		5E0DE2A0000000000000D101 /* WindowOrderResolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowOrderResolverTests.swift; sourceTree = "<group>"; };
+		5E7AB00000000000000D2001 /* TabGroupResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabGroupResolver.swift; sourceTree = "<group>"; };
+		5E7AB00000000000000D2101 /* TabGroupResolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabGroupResolverTests.swift; sourceTree = "<group>"; };
 		5E2A571E000000000000A001 /* WindowState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowState.swift; sourceTree = "<group>"; };
 		5E2A571E000000000000A201 /* ApplicationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationState.swift; sourceTree = "<group>"; };
 		D04BAE2200000000ED004T12 /* SettingsSearchHighlightTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSearchHighlightTests.swift; sourceTree = "<group>"; };
@@ -988,6 +993,8 @@
 				5F117E41000000000000F001 /* PhantomWindowDetector.swift */,
 				5E7C0F70000000000000E001 /* ExceptionMatcher.swift */,
 				5E0DE2A0000000000000D001 /* WindowOrderResolver.swift */,
+				5E7AB00000000000000D2001 /* TabGroupResolver.swift */,
+				5E7AB00000000000000D2101 /* TabGroupResolverTests.swift */,
 				5E5EA12C0000000000000101 /* SearchModeResolverTests.swift */,
 				5E5EA12D0000000000000101 /* ShortcutModifierResolverTests.swift */,
 				5F117E40000000000000F101 /* WindowFilterResolverTests.swift */,
@@ -1944,6 +1951,8 @@
 				5E7C0F70000000000000E102 /* ExceptionMatcherTests.swift in Sources */,
 				5E0DE2A0000000000000D003 /* WindowOrderResolver.swift in Sources */,
 				5E0DE2A0000000000000D102 /* WindowOrderResolverTests.swift in Sources */,
+				5E7AB00000000000000D2003 /* TabGroupResolver.swift in Sources */,
+				5E7AB00000000000000D2102 /* TabGroupResolverTests.swift in Sources */,
 				5E2A571E000000000000A003 /* WindowState.swift in Sources */,
 				5E2A571E000000000000A203 /* ApplicationState.swift in Sources */,
 				5FC5980000000000000C0003 /* CGSSymbolicHotKey.swift in Sources */,
@@ -2005,6 +2014,7 @@
 				5F5790DE7EC7000000000B02 /* PreferencesPersistenceCheck.swift in Sources */,
 				5E7C0F70000000000000E002 /* ExceptionMatcher.swift in Sources */,
 				5E0DE2A0000000000000D002 /* WindowOrderResolver.swift in Sources */,
+				5E7AB00000000000000D2002 /* TabGroupResolver.swift in Sources */,
 				5E2A571E000000000000A002 /* WindowState.swift in Sources */,
 				5E2A571E000000000000A202 /* ApplicationState.swift in Sources */,
 				F00DCAFE0000000000001002 /* Search.swift in Sources */,
