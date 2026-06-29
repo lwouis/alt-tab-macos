@@ -27,7 +27,8 @@ enum WindowFilterResolver {
                            exceptions: [ExceptionEntry] = [],
                            isOnPreferredScreen: @autoclosure () -> Bool) -> Bool {
         !s.isPhantom &&
-            !ExceptionMatcher.hidesWindow(s, app, exceptions: exceptions) &&
+            !ExceptionMatcher.hidesWindow(s, app, exceptions: exceptions,
+                activeAppOverride: onlyFrontmostApp && frontmostPid == app.pid) &&
             !(onlyFrontmostApp && !(frontmostPid == app.pid)) &&
             !(excludeFrontmostApp && frontmostPid == app.pid) &&
             !(hideHidden && app.isHidden) &&

@@ -53,6 +53,19 @@ final class ExceptionMatcherTests: XCTestCase {
         XCTAssertFalse(ExceptionMatcher.hideMatches(entry("x", hide: .windowTitleContains, titles: [""]), ws(title: "Main")))
     }
 
+    func testHideAlwaysIgnoredWithActiveAppOverride() {
+        XCTAssertFalse(ExceptionMatcher.hideMatches(entry("x", hide: .always), ws(title: "t"), activeAppOverride: true))
+    }
+
+    func testHideWhenNoOpenWindowIgnoredWithActiveAppOverride() {
+        XCTAssertFalse(ExceptionMatcher.hideMatches(entry("x", hide: .whenNoOpenWindow), ws(isWindowlessApp: true), activeAppOverride: true))
+    }
+
+    func testHideWindowTitleContainsStillFiresWithActiveAppOverride() {
+        XCTAssertTrue(ExceptionMatcher.hideMatches(entry("x", hide: .windowTitleContains, titles: ["Inspector"]),
+                                                   ws(title: "Web Inspector"), activeAppOverride: true))
+    }
+
     // MARK: - B. hidesWindow (bundle-id prefix gate + hide rule)
 
     func testHidesWindowWhenPrefixMatchesAndRuleFires() {
@@ -83,6 +96,17 @@ final class ExceptionMatcherTests: XCTestCase {
     func testDoesNotHideWhenRuleIsNoneEvenIfPrefixMatches() {
         XCTAssertFalse(ExceptionMatcher.hidesWindow(ws(), appState(bundleId: "com.foo"),
                                                     exceptions: [entry("com.foo", hide: .none)]))
+    }
+
+    func testActiveAppOverrideIgnoresAlwaysHide() {
+        XCTAssertFalse(ExceptionMatcher.hidesWindow(ws(), appState(bundleId: "com.foo.bar"),
+                                                    exceptions: [entry("com.foo", hide: .always)], activeAppOverride: true))
+    }
+
+    func testActiveAppOverrideStillHidesByWindowTitle() {
+        XCTAssertTrue(ExceptionMatcher.hidesWindow(ws(title: "Web Inspector"), appState(bundleId: "com.foo.bar"),
+                                                   exceptions: [entry("com.foo", hide: .windowTitleContains, titles: ["Inspector"])],
+                                                   activeAppOverride: true))
     }
 
     // MARK: - C. disablesShortcuts (bundle-id prefix gate + ignore rule)

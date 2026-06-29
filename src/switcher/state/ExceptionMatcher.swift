@@ -10,18 +10,24 @@ import Foundation
 enum ExceptionMatcher {
     /// An exception applies to a window iff its bundle-id prefix matches the window's app and its
     /// `hide` rule fires. nil bundle-id never matches.
-    static func hidesWindow(_ s: WindowState, _ app: ApplicationState, exceptions: [ExceptionEntry]) -> Bool {
+    ///
+    /// `activeAppOverride` is set when the filter is "Active app" and this window's app is the active
+    /// one (#5810): the user asked to see this app's windows, which is a stronger intent than the
+    /// Exceptions list, so the blanket `.always` / `.whenNoOpenWindow` hide rules are ignored. The
+    /// narrower `.windowTitleContains` rule still fires, since it only hides *some* windows.
+    static func hidesWindow(_ s: WindowState, _ app: ApplicationState, exceptions: [ExceptionEntry],
+                            activeAppOverride: Bool = false) -> Bool {
         guard let id = app.bundleIdentifier else { return false }
         return exceptions.contains { e in
-            !e.bundleIdentifier.isEmpty && id.hasPrefix(e.bundleIdentifier) && hideMatches(e, s)
+            !e.bundleIdentifier.isEmpty && id.hasPrefix(e.bundleIdentifier) && hideMatches(e, s, activeAppOverride: activeAppOverride)
         }
     }
 
-    static func hideMatches(_ e: ExceptionEntry, _ s: WindowState) -> Bool {
+    static func hideMatches(_ e: ExceptionEntry, _ s: WindowState, activeAppOverride: Bool = false) -> Bool {
         switch e.hide {
             case .none: return false
-            case .always: return true
-            case .whenNoOpenWindow: return s.isWindowlessApp
+            case .always: return !activeAppOverride
+            case .whenNoOpenWindow: return !activeAppOverride && s.isWindowlessApp
             case .windowTitleContains:
                 guard let patterns = e.windowTitleContains, !patterns.isEmpty else { return false }
                 return patterns.contains { !$0.isEmpty && s.title.contains($0) }
