@@ -21,32 +21,48 @@ Documentation is abysmal. Very simple things are not documented at all, and good
 
 Dependencies in this project are vendored under `vendor/` and consumed as local Swift Package Manager packages. Each dependency has an `update_*.sh` script under `vendor/scripts/` that re-fetches it from upstream, strips unused files, and regenerates its `Package.swift`. There is no remote dependency resolution at build time — `git clone && xcodebuild` is the full bootstrap.
 
-OS APIs are quite limited for the kind of low-level, system-wide app AltTab is. This means often we just don’t have an API to do something. For instance, there is no API to ask the OS “how many Spaces does the user have?” or “Can you focus the window on Space 2?”. There are however, retro-engineered private APIs which you can call. These are not documented at all, not guaranteed to be there in future macOS releases, and prevent us from releasing AltTab on the Mac AppStore. We have tried our best to [document the ones we are using](https://github.com/lwouis/alt-tab-macos/blob/master/src/api-wrappers/private-apis/README.md), as well as [the ones we investigated](https://github.com/lwouis/alt-tab-macos/blob/master/src/experimentations/PrivateApis.swift) in the past.
+OS APIs are quite limited for the kind of low-level, system-wide app AltTab is. This means often we just don’t have an API to do something. For instance, there is no API to ask the OS “how many Spaces does the user have?” or “Can you focus the window on Space 2?”. There are however, retro-engineered private APIs which you can call. These are not documented at all, not guaranteed to be there in future macOS releases, and prevent us from releasing AltTab on the Mac AppStore. We have tried our best to [document the ones we are using](https://github.com/lwouis/alt-tab-macos/blob/master/src/macos/api-wrappers/README.md), as well as [the ones we investigated](https://github.com/lwouis/alt-tab-macos/blob/master/src/experimentations/PrivateApis.swift) in the past.
 
 ## Project architecture
 
 To mitigate the issues listed above, we took some measures.
 
-We minimize reliance on XCode, InterfaceBuilder, Playground, and other GUI tools. You can’t cut the dependency completely though as only XCode can build macOS apps. Currently, the project has these files:
+We minimize reliance on XCode, InterfaceBuilder, Playground, and other GUI tools. You can’t cut the dependency completely though as only XCode can build macOS apps. The whole UI, including the menubar, is built in code (no xib). Currently, the project has these files:
 
-* 1 xib (InterfaceBuilder UI file, describing the menubar items like “Edit” or “Format”)
 * `alt-tab-macos.xcodeproj` file describing AltTab itself. It contains some settings for the app
-* `Alt-tab-macos.entitlements` and Info.plist which are static files describing some app config for XCode
-* `vendor/` holds vendored open-source libraries (Sparkle, ShortcutRecorder, AppCenter) as local SPM packages. `vendor/scripts/update_*.sh` refresh them from upstream.
+* `alt_tab_macos.entitlements` and `Info.plist` which are static files describing some app config for XCode
+* `vendor/` holds vendored open-source libraries (Sparkle, ShortcutRecorder, AppCenter) as local SPM packages. `vendor/scripts/update_*.sh` refresh them from upstream
 * Some `.xcconfig` files in `config/` which contain XCode settings that people typically change using XCode UI, but that I want to be version controlled
 
 The project directory is organized in the following way:
 
 | Path | Role |
 |------|-------|
-| `config/` | XCode build settings                              |
-| `docs/`   | supporting material to document the project       |
+| `config/`    | XCode build settings (`.xcconfig` files) |
+| `docs/`      | supporting material to document the project |
 | `resources/` | files that are shipped inside the final `.app` (e.g. icons) |
-| `scripts/` | bash scripts useful for CI and local workflows |
-| `src/`     | Swift source code |
-| `src/api-wrappers` | Wrapping some unfriendly APIs (usually C-APIs) |
-| `src/logic`        | Business logic (i.e. "models") |
-| `src/ui`           | UI code (e.g. sublasses of NSView or NSCollectionView) |
+| `scripts/`   | bash scripts useful for CI and local workflows |
+| `vendor/`    | vendored open-source libraries, consumed as local SPM packages |
+| `src/`       | Swift source code |
+
+The `src/` folder groups files by feature, so files that change together live together. Each folder typically contains the implementation, and for the parts we want to pin down, a triad of `Foo.swift` + `FooSpecs.md` (specs) + `FooTests.swift` (unit tests):
+
+| Path | Role |
+|------|-------|
+| `src/switcher/`         | the switcher itself: its window, tiles, state, appearance, shortcuts (the core feature) |
+| `src/windowserver/`     | the WindowServer event pipeline feeding the list of windows |
+| `src/events/`           | incoming events we listen to (keyboard, mouse, cursor, Dock, AX queries, etc.) |
+| `src/macos/`            | wrappers around macOS APIs (AX/CGS call schedulers, permissions, login item); `src/macos/api-wrappers/` holds the retro-engineered private-API signatures |
+| `src/preferences/`      | user settings: storage, migrations, and the Settings window |
+| `src/pro/`              | the paid "Pro" features (license, scheduling, related UI) |
+| `src/secondary-windows/`| windows other than the switcher (feedback, permission, debug) |
+| `src/kit/`              | reusable AppKit building blocks (custom buttons, views, controls) |
+| `src/util/`             | generic helpers (background work, throttling, scheduling policy) |
+| `src/api/`              | client for our backend (license and feedback endpoints) |
+| `src/vendors/`          | glue code for vendored libraries (AppCenter, Sparkle, ObjC exception catcher) |
+| `src/debug/`            | benchmarking and QA tooling |
+| `src/experimentations/` | private APIs and approaches we investigated but don't ship |
+| `src/_test-support/`    | mocks and helpers shared by the unit tests |
 
 Other folders/files are either tooling or auto-generated (e.g. `DerivedData/` is generated by Xcode builds).
 
