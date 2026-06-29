@@ -1,0 +1,85 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Release tag, for example v1.0.0-community.1
+        required: true
+        type: string
+      prerelease:
+        description: Mark this GitHub Release as a pre-release
+        required: true
+        default: true
+        type: boolean
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  macos:
+    name: Build and publish macOS app
+    runs-on: macos-15
+    timeout-minutes: 30
+    env:
+      APP_PATH: ${{ github.workspace }}/DerivedData/Build/Products/Debug/AltTab.app
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Resolve release metadata
+        id: release
+        run: |
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            tag="${{ inputs.tag }}"
+            prerelease="${{ inputs.prerelease }}"
+          else
+            tag="$GITHUB_REF_NAME"
+            prerelease=false
+          fi
+          if [[ ! "$tag" =~ ^v[0-9][0-9A-Za-z._-]*$ ]]; then
+            echo "::error::Use a tag like v1.0.0-community.1"
+            exit 1
+          fi
+          asset_name="AltTab-${tag}.zip"
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          echo "prerelease=$prerelease" >> "$GITHUB_OUTPUT"
+          echo "asset_name=$asset_name" >> "$GITHUB_OUTPUT"
+          echo "zip_path=$RUNNER_TEMP/$asset_name" >> "$GITHUB_OUTPUT"
+
+      - name: Show toolchain
+        run: |
+          xcodebuild -version
+          swift --version
+
+      - name: Create CI code-signing identity
+        run: scripts/codesign/setup_ci_pr.sh
+
+      - name: Build Debug scheme
+        run: bash ai/build.sh
+
+      - name: Verify app bundle signature
+        run: |
+          test -d "$APP_PATH"
+          file "$APP_PATH/Contents/MacOS/AltTab"
+          codesign --verify --deep --strict --verbose=2 "$APP_PATH"
+
+      - name: Package app
+        run: ditto -c -k --keepParent "$APP_PATH" "${{ steps.release.outputs.zip_path }}"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.release.outputs.tag }}
+          target_commitish: ${{ github.sha }}
+          name: AltTab Community ${{ steps.release.outputs.tag }}
+          body: |
+            Community build from `${{ github.sha }}`.
+
+            This app is signed with a temporary self-signed certificate generated in GitHub Actions and is not Apple-notarized. macOS may show a Gatekeeper warning when opening it.
+          files: ${{ steps.release.outputs.zip_path }}
+          prerelease: ${{ steps.release.outputs.prerelease }}
+          fail_on_unmatched_files: true
