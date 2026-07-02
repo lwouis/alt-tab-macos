@@ -62,10 +62,14 @@ enum LanguagePreference: CaseIterable, MacroPreference {
     case chineseTraditional
     case chineseHongKong
     case korean
+    // new languages must be appended: `language` is persisted as an index into `allCases`, so
+    // inserting earlier would shift existing users' stored selection (see migrateLanguagePreferenceIndex)
+    case bengali
 
     private static let metadata: [LanguagePreference: (name: String, code: String?)] = [
         .systemDefault: (NSLocalizedString("System Default", comment: ""), nil),
         .arabic: ("العربية", "ar"),
+        .bengali: ("বাংলা", "bn"),
         .german: ("Deutsch", "de"),
         .english: ("English", "en"),
         .spanish: ("Español", "es"),
