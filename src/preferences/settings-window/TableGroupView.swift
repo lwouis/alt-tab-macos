@@ -240,22 +240,6 @@ class TableGroupView: ClickHoverStackView {
         fatalError("Class only supports programmatic initialization")
     }
 
-    override func draw(_ dirtyRect: NSRect) {
-        super.draw(dirtyRect)
-        // Reset table colors
-        tableStackViews.forEach { table in
-            table.layer?.backgroundColor = NSColor.tableBackgroundColor.cgColor
-            table.layer?.borderColor = NSColor.tableBorderColor.cgColor
-        }
-        rowInfoTables.forEach { table in
-            table.forEach { row in
-                row.view.layer?.backgroundColor = NSColor.tableBackgroundColor.cgColor
-                row.previousSeparator?.layer?.backgroundColor = NSColor.tableSeparatorColor.cgColor
-                row.nextSeparator?.layer?.backgroundColor = NSColor.tableSeparatorColor.cgColor
-            }
-        }
-    }
-
     private func setupView(hasHeader: Bool) {
         orientation = .vertical
         spacing = TableGroupView.spacing
@@ -340,17 +324,39 @@ class TableGroupView: ClickHoverStackView {
         let tableStackView = NSStackView()
         tableStackView.orientation = .vertical
         tableStackView.spacing = 0
-        tableStackView.wantsLayer = true
-        tableStackView.layer!.backgroundColor = NSColor.tableBackgroundColor.cgColor
-        tableStackView.layer!.cornerRadius = TableGroupView.cornerRadius
-        tableStackView.layer!.borderColor = NSColor.tableBorderColor.cgColor
-        tableStackView.layer!.borderWidth = TableGroupView.borderWidth
-        addArrangedSubview(tableStackView)
+        tableStackView.translatesAutoresizingMaskIntoConstraints = false
+        // An NSBox painted behind the rows draws the rounded card (fill + border). Its fillColor/
+        // borderColor are dynamic NSColors, so AppKit re-resolves them for Dark/Light on its own —
+        // no draw() override, no manual repaint. The box is a background sibling (not the rows'
+        // container) so the rows stack keeps driving the card's size.
+        let card = NSBox()
+        card.boxType = .custom
+        card.titlePosition = .noTitle
+        card.cornerRadius = TableGroupView.cornerRadius
+        card.borderWidth = TableGroupView.borderWidth
+        card.borderColor = .tableBorderColor
+        card.fillColor = .tableBackgroundColor
+        card.contentViewMargins = .zero
+        card.translatesAutoresizingMaskIntoConstraints = false
+        let container = NSView()
+        container.translatesAutoresizingMaskIntoConstraints = false
+        container.addSubview(card)
+        container.addSubview(tableStackView)
+        NSLayoutConstraint.activate([
+            card.topAnchor.constraint(equalTo: container.topAnchor),
+            card.leadingAnchor.constraint(equalTo: container.leadingAnchor),
+            card.trailingAnchor.constraint(equalTo: container.trailingAnchor),
+            card.bottomAnchor.constraint(equalTo: container.bottomAnchor),
+            tableStackView.topAnchor.constraint(equalTo: container.topAnchor),
+            tableStackView.leadingAnchor.constraint(equalTo: container.leadingAnchor),
+            tableStackView.trailingAnchor.constraint(equalTo: container.trailingAnchor),
+            tableStackView.bottomAnchor.constraint(equalTo: container.bottomAnchor),
+        ])
+        addArrangedSubview(container)
         tableStackViews.append(tableStackView)
         rowInfoTables.append([RowInfo]())
-        tableStackView.translatesAutoresizingMaskIntoConstraints = false
-        tableStackView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        tableStackView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        container.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        container.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         return tableStackView
     }
 
@@ -437,6 +443,26 @@ class TableGroupView: ClickHoverStackView {
         rowView.alignment = .leading
         rowView.spacing = TableGroupView.rowIntraSpacing
         rowView.wantsLayer = true
+        // The hover highlight is an NSBox with a dynamic fillColor, so AppKit re-resolves its color
+        // per appearance on its own; we only toggle its visibility on enter/exit. The row layer
+        // clips it to the table's rounded corners (see updateRowCornerRadius).
+        rowView.layer?.masksToBounds = true
+        let hover = NSBox()
+        hover.boxType = .custom
+        hover.titlePosition = .noTitle
+        hover.borderWidth = 0
+        hover.fillColor = .tableHoverColor
+        hover.contentViewMargins = .zero
+        hover.isHidden = true
+        hover.translatesAutoresizingMaskIntoConstraints = false
+        rowView.addSubview(hover, positioned: .below, relativeTo: nil)
+        NSLayoutConstraint.activate([
+            hover.topAnchor.constraint(equalTo: rowView.topAnchor),
+            hover.bottomAnchor.constraint(equalTo: rowView.bottomAnchor),
+            hover.leadingAnchor.constraint(equalTo: rowView.leadingAnchor),
+            hover.trailingAnchor.constraint(equalTo: rowView.trailingAnchor),
+        ])
+        rowView.hoverBackground = hover
         return rowView
     }
 
@@ -545,10 +571,14 @@ class TableGroupView: ClickHoverStackView {
     private func addSeparatorIfNeeded(tableStackView: NSStackView, isAddSeparator: Bool = true) -> NSView? {
         guard !rowInfoTables[rowInfoTables.count - 1].isEmpty else { return nil }
         guard isAddSeparator else { return nil }
-        let separator = NSView()
+        // NSBox with a dynamic fillColor, so AppKit re-resolves the separator color per appearance.
+        let separator = NSBox()
+        separator.boxType = .custom
+        separator.titlePosition = .noTitle
+        separator.borderWidth = 0
+        separator.fillColor = .tableSeparatorColor
+        separator.contentViewMargins = .zero
         separator.translatesAutoresizingMaskIntoConstraints = false
-        separator.wantsLayer = true
-        separator.layer?.backgroundColor = NSColor.tableSeparatorColor.cgColor
         tableStackView.addArrangedSubview(separator)
         separator.heightAnchor.constraint(equalToConstant: TableGroupView.borderWidth).isActive = true
         separator.centerXAnchor.constraint(equalTo: tableStackView.centerXAnchor).isActive = true
@@ -589,13 +619,13 @@ class TableGroupView: ClickHoverStackView {
     }
 
     private func addMouseEnteredEffects(_ rowInfo: RowInfo) {
-        rowInfo.view.layer?.backgroundColor = NSColor.tableHoverColor.cgColor
+        (rowInfo.view as? ClickHoverStackView)?.hoverBackground?.isHidden = false
         adjustSeparatorWidth(separator: rowInfo.previousSeparator, isMouseInside: true)
         adjustSeparatorWidth(separator: rowInfo.nextSeparator, isMouseInside: true)
     }
 
     private func addMouseExitedEffects(_ rowInfo: RowInfo) {
-        rowInfo.view.layer?.backgroundColor = NSColor.clear.cgColor
+        (rowInfo.view as? ClickHoverStackView)?.hoverBackground?.isHidden = true
         adjustSeparatorWidth(separator: rowInfo.previousSeparator, isMouseInside: false)
         adjustSeparatorWidth(separator: rowInfo.nextSeparator, isMouseInside: false)
     }
@@ -652,6 +682,8 @@ class ClickHoverStackView: NSStackView {
     var onClick: EventClosure?
     var onMouseEntered: EventClosure?
     var onMouseExited: EventClosure?
+    // Background box shown on hover; a non-arranged subview pinned behind the row's content.
+    var hoverBackground: NSBox?
     private var hoverTrackingArea: NSTrackingArea?
 
     override func updateTrackingAreas() {
