@@ -1,3 +1,31 @@
+# [11.4.0](https://github.com/lwouis/alt-tab-macos/compare/v11.3.1...v11.4.0) (2026-07-02)
+
+
+### Bug Fixes
+
+* better handle electron apps quirks (closes [#5586](https://github.com/lwouis/alt-tab-macos/issues/5586)) ([eb4c08c](https://github.com/lwouis/alt-tab-macos/commit/eb4c08c))
+* crash building the Settings window on macOS 26 ([f9ffdef](https://github.com/lwouis/alt-tab-macos/commit/f9ffdef))
+* crash on trackpad gesture via Universal Control (closes [#5499](https://github.com/lwouis/alt-tab-macos/issues/5499)) ([483f833](https://github.com/lwouis/alt-tab-macos/commit/483f833)), closes [#5500](https://github.com/lwouis/alt-tab-macos/issues/5500)
+* crash while gathering the debug profile on a background thread ([d282e00](https://github.com/lwouis/alt-tab-macos/commit/d282e00))
+* cross-space focus repair could undo a same-space focus ([#5586](https://github.com/lwouis/alt-tab-macos/issues/5586)) ([d56abaf](https://github.com/lwouis/alt-tab-macos/commit/d56abaf)), closes [#4507](https://github.com/lwouis/alt-tab-macos/issues/4507)
+* customize-more sheet not updating live with dark/light mode ([dc647d9](https://github.com/lwouis/alt-tab-macos/commit/dc647d9))
+* exceptions editor not updating live with dark/light mode ([a400d12](https://github.com/lwouis/alt-tab-macos/commit/a400d12))
+* key press issues with EVKey and remote-control ([#5766](https://github.com/lwouis/alt-tab-macos/issues/5766), [#5788](https://github.com/lwouis/alt-tab-macos/issues/5788)) ([7364cbd](https://github.com/lwouis/alt-tab-macos/commit/7364cbd)), closes [#5585](https://github.com/lwouis/alt-tab-macos/issues/5585) [#5640](https://github.com/lwouis/alt-tab-macos/issues/5640) [#5585](https://github.com/lwouis/alt-tab-macos/issues/5585)
+* prevent NSToolTipManager crash by reusing tiles on reset ([1f65497](https://github.com/lwouis/alt-tab-macos/commit/1f65497)), closes [#2190](https://github.com/lwouis/alt-tab-macos/issues/2190)
+* rare crash when listing alt-tab own windows ([2ad9213](https://github.com/lwouis/alt-tab-macos/commit/2ad9213))
+* settings title overlapped traffic lights in RTL (closes [#5792](https://github.com/lwouis/alt-tab-macos/issues/5792)) ([d823c2f](https://github.com/lwouis/alt-tab-macos/commit/d823c2f))
+* show the Pro badge on the Search row again ([736cf86](https://github.com/lwouis/alt-tab-macos/commit/736cf86))
+* stop using ScreenCaptureKit on macOS 14 to work around macOS bugs ([5982a27](https://github.com/lwouis/alt-tab-macos/commit/5982a27))
+* tabs not shown as separate windows (regression from [#5714](https://github.com/lwouis/alt-tab-macos/issues/5714)) ([2defc0e](https://github.com/lwouis/alt-tab-macos/commit/2defc0e))
+* type letters in search even if bound to a shortcut (closes [#5781](https://github.com/lwouis/alt-tab-macos/issues/5781)) ([47fd455](https://github.com/lwouis/alt-tab-macos/commit/47fd455))
+
+
+### Features
+
+* complete rework: use WindowServer events instead of Accessibility ([163cf31](https://github.com/lwouis/alt-tab-macos/commit/163cf31)), closes [#5781](https://github.com/lwouis/alt-tab-macos/issues/5781) [#5499](https://github.com/lwouis/alt-tab-macos/issues/5499) [#5586](https://github.com/lwouis/alt-tab-macos/issues/5586) [#5791](https://github.com/lwouis/alt-tab-macos/issues/5791) [#5714](https://github.com/lwouis/alt-tab-macos/issues/5714)
+* show active app windows even if in exceptions (closes [#5810](https://github.com/lwouis/alt-tab-macos/issues/5810)) ([ae8f561](https://github.com/lwouis/alt-tab-macos/commit/ae8f561))
+* warn when macOS isn't saving AltTab's preferences (closes [#5790](https://github.com/lwouis/alt-tab-macos/issues/5790)) ([8a3dca8](https://github.com/lwouis/alt-tab-macos/commit/8a3dca8))
+
 ## [11.3.1](https://github.com/lwouis/alt-tab-macos/compare/v11.3.0...v11.3.1) (2026-06-18)
 
 
