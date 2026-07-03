@@ -443,16 +443,21 @@ extension App: NSApplicationDelegate {
         App.shared.disableRelaunchOnLogin()
         Logger.initialize()
         Logger.info { "Launching AltTab \(App.version)" }
-        // The WindowServer event tap is CGS-only (needs no Accessibility, no Preferences, no model), so
-        // install it first — before licensing / the permission gate. The skeleton is then available
-        // immediately and independent of whether the user has granted AX.
-        WindowServerEvents.observe()
+        // Handle the "move to /Applications" prompt before anything else sets up the model. It runs a modal
+        // alert (and may relaunch + exit), both of which pump the main run loop, so it must come before the
+        // WindowServer tap below: otherwise the tap's queued window discovery drains re-entrantly during the
+        // modal and builds a Window before BackgroundWork.preStart() runs, crashing on the nil
+        // `screenshotsQueue`. A translocated instance the user moves relaunches from /Applications, so the
+        // setup we skip by returning here early is work we'd throw away anyway.
         #if DEBUG
         UserDefaults.standard.set(true, forKey: "NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints")
-        #endif
-        #if !DEBUG
+        #else
         MoveToApplicationsFolder.promptIfNeeded()
         #endif
+        // The WindowServer event tap is CGS-only (needs no Accessibility, no Preferences, no model), so
+        // install it before licensing / the permission gate. The skeleton is then available immediately and
+        // independent of whether the user has granted AX.
+        WindowServerEvents.observe()
         AXUIElement.setGlobalTimeout()
         Preferences.initialize()
         PreferencesPersistenceCheck.runInBackground()
