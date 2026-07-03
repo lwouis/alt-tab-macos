@@ -1,3 +1,10 @@
+## [11.4.2](https://github.com/lwouis/alt-tab-macos/compare/v11.4.1...v11.4.2) (2026-07-03)
+
+
+### Bug Fixes
+
+* app may crash at launch on intel macs (closes [#5819](https://github.com/lwouis/alt-tab-macos/issues/5819)) ([5c3aaab](https://github.com/lwouis/alt-tab-macos/commit/5c3aaab))
+
 ## [11.4.1](https://github.com/lwouis/alt-tab-macos/compare/v11.4.0...v11.4.1) (2026-07-03)
 
 
