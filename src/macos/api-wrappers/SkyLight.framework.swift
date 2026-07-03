@@ -4,6 +4,8 @@
  Location: Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/PrivateFrameworks/SkyLight.framework
  */
 
+import Darwin // dlopen/dlsym for SLSWindowIteratorGetBounds' C-ABI binding (see below)
+
 let CGS_CONNECTION = CGSMainConnectionID()
 
 typealias CGSConnectionID = UInt32
@@ -315,9 +317,22 @@ func SLSWindowIteratorGetLevel(_ iterator: CFTypeRef) -> Int32
 func SLSWindowIteratorGetSpaceTypeMask(_ iterator: CFTypeRef) -> UInt64
 
 // returns the window frame in top-left-origin global coordinates — same system as kAXPosition/kAXSize and
-// kCGWindowBounds (verified equal to both on macOS 26). The CGRect struct return ABI is confirmed correct.
-@_silgen_name("SLSWindowIteratorGetBounds")
-func SLSWindowIteratorGetBounds(_ iterator: CFTypeRef) -> CGRect
+// kCGWindowBounds (verified equal to both on macOS 26).
+//
+// This is the ONE private function we call that returns a struct BY VALUE. `@_silgen_name` binds a symbol
+// using Swift's calling convention, which matches C only for register-returned results. A 32-byte CGRect is
+// returned in SIMD registers on arm64 (so `@_silgen_name` looked correct, and does work there) but via a
+// hidden sret pointer on the x86_64 SysV ABI. Under the Swift-convention binding that sret setup is wrong on
+// x86_64: the iterator pointer lands in the wrong register, so the very next `SLSWindowIteratorAdvance`
+// dereferences garbage and crashes inside SkyLight — on Intel Macs ONLY (issue #5819; arm64 never saw it).
+// Bind it through a `@convention(c)` pointer instead so the correct C ABI (sret on x86_64, registers on arm64)
+// is used on both. Every other private call we make returns a pointer or scalar, so this is the only one hit.
+private let _SLSWindowIteratorGetBounds = unsafeBitCast(
+    dlsym(dlopen(nil, RTLD_LAZY), "SLSWindowIteratorGetBounds")!,
+    to: (@convention(c) (UnsafeRawPointer) -> CGRect).self)
+func SLSWindowIteratorGetBounds(_ iterator: CFTypeRef) -> CGRect {
+    _SLSWindowIteratorGetBounds(Unmanaged.passUnretained(iterator).toOpaque())
+}
 
 @_silgen_name("SLSWindowIteratorCopyTitle")
 func SLSWindowIteratorCopyTitle(_ iterator: CFTypeRef) -> Unmanaged<CFString>?
