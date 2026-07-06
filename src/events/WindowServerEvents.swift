@@ -119,6 +119,7 @@ class WindowServerEvents {
         case .remove:
             Windows.windowsPendingFocusPromotion.remove(w0)
             Windows.recentlyCreatedWindows.remove(w0)
+            Windows.windowsPendingSpaceRemoval.remove(w0)
             if let window = Windows.byWindowId[w0] {
                 Windows.removeWindows([window], true)
             }
@@ -173,10 +174,15 @@ class WindowServerEvents {
             }
         case .updateSpaceMembership:
             // 1325/1326 carry (spaceId, wid) in the payload, so update just that window's spaceIds — no CGS
-            // re-query / full rescan. Untracked wid → ignore (creation sets a window's initial Space, and
-            // discovery backstops). A missed delta self-heals on the next switcher-show syncSpacesState.
-            if let window = Windows.byWindowId[widInSpace],
-               window.applySpaceMembershipDelta(space, added: n == .windowAddedToSpace) {
+            // re-query / full rescan. Untracked wid → remember a removal so discovery can honor the empty Space
+            // (a rapid-burst background tab whose remove fires before it's tracked, #5830); a later add cancels
+            // it. Then the missed delta no longer strands the tab shown-as-separate until the next show.
+            guard let window = Windows.byWindowId[widInSpace] else {
+                if n == .windowRemovedFromSpace { Windows.windowsPendingSpaceRemoval.insert(widInSpace) }
+                else { Windows.windowsPendingSpaceRemoval.remove(widInSpace) }
+                return
+            }
+            if window.applySpaceMembershipDelta(space, added: n == .windowAddedToSpace) {
                 // switching a fullscreen window's tabs swaps which one holds the Space — regroup so the
                 // newly-backgrounded tab stays shown instead of being flagged phantom
                 TabGroup.reconcile()

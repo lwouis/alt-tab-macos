@@ -21,19 +21,28 @@ Two independent signals locate tabs, used at different times:
   own title.
 - **Geometry** (`geometryGroups`) — reactive, AX-free: within one app, windows sharing an exact size where
   one holds a Space and the others are Space-less are a tabbed window and its background tabs. Catches the
-  tab switch that AX missed (the "pop-in"), and fullscreen tabs that expose no readable AXTabGroup.
+  tab switch that AX missed (the "pop-in"), and fullscreen tabs that expose no readable AXTabGroup. Geometry
+  alone does not **create** a group: it only fires when the visible window is fullscreen or was already
+  AX-confirmed as tabbed (`tabbedSiblingWids != nil`). Otherwise separate windows of one app that share a
+  default size and go briefly Space-less (a Space transition, a flaky CGS read) get collapsed into a phantom
+  tab group, hiding real windows (#5830).
 
 ## Functions
 
 - **`geometryGroups(windows) -> [GeometryGroup]`** — group same-app, same-**size** (not full-frame: a
   background tab's position goes stale while ordered out) candidates where exactly the visible tab holds a
   Space and ≥ 1 sibling is Space-less. Minimized / size-less windows are excluded. A separate real window
-  is never Space-less, so two visible same-size windows are **not** collapsed. Output sorted by `visibleWid`.
+  is never Space-less, so two visible same-size windows are **not** collapsed. The visible tab must be
+  fullscreen or already AX-confirmed tabbed (`tabbedSiblingWids != nil`) — geometry re-links and covers
+  fullscreen, but never fabricates a group from unconfirmed same-size windows (#5830). Output sorted by
+  `visibleWid`.
 - **`matchSiblings(active, axTitles, sameAppWindows) -> SiblingMatch`** — resolve the active tab's AXTabGroup
   titles to tracked windows. The active title is removed once (duplicates allowed); each remaining title
-  matches the first compatible, not-yet-matched same-app window. Returns the group's wids (active first),
-  the matched wids, `untrackedTitles` (titles with no window → inactive tabs to discover), and `toUntabWids`
-  (former group members that fell out and must have stale tab state cleared).
+  matches the first compatible, not-yet-matched same-app window. A window still tabbed into THIS group
+  (`isTabbed` + `tabbedSiblingWids` ∋ active) is then **kept** even if no title named it, so a duplicate or
+  renamed title can't flap an inactive tab out (#5830); each kept sibling also cancels one `untrackedTitle`.
+  Returns the group's wids (active first), the matched+kept wids, `untrackedTitles` (titles with no window →
+  inactive tabs to discover), and `toUntabWids` (windows that were in this group but are no longer tabbed).
 - **`positionsCompatible(a, b) -> Bool`** — tabs share their parent's frame. An existing tab link wins (a
   stale position can't split an already-grouped pair). Unknown position or either fullscreen → title-only
   fallback (true). Otherwise within 50px on both axes.
@@ -48,8 +57,12 @@ each test exercises.
 
 ### A. geometryGroups
 
-- **testVisiblePlusSpacelessIsAGroup** — same app + size, one with a Space + one Space-less → grouped
-  (visible = the one with a Space, background = the Space-less one).
+- **testConfirmedVisiblePlusSpacelessIsAGroup** — same app + size, visible holds a Space and carries the
+  group's `tabbedSiblingWids` (AX-confirmed), one sibling Space-less → grouped. The tab-switch re-link.
+- **testFullscreenVisibleGroupsWithoutAxConfirmation** — visible is fullscreen (no `tabbedSiblingWids`, since
+  AX can't read a fullscreen AXTabGroup) + one Space-less sibling → grouped via the fullscreen exemption.
+- **testNormalUnconfirmedNotGrouped** — same app + size, visible is normal and never AX-confirmed, one sibling
+  briefly Space-less → **not** grouped. The #5830 fix: geometry alone can't fabricate a group.
 - **testTwoVisibleSameSizeNotGrouped** — same app + size but *both* hold a Space (two separate real windows)
   → no group. A real window is never Space-less, so it's never collapsed into a tab.
 - **testDifferentSizesNotGrouped** — same app, different sizes → no group.
@@ -57,8 +70,8 @@ each test exercises.
 - **testMinimizedSpacelessNotGrouped** — a Space-less *minimized* window is excluded from candidates.
 - **testSizelessExcluded** — a window with no size is excluded from candidates.
 - **testSingleCandidateNoGroup** — one candidate → no group.
-- **testMultipleBackgroundTabsGroupUnderVisible** — one visible + two Space-less, all same size → both
-  backgrounds grouped under the one visible tab.
+- **testMultipleBackgroundTabsGroupUnderVisible** — one AX-confirmed visible + two Space-less, all same size
+  → both backgrounds grouped under the one visible tab.
 
 ### B. matchSiblings
 
@@ -68,17 +81,20 @@ each test exercises.
   window → the active title is removed once, the other "git" is matched.
 - **testUntrackedTitleReported** — a title with no tracked window → in `untrackedTitles` (to brute-force
   discover), not matched.
-- **testFormerSiblingFallsOutIsUntabbed** — a same-app window with `tabbedSiblingWids` set whose title is
-  no longer among the AX titles → in `toUntabWids`.
+- **testStillTabbedSiblingKeptDespiteNoTitle** — a window still tabbed into this group (isTabbed +
+  `tabbedSiblingWids` ∋ active) with no matching AX title → **kept** (the #5830 flap fix), not un-tabbed.
+- **testDepartedSiblingUntabbedOnceNoLongerTabbed** — once that window's own read clears `isTabbed` (it went
+  standalone), the next match un-tabs it (`toUntabWids`), clearing the stale link.
+- **testOtherGroupTabsNotUntabbed** — a same-app window in a DIFFERENT group (`tabbedSiblingWids` lacks this
+  active) is neither kept nor un-tabbed; coexisting groups of one app don't churn each other.
 - **testNonTabbedUnmatchedNotUntabbed** — a same-app window with no tab state and an unmatched title is
   **not** in `toUntabWids` (only windows carrying stale tab state are cleared).
 - **testFarPositionNotMatched** — a same-app window with the right title but a far-off position and no
   existing link → not matched; its title is reported untracked.
-- **testDynamicTitleMismatchDropsSibling** — documents the cause-B flap: the active tab's AXTabGroup now
-  reports title "A" (Terminal renamed the tab) but the tracked inactive sibling still reads "B" and carries
-  the group's `tabbedSiblingWids`. Title equality fails, so the sibling is **not** matched, lands in
-  `toUntabWids` (un-grouped → shown as a separate window), and "A" is reported untracked (→ re-discovery).
-  Pins today's behavior; the stability fix is expected to flip this.
+- **testDynamicTitleMismatchKeepsSibling** — the cause-B flap, now fixed: the active's AXTabGroup reports the
+  inactive tab as "B2" (Terminal renamed it) but the tracked window still reads "B1". Title equality fails,
+  but the sibling is still tabbed into this group, so it is **kept** (not shown as a separate window) and "B2"
+  is **not** reported untracked (we already hold that tab). The #5830 stability fix.
 
 ### C. positionsCompatible
 

@@ -17,11 +17,30 @@ final class TabGroupResolverTests: XCTestCase {
 
     // MARK: - A. geometryGroups
 
-    func testVisiblePlusSpacelessIsAGroup() {
-        let visible = tw(wid: 1, spaceIds: [1])
+    func testConfirmedVisiblePlusSpacelessIsAGroup() {
+        // an AX-confirmed group (visible carries its `tabbedSiblingWids`) whose tab switch left a sibling
+        // Space-less: geometry re-links it. This is the "pop-in" case geometry exists to catch.
+        let visible = tw(wid: 1, spaceIds: [1], tabbedSiblingWids: [1, 2])
         let background = tw(wid: 2, spaceIds: [])
         XCTAssertEqual(TabGroupResolver.geometryGroups([visible, background]),
             [GeometryGroup(visibleWid: 1, backgroundWids: [2])])
+    }
+
+    func testFullscreenVisibleGroupsWithoutAxConfirmation() {
+        // a tab added to an already-fullscreen window: AX exposes no readable AXTabGroup, so the visible tab
+        // has no `tabbedSiblingWids`. The fullscreen exemption still groups its Space-less background tab.
+        let visible = tw(wid: 1, spaceIds: [1], isFullscreen: true)
+        let background = tw(wid: 2, spaceIds: [])
+        XCTAssertEqual(TabGroupResolver.geometryGroups([visible, background]),
+            [GeometryGroup(visibleWid: 1, backgroundWids: [2])])
+    }
+
+    func testNormalUnconfirmedNotGrouped() {
+        // #5830: separate normal windows of one app sharing a default size, one briefly Space-less (a flaky
+        // CGS read or a mid-transition strip). Not fullscreen, never AX-confirmed as tabs → NOT grouped.
+        let visible = tw(wid: 1, spaceIds: [1])
+        let spaceless = tw(wid: 2, spaceIds: [])
+        XCTAssertEqual(TabGroupResolver.geometryGroups([visible, spaceless]), [])
     }
 
     func testTwoVisibleSameSizeNotGrouped() {
@@ -60,7 +79,7 @@ final class TabGroupResolverTests: XCTestCase {
     }
 
     func testMultipleBackgroundTabsGroupUnderVisible() {
-        let visible = tw(wid: 1, spaceIds: [1])
+        let visible = tw(wid: 1, spaceIds: [1], tabbedSiblingWids: [1, 2, 3])
         let bg1 = tw(wid: 2, spaceIds: [])
         let bg2 = tw(wid: 3, spaceIds: [])
         XCTAssertEqual(TabGroupResolver.geometryGroups([visible, bg1, bg2]),
@@ -92,12 +111,34 @@ final class TabGroupResolverTests: XCTestCase {
         XCTAssertEqual(m, SiblingMatch(siblingWids: [1], matchedWids: [], untrackedTitles: ["lwouis"], toUntabWids: []))
     }
 
-    func testFormerSiblingFallsOutIsUntabbed() {
+    func testStillTabbedSiblingKeptDespiteNoTitle() {
+        // #5830 stability: a window still tabbed into this group (isTabbed + tabbedSiblingWids ∋ active) is
+        // kept even when no AX title names it — a renamed/duplicate title must not flap it out.
         let active = tw(wid: 1, title: "git")
-        let former = tw(wid: 2, title: "old", isTabbed: true, tabbedSiblingWids: [1, 2])
+        let sibling = tw(wid: 2, title: "old", isTabbed: true, tabbedSiblingWids: [1, 2])
         let m = TabGroupResolver.matchSiblings(active: active, axTitles: ["git"],
-            sameAppWindows: [active, former])
+            sameAppWindows: [active, sibling])
+        XCTAssertEqual(m, SiblingMatch(siblingWids: [1, 2], matchedWids: [2], untrackedTitles: [], toUntabWids: []))
+    }
+
+    func testDepartedSiblingUntabbedOnceNoLongerTabbed() {
+        // Once the departed tab's own AX read clears its `isTabbed` (it became a standalone window), the next
+        // match of the old active un-tabs it (clears the stale link). This is how a real drag-out settles.
+        let active = tw(wid: 1, title: "git")
+        let departed = tw(wid: 2, title: "old", isTabbed: false, tabbedSiblingWids: [1, 2])
+        let m = TabGroupResolver.matchSiblings(active: active, axTitles: ["git"],
+            sameAppWindows: [active, departed])
         XCTAssertEqual(m, SiblingMatch(siblingWids: [1], matchedWids: [], untrackedTitles: [], toUntabWids: [2]))
+    }
+
+    func testOtherGroupTabsNotUntabbed() {
+        // A same-app window belonging to a DIFFERENT tab group (its `tabbedSiblingWids` doesn't contain this
+        // active) is neither kept nor un-tabbed here — the two groups don't churn each other (#5830).
+        let active = tw(wid: 1, title: "git")
+        let otherGroupTab = tw(wid: 9, title: "x", isTabbed: true, tabbedSiblingWids: [8, 9])
+        let m = TabGroupResolver.matchSiblings(active: active, axTitles: ["git"],
+            sameAppWindows: [active, otherGroupTab])
+        XCTAssertEqual(m, SiblingMatch(siblingWids: [1], matchedWids: [], untrackedTitles: [], toUntabWids: []))
     }
 
     func testNonTabbedUnmatchedNotUntabbed() {
@@ -116,16 +157,16 @@ final class TabGroupResolverTests: XCTestCase {
         XCTAssertEqual(m, SiblingMatch(siblingWids: [1], matchedWids: [], untrackedTitles: ["lwouis"], toUntabWids: []))
     }
 
-    func testDynamicTitleMismatchDropsSibling() {
-        // cause-B flap: the AXTabGroup now reports the inactive tab as "B2" (Terminal renamed it) but the
-        // tracked window still reads "B1". Title equality fails, so the sibling is dropped (→ toUntab,
-        // shown as a separate window) and "B2" is reported untracked (→ re-discovery). Pins today's
-        // behavior; the stability fix should flip this.
+    func testDynamicTitleMismatchKeepsSibling() {
+        // The cause-B flap, now FIXED: the AXTabGroup reports the inactive tab as "B2" (Terminal renamed it)
+        // but the tracked window still reads "B1". Title equality fails, yet the sibling is still tabbed into
+        // this group, so it's KEPT (not dropped, not shown as a separate window) and "B2" is NOT reported
+        // untracked (we already hold that tab). This is the #5830 stability fix.
         let active = tw(wid: 1, title: "A", tabbedSiblingWids: [1, 2])
         let stale = tw(wid: 2, title: "B1", isTabbed: true, tabbedSiblingWids: [1, 2])
         let m = TabGroupResolver.matchSiblings(active: active, axTitles: ["A", "B2"],
             sameAppWindows: [active, stale])
-        XCTAssertEqual(m, SiblingMatch(siblingWids: [1], matchedWids: [], untrackedTitles: ["B2"], toUntabWids: [2]))
+        XCTAssertEqual(m, SiblingMatch(siblingWids: [1, 2], matchedWids: [2], untrackedTitles: [], toUntabWids: []))
     }
 
     // MARK: - C. positionsCompatible
@@ -177,4 +218,5 @@ final class TabGroupResolverTests: XCTestCase {
         let d = TabGroupResolver.dissolution(siblingWids: [1, 2, 3], leaving: 1, presentWids: [2])
         XCTAssertEqual(d, GroupDissolution(remainingSiblingWids: [2, 3], applyToWids: [2], dissolve: true))
     }
+    // Real captured Terminal/Finder scenarios live in RealWorldScenariosTests (the shared corpus), not here.
 }

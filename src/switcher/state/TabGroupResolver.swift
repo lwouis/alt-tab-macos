@@ -70,6 +70,17 @@ enum TabGroupResolver {
             // attach every Space-less tab to ONE visible parent; leave other visible same-size windows
             // out, so genuinely separate windows aren't collapsed (AX refines membership on the review).
             guard let visible = group.first(where: { !$0.spaceIds.isEmpty }) else { continue }
+            // Only geometry-group behind a visible tab AX already confirmed (`tabbedSiblingWids != nil`), OR a
+            // fullscreen visible window (whose tabs AX can't read). Geometry alone is not enough to CREATE a
+            // group: separate windows of one app routinely share a default size (every Terminal window is the
+            // same size) and go briefly Space-less during a Space transition or a flaky CGS read, which looked
+            // exactly like a background tab and collapsed real windows into a phantom tab group (#5830). The
+            // two exemptions keep the cases AX can't cover: re-linking a tab switch on an already-known group
+            // (visible keeps its `tabbedSiblingWids`), and a tab added to an already-fullscreen window. The
+            // fullscreen branch can't false-positive: only a real background tab is both fullscreen-SIZED and
+            // Space-less (a separate fullscreen window holds its own fullscreen Space; a normal window isn't
+            // fullscreen-sized).
+            guard visible.isFullscreen || visible.tabbedSiblingWids != nil else { continue }
             let background = group.filter { $0.spaceIds.isEmpty }
             guard !background.isEmpty else { continue }
             groups.append(GeometryGroup(visibleWid: visible.wid, backgroundWids: background.map { $0.wid }))
@@ -87,9 +98,10 @@ enum TabGroupResolver {
     /// Match an active tab's AXTabGroup titles to tracked same-app windows. `sameAppWindows` may include
     /// the active tab itself (filtered out by wid). The active tab's own title is removed once from the
     /// title list (there may be duplicate titles); each remaining title is matched to the first
-    /// compatible, not-yet-matched window. Titles with no tracked window are returned as `untrackedTitles`
-    /// (inactive tabs to discover); same-app windows that fall out of the group are returned as
-    /// `toUntabWids`.
+    /// compatible, not-yet-matched window. A window already tabbed into THIS group is then kept even if no
+    /// title named it, so a duplicate/renamed title can't flap an inactive tab out of its group (#5830).
+    /// Titles with no tracked window are returned as `untrackedTitles` (inactive tabs to discover); windows
+    /// that were in this group but are no longer tabbed (became standalone) are returned as `toUntabWids`.
     static func matchSiblings(active: TabWindow, axTitles: [String], sameAppWindows: [TabWindow]) -> SiblingMatch {
         var remainingTitles = axTitles
         if let i = remainingTitles.firstIndex(of: active.title) { remainingTitles.remove(at: i) }
@@ -105,12 +117,27 @@ enum TabGroupResolver {
                 matchedTitles.append(sibling.title)
             }
         }
+        // Stability (#5830): a window already in THIS group and still tabbed stays in it even when the AX
+        // titles don't name it. Terminal's tabs all read "~" and get renamed by cwd/command, so a title miss
+        // must not eject an inactive tab from its own group (the "cause-B flap") — it would flash out as a
+        // separate window and re-trigger discovery. Keyed on `tabbedSiblingWids` containing the active wid, so
+        // a DIFFERENT group's tabs (same app) are left alone. A tab that truly left (drag-out) has its
+        // `isTabbed` cleared by its own AX read first, so it is not kept and falls through to `toUntabWids`.
+        let keptWids = sameAppWindows.filter { s in
+            s.wid != active.wid && !matchedWids.contains(s.wid) && s.isTabbed
+                && s.tabbedSiblingWids?.contains(active.wid) == true
+        }.map { $0.wid }
+        matchedWids.append(contentsOf: keptWids)
         var untrackedTitles = remainingTitles
         for title in matchedTitles {
             if let i = untrackedTitles.firstIndex(of: title) { untrackedTitles.remove(at: i) }
         }
-        let toUntabWids = sameAppWindows.filter {
-            $0.wid != active.wid && !matchedWids.contains($0.wid) && $0.tabbedSiblingWids != nil
+        // each kept sibling accounts for one AX title we couldn't name — don't re-discover a tab we hold.
+        for _ in keptWids where !untrackedTitles.isEmpty { untrackedTitles.removeFirst() }
+        // Un-tab only windows that WERE in this group but are neither matched nor kept — their `isTabbed` was
+        // cleared (they became standalone). A different group's tabs never contain the active wid.
+        let toUntabWids = sameAppWindows.filter { s in
+            s.wid != active.wid && !matchedWids.contains(s.wid) && s.tabbedSiblingWids?.contains(active.wid) == true
         }.map { $0.wid }
         return SiblingMatch(siblingWids: [active.wid] + matchedWids, matchedWids: matchedWids,
             untrackedTitles: untrackedTitles, toUntabWids: toUntabWids)

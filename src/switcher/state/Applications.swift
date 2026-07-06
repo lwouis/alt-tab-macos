@@ -161,11 +161,26 @@ class Applications {
             DispatchQueue.main.async { [weak app] in
                 guard let app else { return }
                 windowAttributesThrottler.throttleOrProceed(key: "\(wid)-generic") {
+                    // Consume the pending-removal marker up-front, so a window rejected below can't leave it
+                    // dangling. `Windows.windowsPendingSpaceRemoval` remembers a removed-from-Space event that
+                    // arrived while the window was still untracked (a rapid-burst background tab, #5830 — see
+                    // below); consuming here regardless of accept/reject keeps the set self-draining.
+                    let wasRemovedFromSpaceWhileUntracked = Windows.windowsPendingSpaceRemoval.remove(wid) != nil
                     let findOrCreate = Windows.findOrCreate(element, wid, app, CGWindowLevel(raw.level), a.title, a.subrole, a.role, raw.bounds.size, raw.bounds.origin, isFullscreen, isMinimized)
                     guard let window = findOrCreate.0 else { return }
                     // override Window.init's current-Space default with the real Space resolved above (new
-                    // windows only; existing ones stay live via events / syncSpacesState). Empty ⇒ keep default.
-                    if findOrCreate.1, !spaceIds.isEmpty { window.applySpacesAndScreen([wid: spaceIds]) }
+                    // windows only; existing ones stay live via events / syncSpacesState).
+                    if findOrCreate.1 {
+                        if wasRemovedFromSpaceWhileUntracked {
+                            // It got a removed-from-Space event while still untracked → it's a background tab.
+                            // Force it Space-less: the per-window CGS query still reports its OLD Space here
+                            // (stale right after backgrounding), so trusting that would keep it looking like a
+                            // separate on-screen window; the empty is what lets geometry group it (#5830).
+                            window.applySpacesAndScreen([wid: []])
+                        } else if !spaceIds.isEmpty {
+                            window.applySpacesAndScreen([wid: spaceIds])
+                        }
+                    }
                     window.isMainWindow = a.isMain ?? false
                     var tabStateChanged = false
                     if tabSiblingTitles != nil || window.tabbedSiblingWids != nil {

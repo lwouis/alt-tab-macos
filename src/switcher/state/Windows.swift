@@ -16,6 +16,13 @@ class Windows {
     /// independent of discovery path (event or full rescan) and of focus events; `bumpFocusOrder` also honors it
     /// for the create-after-append ordering. Consumed on the first promotion; cleared on destroy/removal.
     static var recentlyCreatedWindows = Set<CGWindowID>()
+    /// wids that got a `windowRemovedFromSpace` (1326) while still UNtracked — the delta was dropped because
+    /// there was no `Window` to apply it to. During a rapid tab burst a new tab backgrounds (loses its Space)
+    /// before its async discovery lands, so discovery would otherwise keep the wrong current-Space default and
+    /// the background tab would show as a separate window until the next show (#5830). `addDiscoveredWindow`
+    /// consumes this to record the tab Space-less at discovery. Cleared if the wid is re-added to a Space, or
+    /// on destroy/removal.
+    static var windowsPendingSpaceRemoval = Set<CGWindowID>()
     private static var lastWindowActivityType = WindowActivityType.none
     private static var shouldSelectBestMatchOnSearchChange = false
     private static var shouldRestoreDefaultSelectionOnSearchClear = false
