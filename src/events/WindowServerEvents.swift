@@ -15,6 +15,13 @@ class WindowServerEvents {
     private static var inSpaceTransition: Bool { ProcessInfo.processInfo.systemUptime < spaceTransitionUntil }
     /// debounces the 1329/1401 Space-change burst into one settled handler (replaces SpacesEvents)
     private static var spaceChangeWorkItem: DispatchWorkItem?
+    /// On app activation macOS raises the app's on-Space windows, emitting one focus event (808) per window.
+    /// Those are RAISES, not focus changes: re-fronting each would reverse the app's MRU. We snapshot the app's
+    /// wids at activation and let the 808 handler ignore exactly one per wid; a genuine focus right after (a
+    /// second 808 for a wid) isn't in the set, so it still bumps. Keyed by pid (not one global set) so two quick
+    /// activations don't clobber each other's storm. `until` bounds each entry so a straggler (a wid whose raise
+    /// never fires) can't linger; expired entries are pruned on the next activation.
+    private static var pendingActivationRaises = [pid_t: (wids: Set<CGWindowID>, until: TimeInterval)]()
 
     static func observe() {
         guard !started else { return }
@@ -35,8 +42,29 @@ class WindowServerEvents {
         let center = NSWorkspace.shared.notificationCenter
         center.addObserver(forName: NSWorkspace.didActivateApplicationNotification, object: nil, queue: .main) { note in
             if let app = runningApp(note) {
-                Applications.frontmostPid = app.processIdentifier
-                bumpFocusOnActivation(app.processIdentifier)
+                let pid = app.processIdentifier
+                Applications.frontmostPid = pid
+                // On activation macOS raises the app's on-Space windows, emitting one 808 PER window — a raise,
+                // not a focus. Re-fronting each would reverse the app's MRU order (regression from the AX→WS
+                // migration; 808 means "came to front", the AX path only signalled the one focused window).
+                // Snapshot the app's non-minimized windows so the 808 handler ignores exactly one raise per wid;
+                // `bumpFocusOnActivation` sets the single real focus. Minimized windows aren't raised (so aren't
+                // listed — else un-minimizing one right after would be swallowed); off-Space windows aren't
+                // raised either but are harmless if listed since their raise never comes. Time-bounded so a
+                // straggler entry can't outlive the burst and swallow a later genuine focus.
+                let now = ProcessInfo.processInfo.systemUptime
+                pendingActivationRaises = pendingActivationRaises.filter { $0.value.until > now }  // prune expired
+                let wids = Set(Windows.list.compactMap { $0.application.pid == pid && !$0.isMinimized ? $0.cgWindowId : nil })
+                // 0.5s is deliberately generous (the storm is observed ~10-60ms after activation). The risk is
+                // asymmetric: too SHORT is dangerous — the raise 808s are processed on the main thread behind
+                // AltTab's own activation work (discovery/screenshots/phantom pass), so under load their
+                // processing can lag well past that; if the window expires first, the leftover raises bump and
+                // the MRU inverts again. Too LONG is nearly harmless — a window you can focus by hand is on this
+                // Space and its entry is consumed by its own raise, so its genuine click (a later 808) is no
+                // longer in the set and bumps; only off-Space entries linger, and focusing one requires a Space
+                // switch that re-activates the app and rebuilds this set.
+                pendingActivationRaises[pid] = (wids, now + 0.5)
+                bumpFocusOnActivation(pid)
             }
         }
         center.addObserver(forName: NSWorkspace.didHideApplicationNotification, object: nil, queue: .main) { note in
@@ -98,7 +126,16 @@ class WindowServerEvents {
                 // the flag for the rare ordering where the create event lands after the window was appended.
                 // Consume it whatever the outcome, so only that first focus is exempt from the guard.
                 let wasJustCreated = Windows.recentlyCreatedWindows.remove(w0) != nil
-                if window.application.runningApplication.isActive || wasJustCreated {
+                // Ignore the app-activation raise storm: one 808 fires per on-Space window as macOS raises the
+                // app, but those are raises, not focus changes — bumping each would reverse the app's MRU. We
+                // consume exactly one per wid from that app's activation snapshot; `bumpFocusOnActivation` sets
+                // the one real focus. A brand-new window's focus is always honored; a genuine focus after the
+                // burst (a wid's second 808) isn't in the set, so it bumps too.
+                let pid = window.application.pid
+                let now = ProcessInfo.processInfo.systemUptime
+                let isActivationRaise = pendingActivationRaises[pid].map { $0.until > now && $0.wids.contains(w0) } ?? false
+                if isActivationRaise { pendingActivationRaises[pid]?.wids.remove(w0) }
+                if wasJustCreated || (window.application.runningApplication.isActive && !isActivationRaise) {
                     window.application.focusedWindow = window
                     App.checkIfShortcutsShouldBeDisabled(window, nil)
                     if let changed = Windows.updateLastFocusOrder(window) {
