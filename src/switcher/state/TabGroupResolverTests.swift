@@ -90,7 +90,7 @@ final class TabGroupResolverTests: XCTestCase {
 
     func testMatchesInactiveSiblingByTitle() {
         let active = tw(wid: 1, title: "git")
-        let sibling = tw(wid: 2, title: "lwouis")
+        let sibling = tw(wid: 2, spaceIds: [], title: "lwouis")
         let m = TabGroupResolver.matchSiblings(active: active, axTitles: ["git", "lwouis"],
             sameAppWindows: [active, sibling])
         XCTAssertEqual(m, SiblingMatch(siblingWids: [1, 2], matchedWids: [2], untrackedTitles: [], toUntabWids: []))
@@ -98,10 +98,21 @@ final class TabGroupResolverTests: XCTestCase {
 
     func testDuplicateTitleRemovedOnce() {
         let active = tw(wid: 1, title: "git")
-        let other = tw(wid: 2, title: "git")
+        let other = tw(wid: 2, spaceIds: [], title: "git")
         let m = TabGroupResolver.matchSiblings(active: active, axTitles: ["git", "git"],
             sameAppWindows: [active, other])
         XCTAssertEqual(m, SiblingMatch(siblingWids: [1, 2], matchedWids: [2], untrackedTitles: [], toUntabWids: []))
+    }
+
+    func testOnScreenWindowNeverClaimedAsTab() {
+        // An on-Space, non-tabbed window is by definition NOT an inactive tab — even with a matching title
+        // and close position (Finder cmd-N: new window, same name, cascaded ~28px). Without this, the new
+        // window was claimed to fill a title whose real tab has no window and vanished from the switcher.
+        let active = tw(wid: 1, title: "lwouis")
+        let newWindow = tw(wid: 2, position: CGPoint(x: 128, y: 128), spaceIds: [1], title: "lwouis")
+        let m = TabGroupResolver.matchSiblings(active: active, axTitles: ["lwouis", "lwouis"],
+            sameAppWindows: [active, newWindow])
+        XCTAssertEqual(m, SiblingMatch(siblingWids: [1], matchedWids: [], untrackedTitles: ["lwouis"], toUntabWids: []))
     }
 
     func testUntrackedTitleReported() {
@@ -151,7 +162,7 @@ final class TabGroupResolverTests: XCTestCase {
 
     func testFarPositionNotMatched() {
         let active = tw(wid: 1, position: CGPoint(x: 100, y: 100), title: "git")
-        let far = tw(wid: 2, position: CGPoint(x: 900, y: 900), title: "lwouis")
+        let far = tw(wid: 2, position: CGPoint(x: 900, y: 900), spaceIds: [], title: "lwouis")
         let m = TabGroupResolver.matchSiblings(active: active, axTitles: ["git", "lwouis"],
             sameAppWindows: [active, far])
         XCTAssertEqual(m, SiblingMatch(siblingWids: [1], matchedWids: [], untrackedTitles: ["lwouis"], toUntabWids: []))

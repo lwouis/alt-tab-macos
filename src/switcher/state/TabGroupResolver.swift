@@ -98,7 +98,8 @@ enum TabGroupResolver {
     /// Match an active tab's AXTabGroup titles to tracked same-app windows. `sameAppWindows` may include
     /// the active tab itself (filtered out by wid). The active tab's own title is removed once from the
     /// title list (there may be duplicate titles); each remaining title is matched to the first
-    /// compatible, not-yet-matched window. A window already tabbed into THIS group is then kept even if no
+    /// compatible, not-yet-matched window that is PLAUSIBLY an inactive tab (already tabbed or Space-less —
+    /// an on-screen window is never claimed). A window already tabbed into THIS group is then kept even if no
     /// title named it, so a duplicate/renamed title can't flap an inactive tab out of its group (#5830).
     /// Titles with no tracked window are returned as `untrackedTitles` (inactive tabs to discover); windows
     /// that were in this group but are no longer tabbed (became standalone) are returned as `toUntabWids`.
@@ -111,6 +112,12 @@ enum TabGroupResolver {
             if let sibling = sameAppWindows.first(where: { s in
                 s.wid != active.wid && s.title == title
                     && !matchedWids.contains(s.wid)
+                    // Only a window that is PLAUSIBLY an inactive tab can be claimed: already tabbed, or
+                    // Space-less (an inactive tab is on no Space; 1325/1326 keep that live). An on-screen
+                    // window is by definition NOT an inactive tab — without this, a NEW same-title window
+                    // (Finder cmd-N, duplicate titles) was claimed to fill a title whose real tab has no
+                    // window (Finder destroys a backgrounded tab's window), and vanished from the switcher.
+                    && (s.isTabbed || s.spaceIds.isEmpty)
                     && positionsCompatible(active, s)
             }) {
                 matchedWids.append(sibling.wid)

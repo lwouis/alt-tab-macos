@@ -271,6 +271,9 @@ class Window {
             // and it goes stale after sleep/monitor changes until syncSpacesState re-queries). Treating unknown
             // as cross-Space ran SLSSpaceSetFrontPSN on the CURRENT Space, re-fronting the previous app and
             // undoing the raise while the window stayed key (#5586, the Slack-after-sleep variant).
+            // AltTab knows exactly which window it is focusing — record it so the coming app activation
+            // bumps this window directly instead of divining the focus from a racy 808 / AX read (#5596).
+            WindowServerEvents.noteAltTabInitiatedFocus(cgWindowId!, application.pid)
             let targetMaybeCrossSpace = !self.spaceIds.isEmpty && !self.spaceIds.contains(originSpaceId)
             let originFrontPid = targetMaybeCrossSpace ? NSWorkspace.shared.frontmostApplication?.processIdentifier : nil
             BackgroundWork.accessibilityCommandsQueue.addOperation { [weak self] in

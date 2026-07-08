@@ -38,7 +38,10 @@ Two independent signals locate tabs, used at different times:
   `visibleWid`.
 - **`matchSiblings(active, axTitles, sameAppWindows) -> SiblingMatch`** — resolve the active tab's AXTabGroup
   titles to tracked windows. The active title is removed once (duplicates allowed); each remaining title
-  matches the first compatible, not-yet-matched same-app window. A window still tabbed into THIS group
+  matches the first compatible, not-yet-matched same-app window that is PLAUSIBLY an inactive tab (already
+  `isTabbed`, or Space-less) — an on-Space window is never claimed (it's on-screen, so by definition not an
+  inactive tab; without this a new same-title window filled a title whose real tab has no window, Finder
+  cmd-N). A window still tabbed into THIS group
   (`isTabbed` + `tabbedSiblingWids` ∋ active) is then **kept** even if no title named it, so a duplicate or
   renamed title can't flap an inactive tab out (#5830); each kept sibling also cancels one `untrackedTitle`.
   Returns the group's wids (active first), the matched+kept wids, `untrackedTitles` (titles with no window →
@@ -75,8 +78,10 @@ each test exercises.
 
 ### B. matchSiblings
 
-- **testMatchesInactiveSiblingByTitle** — active "git" with titles [git, lwouis] + a same-app window
-  "lwouis" → matched; `siblingWids` = [active, lwouis].
+- **testMatchesInactiveSiblingByTitle** — active "git" with titles [git, lwouis] + a same-app Space-less
+  window "lwouis" → matched; `siblingWids` = [active, lwouis].
+- **testOnScreenWindowNeverClaimedAsTab** — an on-Space, non-tabbed same-title window (Finder cmd-N, close
+  position) is NOT claimed as the group's inactive tab; the title is reported untracked instead.
 - **testDuplicateTitleRemovedOnce** — titles [git, git] with the active titled "git" + one other "git"
   window → the active title is removed once, the other "git" is matched.
 - **testUntrackedTitleReported** — a title with no tracked window → in `untrackedTitles` (to brute-force

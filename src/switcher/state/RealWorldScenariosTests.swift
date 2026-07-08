@@ -303,6 +303,24 @@ final class RealWorldScenariosTests: XCTestCase {
             untrackedTitles: [], toUntabWids: []))
     }
 
+    func testFinderNewWindowNotSwallowedByTabGroup() {
+        // Recorded live 2026-07-09: Finder with a 2-tab group (both "lwouis") + cmd-N opens a NEW window,
+        // also "lwouis", at Finder's cascaded position (~28px offset, within the 50px tolerance). Finder
+        // DESTROYS a backgrounded tab's window (only the active tab is a real window), so the group's second
+        // AXTabGroup title has no window — and the matcher claimed the NEW on-Space window to fill it, hiding
+        // it from the switcher ("appeared then disappeared"). An on-Space, non-tabbed window must never be
+        // claimed as an inactive tab; the title goes untracked (brute-force finds nothing → group shows as 1).
+        let activeTab = CapturedWindow(pid: 779, wid: 42233, title: "lwouis", subrole: "AXStandardWindow",
+            size: CGSize(width: 920, height: 436), position: CGPoint(x: 100, y: 100), spaceIds: [3],
+            axTabTitles: ["lwouis", "lwouis"])
+        let newWindow = CapturedWindow(pid: 779, wid: 42243, title: "lwouis", subrole: "AXStandardWindow",
+            size: CGSize(width: 920, height: 436), position: CGPoint(x: 128, y: 128), spaceIds: [3])
+        let m = TabGroupResolver.matchSiblings(active: activeTab.tabWindow(), axTitles: activeTab.axTabTitles!,
+            sameAppWindows: [activeTab.tabWindow(), newWindow.tabWindow()])
+        XCTAssertEqual(m, SiblingMatch(siblingWids: [42233], matchedWids: [],
+            untrackedTitles: ["lwouis"], toUntabWids: []))
+    }
+
     func testFinderInactiveTabIsPhantomUntilTabbed() {
         // "lwouis" is Space-less (inactive tab) → phantom before detection, exempt once `isTabbed`.
         let app = ApplicationState(pid: 779, bundleIdentifier: "com.apple.finder", localizedName: "Finder", isHidden: false)
