@@ -12,6 +12,8 @@ class WindowCaptureScreenshots {
         let window: Window
         let size: CGSize
         let scaleFactor: CGFloat
+        let isFullscreen: Bool
+        let usesPreview: Bool
     }
 
     static func oneTimeScreenshots(_ windowsToScreenshot: [Window], _ source: RefreshCausedBy, prioritizedIds: Set<CGWindowID>? = nil) {
@@ -22,6 +24,11 @@ class WindowCaptureScreenshots {
         // Trade-off: size is fixed at call time, so a window resized between snapshot and capture will be captured
         // at the old size. Acceptable because the next refresh will re-snapshot.
         var requests = [CGWindowID: CaptureRequest]()
+        // Preview renders the selected window at full resolution. Keep the zero-copy sample-buffer path for that
+        // case; ordinary thumbnails can use macOS 26's stable one-shot screenshot API instead.
+        let usesPreview = (0...Preferences.maxShortcutCount).contains {
+            Preferences.effectivePreviewSelectedWindow($0)
+        }
         for window in windowsToScreenshot {
             guard let wid = window.cgWindowId, let size = window.size else { continue }
             let scaleFactor: CGFloat
@@ -30,7 +37,8 @@ class WindowCaptureScreenshots {
             } else {
                 scaleFactor = NSScreen.preferred.backingScaleFactor
             }
-            requests[wid] = CaptureRequest(window: window, size: size, scaleFactor: scaleFactor)
+            requests[wid] = CaptureRequest(window: window, size: size, scaleFactor: scaleFactor,
+                isFullscreen: window.isFullscreen, usesPreview: usesPreview)
         }
         guard !requests.isEmpty else { return }
         let prioritized = prioritizedIds ?? []
@@ -98,18 +106,74 @@ class WindowCaptureScreenshots {
             guard !App.isTerminating, !ScreenLockEvents.isScreenLocked, let window else { return }
             let config = SCStreamConfiguration.forWindow(scWindow, size, scaleFactor, false)
             let filter = SCContentFilter(desktopIndependentWindow: scWindow)
-            ActiveWindowCaptures.increment()
-            SCScreenshotManager.captureSampleBuffer(contentFilter: filter, configuration: config) { [weak window] sampleBuffer, error in
+            // captureSampleBuffer creates a short-lived display stream for every thumbnail on macOS 26. Repeated
+            // stream teardown can make WindowServer leak memory and eventually exit (#5786). captureScreenshot
+            // avoids that churn, but currently fails for fullscreen windows and copies full-resolution previews.
+            if #available(macOS 26.0, *), !request.isFullscreen && !request.usesPreview {
+                captureScreenshot(filter, config, window, source)
+            } else {
+                captureSampleBuffer(filter, config, window, source)
+            }
+        }
+    }
+
+    @available(macOS 26.0, *)
+    private static func captureScreenshot(_ filter: SCContentFilter, _ streamConfig: SCStreamConfiguration,
+                                          _ window: Window, _ source: RefreshCausedBy) {
+        let config = SCScreenshotConfiguration()
+        config.width = streamConfig.width
+        config.height = streamConfig.height
+        config.showsCursor = false
+        config.dynamicRange = .sdr
+        ActiveWindowCaptures.increment()
+        SCScreenshotManager.captureScreenshot(
+            contentFilter: filter, configuration: config
+        ) { [weak window] output, error in
+            if let cgImage = output?.sdrImage, error == nil {
                 ActiveWindowCaptures.decrement()
                 guard let window else { return }
-                guard let sampleBuffer, error == nil else { Logger.error { "\(window.debugId) \(sampleBuffer == nil) \(error)" }; return }
-                guard source != .refreshOnlyThumbnailsAfterShowUi || SwitcherSession.isActive else { return }
-                guard let pixelBuffer = sampleBuffer.pixelBuffer() ?? sampleBuffer.imageBuffer else { Logger.error { "\(window.debugId) no pixelBuffer" }; return }
-                DispatchQueue.main.async {
-                    guard source != .refreshOnlyThumbnailsAfterShowUi || SwitcherSession.isActive else { return }
-                    window.refreshThumbnail(.pixelBuffer(pixelBuffer))
+                refreshThumbnail(window, source, .cgImage(cgImage))
+            } else if let window,
+                      source != .refreshOnlyThumbnailsAfterShowUi || SwitcherSession.isActive {
+                // Keep functionality if Apple's new API rejects an unexpected window shape/state. Fullscreen
+                // windows bypass this path up front, but this fallback also covers stale fullscreen state.
+                Logger.warning {
+                    "\(window.debugId) captureScreenshot failed; falling back to captureSampleBuffer: "
+                        + "\(output == nil) \(error)"
                 }
+                captureSampleBuffer(filter, streamConfig, window, source, alreadyTracked: true)
+            } else {
+                ActiveWindowCaptures.decrement()
             }
+        }
+    }
+
+    private static func captureSampleBuffer(_ filter: SCContentFilter, _ config: SCStreamConfiguration,
+                                            _ window: Window, _ source: RefreshCausedBy,
+                                            alreadyTracked: Bool = false) {
+        if !alreadyTracked { ActiveWindowCaptures.increment() }
+        SCScreenshotManager.captureSampleBuffer(
+            contentFilter: filter, configuration: config
+        ) { [weak window] sampleBuffer, error in
+            ActiveWindowCaptures.decrement()
+            guard let window else { return }
+            guard let sampleBuffer, error == nil else {
+                Logger.error { "\(window.debugId) \(sampleBuffer == nil) \(error)" }
+                return
+            }
+            guard let pixelBuffer = sampleBuffer.pixelBuffer() ?? sampleBuffer.imageBuffer else {
+                Logger.error { "\(window.debugId) no pixelBuffer" }
+                return
+            }
+            refreshThumbnail(window, source, .pixelBuffer(pixelBuffer))
+        }
+    }
+
+    private static func refreshThumbnail(_ window: Window, _ source: RefreshCausedBy, _ contents: CALayerContents) {
+        guard source != .refreshOnlyThumbnailsAfterShowUi || SwitcherSession.isActive else { return }
+        DispatchQueue.main.async { [weak window] in
+            guard source != .refreshOnlyThumbnailsAfterShowUi || SwitcherSession.isActive else { return }
+            window?.refreshThumbnail(contents)
         }
     }
 }
