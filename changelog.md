@@ -1,3 +1,14 @@
+## [11.4.3](https://github.com/lwouis/alt-tab-macos/compare/v11.4.2...v11.4.3) (2026-07-09)
+
+
+### Bug Fixes
+
+* activating apps may mess window order in switcher (closes [#5596](https://github.com/lwouis/alt-tab-macos/issues/5596)) ([3d1d207](https://github.com/lwouis/alt-tab-macos/commit/3d1d207))
+* rare crash on launch outside applications folder ([2c6a54c](https://github.com/lwouis/alt-tab-macos/commit/2c6a54c))
+* rare undeterministic crash at launch ([#5819](https://github.com/lwouis/alt-tab-macos/issues/5819)) ([3a43854](https://github.com/lwouis/alt-tab-macos/commit/3a43854))
+* switcher contents flickering after show (closes [#5830](https://github.com/lwouis/alt-tab-macos/issues/5830)) ([aaa9139](https://github.com/lwouis/alt-tab-macos/commit/aaa9139))
+* window order wrong after switching tabs ([#5596](https://github.com/lwouis/alt-tab-macos/issues/5596)) ([0b6b99b](https://github.com/lwouis/alt-tab-macos/commit/0b6b99b))
+
 ## [11.4.2](https://github.com/lwouis/alt-tab-macos/compare/v11.4.1...v11.4.2) (2026-07-03)
 
 
