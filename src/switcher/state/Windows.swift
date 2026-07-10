@@ -409,6 +409,13 @@ class Windows {
 
     static func findOrCreate(_ windowAxUiElement: AXUIElement, _ wid: CGWindowID, _ app: Application, _ level: CGWindowLevel, _ title: String?, _ subrole: String?, _ role: String?, _ size: CGSize?, _ position: CGPoint?, _ isFullscreen: Bool?, _ isMinimized: Bool?) -> (Window?, Bool) {
         if let window = byWindowId[wid] ?? (list.first { $0.isEqualRobust(windowAxUiElement, wid) }) {
+            // A WindowServer-only fallback was accepted with coarse evidence while kAXWindows was malformed.
+            // Once AX recovers, apply the precise discriminator before upgrading it; remove any false-positive
+            // utility window that the level/size fallback could not distinguish.
+            if window.axUiElement == nil && !WindowDiscriminator.isActualWindow(app, wid, level, title, subrole, role, size) {
+                removeWindows([window], true)
+                return (nil, false)
+            }
             // Adopt the freshest element for this wid. Some apps (e.g. Zoom meeting windows) silently rebuild a
             // window's accessibility element while keeping the same CGWindowID, with no destroyed notification,
             // so our cached ref goes stale and every AX call returns kAXErrorInvalidUIElement. Rebinding here
@@ -423,6 +430,22 @@ class Windows {
         }
         guard WindowDiscriminator.isActualWindow(app, wid, level, title, subrole, role, size) else { return (nil, false) }
         let window = Window(windowAxUiElement, app, wid, title, isFullscreen, isMinimized, position, size)
+        appendWindow(window)
+        return (window, true)
+    }
+
+    /// Create the minimal model that remains useful while macOS returns AXApplication objects from kAXWindows.
+    /// Existence, title, geometry, fullscreen, Spaces, thumbnails, focus and MRU are all WindowServer-backed;
+    /// the nil AX element disables only AX-specific metadata/actions and makes the next full scan retry recovery.
+    static func findOrCreateWithoutAx(_ raw: WsRawWindow, _ app: Application) -> (Window?, Bool) {
+        if let window = byWindowId[raw.wid] {
+            let newTitle = window.bestEffortTitle(raw.title)
+            if window.title != newTitle { window.title = newTitle; window.lastSearchQuery = nil }
+            window.updateFromWindowServer(position: raw.bounds.origin, size: raw.bounds.size, isFullscreen: WsWindowState.isFullscreen(raw))
+            return (window, false)
+        }
+        guard WindowDiscriminator.isActualWindowWithoutAx(app, raw) else { return (nil, false) }
+        let window = Window(nil, app, raw.wid, raw.title, WsWindowState.isFullscreen(raw), false, raw.bounds.origin, raw.bounds.size)
         appendWindow(window)
         return (window, true)
     }

@@ -36,7 +36,7 @@ class Window {
         set { state[keyPath: keyPath] = newValue }
     }
 
-    init(_ axUiElement: AXUIElement, _ application: Application, _ wid: CGWindowID, _ title: String?, _ isFullscreen: Bool?, _ isMinimized: Bool?, _ position: CGPoint?, _ size: CGSize?) {
+    init(_ axUiElement: AXUIElement?, _ application: Application, _ wid: CGWindowID, _ title: String?, _ isFullscreen: Bool?, _ isMinimized: Bool?, _ position: CGPoint?, _ size: CGSize?) {
         state = WindowState(
             id: "wid-\(wid)", isPhantom: false, isWindowlessApp: false,
             isFullscreen: false, isMinimized: false, isTabbed: false,
@@ -168,7 +168,7 @@ class Window {
     }
 
     func canBeClosed() -> Bool {
-        return !self.isWindowlessApp
+        return !self.isWindowlessApp && axUiElement != nil
     }
 
     func close() {
@@ -205,7 +205,7 @@ class Window {
     }
 
     func canBeMinDeminOrFullscreened() -> Bool {
-        return !self.isWindowlessApp && !self.isTabbed
+        return !self.isWindowlessApp && !self.isTabbed && axUiElement != nil
     }
 
     func minDemin() {
@@ -218,16 +218,16 @@ class Window {
             return
         }
         BackgroundWork.accessibilityCommandsQueue.addOperation { [weak self] in
-            guard let self else { return }
+            guard let self, let element = self.axUiElement else { return }
             if self.isFullscreen {
-                try? self.axUiElement!.setAttribute(kAXFullscreenAttribute, false)
+                try? element.setAttribute(kAXFullscreenAttribute, false)
                 // minimizing is ignored if sent immediatly; we wait for the de-fullscreen animation to be over
                 BackgroundWork.accessibilityCommandsQueue.addOperationAfter(deadline: .now() + .seconds(1)) { [weak self] in
-                    guard let self else { return }
-                    try? self.axUiElement!.setAttribute(kAXMinimizedAttribute, true)
+                    guard let element = self?.axUiElement else { return }
+                    try? element.setAttribute(kAXMinimizedAttribute, true)
                 }
             } else {
-                try? self.axUiElement!.setAttribute(kAXMinimizedAttribute, !self.isMinimized)
+                try? element.setAttribute(kAXMinimizedAttribute, !self.isMinimized)
             }
         }
     }
@@ -242,8 +242,8 @@ class Window {
             return
         }
         BackgroundWork.accessibilityCommandsQueue.addOperation { [weak self] in
-            guard let self else { return }
-            try? self.axUiElement!.setAttribute(kAXFullscreenAttribute, !self.isFullscreen)
+            guard let self, let element = self.axUiElement else { return }
+            try? element.setAttribute(kAXFullscreenAttribute, !self.isFullscreen)
         }
     }
 
@@ -278,8 +278,8 @@ class Window {
             let originFrontPid = targetMaybeCrossSpace ? NSWorkspace.shared.frontmostApplication?.processIdentifier : nil
             BackgroundWork.accessibilityCommandsQueue.addOperation { [weak self] in
                 guard let self else { return }
-                if self.isMinimized {
-                    try? self.axUiElement!.setAttribute(kAXMinimizedAttribute, false)
+                if self.isMinimized, let element = self.axUiElement {
+                    try? element.setAttribute(kAXMinimizedAttribute, false)
                 }
                 // Focusing another app's window reliably takes the steps below. The public APIs alone don't
                 // move key focus across apps (macOS 14 downgraded NSRunningApplication.activate to an advisory
@@ -300,7 +300,7 @@ class Window {
                 GetProcessForPID(self.application.pid, &psn)
                 _SLPSSetFrontProcessWithOptions(&psn, self.cgWindowId!, SLPSMode.userGenerated.rawValue)
                 makeKeyWindow(&psn, self.cgWindowId!)
-                if self.axUiElement!.raiseWindow() == .invalidUIElement, let fresh = self.refreshedAxElement() {
+                if let element = self.axUiElement, element.raiseWindow() == .invalidUIElement, let fresh = self.refreshedAxElement() {
                     fresh.raiseWindow()
                     DispatchQueue.main.async { [weak self] in
                         guard let self, self.axUiElement != fresh else { return }

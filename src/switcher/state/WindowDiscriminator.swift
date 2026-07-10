@@ -57,17 +57,31 @@ class WindowDiscriminator {
         return true
     }
 
-    /// Acquire the AX element for a WindowServer-discovered wid, rejecting (with a log) when AX can't resolve
-    /// it to a live window: the wid isn't in the app's `kAXWindows` on its Space and no brute-force token
-    /// matched. That's a window CGS still lists but AX no longer backs — a transient that never ordered in
-    /// (Joplin), or a window torn down between the snapshot and this read. Off-main (AX IPC), like the
-    /// underlying `WindowElementAcquisition`.
-    static func acquireElementOrReject(_ wid: CGWindowID, _ pid: pid_t, _ route: WindowAcquisitionPolicy.Route) -> AXUIElement? {
-        guard let element = WindowElementAcquisition.element(for: wid, pid: pid, route: route) else {
+    /// Acquire the AX element for a WindowServer-discovered wid. An ordinary miss stays rejected: it is often
+    /// a transient or torn-down window. The distinct malformed-kAXWindows result is preserved so discovery can
+    /// keep a WindowServer-only window until the macOS accessibility session recovers.
+    static func acquireElement(_ wid: CGWindowID, _ pid: pid_t, _ route: WindowAcquisitionPolicy.Route) -> WindowElementAcquisition.Resolution {
+        let resolution = WindowElementAcquisition.resolve(for: wid, pid: pid, route: route)
+        switch resolution {
+        case .unavailable:
             Logger.debug { "Window rejected (pid:\(pid) wid:\(wid)) because no live AX window element could be acquired for it" }
-            return nil
+        case .malformedApplicationWindows:
+            Logger.info { "Window retained without AX (pid:\(pid) wid:\(wid)) because kAXWindows returned AXApplication elements" }
+        case .acquired:
+            break
         }
-        return element
+        return resolution
+    }
+
+    /// Coarse fallback used only after the poisoned-kAXWindows shape was observed. WindowServer level, identity,
+    /// and geometry keep obvious chrome out; precise AX subrole/app-specific discrimination resumes on recovery.
+    static func isActualWindowWithoutAx(_ app: Application, _ raw: WsRawWindow) -> Bool {
+        guard WindowAcquisitionPolicy.windowServerFallbackIsEligible(wid: raw.wid, level: raw.level, size: raw.bounds.size) else {
+            Logger.debug { logTemplate("it failed the WindowServer-only identity/level/size gates", app, raw.wid, CGWindowLevel(raw.level), raw.title, nil, nil, raw.bounds.size) }
+            return false
+        }
+        Logger.debug { "Window accepted with WindowServer-only evidence \(app.debugId) (wid:\(raw.wid) level:\(raw.level) title:\(raw.title) size:\(raw.bounds.size))" }
+        return true
     }
 
     private static func isStandardSubrole(_ subrole: String?) -> Bool {

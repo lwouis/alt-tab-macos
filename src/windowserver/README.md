@@ -38,6 +38,12 @@ wid, and cached** — current-Space via `kAXWindows`, other-Space via a targeted
 old every-show exhaustive scan. A window we can't get an element for still shows and is focusable (focus is
 wid/psn-based); only minimize/close/fullscreen no-op until it reaches the current Space and self-heals.
 
+An ordinary acquisition miss is still rejected: it is usually a transient or torn-down window. The fallback
+is enabled only when `kAXWindows` returns the poisoned macOS shape — an `AXApplication` element with wid `0` —
+which violates the attribute's window-element contract. In that state the level/identity/geometry-qualified
+WindowServer skeleton is retained with a nil AX element. Every inventory refresh retries acquisition; a valid
+AX window upgrades the skeleton in place and restores precise discrimination, tabs, minimized state and actions.
+
 ## Pure vs impure
 
 Pure kernels are co-located triads (`Foo.swift` + `FooSpecs.md` + `FooTests.swift`), compiled into both the

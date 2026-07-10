@@ -53,6 +53,7 @@
 		5C5A1100000000000000B102 /* WsWindowStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5A1100000000000000B101 /* WsWindowStateTests.swift */; };
 		5C5A1100000000000000C002 /* WindowAcquisitionPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5A1100000000000000C001 /* WindowAcquisitionPolicy.swift */; };
 		5C5A1100000000000000C003 /* WindowAcquisitionPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5A1100000000000000C001 /* WindowAcquisitionPolicy.swift */; };
+		5C5A1100000000000000C102 /* WindowAcquisitionPolicyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5A1100000000000000C101 /* WindowAcquisitionPolicyTests.swift */; };
 		5C5A1100000000000000D002 /* WindowServerQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5A1100000000000000D001 /* WindowServerQuery.swift */; };
 		5C5A1100000000000000F002 /* WindowElementAcquisition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5A1100000000000000F001 /* WindowElementAcquisition.swift */; };
 		5EA8E110000000000000DA02 /* DragAndDropResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA8E110000000000000DA01 /* DragAndDropResolver.swift */; };
@@ -426,6 +427,7 @@
 		5C5A1100000000000000B001 /* WsWindowState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WsWindowState.swift; sourceTree = "<group>"; };
 		5C5A1100000000000000B101 /* WsWindowStateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WsWindowStateTests.swift; sourceTree = "<group>"; };
 		5C5A1100000000000000C001 /* WindowAcquisitionPolicy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowAcquisitionPolicy.swift; sourceTree = "<group>"; };
+		5C5A1100000000000000C101 /* WindowAcquisitionPolicyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowAcquisitionPolicyTests.swift; sourceTree = "<group>"; };
 		5C5A1100000000000000D001 /* WindowServerQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowServerQuery.swift; sourceTree = "<group>"; };
 		5C5A1100000000000000F001 /* WindowElementAcquisition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowElementAcquisition.swift; sourceTree = "<group>"; };
 		5EA8E110000000000000DA01 /* DragAndDropResolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DragAndDropResolver.swift; sourceTree = "<group>"; };
@@ -910,6 +912,7 @@
 				5C5A1100000000000000B001 /* WsWindowState.swift */,
 				5C5A1100000000000000B101 /* WsWindowStateTests.swift */,
 				5C5A1100000000000000C001 /* WindowAcquisitionPolicy.swift */,
+				5C5A1100000000000000C101 /* WindowAcquisitionPolicyTests.swift */,
 				5C5A1100000000000000D001 /* WindowServerQuery.swift */,
 				5C5A1100000000000000F001 /* WindowElementAcquisition.swift */,
 			);
@@ -1930,6 +1933,7 @@
 				5C5A1100000000000000B003 /* WsWindowState.swift in Sources */,
 				5C5A1100000000000000B102 /* WsWindowStateTests.swift in Sources */,
 				5C5A1100000000000000C003 /* WindowAcquisitionPolicy.swift in Sources */,
+				5C5A1100000000000000C102 /* WindowAcquisitionPolicyTests.swift in Sources */,
 				5EA8E110000000000000F203 /* SchedulingPolicy.swift in Sources */,
 				5EA8E110000000000000F212 /* SchedulingPolicyTests.swift in Sources */,
 				5EA8E110000000000000DA03 /* DragAndDropResolver.swift in Sources */,

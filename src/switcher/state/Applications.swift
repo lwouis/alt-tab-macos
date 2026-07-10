@@ -113,9 +113,7 @@ class Applications {
                     // genuinely-new windows.
                     guard Windows.byWindowId[raw.wid]?.axUiElement == nil else { continue }
                     AXCallScheduler.shared.schedule(key: "wid-\(raw.wid)-acquire", context: app.debugId, pid: raw.pid, scan: true) {
-                        if let element = WindowDiscriminator.acquireElementOrReject(raw.wid, raw.pid, .otherSpaceViaBruteForce) {
-                            addDiscoveredWindow(element, raw, app)
-                        }
+                        addResolvedWindow(WindowDiscriminator.acquireElement(raw.wid, raw.pid, .otherSpaceViaBruteForce), raw, app)
                     }
                 }
                 // regular apps with no windows show as an icon placeholder. It's dropped when a real window
@@ -125,6 +123,19 @@ class Applications {
                 for app in list { _ = app.addWindowlessWindowIfNeeded() }
                 applyPhantomVerdict(inVisible: visibleWids, inAll: allWids)
             }
+        }
+    }
+
+    /// Route a successful AX acquire through full discovery, retain a WindowServer-only skeleton for the
+    /// poisoned-kAXWindows failure, and leave ordinary misses rejected. Runs off-main from AXCallScheduler.
+    static func addResolvedWindow(_ resolution: WindowElementAcquisition.Resolution, _ raw: WsRawWindow, _ app: Application) {
+        switch resolution {
+        case let .acquired(element):
+            addDiscoveredWindow(element, raw, app)
+        case .malformedApplicationWindows:
+            addWindowServerOnlyWindow(raw, app)
+        case .unavailable:
+            break
         }
     }
 
@@ -168,19 +179,7 @@ class Applications {
                     let wasRemovedFromSpaceWhileUntracked = Windows.windowsPendingSpaceRemoval.remove(wid) != nil
                     let findOrCreate = Windows.findOrCreate(element, wid, app, CGWindowLevel(raw.level), a.title, a.subrole, a.role, raw.bounds.size, raw.bounds.origin, isFullscreen, isMinimized)
                     guard let window = findOrCreate.0 else { return }
-                    // override Window.init's current-Space default with the real Space resolved above (new
-                    // windows only; existing ones stay live via events / syncSpacesState).
-                    if findOrCreate.1 {
-                        if wasRemovedFromSpaceWhileUntracked {
-                            // It got a removed-from-Space event while still untracked → it's a background tab.
-                            // Force it Space-less: the per-window CGS query still reports its OLD Space here
-                            // (stale right after backgrounding), so trusting that would keep it looking like a
-                            // separate on-screen window; the empty is what lets geometry group it (#5830).
-                            window.applySpacesAndScreen([wid: []])
-                        } else if !spaceIds.isEmpty {
-                            window.applySpacesAndScreen([wid: spaceIds])
-                        }
-                    }
+                    applyInitialSpaces(window, wid, findOrCreate.1, wasRemovedFromSpaceWhileUntracked, spaceIds)
                     window.isMainWindow = a.isMain ?? false
                     var tabStateChanged = false
                     if tabSiblingTitles != nil || window.tabbedSiblingWids != nil {
@@ -195,6 +194,38 @@ class Applications {
                     }
                 }
             }
+        }
+    }
+
+    /// The AX inventory is observably malformed, but WindowServer still has an authoritative top-level window.
+    /// Keep enough state to render, capture, focus and track MRU. Full scans retry AX because axUiElement stays
+    /// nil; `Windows.findOrCreate` upgrades or removes this coarse candidate when a real AXWindow returns.
+    static func addWindowServerOnlyWindow(_ raw: WsRawWindow, _ app: Application) {
+        let wid = raw.wid
+        guard wid != 0 else { return }
+        let spaceIds = app.pid == AXUIElement.currentProcessPid ? [CGSSpaceID]() : CGSCallScheduler.windowSpaces(wid)
+        DispatchQueue.main.async { [weak app] in
+            guard let app else { return }
+            windowAttributesThrottler.throttleOrProceed(key: "\(wid)-generic") {
+                let wasRemovedFromSpaceWhileUntracked = Windows.windowsPendingSpaceRemoval.remove(wid) != nil
+                let findOrCreate = Windows.findOrCreateWithoutAx(raw, app)
+                guard let window = findOrCreate.0 else { return }
+                applyInitialSpaces(window, wid, findOrCreate.1, wasRemovedFromSpaceWhileUntracked, spaceIds)
+                if findOrCreate.1 {
+                    TabGroup.reconcile()
+                    Logger.info { "discovered a WindowServer-only window:\(window.debugId)" }
+                    App.refreshOpenUiAfterExternalEvent([window])
+                }
+            }
+        }
+    }
+
+    private static func applyInitialSpaces(_ window: Window, _ wid: CGWindowID, _ isNew: Bool, _ wasRemovedFromSpaceWhileUntracked: Bool, _ spaceIds: [CGSSpaceID]) {
+        guard isNew else { return }
+        if wasRemovedFromSpaceWhileUntracked {
+            window.applySpacesAndScreen([wid: []])
+        } else if !spaceIds.isEmpty {
+            window.applySpacesAndScreen([wid: spaceIds])
         }
     }
 
@@ -263,9 +294,7 @@ class Applications {
             DispatchQueue.main.async {
                 guard Windows.byWindowId[wid] == nil, let app = findOrCreate(raw.pid, false) else { return }
                 AXCallScheduler.shared.schedule(key: "wid-\(wid)-acquire", context: app.debugId, pid: raw.pid, scan: true) {
-                    if let element = WindowDiscriminator.acquireElementOrReject(wid, raw.pid, .currentSpaceViaApplicationWindows) {
-                        addDiscoveredWindow(element, raw, app)
-                    }
+                    addResolvedWindow(WindowDiscriminator.acquireElement(wid, raw.pid, .currentSpaceViaApplicationWindows), raw, app)
                 }
             }
         }
