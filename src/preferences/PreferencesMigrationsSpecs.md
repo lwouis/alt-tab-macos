@@ -14,7 +14,7 @@
 - **Order matters**: `updateToNewPreferences` runs migrations newest-threshold-first; some depend on keys earlier ones leave behind. The per-migration tests isolate each, but the registration list in `updateToNewPreferences` is the integration contract.
 - **Idempotency**: `migrateExceptionsTitleArray` must be safe to re-run — already-migrated (array-form) data fails to decode into the legacy (`String?`) shape, triggering an early return that leaves data untouched.
 - **A quirk worth knowing** (pinned by a test): the global→per-shortcut grouping migration copies the global value into the indexed keys, but because index 0's key *is* the old global key, that key is removed at the end — so slot 0 ends up unset while slots 2…10 hold the value.
-- **Testability**: production reads/writes `UserDefaults.standard`; the tests inject an isolated suite via `PreferencesMigrations.defaults` (reset in `tearDown`) so they never touch the dev machine's real prefs.
+- **Testability**: production reads/writes `UserDefaults.standard`; the tests inject an isolated suite via `PreferencesMigrations.defaults` (reset in `tearDown`) so they never touch the dev machine's real prefs. `migrateAppearanceSizeIndexes` also touches the license suite through `ProTransitionState.defaults` (the `proTransition.remembered*` indices); the test target's stand-in for that type points at its own suite for the same reason.
 - **Not covered** (documented gaps): `migrateShortcutPreferencesToSecureCoding` (needs the real NSKeyedArchiver/ShortcutRecorder codec, stubbed compile-only) and `migrateLoginItem` (mutates real Login Items via deprecated LaunchServices APIs).
 
 ---
@@ -76,6 +76,13 @@ Mirrors `PreferencesMigrationsTests.swift` 1:1.
 ### L/M. Width / size splits
 - **testMinMaxWidthZeroBecomesOne** — `windowMinWidthInRow "0"` → `"1"`.
 - **testMaxSizeOnScreenSplitsIntoWidthAndHeight** — `maxScreenUsage` → both `maxWidthOnScreen` + `maxHeightOnScreen`.
+
+### L2. `AppearanceSizePreference` gained XS + XL
+- **testAppearanceSizeIndexesShiftForInsertedExtraSmallAndExtraLarge** — `appearanceSize "0"` (small) → `"1"`.
+- **testAppearanceSizeAutoJumpsPastExtraLarge** — `"3"` (auto) → `"5"`, the only two-step shift.
+- **testAppearanceSizePerShortcutOverridesShiftToo** — `appearanceSizeOverride` / `…Override2` / `…Override10` remap identically.
+- **testAppearanceSizeLeavesUnsetKeysUnset** — an unset key stays absent, so `hasOverride(_:_:)` (which reads `persistentDomain`) doesn't start seeing phantom overrides.
+- **testAppearanceSizeRemembersProSelectionAcrossTheShift** — `proTransition.rememberedAppearanceSize` `3` → `5`, so unlocking Pro restores `.auto` and not `.large`.
 
 ### N. Shortcut key cleanup + index move
 - **testNextWindowShortcutStripsHoldModifierChars** — hold-modifier chars removed from `nextWindowShortcut` (`"⌥⇥"` → `"⇥"`).
