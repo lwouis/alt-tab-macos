@@ -71,6 +71,29 @@ final class CustomRecorderControlTests: XCTestCase {
         XCTAssertEqual(CustomRecorderControlTestable.isShortcutAcceptable("nextWindowShortcut", Shortcut(keyEquivalent: "t")!), .accepted)
     }
 
+    /// Issue #5455. The reporter's config (from their `defaults read`): S1 = hold ⌘ + press ⎋,
+    /// S2 = hold ⌥ + press `. That config already double-assigns ⌘⎋ — Cancel is ⎋, and under S1's
+    /// own ⌘ hold that is S1's trigger. Nothing re-validates a saved config, so it sits there.
+    ///
+    /// Giving another shortcut a ⌘ hold (how you reach ⌘` from here) recomputes Cancel under ⌘,
+    /// hits that same ⌘⎋, and was rejected with "already assigned to Shortcut 1 - Trigger" — a
+    /// collision the edit doesn't create, naming a shortcut the user isn't touching. Only chords
+    /// the edit actually introduces should be reported.
+    func testIsShortcutAcceptable_preExistingCollisionDoesNotBlockAnUnrelatedEdit() {
+        ControlsTab.shortcuts = ControlsTab.defaultShortcuts
+        ControlsTab.shortcuts["holdShortcut"] = ATShortcut(Shortcut(keyEquivalent: "⌘")!, "holdShortcut", .global, .up, 0)
+        ControlsTab.shortcuts["nextWindowShortcut"] = ATShortcut(Shortcut(keyEquivalent: "⌘⎋")!, "nextWindowShortcut", .global, .down)
+        ControlsTab.shortcuts["holdShortcut2"] = ATShortcut(Shortcut(keyEquivalent: "⌥")!, "holdShortcut2", .global, .up, 1)
+        ControlsTab.shortcuts["nextWindowShortcut2"] = ATShortcut(Shortcut(keyEquivalent: "⌥`")!, "nextWindowShortcut2", .global, .down)
+        defer { ControlsTab.shortcuts = ControlsTab.defaultShortcuts }
+        // the edit the reporter couldn't make: S2's hold ⌥ -> ⌘, giving them ⌘`
+        XCTAssertEqual(CustomRecorderControlTestable.isShortcutAcceptable("holdShortcut2", Shortcut(keyEquivalent: "⌘")!), .accepted)
+        // a collision the edit DOES introduce is still reported: ⌥⎋ is free today, so giving S2 the
+        // press ⎋ newly clashes with Cancel under S2's own ⌥ hold
+        XCTAssertEqual(CustomRecorderControlTestable.isShortcutAcceptable("nextWindowShortcut2", Shortcut(keyEquivalent: "⎋")!),
+            .conflictWithExistingShortcut(shortcutAlreadyAssigned: "cancelShortcut"))
+    }
+
     func testIsShortcutAcceptable_reservedByMacos() {
         XCTAssertEqual(CustomRecorderControlTestable.isShortcutAcceptable("previousWindowShortcut", Shortcut(keyEquivalent: "⌘⇧")!), .accepted) // ⌘⎋
         XCTAssertEqual(CustomRecorderControlTestable.isShortcutAcceptable("previousWindowShortcut", Shortcut(keyEquivalent: "⌘⌃⇧")!), .accepted) // ⌘⎋

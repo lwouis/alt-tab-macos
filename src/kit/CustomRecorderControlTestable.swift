@@ -27,7 +27,7 @@ class CustomRecorderControlTestable {
         let oldCombos = oldCombinationsExcludingTargetOfCandidate(candidateId)
         // TODO: a user can assign a shortcut that's both .conflictWithExistingShortcut and .reservedByMacos
         // It's a mess to deal with. Current implem may let them bypass isReservedByMacos. Would be nice to think about what UX to do here
-        if let alreadyAssigned = isAlreadyUsedByAnotherShortcut(newCombos, oldCombos) {
+        if let alreadyAssigned = isAlreadyUsedByAnotherShortcut(newCombos, oldCombos, currentCombinations()) {
             return .conflictWithExistingShortcut(shortcutAlreadyAssigned: alreadyAssigned)
         }
         if let shortcutUsingEscape = isReservedByMacos(newCombos) {
@@ -88,10 +88,21 @@ class CustomRecorderControlTestable {
     }
 
     static func oldCombinationsExcludingTargetOfCandidate(_ candidateId: String) -> [(String, Shortcut)] {
+        combinations { isRecomputedInNewCombinations(candidateId, $0) }
+    }
+
+    /// Every chord the saved configuration already produces, with no candidate edit applied.
+    /// Used to tell a collision the edit introduces from one that was already there.
+    static func currentCombinations() -> [(String, Shortcut)] {
+        combinations { _ in false }
+    }
+
+    /// hold × non-hold chords over the shortcut registry, skipping the ids `isExcluded` rejects.
+    private static func combinations(_ isExcluded: (String) -> Bool) -> [(String, Shortcut)] {
         var holds = [ATShortcut]()
         var nonHolds = [ATShortcut]()
         for atShortcut in ControlsTab.shortcuts.values {
-            guard !isRecomputedInNewCombinations(candidateId, atShortcut.id)
+            guard !isExcluded(atShortcut.id)
                       && !(atShortcut.shortcut.keyCode == .none && atShortcut.shortcut.modifierFlags == []) else { continue }
             if atShortcut.id.starts(with: "holdShortcut") {
                 holds.append(atShortcut)
@@ -120,8 +131,12 @@ class CustomRecorderControlTestable {
         return nil
     }
 
-    static func isAlreadyUsedByAnotherShortcut(_ newCombos: [(String, Shortcut)] , _ oldCombos: [(String, Shortcut)]) -> String? {
+    static func isAlreadyUsedByAnotherShortcut(_ newCombos: [(String, Shortcut)] , _ oldCombos: [(String, Shortcut)], _ currentCombos: [(String, Shortcut)] = []) -> String? {
         for newCombo in newCombos {
+            // A chord this same id already produces isn't introduced by the edit. Reporting it anyway
+            // blocks an unrelated change with a collision the saved config already had, naming a
+            // shortcut the user isn't editing and can't fix from that dialog (issue #5455).
+            if currentCombos.contains(where: { $0.0 == newCombo.0 && sameChord($0.1, newCombo.1) }) { continue }
             for oldCombo in oldCombos {
                 guard !(newCombo.0 == oldCombo.0) else { continue }
                 if (newCombo.1.keyCode == oldCombo.1.keyCode && newCombo.1.modifierFlags == oldCombo.1.modifierFlags)
@@ -133,6 +148,10 @@ class CustomRecorderControlTestable {
             }
         }
         return nil
+    }
+
+    private static func sameChord(_ a: Shortcut, _ b: Shortcut) -> Bool {
+        a.carbonKeyCode == b.carbonKeyCode && a.carbonModifierFlags == b.carbonModifierFlags
     }
 
     /// commandTab and commandKeyAboveTab are self-contained in the "nextWindowShortcut" shortcuts
