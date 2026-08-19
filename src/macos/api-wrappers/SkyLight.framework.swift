@@ -159,9 +159,27 @@ func SLSRequestScreenCaptureAccess() -> UInt8
 @_silgen_name("CGSSetSymbolicHotKeyEnabled") @discardableResult
 func CGSSetSymbolicHotKeyEnabled(_ hotKey: CGSSymbolicHotKey.RawValue, _ isEnabled: Bool) -> CGError
 
-func setNativeCommandTabEnabled(_ isEnabled: Bool, _ hotkeys: [CGSSymbolicHotKey] = CGSSymbolicHotKey.allCases) {
-    for hotkey in hotkeys {
-        CGSSetSymbolicHotKeyEnabled(hotkey.rawValue, isEnabled)
+/// reports whether a symbolic hotkey is currently enabled, i.e. whether WindowServer will consume it
+@_silgen_name("CGSIsSymbolicHotKeyEnabled")
+func CGSIsSymbolicHotKeyEnabled(_ hotKey: CGSSymbolicHotKey.RawValue) -> Bool
+
+/// Which native hotkeys AltTab has switched off. Only ever touched from the main thread, via the
+/// two functions below.
+private var nativeHotkeyOwnership = NativeHotkeyOwnership()
+
+/// Switch off the native hotkeys AltTab needs for itself, and take ownership of them.
+/// Ones the user had already switched off stay unclaimed, so `restoreNativeHotkeys` leaves them off.
+func disableNativeHotkeys(_ hotkeys: [CGSSymbolicHotKey]) {
+    for hotkey in nativeHotkeyOwnership.claim(Set(hotkeys), { CGSIsSymbolicHotKeyEnabled($0.rawValue) }) {
+        CGSSetSymbolicHotKeyEnabled(hotkey.rawValue, false)
+    }
+}
+
+/// Switch back on only the native hotkeys AltTab itself switched off. The state is global and
+/// outlives the app, so anything AltTab didn't disable belongs to the user and is left untouched.
+func restoreNativeHotkeys(_ hotkeys: [CGSSymbolicHotKey] = CGSSymbolicHotKey.allCases) {
+    for hotkey in nativeHotkeyOwnership.release(Set(hotkeys)) {
+        CGSSetSymbolicHotKeyEnabled(hotkey.rawValue, true)
     }
 }
 

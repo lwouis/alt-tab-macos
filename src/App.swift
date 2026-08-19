@@ -564,8 +564,8 @@ extension App: NSApplicationDelegate {
     }
 
     func applicationWillTerminate(_ notification: Notification) {
-        // symbolic hotkeys state persist after the app is quit; we restore this shortcut before quitting
-        setNativeCommandTabEnabled(true)
+        // symbolic hotkeys state persist after the app is quit; we restore the ones we disabled before quitting
+        restoreNativeHotkeys()
     }
 
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {

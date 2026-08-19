@@ -84,3 +84,63 @@ final class NativeHotkeyResolverTests: XCTestCase {
         XCTAssertEqual(result.enable, [.commandTab, .commandShiftTab, .commandKeyAboveTab])
     }
 }
+
+/// Pins `NativeHotkeyOwnership` against issue #5455: AltTab must switch back on only the native
+/// hotkeys it switched off itself, never one the user turned off in System Settings.
+final class NativeHotkeyOwnershipTests: XCTestCase {
+    private let allOn: (CGSSymbolicHotKey) -> Bool = { _ in true }
+    private let allOff: (CGSSymbolicHotKey) -> Bool = { _ in false }
+
+    /// The regression: the user turned ⌘` off themselves, AltTab never claimed it, so releasing the
+    /// hotkeys AltTab doesn't need must not switch it back on.
+    func testDoesNotEnableAHotkeyTheUserDisabled() {
+        var ownership = NativeHotkeyOwnership()
+        XCTAssertEqual(ownership.claim([.commandKeyAboveTab], allOff), [])
+        XCTAssertEqual(ownership.release([.commandTab, .commandShiftTab, .commandKeyAboveTab]), [])
+    }
+
+    /// The normal path: AltTab switches ⌘⇥ off, then puts it back when it no longer needs it.
+    func testRestoresOnlyWhatItDisabled() {
+        var ownership = NativeHotkeyOwnership()
+        XCTAssertEqual(ownership.claim([.commandTab], allOn), [.commandTab])
+        XCTAssertEqual(ownership.disabledByAltTab, [.commandTab])
+        XCTAssertEqual(ownership.release([.commandTab, .commandShiftTab, .commandKeyAboveTab]), [.commandTab])
+        XCTAssertEqual(ownership.disabledByAltTab, [])
+    }
+
+    /// `toggleNativeCommandTabIfNeeded` runs on every shortcut edit, so claiming must be idempotent:
+    /// a hotkey already owned isn't re-issued (and `isEnabled` reads false for it by then anyway).
+    func testClaimingAnAlreadyOwnedHotkeyIsANoop() {
+        var ownership = NativeHotkeyOwnership()
+        _ = ownership.claim([.commandTab], allOn)
+        XCTAssertEqual(ownership.claim([.commandTab], allOff), [])
+        XCTAssertEqual(ownership.disabledByAltTab, [.commandTab])
+    }
+
+    /// Releasing a hotkey AltTab owns must only report it once; a second release is a no-op, so
+    /// quitting after the settings already released it doesn't switch anything on.
+    func testReleasingTwiceOnlyRestoresOnce() {
+        var ownership = NativeHotkeyOwnership()
+        _ = ownership.claim([.commandTab], allOn)
+        XCTAssertEqual(ownership.release([.commandTab]), [.commandTab])
+        XCTAssertEqual(ownership.release([.commandTab]), [])
+    }
+
+    /// A partial release (the settings dropping ⌘⇥ while ⌘` stays bound) leaves the other hotkey
+    /// owned, so quitting still restores it.
+    func testPartialReleaseKeepsOtherHotkeysOwned() {
+        var ownership = NativeHotkeyOwnership()
+        _ = ownership.claim([.commandTab, .commandKeyAboveTab], allOn)
+        XCTAssertEqual(ownership.release([.commandTab]), [.commandTab])
+        XCTAssertEqual(ownership.disabledByAltTab, [.commandKeyAboveTab])
+        XCTAssertEqual(ownership.release(Set(CGSSymbolicHotKey.allCases)), [.commandKeyAboveTab])
+    }
+
+    /// Mixed state: of the two AltTab asks for, only the one the user had on is claimed.
+    func testClaimsOnlyTheHotkeysThatWereOn() {
+        var ownership = NativeHotkeyOwnership()
+        let claimed = ownership.claim([.commandTab, .commandKeyAboveTab], { $0 == .commandTab })
+        XCTAssertEqual(Set(claimed), [.commandTab])
+        XCTAssertEqual(ownership.disabledByAltTab, [.commandTab])
+    }
+}

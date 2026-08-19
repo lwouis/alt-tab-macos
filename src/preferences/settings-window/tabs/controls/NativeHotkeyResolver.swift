@@ -55,3 +55,33 @@ enum NativeHotkeyResolver {
         holdShortcutModifiers.contains { (($0 | modifiers1) == ($0 | modifiers2)) }
     }
 }
+
+/// Remembers which symbolic hotkeys AltTab itself turned off, so it can turn exactly those back on.
+///
+/// The enabled/disabled state of a symbolic hotkey is global, user-owned (System Settings > Keyboard
+/// > Keyboard Shortcuts), and persists after AltTab quits — see `CGSSetSymbolicHotKeyEnabled`. So
+/// "AltTab no longer needs ⌘`" must mean "put ⌘` back the way the user had it", never "switch ⌘` on".
+/// Without this bookkeeping, a user who had turned a hotkey off got it silently switched back on, and
+/// WindowServer then consumed the keystroke before AltTab's Carbon hotkey or its shortcut recorder
+/// could ever see it (issue #5455).
+///
+/// Pure state machine so it is unit-testable: `isEnabled` is injected, and the CGS calls live in
+/// `disableNativeHotkeys` / `restoreNativeHotkeys` in `SkyLight.framework.swift`.
+struct NativeHotkeyOwnership {
+    private(set) var disabledByAltTab = Set<CGSSymbolicHotKey>()
+
+    /// Of `hotkeys`, the ones to actually switch off: not already ours, and currently on. A hotkey
+    /// the user had already turned off is left unclaimed, so we won't switch it on later.
+    mutating func claim(_ hotkeys: Set<CGSSymbolicHotKey>, _ isEnabled: (CGSSymbolicHotKey) -> Bool) -> [CGSSymbolicHotKey] {
+        let claimed = hotkeys.filter { !disabledByAltTab.contains($0) && isEnabled($0) }
+        disabledByAltTab.formUnion(claimed)
+        return Array(claimed)
+    }
+
+    /// Of `hotkeys`, the ones to actually switch back on: only those we previously claimed.
+    mutating func release(_ hotkeys: Set<CGSSymbolicHotKey>) -> [CGSSymbolicHotKey] {
+        let released = disabledByAltTab.intersection(hotkeys)
+        disabledByAltTab.subtract(released)
+        return Array(released)
+    }
+}

@@ -799,8 +799,8 @@ class ControlsTab {
             shortcuts[Preferences.indexToName("holdShortcut", i)]?.shortcut.carbonModifierFlags
         }
         let result = NativeHotkeyResolver.resolve(shortcuts: snapshots, holdShortcutModifiers: holdShortcutModifiers)
-        setNativeCommandTabEnabled(false, Array(result.disable))
-        setNativeCommandTabEnabled(true, Array(result.enable))
+        disableNativeHotkeys(Array(result.disable))
+        restoreNativeHotkeys(Array(result.enable))
     }
 
     @objc static func shortcutChangedCallback(_ sender: NSControl) {

@@ -29,9 +29,9 @@ func printStackTrace() {
     }
 }
 
-// during an emergency exit, we re-enable the native command+tab, and log
+// during an emergency exit, we restore the native hotkeys we disabled, and log
 fileprivate func emergencyExit(_ logs: Any?...) {
-    setNativeCommandTabEnabled(true)
+    restoreNativeHotkeys()
     print(logs)
     printStackTrace()
     makeSureAllCapturesAreFinished()
