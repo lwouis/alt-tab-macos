@@ -2,6 +2,23 @@ import XCTest
 import ShortcutRecorder
 
 final class CustomRecorderControlTests: XCTestCase {
+    /// Every `conflictWithExistingShortcut` / `reservedByMacos` assertion in this file names the
+    /// shortcut it expects to be blamed. A hand-written `==` that switched on the cases alone made
+    /// all of those names decorative — any two conflicts compared equal, so a wrong blame passed.
+    /// Pin that the payload is part of equality.
+    func testAcceptanceEqualityComparesTheBlamedShortcut() {
+        XCTAssertNotEqual(
+            ShortcutAcceptance.conflictWithExistingShortcut(shortcutAlreadyAssigned: "holdShortcut"),
+            ShortcutAcceptance.conflictWithExistingShortcut(shortcutAlreadyAssigned: "cancelShortcut"))
+        XCTAssertNotEqual(
+            ShortcutAcceptance.reservedByMacos(shortcutUsingEscape: "holdShortcut"),
+            ShortcutAcceptance.reservedByMacos(shortcutUsingEscape: "cancelShortcut"))
+        XCTAssertEqual(
+            ShortcutAcceptance.conflictWithExistingShortcut(shortcutAlreadyAssigned: "cancelShortcut"),
+            ShortcutAcceptance.conflictWithExistingShortcut(shortcutAlreadyAssigned: "cancelShortcut"))
+        XCTAssertNotEqual(ShortcutAcceptance.accepted, .modifiersOnlyButContainsKeycode)
+    }
+
     func testIsShortcutAcceptable_accepted() {
         XCTAssertEqual(CustomRecorderControlTestable.isShortcutAcceptable("previousWindowShortcut", Shortcut(keyEquivalent: "⇧⇥")!), .accepted)
         ControlsTab.shortcuts["holdShortcut"] = ATShortcut(Shortcut(keyEquivalent: "⌘⌥")!, "holdShortcut", .global, .up)

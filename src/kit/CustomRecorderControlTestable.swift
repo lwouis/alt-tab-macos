@@ -152,18 +152,6 @@ enum ShortcutAcceptance: Equatable {
     case modifiersOnlyButContainsKeycode
     case conflictWithExistingShortcut(shortcutAlreadyAssigned: String)
     case reservedByMacos(shortcutUsingEscape: String)
-
-    static func == (lhs: ShortcutAcceptance, rhs: ShortcutAcceptance) -> Bool {
-        switch (lhs, rhs) {
-        case (.accepted, .accepted),
-             (.modifiersOnlyButContainsKeycode, .modifiersOnlyButContainsKeycode),
-             (.reservedByMacos, .reservedByMacos),
-             (.conflictWithExistingShortcut, .conflictWithExistingShortcut):
-            return true
-        default:
-            return false
-        }
-    }
 }
 /// Hard-set Force-Quit chords. macOS reserves these and they cannot be unbound, so AltTab refuses
 /// to assign them. (`⌘⎋` was previously listed here for Game Overlay; it's been removed because
