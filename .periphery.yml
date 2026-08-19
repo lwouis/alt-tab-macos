@@ -4,3 +4,5 @@ schemes:
 index_exclude:
   - vendor/**
   - src/api-wrappers/private-apis/**
+build_arguments:
+  - CODE_SIGN_IDENTITY=-

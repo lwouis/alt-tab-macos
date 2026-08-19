@@ -1,0 +1,14 @@
+name: Unused code
+
+on:
+  pull_request:
+  push:
+    branches: ["master"]
+
+jobs:
+  periphery:
+    permissions:
+      actions: read
+      contents: read
+      id-token: write
+    uses: periphery-pro/actions/.github/workflows/scan.yml@v1
