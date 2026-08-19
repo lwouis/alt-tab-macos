@@ -264,21 +264,22 @@ class Windows {
             currentWindowIsDrawn: currentWindowIsDrawn())
     }
 
-    /// Is the window the user is on among the drawn tiles? Asked of the APP, not of the window: if any tile
-    /// belongs to the frontmost app then the window they are looking at is either that tile or one the
-    /// filters kept out for a reason of its own, and either way the front of the list is not the window they
-    /// want to land on. Only when no tile at all belongs to the frontmost app is it certain the current
-    /// window is missing from the list — which is exactly what `Non-active apps` does on purpose (#5941).
+    /// Is the window the user is on among the drawn tiles? Collects the frontmost app's windows and lets
+    /// `SelectionResolver.currentWindowIsDrawn` decide; that is where the rule and its two cases live.
     ///
-    /// Asking the app rather than `application.focusedWindow` is deliberate: that AX read can be stale or
-    /// nil, and answering `false` while the user's window IS drawn would make the default select the window
-    /// they are already on. The app-level question cannot fail that way.
+    /// Asked of the APP, not of `application.focusedWindow`: that AX read can be stale or nil, and answering
+    /// `false` while the user's window IS drawn would make the default select the window they are already
+    /// on. The app-level question cannot fail that way.
     ///
     /// No frontmost app (nothing active, or AltTab launched into an empty front) means nothing is being
     /// filtered against it either, so the ordinary rule applies.
     private static func currentWindowIsDrawn() -> Bool {
         guard let frontmostPid = Applications.frontmostPid else { return true }
-        return list.contains { $0.application.pid == frontmostPid && shouldDisplay($0) }
+        return SelectionResolver.currentWindowIsDrawn(list.compactMap {
+            $0.application.pid == frontmostPid
+                ? FrontmostAppWindow(isWindowlessApp: $0.isWindowlessApp, isDrawn: shouldDisplay($0))
+                : nil
+        })
     }
 
     /// Project `list` into the kernel's window view (just the fields selection needs).

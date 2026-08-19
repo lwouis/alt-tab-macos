@@ -63,6 +63,14 @@ struct SelectionInputs: Equatable {
     var currentWindowIsDrawn = true
 }
 
+/// One window of the frontmost app, as `currentWindowIsDrawn` sees it.
+struct FrontmostAppWindow: Equatable {
+    /// The placeholder tile an app with no windows gets, not a window the user can be looking at.
+    let isWindowlessApp: Bool
+    /// Passed `Windows.shouldDisplay`, i.e. survived this shortcut's filters.
+    let isDrawn: Bool
+}
+
 /// What the kernel recommends. Wrapper translates this into side effects (highlight redraws,
 /// scroll-to-visible, thumbnail preview, etc.).
 enum SelectionDecision: Equatable {
@@ -117,6 +125,28 @@ enum SelectionResolver {
         }
         // 6) Target gone — adapt to the closest visible.
         return adapt(i, visibleIndexes: visibleIndexes, lastVisible: visibleIndexes.last!)
+    }
+
+    /// Is the window the user is looking at among the drawn tiles? Pure half of
+    /// `Windows.currentWindowIsDrawn`, which passes the frontmost app's windows.
+    ///
+    /// Two different situations produce "the frontmost app owns no drawn tile", and only one of them means
+    /// the user's window is missing from the list:
+    ///
+    /// - Its windows are in the model but a filter dropped them (`Apps to show: Non-active apps`). The user
+    ///   is looking at one of them, it isn't drawn, and the front tile is already the previous window — so
+    ///   don't step over it (#5941).
+    /// - It has no window to draw at all, because its last one was just closed. Nothing was filtered. The
+    ///   window the user is now looking at belongs to a different app and sits at the front of the MRU, so
+    ///   the ordinary rule applies and the front tile must be stepped over (#5960). Answering `false` here
+    ///   selected the window the user was already on.
+    ///
+    /// A windowless app is the placeholder tile for the second case, never something the user is looking at,
+    /// so it doesn't count as a window the filters could have dropped.
+    static func currentWindowIsDrawn(_ frontmostAppWindows: [FrontmostAppWindow]) -> Bool {
+        let realWindows = frontmostAppWindows.filter { !$0.isWindowlessApp }
+        guard !realWindows.isEmpty else { return true }
+        return realWindows.contains { $0.isDrawn }
     }
 
     /// Mirrors `setInitialSelectedAndHoveredWindowIndex` — picks the index, defers reset to wrapper.

@@ -519,4 +519,52 @@ final class SelectionResolverTests: XCTestCase {
         XCTAssertNil(SelectionResolver.findTarget(list, nil))
         XCTAssertNil(SelectionResolver.findTarget(list, "missing"))
     }
+
+    // MARK: - G. Frontmost app owns no drawn tile — filtered out vs has no windows (#5960)
+
+    private func fw(windowless: Bool = false, drawn: Bool) -> FrontmostAppWindow {
+        FrontmostAppWindow(isWindowlessApp: windowless, isDrawn: drawn)
+    }
+
+    /// #5941, unchanged: the frontmost app's windows exist but a filter dropped them, so the user IS on one
+    /// of them and the front tile is already the previous window.
+    func testCurrentWindowIsDrawnFalseWhenTheAppsWindowsAreFilteredOut() {
+        XCTAssertFalse(SelectionResolver.currentWindowIsDrawn([fw(drawn: false), fw(drawn: false)]))
+    }
+
+    /// #5960: the user closed the frontmost app's last window, so it has nothing to draw. Nothing was
+    /// filtered — the window they are looking at belongs to another app, at the front of the MRU — so the
+    /// ordinary rule applies and the front tile gets stepped over.
+    func testCurrentWindowIsDrawnTrueWhenTheAppHasNoWindows() {
+        XCTAssertTrue(SelectionResolver.currentWindowIsDrawn([]))
+    }
+
+    /// Same, when the app still occupies a windowless placeholder tile: a placeholder is never a window the
+    /// user is looking at, so it can't stand in for one the filters dropped.
+    func testCurrentWindowIsDrawnTrueWhenTheAppOnlyHasAWindowlessTile() {
+        XCTAssertTrue(SelectionResolver.currentWindowIsDrawn([fw(windowless: true, drawn: true)]))
+        XCTAssertTrue(SelectionResolver.currentWindowIsDrawn([fw(windowless: true, drawn: false)]))
+    }
+
+    /// The ordinary case: at least one of the app's real windows is drawn.
+    func testCurrentWindowIsDrawnTrueWhenOneOfTheAppsWindowsIsDrawn() {
+        XCTAssertTrue(SelectionResolver.currentWindowIsDrawn([fw(drawn: false), fw(drawn: true)]))
+    }
+
+    /// A windowless placeholder alongside real filtered-out windows must not flip the answer: the real
+    /// windows are what the filters dropped, so this is still the #5941 case.
+    func testCurrentWindowIsDrawnFalseWhenRealWindowsAreFilteredOutBesideAPlaceholder() {
+        XCTAssertFalse(SelectionResolver.currentWindowIsDrawn([fw(windowless: true, drawn: true), fw(drawn: false)]))
+    }
+
+    /// #5960 end to end. Terminal frontmost over Chrome/Google and Chrome/YouTube; close Terminal's last
+    /// window and summon. Terminal contributes no window, so the shell now answers `true` and the pick steps
+    /// over the front tile to Chrome/YouTube. Answering `false` selected Chrome/Google — the window already
+    /// on screen — so the shortcut appeared to do nothing.
+    func testInitialPickStepsOverFrontTileAfterTheFrontmostAppLostItsLastWindow() {
+        let list = [w("chromeGoogle"), w("chromeYouTube")]
+        let drawn = SelectionResolver.currentWindowIsDrawn([])
+        let i = inputs(list: list, currentWindowIsDrawn: drawn)
+        XCTAssertEqual(SelectionResolver.decide(i), .resetThenSelect(1))
+    }
 }
