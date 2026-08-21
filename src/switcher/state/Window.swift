@@ -412,6 +412,12 @@ class Window {
                 //      .invalidUIElement and no-ops, so re-resolve the live element by wid, retry, and heal the
                 //      cache; _SLPS/makeKeyWindow above use the wid/psn directly so they're unaffected.
                 //   4. cross-Space only: restore the origin Space's front process (see snapshot above).
+                if self.activateExactDockItemForUnbundledApplication() {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) {
+                        WindowThumbnails.previewSelectedIfNeeded()
+                    }
+                    return
+                }
                 var psn = ProcessSerialNumber()
                 GetProcessForPID(self.application.pid, &psn)
                 _SLPSSetFrontProcessWithOptions(&psn, self.cgWindowId!, SLPSMode.userGenerated.rawValue)
@@ -437,6 +443,42 @@ class Window {
                 }
             }
         }
+    }
+
+    /// An executable-hosted GUI has no app bundle for LaunchServices to activate. If Dock exposes an item
+    /// whose URL is exactly that executable, pressing it reproduces the user's Dock action without guessing
+    /// from a process or window title. Apps the filesystem classifies as applications retain the established
+    /// targeted-window focus path; an unreadable classification also stays on that safer path.
+    private func activateExactDockItemForUnbundledApplication() -> Bool {
+        guard isUnbundledApplication else { return false }
+        let identityUrls = Set([application.bundleURL, application.executableURL].compactMap { $0 }.compactMap {
+            $0.isFileURL ? $0.standardizedFileURL.resolvingSymlinksInPath() : nil
+        })
+        guard !identityUrls.isEmpty,
+              let dock = NSRunningApplication.runningApplications(withBundleIdentifier: "com.apple.dock").first else { return false }
+        let dockElement = AXUIElementCreateApplication(dock.processIdentifier)
+
+        func visit(_ element: AXUIElement, depth: Int) -> Bool {
+            guard depth < 5 else { return false }
+            guard let attributes = try? element.attributes([
+                kAXRoleAttribute, kAXSubroleAttribute, kAXURLAttribute, kAXChildrenAttribute,
+            ]) else { return false }
+            if attributes.role == kAXDockItemRole {
+                let itemUrl = attributes.url?.standardizedFileURL.resolvingSymlinksInPath()
+                if attributes.subrole == kAXApplicationDockItemSubrole, let itemUrl, identityUrls.contains(itemUrl) {
+                    return AXUIElementPerformAction(element, kAXPressAction as CFString) == .success
+                }
+            }
+            return attributes.children?.contains { visit($0, depth: depth + 1) } == true
+        }
+
+        return visit(dockElement, depth: 0)
+    }
+
+    private var isUnbundledApplication: Bool {
+        guard let bundleUrl = application.bundleURL else { return true }
+        guard let values = try? bundleUrl.resourceValues(forKeys: [.isApplicationKey]) else { return false }
+        return values.isApplication == false
     }
 
     // for some windows (e.g. Slack), the AX API doesn't return a title; we try CG API; finally we resort to the app name
