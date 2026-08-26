@@ -38,6 +38,9 @@
 		5883F0A829A5182C0071DB65 /* TrackpadEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5883F0A729A5182C0071DB65 /* TrackpadEvents.swift */; };
 		5E1EC110000000000000C002 /* SelectionResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1EC110000000000000C001 /* SelectionResolver.swift */; };
 		5E1EC110000000000000C003 /* SelectionResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1EC110000000000000C001 /* SelectionResolver.swift */; };
+		5E1EC110000000000000D002 /* CycleWrapResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1EC110000000000000D001 /* CycleWrapResolver.swift */; };
+		5E1EC110000000000000D003 /* CycleWrapResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1EC110000000000000D001 /* CycleWrapResolver.swift */; };
+		5E1EC110000000000000D102 /* CycleWrapResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1EC110000000000000D101 /* CycleWrapResolverTests.swift */; };
 		5E1EC110000000000000C102 /* SelectionResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1EC110000000000000C101 /* SelectionResolverTests.swift */; };
 		5E9E570000000000000F1002 /* GestureTriggerKernel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9E570000000000000F1001 /* GestureTriggerKernel.swift */; };
 		5E9E570000000000000F1003 /* GestureTriggerKernel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9E570000000000000F1001 /* GestureTriggerKernel.swift */; };
@@ -442,6 +445,8 @@
 		5883F0A729A5182C0071DB65 /* TrackpadEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackpadEvents.swift; sourceTree = "<group>"; };
 		5E1EC110000000000000C001 /* SelectionResolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionResolver.swift; sourceTree = "<group>"; };
 		5E1EC110000000000000C101 /* SelectionResolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionResolverTests.swift; sourceTree = "<group>"; };
+		5E1EC110000000000000D001 /* CycleWrapResolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CycleWrapResolver.swift; sourceTree = "<group>"; };
+		5E1EC110000000000000D101 /* CycleWrapResolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CycleWrapResolverTests.swift; sourceTree = "<group>"; };
 		5E9E570000000000000F1001 /* GestureTriggerKernel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureTriggerKernel.swift; sourceTree = "<group>"; };
 		5E9E570000000000000F1101 /* GestureTriggerKernelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureTriggerKernelTests.swift; sourceTree = "<group>"; };
 		5EA8E110000000000000F001 /* AxQueryRouting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxQueryRouting.swift; sourceTree = "<group>"; };
@@ -1075,6 +1080,8 @@
 				5E7C0F70000000000000E101 /* ExceptionMatcherTests.swift */,
 				5E0DE2A0000000000000D101 /* WindowOrderResolverTests.swift */,
 				5E1EC110000000000000C101 /* SelectionResolverTests.swift */,
+				5E1EC110000000000000D001 /* CycleWrapResolver.swift */,
+				5E1EC110000000000000D101 /* CycleWrapResolverTests.swift */,
 			);
 			path = state;
 			sourceTree = "<group>";
@@ -2014,6 +2021,8 @@
 				5FC5980000000000000A0102 /* NativeHotkeyResolverTests.swift in Sources */,
 				5E1EC110000000000000C003 /* SelectionResolver.swift in Sources */,
 				5E1EC110000000000000C102 /* SelectionResolverTests.swift in Sources */,
+				5E1EC110000000000000D003 /* CycleWrapResolver.swift in Sources */,
+				5E1EC110000000000000D102 /* CycleWrapResolverTests.swift in Sources */,
 				5E5EA12C0000000000000003 /* SearchModeResolver.swift in Sources */,
 				5E5EA12C0000000000000102 /* SearchModeResolverTests.swift in Sources */,
 				5E5EA12D0000000000000003 /* ShortcutModifierResolver.swift in Sources */,
@@ -2103,6 +2112,7 @@
 				D04BA8480A8FF466CA89DA5B /* main.swift in Sources */,
 				D04BAFB973C3D28718FAEB87 /* Windows.swift in Sources */,
 				5E1EC110000000000000C002 /* SelectionResolver.swift in Sources */,
+				5E1EC110000000000000D002 /* CycleWrapResolver.swift in Sources */,
 				5E5EA12C0000000000000002 /* SearchModeResolver.swift in Sources */,
 				5E5EA12D0000000000000002 /* ShortcutModifierResolver.swift in Sources */,
 				5F5849A900000000000000A2 /* BruteForceWindowMatch.swift in Sources */,

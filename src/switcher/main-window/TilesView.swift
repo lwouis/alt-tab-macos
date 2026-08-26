@@ -367,8 +367,10 @@ class TilesView {
                     return nil
                 }
             }
-            if ((step > 0 && nextRow < currentRow) || (step < 0 && nextRow > currentRow)) &&
-                   (ATShortcut.lastEventIsARepeat || !KeyRepeatTimer.timerIsSuspended) {
+            if CycleWrapResolver.blocksWrap(CycleAdvance(
+                   isWrapping: (step > 0 && nextRow < currentRow) || (step < 0 && nextRow > currentRow),
+                   allowWrap: allowWrap, lastEventIsARepeat: ATShortcut.lastEventIsARepeat,
+                   isArtificialRepeatTick: KeyRepeatTimer.isFiringArtificialRepeat)) {
                 return nil
             }
             return rows[nextRow]

@@ -12,6 +12,10 @@ class KeyRepeatTimer {
     /// arm-relative schedule.
     static var armedAt: TimeInterval = 0
     static var currentInitialDelay: TimeInterval = 0
+    /// True only for the duration of a synthesized repeat tick. `CycleWrapResolver` gates wrap-around on
+    /// this rather than on `timerIsSuspended`: a modifier-only shortcut keeps its timer armed for the whole
+    /// time the key is held, so armed-ness cannot tell a repeat apart from a real press landing mid-hold.
+    static var isFiringArtificialRepeat = false
 
     static func startRepeatingKeyPreviousWindow() {
         if let shortcut = ControlsTab.shortcuts["previousWindowShortcut"],
@@ -67,6 +71,8 @@ class KeyRepeatTimer {
             } else if KeyRepeatTimerTestable.shouldApplyArtificialRepeat(now: ProcessInfo.processInfo.systemUptime,
                 armedAt: armedAt, panelBecameVisibleAt: SwitcherSession.current?.panelBecameVisibleAt,
                 panelShownAt: SwitcherSession.current?.panelShownAt, initialDelay: currentInitialDelay) {
+                isFiringArtificialRepeat = true
+                defer { isFiringArtificialRepeat = false }
                 block()
             }
             // else: the panel hasn't been VISIBLE for the initial-delay grace yet (a slow show swallowed it);

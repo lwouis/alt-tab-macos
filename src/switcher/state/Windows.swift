@@ -374,9 +374,10 @@ class Windows {
         guard list.contains(where: { shouldDisplay($0) }) else { return }
         session.userPickedSelection = true  // from here the selection is the USER's pick, not the default
         let nextIndex = selectedWindowIndexAfterCycling(step)
-        // don't wrap-around at the end, if key-repeat
-        if (((step > 0 && nextIndex < session.selectedIndex) || (step < 0 && nextIndex > session.selectedIndex)) &&
-            (!allowWrap || ATShortcut.lastEventIsARepeat || !KeyRepeatTimer.timerIsSuspended))
+        let isWrapping = (step > 0 && nextIndex < session.selectedIndex) || (step < 0 && nextIndex > session.selectedIndex)
+        if CycleWrapResolver.blocksWrap(CycleAdvance(isWrapping: isWrapping, allowWrap: allowWrap,
+               lastEventIsARepeat: ATShortcut.lastEventIsARepeat,
+               isArtificialRepeatTick: KeyRepeatTimer.isFiringArtificialRepeat))
                // don't cycle to another row, if !allowWrap
                || (!allowWrap && list[nextIndex].rowIndex != list[session.selectedIndex].rowIndex) {
             return
