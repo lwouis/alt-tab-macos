@@ -1,6 +1,26 @@
 import XCTest
 
 final class WindowCaptureRoutingTests: XCTestCase {
+    func testSwitcherSessionActivityStateTracksUpdates() {
+        let activity = SwitcherSessionActivity()
+
+        XCTAssertFalse(activity.isActive)
+        activity.setActive(true)
+        XCTAssertTrue(activity.isActive)
+        activity.setActive(false)
+        XCTAssertFalse(activity.isActive)
+    }
+
+    func testSwitcherSessionActivityStateIsVisibleAcrossQueues() {
+        let activity = SwitcherSessionActivity()
+        let queue = DispatchQueue(label: "SwitcherSessionActivityTests")
+
+        activity.setActive(true)
+        XCTAssertTrue(queue.sync { activity.isActive })
+        queue.sync { activity.setActive(false) }
+        XCTAssertFalse(activity.isActive)
+    }
+
     func testWindowServerCaptureUsesPrimaryImage() {
         var fallbackCalls = 0
 

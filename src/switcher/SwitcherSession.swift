@@ -1,5 +1,22 @@
 import Cocoa
 
+final class SwitcherSessionActivity {
+    private let lock = NSLock()
+    private var active = false
+
+    var isActive: Bool {
+        lock.lock()
+        defer { lock.unlock() }
+        return active
+    }
+
+    func setActive(_ active: Bool) {
+        lock.lock()
+        self.active = active
+        lock.unlock()
+    }
+}
+
 /// Holds all state scoped to a single switcher invocation: from when the user
 /// first triggers the shortcut to when the panel is dismissed.
 ///
@@ -7,8 +24,11 @@ import Cocoa
 /// user. Lifetime is owned by `App.showUiOrCycleSelection` (creates) and
 /// `App.hideUi` (destroys).
 final class SwitcherSession {
-    static var current: SwitcherSession?
-    static var isActive: Bool { current != nil }
+    private static let activity = SwitcherSessionActivity()
+    static var current: SwitcherSession? {
+        didSet { activity.setActive(current != nil) }
+    }
+    static var isActive: Bool { activity.isActive }
     /// The shortcut index of the currently-active session, or 0 when no session is active.
     /// Used by every per-shortcut effective preference read in `Appearance`, `TileView`, etc.
     static var activeShortcutIndex: Int { current?.shortcutIndex ?? 0 }
