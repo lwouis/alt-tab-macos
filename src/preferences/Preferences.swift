@@ -44,6 +44,7 @@ class Preferences {
             "previewFocusedWindow": "false",
             "captureWindowsInBackground": "true",
             "screenRecordingPermissionSkipped": "false",
+            "screenRecordingPermissionWasGranted": "false",
             "trackpadHapticFeedbackEnabled": "true",
             "settingsWindowShownOnFirstLaunch": "false",
         ]
@@ -124,6 +125,7 @@ class Preferences {
     static var previewSelectedWindow: Bool { CachedUserDefaults.bool("previewFocusedWindow") }
     static var captureWindowsInBackground: Bool { CachedUserDefaults.bool("captureWindowsInBackground") }
     static var screenRecordingPermissionSkipped: Bool { CachedUserDefaults.bool("screenRecordingPermissionSkipped") }
+    static var screenRecordingPermissionWasGranted: Bool { CachedUserDefaults.bool("screenRecordingPermissionWasGranted") }
     static var settingsWindowShownOnFirstLaunch: Bool { CachedUserDefaults.bool("settingsWindowShownOnFirstLaunch") }
 
     // macro values

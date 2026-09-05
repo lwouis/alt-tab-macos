@@ -18,12 +18,20 @@ class PreferencesMigrations {
         let preferencesKey = "preferencesVersion"
         let existingVersion = Self.defaults.string(forKey: preferencesKey)
         ProTransitionState.markFreshInstallIfUnknown(existingVersion == nil)
+        seedScreenRecordingGrantHistory(existingVersion: existingVersion)
         if let versionInPlist = existingVersion {
             if versionInPlist != "#VERSION#" && versionInPlist.compare(App.version, options: .numeric) != .orderedDescending {
                 updateToNewPreferences(versionInPlist)
             }
         }
         Self.defaults.set(App.version, forKey: preferencesKey)
+    }
+
+    static func seedScreenRecordingGrantHistory(existingVersion: String?) {
+        guard existingVersion != nil,
+              Self.defaults.object(forKey: "screenRecordingPermissionWasGranted") == nil,
+              Self.defaults.string(forKey: "screenRecordingPermissionSkipped") != "true" else { return }
+        Self.defaults.set("true", forKey: "screenRecordingPermissionWasGranted")
     }
 
     static func updateToNewPreferences(_ versionInPlist: String) {

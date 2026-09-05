@@ -125,7 +125,7 @@ class Menubar {
     static func refreshPermissionCallout() {
         let dependentFeatures = Preferences.screenRecordingDependentFeatures
         let show = PermissionCalloutResolver.shouldShowCallout(
-            screenRecordingGranted: ScreenRecordingPermission.status == .granted,
+            screenRecordingGranted: !ScreenRecordingPermission.shouldShowPassiveReview,
             dependentFeatures: dependentFeatures)
         if show { permissionCallout?.update(dependentFeatures) }
         togglePermissionCallout(show)
@@ -435,7 +435,7 @@ class PermissionCallout: StackView {
         label.addOrUpdateConstraint(label.widthAnchor, 250)
         let button = NSButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.attributedTitle = NSAttributedString(string: NSLocalizedString("Grant permission", comment: "Menubar callout button"), attributes: [NSAttributedString.Key.foregroundColor: NSColor.white])
+        button.attributedTitle = NSAttributedString(string: NSLocalizedString("Review permission", comment: "Menubar callout button"), attributes: [NSAttributedString.Key.foregroundColor: NSColor.white])
         self.init([label, button], .vertical, true, top: 8, right: 15, bottom: 10, left: 15)
         self.label = label
         self.button = button
@@ -455,7 +455,11 @@ class PermissionCallout: StackView {
         let location = convert(event.locationInWindow, from: nil)
         guard button.frame.contains(location) else { return }
         enclosingMenuItem?.menu?.cancelTracking()
-        Preferences.remove("screenRecordingPermissionSkipped")
+        // CGPreflightScreenCaptureAccess is cached for this process. The explicit Review action clears
+        // the trusted-history shortcut so the new process uses the live ScreenCaptureKit onboarding check.
+        Preferences.remove("screenRecordingPermissionSkipped", false)
+        Preferences.set("screenRecordingPermissionWasGranted", "false", false)
+        NSWorkspace.shared.open(URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_ScreenCapture")!)
         App.restart()
     }
 

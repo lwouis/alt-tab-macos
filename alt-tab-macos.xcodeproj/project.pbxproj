@@ -375,6 +375,9 @@
 		5F117E40000000000000F202 /* PermissionCalloutResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F117E40000000000000F201 /* PermissionCalloutResolver.swift */; };
 		5F117E40000000000000F203 /* PermissionCalloutResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F117E40000000000000F201 /* PermissionCalloutResolver.swift */; };
 		5F117E40000000000000F212 /* PermissionCalloutResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F117E40000000000000F211 /* PermissionCalloutResolverTests.swift */; };
+		5F20AA00000000000000A002 /* ScreenRecordingAuthorizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F20AA00000000000000A001 /* ScreenRecordingAuthorizationTests.swift */; };
+		5F20AA00000000000000A005 /* ScreenRecordingAuthorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F20AA00000000000000A004 /* ScreenRecordingAuthorization.swift */; };
+		5F20AA00000000000000A006 /* ScreenRecordingAuthorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F20AA00000000000000A004 /* ScreenRecordingAuthorization.swift */; };
 		D04BADE4DDF7597749FB13BD /* SettingsWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA099FA155FB4D517D66B /* SettingsWindow.swift */; };
 		D04BAF12DF5D15B9D7D316A4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BA61693F710CD7BD054D7 /* InfoPlist.strings */; };
 		D04BAFB217F9F8E58C3B09AD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BA82BB17B85A88A5D2B87 /* InfoPlist.strings */; };
@@ -769,6 +772,9 @@
 		D04BA7C6F2519091717F4B4E /* SystemPermissions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemPermissions.swift; sourceTree = "<group>"; };
 		5F117E40000000000000F201 /* PermissionCalloutResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionCalloutResolver.swift; sourceTree = "<group>"; };
 		5F117E40000000000000F211 /* PermissionCalloutResolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionCalloutResolverTests.swift; sourceTree = "<group>"; };
+		5F20AA00000000000000A001 /* ScreenRecordingAuthorizationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenRecordingAuthorizationTests.swift; sourceTree = "<group>"; };
+		5F20AA00000000000000A003 /* ScreenRecordingAuthorizationSpecs.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = ScreenRecordingAuthorizationSpecs.md; sourceTree = "<group>"; };
+		5F20AA00000000000000A004 /* ScreenRecordingAuthorization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenRecordingAuthorization.swift; sourceTree = "<group>"; };
 		D04BA7C836A8CE8C0B8D128B /* TextArea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextArea.swift; sourceTree = "<group>"; };
 		D04BA7CF9C2D1BEC7C05AB24 /* Spaces.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Spaces.swift; sourceTree = "<group>"; };
 		D04BA7E3EA104941FE76DA70 /* AppCenterCrashes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppCenterCrashes.swift; sourceTree = "<group>"; };
@@ -1286,6 +1292,9 @@
 				D04BA7C6F2519091717F4B4E /* SystemPermissions.swift */,
 				5F117E40000000000000F201 /* PermissionCalloutResolver.swift */,
 				5F117E40000000000000F211 /* PermissionCalloutResolverTests.swift */,
+				5F20AA00000000000000A001 /* ScreenRecordingAuthorizationTests.swift */,
+				5F20AA00000000000000A003 /* ScreenRecordingAuthorizationSpecs.md */,
+				5F20AA00000000000000A004 /* ScreenRecordingAuthorization.swift */,
 				5FA001000000000000000019 /* LoginItem.swift */,
 				AA0C8A000000000000000001 /* AXCallScheduler.swift */,
 				AA0C8A0000000000000000B1 /* CGSCallScheduler.swift */,
@@ -2117,6 +2126,8 @@
 				5F5790DE7EC7000000000C02 /* PreferencesPersistenceProbeTests.swift in Sources */,
 				5F117E40000000000000F203 /* PermissionCalloutResolver.swift in Sources */,
 				5F117E40000000000000F212 /* PermissionCalloutResolverTests.swift in Sources */,
+				5F20AA00000000000000A002 /* ScreenRecordingAuthorizationTests.swift in Sources */,
+				5F20AA00000000000000A006 /* ScreenRecordingAuthorization.swift in Sources */,
 				5E7C0F70000000000000E003 /* ExceptionMatcher.swift in Sources */,
 				5E7C0F70000000000000E102 /* ExceptionMatcherTests.swift in Sources */,
 				5E0DE2A0000000000000D003 /* WindowOrderResolver.swift in Sources */,
@@ -2218,6 +2229,7 @@
 				F00DCAFE0000000000001003 /* SearchTestable.swift in Sources */,
 				D04BAC011A71E0418154F8CD /* Preferences.swift in Sources */,
 				D04BADCDA9F9A6C3D6499877 /* SystemPermissions.swift in Sources */,
+				5F20AA00000000000000A005 /* ScreenRecordingAuthorization.swift in Sources */,
 				5F117E40000000000000F202 /* PermissionCalloutResolver.swift in Sources */,
 				D04BABEECBC6D922298BC93A /* Spaces.swift in Sources */,
 				D04BA6187A91A847844B6ABB /* Window.swift in Sources */,

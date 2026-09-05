@@ -11,8 +11,9 @@ import XCTest
 ///     / previews / both)?
 ///   - `shouldShowCallout` — given the permission state and the affected features, show?
 ///
-/// Production wires these to real state: `screenRecordingGranted` is `ScreenRecordingPermission.status
-/// == .granted` (so both `.skipped` and `.notGranted` map to `false`), and `dependentFeatures` is
+/// Production wires these to real state: `screenRecordingGranted` is false only for `.skipped` or a
+/// confirmed `.notGranted` state. A temporary probe failure stays true and does not show the callout.
+/// `dependentFeatures` is
 /// `Preferences.screenRecordingDependentFeatures`, which OR-s each feature flag over every shortcut
 /// slot — so a per-shortcut override that enables Thumbnails/Preview on any one slot flips it on.
 /// The shown copy reuses the existing "Thumbnails" translation; only the subject of the sentence varies.
