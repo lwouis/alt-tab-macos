@@ -18,6 +18,7 @@ protects the queue from a system request that never calls its completion handler
 - A late completion closes the circuit. A request submitted after that can start.
 - If completion never arrives, the menu shows a passive restart action. Only the user's action restarts AltTab; permissions are not reset. A restart releases the old process and its outstanding requests.
 - Thumbnail and focused-preview requests use the same process-wide coordinator.
+- A queued focused preview starts before queued thumbnails when a slot becomes available. It does not cancel a request already submitted to the OS.
 
 ## Test scenarios
 
@@ -26,3 +27,4 @@ protects the queue from a system request that never calls its completion handler
 - `testCompletionCanReleaseOnlyOneSlot`
 - `testQueuedCaptureIsDroppedWhenEligibilityChanges`
 - `testLostCompletionsKeepCircuitClosedToNewWork`
+- `testFocusedPreviewStartsBeforeQueuedThumbnails`

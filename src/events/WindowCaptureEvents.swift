@@ -62,6 +62,7 @@ class WindowCaptureScreenshots {
         guard !notCachedWindows.isEmpty else { return }
         ScreenCaptureCoordinator.shared.submit(
             on: .main,
+            priority: requests.values.contains { $0.fullRes } ? .focusedPreview : .normal,
             if: { canSubmit(fullRes: requests.values.contains { $0.fullRes }) }
         ) { completion in
             SCShareableContent.getExcludingDesktopWindows(true,
@@ -149,7 +150,8 @@ class WindowCaptureScreenshots {
         config.height = streamConfig.height
         config.showsCursor = false
         config.dynamicRange = .sdr
-        ScreenCaptureCoordinator.shared.submit(on: .main, if: { canSubmit(fullRes: fullRes) }) { completion in
+        ScreenCaptureCoordinator.shared.submit(on: .main, priority: fullRes ? .focusedPreview : .normal,
+                                               if: { canSubmit(fullRes: fullRes) }) { completion in
             SCScreenshotManager.captureScreenshot(contentFilter: filter,
                                                   configuration: config) { [weak window] output, error in
                 completion()
@@ -173,7 +175,8 @@ class WindowCaptureScreenshots {
     }
 
     private static func captureSampleBuffer(_ filter: SCContentFilter, _ config: SCStreamConfiguration, _ window: Window, _ source: RefreshCausedBy, _ fullRes: Bool) {
-        ScreenCaptureCoordinator.shared.submit(on: .main, if: { canSubmit(fullRes: fullRes) }) { completion in
+        ScreenCaptureCoordinator.shared.submit(on: .main, priority: fullRes ? .focusedPreview : .normal,
+                                               if: { canSubmit(fullRes: fullRes) }) { completion in
             SCScreenshotManager.captureSampleBuffer(contentFilter: filter,
                                                     configuration: config) { [
                 weak window

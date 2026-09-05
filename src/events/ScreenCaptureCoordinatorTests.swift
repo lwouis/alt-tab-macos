@@ -1,6 +1,23 @@
 import XCTest
 
 final class ScreenCaptureCoordinatorTests: XCTestCase {
+    func testFocusedPreviewStartsBeforeQueuedThumbnails() {
+        let coordinator = ScreenCaptureCoordinator(maximumInFlight: 1) { _, _ in }
+        var release: (() -> Void)!
+        var started = [String]()
+        coordinator.submit { release = $0 }
+        coordinator.submit { completion in
+            started.append("thumbnail")
+            completion()
+        }
+        coordinator.submit(priority: .focusedPreview) { completion in
+            started.append("preview")
+            completion()
+        }
+        release()
+        XCTAssertEqual(started, ["preview", "thumbnail"])
+    }
+
     func testLostCompletionsKeepCircuitClosedToNewWork() {
         var watchdogs = [() -> Void]()
         let coordinator = ScreenCaptureCoordinator { _, action in watchdogs.append(action) }

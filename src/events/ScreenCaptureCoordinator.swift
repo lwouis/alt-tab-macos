@@ -1,6 +1,11 @@
 import Foundation
 
 final class ScreenCaptureCoordinator {
+    enum Priority {
+        case normal
+        case focusedPreview
+    }
+
     typealias Completion = () -> Void
     typealias Operation = (@escaping Completion) -> Void
     typealias Scheduler = (TimeInterval, @escaping () -> Void) -> Void
@@ -11,6 +16,7 @@ final class ScreenCaptureCoordinator {
         let operation: Operation
         let queue: DispatchQueue?
         let shouldStart: () -> Bool
+        let priority: Priority
     }
 
     private struct ActiveOperation {
@@ -51,14 +57,16 @@ final class ScreenCaptureCoordinator {
         return circuitOpen
     }
 
-    func submit(on queue: DispatchQueue? = nil, if shouldStart: @escaping () -> Bool = { true },
+    func submit(on queue: DispatchQueue? = nil, priority: Priority = .normal,
+                if shouldStart: @escaping () -> Bool = { true },
                 _ operation: @escaping Operation) {
         lock.lock()
         guard !circuitOpen else {
             lock.unlock()
             return
         }
-        pending.append(PendingOperation(operation: operation, queue: queue, shouldStart: shouldStart))
+        pending.append(PendingOperation(operation: operation, queue: queue,
+                                        shouldStart: shouldStart, priority: priority))
         let next = reserveNextLocked()
         lock.unlock()
         if let next {
@@ -69,7 +77,8 @@ final class ScreenCaptureCoordinator {
     private func reserveNextLocked() -> ActiveOperation? {
         guard !circuitOpen, activeIds.count + timedOutIds.count < maximumInFlight,
               !pending.isEmpty else { return nil }
-        let pendingOperation = pending.removeFirst()
+        let index = pending.firstIndex { $0.priority == .focusedPreview } ?? pending.startIndex
+        let pendingOperation = pending.remove(at: index)
         let id = UUID()
         activeIds.insert(id)
         return ActiveOperation(id: id, operation: pendingOperation.operation,
