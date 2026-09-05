@@ -1,0 +1,23 @@
+# ScreenCaptureCoordinator — Specs
+
+## Summary
+
+The coordinator limits all active ScreenCaptureKit requests in the process. It queues excess work and
+protects the queue from a system request that never calls its completion handler.
+
+## Behavior
+
+- At most two requests can be active.
+- A request gets a slot before it calls ScreenCaptureKit.
+- The normal completion handler releases the slot.
+- A completion handler can release its slot only one time.
+- A ten-second watchdog opens a circuit and drops queued work when ScreenCaptureKit loses a completion.
+- A timed-out request still counts as physically active, so no replacement request can exceed the limit.
+- A late completion closes the circuit. A request submitted after that can start.
+- Thumbnail and focused-preview requests use the same process-wide coordinator.
+
+## Test scenarios
+
+- `testMaximumOfTwoCapturesCanRun`
+- `testWatchdogOpensCircuitUntilLateCompletion`
+- `testCompletionCanReleaseOnlyOneSlot`

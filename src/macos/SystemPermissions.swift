@@ -213,23 +213,26 @@ class ScreenRecordingPermission {
     @available(macOS 12.3, *)
     private static func checkWithSCShareableContent() -> ScreenRecordingProbeResult {
         return runWithTimeout { completion in
-            SCShareableContent.getExcludingDesktopWindows(true, onScreenWindowsOnly: false) { shareableContent, error in
-                if #available(macOS 14.0, *), let shareableContent, error == nil {
-                    BackgroundWork.screenshotsQueue.addOperation {
-                        WindowCaptureScreenshots.cachedSCWindows.withLock { $0 = shareableContent.windows }
+            ScreenCaptureCoordinator.shared.submit { captureCompletion in
+                SCShareableContent.getExcludingDesktopWindows(true, onScreenWindowsOnly: false) { shareableContent, error in
+                    captureCompletion()
+                    if #available(macOS 14.0, *), let shareableContent, error == nil {
+                        BackgroundWork.screenshotsQueue.addOperation {
+                            WindowCaptureScreenshots.cachedSCWindows.withLock { $0 = shareableContent.windows }
+                        }
                     }
-                }
-                if let error {
-                    let nsError = error as NSError
-                    if nsError.domain == SCStreamErrorDomain && nsError.code == SCStreamError.Code.userDeclined.rawValue {
-                        completion(.notGranted)
+                    if let error {
+                        let nsError = error as NSError
+                        if nsError.domain == SCStreamErrorDomain && nsError.code == SCStreamError.Code.userDeclined.rawValue {
+                            completion(.notGranted)
+                        } else {
+                            completion(.temporarilyUnavailable(.screenCaptureKit(domain: nsError.domain, code: nsError.code)))
+                        }
                     } else {
-                        completion(.temporarilyUnavailable(.screenCaptureKit(domain: nsError.domain, code: nsError.code)))
+                        completion(shareableContent == nil
+                            ? .temporarilyUnavailable(.screenCaptureKit(domain: SCStreamErrorDomain, code: -1))
+                            : .granted)
                     }
-                } else {
-                    completion(shareableContent == nil
-                        ? .temporarilyUnavailable(.screenCaptureKit(domain: SCStreamErrorDomain, code: -1))
-                        : .granted)
                 }
             }
         }

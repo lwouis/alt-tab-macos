@@ -56,19 +56,26 @@ class WindowCaptureScreenshots {
 
     private static func handleNotCachedWindows(_ notCachedWindows: [CGWindowID], _ requests: [CGWindowID: CaptureRequest], _ source: RefreshCausedBy, _ prioritized: Set<CGWindowID>) {
         guard !notCachedWindows.isEmpty else { return }
-        SCShareableContent.getExcludingDesktopWindows(true, onScreenWindowsOnly: false) { shareableContent, error in
-            guard let shareableContent, error == nil else { Logger.error { "\(shareableContent == nil) \(error)" }; return }
-            guard source != .refreshOnlyThumbnailsAfterShowUi || SwitcherSession.isActive else { return }
-            // this callback is executed on an undetermined queue; we move execution to screenshotsQueue
-            BackgroundWork.screenshotsQueue.addOperation {
-                cachedSCWindows.withLock { $0 = shareableContent.windows }
+        ScreenCaptureCoordinator.shared.submit { completion in
+            SCShareableContent.getExcludingDesktopWindows(true, onScreenWindowsOnly: false) { shareableContent, error in
+                completion()
+                guard let shareableContent, error == nil else {
+                    Logger.error { "\(shareableContent == nil) \(error)" }
+                    if let error { ScreenRecordingPermission.reportCaptureFailure(error) }
+                    return
+                }
                 guard source != .refreshOnlyThumbnailsAfterShowUi || SwitcherSession.isActive else { return }
-                for notCachedWindow in notCachedWindows {
-                    guard let request = requests[notCachedWindow] else { continue }
-                    if let cachedWindow = (shareableContent.windows.first { $0.windowID == notCachedWindow }) {
-                        oneTimeCapture(cachedWindow, request, source, prioritized.contains(notCachedWindow))
-                    } else {
-                        Logger.debug { "wid:\(notCachedWindow) was not found in SCShareableContent windows" }
+                // this callback is executed on an undetermined queue; we move execution to screenshotsQueue
+                BackgroundWork.screenshotsQueue.addOperation {
+                    cachedSCWindows.withLock { $0 = shareableContent.windows }
+                    guard source != .refreshOnlyThumbnailsAfterShowUi || SwitcherSession.isActive else { return }
+                    for notCachedWindow in notCachedWindows {
+                        guard let request = requests[notCachedWindow] else { continue }
+                        if let cachedWindow = (shareableContent.windows.first { $0.windowID == notCachedWindow }) {
+                            oneTimeCapture(cachedWindow, request, source, prioritized.contains(notCachedWindow))
+                        } else {
+                            Logger.debug { "wid:\(notCachedWindow) was not found in SCShareableContent windows" }
+                        }
                     }
                 }
             }
@@ -101,50 +108,57 @@ class WindowCaptureScreenshots {
             guard !App.isTerminating, !ScreenLockEvents.isScreenLocked, let window else { return }
             let config = SCStreamConfiguration.forWindow(scWindow, size, scaleFactor, request.fullRes, false)
             let filter = SCContentFilter(desktopIndependentWindow: scWindow)
-            // Through the gate, not merely counted: these APIs are ASYNCHRONOUS, so the `screenshotsQueue`
-            // slot frees the moment the request is handed to the OS, and a show of 60 windows fired 60
-            // simultaneous requests — the burst #5861 blames for wedging replayd machine-wide.
-            ActiveWindowCaptures.run { finish in
-                // captureSampleBuffer spins up a short-lived capture stream per call; on some macOS 26 machines that
-                // churn leaks WindowServer memory until the session is force-logged-out (#5786), and the per-call
-                // replayd attribution work can wedge screenshots machine-wide under bursts (#5861). captureScreenshot
-                // avoids the churn but fails (SCStreamError -3811) on fullscreen windows whose Space is inactive, so
-                // that one case stays on captureSampleBuffer. Its CGImage copy (vs a shared IOSurface) is acceptable
-                // even at full resolution now that Preview frames are fetched lazily, a few per session (#5861).
-                if #available(macOS 26.0, *), !request.isFullscreen {
-                    captureScreenshot(filter, config, window, source, request.fullRes, finish)
-                } else {
-                    captureSampleBuffer(filter, config, window, source, request.fullRes, finish)
-                }
+            // captureSampleBuffer spins up a short-lived capture stream per call; on some macOS 26 machines that
+            // churn leaks WindowServer memory until the session is force-logged-out (#5786), and the per-call
+            // replayd attribution work can wedge screenshots machine-wide under bursts (#5861). captureScreenshot
+            // avoids the churn but fails (SCStreamError -3811) on fullscreen windows whose Space is inactive, so
+            // that one case stays on captureSampleBuffer. Its CGImage copy (vs a shared IOSurface) is acceptable
+            // even at full resolution now that Preview frames are fetched lazily, a few per session (#5861).
+            if #available(macOS 26.0, *), !request.isFullscreen {
+                captureScreenshot(filter, config, window, source, request.fullRes)
+            } else {
+                captureSampleBuffer(filter, config, window, source, request.fullRes)
             }
         }
     }
 
     @available(macOS 26.0, *)
-    private static func captureScreenshot(_ filter: SCContentFilter, _ streamConfig: SCStreamConfiguration, _ window: Window, _ source: RefreshCausedBy, _ fullRes: Bool, _ finish: @escaping () -> Void) {
+    private static func captureScreenshot(_ filter: SCContentFilter, _ streamConfig: SCStreamConfiguration, _ window: Window, _ source: RefreshCausedBy, _ fullRes: Bool) {
         let config = SCScreenshotConfiguration()
         config.width = streamConfig.width
         config.height = streamConfig.height
         config.showsCursor = false
         config.dynamicRange = .sdr
-        SCScreenshotManager.captureScreenshot(contentFilter: filter, configuration: config) { [weak window] output, error in
-            finish()
-            guard let window else { return }
-            // no captureSampleBuffer fallback: the only known failure is a stale isFullscreen snapshot during a
-            // fullscreen transition, and the next refresh re-routes it. Retrying here would silently reintroduce
-            // the stream churn this path exists to avoid, and would hide new failure modes from the logs.
-            guard let cgImage = output?.sdrImage, error == nil else { Logger.error { "\(window.debugId) \(output == nil) \(error)" }; return }
-            deliver(window, source, .cgImage(cgImage), fullRes)
+        ScreenCaptureCoordinator.shared.submit { completion in
+            SCScreenshotManager.captureScreenshot(contentFilter: filter, configuration: config) { [weak window] output, error in
+                completion()
+                guard let window else { return }
+                // no captureSampleBuffer fallback: the only known failure is a stale isFullscreen snapshot during a
+                // fullscreen transition, and the next refresh re-routes it. Retrying here would silently reintroduce
+                // the stream churn this path exists to avoid, and would hide new failure modes from the logs.
+                guard let cgImage = output?.sdrImage, error == nil else {
+                    Logger.error { "\(window.debugId) \(output == nil) \(error)" }
+                    if let error { ScreenRecordingPermission.reportCaptureFailure(error) }
+                    return
+                }
+                deliver(window, source, .cgImage(cgImage), fullRes)
+            }
         }
     }
 
-    private static func captureSampleBuffer(_ filter: SCContentFilter, _ config: SCStreamConfiguration, _ window: Window, _ source: RefreshCausedBy, _ fullRes: Bool, _ finish: @escaping () -> Void) {
-        SCScreenshotManager.captureSampleBuffer(contentFilter: filter, configuration: config) { [weak window] sampleBuffer, error in
-            finish()
-            guard let window else { return }
-            guard let sampleBuffer, error == nil else { Logger.error { "\(window.debugId) \(sampleBuffer == nil) \(error)" }; return }
-            guard let pixelBuffer = sampleBuffer.pixelBuffer() ?? sampleBuffer.imageBuffer else { Logger.error { "\(window.debugId) no pixelBuffer" }; return }
-            deliver(window, source, .pixelBuffer(pixelBuffer), fullRes)
+    private static func captureSampleBuffer(_ filter: SCContentFilter, _ config: SCStreamConfiguration, _ window: Window, _ source: RefreshCausedBy, _ fullRes: Bool) {
+        ScreenCaptureCoordinator.shared.submit { completion in
+            SCScreenshotManager.captureSampleBuffer(contentFilter: filter, configuration: config) { [weak window] sampleBuffer, error in
+                completion()
+                guard let window else { return }
+                guard let sampleBuffer, error == nil else {
+                    Logger.error { "\(window.debugId) \(sampleBuffer == nil) \(error)" }
+                    if let error { ScreenRecordingPermission.reportCaptureFailure(error) }
+                    return
+                }
+                guard let pixelBuffer = sampleBuffer.pixelBuffer() ?? sampleBuffer.imageBuffer else { Logger.error { "\(window.debugId) no pixelBuffer" }; return }
+                deliver(window, source, .pixelBuffer(pixelBuffer), fullRes)
+            }
         }
     }
 
@@ -198,12 +212,9 @@ class WindowCaptureScreenshotsPrivateApi {
         guard !App.isTerminating, !ScreenLockEvents.isScreenLocked else { return nil }
         // we use CGSHWCaptureWindowList because it can screenshot minimized windows, which CGWindowListCreateImage can't
         var windowId_ = wid
-        // Synchronous, so it was already bounded by the 8-wide `screenshotsQueue`; through the same gate
-        // anyway, so in-flight captures have ONE accounting whichever path took them.
-        var list = [CGImage]()
-        ActiveWindowCaptures.runSync {
-            list = CGSHWCaptureWindowList(CGS_CONNECTION, &windowId_, 1, [.ignoreGlobalClipShape, .bestResolution, .fullSize]).takeRetainedValue() as! [CGImage]
-        }
+        ActiveWindowCaptures.increment()
+        let list = CGSHWCaptureWindowList(CGS_CONNECTION, &windowId_, 1, [.ignoreGlobalClipShape, .bestResolution, .fullSize]).takeRetainedValue() as! [CGImage]
+        ActiveWindowCaptures.decrement()
         return list.first
     }
 }
@@ -388,96 +399,10 @@ extension CMSampleBuffer {
     }
 }
 
-/// **The gate on in-flight window captures**, and the counter `main.swift` drains at quit (macOS pops
-/// permission dialogs for a capture still outstanding when the process dies, #5106).
-///
-/// It became a gate because the ScreenCaptureKit path is ASYNCHRONOUS: `SCScreenshotManager` hands the
-/// request to the OS and returns, freeing its `screenshotsQueue` slot at once, so the 8-wide queue bounded
-/// nothing and a show of 60 windows fired 60 simultaneous requests. The private-API path never had that
-/// problem — `CGSHWCaptureWindowList` blocks, so the queue width WAS its bound — and the bound was simply
-/// never carried over when ScreenCaptureKit became the macOS 26 path. `maxInFlight` restores it.
 class ActiveWindowCaptures {
-    /// Parity with the `screenshotsQueue` width, which is the bound the synchronous path always had.
-    private static let maxInFlight = 8
-    /// A capture the OS never answers must not hold its slot for the life of the session: #5861 has replayd
-    /// wedging machine-wide under bursts, which is exactly when a lost callback is likeliest and exactly when
-    /// the remaining slots matter most. Generous, because a slow capture is not a lost one — this is the
-    /// pathological case only, and it matches the drain budget `makeSureAllCapturesAreFinished` allows.
-    private static let watchdogSeconds = 5.0
+    private static var _count: Int32 = 0
 
-    private static let lock = NSLock()
-    private static var inFlight = 0
-    private static var waiting = [(@escaping () -> Void) -> Void]()
-
-    /// Run `capture` once a slot is free. `capture` receives a `finish` closure it MUST call when the OS
-    /// answers; calling it more than once is safe and calling it late (after the watchdog fired) is a no-op.
-    static func run(_ capture: @escaping (@escaping () -> Void) -> Void) {
-        lock.lock()
-        guard inFlight < maxInFlight else {
-            waiting.append(capture)
-            lock.unlock()
-            return
-        }
-        inFlight += 1
-        lock.unlock()
-        start(capture)
-    }
-
-    /// For the synchronous private-API path: counts, runs, releases. It does not WAIT for a slot and does
-    /// not need a watchdog — a blocking call cannot lose its answer, and the 8-wide queue it runs on is
-    /// already the bound. Here only so both paths report through one counter at quit.
-    static func runSync(_ capture: () -> Void) {
-        lock.lock()
-        inFlight += 1
-        lock.unlock()
-        capture()
-        release()
-    }
-
-    private static func start(_ capture: @escaping (@escaping () -> Void) -> Void) {
-        // one-shot: whoever gets there first (the OS callback or the watchdog) releases the slot exactly once
-        let done = FinishOnce()
-        let finish = { if done.claim() { release() } }
-        DispatchQueue.global().asyncAfter(deadline: .now() + watchdogSeconds) {
-            guard done.claim() else { return }
-            Logger.warning { "a window capture never answered after \(Int(watchdogSeconds))s; releasing its slot" }
-            release()
-        }
-        capture(finish)
-    }
-
-    private static func release() {
-        lock.lock()
-        inFlight -= 1
-        var next: ((@escaping () -> Void) -> Void)?
-        // Nothing queued may still be started once we are shutting down: the whole reason quit drains this
-        // counter is that macOS pops permission dialogs for a capture outstanding when the process dies.
-        if App.isTerminating {
-            waiting.removeAll()
-        } else if !waiting.isEmpty {
-            next = waiting.removeFirst()
-            inFlight += 1
-        }
-        lock.unlock()
-        if let next { start(next) }
-    }
-
-    static func value() -> Int {
-        lock.lock()
-        defer { lock.unlock() }
-        return inFlight
-    }
-
-    private class FinishOnce {
-        private let lock = NSLock()
-        private var claimed = false
-
-        func claim() -> Bool {
-            lock.lock()
-            defer { lock.unlock() }
-            if claimed { return false }
-            claimed = true
-            return true
-        }
-    }
+    static func increment() { OSAtomicIncrement32(&_count) }
+    static func decrement() { OSAtomicDecrement32(&_count) }
+    static func value() -> Int { Int(OSAtomicAdd32(0, &_count)) + ScreenCaptureCoordinator.shared.inFlightCount }
 }
