@@ -381,6 +381,9 @@
 		5F20BB00000000000000B002 /* ScreenCaptureCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F20BB00000000000000B001 /* ScreenCaptureCoordinatorTests.swift */; };
 		5F20BB00000000000000B005 /* ScreenCaptureCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F20BB00000000000000B004 /* ScreenCaptureCoordinator.swift */; };
 		5F20BB00000000000000B006 /* ScreenCaptureCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F20BB00000000000000B004 /* ScreenCaptureCoordinator.swift */; };
+		5F20CC00000000000000C002 /* WindowCaptureRoutingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F20CC00000000000000C001 /* WindowCaptureRoutingTests.swift */; };
+		5F20CC00000000000000C005 /* WindowCaptureRouting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F20CC00000000000000C004 /* WindowCaptureRouting.swift */; };
+		5F20CC00000000000000C006 /* WindowCaptureRouting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F20CC00000000000000C004 /* WindowCaptureRouting.swift */; };
 		D04BADE4DDF7597749FB13BD /* SettingsWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA099FA155FB4D517D66B /* SettingsWindow.swift */; };
 		D04BAF12DF5D15B9D7D316A4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BA61693F710CD7BD054D7 /* InfoPlist.strings */; };
 		D04BAFB217F9F8E58C3B09AD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BA82BB17B85A88A5D2B87 /* InfoPlist.strings */; };
@@ -781,6 +784,9 @@
 		5F20BB00000000000000B001 /* ScreenCaptureCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenCaptureCoordinatorTests.swift; sourceTree = "<group>"; };
 		5F20BB00000000000000B003 /* ScreenCaptureCoordinatorSpecs.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = ScreenCaptureCoordinatorSpecs.md; sourceTree = "<group>"; };
 		5F20BB00000000000000B004 /* ScreenCaptureCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenCaptureCoordinator.swift; sourceTree = "<group>"; };
+		5F20CC00000000000000C001 /* WindowCaptureRoutingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowCaptureRoutingTests.swift; sourceTree = "<group>"; };
+		5F20CC00000000000000C003 /* WindowCaptureRoutingSpecs.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = WindowCaptureRoutingSpecs.md; sourceTree = "<group>"; };
+		5F20CC00000000000000C004 /* WindowCaptureRouting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowCaptureRouting.swift; sourceTree = "<group>"; };
 		D04BA7C836A8CE8C0B8D128B /* TextArea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextArea.swift; sourceTree = "<group>"; };
 		D04BA7CF9C2D1BEC7C05AB24 /* Spaces.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Spaces.swift; sourceTree = "<group>"; };
 		D04BA7E3EA104941FE76DA70 /* AppCenterCrashes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppCenterCrashes.swift; sourceTree = "<group>"; };
@@ -989,6 +995,9 @@
 				5F20BB00000000000000B001 /* ScreenCaptureCoordinatorTests.swift */,
 				5F20BB00000000000000B003 /* ScreenCaptureCoordinatorSpecs.md */,
 				5F20BB00000000000000B004 /* ScreenCaptureCoordinator.swift */,
+				5F20CC00000000000000C001 /* WindowCaptureRoutingTests.swift */,
+				5F20CC00000000000000C003 /* WindowCaptureRoutingSpecs.md */,
+				5F20CC00000000000000C004 /* WindowCaptureRouting.swift */,
 				D04BA4A621A8A15660F973C1 /* KeyboardEvents.swift */,
 				BF0C8643F524515224BF1618 /* KeyboardEventsTestable.swift */,
 				BF0C899905524253DC170B56 /* KeyboardEventsTests.swift */,
@@ -2139,6 +2148,8 @@
 				5F20AA00000000000000A006 /* ScreenRecordingAuthorization.swift in Sources */,
 				5F20BB00000000000000B002 /* ScreenCaptureCoordinatorTests.swift in Sources */,
 				5F20BB00000000000000B006 /* ScreenCaptureCoordinator.swift in Sources */,
+				5F20CC00000000000000C002 /* WindowCaptureRoutingTests.swift in Sources */,
+				5F20CC00000000000000C006 /* WindowCaptureRouting.swift in Sources */,
 				5E7C0F70000000000000E003 /* ExceptionMatcher.swift in Sources */,
 				5E7C0F70000000000000E102 /* ExceptionMatcherTests.swift in Sources */,
 				5E0DE2A0000000000000D003 /* WindowOrderResolver.swift in Sources */,
@@ -2371,6 +2382,7 @@
 				BF0C83578F7292F307E30751 /* PopupButtonLikeSystemSettings.swift in Sources */,
 				5F04852E2F09AC9700235D4A /* WindowCaptureEvents.swift in Sources */,
 				5F20BB00000000000000B005 /* ScreenCaptureCoordinator.swift in Sources */,
+				5F20CC00000000000000C005 /* WindowCaptureRouting.swift in Sources */,
 				1C961F9CF4F1BEDF04ACAEE0 /* Switch.swift in Sources */,
 				1C96182D2ECA735740ED474E /* ImageTextButtonView.swift in Sources */,
 				BF0C860F1779DDE8C0171EA0 /* WindowlessAppIndicator.swift in Sources */,

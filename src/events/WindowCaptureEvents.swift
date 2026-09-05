@@ -7,6 +7,9 @@ class WindowCaptureScreenshots {
     // Wrapped in ConcurrentArray because reads and writes happen from different operations on
     // BackgroundWork.screenshotsQueue, which is concurrent (maxConcurrentOperationCount = 8).
     static let cachedSCWindows = ConcurrentArray<SCWindow>()
+    private static let cooldownLock = NSLock()
+    private static var cooldownUntil = Date.distantPast
+    private static let failureCooldown: TimeInterval = 15
 
     struct CaptureRequest {
         let window: Window
@@ -19,6 +22,7 @@ class WindowCaptureScreenshots {
     /// `fullRes: false` = thumbnail-scale captures, delivered to `Window.thumbnail`.
     /// `fullRes: true` = full-resolution Preview frames, delivered to the session's capped cache (#5861).
     static func oneTimeScreenshots(_ windowsToScreenshot: [Window], _ source: RefreshCausedBy, prioritizedIds: Set<CGWindowID>? = nil, fullRes: Bool = false) {
+        guard !isCoolingDown else { return }
         // Snapshot Window state on the main thread before hopping to screenshotsQueue. Windows.byWindowId,
         // Window.size, Window.screenId, Screens.all, and NSScreen.preferred are plain (lock-free) dictionaries
         // and mutable properties touched only on main; reading them from screenshotsQueue (8-way concurrent)
@@ -57,10 +61,12 @@ class WindowCaptureScreenshots {
     private static func handleNotCachedWindows(_ notCachedWindows: [CGWindowID], _ requests: [CGWindowID: CaptureRequest], _ source: RefreshCausedBy, _ prioritized: Set<CGWindowID>) {
         guard !notCachedWindows.isEmpty else { return }
         ScreenCaptureCoordinator.shared.submit { completion in
+            guard !isCoolingDown else { completion(); return }
             SCShareableContent.getExcludingDesktopWindows(true, onScreenWindowsOnly: false) { shareableContent, error in
                 completion()
                 guard let shareableContent, error == nil else {
                     Logger.error { "\(shareableContent == nil) \(error)" }
+                    beginFailureCooldown()
                     if let error { ScreenRecordingPermission.reportCaptureFailure(error) }
                     return
                 }
@@ -130,6 +136,7 @@ class WindowCaptureScreenshots {
         config.showsCursor = false
         config.dynamicRange = .sdr
         ScreenCaptureCoordinator.shared.submit { completion in
+            guard !isCoolingDown else { completion(); return }
             SCScreenshotManager.captureScreenshot(contentFilter: filter, configuration: config) { [weak window] output, error in
                 completion()
                 guard let window else { return }
@@ -138,6 +145,7 @@ class WindowCaptureScreenshots {
                 // the stream churn this path exists to avoid, and would hide new failure modes from the logs.
                 guard let cgImage = output?.sdrImage, error == nil else {
                     Logger.error { "\(window.debugId) \(output == nil) \(error)" }
+                    beginFailureCooldown()
                     if let error { ScreenRecordingPermission.reportCaptureFailure(error) }
                     return
                 }
@@ -148,11 +156,13 @@ class WindowCaptureScreenshots {
 
     private static func captureSampleBuffer(_ filter: SCContentFilter, _ config: SCStreamConfiguration, _ window: Window, _ source: RefreshCausedBy, _ fullRes: Bool) {
         ScreenCaptureCoordinator.shared.submit { completion in
+            guard !isCoolingDown else { completion(); return }
             SCScreenshotManager.captureSampleBuffer(contentFilter: filter, configuration: config) { [weak window] sampleBuffer, error in
                 completion()
                 guard let window else { return }
                 guard let sampleBuffer, error == nil else {
                     Logger.error { "\(window.debugId) \(sampleBuffer == nil) \(error)" }
+                    beginFailureCooldown()
                     if let error { ScreenRecordingPermission.reportCaptureFailure(error) }
                     return
                 }
@@ -182,6 +192,20 @@ class WindowCaptureScreenshots {
             }
         }
     }
+
+    private static var isCoolingDown: Bool {
+        cooldownLock.lock()
+        defer { cooldownLock.unlock() }
+        return cooldownUntil > Date()
+    }
+
+    private static func beginFailureCooldown() {
+        guard ProcessInfo.processInfo.operatingSystemVersion.majorVersion >= 27 else { return }
+        cooldownLock.lock()
+        cooldownUntil = Date().addingTimeInterval(failureCooldown)
+        cooldownLock.unlock()
+        Logger.warning { "ScreenCaptureKit capture paused for \(failureCooldown)s after an error" }
+    }
 }
 
 class WindowCaptureScreenshotsPrivateApi {
@@ -210,12 +234,27 @@ class WindowCaptureScreenshotsPrivateApi {
 
     private static func oneTimeCapture(_ wid: CGWindowID) -> CGImage? {
         guard !App.isTerminating, !ScreenLockEvents.isScreenLocked else { return nil }
-        // we use CGSHWCaptureWindowList because it can screenshot minimized windows, which CGWindowListCreateImage can't
-        var windowId_ = wid
         ActiveWindowCaptures.increment()
-        let list = CGSHWCaptureWindowList(CGS_CONNECTION, &windowId_, 1, [.ignoreGlobalClipShape, .bestResolution, .fullSize]).takeRetainedValue() as! [CGImage]
-        ActiveWindowCaptures.decrement()
-        return list.first
+        defer { ActiveWindowCaptures.decrement() }
+        return WindowServerCaptureFallback.capture(
+            primary: {
+                var windowId_ = wid
+                let list = CGSHWCaptureWindowList(
+                    CGS_CONNECTION, &windowId_, 1,
+                    [.ignoreGlobalClipShape, .bestResolution, .fullSize]
+                ).takeRetainedValue() as! [CGImage]
+                return list.first
+            },
+            fallback: {
+                Logger.debug {
+                    "CGSHWCaptureWindowList returned no image for wid:\(wid); " +
+                        "using legacy WindowServer capture"
+                }
+                return CGWindowListCreateImageLegacy(
+                    .null, .optionIncludingWindow, wid,
+                    [.boundsIgnoreFraming, .bestResolution]
+                )?.takeRetainedValue()
+            })
     }
 }
 

@@ -36,6 +36,16 @@ func CGSMainConnectionID() -> CGSConnectionID
 @_silgen_name("CGSHWCaptureWindowList")
 func CGSHWCaptureWindowList(_ cid: CGSConnectionID, _ windowList: UnsafeMutablePointer<CGWindowID>, _ windowCount: UInt32, _ options: CGSWindowCaptureOptions) -> Unmanaged<CFArray>
 
+/// Legacy WindowServer capture. The public SDK declaration was obsoleted in macOS 15,
+/// but the symbol remains available. We use it only if CGSHWCaptureWindowList returns no image.
+@_silgen_name("CGWindowListCreateImage")
+func CGWindowListCreateImageLegacy(
+    _ screenBounds: CGRect,
+    _ listOption: CGWindowListOption,
+    _ windowID: CGWindowID,
+    _ imageOption: CGWindowImageOption
+) -> Unmanaged<CGImage>?
+
 /// returns an array of displays (as NSDictionary) -> each having an array of spaces (as NSDictionary) at the "Spaces" key; each having a space ID (as UInt64) at the "id64" key
 /// * macOS 10.10+
 /// /!\ only returns correct values if the user has checked the checkbox in Preferences > Mission Control > "Displays have separate Spaces"
