@@ -1,5 +1,34 @@
 import Foundation
 
+final class ScreenRecordingAuthorizationStore {
+    private let lock = NSLock()
+    private var model: ScreenRecordingAuthorizationModel
+    private var isSkipped = false
+
+    init(wasGranted: Bool) {
+        model = ScreenRecordingAuthorizationModel(wasGranted: wasGranted)
+    }
+
+    var snapshot: (model: ScreenRecordingAuthorizationModel, isSkipped: Bool) {
+        lock.lock()
+        defer { lock.unlock() }
+        return (model, isSkipped)
+    }
+
+    func skip() {
+        lock.lock()
+        isSkipped = true
+        lock.unlock()
+    }
+
+    func receive(_ result: ScreenRecordingProbeResult) -> [ScreenRecordingAuthorizationEffect] {
+        lock.lock()
+        defer { lock.unlock() }
+        isSkipped = false
+        return model.receive(result)
+    }
+}
+
 enum ScreenRecordingProbeFailure: Equatable {
     case timeout
     case screenCaptureKit(domain: String, code: Int)

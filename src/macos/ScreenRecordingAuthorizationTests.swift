@@ -1,6 +1,19 @@
 import XCTest
 
 final class ScreenRecordingAuthorizationTests: XCTestCase {
+    func testConcurrentGrantUpdatesKeepTrustedSnapshot() {
+        let store = ScreenRecordingAuthorizationStore(wasGranted: false)
+        DispatchQueue.concurrentPerform(iterations: 200) { _ in
+            _ = store.receive(.granted)
+            XCTAssertTrue(store.snapshot.model.wasGranted)
+            XCTAssertEqual(store.snapshot.model.state, .granted)
+        }
+        store.skip()
+        XCTAssertTrue(store.snapshot.isSkipped)
+        _ = store.receive(.granted)
+        XCTAssertFalse(store.snapshot.isSkipped)
+    }
+
     func testPermissionTimeoutAfterKnownGrantIsTemporary() {
         var model = ScreenRecordingAuthorizationModel(wasGranted: true)
 

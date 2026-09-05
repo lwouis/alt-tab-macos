@@ -21,7 +21,9 @@ class SystemPermissions {
 
     static func ensurePermissionsAreGranted() {
         timer = DispatchSource.makeTimerSource(queue: BackgroundWork.permissionsCheckOnTimerQueue.strongUnderlyingQueue)
-        timer.setEventHandler(handler: checkPermissionsOnTimer)
+        timer.setEventHandler {
+            BackgroundWork.permissionsCheckOnTimerQueue.addOperation { checkPermissionsOnTimer() }
+        }
         setImmediateTimer()
         timer.resume()
     }
@@ -132,16 +134,25 @@ class AccessibilityPermission {
 }
 
 class ScreenRecordingPermission {
-    static var status = PermissionStatus.notGranted
-    private static var authorization = ScreenRecordingAuthorizationModel(wasGranted: Preferences.screenRecordingPermissionWasGranted)
+    private static let authorization = ScreenRecordingAuthorizationStore(wasGranted: Preferences.screenRecordingPermissionWasGranted)
     private static var confirmationWorkItems = [DispatchWorkItem]()
 
+    static var status: PermissionStatus {
+        let snapshot = authorization.snapshot
+        if snapshot.isSkipped { return .skipped }
+        switch snapshot.model.state {
+            case .unknown, .needsUserReview: return .notGranted
+            case .granted: return .granted
+            case .temporarilyUnavailable: return .temporarilyUnavailable
+        }
+    }
+
     static var canContinueLaunch: Bool {
-        status != .notGranted || authorization.wasGranted
+        status != .notGranted || hasTrustedGrantHistory
     }
 
     static var hasTrustedGrantHistory: Bool {
-        authorization.wasGranted
+        authorization.snapshot.model.wasGranted
     }
 
     static var shouldShowPassiveReview: Bool {
@@ -157,9 +168,9 @@ class ScreenRecordingPermission {
                     receive(.granted)
                 } else {
                     cancelConfirmations()
-                    status = .skipped
+                    authorization.skip()
                 }
-            } else if authorization.wasGranted {
+            } else if hasTrustedGrantHistory {
                 receive(nonPromptingProbe())
             } else {
                 receive(firstUseProbe())
@@ -171,13 +182,13 @@ class ScreenRecordingPermission {
     }
 
     static func reportCaptureFailure(_ error: Error) {
-        guard #available(macOS 10.15, *), authorization.wasGranted else { return }
+        guard #available(macOS 10.15, *), hasTrustedGrantHistory else { return }
         let nsError = error as NSError
         Logger.error { "ScreenCaptureKit capture failed domain:\(nsError.domain) code:\(nsError.code)" }
         BackgroundWork.permissionsCheckOnTimerQueue.addOperation {
             guard confirmationWorkItems.isEmpty else { return }
-            // A successful preflight proves that the capture error is not a permission revocation.
-            // Keep the trusted state. Capture routing applies its own cooldown.
+            // A successful preflight is not evidence of revocation. Keep trusted state and
+            // let capture routing apply its cooldown; macOS can return a cached preflight result.
             guard !CGPreflightScreenCaptureAccess() else { return }
             receive(.temporarilyUnavailable(.screenCaptureKit(domain: nsError.domain, code: nsError.code)))
         }
@@ -279,12 +290,6 @@ class ScreenRecordingPermission {
             Logger.error { "Screen-recording permission probe is temporarily unavailable: \(failure)" }
         }
         let effects = authorization.receive(result)
-        switch authorization.state {
-            case .unknown: status = .temporarilyUnavailable
-            case .granted: status = .granted
-            case .temporarilyUnavailable: status = .temporarilyUnavailable
-            case .needsUserReview: status = .notGranted
-        }
         apply(effects)
         refreshPermissionUi()
     }
@@ -311,7 +316,9 @@ class ScreenRecordingPermission {
             receive(nonPromptingProbe())
         }
         confirmationWorkItems.append(workItem)
-        BackgroundWork.permissionsCheckOnTimerQueue.strongUnderlyingQueue.asyncAfter(deadline: .now() + delay, execute: workItem)
+        BackgroundWork.permissionsCheckOnTimerQueue.addOperationAfter(deadline: .now() + delay) {
+            workItem.perform()
+        }
     }
 
     private static func cancelConfirmations() {

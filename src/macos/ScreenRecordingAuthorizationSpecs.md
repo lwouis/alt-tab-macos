@@ -15,6 +15,8 @@ It separates a first-use denial from a timeout or a later failure.
 - Only a first-use denial requests the normal onboarding permission window.
 - A confirmed failure after a known grant requests only passive review UI.
 - ScreenCaptureKit error domain and code data stay in the probe result.
+- UI and capture workers read locked snapshots. The lock is never held across a system permission call.
+- Timer checks, capture-failure handling, and confirmation work run on the serial permission operation queue, not directly on its concurrent underlying queue.
 
 ## Test scenarios
 
@@ -22,3 +24,4 @@ It separates a first-use denial from a timeout or a later failure.
 - `testFirstUseDenialOpensOnboarding`
 - `testConfirmedLaterFailureUsesPassiveReview`
 - `testRecoveryCancelsConfirmationPeriod`
+- `testConcurrentGrantUpdatesKeepTrustedSnapshot`
