@@ -6,12 +6,17 @@ final class ScreenCaptureCoordinator {
         case focusedPreview
     }
 
+    private enum Stage {
+        case checkingPermission
+        case submitted
+    }
+
     typealias Completion = () -> Void
     typealias Operation = (@escaping Completion) -> Void
     typealias Scheduler = (TimeInterval, @escaping () -> Void) -> Void
 
     static let shared = ScreenCaptureCoordinator(submissionQueue: DispatchQueue(
-        label: "com.lwouis.alt-tab-macos.capture-submission", qos: .userInitiated, attributes: .concurrent
+        label: "com.lwouis.alt-tab-macos.capture-submission", qos: .userInitiated
     ))
 
     private struct PendingOperation {
@@ -31,7 +36,7 @@ final class ScreenCaptureCoordinator {
     private let schedule: Scheduler
     private let submissionQueue: DispatchQueue?
     private let lock = NSLock()
-    private var activeIds = Set<UUID>()
+    private var activeStages = [UUID: Stage]()
     private var timedOutIds = Set<UUID>()
     private var pending = [PendingOperation]()
     private var circuitOpen = false
@@ -51,7 +56,7 @@ final class ScreenCaptureCoordinator {
     var inFlightCount: Int {
         lock.lock()
         defer { lock.unlock() }
-        return activeIds.count + timedOutIds.count
+        return activeStages.count + timedOutIds.count
     }
 
     var isCircuitOpen: Bool {
@@ -70,36 +75,51 @@ final class ScreenCaptureCoordinator {
         }
         pending.append(PendingOperation(operation: operation,
                                         shouldStart: shouldStart, priority: priority))
-        let next = reserveNextLocked()
+        let next = enqueueNextLocked()
         lock.unlock()
         if let next {
             start(next)
         }
     }
 
+    private func enqueueNextLocked() -> ActiveOperation? {
+        guard let next = reserveNextLocked() else { return nil }
+        guard let submissionQueue else { return next }
+        // Enqueue in reservation order, even when two OS callbacks release slots concurrently.
+        submissionQueue.async { self.start(next) }
+        return nil
+    }
+
     private func reserveNextLocked() -> ActiveOperation? {
-        guard !circuitOpen, activeIds.count + timedOutIds.count < maximumInFlight,
+        guard !circuitOpen, activeStages.count + timedOutIds.count < maximumInFlight,
               !pending.isEmpty else { return nil }
         let index = pending.firstIndex { $0.priority == .focusedPreview } ?? pending.startIndex
         let pendingOperation = pending.remove(at: index)
         let id = UUID()
-        activeIds.insert(id)
+        activeStages[id] = .checkingPermission
         return ActiveOperation(id: id, operation: pendingOperation.operation,
                                shouldStart: pendingOperation.shouldStart)
     }
 
     private func start(_ active: ActiveOperation) {
-        let submit = { [self] in
-            guard !isCircuitOpen else { completed(active.id); return }
-            schedule(watchdogSeconds) { [weak self] in self?.watchdogFired(active.id) }
-            guard active.shouldStart(), !isCircuitOpen else { completed(active.id); return }
-            active.operation { [weak self] in self?.completed(active.id) }
+        guard !isCircuitOpen else { completed(active.id); return }
+        schedule(watchdogSeconds) { [weak self] in
+            self?.watchdogFired(active.id, stage: .checkingPermission)
         }
-        if let queue = submissionQueue {
-            queue.async(execute: submit)
-        } else {
-            submit()
+        guard active.shouldStart(), claimSubmission(active.id) else { completed(active.id); return }
+        schedule(watchdogSeconds) { [weak self] in
+            self?.watchdogFired(active.id, stage: .submitted)
         }
+        active.operation { [weak self] in self?.completed(active.id) }
+    }
+
+    private func claimSubmission(_ id: UUID) -> Bool {
+        lock.lock()
+        defer { lock.unlock() }
+        guard !circuitOpen, activeStages[id] == .checkingPermission else { return false }
+        // This transition and preflight expiry share the same lock. Exactly one wins.
+        activeStages[id] = .submitted
+        return true
     }
 
     private func completed(_ id: UUID) {
@@ -109,17 +129,18 @@ final class ScreenCaptureCoordinator {
             lock.unlock()
             return
         }
-        guard activeIds.remove(id) != nil else { lock.unlock(); return }
-        let next = reserveNextLocked()
+        guard activeStages.removeValue(forKey: id) != nil else { lock.unlock(); return }
+        let next = enqueueNextLocked()
         lock.unlock()
         if let next {
             start(next)
         }
     }
 
-    private func watchdogFired(_ id: UUID) {
+    private func watchdogFired(_ id: UUID, stage: Stage) {
         lock.lock()
-        guard activeIds.remove(id) != nil else { lock.unlock(); return }
+        guard activeStages[id] == stage else { lock.unlock(); return }
+        activeStages.removeValue(forKey: id)
         timedOutIds.insert(id)
         circuitOpen = true
         pending.removeAll()

@@ -1,6 +1,65 @@
 import XCTest
 
 final class ScreenCaptureCoordinatorTests: XCTestCase {
+    func testPreflightDeadlineCannotExpireSubmittedCapture() {
+        var watchdogs = [() -> Void]()
+        let coordinator = ScreenCaptureCoordinator { _, action in watchdogs.append(action) }
+        coordinator.submit { completion in
+            XCTAssertEqual(watchdogs.count, 2)
+            watchdogs[0]()
+            XCTAssertFalse(coordinator.isCircuitOpen)
+            watchdogs.last?()
+            XCTAssertTrue(coordinator.isCircuitOpen)
+            completion()
+        }
+        XCTAssertFalse(coordinator.isCircuitOpen)
+        XCTAssertEqual(coordinator.inFlightCount, 0)
+    }
+
+    func testFocusedPreviewSubmissionIsNotOvertaken() {
+        let coordinator = ScreenCaptureCoordinator.shared
+        let initialSubmissions = expectation(description: "both slots occupied")
+        initialSubmissions.expectedFulfillmentCount = 2
+        let lock = NSLock()
+        var completions = [() -> Void]()
+        for _ in 0 ..< 2 {
+            coordinator.submit { completion in
+                lock.lock()
+                completions.append(completion)
+                lock.unlock()
+                initialSubmissions.fulfill()
+            }
+        }
+        wait(for: [initialSubmissions], timeout: 2)
+        let previewChecking = expectation(description: "preview reaches preflight")
+        let releasePreview = DispatchSemaphore(value: 0)
+        let thumbnailStarted = DispatchSemaphore(value: 0)
+        let finished = expectation(description: "both queued requests finish")
+        finished.expectedFulfillmentCount = 2
+        coordinator.submit { completion in
+            thumbnailStarted.signal()
+            completion()
+            finished.fulfill()
+        }
+        coordinator.submit(priority: .focusedPreview, if: {
+            previewChecking.fulfill()
+            return releasePreview.wait(timeout: .now() + 2) == .success
+        }) { completion in
+            completion()
+            finished.fulfill()
+        }
+        lock.lock()
+        let releases = completions
+        lock.unlock()
+        guard releases.count == 2 else { XCTFail("missing occupied slots"); return }
+        releases[0]()
+        wait(for: [previewChecking], timeout: 2)
+        releases[1]()
+        XCTAssertEqual(thumbnailStarted.wait(timeout: .now() + 0.1), .timedOut)
+        releasePreview.signal()
+        wait(for: [finished], timeout: 2)
+    }
+
     func testWatchdogCoversPreflightWithoutStartingLateCapture() {
         var watchdogs = [() -> Void]()
         let coordinator = ScreenCaptureCoordinator { _, action in watchdogs.append(action) }
@@ -97,7 +156,7 @@ final class ScreenCaptureCoordinatorTests: XCTestCase {
         completions[0]()
         XCTAssertEqual(started, [1, 2, 3])
         XCTAssertEqual(coordinator.inFlightCount, 2)
-        XCTAssertEqual(watchdogs.count, 3)
+        XCTAssertEqual(watchdogs.count, 6)
     }
 
     func testWatchdogOpensCircuitUntilLateCompletion() {
@@ -115,7 +174,7 @@ final class ScreenCaptureCoordinatorTests: XCTestCase {
         coordinator.submit { _ in started.append(2) }
         XCTAssertEqual(started, [1])
 
-        watchdogs[0]()
+        watchdogs.last?()
 
         XCTAssertEqual(started, [1])
         XCTAssertEqual(coordinator.inFlightCount, 1)
