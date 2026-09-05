@@ -20,7 +20,7 @@ final class ScreenCaptureCoordinatorTests: XCTestCase {
         XCTAssertTrue(captured)
     }
 
-    func testSharedCoordinatorSubmitsOutsideMainQueue() async {
+    func testSharedCoordinatorSubmitsOutsideMainQueue() {
         let submitted = expectation(description: "capture submitted off main")
         DispatchQueue.main.async {
             ScreenCaptureCoordinator.shared.submit { completion in
@@ -29,7 +29,7 @@ final class ScreenCaptureCoordinatorTests: XCTestCase {
                 submitted.fulfill()
             }
         }
-        await fulfillment(of: [submitted], timeout: 2)
+        wait(for: [submitted], timeout: 2)
     }
 
     func testFocusedPreviewStartsBeforeQueuedThumbnails() {
