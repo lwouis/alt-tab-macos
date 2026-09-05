@@ -9,8 +9,10 @@ protects the queue from a system request that never calls its completion handler
 
 - At most two requests can be active.
 - A request gets a slot before it calls ScreenCaptureKit.
-- Eligibility is checked again on the submission queue after a slot is available. Ineligible work releases its reserved slot without starting a watchdog or calling the OS.
-- Window captures submit on main, where switcher visibility, preferences, lock state, and non-prompting preflight are checked without a queue hop before the OS call.
+- Eligibility is checked again on the submission queue after a slot is available. Ineligible work releases its reserved slot without calling a capture API.
+- The shared coordinator submits on a concurrent worker queue. Permission preflight and capture submission must not block the main UI thread.
+- Window captures read switcher visibility, preferences, and lock state on main before and after the non-prompting preflight. A closed switcher drops pending work when background capture is disabled.
+- The watchdog starts before preflight. A check that returns after its timeout releases the slot without starting a late capture.
 - The normal completion handler releases the slot.
 - A completion handler can release its slot only one time.
 - A ten-second watchdog opens a circuit and drops queued work when ScreenCaptureKit loses a completion.
@@ -28,3 +30,5 @@ protects the queue from a system request that never calls its completion handler
 - `testQueuedCaptureIsDroppedWhenEligibilityChanges`
 - `testLostCompletionsKeepCircuitClosedToNewWork`
 - `testFocusedPreviewStartsBeforeQueuedThumbnails`
+- `testSharedCoordinatorSubmitsOutsideMainQueue`
+- `testWatchdogCoversPreflightWithoutStartingLateCapture`

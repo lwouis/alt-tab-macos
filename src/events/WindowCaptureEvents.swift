@@ -61,7 +61,6 @@ class WindowCaptureScreenshots {
     private static func handleNotCachedWindows(_ notCachedWindows: [CGWindowID], _ requests: [CGWindowID: CaptureRequest], _ source: RefreshCausedBy, _ prioritized: Set<CGWindowID>) {
         guard !notCachedWindows.isEmpty else { return }
         ScreenCaptureCoordinator.shared.submit(
-            on: .main,
             priority: requests.values.contains { $0.fullRes } ? .focusedPreview : .normal,
             if: { canSubmit(fullRes: requests.values.contains { $0.fullRes }) }
         ) { completion in
@@ -150,7 +149,7 @@ class WindowCaptureScreenshots {
         config.height = streamConfig.height
         config.showsCursor = false
         config.dynamicRange = .sdr
-        ScreenCaptureCoordinator.shared.submit(on: .main, priority: fullRes ? .focusedPreview : .normal,
+        ScreenCaptureCoordinator.shared.submit(priority: fullRes ? .focusedPreview : .normal,
                                                if: { canSubmit(fullRes: fullRes) }) { completion in
             SCScreenshotManager.captureScreenshot(contentFilter: filter,
                                                   configuration: config) { [weak window] output, error in
@@ -175,7 +174,7 @@ class WindowCaptureScreenshots {
     }
 
     private static func captureSampleBuffer(_ filter: SCContentFilter, _ config: SCStreamConfiguration, _ window: Window, _ source: RefreshCausedBy, _ fullRes: Bool) {
-        ScreenCaptureCoordinator.shared.submit(on: .main, priority: fullRes ? .focusedPreview : .normal,
+        ScreenCaptureCoordinator.shared.submit(priority: fullRes ? .focusedPreview : .normal,
                                                if: { canSubmit(fullRes: fullRes) }) { completion in
             SCScreenshotManager.captureSampleBuffer(contentFilter: filter,
                                                     configuration: config) { [
@@ -220,11 +219,19 @@ class WindowCaptureScreenshots {
     }
 
     private static func canSubmit(fullRes: Bool) -> Bool {
+        dispatchPrecondition(condition: .notOnQueue(.main))
+        guard DispatchQueue.main.sync(execute: { isCaptureEligible(fullRes: fullRes) }),
+              CGPreflightScreenCaptureAccess() else { return false }
+        // Preflight can block in macOS. Recheck UI state before submitting the capture.
+        return DispatchQueue.main.sync { isCaptureEligible(fullRes: fullRes) }
+    }
+
+    private static func isCaptureEligible(fullRes: Bool) -> Bool {
         dispatchPrecondition(condition: .onQueue(.main))
         guard !App.isTerminating, !ScreenLockEvents.isScreenLocked, !isCoolingDown,
               SwitcherSession.isActive || (!fullRes && Preferences.captureWindowsInBackground)
         else { return false }
-        return CGPreflightScreenCaptureAccess()
+        return true
     }
 
     private static var isCoolingDown: Bool {

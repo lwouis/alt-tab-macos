@@ -1,6 +1,37 @@
 import XCTest
 
 final class ScreenCaptureCoordinatorTests: XCTestCase {
+    func testWatchdogCoversPreflightWithoutStartingLateCapture() {
+        var watchdogs = [() -> Void]()
+        let coordinator = ScreenCaptureCoordinator { _, action in watchdogs.append(action) }
+        var captured = false
+        coordinator.submit(if: {
+            XCTAssertEqual(watchdogs.count, 1)
+            watchdogs.first?()
+            return true
+        }) { _ in captured = true }
+        XCTAssertFalse(captured)
+        XCTAssertEqual(coordinator.inFlightCount, 0)
+        XCTAssertFalse(coordinator.isCircuitOpen)
+        coordinator.submit { completion in
+            captured = true
+            completion()
+        }
+        XCTAssertTrue(captured)
+    }
+
+    func testSharedCoordinatorSubmitsOutsideMainQueue() async {
+        let submitted = expectation(description: "capture submitted off main")
+        DispatchQueue.main.async {
+            ScreenCaptureCoordinator.shared.submit { completion in
+                XCTAssertFalse(Thread.isMainThread)
+                completion()
+                submitted.fulfill()
+            }
+        }
+        await fulfillment(of: [submitted], timeout: 2)
+    }
+
     func testFocusedPreviewStartsBeforeQueuedThumbnails() {
         let coordinator = ScreenCaptureCoordinator(maximumInFlight: 1) { _, _ in }
         var release: (() -> Void)!
