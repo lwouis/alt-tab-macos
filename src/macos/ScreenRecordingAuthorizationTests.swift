@@ -47,7 +47,10 @@ final class ScreenRecordingAuthorizationTests: XCTestCase {
 
     func testRecoveryCancelsConfirmationPeriod() {
         var model = ScreenRecordingAuthorizationModel(wasGranted: true)
-        _ = model.receive(.temporarilyUnavailable(.screenCaptureKit(domain: "com.apple.ScreenCaptureKit.SCStreamErrorDomain", code: -3811)))
+        _ = model.receive(.temporarilyUnavailable(.screenCaptureKit(
+            domain: "com.apple.ScreenCaptureKit.SCStreamErrorDomain",
+            code: -3811
+        )))
 
         let effects = model.receive(.granted)
 

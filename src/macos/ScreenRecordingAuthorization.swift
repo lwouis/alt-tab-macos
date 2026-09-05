@@ -67,25 +67,25 @@ struct ScreenRecordingAuthorizationModel {
 
     mutating func receive(_ result: ScreenRecordingProbeResult) -> [ScreenRecordingAuthorizationEffect] {
         switch result {
-            case .granted:
-                let mustPersist = !wasGranted
-                wasGranted = true
-                failedChecks = 0
-                state = .granted
-                return (mustPersist ? [.persistGrant] : []) + [.cancelConfirmations]
-            case .notGranted where !wasGranted && state == .unknown:
+        case .granted:
+            let mustPersist = !wasGranted
+            wasGranted = true
+            failedChecks = 0
+            state = .granted
+            return (mustPersist ? [.persistGrant] : []) + [.cancelConfirmations]
+        case .notGranted where !wasGranted && state == .unknown:
+            state = .needsUserReview
+            return [.openOnboarding]
+        case .notGranted, .temporarilyUnavailable:
+            failedChecks += 1
+            if failedChecks >= 3 {
                 state = .needsUserReview
-                return [.openOnboarding]
-            case .notGranted, .temporarilyUnavailable:
-                failedChecks += 1
-                if failedChecks >= 3 {
-                    state = .needsUserReview
-                    return [.showPassiveReview]
-                }
-                state = .temporarilyUnavailable
-                return failedChecks == 1
-                    ? [.scheduleConfirmation(after: 10), .scheduleConfirmation(after: 30)]
-                    : []
+                return [.showPassiveReview]
+            }
+            state = .temporarilyUnavailable
+            return failedChecks == 1
+                ? [.scheduleConfirmation(after: 10), .scheduleConfirmation(after: 30)]
+                : []
         }
     }
 }

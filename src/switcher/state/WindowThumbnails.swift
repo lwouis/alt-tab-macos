@@ -151,16 +151,22 @@ enum WindowThumbnails {
     /// macOS 26+): full-resolution frames for the Preview panel are fetched separately and just-in-time
     /// by `fetchPreviewFrames` into the session's capped cache, so idle RAM stays small and a show
     /// doesn't burst N full-res captures at the system capture path (#5861).
-    static func refreshAsync(_ windows: [Window], _ source: RefreshCausedBy, windowRemoved: Bool = false, prioritizedIds: Set<CGWindowID>? = nil) {
+    static func refreshAsync(
+        _ windows: [Window],
+        _ source: RefreshCausedBy,
+        windowRemoved: Bool = false,
+        prioritizedIds: Set<CGWindowID>? = nil
+    ) {
         guard (!windows.isEmpty || windowRemoved) && ScreenRecordingPermission.status == .granted
                && !ScreenLockEvents.isScreenLocked
-               && Preferences.anyShortcutShowsWindowCaptures else { return }
+            && Preferences.anyShortcutShowsWindowCaptures else { return }
         let backend = WindowCaptureRouting.backend(
             macOSMajorVersion: ProcessInfo.processInfo.operatingSystemVersion.majorVersion,
             kind: .thumbnail,
             hasTrustedGrantHistory: ScreenRecordingPermission.hasTrustedGrantHistory,
             switcherIsActive: SwitcherSession.isActive,
-            backgroundCaptureIsEnabled: Preferences.captureWindowsInBackground)
+            backgroundCaptureIsEnabled: Preferences.captureWindowsInBackground
+        )
         guard let backend else { return }
         var eligibleWindows = [Window]()
         for window in windows {
@@ -173,12 +179,20 @@ enum WindowThumbnails {
         }
         guard (!eligibleWindows.isEmpty || windowRemoved) else { return }
         switch backend {
-            case .screenCaptureKit:
-                if #available(macOS 14.0, *) {
-                    WindowCaptureScreenshots.oneTimeScreenshots(eligibleWindows, source, prioritizedIds: prioritizedIds)
-                }
-            case .windowServer:
-                WindowCaptureScreenshotsPrivateApi.oneTimeScreenshots(eligibleWindows, source, prioritizedIds: prioritizedIds)
+        case .screenCaptureKit:
+            if #available(macOS 14.0, *) {
+                WindowCaptureScreenshots.oneTimeScreenshots(
+                    eligibleWindows,
+                    source,
+                    prioritizedIds: prioritizedIds
+                )
+            }
+        case .windowServer:
+            WindowCaptureScreenshotsPrivateApi.oneTimeScreenshots(
+                eligibleWindows,
+                source,
+                prioritizedIds: prioritizedIds
+            )
         }
     }
 
@@ -196,7 +210,8 @@ enum WindowThumbnails {
             kind: .focusedPreview,
             hasTrustedGrantHistory: ScreenRecordingPermission.hasTrustedGrantHistory,
             switcherIsActive: true,
-            backgroundCaptureIsEnabled: Preferences.captureWindowsInBackground)
+            backgroundCaptureIsEnabled: Preferences.captureWindowsInBackground
+        )
         guard backend == .screenCaptureKit else { return }
         let missingIds = Windows.selectedNeighborhoodIds().filter { !session.hasPreviewFrame($0) && !restoringWids.contains($0) }
         guard !missingIds.isEmpty else { return }

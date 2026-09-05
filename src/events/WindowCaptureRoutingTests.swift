@@ -29,7 +29,8 @@ final class WindowCaptureRoutingTests: XCTestCase {
             fallback: {
                 fallbackCalls += 1
                 return "fallback"
-            })
+            }
+        )
 
         XCTAssertEqual(image, "primary")
         XCTAssertEqual(fallbackCalls, 0)
@@ -43,7 +44,8 @@ final class WindowCaptureRoutingTests: XCTestCase {
             fallback: {
                 fallbackCalls += 1
                 return "fallback"
-            })
+            }
+        )
 
         XCTAssertEqual(image, "fallback")
         XCTAssertEqual(fallbackCalls, 1)
@@ -52,7 +54,8 @@ final class WindowCaptureRoutingTests: XCTestCase {
     func testWindowServerCaptureStaysEmptyWhenBothMethodsFail() {
         let image = WindowServerCaptureFallback.capture(
             primary: { nil as String? },
-            fallback: { nil as String? })
+            fallback: { nil as String? }
+        )
 
         XCTAssertNil(image)
     }
@@ -63,7 +66,8 @@ final class WindowCaptureRoutingTests: XCTestCase {
             kind: .thumbnail,
             hasTrustedGrantHistory: true,
             switcherIsActive: true,
-            backgroundCaptureIsEnabled: false), .windowServer)
+            backgroundCaptureIsEnabled: false
+        ), .windowServer)
     }
 
     func testMacOS27UsesScreenCaptureKitForFocusedPreview() {
@@ -72,7 +76,8 @@ final class WindowCaptureRoutingTests: XCTestCase {
             kind: .focusedPreview,
             hasTrustedGrantHistory: true,
             switcherIsActive: true,
-            backgroundCaptureIsEnabled: false), .screenCaptureKit)
+            backgroundCaptureIsEnabled: false
+        ), .screenCaptureKit)
     }
 
     func testMacOS26KeepsScreenCaptureKitThumbnailBackend() {
@@ -81,7 +86,8 @@ final class WindowCaptureRoutingTests: XCTestCase {
             kind: .thumbnail,
             hasTrustedGrantHistory: true,
             switcherIsActive: true,
-            backgroundCaptureIsEnabled: false), .screenCaptureKit)
+            backgroundCaptureIsEnabled: false
+        ), .screenCaptureKit)
     }
 
     func testOlderMacOSKeepsWindowServerThumbnailBackend() {
@@ -90,7 +96,8 @@ final class WindowCaptureRoutingTests: XCTestCase {
             kind: .thumbnail,
             hasTrustedGrantHistory: true,
             switcherIsActive: true,
-            backgroundCaptureIsEnabled: false), .windowServer)
+            backgroundCaptureIsEnabled: false
+        ), .windowServer)
     }
 
     func testBackgroundCaptureDisabledReturnsNoBackend() {
@@ -99,7 +106,8 @@ final class WindowCaptureRoutingTests: XCTestCase {
             kind: .thumbnail,
             hasTrustedGrantHistory: true,
             switcherIsActive: false,
-            backgroundCaptureIsEnabled: false))
+            backgroundCaptureIsEnabled: false
+        ))
     }
 
     func testBackgroundCaptureEnabledUsesSafeMacOS27Backend() {
@@ -108,7 +116,8 @@ final class WindowCaptureRoutingTests: XCTestCase {
             kind: .thumbnail,
             hasTrustedGrantHistory: true,
             switcherIsActive: false,
-            backgroundCaptureIsEnabled: true), .windowServer)
+            backgroundCaptureIsEnabled: true
+        ), .windowServer)
     }
 
     func testFocusedPreviewNeedsAnActiveSwitcher() {
@@ -117,6 +126,7 @@ final class WindowCaptureRoutingTests: XCTestCase {
             kind: .focusedPreview,
             hasTrustedGrantHistory: true,
             switcherIsActive: false,
-            backgroundCaptureIsEnabled: true))
+            backgroundCaptureIsEnabled: true
+        ))
     }
 }

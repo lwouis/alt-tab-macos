@@ -60,26 +60,41 @@ class WindowCaptureScreenshots {
 
     private static func handleNotCachedWindows(_ notCachedWindows: [CGWindowID], _ requests: [CGWindowID: CaptureRequest], _ source: RefreshCausedBy, _ prioritized: Set<CGWindowID>) {
         guard !notCachedWindows.isEmpty else { return }
-        ScreenCaptureCoordinator.shared.submit(on: .main, if: { canSubmit(fullRes: requests.values.contains { $0.fullRes }) }) { completion in
-            SCShareableContent.getExcludingDesktopWindows(true, onScreenWindowsOnly: false) { shareableContent, error in
+        ScreenCaptureCoordinator.shared.submit(
+            on: .main,
+            if: { canSubmit(fullRes: requests.values.contains { $0.fullRes }) }
+        ) { completion in
+            SCShareableContent.getExcludingDesktopWindows(true,
+                                                          onScreenWindowsOnly: false) { shareableContent, error in
                 completion()
                 guard let shareableContent, error == nil else {
                     Logger.error { "\(shareableContent == nil) \(error)" }
                     beginFailureCooldown()
-                    if let error { ScreenRecordingPermission.reportCaptureFailure(error) }
+                    if let error {
+                        ScreenRecordingPermission.reportCaptureFailure(error)
+                    }
                     return
                 }
                 guard source != .refreshOnlyThumbnailsAfterShowUi || SwitcherSession.isActive else { return }
                 // this callback is executed on an undetermined queue; we move execution to screenshotsQueue
                 BackgroundWork.screenshotsQueue.addOperation {
                     cachedSCWindows.withLock { $0 = shareableContent.windows }
-                    guard source != .refreshOnlyThumbnailsAfterShowUi || SwitcherSession.isActive else { return }
+                    guard source != .refreshOnlyThumbnailsAfterShowUi || SwitcherSession.isActive
+                    else { return }
                     for notCachedWindow in notCachedWindows {
                         guard let request = requests[notCachedWindow] else { continue }
-                        if let cachedWindow = (shareableContent.windows.first { $0.windowID == notCachedWindow }) {
-                            oneTimeCapture(cachedWindow, request, source, prioritized.contains(notCachedWindow))
+                        if let cachedWindow =
+                            (shareableContent.windows.first { $0.windowID == notCachedWindow }) {
+                            oneTimeCapture(
+                                cachedWindow,
+                                request,
+                                source,
+                                prioritized.contains(notCachedWindow)
+                            )
                         } else {
-                            Logger.debug { "wid:\(notCachedWindow) was not found in SCShareableContent windows" }
+                            Logger.debug {
+                                "wid:\(notCachedWindow) was not found in SCShareableContent windows"
+                            }
                         }
                     }
                 }
@@ -135,16 +150,21 @@ class WindowCaptureScreenshots {
         config.showsCursor = false
         config.dynamicRange = .sdr
         ScreenCaptureCoordinator.shared.submit(on: .main, if: { canSubmit(fullRes: fullRes) }) { completion in
-            SCScreenshotManager.captureScreenshot(contentFilter: filter, configuration: config) { [weak window] output, error in
+            SCScreenshotManager.captureScreenshot(contentFilter: filter,
+                                                  configuration: config) { [weak window] output, error in
                 completion()
                 guard let window else { return }
-                // no captureSampleBuffer fallback: the only known failure is a stale isFullscreen snapshot during a
-                // fullscreen transition, and the next refresh re-routes it. Retrying here would silently reintroduce
+                // no captureSampleBuffer fallback: the only known failure is a stale isFullscreen snapshot
+                // during a
+                // fullscreen transition, and the next refresh re-routes it. Retrying here would silently
+                // reintroduce
                 // the stream churn this path exists to avoid, and would hide new failure modes from the logs.
                 guard let cgImage = output?.sdrImage, error == nil else {
                     Logger.error { "\(window.debugId) \(output == nil) \(error)" }
                     beginFailureCooldown()
-                    if let error { ScreenRecordingPermission.reportCaptureFailure(error) }
+                    if let error {
+                        ScreenRecordingPermission.reportCaptureFailure(error)
+                    }
                     return
                 }
                 deliver(window, source, .cgImage(cgImage), fullRes)
@@ -154,16 +174,22 @@ class WindowCaptureScreenshots {
 
     private static func captureSampleBuffer(_ filter: SCContentFilter, _ config: SCStreamConfiguration, _ window: Window, _ source: RefreshCausedBy, _ fullRes: Bool) {
         ScreenCaptureCoordinator.shared.submit(on: .main, if: { canSubmit(fullRes: fullRes) }) { completion in
-            SCScreenshotManager.captureSampleBuffer(contentFilter: filter, configuration: config) { [weak window] sampleBuffer, error in
+            SCScreenshotManager.captureSampleBuffer(contentFilter: filter,
+                                                    configuration: config) { [
+                weak window
+            ] sampleBuffer, error in
                 completion()
                 guard let window else { return }
                 guard let sampleBuffer, error == nil else {
                     Logger.error { "\(window.debugId) \(sampleBuffer == nil) \(error)" }
                     beginFailureCooldown()
-                    if let error { ScreenRecordingPermission.reportCaptureFailure(error) }
+                    if let error {
+                        ScreenRecordingPermission.reportCaptureFailure(error)
+                    }
                     return
                 }
-                guard let pixelBuffer = sampleBuffer.pixelBuffer() ?? sampleBuffer.imageBuffer else { Logger.error { "\(window.debugId) no pixelBuffer" }; return }
+                guard let pixelBuffer = sampleBuffer.pixelBuffer() ?? sampleBuffer.imageBuffer
+                else { Logger.error { "\(window.debugId) no pixelBuffer" }; return }
                 deliver(window, source, .pixelBuffer(pixelBuffer), fullRes)
             }
         }
@@ -193,7 +219,8 @@ class WindowCaptureScreenshots {
     private static func canSubmit(fullRes: Bool) -> Bool {
         dispatchPrecondition(condition: .onQueue(.main))
         guard !App.isTerminating, !ScreenLockEvents.isScreenLocked, !isCoolingDown,
-              SwitcherSession.isActive || (!fullRes && Preferences.captureWindowsInBackground) else { return false }
+              SwitcherSession.isActive || (!fullRes && Preferences.captureWindowsInBackground)
+        else { return false }
         return CGPreflightScreenCaptureAccess()
     }
 
@@ -258,7 +285,8 @@ class WindowCaptureScreenshotsPrivateApi {
                     .null, .optionIncludingWindow, wid,
                     [.boundsIgnoreFraming, .bestResolution]
                 )?.takeRetainedValue()
-            })
+            }
+        )
     }
 }
 
@@ -447,5 +475,8 @@ class ActiveWindowCaptures {
 
     static func increment() { OSAtomicIncrement32(&_count) }
     static func decrement() { OSAtomicDecrement32(&_count) }
-    static func value() -> Int { Int(OSAtomicAdd32(0, &_count)) + ScreenCaptureCoordinator.shared.inFlightCount }
+    static func value() -> Int {
+        Int(OSAtomicAdd32(0, &_count)) +
+            ScreenCaptureCoordinator.shared.inFlightCount
+    }
 }

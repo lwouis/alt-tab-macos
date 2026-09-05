@@ -28,7 +28,10 @@ final class SwitcherSession {
     static var current: SwitcherSession? {
         didSet { activity.setActive(current != nil) }
     }
-    static var isActive: Bool { activity.isActive }
+
+    static var isActive: Bool {
+        activity.isActive
+    }
     /// The shortcut index of the currently-active session, or 0 when no session is active.
     /// Used by every per-shortcut effective preference read in `Appearance`, `TileView`, etc.
     static var activeShortcutIndex: Int { current?.shortcutIndex ?? 0 }

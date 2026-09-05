@@ -61,7 +61,9 @@ final class ScreenCaptureCoordinator {
         pending.append(PendingOperation(operation: operation, queue: queue, shouldStart: shouldStart))
         let next = reserveNextLocked()
         lock.unlock()
-        if let next { start(next) }
+        if let next {
+            start(next)
+        }
     }
 
     private func reserveNextLocked() -> ActiveOperation? {
@@ -71,7 +73,7 @@ final class ScreenCaptureCoordinator {
         let id = UUID()
         activeIds.insert(id)
         return ActiveOperation(id: id, operation: pendingOperation.operation,
-            queue: pendingOperation.queue, shouldStart: pendingOperation.shouldStart)
+                               queue: pendingOperation.queue, shouldStart: pendingOperation.shouldStart)
     }
 
     private func start(_ active: ActiveOperation) {
@@ -97,7 +99,9 @@ final class ScreenCaptureCoordinator {
         guard activeIds.remove(id) != nil else { lock.unlock(); return }
         let next = reserveNextLocked()
         lock.unlock()
-        if let next { start(next) }
+        if let next {
+            start(next)
+        }
     }
 
     private func watchdogFired(_ id: UUID) {

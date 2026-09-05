@@ -5,9 +5,9 @@ final class ScreenCaptureCoordinatorTests: XCTestCase {
         var watchdogs = [() -> Void]()
         let coordinator = ScreenCaptureCoordinator { _, action in watchdogs.append(action) }
         var starts = 0
-        for _ in 0..<2 { coordinator.submit { _ in starts += 1 } }
+        for _ in 0 ..< 2 { coordinator.submit { _ in starts += 1 } }
         watchdogs.forEach { $0() }
-        for _ in 0..<20 { coordinator.submit { _ in starts += 1 } }
+        for _ in 0 ..< 20 { coordinator.submit { _ in starts += 1 } }
         XCTAssertEqual(starts, 2)
         XCTAssertEqual(coordinator.inFlightCount, 2)
         XCTAssertTrue(coordinator.isCircuitOpen)
@@ -31,11 +31,13 @@ final class ScreenCaptureCoordinatorTests: XCTestCase {
 
     func testMaximumOfTwoCapturesCanRun() {
         var watchdogs = [() -> Void]()
-        let coordinator = ScreenCaptureCoordinator(maximumInFlight: 2) { _, action in watchdogs.append(action) }
+        let coordinator = ScreenCaptureCoordinator(maximumInFlight: 2) { _, action in
+            watchdogs.append(action)
+        }
         var started = [Int]()
         var completions = [() -> Void]()
 
-        for id in 1...3 {
+        for id in 1 ... 3 {
             coordinator.submit { completion in
                 started.append(id)
                 completions.append(completion)
@@ -52,7 +54,9 @@ final class ScreenCaptureCoordinatorTests: XCTestCase {
 
     func testWatchdogOpensCircuitUntilLateCompletion() {
         var watchdogs = [() -> Void]()
-        let coordinator = ScreenCaptureCoordinator(maximumInFlight: 1, watchdogSeconds: 10) { _, action in watchdogs.append(action) }
+        let coordinator = ScreenCaptureCoordinator(maximumInFlight: 1, watchdogSeconds: 10) { _, action in
+            watchdogs.append(action)
+        }
         var started = [Int]()
         var firstCompletion: (() -> Void)!
 
