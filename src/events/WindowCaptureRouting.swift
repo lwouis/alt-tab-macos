@@ -24,7 +24,13 @@ enum WindowCaptureRouting {
 }
 
 enum WindowServerCaptureFallback {
-    static func capture<Image>(primary: () -> Image?, fallback: () -> Image?) -> Image? {
-        primary() ?? fallback()
+    static func capture<Image>(if isEligible: () -> Bool = { true },
+                               primary: () -> Image?, fallback: () -> Image?) -> Image? {
+        guard isEligible() else { return nil }
+        if let image = primary() {
+            return image
+        }
+        guard isEligible() else { return nil }
+        return fallback()
     }
 }

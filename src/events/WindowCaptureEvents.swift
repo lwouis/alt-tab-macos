@@ -128,11 +128,15 @@ class WindowCaptureScreenshots {
             guard !App.isTerminating, !ScreenLockEvents.isScreenLocked, let window else { return }
             let config = SCStreamConfiguration.forWindow(scWindow, size, scaleFactor, request.fullRes, false)
             let filter = SCContentFilter(desktopIndependentWindow: scWindow)
-            // captureSampleBuffer spins up a short-lived capture stream per call; on some macOS 26 machines that
+            // captureSampleBuffer spins up a short-lived capture stream per call; on some macOS 26 machines
+            // that
             // churn leaks WindowServer memory until the session is force-logged-out (#5786), and the per-call
-            // replayd attribution work can wedge screenshots machine-wide under bursts (#5861). captureScreenshot
-            // avoids the churn but fails (SCStreamError -3811) on fullscreen windows whose Space is inactive, so
-            // that one case stays on captureSampleBuffer. Its CGImage copy (vs a shared IOSurface) is acceptable
+            // replayd attribution work can wedge screenshots machine-wide under bursts (#5861).
+            // captureScreenshot
+            // avoids the churn but fails (SCStreamError -3811) on fullscreen windows whose Space is inactive,
+            // so
+            // that one case stays on captureSampleBuffer. Its CGImage copy (vs a shared IOSurface) is
+            // acceptable
             // even at full resolution now that Preview frames are fetched lazily, a few per session (#5861).
             if #available(macOS 26.0, *), !request.isFullscreen {
                 captureScreenshot(filter, config, window, source, request.fullRes)
@@ -143,7 +147,13 @@ class WindowCaptureScreenshots {
     }
 
     @available(macOS 26.0, *)
-    private static func captureScreenshot(_ filter: SCContentFilter, _ streamConfig: SCStreamConfiguration, _ window: Window, _ source: RefreshCausedBy, _ fullRes: Bool) {
+    private static func captureScreenshot(
+        _ filter: SCContentFilter,
+        _ streamConfig: SCStreamConfiguration,
+        _ window: Window,
+        _ source: RefreshCausedBy,
+        _ fullRes: Bool
+    ) {
         let config = SCScreenshotConfiguration()
         config.width = streamConfig.width
         config.height = streamConfig.height
@@ -173,7 +183,13 @@ class WindowCaptureScreenshots {
         }
     }
 
-    private static func captureSampleBuffer(_ filter: SCContentFilter, _ config: SCStreamConfiguration, _ window: Window, _ source: RefreshCausedBy, _ fullRes: Bool) {
+    private static func captureSampleBuffer(
+        _ filter: SCContentFilter,
+        _ config: SCStreamConfiguration,
+        _ window: Window,
+        _ source: RefreshCausedBy,
+        _ fullRes: Bool
+    ) {
         ScreenCaptureCoordinator.shared.submit(priority: fullRes ? .focusedPreview : .normal,
                                                if: { canSubmit(fullRes: fullRes) }) { completion in
             SCScreenshotManager.captureSampleBuffer(contentFilter: filter,
@@ -278,6 +294,7 @@ class WindowCaptureScreenshotsPrivateApi {
         ActiveWindowCaptures.increment()
         defer { ActiveWindowCaptures.decrement() }
         return WindowServerCaptureFallback.capture(
+            if: canSubmit,
             primary: {
                 var windowId_ = wid
                 let list = CGSHWCaptureWindowList(
@@ -297,6 +314,22 @@ class WindowCaptureScreenshotsPrivateApi {
                 )?.takeRetainedValue()
             }
         )
+    }
+
+    private static func canSubmit() -> Bool {
+        dispatchPrecondition(condition: .notOnQueue(.main))
+        func isEligible() -> Bool {
+            DispatchQueue.main.sync {
+                !App.isTerminating && !ScreenLockEvents.isScreenLocked &&
+                    (SwitcherSession.isActive || Preferences.captureWindowsInBackground)
+            }
+        }
+        guard isEligible() else { return false }
+        if #available(macOS 10.15, *), !CGPreflightScreenCaptureAccess() {
+            return false
+        }
+        // Preflight can block; use current UI state when the capture actually starts.
+        return isEligible()
     }
 }
 
@@ -483,8 +516,14 @@ extension CMSampleBuffer {
 class ActiveWindowCaptures {
     private static var _count: Int32 = 0
 
-    static func increment() { OSAtomicIncrement32(&_count) }
-    static func decrement() { OSAtomicDecrement32(&_count) }
+    static func increment() {
+        OSAtomicIncrement32(&_count)
+    }
+
+    static func decrement() {
+        OSAtomicDecrement32(&_count)
+    }
+
     static func value() -> Int {
         Int(OSAtomicAdd32(0, &_count)) +
             ScreenCaptureCoordinator.shared.inFlightCount

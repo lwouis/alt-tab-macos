@@ -13,6 +13,10 @@ It also rejects background work when the user disables background capture.
 - macOS 25 and older keep the existing WindowServer thumbnail backend.
 - A closed switcher with background capture disabled gets no backend and submits no capture request.
 - A focused-window preview needs an active switcher.
+- A queued WindowServer capture rechecks current switcher, background preference, termination,
+  lock, and non-prompting permission state immediately before calling the capture backend.
+- An empty primary result rechecks the same state before trying the fallback, because the
+  first capture can block while the switcher closes.
 
 ## Test scenarios
 
@@ -23,3 +27,5 @@ It also rejects background work when the user disables background capture.
 - `testBackgroundCaptureDisabledReturnsNoBackend`
 - `testBackgroundCaptureEnabledUsesSafeMacOS27Backend`
 - `testFocusedPreviewNeedsAnActiveSwitcher`
+- `testQueuedCaptureChecksCurrentEligibility`
+- `testFallbackRechecksEligibilityAfterPrimaryReturns`
