@@ -16,6 +16,7 @@ protects the queue from a system request that never calls its completion handler
 - A ten-second watchdog opens a circuit and drops queued work when ScreenCaptureKit loses a completion.
 - A timed-out request still counts as physically active, so no replacement request can exceed the limit.
 - A late completion closes the circuit. A request submitted after that can start.
+- If completion never arrives, the menu shows a passive restart action. Only the user's action restarts AltTab; permissions are not reset. A restart releases the old process and its outstanding requests.
 - Thumbnail and focused-preview requests use the same process-wide coordinator.
 
 ## Test scenarios
@@ -24,3 +25,4 @@ protects the queue from a system request that never calls its completion handler
 - `testWatchdogOpensCircuitUntilLateCompletion`
 - `testCompletionCanReleaseOnlyOneSlot`
 - `testQueuedCaptureIsDroppedWhenEligibilityChanges`
+- `testLostCompletionsKeepCircuitClosedToNewWork`

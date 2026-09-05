@@ -5,6 +5,7 @@ class Menubar {
     static var menu: NSMenu!
     static var permissionCalloutMenuItems: [NSMenuItem]?
     private static var permissionCallout: PermissionCallout?
+    private static var captureRecoveryMenuItem: NSMenuItem?
     private static var upgradeToProMenuItem: NSMenuItem!
     private static var supportProjectMenuItem: NSMenuItem!
     private static var myAccountMenuItem: NSMenuItem!
@@ -39,6 +40,9 @@ class Menubar {
         addMenuItem(NSLocalizedString("Settings…", comment: "Menubar option"), #selector(App.showSettingsWindow), ",", "gear", nil, App.self)
         addMenuItem(NSLocalizedString("Check for updates…", comment: "Menubar option"), #selector(App.checkForUpdatesNow), "", "checkmark.arrow.trianglehead.clockwise", nil, App.self)
         addMenuItem(NSLocalizedString("Check permissions…", comment: "Menubar option"), #selector(App.checkPermissions), "", "hand.raised", nil, App.self)
+        captureRecoveryMenuItem = addMenuItem(NSLocalizedString("Screen capture paused — Restart AltTab…", comment: "Recovery for a capture request that did not complete"), #selector(restartCapture), "", "arrow.clockwise", nil, self)
+        captureRecoveryMenuItem?.isHidden = true
+        captureRecoveryMenuItem?.toolTip = NSLocalizedString("A screen capture request did not finish. Restart AltTab to restore capture without changing permissions.", comment: "Capture recovery help")
         menu.addItem(NSMenuItem.separator())
         addMenuItem(String(format: NSLocalizedString("About %@", comment: "Menubar option. %@ is AltTab"), App.name), #selector(App.showAboutWindow), "", "info.circle", nil, App.self)
         addMenuItem(NSLocalizedString("Debug tools", comment: "Menubar option"), #selector(App.showDebugWindow), "", "scope", nil, App.self)
@@ -123,6 +127,7 @@ class Menubar {
     // refresh the text before showing it. Re-evaluated on permission ticks and on each menu open
     // (settings can change). Decision logic lives in `PermissionCalloutResolver` (unit-tested).
     static func refreshPermissionCallout() {
+        captureRecoveryMenuItem?.isHidden = !ScreenCaptureCoordinator.shared.isCircuitOpen
         let dependentFeatures = Preferences.screenRecordingDependentFeatures
         let show = PermissionCalloutResolver.shouldShowCallout(
             screenRecordingGranted: !ScreenRecordingPermission.shouldShowPassiveReview,
@@ -141,6 +146,10 @@ class Menubar {
                 menu.removeItem(element)
             }
         }
+    }
+
+    @objc private static func restartCapture() {
+        App.restart()
     }
 
     @objc static func statusItemOnClick() {
