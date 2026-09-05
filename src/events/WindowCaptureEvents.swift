@@ -60,8 +60,7 @@ class WindowCaptureScreenshots {
 
     private static func handleNotCachedWindows(_ notCachedWindows: [CGWindowID], _ requests: [CGWindowID: CaptureRequest], _ source: RefreshCausedBy, _ prioritized: Set<CGWindowID>) {
         guard !notCachedWindows.isEmpty else { return }
-        ScreenCaptureCoordinator.shared.submit { completion in
-            guard !isCoolingDown else { completion(); return }
+        ScreenCaptureCoordinator.shared.submit(on: .main, if: { canSubmit(fullRes: requests.values.contains { $0.fullRes }) }) { completion in
             SCShareableContent.getExcludingDesktopWindows(true, onScreenWindowsOnly: false) { shareableContent, error in
                 completion()
                 guard let shareableContent, error == nil else {
@@ -135,8 +134,7 @@ class WindowCaptureScreenshots {
         config.height = streamConfig.height
         config.showsCursor = false
         config.dynamicRange = .sdr
-        ScreenCaptureCoordinator.shared.submit { completion in
-            guard !isCoolingDown else { completion(); return }
+        ScreenCaptureCoordinator.shared.submit(on: .main, if: { canSubmit(fullRes: fullRes) }) { completion in
             SCScreenshotManager.captureScreenshot(contentFilter: filter, configuration: config) { [weak window] output, error in
                 completion()
                 guard let window else { return }
@@ -155,8 +153,7 @@ class WindowCaptureScreenshots {
     }
 
     private static func captureSampleBuffer(_ filter: SCContentFilter, _ config: SCStreamConfiguration, _ window: Window, _ source: RefreshCausedBy, _ fullRes: Bool) {
-        ScreenCaptureCoordinator.shared.submit { completion in
-            guard !isCoolingDown else { completion(); return }
+        ScreenCaptureCoordinator.shared.submit(on: .main, if: { canSubmit(fullRes: fullRes) }) { completion in
             SCScreenshotManager.captureSampleBuffer(contentFilter: filter, configuration: config) { [weak window] sampleBuffer, error in
                 completion()
                 guard let window else { return }
@@ -191,6 +188,13 @@ class WindowCaptureScreenshots {
                 window.refreshThumbnail(contents)
             }
         }
+    }
+
+    private static func canSubmit(fullRes: Bool) -> Bool {
+        dispatchPrecondition(condition: .onQueue(.main))
+        guard !App.isTerminating, !ScreenLockEvents.isScreenLocked, !isCoolingDown,
+              SwitcherSession.isActive || (!fullRes && Preferences.captureWindowsInBackground) else { return false }
+        return CGPreflightScreenCaptureAccess()
     }
 
     private static var isCoolingDown: Bool {

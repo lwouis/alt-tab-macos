@@ -1,6 +1,22 @@
 import XCTest
 
 final class ScreenCaptureCoordinatorTests: XCTestCase {
+    func testQueuedCaptureIsDroppedWhenEligibilityChanges() {
+        let coordinator = ScreenCaptureCoordinator(maximumInFlight: 1) { _, _ in }
+        var release: (() -> Void)!
+        var switcherOpen = true
+        var captured = false
+        coordinator.submit { release = $0 }
+        coordinator.submit(if: { switcherOpen }) { completion in
+            captured = true
+            completion()
+        }
+        switcherOpen = false
+        release()
+        XCTAssertFalse(captured)
+        XCTAssertEqual(coordinator.inFlightCount, 0)
+    }
+
     func testMaximumOfTwoCapturesCanRun() {
         var watchdogs = [() -> Void]()
         let coordinator = ScreenCaptureCoordinator(maximumInFlight: 2) { _, action in watchdogs.append(action) }

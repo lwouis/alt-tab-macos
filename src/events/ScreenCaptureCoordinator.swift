@@ -9,11 +9,15 @@ final class ScreenCaptureCoordinator {
 
     private struct PendingOperation {
         let operation: Operation
+        let queue: DispatchQueue?
+        let shouldStart: () -> Bool
     }
 
     private struct ActiveOperation {
         let id: UUID
         let operation: Operation
+        let queue: DispatchQueue?
+        let shouldStart: () -> Bool
     }
 
     private let maximumInFlight: Int
@@ -47,13 +51,14 @@ final class ScreenCaptureCoordinator {
         return circuitOpen
     }
 
-    func submit(_ operation: @escaping Operation) {
+    func submit(on queue: DispatchQueue? = nil, if shouldStart: @escaping () -> Bool = { true },
+                _ operation: @escaping Operation) {
         lock.lock()
         guard !circuitOpen else {
             lock.unlock()
             return
         }
-        pending.append(PendingOperation(operation: operation))
+        pending.append(PendingOperation(operation: operation, queue: queue, shouldStart: shouldStart))
         let next = reserveNextLocked()
         lock.unlock()
         if let next { start(next) }
@@ -65,12 +70,21 @@ final class ScreenCaptureCoordinator {
         let pendingOperation = pending.removeFirst()
         let id = UUID()
         activeIds.insert(id)
-        return ActiveOperation(id: id, operation: pendingOperation.operation)
+        return ActiveOperation(id: id, operation: pendingOperation.operation,
+            queue: pendingOperation.queue, shouldStart: pendingOperation.shouldStart)
     }
 
     private func start(_ active: ActiveOperation) {
-        schedule(watchdogSeconds) { [weak self] in self?.watchdogFired(active.id) }
-        active.operation { [weak self] in self?.completed(active.id) }
+        let submit = { [self] in
+            guard !isCircuitOpen, active.shouldStart() else { completed(active.id); return }
+            schedule(watchdogSeconds) { [weak self] in self?.watchdogFired(active.id) }
+            active.operation { [weak self] in self?.completed(active.id) }
+        }
+        if let queue = active.queue {
+            queue.async(execute: submit)
+        } else {
+            submit()
+        }
     }
 
     private func completed(_ id: UUID) {

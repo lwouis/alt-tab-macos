@@ -9,6 +9,8 @@ protects the queue from a system request that never calls its completion handler
 
 - At most two requests can be active.
 - A request gets a slot before it calls ScreenCaptureKit.
+- Eligibility is checked again on the submission queue after a slot is available. Ineligible work releases its reserved slot without starting a watchdog or calling the OS.
+- Window captures submit on main, where switcher visibility, preferences, lock state, and non-prompting preflight are checked without a queue hop before the OS call.
 - The normal completion handler releases the slot.
 - A completion handler can release its slot only one time.
 - A ten-second watchdog opens a circuit and drops queued work when ScreenCaptureKit loses a completion.
@@ -21,3 +23,4 @@ protects the queue from a system request that never calls its completion handler
 - `testMaximumOfTwoCapturesCanRun`
 - `testWatchdogOpensCircuitUntilLateCompletion`
 - `testCompletionCanReleaseOnlyOneSlot`
+- `testQueuedCaptureIsDroppedWhenEligibilityChanges`
