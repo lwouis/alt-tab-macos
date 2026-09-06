@@ -251,6 +251,46 @@ final class PreferencesMigrationsTests: XCTestCase {
         XCTAssertEqual(defaults.string(forKey: "maxHeightOnScreen"), "80")
     }
 
+    // MARK: - L2. AppearanceSizePreference gained XS + XL
+
+    func testAppearanceSizeIndexesShiftForInsertedExtraSmallAndExtraLarge() {
+        defaults.set("0", forKey: "appearanceSize") // small
+        PreferencesMigrations.migrateAppearanceSizeIndexes()
+        XCTAssertEqual(defaults.string(forKey: "appearanceSize"), "1")
+    }
+
+    func testAppearanceSizeAutoJumpsPastExtraLarge() {
+        defaults.set("3", forKey: "appearanceSize") // auto
+        PreferencesMigrations.migrateAppearanceSizeIndexes()
+        XCTAssertEqual(defaults.string(forKey: "appearanceSize"), "5")
+    }
+
+    func testAppearanceSizePerShortcutOverridesShiftToo() {
+        defaults.set("1", forKey: "appearanceSizeOverride")   // index 0's key has no suffix
+        defaults.set("2", forKey: "appearanceSizeOverride2")
+        defaults.set("3", forKey: "appearanceSizeOverride10") // the last slot
+        PreferencesMigrations.migrateAppearanceSizeIndexes()
+        XCTAssertEqual(defaults.string(forKey: "appearanceSizeOverride"), "2")
+        XCTAssertEqual(defaults.string(forKey: "appearanceSizeOverride2"), "3")
+        XCTAssertEqual(defaults.string(forKey: "appearanceSizeOverride10"), "5")
+    }
+
+    // an unset override must stay unset, else `hasOverride` (which reads `persistentDomain`) starts
+    // seeing every shortcut as explicitly overridden
+    func testAppearanceSizeLeavesUnsetKeysUnset() {
+        PreferencesMigrations.migrateAppearanceSizeIndexes()
+        XCTAssertNil(defaults.string(forKey: "appearanceSize"))
+        XCTAssertNil(defaults.string(forKey: "appearanceSizeOverride"))
+    }
+
+    func testAppearanceSizeRemembersProSelectionAcrossTheShift() {
+        let proDefaults = ProTransitionState.defaults
+        proDefaults.set(3, forKey: "proTransition.rememberedAppearanceSize") // auto
+        defer { proDefaults.removeObject(forKey: "proTransition.rememberedAppearanceSize") }
+        PreferencesMigrations.migrateAppearanceSizeIndexes()
+        XCTAssertEqual(proDefaults.object(forKey: "proTransition.rememberedAppearanceSize") as? Int, 5)
+    }
+
     // MARK: - N. nextWindowShortcut hold-modifier cleanup + index move
 
     func testNextWindowShortcutStripsHoldModifierChars() {
@@ -354,6 +394,9 @@ extension App {
 }
 
 enum ProTransitionState {
+    /// Isolated suite: production points at the license suite, which the tests must not touch.
+    static let defaults = UserDefaults(suiteName: "test-migrations-pro-transition")!
+
     static func markFreshInstallIfUnknown(_ value: Bool) {}
 }
 

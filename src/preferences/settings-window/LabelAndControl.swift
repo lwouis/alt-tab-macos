@@ -254,7 +254,35 @@ class LabelAndControl: NSObject {
         }
     }
 
-    static func makeSegmentedControl(_ rawName: String, _ macroPreferences: [MacroPreference], segmentWidth: CGFloat = -1, extraAction: ActionClosure? = nil) -> NSSegmentedControl {
+    /// Width each segment needs for its own localized label and symbol.
+    private static func naturalSegmentWidth(_ preference: MacroPreference) -> CGFloat {
+        let probe = NSSegmentedControl(labels: [preference.localizedString], trackingMode: .selectOne, target: nil, action: nil)
+        applySystemSelectedSegmentStyle(probe)
+        if let preference = preference as? SfSymbolMacroPreference {
+            probe.setImage(NSImage.fromSymbol(preference.symbol, pointSize: 13), forSegment: 0)
+        }
+        probe.sizeToFit()
+        return probe.frame.width
+    }
+
+    /// Per-segment widths measured from the localized labels, scaled down proportionally if they'd
+    /// overflow `maxTotal` (the width the row can give the control). `extraOnLast` reserves room for
+    /// an overlay on the trailing segment. Hardcoding widths instead would fit only English: "Auto"
+    /// is "Automatycznie" in Polish, "Medium" is "Middelgroot" in Dutch. Segments that still come out
+    /// too narrow truncate and get a tooltip, below.
+    static func fittedSegmentWidths(_ macroPreferences: [MacroPreference], extraOnLast: CGFloat = 0, maxTotal: CGFloat) -> [CGFloat] {
+        var widths = macroPreferences.map { naturalSegmentWidth($0) }
+        guard let last = widths.indices.last else { return [] }
+        widths[last] += extraOnLast
+        let total = widths.reduce(0, +)
+        guard total > maxTotal else { return widths }
+        return widths.map { ($0 * maxTotal / total).rounded(.down) }
+    }
+
+    /// `segmentWidths` overrides `segmentWidth` per segment. Widths must stay explicit either way:
+    /// `ProBadgeView.attach` positions its overlay from `width(forSegment:)`, which AppKit reports as
+    /// 0 for auto-sized segments.
+    static func makeSegmentedControl(_ rawName: String, _ macroPreferences: [MacroPreference], segmentWidth: CGFloat = -1, segmentWidths: [CGFloat]? = nil, extraAction: ActionClosure? = nil) -> NSSegmentedControl {
         let button = NSSegmentedControl(labels: macroPreferences.map {
             $0.localizedString
         }, trackingMode: .selectOne, target: nil, action: nil)
@@ -263,8 +291,9 @@ class LabelAndControl: NSObject {
         SettingsSearchIndex.registerTarget(SettingsWindow.highlightTarget(button))
         applySystemSelectedSegmentStyle(button)
         for (i, preference) in macroPreferences.enumerated() {
-            if segmentWidth > 0 {
-                button.setWidth(segmentWidth, forSegment: i)
+            let width = segmentWidths?[safe: i] ?? segmentWidth
+            if width > 0 {
+                button.setWidth(width, forSegment: i)
             }
             var hasImage = false
             if let preference = preference as? SfSymbolMacroPreference {
@@ -281,11 +310,11 @@ class LabelAndControl: NSObject {
             // again as a tooltip is annoying noise. The width math is approximate (AppKit doesn't
             // expose the exact text-drawing rect inside a segment): we subtract the typical
             // left+right segment padding plus the symbol image and its gap.
-            if segmentWidth > 0 {
+            if width > 0 {
                 let label = preference.localizedString
                 let textWidth = (label as NSString).size(withAttributes: [.font: button.font ?? NSFont.systemFont(ofSize: NSFont.systemFontSize)]).width
                 let imageWidth: CGFloat = hasImage ? 16 + 4 : 0
-                let availableTextWidth = segmentWidth - 12 - imageWidth
+                let availableTextWidth = width - 12 - imageWidth
                 if textWidth > availableTextWidth, #available(macOS 10.13, *) {
                     button.setToolTip(label, forSegment: i)
                 }

@@ -916,6 +916,12 @@
 /* No comment provided by engineer. */
 "Window title contains" = "Window title contains";
 
+/* Extra large appearance size */
+"XL" = "XL";
+
+/* Extra small appearance size */
+"XS" = "XS";
+
 /* No comment provided by engineer. */
 "You can’t undo this action." = "You can’t undo this action.";
 
