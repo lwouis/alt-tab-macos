@@ -67,6 +67,12 @@
 		5E5EA12C0000000000000002 /* SearchModeResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E5EA12C0000000000000001 /* SearchModeResolver.swift */; };
 		5E5EA12C0000000000000003 /* SearchModeResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E5EA12C0000000000000001 /* SearchModeResolver.swift */; };
 		5E5EA12C0000000000000102 /* SearchModeResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E5EA12C0000000000000101 /* SearchModeResolverTests.swift */; };
+		5E6010A00000000000000002 /* WindowTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6010A00000000000000001 /* WindowTitle.swift */; };
+		5E6010A00000000000000003 /* WindowTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6010A00000000000000001 /* WindowTitle.swift */; };
+		5E6010A00000000000000102 /* WindowTitleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6010A00000000000000101 /* WindowTitleTests.swift */; };
+		5E6010B00000000000000002 /* TileGridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6010B00000000000000001 /* TileGridLayout.swift */; };
+		5E6010B00000000000000003 /* TileGridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6010B00000000000000001 /* TileGridLayout.swift */; };
+		5E6010B00000000000000102 /* TileGridLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6010B00000000000000101 /* TileGridLayoutTests.swift */; };
 		5E5EA12D0000000000000002 /* ShortcutModifierResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E5EA12D0000000000000001 /* ShortcutModifierResolver.swift */; };
 		5E5EA12D0000000000000003 /* ShortcutModifierResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E5EA12D0000000000000001 /* ShortcutModifierResolver.swift */; };
 		5E5EA12D0000000000000102 /* ShortcutModifierResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E5EA12D0000000000000101 /* ShortcutModifierResolverTests.swift */; };
@@ -492,6 +498,10 @@
 		5EA8E110000000000000F211 /* SchedulingPolicyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulingPolicyTests.swift; sourceTree = "<group>"; };
 		5E5EA12C0000000000000001 /* SearchModeResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModeResolver.swift; sourceTree = "<group>"; };
 		5E5EA12C0000000000000101 /* SearchModeResolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModeResolverTests.swift; sourceTree = "<group>"; };
+		5E6010A00000000000000001 /* WindowTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowTitle.swift; sourceTree = "<group>"; };
+		5E6010A00000000000000101 /* WindowTitleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowTitleTests.swift; sourceTree = "<group>"; };
+		5E6010B00000000000000001 /* TileGridLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileGridLayout.swift; sourceTree = "<group>"; };
+		5E6010B00000000000000101 /* TileGridLayoutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileGridLayoutTests.swift; sourceTree = "<group>"; };
 		5E5EA12D0000000000000001 /* ShortcutModifierResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutModifierResolver.swift; sourceTree = "<group>"; };
 		5E5EA12D0000000000000101 /* ShortcutModifierResolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutModifierResolverTests.swift; sourceTree = "<group>"; };
 		5F5849A900000000000000A1 /* BruteForceWindowMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BruteForceWindowMatch.swift; sourceTree = "<group>"; };
@@ -1128,6 +1138,8 @@
 				D04BA7CF9C2D1BEC7C05AB24 /* Spaces.swift */,
 				5E1EC110000000000000C001 /* SelectionResolver.swift */,
 				5E5EA12C0000000000000001 /* SearchModeResolver.swift */,
+				5E6010A00000000000000001 /* WindowTitle.swift */,
+				5E6010A00000000000000101 /* WindowTitleTests.swift */,
 				5E5EA12D0000000000000001 /* ShortcutModifierResolver.swift */,
 				5F117E40000000000000F001 /* WindowFilterResolver.swift */,
 				5F117E40000000000000E001 /* TabReadPolicy.swift */,
@@ -1602,6 +1614,8 @@
 				D04BA258B56193958D60978A /* TileView.swift */,
 				5F7B6AFB2F3BAB98003E25E8 /* StatusIconsView.swift */,
 				D04BAA998119CAA8B70A2B67 /* TilesView.swift */,
+				5E6010B00000000000000001 /* TileGridLayout.swift */,
+				5E6010B00000000000000101 /* TileGridLayoutTests.swift */,
 				D04BAFC0A1B2C3D4E5F60001 /* TileOverView.swift */,
 				D04BAFC2A1B2C3D4E5F60003 /* TileUnderLayer.swift */,
 				5EA8E110000000000000DA01 /* DragAndDropResolver.swift */,
@@ -2093,6 +2107,10 @@
 				5E1EC110000000000000C102 /* SelectionResolverTests.swift in Sources */,
 				5E5EA12C0000000000000003 /* SearchModeResolver.swift in Sources */,
 				5E5EA12C0000000000000102 /* SearchModeResolverTests.swift in Sources */,
+				5E6010A00000000000000003 /* WindowTitle.swift in Sources */,
+				5E6010A00000000000000102 /* WindowTitleTests.swift in Sources */,
+				5E6010B00000000000000003 /* TileGridLayout.swift in Sources */,
+				5E6010B00000000000000102 /* TileGridLayoutTests.swift in Sources */,
 				5E5EA12D0000000000000003 /* ShortcutModifierResolver.swift in Sources */,
 				5E5EA12D0000000000000102 /* ShortcutModifierResolverTests.swift in Sources */,
 				5F5849A900000000000000A3 /* BruteForceWindowMatch.swift in Sources */,
@@ -2196,6 +2214,8 @@
 				D04BAFB973C3D28718FAEB87 /* Windows.swift in Sources */,
 				5E1EC110000000000000C002 /* SelectionResolver.swift in Sources */,
 				5E5EA12C0000000000000002 /* SearchModeResolver.swift in Sources */,
+				5E6010A00000000000000002 /* WindowTitle.swift in Sources */,
+				5E6010B00000000000000002 /* TileGridLayout.swift in Sources */,
 				5E5EA12D0000000000000002 /* ShortcutModifierResolver.swift in Sources */,
 				5F5849A900000000000000A2 /* BruteForceWindowMatch.swift in Sources */,
 				5E5EA12E0000000000000002 /* KeyRepeatTimerTestable.swift in Sources */,

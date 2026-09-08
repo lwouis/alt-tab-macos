@@ -56,8 +56,9 @@ class TileTitleView: NSTextField {
         fixHeight()
     }
 
+    /// One line, always: `TilesView.labelLineHeight()` says why the label's own content must not decide.
     func fixHeight() {
-        frame.size.height = cell!.cellSize.height
+        frame.size.height = TilesView.labelLineHeight()
     }
 
     func setWidth(_ width: CGFloat) {

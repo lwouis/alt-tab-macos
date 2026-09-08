@@ -455,7 +455,13 @@ class Window {
     /// synchronous WindowServer round trip on the show path — and the batched query that fills the inventory
     /// already fetched exactly this string (`SLSWindowIteratorCopyTitle`), refreshed on every geometry event.
     /// The live call remains for a wid the inventory has no row for, so nothing that used to resolve stops.
+    /// Flattened on the way in, so no consumer ever sees a line break: `WindowTitle` says what that costs
+    /// when one gets through.
     func bestEffortTitle(_ axTitle: String?) -> String {
+        WindowTitle.singleLine(rawBestEffortTitle(axTitle))
+    }
+
+    private func rawBestEffortTitle(_ axTitle: String?) -> String {
         if let axTitle, !axTitle.isEmpty {
             return axTitle
         }
