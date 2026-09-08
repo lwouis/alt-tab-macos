@@ -148,6 +148,13 @@ struct TestScenarioGenerator {
                 guard canReach(w) else { return false }
                 guard w < windowCount else { break }
                 fullscreen.insert(w); onSpaceOf = w
+            // Leaving fullscreen is only reachable from inside that window's own Space, and it puts you back
+            // on the windowed one. Not generated (see `scenario`), but the hand-written scenarios use it and
+            // the shrinker walks them.
+            case .exitFullscreen(let w):
+                guard canReach(w) else { return false }
+                guard w < windowCount, fullscreen.contains(w) else { break }
+                fullscreen.remove(w); onSpaceOf = nil
             case .switchToSpace(let w):
                 guard canReach(w) else { return false }
                 guard w < windowCount else { break }

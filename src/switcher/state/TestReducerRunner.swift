@@ -373,9 +373,15 @@ final class TestReducerRunner {
 
     /// A Space-less, ungrouped, unheld window is hidden (phantom) — the strays the recordings kept finding
     /// shown (rec15's ghost flood arrived visible; rec20's orphan stood as a stray tile).
+    ///
+    /// ORDERED-IN windows are exempt, because `PhantomWindowDetector.syncVerdict` says so before it ever
+    /// reaches Space-lessness: "a window the WindowServer is still showing on screen is not a phantom".
+    /// Demanding otherwise here states a rule the app deliberately does not have, and the state is reachable
+    /// — a window LEAVING fullscreen is ordered back in while CGS has not yet listed it on the windowed
+    /// Space (`exitFullscreen`). A real stray is ordered OUT, which is what the recordings above caught.
     private func checkSpacelessUngroupedHidden(_ context: String) {
         for w in state.windows {
-            guard let wid = w.wid, w.spaceIds.isEmpty, !w.isWindowlessApp, !w.isMinimized,
+            guard let wid = w.wid, w.spaceIds.isEmpty, !w.isWindowlessApp, !w.isMinimized, !w.isOrderedIn,
                   state.apps[w.pid]?.state.isHidden != true,
                   state.groups.groupId(of: wid) == nil, !state.held.contains(wid) else { continue }
             if !state.isPhantom(w) {

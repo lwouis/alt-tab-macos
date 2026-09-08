@@ -84,7 +84,11 @@ facts via `modelWindow(...)` wherever a capture exists.
 4. **A real on-Space window is never claimed** — tabbed ⇒ Space empty/borrowed/held; exempt while a
    creation is in flight (the sanctioned atomic claim) or the wid is a pending drag-out's outgoing
    representative (its genuine Space outlives the swap by a few ms — observed in rec19).
-5. **Space-less ungrouped unheld windows are hidden** (rec15/rec20 strays).
+5. **Space-less ungrouped unheld windows are hidden** (rec15/rec20 strays) — unless the WindowServer has
+   them ORDERED IN, which `PhantomWindowDetector.syncVerdict` already treats as decisive before it reaches
+   Space-lessness ("a window the WindowServer is still showing on screen is not a phantom"). That state is
+   reachable: a window LEAVING fullscreen is ordered back in while CGS has not yet listed it on the windowed
+   Space. A real stray is ordered OUT, which is what the recordings caught.
 6. **The representative is the most recently focused presentable member** (rec18/rec19 — focus is
    authoritative, read order is not evidence).
 

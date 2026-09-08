@@ -40,6 +40,35 @@ final class TestScenarioSimulatorTests: XCTestCase {
                        .enterFullscreen(window: 0), .show])
     }
 
+    /// **: leaving fullscreen with a second window of the same app open.** Both windows are the model's
+    /// default 900x600, which is the reporter's setup (two Chrome windows at one size) and the ordinary one —
+    /// windows of an app are the same size far more often than not. On the way out the fullscreen window is
+    /// Space-less, ordered out and already wearing that shared size for ~500ms, so every fact geometry keys
+    /// on says "background tab of the other window"; folding it there marks it `isTabbed` and nothing ever
+    /// re-splits an established group, so the tile does not come back.
+    func testLeavingFullscreenKeepsBothWindowsOfTheApp() {
+        assertCorrect([.newWindow(pid: 1), .newWindow(pid: 1), .enterFullscreen(window: 0), .show,
+                       .exitFullscreen(window: 0), .show])
+    }
+
+    /// The same exit with the OTHER window carrying tabs — the fold has a real group to swallow it into.
+    func testLeavingFullscreenNextToATabbedWindowKeepsBothTiles() {
+        assertCorrect([.newWindow(pid: 1), .newWindow(pid: 1), .openTab(window: 1),
+                       .enterFullscreen(window: 0), .show, .exitFullscreen(window: 0), .show])
+    }
+
+    /// Enter and leave repeatedly: a fold that only survives one round trip still hides the window for good.
+    func testRepeatedFullscreenRoundTripsKeepBothWindows() {
+        var s: TestScenario = [.newWindow(pid: 1), .newWindow(pid: 1), .show]
+        for _ in 0..<4 { s += [.enterFullscreen(window: 0), .show, .exitFullscreen(window: 0), .show] }
+        assertCorrect(s)
+    }
+
+    func testProbeSwitchAwayFromStandaloneFullscreen() {
+        assertCorrect([.newWindow(pid: 1), .newWindow(pid: 1), .enterFullscreen(window: 0), .show,
+                       .switchToSpace(window: 1), .show])
+    }
+
     // MARK: - the churn class (many switches — rec24f)
 
     func testManyWindowedTabSwitchesStayOneTile() {

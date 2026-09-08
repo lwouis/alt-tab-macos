@@ -437,8 +437,16 @@ responsible for and pointed the fix at the wrong rule. `shrink` now rejects any 
   the open lead it was built for — an occasional tile vanish-then-reappear after switching a tab in a
   NON-fullscreen window — is NOT reproduced by it. Either the shape is different, or the model still cannot
   express it. Do not close that lead on the strength of this axis being green.
-- Gestures not modeled: minimize/unminimize, drag-tab-out, window close + 804-lag timing, Space-move via
-  Mission Control, multi-monitor, hidden apps.
+- Gestures not modeled: drag-tab-out, window close + 804-lag timing, Space-move via Mission Control,
+  multi-monitor, hidden apps. (minimize/unminimize and leaving fullscreen are modelled.)
+- **A tab frozen at the fullscreen frame after its window leaves fullscreen.** `exitFullscreen` restores the
+  ACTIVE tab's frame; a background tab gets no geometry event, so it keeps the fullscreen size — which is
+  screen-sized, i.e. the size cluster of every fullscreen window on the machine. The frame invariant
+  (`checkNoGroupSpansDistinctFrames`) exempts a group with a genuinely-fullscreen MEMBER, not one whose
+  member is merely frozen at that frame, so a tabbed window's exit trips it. Seen by adding the action to the
+  generator's pool (which reshuffles every seed, so that change is not committed): shrunk to
+  `[newWindow, openTab, switchTab, enterFullscreen, switchTab, exitFullscreen, show]`. Unread: it is either
+  that exemption gap or a real staleness, and it is NOT the reporter's shape (Chrome, no tabs).
 - Non-Finder tabbing (Terminal/Safari mint wids differently).
 - Non-Finder tab lifecycles beyond the two modelled switch behaviours (Safari/Terminal differ again).
 
@@ -466,6 +474,22 @@ over the interleaving axes (ordering / handover order / late read), so one entry
   switching must not accumulate tiles or fail to settle; the per-step convergence check is what sees it.
 - **testFullscreenTabbedWindowCoexistsWithWindowedWindows** — the fullscreen group and ordinary windows of
   the same app do not bleed into each other.
+
+### B2. Leaving fullscreen (`exitFullscreen`)
+
+The inverse of `enterFullscreen`, and NOT its events played backwards. Measured live (2026-09-08, macOS 26,
+Chrome, twice in one session): the window is raised, drops its fullscreen Space, has its windowed frame back
+within 50ms, is ordered OUT for the animation, and rejoins the windowed Space ~516ms later — so it spends
+half a second Space-less, ordered out, and wearing the size cluster of every other window of its app, while
+the WindowServer snapshot that clears `isFullscreen` is still a read in flight. Modelled with the rejoin as a
+`settlingWindow` straddle, exactly like `switchToSpace`, because that gap is the point.
+
+- **testLeavingFullscreenKeepsBothWindowsOfTheApp** — two same-sized windows, one goes fullscreen and comes
+  back: two tiles throughout. The reporter's shape.
+- **testLeavingFullscreenNextToATabbedWindowKeepsBothTiles** — the same exit next to a window that really has
+  tabs, so the fold has an established group to swallow the returning window into.
+- **testRepeatedFullscreenRoundTripsKeepBothWindows** — four round trips: a fold that only survives one of
+  them still hides the window for good, since nothing re-splits an established group.
 
 ### C. Real bugs the model found and we fixed (each pinned, each fuzzed)
 - **testSupersededIncomingTabDoesNotBecomeRepresentative** — switching TO a tab arms its focus promotion;

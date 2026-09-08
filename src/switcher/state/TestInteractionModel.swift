@@ -8,6 +8,7 @@ enum TestUserAction: Equatable, CustomStringConvertible {
     case openTab(window: Int)                 // window: index into created order
     case switchTab(window: Int, tab: Int)
     case enterFullscreen(window: Int)
+    case exitFullscreen(window: Int)
     case switchToSpace(window: Int)           // move to the Space `window` lives on (its own, if fullscreen)
     case minimize(window: Int)
     case restoreFromDock(window: Int)         // click its tile in the Dock
@@ -18,6 +19,7 @@ enum TestUserAction: Equatable, CustomStringConvertible {
         case .openTab(let w): return "openTab(window: \(w))"
         case .switchTab(let w, let t): return "switchTab(window: \(w), tab: \(t))"
         case .enterFullscreen(let w): return "enterFullscreen(window: \(w))"
+        case .exitFullscreen(let w): return "exitFullscreen(window: \(w))"
         case .switchToSpace(let w): return "switchToSpace(window: \(w))"
         case .minimize(let w): return "minimize(window: \(w))"
         case .restoreFromDock(let w): return "restoreFromDock(window: \(w))"
@@ -47,6 +49,10 @@ struct TestInteractionModel {
         var position: CGPoint
         var isFullscreen: Bool
         var isMinimized: Bool = false
+        /// The frame fullscreen replaced, restored on the way out. macOS puts the window back exactly where
+        /// it was, which is what makes leaving fullscreen land it in its old size cluster again.
+        var windowedSize: CGSize?
+        var windowedPosition: CGPoint?
         var space: UInt64
         var tabs: [Tab]
         var activeTab: Int
@@ -306,6 +312,7 @@ struct TestInteractionModel {
         case .openTab(let w): return openTab(window: w)
         case .switchTab(let w, let t): return switchTab(window: w, toIndex: t)
         case .enterFullscreen(let w): return enterFullscreen(window: w)
+        case .exitFullscreen(let w): return exitFullscreen(window: w)
         case .switchToSpace(let w): return switchToSpace(window: w)
         case .minimize(let w): return minimize(window: w)
         case .restoreFromDock(let w): return restoreFromDock(window: w)
@@ -478,6 +485,8 @@ struct TestInteractionModel {
     private mutating func enterFullscreen(window: Int) -> ActionEvents {
         guard let wi = index(ofWindow: window) else { return ActionEvents() }
         let space = nextSpace; nextSpace += 1
+        world[wi].windowedSize = world[wi].size
+        world[wi].windowedPosition = world[wi].position
         world[wi].isFullscreen = true
         world[wi].space = space
         world[wi].size = CGSize(width: 1440, height: 900)
@@ -493,6 +502,52 @@ struct TestInteractionModel {
                    size: CGSize(width: 1440, height: 900), isFullscreen: true, isVisible: true)])),
                .input(.spaceMembershipChanged(wid: activeWid, spaceId: space, added: true, now: tick(), inSpaceTransition: false)),
                .input(.spaceMembershipChanged(wid: activeWid, spaceId: windowedSpace, added: false, now: tick(), inSpaceTransition: false))]
+        return e
+    }
+
+    /// **Leaving fullscreen**, which is NOT the enter events played backwards. Measured live (2026-09-08,
+    /// macOS 26, Chrome; the same shape twice in one session):
+    ///
+    ///     33.845  windowOrderedIn        the window is raised as the animation starts
+    ///     33.845  1326 space=764         it drops its fullscreen Space — and is now Space-LESS
+    ///     33.895  windowMovedOrResized   its frame is ALREADY back to the windowed one
+    ///     33.896  windowOrderedOut       it goes off screen for the length of the animation
+    ///     34.361  1325 space=1           ~516ms later it joins the windowed Space
+    ///     34.396  spaceCurrentChanged    and only then does the Space itself flip
+    ///
+    /// Two properties matter and neither has an analogue in `enterFullscreen`. The window spends half a
+    /// second Space-less, ordered out, wearing its WINDOWED frame — so it is back in the size cluster of
+    /// every other window of its app while holding no Space to tell them apart. And the WindowServer
+    /// snapshot that clears `isFullscreen` is a READ, landing whenever the query answers: until it does, the
+    /// window is a fullscreen-flagged member of a windowed cluster, which is what waives tab grouping's
+    /// confirmation gate.
+    ///
+    /// The rejoin is `settlingWindow` (it straddles the next action) for the same reason `switchToSpace`'s
+    /// is: that gap is the whole point of modelling this at all.
+    private mutating func exitFullscreen(window: Int) -> ActionEvents {
+        guard let wi = index(ofWindow: window), world[wi].isFullscreen else { return ActionEvents() }
+        let fullscreenSpace = world[wi].space
+        world[wi].isFullscreen = false
+        world[wi].space = windowedSpace
+        world[wi].size = world[wi].windowedSize ?? CGSize(width: 900, height: 600)
+        world[wi].position = world[wi].windowedPosition ?? .zero
+        world[wi].tabs[world[wi].activeTab].size = world[wi].size
+        world[wi].tabs[world[wi].activeTab].position = world[wi].position
+        currentVisibleSpace = windowedSpace
+        transitioningIdentities.insert(world[wi].identity)
+        let activeWid = world[wi].activeWid
+        var e = ActionEvents()
+        e.ordered = [.setSpaces(visible: [windowedSpace], current: windowedSpace, index: (windowedSpace, 1))]
+            + appSteps(world[wi].pid)
+            + [.input(.windowFocused(wid: activeWid, now: tick())),
+               .input(.windowOrderedIn(wid: activeWid, now: tick(), inSpaceTransition: false)),
+               .input(.spaceMembershipChanged(wid: activeWid, spaceId: fullscreenSpace, added: false,
+                   now: tick(), inSpaceTransition: false)),
+               .input(.windowMovedOrResized(wid: activeWid, inSpaceTransition: false)),
+               .input(.windowOrderedOut(wid: activeWid, inSpaceTransition: false))]
+        e.readUnits = [[.input(.windowServerStateRead([WsWindowSnapshot(wid: activeWid,
+            position: world[wi].position, size: world[wi].size, isFullscreen: false, isVisible: true)]))]]
+        e.settlingWindow = world[wi].identity
         return e
     }
 
