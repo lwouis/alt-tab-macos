@@ -75,6 +75,47 @@ final class WindowEventReducerSpaceTests: XCTestCase {
                        + "would re-read the topology twice for nothing")
     }
 
+    // MARK: - B2. Leaving fullscreen
+
+    /// **Leaving fullscreen must not hand the window to a same-sized sibling.** Live trace (2026-09-08,
+    /// Chrome, two windows at one frame): the window drops its fullscreen Space, joins the windowed one, and
+    /// a Spaces re-query lands in the tail of the animation still naming NO Space for it — CGS lags the
+    /// rejoin. The 1326 recorded `lastLeftSpaceId`, but the 1325 that followed cleared it, so by the time the
+    /// re-query empties `spaceIds` again the one fact that says "this window came off its OWN Space" is gone.
+    /// What is left is same-app, same-size, Space-less, ordered-out and still flagged fullscreen: every fact
+    /// a background tab of the other window has, and the fullscreen clause waives the confirmation gate the
+    /// windowed path would have required. Geometry folds it in, `isTabbed` hides its tile, and nothing
+    /// re-splits an established group — the window is unreachable for the rest of the session.
+    func testLeavingFullscreenIsNotFoldedIntoASameSizedSibling() {
+        var s = state()
+        // a third window, of another app, sitting on the windowed Space — what makes that Space demonstrably
+        // SHARED, and so proves the returning window is not on a fullscreen Space any more
+        var other = window(5003, spaceId: 1, order: 2)
+        other.pid = 4712
+        other.size = CGSize(width: 700, height: 500)
+        other.isOrderedIn = true
+        s.windows.append(other)
+        s.apps[4712] = TrackedApp(
+            state: ApplicationState(pid: 4712, bundleIdentifier: "com.apple.Safari",
+                                    localizedName: "Safari", isHidden: false),
+            isActive: false)
+        s.windows[1].spaceIds = [764]
+        s.windows[1].spaceIndexes = [2]
+        s.windows[1].isFullscreen = true
+        s.windows[0].isOrderedIn = true
+        s.spaceIndexById[764] = 2
+        _ = WindowEventReducer.reduce(&s, .spaceMembershipChanged(wid: Self.widB, spaceId: 764, added: false,
+            now: 1, inSpaceTransition: false))
+        _ = WindowEventReducer.reduce(&s, .spaceMembershipChanged(wid: Self.widB, spaceId: 1, added: true,
+            now: 2, inSpaceTransition: false))
+        _ = WindowEventReducer.reduce(&s, .spacesSynced(windowToSpaces: [Self.widA: [1], Self.widB: []],
+            queried: [Self.widA, Self.widB], answered: [Self.widA, Self.widB],
+            placedByWindowServer: [], topologyChanged: false))
+        XCTAssertFalse(s.isTabbed(s.windows[1]),
+                       "a window coming out of fullscreen is not a tab of the window it happens to match in size")
+        XCTAssertNil(s.groups.groupId(of: Self.widB), "members=\(s.groups.membersByGroup) tabbedA=\(s.isTabbed(s.windows[0])) tabbedB=\(s.isTabbed(s.windows[1])) spA=\(s.windows[0].spaceIds) spB=\(s.windows[1].spaceIds)")
+    }
+
     // MARK: - C. The Spaces answer applies only to the windows it was asked about
 
     /// The pass captures its wid list on main, queries off-main, and lands later. A window discovered in that

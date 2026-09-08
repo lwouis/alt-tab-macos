@@ -611,6 +611,34 @@ enum WindowEventReducer {
         if let i = state.windowIndex(wid) {
             state.windows[i].lastLeftSpaceId = added ? nil : spaceId
         }
+        // **A fullscreen window's Space is its own** — that is the invariant every Space-based tab decision
+        // rests on (`TabGroupResolver`). So a window still FLAGGED fullscreen that joins a Space another
+        // window is genuinely settled on has demonstrably left fullscreen, whatever its last WindowServer
+        // snapshot said: the flag is derived from the Space's type mask (`WsWindowState.isFullscreen`) and
+        // the query that refreshes it is a READ, landing whenever it answers. Leaving it standing is what
+        // made a window that just left fullscreen foldable: same app, same size, ordered out, and carrying
+        // the flag that waives tab grouping's confirmation gate, so geometry claimed it as a background tab
+        // of a same-sized neighbour and its tile never came back
+        // (`testLeavingFullscreenIsNotFoldedIntoASameSizedSibling`). Only a GENUINELY settled neighbour counts
+        // — a borrowed or held Space is our own annotation, not CGS evidence, and entering fullscreen joins a
+        // Space that is by construction empty, so that direction is untouched.
+        if added, let i = state.windowIndex(wid), state.windows[i].isFullscreen,
+           state.windows.contains(where: { other in
+               other.wid != wid && other.spaceIds == [spaceId] && !other.spaceIsBorrowed
+                   && !(other.wid.map { state.held.contains($0) } ?? false)
+                   // ...and it must belong to ANOTHER APP, which is what proves the Space is shared rather
+                   // than ours: no window of another app can be a tab of this one. Same-app neighbours prove
+                   // nothing — a fullscreen tab SWITCH has the incoming tab joining the Space its outgoing
+                   // sibling still holds, and clearing the flag there tears the group apart
+                   // (`testManyFullscreenTabSwitchesStayOneTile`). Size cannot stand in for it either: a
+                   // fullscreen window's background tabs are frozen at the pre-fullscreen size, so they
+                   // legitimately differ from their own active tab.
+                   && other.pid != window.pid
+           }) {
+            effects.append(.log("leftFullscreen #\(wid) (joined shared space=\(spaceId))"))
+            state.windows[i].isFullscreen = false
+            state.windows[i].isFullscreenMirrored = false
+        }
         // Hold a backgrounding tab visible through the new-tab discovery gap (the kernel decides; see
         // `shouldHoldVisibleThroughDiscovery`). The derived `isPhantom` keeps a held wid non-phantom, so
         // it shows its last thumbnail until the incoming tab's claim folds it in — a clean one-tile swap.

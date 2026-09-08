@@ -87,6 +87,32 @@ reports a non-zero `spaceTypeMask` for one it places, and passes the contradicti
 - **testAPlacedWindowStillTakesItsNewSpace** — a real answer always beats the keep, so a window that genuinely
   changed Space is not frozen at its old one.
 
+### D2. Leaving fullscreen
+
+A window's `isFullscreen` is not a property of the window — it is derived from the **type mask of the Space it
+sits on** (`WsWindowState.isFullscreen`, bit `0x20`), and it is refreshed by a WindowServer query, which is a
+READ that lands whenever it answers. Leaving fullscreen therefore has a window of time in which the flag is
+stale: measured live (2026-09-08, macOS 26, Chrome), the window drops its fullscreen Space, is ordered out,
+snaps back to its windowed frame within 50ms, and only rejoins the windowed Space ~516ms later.
+
+For that half second the window is same-app, same-size, Space-less or freshly rejoined, ordered out — and
+still flagged fullscreen. Every one of those facts also describes a background TAB of another window of the
+app, and the flag is what waives tab grouping's confirmation gate (`TabGroupResolver.geometryGroups` keeps a
+cluster with a fullscreen member whole, and folds every member of a single settled Space into one window).
+So geometry claims the returning window as a tab of a same-sized neighbour, `isTabbed` drops its tile, and
+nothing re-splits an established group: the window is unreachable for the rest of the session.
+
+The Space membership event settles it, because **a fullscreen Space holds exactly one window and its tabs** —
+the invariant every Space-based tab decision already rests on. A window joining a Space that another APP's
+window genuinely sits on is therefore not on a fullscreen Space, whatever its last snapshot said. Another
+app's window is the proof that carries: a same-app neighbour proves nothing (a fullscreen tab switch has the
+incoming tab joining the Space its outgoing sibling still holds), and neither does size (a fullscreen window's
+background tabs stay frozen at the pre-fullscreen size, so they legitimately differ from their own active).
+
+- **testLeavingFullscreenIsNotFoldedIntoASameSizedSibling** — the live sequence, with a second window of the
+  app at the same size and a third window of another app on the windowed Space: the returning window is not
+  claimed as a tab and joins no group.
+
 ### E. A transition that never commits, and transitions that overlap
 
 Both shapes became reachable when the QA harness learned to synthesize a dock swipe. A commanded
