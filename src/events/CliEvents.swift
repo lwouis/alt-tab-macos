@@ -227,6 +227,7 @@ class CliServer {
             groups: groups,
             windows: windows,
             tiles: renderedTiles(),
+            layout: renderedLayout(),
             tracking: TrackingTelemetryRecorder.state.summary())
     }
 
@@ -240,13 +241,34 @@ class CliServer {
         return TilesView.recycledViews.enumerated().compactMap { (i, view) -> QaTile? in
             guard view.frame != .zero, let window = view.window_ else { return nil }
             let icons = view.statusIcons.icons
+            let frame = view.frame
             return QaTile(index: i, wid: window.cgWindowId, title: window.title,
                 app: window.application.runningApplication.localizedName,
                 minimizedIcon: icons[StatusIconsView.minimizedIdx].visible,
                 fullscreenIcon: icons[StatusIconsView.fullscreenIdx].visible,
                 appHiddenIcon: icons[StatusIconsView.hiddenIdx].visible,
-                spaceIcon: icons[StatusIconsView.spaceIdx].visible)
+                spaceIcon: icons[StatusIconsView.spaceIdx].visible,
+                x: frame.origin.x, y: frame.origin.y, w: frame.size.width, h: frame.size.height,
+                thumbY: view.thumbnail.frame.origin.y, labelY: view.label.frame.origin.y,
+                row: window.rowIndex ?? -1)
         }
+    }
+
+    /// The panel-wide numbers every tile is placed from. `labelHeight` is the one #6010 moved: it is meant
+    /// to be the font's line height and nothing else, so a test can compare it against a run whose titles
+    /// hold no line breaks.
+    private static func renderedLayout() -> QaLayout? {
+        guard SwitcherSession.isActive else { return nil }
+        return QaLayout(labelHeight: TilesView.layoutCache.labelHeight,
+            thumbnailsWidth: TilesView.thumbnailsWidth, thumbnailsHeight: TilesView.thumbnailsHeight,
+            rowCount: TilesView.rows.filter { !$0.isEmpty }.count)
+    }
+
+    private struct QaLayout: Codable {
+        var labelHeight: CGFloat
+        var thumbnailsWidth: CGFloat
+        var thumbnailsHeight: CGFloat
+        var rowCount: Int
     }
 
     private struct QaState: Codable {
@@ -266,6 +288,8 @@ class CliServer {
         var windows: [QaWindow]
         /// empty while the switcher is closed — there is nothing drawn to report
         var tiles: [QaTile]
+        /// nil while the switcher is closed, for the same reason
+        var layout: QaLayout?
         /// provider health and the last committed attention decision (`TrackingTelemetryState`)
         var tracking: TrackingTelemetrySummary
     }
@@ -284,6 +308,17 @@ class CliServer {
         var fullscreenIcon: Bool
         var appHiddenIcon: Bool
         var spaceIcon: Bool
+        /// **The laid-out geometry, so a test can judge the GRID and not just the list.** The tile's own
+        /// frame moves when the row height is wrong (titles / appIcons styles), and the thumbnail's origin
+        /// inside it moves when only the label metric is wrong (thumbnails style) — which is the shape of
+        /// #6010 and is invisible in every other field here.
+        var x: CGFloat
+        var y: CGFloat
+        var w: CGFloat
+        var h: CGFloat
+        var thumbY: CGFloat
+        var labelY: CGFloat
+        var row: Int
     }
 
     private struct QaSpace: Codable {
