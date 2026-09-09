@@ -5,7 +5,8 @@ import Foundation
 /// the app's `ApplicationState`, the dropdown booleans (defaulted to `false` so tests only spell out
 /// what they exercise), the runtime context (frontmost pid, visible spaces, exceptions), and a
 /// **lazy** `isOnPreferredScreen` — the one fact that's irreducibly OS-coupled (`Window.isOnScreen`
-/// touches `Spaces.screenSpacesMap` + multi-screen quartz math). Everything else is a pure
+/// touches `Spaces.screenSpacesMap` + multi-screen quartz math) — and a **lazy** `isUnderCursor` (the
+/// window's frame against the cursor, which `WindowState` doesn't carry). Everything else is a pure
 /// expression over the inputs, evaluated inline so `&&` short-circuits exactly like the original.
 enum WindowFilterResolver {
     /// True iff the window passes every active filter. Mirrors the original predicate term-for-term;
@@ -14,6 +15,7 @@ enum WindowFilterResolver {
     static func shouldShow(_ s: WindowState, _ app: ApplicationState,
                            onlyFrontmostApp: Bool = false,       // appsToShow == .active
                            excludeFrontmostApp: Bool = false,    // appsToShow == .nonActive
+                           onlyUnderCursor: Bool = false,        // appsToShow == .underCursor
                            hideHidden: Bool = false,             // showHiddenWindows == .hide
                            hideWindowless: Bool = false,         // showWindowlessApps == .hide
                            hideFullscreen: Bool = false,         // showFullscreenWindows == .hide
@@ -25,14 +27,15 @@ enum WindowFilterResolver {
                            frontmostPid: pid_t? = nil,
                            visibleSpaceIds: [UInt64] = [],       // CGSSpaceID === UInt64
                            exceptions: [ExceptionEntry] = [],
-                           isOnPreferredScreen: @autoclosure () -> Bool) -> Bool {
+                           isOnPreferredScreen: @autoclosure () -> Bool,
+                           isUnderCursor: @autoclosure () -> Bool = false) -> Bool {
         !s.isPhantom &&
             !ExceptionMatcher.hidesWindow(s, app, exceptions: exceptions,
                 activeAppOverride: onlyFrontmostApp && frontmostPid == app.pid) &&
             !(onlyFrontmostApp && !(frontmostPid == app.pid)) &&
             !(excludeFrontmostApp && frontmostPid == app.pid) &&
             !(hideHidden && app.isHidden) &&
-            ((!hideWindowless && s.isWindowlessApp) ||
+            ((!hideWindowless && !onlyUnderCursor && s.isWindowlessApp) ||
                 !s.isWindowlessApp &&
                 !(hideFullscreen && s.isFullscreen) &&
                 !(hideMinimized && s.isMinimized) &&
@@ -46,7 +49,16 @@ enum WindowFilterResolver {
                 !(onlyVisibleSpaces && !s.isHeldVisibleForTab && !inAnyVisibleSpace(s, visibleSpaceIds)) &&
                 !(onlyNonVisibleSpaces && (s.isHeldVisibleForTab || inAnyVisibleSpace(s, visibleSpaceIds))) &&
                 !(onlyPreferredScreen && !s.isHeldVisibleForTab && !isOnPreferredScreen()) &&
-                (separateTabs || !s.isTabbed))
+                (separateTabs || !s.isTabbed) &&
+                // A minimized window, a hidden app's window, or a window on another Space still has a stored
+                // frame that may contain the cursor, but nothing is drawn there: only what is actually under
+                // the pointer qualifies. Windowless placeholders are excluded above for the same reason.
+                !(onlyUnderCursor && (s.isMinimized || app.isHidden || !isOnVisibleSpace(s, visibleSpaceIds) || !isUnderCursor())))
+    }
+
+    /// A held tab counts as on the visible Space (see the Space gates above).
+    private static func isOnVisibleSpace(_ s: WindowState, _ visibleSpaceIds: [UInt64]) -> Bool {
+        s.isHeldVisibleForTab || inAnyVisibleSpace(s, visibleSpaceIds)
     }
 
     private static func inAnyVisibleSpace(_ s: WindowState, _ visibleSpaceIds: [UInt64]) -> Bool {

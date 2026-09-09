@@ -64,6 +64,14 @@ extension NSScreen {
         return NSScreen.screens.first { NSMouseInRect(NSEvent.mouseLocation, $0.frame, false) }
     }
 
+    /// `NSEvent.mouseLocation` is in Cocoa coordinates (origin at the bottom-left of the main screen); window
+    /// frames from AX and the WindowServer are in Quartz coordinates (origin at its top-left), so the y axis is
+    /// flipped around the main screen's height, as in `Window.isOnScreen`.
+    static func mouseLocationInQuartzCoordinates() -> CGPoint {
+        let location = NSEvent.mouseLocation
+        return CGPoint(x: location.x, y: NSMaxY(NSScreen.screens[0].frame) - location.y)
+    }
+
     func ratio() -> CGFloat {
         return frame.width / frame.height
     }
