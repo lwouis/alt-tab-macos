@@ -367,10 +367,12 @@ class Window {
     func focus() {
         MainThreadStall.step()
         if let altTabWindow = altTabWindow() {
+            FocusIntents.shared.supersede()
             App.shared.activate(ignoringOtherApps: true)
             altTabWindow.makeKeyAndOrderFront(nil)
             WindowThumbnails.previewSelectedIfNeeded()
         } else if self.isWindowlessApp || cgWindowId == nil {
+            FocusIntents.shared.supersede()
             if let bundleUrl = application.bundleURL, self.isWindowlessApp {
                 if (try? NSWorkspace.shared.launchApplication(at: bundleUrl, configuration: [:])) == nil {
                     application.runningApplication.activate(options: .activateAllWindows)
@@ -396,54 +398,109 @@ class Window {
             let targetMaybeCrossSpace = !self.spaceIds.isEmpty && !self.spaceIds.contains(originSpaceId)
             let originFrontPid = targetMaybeCrossSpace
                 ? NSWorkspace.shared.frontmostApplication?.processIdentifier : nil
+            let generation = FocusIntents.shared.request(wid: cgWindowId!, pid: application.pid)
             BackgroundWork.accessibilityCommandsQueue.addOperation { [weak self] in
-                guard let self else { return }
-                if self.isMinimized, let element = self.axUiElement {
-                    try? element.setAttribute(kAXMinimizedAttribute, false)
-                }
-                // Focusing another app's window reliably takes the steps below. The public APIs alone don't
-                // move key focus across apps (macOS 14 downgraded NSRunningApplication.activate to an advisory
-                // "request").
-                //   1. _SLPSSetFrontProcessWithOptions fronts the process + the target window (passing the wid
-                //      raises only that window, not all the app's windows). For a cross-Space target it also
-                //      makes macOS switch to a Space showing it. The global front clobbers the front process of
-                //      other Spaces where the app has windows (they pop on Space entry, #4507); step 4 repairs
-                //      the origin Space for a cross-Space focus.
-                //   2. makeKeyWindow: make it key, via a synthetic mouse-down/up aimed just outside the window,
-                //      so it becomes key without clicking its content (a top-left click would hit fullscreen UI, #5381).
-                //   3. raiseWindow (kAXRaiseAction): raise it within the app's own window stack. If our cached
-                //      element went stale (the app silently rebuilt the window's a11y node, #5586), this returns
-                //      .invalidUIElement and no-ops, so re-resolve the live element by wid, retry, and heal the
-                //      cache; _SLPS/makeKeyWindow above use the wid/psn directly so they're unaffected.
-                //   4. cross-Space only: restore the origin Space's front process (see snapshot above).
-                var psn = ProcessSerialNumber()
-                GetProcessForPID(self.application.pid, &psn)
-                _SLPSSetFrontProcessWithOptions(&psn, self.cgWindowId!, SLPSMode.userGenerated.rawValue)
-                makeKeyWindow(&psn, self.cgWindowId!)
-                // Step 3 is the only AX-dependent step: 1 and 2 use the wid and psn directly, so a window
-                // with no element still gets fronted and made key — which is the whole point of keeping a
-                // hung app's window trackable.
-                if self.axUiElement?.raiseWindow() != .success, let fresh = self.refreshedAxElement() {
-                    fresh.raiseWindow()
-                    DispatchQueue.main.async { [weak self] in
-                        guard let self, self.axUiElement != fresh else { return }
-                        self.rebindAxElement(fresh)
-                        Windows.promoteVerified(self.cgWindowId ?? 0)
-                    }
-                }
-                // step 4 (#4507): undo step 1's clobber of the origin Space. The front-switch made that Space
-                // remember our app as its front; restore the app that was there before (snapshotted above) so
-                // returning shows it, not our window. Cross-Space only (originFrontPid is nil otherwise), and
-                // skipped when the origin's front was already this app.
-                if let originFrontPid, originFrontPid != self.application.pid {
-                    var originPsn = ProcessSerialNumber()
-                    GetProcessForPID(originFrontPid, &originPsn)
-                    SLSSpaceSetFrontPSN(CGS_CONNECTION, originSpaceId, originPsn)
-                }
-                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) {
-                    WindowThumbnails.previewSelectedIfNeeded()
-                }
+                self?.applyFocus(generation, originSpaceId, originFrontPid)
             }
+        }
+    }
+
+    /// Focusing another app's window reliably takes the steps below. The public APIs alone don't move key
+    /// focus across apps (macOS 14 downgraded NSRunningApplication.activate to an advisory "request").
+    ///   1. _SLPSSetFrontProcessWithOptions fronts the process + the target window (passing the wid raises
+    ///      only that window, not all the app's windows). For a cross-Space target it also makes macOS switch
+    ///      to a Space showing it. The global front clobbers the front process of other Spaces where the app
+    ///      has windows (they pop on Space entry, #4507); step 4 repairs the origin Space for a cross-Space
+    ///      focus.
+    ///   2. makeKeyWindow: make it key, via a synthetic mouse-down/up aimed just outside the window, so it
+    ///      becomes key without clicking its content (a top-left click would hit fullscreen UI, #5381).
+    ///   3. raiseWindow (kAXRaiseAction): raise it within the app's own window stack. If our cached element
+    ///      went stale (the app silently rebuilt the window's a11y node, #5586), this returns
+    ///      .invalidUIElement and no-ops, so re-resolve the live element by wid, retry, and heal the cache;
+    ///      _SLPS/makeKeyWindow above use the wid/psn directly so they're unaffected.
+    ///   4. cross-Space only: restore the origin Space's front process (snapshotted by the caller).
+    ///
+    /// This queue runs 4 operations at once, and steps 0 and 3 each block for up to the 1s AX messaging
+    /// timeout, so a second alt-tab starts a second operation while this one is still inside a step. Each step
+    /// is therefore skipped once a newer focus exists, and a superseded operation that already moved the
+    /// z-order re-asserts the newer intent on its way out — see FocusIntentPolicySpecs.md.
+    private func applyFocus(_ generation: FocusGeneration, _ originSpaceId: CGSSpaceID, _ originFrontPid: pid_t?) {
+        guard FocusIntents.shared.mayProceed(generation) else { return }
+        if self.isMinimized, let element = axUiElement {
+            try? element.setAttribute(kAXMinimizedAttribute, false)
+        }
+        // Step 0 is the only step that blocks BEFORE this operation has touched the screen, so a supersede
+        // caught here owes nothing. Counting the restore as a z-order move and repairing on this exit was
+        // tried and measured useless (2026-09-09, QA S-15): the re-front lands while macOS is still animating
+        // the window out of the Dock, and the restore draws over it afterwards. Nothing this operation can do
+        // on its way out recalls a restore already in flight.
+        guard FocusIntents.shared.mayProceed(generation) else { return }
+        var psn = ProcessSerialNumber()
+        GetProcessForPID(application.pid, &psn)
+        _SLPSSetFrontProcessWithOptions(&psn, cgWindowId!, SLPSMode.userGenerated.rawValue)
+        FocusIntents.shared.noteReordered(generation)
+        makeKeyAndRaise(generation, &psn)
+        restoreOriginSpaceFront(originSpaceId, originFrontPid)
+        repairIfSuperseded(generation)
+        guard FocusIntents.shared.mayProceed(generation) else { return }
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) {
+            WindowThumbnails.previewSelectedIfNeeded()
+        }
+    }
+
+    /// Steps 2 and 3. Step 3 is the only AX-dependent step: 1 and 2 use the wid and psn directly, so a window
+    /// with no element still gets fronted and made key — which is the whole point of keeping a hung app's
+    /// window trackable. The guard before the #5586 re-resolve is the one that pays: it follows a call that
+    /// may have blocked for the full 1s timeout, and the re-resolve itself costs up to 1.25s more.
+    private func makeKeyAndRaise(_ generation: FocusGeneration, _ psn: inout ProcessSerialNumber) {
+        guard FocusIntents.shared.mayProceed(generation) else { return }
+        makeKeyWindow(&psn, cgWindowId!)
+        FocusIntents.shared.noteReordered(generation)
+        guard FocusIntents.shared.mayProceed(generation) else { return }
+        if let element = axUiElement, raise(element, generation) { return }
+        guard FocusIntents.shared.mayProceed(generation), let fresh = refreshedAxElement() else { return }
+        _ = raise(fresh, generation)
+        DispatchQueue.main.async { [weak self] in
+            guard let self, self.axUiElement != fresh else { return }
+            self.rebindAxElement(fresh)
+            Windows.promoteVerified(self.cgWindowId ?? 0)
+        }
+    }
+
+    /// A raise reports the touch only when it lands: a `.invalidUIElement` no-op moved nothing, and stamping
+    /// it would make a repair look owed for a screen this operation never changed.
+    private func raise(_ element: AXUIElement, _ generation: FocusGeneration) -> Bool {
+        guard element.raiseWindow() == .success else { return false }
+        FocusIntents.shared.noteReordered(generation)
+        return true
+    }
+
+    /// Step 4 (#4507): undo step 1's clobber of the origin Space. The front-switch made that Space remember
+    /// our app as its front; restore the app that was there before so returning shows it, not our window.
+    /// Cross-Space only (originFrontPid is nil otherwise), and skipped when the origin's front was already
+    /// this app. Owed by whoever ran step 1, so it is never skipped for being superseded.
+    private func restoreOriginSpaceFront(_ originSpaceId: CGSSpaceID, _ originFrontPid: pid_t?) {
+        guard let originFrontPid, originFrontPid != application.pid else { return }
+        var originPsn = ProcessSerialNumber()
+        GetProcessForPID(originFrontPid, &originPsn)
+        SLSSpaceSetFrontPSN(CGS_CONNECTION, originSpaceId, originPsn)
+    }
+
+    /// A z-order call is a post to another process, so it can land after a newer focus already switched and
+    /// leave the menu bar naming the new app while the old window sits on top. Re-assert the newer intent.
+    /// The wid goes in so the policy can tell that apart from a stale operation aiming at the SAME window as
+    /// the newer one, whose late raise puts exactly the right window on top and owes nothing.
+    /// Steps 1 and 2 only: step 3 would need that window's AX element, and `Windows` is main-thread state,
+    /// while the wid and psn are enough to front it and make it key again. Re-name the target too, so the
+    /// activation this provokes is attributed to it rather than to a racy read (#5596).
+    private func repairIfSuperseded(_ generation: FocusGeneration) {
+        guard let intent = FocusIntents.shared.finish(generation, wid: cgWindowId ?? 0) else { return }
+        var psn = ProcessSerialNumber()
+        GetProcessForPID(intent.pid, &psn)
+        _SLPSSetFrontProcessWithOptions(&psn, intent.wid, SLPSMode.userGenerated.rawValue)
+        makeKeyWindow(&psn, intent.wid)
+        DispatchQueue.main.async {
+            WindowServerEvents.noteAltTabInitiatedFocus(intent.wid, intent.pid)
         }
     }
 
