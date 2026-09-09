@@ -317,6 +317,27 @@ final class WindowEventReducerFocusTests: XCTestCase {
         XCTAssertNil(s.groups.groupId(of: incomingWid))
     }
 
+    /// **A held window carrying NO group is not a handover.** Live capture (2026-09-09, macOS 26): two
+    /// 620x472 windows of one app, the BACKGROUND one sent to fullscreen. Entering fullscreen takes that
+    /// window Space-less while the transition mints its own surfaces, which arms the hold; 519ms later the
+    /// app answers the activation with its other window, still on the windowed Space the held one just left.
+    /// The merge made two separate windows one group, and nothing re-splits an established group, so the
+    /// window that went fullscreen read `shown=false tabbed=true` for the rest of the session — the reported
+    /// "a window disappears after leaving fullscreen".
+    func testSemanticFocusDoesNotCarryAHeldWindowThatCarriesNoGroup() {
+        let incomingWid: CGWindowID = 900
+        var s = state([window(Self.reaperMainWid, Self.reaperPid, "Window 1", order: 0),
+                       window(incomingWid, Self.reaperPid, "Window 2", order: 1)], frontmost: Self.reaperPid)
+        s.now = 100
+        s.windows[0].spaceIds = []
+        s.windows[0].lastLeftSpaceId = 4
+        s.held.insert(Self.reaperMainWid)
+        _ = WindowEventReducer.reduce(&s, .attentionCommitted(wid: incomingWid, observed: incomingWid, at: 100))
+        XCTAssertNil(s.groups.groupId(of: incomingWid),
+                     "two separate windows of one app were merged on the strength of a hold alone")
+        XCTAssertNil(s.groups.groupId(of: Self.reaperMainWid))
+    }
+
     func testUnrenderableNamedTabKeepsPresentableRepresentativeUntilSized() {
         var incoming = window(Self.reaperDialogWid, Self.reaperPid, "Tab B", order: 1)
         incoming.size = .zero
@@ -330,6 +351,42 @@ final class WindowEventReducerFocusTests: XCTestCase {
         let group = s.groups.groupId(of: Self.reaperDialogWid)
         XCTAssertEqual(group.flatMap { s.groups.representativeByGroup[$0] }, Self.reaperMainWid)
         XCTAssertEqual(s.mruFrontWid, Self.reaperDialogWid)
+    }
+
+    /// **The minted chain is tab evidence even before the group exists.** Live capture (2026-09-10, macOS 26):
+    /// a 5x cmd+T burst on Finder mints a wid per tab, each displacing the last before discovery reaches it,
+    /// so `pendingGroupInheritance` carries the membership while no group is formed. An AX window-created
+    /// answer landed 1.25s into the burst for a wid already handed on, attention admitted it, and with only
+    /// the group check to go on it stood as a second tile for 250ms — the tab escaping its group that QA T-02
+    /// asserts against.
+    func testSemanticFocusCarriesAHeldWindowLinkedByTheMintedChain() {
+        let incomingWid: CGWindowID = 900
+        var s = state([window(Self.reaperMainWid, Self.reaperPid, "Tab A", order: 0),
+                       window(incomingWid, Self.reaperPid, "Tab B", order: 1)], frontmost: Self.reaperPid)
+        s.now = 100
+        s.windows[0].spaceIds = []
+        s.windows[0].lastLeftSpaceId = 4
+        s.held.insert(Self.reaperMainWid)
+        s.carried.pendingGroupInheritance[901] = [Self.reaperMainWid, incomingWid]
+        _ = WindowEventReducer.reduce(&s, .attentionCommitted(wid: incomingWid, observed: incomingWid, at: 100))
+        XCTAssertEqual(Set(s.groups.siblingWids(of: incomingWid) ?? []), Set([Self.reaperMainWid, incomingWid]),
+                       "a mid-burst adoption of a chain member was left standing as its own tile")
+    }
+
+    /// The chain must name BOTH sides: one that names only the held window is what a fullscreen transition
+    /// arms, and the window the app answers with is not in it (#6017).
+    func testSemanticFocusDoesNotCarryAHeldWindowOutsideTheChain() {
+        let incomingWid: CGWindowID = 900
+        var s = state([window(Self.reaperMainWid, Self.reaperPid, "Window 1", order: 0),
+                       window(incomingWid, Self.reaperPid, "Window 2", order: 1)], frontmost: Self.reaperPid)
+        s.now = 100
+        s.windows[0].spaceIds = []
+        s.windows[0].lastLeftSpaceId = 4
+        s.held.insert(Self.reaperMainWid)
+        s.carried.pendingGroupInheritance[901] = [Self.reaperMainWid]
+        _ = WindowEventReducer.reduce(&s, .attentionCommitted(wid: incomingWid, observed: incomingWid, at: 100))
+        XCTAssertNil(s.groups.groupId(of: incomingWid))
+        XCTAssertNil(s.groups.groupId(of: Self.reaperMainWid))
     }
 
     /// A window named outside any group is not a tab switch, and must not disturb membership.

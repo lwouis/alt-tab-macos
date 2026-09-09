@@ -375,9 +375,40 @@ enum WindowEventReducer {
                           || candidate.lastLeftSpaceId.map(incomingSpaces.contains) == true)
               }).min(by: { $0.lastFocusOrder < $1.lastFocusOrder }),
               let outgoingWid = outgoing.wid else { return [] }
-        let members = state.groups.siblingWids(of: outgoingWid) ?? [outgoingWid]
+        // **The held side must bring tab evidence of its own**, because the hold is not any: it says "kept
+        // drawable through a discovery gap", and a window ENTERING FULLSCREEN fits that description by
+        // accident — it goes Space-less while the transition mints its own surfaces, so the recent-create arm
+        // of `shouldHoldVisibleThroughDiscovery` arms the hold, and the app then answers the activation with
+        // the OTHER window it still has on the windowed Space. Same app, held, and naming the Space it just
+        // left: every clause above passes, and on the hold alone the merge joined two SEPARATE windows into
+        // one. Nothing re-splits an established group, so the window that went fullscreen was hidden for the
+        // rest of the session (measured 2026-09-09, two 620x472 windows of one app, the background one sent to
+        // fullscreen: `group form ... reason=semanticHandover` 519ms into the transition, and the window read
+        // `shown=false tabbed=true` from then on — `testSemanticFocusDoesNotCarryAHeldWindowThatCarriesNoGroup`).
+        guard let members = heldTabEvidence(state, outgoing: outgoingWid, target: target) else { return [] }
         let formed = state.formGroup([target] + members, representative: target, reason: "semanticHandover")
         return formed.logs.map { .log($0) }
+    }
+
+    /// The two forms that evidence takes. A GROUP the held window already carries is the plain one.
+    ///
+    /// The other is the MINTED CHAIN, which exists precisely when the group does not yet: a cmd+T burst mints
+    /// a wid per tab, each displacing the last before discovery reaches it, and `spaceMembershipChanged` hands
+    /// the membership down (`inheritance #a → #b`), so `siblingWids` says nothing for the whole burst. A chain
+    /// member adopted early — an AX window-created answer lands mid-burst and attention admits the wid — then
+    /// stands as a SECOND TILE until the burst's last mint is discovered and forms the group: a tab visibly
+    /// escapes its group (QA T-02, measured 2026-09-10, 250ms of two tiles during a 5x cmd+T on Finder).
+    /// Both wids in ONE chain is the link. Fullscreen never has it: the chain that hold arms carries only the
+    /// window going fullscreen, and its key is an UNTRACKED joiner, so the tracked window the app answers with
+    /// can be neither.
+    private static func heldTabEvidence(_ state: TrackedWindowState, outgoing: CGWindowID,
+                                        target: CGWindowID) -> [CGWindowID]? {
+        if let members = state.groups.siblingWids(of: outgoing), members.count > 1 { return members }
+        let linked = state.carried.pendingGroupInheritance.contains { key, members in
+            let chain = Set(members + [key])
+            return chain.contains(outgoing) && chain.contains(target)
+        }
+        return linked ? [outgoing] : nil
     }
 
     /// **The one place the window order is written.** The trio every focus-bump site fires (focusedWindow +
