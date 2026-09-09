@@ -6,7 +6,7 @@ import XCTest
 /// knob, so every filter dimension is isolated.
 ///
 /// Groups: A always-excluded · B app scope · C hidden apps · D windowless · E fullscreen ·
-/// F minimized · G spaces · H screens · I tabs · J combinations · K under the cursor.
+/// F minimized · G spaces · H screens · I tabs · J combinations · K under the cursor · L app under the cursor.
 final class WindowFilterResolverTests: XCTestCase {
 
     private func ws(isPhantom: Bool = false, isWindowlessApp: Bool = false, isFullscreen: Bool = false,
@@ -252,6 +252,45 @@ final class WindowFilterResolverTests: XCTestCase {
                                                        onlyUnderCursor: true, hideFullscreen: true,
                                                        visibleSpaceIds: [1],
                                                        isOnPreferredScreen: true, isUnderCursor: true))
+    }
+
+    // MARK: - L. App under the cursor (appsToShow == .appUnderCursor)
+
+    func testOnlyAppUnderCursorHidesOtherApps() {
+        XCTAssertFalse(WindowFilterResolver.shouldShow(ws(), appState(pid: 100),
+                                                       onlyAppUnderCursor: true, pidUnderCursor: 200,
+                                                       isOnPreferredScreen: true))
+    }
+
+    /// The scope is the app, so its windows show whether or not each one is itself under the cursor.
+    func testOnlyAppUnderCursorShowsEveryWindowOfThatApp() {
+        XCTAssertTrue(WindowFilterResolver.shouldShow(ws(), appState(pid: 100),
+                                                      onlyAppUnderCursor: true, pidUnderCursor: 100,
+                                                      isOnPreferredScreen: true, isUnderCursor: false))
+    }
+
+    func testOnlyAppUnderCursorHidesEverythingWhenNothingIsUnderCursor() {
+        XCTAssertFalse(WindowFilterResolver.shouldShow(ws(), appState(pid: 100),
+                                                       onlyAppUnderCursor: true, pidUnderCursor: nil,
+                                                       isOnPreferredScreen: true))
+    }
+
+    /// Pointing at an app overrides a blanket hide-exception, as "Active app" does (#5810).
+    func testOnlyAppUnderCursorOverridesHideException() {
+        let except = ExceptionEntry(bundleIdentifier: "com.x", hide: .always, ignore: .none)
+        XCTAssertTrue(WindowFilterResolver.shouldShow(ws(), appState(pid: 100, bundleIdentifier: "com.x.app"),
+                                                      onlyAppUnderCursor: true, pidUnderCursor: 100,
+                                                      exceptions: [except], isOnPreferredScreen: true))
+    }
+
+    func testCanBeUnderCursorRequiresADrawnFrame() {
+        XCTAssertTrue(WindowFilterResolver.canBeUnderCursor(ws(spaceIds: [1]), appState(), [1]))
+        XCTAssertTrue(WindowFilterResolver.canBeUnderCursor(ws(isHeldVisibleForTab: true), appState(), [1]))
+        XCTAssertFalse(WindowFilterResolver.canBeUnderCursor(ws(isMinimized: true, spaceIds: [1]), appState(), [1]))
+        XCTAssertFalse(WindowFilterResolver.canBeUnderCursor(ws(spaceIds: [1]), appState(appIsHidden: true), [1]))
+        XCTAssertFalse(WindowFilterResolver.canBeUnderCursor(ws(spaceIds: [2]), appState(), [1]))
+        XCTAssertFalse(WindowFilterResolver.canBeUnderCursor(ws(isWindowlessApp: true), appState(), [1]))
+        XCTAssertFalse(WindowFilterResolver.canBeUnderCursor(ws(isPhantom: true, spaceIds: [1]), appState(), [1]))
     }
 
     func testPhantomBeatsWindowlessShow() {

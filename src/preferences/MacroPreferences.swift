@@ -154,6 +154,7 @@ enum AppsToShowPreference: CaseIterable, MacroPreference {
     case active
     case nonActive
     case underCursor
+    case appUnderCursor
 
     var localizedString: LocalizedString {
         switch self {
@@ -161,8 +162,12 @@ enum AppsToShowPreference: CaseIterable, MacroPreference {
             case .active: return NSLocalizedString("Active app", comment: "")
             case .nonActive: return NSLocalizedString("Non-active apps", comment: "")
             case .underCursor: return NSLocalizedString("Windows under the cursor", comment: "")
+            case .appUnderCursor: return NSLocalizedString("App under the cursor", comment: "")
         }
     }
+
+    /// Both cursor scopes need the pointer read once per show (`Windows.updatesBeforeShowing`).
+    var usesCursor: Bool { self == .underCursor || self == .appUnderCursor }
 }
 
 enum SpacesToShowPreference: CaseIterable, MacroPreference {

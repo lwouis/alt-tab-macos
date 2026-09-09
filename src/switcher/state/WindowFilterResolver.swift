@@ -16,6 +16,7 @@ enum WindowFilterResolver {
                            onlyFrontmostApp: Bool = false,       // appsToShow == .active
                            excludeFrontmostApp: Bool = false,    // appsToShow == .nonActive
                            onlyUnderCursor: Bool = false,        // appsToShow == .underCursor
+                           onlyAppUnderCursor: Bool = false,     // appsToShow == .appUnderCursor
                            hideHidden: Bool = false,             // showHiddenWindows == .hide
                            hideWindowless: Bool = false,         // showWindowlessApps == .hide
                            hideFullscreen: Bool = false,         // showFullscreenWindows == .hide
@@ -25,14 +26,17 @@ enum WindowFilterResolver {
                            onlyPreferredScreen: Bool = false,    // screensToShow == .showingAltTab
                            separateTabs: Bool = false,           // groupTabs == .separateWindows
                            frontmostPid: pid_t? = nil,
+                           pidUnderCursor: pid_t? = nil,         // nil: nothing is under the cursor
                            visibleSpaceIds: [UInt64] = [],       // CGSSpaceID === UInt64
                            exceptions: [ExceptionEntry] = [],
                            isOnPreferredScreen: @autoclosure () -> Bool,
                            isUnderCursor: @autoclosure () -> Bool = false) -> Bool {
         !s.isPhantom &&
+            // Pointing at an app is as explicit as focusing it, so it also overrides the Exceptions list (#5810).
             !ExceptionMatcher.hidesWindow(s, app, exceptions: exceptions,
-                activeAppOverride: onlyFrontmostApp && frontmostPid == app.pid) &&
+                activeAppOverride: (onlyFrontmostApp && frontmostPid == app.pid) || (onlyAppUnderCursor && pidUnderCursor == app.pid)) &&
             !(onlyFrontmostApp && !(frontmostPid == app.pid)) &&
+            !(onlyAppUnderCursor && !(pidUnderCursor == app.pid)) &&
             !(excludeFrontmostApp && frontmostPid == app.pid) &&
             !(hideHidden && app.isHidden) &&
             ((!hideWindowless && !onlyUnderCursor && s.isWindowlessApp) ||
@@ -50,10 +54,14 @@ enum WindowFilterResolver {
                 !(onlyNonVisibleSpaces && (s.isHeldVisibleForTab || inAnyVisibleSpace(s, visibleSpaceIds))) &&
                 !(onlyPreferredScreen && !s.isHeldVisibleForTab && !isOnPreferredScreen()) &&
                 (separateTabs || !s.isTabbed) &&
-                // A minimized window, a hidden app's window, or a window on another Space still has a stored
-                // frame that may contain the cursor, but nothing is drawn there: only what is actually under
-                // the pointer qualifies. Windowless placeholders are excluded above for the same reason.
-                !(onlyUnderCursor && (s.isMinimized || app.isHidden || !isOnVisibleSpace(s, visibleSpaceIds) || !isUnderCursor())))
+                !(onlyUnderCursor && (!canBeUnderCursor(s, app, visibleSpaceIds) || !isUnderCursor())))
+    }
+
+    /// Whether the window's frame is drawn on screen, so it can be what the user points at. A minimized
+    /// window, a hidden app's window, or a window on another Space still has a stored frame that may contain
+    /// the cursor, but nothing is drawn there. A windowless placeholder has no frame at all.
+    static func canBeUnderCursor(_ s: WindowState, _ app: ApplicationState, _ visibleSpaceIds: [UInt64]) -> Bool {
+        !s.isPhantom && !s.isWindowlessApp && !s.isMinimized && !app.isHidden && isOnVisibleSpace(s, visibleSpaceIds)
     }
 
     /// A held tab counts as on the visible Space (see the Space gates above).

@@ -113,12 +113,13 @@ class Windows {
         // calls. Snapshot them once and pass into the per-window helper.
         let filters = WindowFilters.snapshot()
         // Read the cursor once per show: the switcher lists what was under it when summoned, not where it moves to.
-        let cursor = filters.appsToShow == .underCursor ? NSScreen.mouseLocationInQuartzCoordinates() : nil
+        let cursor = filters.appsToShow.usesCursor ? NSScreen.mouseLocationInQuartzCoordinates() : nil
+        let pidUnderCursor = filters.appsToShow == .appUnderCursor ? cursor.flatMap { Windows.pidUnderCursor($0) } : nil
         // Tab grouping (incl. fullscreen siblings) and active→inactive state mirroring are reconciled
         // reactively on WindowServer events (TabGroup.reconcile), so the model is already grouped here —
         // doing it in this synchronous show path would reorder tiles mid-render (UI jump).
         for window in list {
-            refreshIfWindowShouldBeShownToTheUser(window, filters, cursor)
+            refreshIfWindowShouldBeShownToTheUser(window, filters, cursor, pidUnderCursor)
         }
         refreshWhichWindowsToShowTheUser()
         sort()
@@ -149,7 +150,16 @@ class Windows {
         }
     }
 
-    private static func refreshIfWindowShouldBeShownToTheUser(_ window: Window, _ f: WindowFilters, _ cursor: CGPoint?) {
+    /// The app owning the topmost window under the cursor. Focus order stands in for z-order: the model does
+    /// not track the WindowServer's order notification (808), and a window is raised by being focused in all
+    /// but rare cases (e.g. Finder's "Bring All to Front" raises without focusing). Same "drawn there" rule as
+    /// the windows-under-the-cursor scope, so the two scopes agree on what is under the pointer.
+    static func pidUnderCursor(_ cursor: CGPoint, _ visibleSpaceIds: [CGSSpaceID] = Spaces.visibleSpaces) -> pid_t? {
+        list.filter { WindowFilterResolver.canBeUnderCursor($0.state, $0.application.state, visibleSpaceIds) && $0.contains(cursor) }
+            .min { $0.lastFocusOrder < $1.lastFocusOrder }?.application.pid
+    }
+
+    private static func refreshIfWindowShouldBeShownToTheUser(_ window: Window, _ f: WindowFilters, _ cursor: CGPoint?, _ pidUnderCursor: pid_t?) {
         // `isOnPreferredScreen` is the one irreducibly OS-coupled fact (touches `Spaces.screenSpacesMap` +
         // multi-screen quartz math); passed as `@autoclosure` so it's only evaluated if the cheaper
         // filters above don't already exclude the window.
@@ -158,6 +168,7 @@ class Windows {
             onlyFrontmostApp: f.appsToShow == .active,
             excludeFrontmostApp: f.appsToShow == .nonActive,
             onlyUnderCursor: f.appsToShow == .underCursor,
+            onlyAppUnderCursor: f.appsToShow == .appUnderCursor,
             hideHidden: f.showHiddenWindows == .hide,
             hideWindowless: f.showWindowlessApps == .hide,
             hideFullscreen: f.showFullscreenWindows == .hide,
@@ -167,6 +178,7 @@ class Windows {
             onlyPreferredScreen: f.screensToShow == .showingAltTab,
             separateTabs: f.groupTabs == .separateWindows,
             frontmostPid: Applications.frontmostPid,
+            pidUnderCursor: pidUnderCursor,
             visibleSpaceIds: Spaces.visibleSpaces,
             exceptions: f.exceptions,
             isOnPreferredScreen: window.isOnScreen(NSScreen.preferred),
