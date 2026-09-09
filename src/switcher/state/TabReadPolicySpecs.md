@@ -51,10 +51,15 @@ answer lands, which would mark a window up to date with a window set that change
 
 ## What the caller does with a skip
 
-`Applications.refreshWindowTitleAndTabs(_:_:_:reconcileTabs:)` already understood `reconcileTabs: false`: it
-drops `kAXChildren` from the attribute batch and skips the child walk entirely, and when the app holds a live
-`AXTitleChanged` subscription it skips **the whole call** — because a title-only read is work the
-notification has already done. So a skipped window costs either one round trip (title) or zero.
+`Applications.refreshWindowTitleAndTabs(_:_:_:reconcileTabs:)` reads `reconcileTabs: false` as "drop
+`kAXChildren` from the attribute batch and skip the child walk". When the app also holds a live
+`AXTitleChanged` subscription it skips **the whole call**, because a title-only read is work the notification
+has already done. So a skipped window costs either one round trip (title) or zero.
+
+That second skip makes this policy the **title** backstop as well: for an app that pushes titles, the windows
+elected here are the only ones whose title a show re-reads. The push is the mechanism
+(`AxObserverRegistry.refreshTitle`), and it only trusts a `kAXWindowRole` element: a rename announced on an
+inner node is dropped, so the window is never labelled with that node's empty title (#6011).
 
 ## Test scenarios
 

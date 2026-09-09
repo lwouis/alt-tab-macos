@@ -417,16 +417,29 @@ class AxObserverRegistry {
     /// asking for a title the app has already told us.
     ///
     /// Both reads are `try?`, so this never throws and the scheduler's retry/backoff never engages. A retry
-    /// would re-ask a question that has moved on (the title changed again, or the window is gone), and the
-    /// per-show pass re-reads the title for anything this missed. The per-key hold in `AXCallScheduler` plus
-    /// the per-wid throttle on the apply side are what bound an app that renames its window continuously.
+    /// would re-ask a question that has moved on (the title changed again, or the window is gone), and
+    /// `TabReadPolicy`'s rolling cursor re-reads the title for anything this missed. The per-key hold in
+    /// `AXCallScheduler` plus the per-wid throttle on the apply side are what bound an app that renames its
+    /// window continuously.
+    ///
+    /// **The role is read with the title, and decides whether the title counts.** A delivery names any
+    /// element of the app, and only a window's own element speaks for the window: `AxTitleNotificationPolicy`
+    /// says why, and #6011 is what it costs to skip. The role rides along in the same
+    /// `AXUIElementCopyMultipleAttributeValues`, so it costs no extra round trip.
     private func refreshTitle(_ process: ProcessGeneration, _ element: AXUIElement) {
         AXCallScheduler.shared.schedule(key: Self.perElementKey("axobs-title", process.pid, element),
                                         context: "axSemantics", pid: process.pid) {
             guard let wid = try? element.cgWindowId(pid: process.pid), wid != 0,
-                  let title = try? element.attributes([kAXTitleAttribute], pid: process.pid).title else { return }
-            Self.offerElement(process, wid, element, source: "axTitle")
-            DispatchQueue.main.async { Applications.applyObservedTitle(wid: wid, title: title) }
+                  let attributes = try? element.attributes([kAXTitleAttribute, kAXRoleAttribute], pid: process.pid)
+                else { return }
+            switch AxTitleNotificationPolicy.verdict(role: attributes.role, title: attributes.title) {
+                case .ignoreNotTheWindow:
+                    Logger.debug { "axTitle #\(wid) named role=\(attributes.role ?? "nil"); ignored" }
+                case .ignoreNoTitle: break
+                case .apply(let title):
+                    Self.offerElement(process, wid, element, source: "axTitle")
+                    DispatchQueue.main.async { Applications.applyObservedTitle(wid: wid, title: title) }
+            }
         }
     }
 

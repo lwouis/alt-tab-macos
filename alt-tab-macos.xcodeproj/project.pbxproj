@@ -403,6 +403,9 @@
 		F00DCAFE0000000000001103 /* SearchTestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00DCAFE0000000000000003 /* SearchTestable.swift */; };
 		5A1100000000000000020001 /* TrackingTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1100000000000000010001 /* TrackingTypes.swift */; };
 		5A1100000000000000020006 /* AxObserverHealth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A110000000000000001000A /* AxObserverHealth.swift */; };
+		5F60110000000000000A0002 /* AxTitleNotificationPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F60110000000000000A0001 /* AxTitleNotificationPolicy.swift */; };
+		5F60110000000000000A0003 /* AxTitleNotificationPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F60110000000000000A0001 /* AxTitleNotificationPolicy.swift */; };
+		5F60110000000000000B0002 /* AxTitleNotificationPolicyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F60110000000000000B0001 /* AxTitleNotificationPolicyTests.swift */; };
 		5A1100000000000000030001 /* TrackingTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1100000000000000010001 /* TrackingTypes.swift */; };
 		5A1100000000000000030006 /* AxObserverHealth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A110000000000000001000A /* AxObserverHealth.swift */; };
 		5A1100000000000000040001 /* TrackingTypesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1100000000000000010002 /* TrackingTypesTests.swift */; };
@@ -849,6 +852,8 @@
 		5A1100000000000000010001 /* TrackingTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingTypes.swift; sourceTree = "<group>"; };
 		5A1100000000000000010002 /* TrackingTypesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingTypesTests.swift; sourceTree = "<group>"; };
 		5A110000000000000001000A /* AxObserverHealth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AxObserverHealth.swift; sourceTree = "<group>"; };
+		5F60110000000000000A0001 /* AxTitleNotificationPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AxTitleNotificationPolicy.swift; sourceTree = "<group>"; };
+		5F60110000000000000B0001 /* AxTitleNotificationPolicyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AxTitleNotificationPolicyTests.swift; sourceTree = "<group>"; };
 		5A110000000000000001000B /* AxObserverHealthTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AxObserverHealthTests.swift; sourceTree = "<group>"; };
 		5A110000000000000001000C /* TrackingTelemetry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingTelemetry.swift; sourceTree = "<group>"; };
 		5A110000000000000001000D /* TrackingTelemetryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingTelemetryTests.swift; sourceTree = "<group>"; };
@@ -1040,6 +1045,8 @@
 				5A110000000000000001000F /* AttentionDriverTests.swift */,
 				5A1100000000000000010010 /* TrackingTelemetryRecorder.swift */,
 				5A1100000000000000010011 /* AxObserverRegistry.swift */,
+				5F60110000000000000A0001 /* AxTitleNotificationPolicy.swift */,
+				5F60110000000000000B0001 /* AxTitleNotificationPolicyTests.swift */,
 				5A1100000000000000010017 /* AttentionModel.swift */,
 				5A1100000000000000010018 /* AttentionModelTests.swift */,
 			);
@@ -2066,6 +2073,8 @@
 				5A1100000000000000030001 /* TrackingTypes.swift in Sources */,
 				5A1100000000000000030017 /* AttentionModel.swift in Sources */,
 				5A1100000000000000030006 /* AxObserverHealth.swift in Sources */,
+				5F60110000000000000A0003 /* AxTitleNotificationPolicy.swift in Sources */,
+				5F60110000000000000B0002 /* AxTitleNotificationPolicyTests.swift in Sources */,
 				5A1100000000000000030007 /* TrackingTelemetry.swift in Sources */,
 				5A1100000000000000040006 /* TrackingTelemetryTests.swift in Sources */,
 				5A1100000000000000030008 /* AttentionDriver.swift in Sources */,
@@ -2198,6 +2207,7 @@
 				5A1100000000000000020001 /* TrackingTypes.swift in Sources */,
 				5A1100000000000000020017 /* AttentionModel.swift in Sources */,
 				5A1100000000000000020006 /* AxObserverHealth.swift in Sources */,
+				5F60110000000000000A0002 /* AxTitleNotificationPolicy.swift in Sources */,
 				5A1100000000000000020007 /* TrackingTelemetry.swift in Sources */,
 				5A1100000000000000020008 /* AttentionDriver.swift in Sources */,
 				5A11000000000000000200E1 /* AttentionEngine.swift in Sources */,
