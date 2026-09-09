@@ -149,6 +149,9 @@
 "App is running but has no open window" = "App is running but has no open window";
 
 /* No comment provided by engineer. */
+"App under the cursor" = "App under the cursor";
+
+/* No comment provided by engineer. */
 "Apparition delay of Switcher" = "Apparition delay of Switcher";
 
 /* No comment provided by engineer. */
@@ -915,6 +918,9 @@
 
 /* No comment provided by engineer. */
 "Window title contains" = "Window title contains";
+
+/* No comment provided by engineer. */
+"Windows under the cursor" = "Windows under the cursor";
 
 /* No comment provided by engineer. */
 "You can’t undo this action." = "You can’t undo this action.";

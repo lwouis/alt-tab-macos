@@ -6,7 +6,7 @@ import XCTest
 /// knob, so every filter dimension is isolated.
 ///
 /// Groups: A always-excluded · B app scope · C hidden apps · D windowless · E fullscreen ·
-/// F minimized · G spaces · H screens · I tabs · J combinations.
+/// F minimized · G spaces · H screens · I tabs · J combinations · K under the cursor · L app under the cursor.
 final class WindowFilterResolverTests: XCTestCase {
 
     private func ws(isPhantom: Bool = false, isWindowlessApp: Bool = false, isFullscreen: Bool = false,
@@ -195,6 +195,102 @@ final class WindowFilterResolverTests: XCTestCase {
             onlyFrontmostApp: true, hideHidden: true, hideWindowless: true, hideFullscreen: true,
             hideMinimized: true, onlyVisibleSpaces: true, onlyPreferredScreen: true, separateTabs: false,
             frontmostPid: 100, visibleSpaceIds: [1], isOnPreferredScreen: true))
+    }
+
+    // MARK: - K. Under the cursor (appsToShow == .underCursor)
+
+    func testOnlyUnderCursorHidesWindowNotUnderCursor() {
+        XCTAssertFalse(WindowFilterResolver.shouldShow(ws(spaceIds: [1]), appState(),
+                                                       onlyUnderCursor: true, visibleSpaceIds: [1],
+                                                       isOnPreferredScreen: true, isUnderCursor: false))
+    }
+
+    func testOnlyUnderCursorShowsWindowUnderCursor() {
+        XCTAssertTrue(WindowFilterResolver.shouldShow(ws(spaceIds: [1]), appState(),
+                                                      onlyUnderCursor: true, visibleSpaceIds: [1],
+                                                      isOnPreferredScreen: true, isUnderCursor: true))
+    }
+
+    /// The frame under the cursor must be drawn there: a minimized window, a hidden app's window, or a window
+    /// on another Space keeps a stored frame that can contain the point, yet the user sees something else.
+    func testOnlyUnderCursorHidesMinimizedWindowUnderCursor() {
+        XCTAssertFalse(WindowFilterResolver.shouldShow(ws(isMinimized: true, spaceIds: [1]), appState(),
+                                                       onlyUnderCursor: true, visibleSpaceIds: [1],
+                                                       isOnPreferredScreen: true, isUnderCursor: true))
+    }
+
+    func testOnlyUnderCursorHidesHiddenAppWindowUnderCursor() {
+        XCTAssertFalse(WindowFilterResolver.shouldShow(ws(spaceIds: [1]), appState(appIsHidden: true),
+                                                       onlyUnderCursor: true, visibleSpaceIds: [1],
+                                                       isOnPreferredScreen: true, isUnderCursor: true))
+    }
+
+    func testOnlyUnderCursorHidesWindowOnNonVisibleSpace() {
+        XCTAssertFalse(WindowFilterResolver.shouldShow(ws(spaceIds: [2]), appState(),
+                                                       onlyUnderCursor: true, visibleSpaceIds: [1],
+                                                       isOnPreferredScreen: true, isUnderCursor: true))
+    }
+
+    /// A windowless placeholder has no frame, so it is never under the cursor.
+    func testOnlyUnderCursorHidesWindowlessApp() {
+        XCTAssertFalse(WindowFilterResolver.shouldShow(ws(isWindowlessApp: true), appState(),
+                                                       onlyUnderCursor: true, isOnPreferredScreen: true,
+                                                       isUnderCursor: true))
+    }
+
+    /// A held tab is Space-less but on the visible Space (same exemption as the Space gates), so it shows
+    /// when its frame is under the cursor.
+    func testOnlyUnderCursorShowsHeldTabUnderCursor() {
+        XCTAssertTrue(WindowFilterResolver.shouldShow(ws(isHeldVisibleForTab: true), appState(),
+                                                      onlyUnderCursor: true, visibleSpaceIds: [1],
+                                                      isOnPreferredScreen: true, isUnderCursor: true))
+    }
+
+    /// `isUnderCursor` is the frame test only; the other dropdowns still apply on top of it.
+    func testOnlyUnderCursorStillHonoursOtherFilters() {
+        XCTAssertFalse(WindowFilterResolver.shouldShow(ws(isFullscreen: true, spaceIds: [1]), appState(),
+                                                       onlyUnderCursor: true, hideFullscreen: true,
+                                                       visibleSpaceIds: [1],
+                                                       isOnPreferredScreen: true, isUnderCursor: true))
+    }
+
+    // MARK: - L. App under the cursor (appsToShow == .appUnderCursor)
+
+    func testOnlyAppUnderCursorHidesOtherApps() {
+        XCTAssertFalse(WindowFilterResolver.shouldShow(ws(), appState(pid: 100),
+                                                       onlyAppUnderCursor: true, pidUnderCursor: 200,
+                                                       isOnPreferredScreen: true))
+    }
+
+    /// The scope is the app, so its windows show whether or not each one is itself under the cursor.
+    func testOnlyAppUnderCursorShowsEveryWindowOfThatApp() {
+        XCTAssertTrue(WindowFilterResolver.shouldShow(ws(), appState(pid: 100),
+                                                      onlyAppUnderCursor: true, pidUnderCursor: 100,
+                                                      isOnPreferredScreen: true, isUnderCursor: false))
+    }
+
+    func testOnlyAppUnderCursorHidesEverythingWhenNothingIsUnderCursor() {
+        XCTAssertFalse(WindowFilterResolver.shouldShow(ws(), appState(pid: 100),
+                                                       onlyAppUnderCursor: true, pidUnderCursor: nil,
+                                                       isOnPreferredScreen: true))
+    }
+
+    /// Pointing at an app overrides a blanket hide-exception, as "Active app" does (#5810).
+    func testOnlyAppUnderCursorOverridesHideException() {
+        let except = ExceptionEntry(bundleIdentifier: "com.x", hide: .always, ignore: .none)
+        XCTAssertTrue(WindowFilterResolver.shouldShow(ws(), appState(pid: 100, bundleIdentifier: "com.x.app"),
+                                                      onlyAppUnderCursor: true, pidUnderCursor: 100,
+                                                      exceptions: [except], isOnPreferredScreen: true))
+    }
+
+    func testCanBeUnderCursorRequiresADrawnFrame() {
+        XCTAssertTrue(WindowFilterResolver.canBeUnderCursor(ws(spaceIds: [1]), appState(), [1]))
+        XCTAssertTrue(WindowFilterResolver.canBeUnderCursor(ws(isHeldVisibleForTab: true), appState(), [1]))
+        XCTAssertFalse(WindowFilterResolver.canBeUnderCursor(ws(isMinimized: true, spaceIds: [1]), appState(), [1]))
+        XCTAssertFalse(WindowFilterResolver.canBeUnderCursor(ws(spaceIds: [1]), appState(appIsHidden: true), [1]))
+        XCTAssertFalse(WindowFilterResolver.canBeUnderCursor(ws(spaceIds: [2]), appState(), [1]))
+        XCTAssertFalse(WindowFilterResolver.canBeUnderCursor(ws(isWindowlessApp: true), appState(), [1]))
+        XCTAssertFalse(WindowFilterResolver.canBeUnderCursor(ws(isPhantom: true, spaceIds: [1]), appState(), [1]))
     }
 
     func testPhantomBeatsWindowlessShow() {

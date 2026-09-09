@@ -48,6 +48,7 @@
 "App Icons appearance" = "App Icons appearance";
 "App is hidden" = "App is hidden";
 "App is running but has no open window" = "App is running but has no open window";
+"App under the cursor" = "App under the cursor";
 "Apparition delay of Switcher" = "Apparition delay of Switcher";
 "Appearance" = "Appearance";
 "Application Name" = "Application Name";
@@ -304,6 +305,7 @@
 "window switches" = "window switches";
 "Window Title" = "Window Title";
 "Window title contains" = "Window title contains";
+"Windows under the cursor" = "Windows under the cursor";
 "You can’t undo this action." = "You can’t undo this action.";
 "You have 14 days to try all Pro features. After that, Pro features will step back and the core window switcher will keep working exactly as before.\n\nAltTab stays free and open-source. Pro is an optional one-time purchase that funds continued development." = "You have 14 days to try all Pro features. After that, Pro features will step back and the core window switcher will keep working exactly as before.\n\nAltTab stays free and open-source. Pro is an optional one-time purchase that funds continued development.";
 "You may need to disable some conflicting system gestures" = "You may need to disable some conflicting system gestures";
