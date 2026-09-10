@@ -14,6 +14,12 @@ class SleepWakeEvents {
         reEnableAllTaps()
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) { reEnableAllTaps() }
         AxObserverRegistry.shared.recoverAll(.wake)
+        // A wake reconfigures the displays, which mints new Space ids for every external screen (measured on
+        // macOS 26: the same monitor came back with its Space renumbered 5253 → 5257). Every window's cached
+        // Space membership is stale against that, and the screen + Space filters are judged on it, so
+        // re-query rather than wait for the next summon (#6021). The unlock that usually follows asks for
+        // the same pass; both go through the 1s rescan throttle.
+        Applications.manuallyRefreshAllWindows()
     }
 
     static func reEnableAllTaps() {

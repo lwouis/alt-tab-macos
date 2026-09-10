@@ -613,6 +613,13 @@ class Applications {
     /// AXUIElementIDs it can time out on a window that IS there and hand back the same false "closed" this
     /// guard exists to prevent.
     private static func confirmAbsentFromApp(wid: CGWindowID, pid: pid_t, reason: String) throws {
+        // A locked screen makes every app publish zero windows, so `.absent` here says "the screen is
+        // locked", not "the window is gone" (measured on macOS 26: locking condemned every tracked window
+        // 0.7s later, and they stayed gone until the next WindowServer rescan — #6021, which reads as the
+        // switcher listing only the frontmost window after a wake). Nothing can be learned in the dark, so
+        // throw and let the scheduler re-ask once the screen is back. Only this app-side route is void; the
+        // WindowServer half of `reconcileAxElementEnd` keeps answering while locked.
+        guard !ScreenLockEvents.isScreenLocked else { throw AxError.appUnresponsive }
         let outcome = WindowElementAcquisition.outcome(for: wid, pid: pid, route: .currentSpaceViaApplicationWindows)
         // Log all three verdicts: a capture where a window vanished needs to show whether this probe ran
         // at all and what it answered.
