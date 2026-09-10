@@ -292,9 +292,25 @@ enum TabGroupResolver {
     ///
     /// Both guards are needed and neither subsumes the other: seed 27's genuine holder DOES declare the
     /// cluster's size, and only the link clause refuses it.
+    ///
+    /// **And no OTHER member may declare an AXTabGroup of its own from another position**, which is a third
+    /// way for the count to be a coincidence rather than an account. Only an active tab reports an AXTabGroup,
+    /// so a member that has one is a second tabbed window's active tab, and the two windows' tab counts are
+    /// routinely equal — QA T-20 parks two Finder windows of the same size, 3 tabs each. The moment the top
+    /// window switched a tab its outgoing active went Space-less and held, which left the bottom window as the
+    /// cluster's only genuine holder: {bottom's active, bottom's one discovered tab, top's held ex-active} is
+    /// 3 members against the bottom's declared 3, nothing was linked yet, and the waiver handed the top
+    /// window's active straight to the bottom window's group. Every Finder window is titled "lwouis", so the
+    /// title path then matched across the merged group too and one tile stood for both windows (measured
+    /// 2026-09-10). A merge is untouched: the windows it absorbs were plain untabbed windows, so their count
+    /// is 0. So is an ordinary tab swap — the held outgoing tab sits at its successor's position, which is the
+    /// position this clause reads. And a member ALREADY LINKED into the cluster is untouched too, so the
+    /// waiver still does not withdraw itself from the group it formed once its tabs start reporting counts of
+    /// their own.
     private static func tabCountAccountsForEveryMember(_ cluster: [TabWindow]) -> Bool {
         let onScreen = cluster.filter { hasGenuineSpace($0) }
         guard onScreen.count == 1, onScreen[0].tabCount == cluster.count else { return false }
+        guard !cluster.contains(where: { isAnotherWindowsActiveTab($0, onScreen[0]) }) else { return false }
         let wids = Set(cluster.map { $0.wid })
         var groups = Set<Set<CGWindowID>>()
         for member in cluster {
@@ -303,6 +319,15 @@ enum TabGroupResolver {
             groups.insert(Set(links))
         }
         return groups.count <= 1
+    }
+
+    /// Reports its own AXTabGroup, sits somewhere else, and belongs to no group here: a second tabbed
+    /// window's active tab, whatever the count says. Unlinked is what keeps this from re-splitting a group
+    /// the waiver already formed, and the position test is what keeps it off an ordinary swap's held tab.
+    private static func isAnotherWindowsActiveTab(_ member: TabWindow, _ onScreen: TabWindow) -> Bool {
+        guard member.wid != onScreen.wid, member.tabCount > 0, member.tabbedSiblingWids == nil,
+              let mine = member.position, let theirs = onScreen.position else { return false }
+        return !samePosition(mine, theirs)
     }
 
     /// The ONE definition of "same position" every claim path shares (rounded, exact). Tabs of one window

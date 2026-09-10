@@ -205,6 +205,12 @@ coarser layer.
   link (the title path can't make one — same title, four different positions), so geometry was the only path and
   it formed no cluster at all. 4 windows, 0 groups, 3 hidden as phantoms. The AXTabGroup count accounts for
   every member, which is what may override the cascade (`tabCountAccountsForEveryMember`).
+- **testASecondWindowsActiveTabIsNotSweptInByACountItAlsoDeclares** — the other side of that override: two
+  same-size Finder windows with 3 tabs each, the top one mid tab-switch. Its outgoing active is Space-less for
+  the handover, so the bottom window is the cluster's only genuine Space holder and its declared 3 matches the
+  3 members — but one of them is the TOP window's active tab, which reports an AXTabGroup of its own from
+  another position. The count is a coincidence there, not an account, and waiving the position split handed one
+  window's active to the other's group (live QA T-20, 2026-09-10).
 - **testSeparateWindowsNeverGroup** — separate windows (incl. a flaky Space-less read) ⇒ no group (the gate holds).
 - **testMergedTabsMatchByTitleOnlyOnceGeometryHasLinkedThem** — the title path cannot bootstrap a merged group
   and must not be taught to: four distinct cascade positions with one shared title is rec11's exact shape, where

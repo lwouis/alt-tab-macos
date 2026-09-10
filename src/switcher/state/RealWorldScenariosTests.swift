@@ -98,6 +98,31 @@ final class RealWorldScenariosTests: XCTestCase {
         ]
     }()
 
+    /// Two Finder windows of the SAME size parked apart, 3 tabs each, and the top one switching a tab
+    /// (macOS 26, live QA T-20 2026-09-10). The switch takes the top window's active Space-less for the
+    /// handover, which leaves the BOTTOM window as the cluster's only genuine Space holder:
+    ///
+    ///     +0:Finder#166416    g=nil sp=[3] 1000x440@80,600   ← the bottom window's active, declares 3 tabs
+    ///     -1:Finder#166420    g=nil sp=[]  1000x440@80,80    ← the TOP window's ex-active, mid-switch
+    ///     -2:Finder#166413    g=nil sp=[]  1000x440@80,600   ← a real inactive tab of the bottom window
+    ///
+    /// Three members against the bottom window's declared 3, nothing linked yet: the count "accounts for"
+    /// the cluster by coincidence and waives the position split that is the only thing keeping the two
+    /// windows apart. Live, `group form g1 rep=#166416 members=[166416, 166420, 166413] reason=geometry`,
+    /// after which the title path (every Finder window is titled "lwouis") bridged the rest and ONE tile
+    /// stood for both windows.
+    static let finderTabSwitchInASecondSameSizeWindow: [CapturedWindow] = {
+        let sz = CGSize(width: 1000, height: 440)
+        return [
+            CapturedWindow(pid: 11119, wid: 166416, title: "lwouis", subrole: "AXStandardWindow", size: sz,
+                position: CGPoint(x: 80, y: 600), spaceIds: [3], axTabTitles: ["lwouis", "lwouis", "lwouis"]),
+            CapturedWindow(pid: 11119, wid: 166420, title: "lwouis", subrole: "AXStandardWindow", size: sz,
+                position: CGPoint(x: 80, y: 80), spaceIds: [], axTabTitles: ["lwouis", "lwouis", "lwouis"]),
+            CapturedWindow(pid: 11119, wid: 166413, title: "lwouis", subrole: "AXStandardWindow", size: sz,
+                position: CGPoint(x: 80, y: 600), spaceIds: []),
+        ]
+    }()
+
     /// Finder, Window ▸ Move Tab to New Window (macOS 26, live QA 2026-07-30). The tab was torn out into
     /// its own window at (290,712) and the drag-out was correctly confirmed — then geometry folded it straight
     /// back into the group it had just left:
@@ -441,6 +466,15 @@ final class RealWorldScenariosTests: XCTestCase {
         let windows = Self.terminalMerge4Tabs.map { $0.tabWindow() }
         XCTAssertEqual(TabGroupResolver.geometryGroups(windows),
             [GeometryGroup(visibleWid: 29328, backgroundWids: [29326, 29321, 29320])])
+    }
+
+    func testASecondWindowsActiveTabIsNotSweptInByACountItAlsoDeclares() {
+        // The count waiver has to survive a cluster that holds another window's ACTIVE tab: 166420 declares
+        // an AXTabGroup of its own from a different position, so the bottom window's 3 cannot be an account
+        // of all three members however well it adds up.
+        let windows = Self.finderTabSwitchInASecondSameSizeWindow.map { $0.tabWindow() }
+        XCTAssertEqual(TabGroupResolver.geometryGroups(windows),
+            [GeometryGroup(visibleWid: 166416, backgroundWids: [166413])])
     }
 
     func testSeparateWindowsNeverGroup() {
