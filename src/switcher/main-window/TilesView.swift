@@ -122,11 +122,19 @@ class TilesView {
     /// Until the deferred pass above runs, the field is not first responder and a typed key would go to the
     /// panel instead. It normally wins that race by a wide margin (measured 5-9ms, and 77ms on the first
     /// summon of a launch where the main thread is still busy discovering windows), but the user is waiting
-    /// for this keystroke, so close the window rather than bet on it. A no-op once the field already has it.
+    /// for this keystroke, so close the window rather than bet on it. A no-op once the field already has it:
+    /// past that point the selection belongs to the user, and moving it is what broke ⌘A (#6019). See
+    /// `SearchFieldEditing`.
     static func giveTheFieldTheCaretNow() {
-        guard searchMode == .editing else { return }
+        let intent = SearchFieldEditing.caretIntent(mode: searchMode, fieldOwnsCaret: fieldOwnsTheCaret())
+        guard intent == .takeCaretAndCollapseToEnd else { return }
         TilesPanel.shared.makeFirstResponder(searchField)
         placeSearchCaretAtEnd()
+    }
+
+    private static func fieldOwnsTheCaret() -> Bool {
+        guard let editor = searchField.currentEditor() else { return false }
+        return TilesPanel.shared.firstResponder === editor
     }
 
     static func handleSearchEditingKeyDown(_ event: NSEvent) -> SearchKeyResult {
@@ -228,14 +236,12 @@ class TilesView {
         TilesPanel.shared.makeFirstResponder(tile)
     }
 
+    /// AppKit selects the whole content when a text field becomes first responder, so the keystroke that
+    /// made us take the caret would REPLACE what is already in the field. Collapse to the end instead.
+    /// Only ever runs on the turn we take the caret; see `giveTheFieldTheCaretNow`.
     private static func placeSearchCaretAtEnd() {
-        guard searchMode == .editing else { return }
-        if TilesPanel.shared.firstResponder !== searchField.currentEditor() {
-            TilesPanel.shared.makeFirstResponder(searchField)
-        }
         guard let editor = searchField.currentEditor() else { return }
-        let end = searchField.stringValue.utf16.count
-        editor.selectedRange = NSRange(location: end, length: 0)
+        editor.selectedRange = SearchFieldEditing.endOfText(length: searchField.stringValue.utf16.count)
     }
 
     static func hasMarkedText() -> Bool {

@@ -55,8 +55,9 @@ the Edit menu, call `App.cycleSelection`).
   true`) while editing instead. Without this they would fire on the bare modifier and you couldn't type
   capitals in the search field.
 - **Field editability** tracks mode exactly: editable iff `.editing`.
-- **Not modeled here** (stays in `TilesView` as side effects): caret placement, first-responder
-  changes, `forceDoNothingOnRelease`, hover clearing, key-repeat-timer stops, the Edit-menu toggle, and
+- **Not modeled here**: who owns the caret and where it lands when the field takes it, which is
+  `SearchFieldEditing` (#6019); and, as `TilesView` side effects, first-responder changes,
+  `forceDoNothingOnRelease`, hover clearing, key-repeat-timer stops, the Edit-menu toggle, and
   `endSearchSession` teardown (which unconditionally resets to `.off` and is distinct from `disable`).
 
 ---

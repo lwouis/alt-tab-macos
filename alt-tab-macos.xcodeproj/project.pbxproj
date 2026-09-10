@@ -67,6 +67,9 @@
 		5E5EA12C0000000000000002 /* SearchModeResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E5EA12C0000000000000001 /* SearchModeResolver.swift */; };
 		5E5EA12C0000000000000003 /* SearchModeResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E5EA12C0000000000000001 /* SearchModeResolver.swift */; };
 		5E5EA12C0000000000000102 /* SearchModeResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E5EA12C0000000000000101 /* SearchModeResolverTests.swift */; };
+		5E5EA12F0000000000000002 /* SearchFieldEditing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E5EA12F0000000000000001 /* SearchFieldEditing.swift */; };
+		5E5EA12F0000000000000003 /* SearchFieldEditing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E5EA12F0000000000000001 /* SearchFieldEditing.swift */; };
+		5E5EA12F0000000000000102 /* SearchFieldEditingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E5EA12F0000000000000101 /* SearchFieldEditingTests.swift */; };
 		5E6010A00000000000000002 /* WindowTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6010A00000000000000001 /* WindowTitle.swift */; };
 		5E6010A00000000000000003 /* WindowTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6010A00000000000000001 /* WindowTitle.swift */; };
 		5E6010A00000000000000102 /* WindowTitleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6010A00000000000000101 /* WindowTitleTests.swift */; };
@@ -504,6 +507,8 @@
 		5EA8E110000000000000F211 /* SchedulingPolicyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulingPolicyTests.swift; sourceTree = "<group>"; };
 		5E5EA12C0000000000000001 /* SearchModeResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModeResolver.swift; sourceTree = "<group>"; };
 		5E5EA12C0000000000000101 /* SearchModeResolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModeResolverTests.swift; sourceTree = "<group>"; };
+		5E5EA12F0000000000000001 /* SearchFieldEditing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFieldEditing.swift; sourceTree = "<group>"; };
+		5E5EA12F0000000000000101 /* SearchFieldEditingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFieldEditingTests.swift; sourceTree = "<group>"; };
 		5E6010A00000000000000001 /* WindowTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowTitle.swift; sourceTree = "<group>"; };
 		5E6010A00000000000000101 /* WindowTitleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowTitleTests.swift; sourceTree = "<group>"; };
 		5E6010B00000000000000001 /* TileGridLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileGridLayout.swift; sourceTree = "<group>"; };
@@ -1150,6 +1155,7 @@
 				D04BA7CF9C2D1BEC7C05AB24 /* Spaces.swift */,
 				5E1EC110000000000000C001 /* SelectionResolver.swift */,
 				5E5EA12C0000000000000001 /* SearchModeResolver.swift */,
+				5E5EA12F0000000000000001 /* SearchFieldEditing.swift */,
 				5E6010A00000000000000001 /* WindowTitle.swift */,
 				5E6010A00000000000000101 /* WindowTitleTests.swift */,
 				5E5EA12D0000000000000001 /* ShortcutModifierResolver.swift */,
@@ -1164,6 +1170,7 @@
 				5EF0C000000000000000F101 /* FocusIntentPolicy.swift */,
 				5EF0C000000000000000F201 /* FocusIntentPolicyTests.swift */,
 				5E5EA12C0000000000000101 /* SearchModeResolverTests.swift */,
+				5E5EA12F0000000000000101 /* SearchFieldEditingTests.swift */,
 				5E5EA12D0000000000000101 /* ShortcutModifierResolverTests.swift */,
 				5F5849A900000000000000A1 /* BruteForceWindowMatch.swift */,
 				5F5849A900000000000000B1 /* BruteForceWindowMatchTests.swift */,
@@ -2123,6 +2130,8 @@
 				5E1EC110000000000000C102 /* SelectionResolverTests.swift in Sources */,
 				5E5EA12C0000000000000003 /* SearchModeResolver.swift in Sources */,
 				5E5EA12C0000000000000102 /* SearchModeResolverTests.swift in Sources */,
+				5E5EA12F0000000000000003 /* SearchFieldEditing.swift in Sources */,
+				5E5EA12F0000000000000102 /* SearchFieldEditingTests.swift in Sources */,
 				5E6010A00000000000000003 /* WindowTitle.swift in Sources */,
 				5E6010A00000000000000102 /* WindowTitleTests.swift in Sources */,
 				5E6010B00000000000000003 /* TileGridLayout.swift in Sources */,
@@ -2233,6 +2242,7 @@
 				D04BAFB973C3D28718FAEB87 /* Windows.swift in Sources */,
 				5E1EC110000000000000C002 /* SelectionResolver.swift in Sources */,
 				5E5EA12C0000000000000002 /* SearchModeResolver.swift in Sources */,
+				5E5EA12F0000000000000002 /* SearchFieldEditing.swift in Sources */,
 				5E6010A00000000000000002 /* WindowTitle.swift in Sources */,
 				5E6010B00000000000000002 /* TileGridLayout.swift in Sources */,
 				5E5EA12D0000000000000002 /* ShortcutModifierResolver.swift in Sources */,
