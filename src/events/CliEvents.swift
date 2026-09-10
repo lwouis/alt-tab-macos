@@ -199,6 +199,7 @@ class CliServer {
                 spaceIds: w.spaceIds,
                 spaceIndexes: w.spaceIndexes,
                 spaceIsBorrowed: w.spaceIsBorrowed,
+                screenId: w.screenId as String?,
                 lastFocusOrder: w.lastFocusOrder,
                 creationOrder: w.creationOrder,
                 focusedAt: w.focusedAt,
@@ -217,6 +218,7 @@ class CliServer {
             currentSpaceIndex: Spaces.currentSpaceIndex,
             visibleSpaceIds: visibleSpaceIds,
             allSpaces: Spaces.idsAndIndexes.map { QaSpace(id: $0.0, index: $0.1) },
+            screens: qaScreens(),
             switcherVisible: SwitcherSession.isActive,
             selectedIndex: SwitcherSession.current?.selectedIndex,
             heldWids: Array(Windows.windowsHeldVisibleForTab),
@@ -229,6 +231,16 @@ class CliServer {
             tiles: renderedTiles(),
             layout: renderedLayout(),
             tracking: TrackingTelemetryRecorder.state.summary())
+    }
+
+    private static func qaScreens() -> [QaScreen] {
+        let preferredUuid = NSScreen.preferred.cachedUuid()
+        return NSScreen.screens.compactMap { screen in
+            guard let uuid = screen.cachedUuid() else { return nil }
+            return QaScreen(uuid: uuid as String, frame: screen.frame,
+                spaceIds: Spaces.screenSpacesMap[uuid] ?? [],
+                isPreferred: uuid == preferredUuid)
+        }
     }
 
     /// What the tiles on screen are CURRENTLY showing, as opposed to what the model says they should show.
@@ -279,6 +291,7 @@ class CliServer {
         var currentSpaceIndex: Int
         var visibleSpaceIds: [UInt64]
         var allSpaces: [QaSpace]
+        var screens: [QaScreen]
         var switcherVisible: Bool
         var selectedIndex: Int?
         var heldWids: [CGWindowID]
@@ -326,6 +339,17 @@ class CliServer {
         var index: Int
     }
 
+    /// The screen⇄Space map the `screensToShow: showing AltTab` filter is judged against
+    /// (`Spaces.screenSpacesMap`), plus which screen that filter currently prefers. A window whose
+    /// `spaceIds` name no Space of the preferred screen is hidden by that filter, and the two halves
+    /// of that verdict were previously invisible here (#6021).
+    private struct QaScreen: Codable {
+        var uuid: String
+        var frame: CGRect
+        var spaceIds: [UInt64]
+        var isPreferred: Bool
+    }
+
     private struct QaApp: Codable {
         var pid: pid_t
         var name: String?
@@ -365,6 +389,7 @@ class CliServer {
         var spaceIds: [UInt64]
         var spaceIndexes: [Int]
         var spaceIsBorrowed: Bool
+        var screenId: String?
         var lastFocusOrder: Int
         var creationOrder: Int
         var focusedAt: TimeInterval
