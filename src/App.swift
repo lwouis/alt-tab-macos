@@ -456,7 +456,20 @@ class App: AppCenterApplication {
             })
     }
 
+    private static var didContinueAppLaunch = false
+
+    /// Exactly once, whatever asks. `SystemPermissions` polls every 500ms while the permissions window is
+    /// up and hops its "granted" verdict to main, where `preStartupPermissionsPassed` is set, so a
+    /// main-thread stall longer than one tick queues this function twice. A second run starts a second
+    /// input-events thread while the first keeps running (the old RunLoop still retains the old taps'
+    /// sources, so both threads get every event), and the gesture state in `TrackpadEvents` is unlocked on
+    /// the grounds that one thread reaches it. Two of them segfault in `GestureTracker.prune`.
     static func continueAppLaunchAfterPermissionsAreGranted() {
+        guard !didContinueAppLaunch else {
+            Logger.warning { "launch continuation asked for twice; ignoring" }
+            return
+        }
+        didContinueAppLaunch = true
         Logger.info { "System permissions are granted; continuing launch" }
         BackgroundWork.start()
         NSScreen.updatePreferred()
