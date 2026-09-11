@@ -1,3 +1,17 @@
+## [11.6.1](https://github.com/lwouis/alt-tab-macos/compare/v11.6.0...v11.6.1) (2026-09-11)
+
+
+### Bug Fixes
+
+* a multi-line window title may break the layout (closes [#6010](https://github.com/lwouis/alt-tab-macos/issues/6010)) ([d0336cd](https://github.com/lwouis/alt-tab-macos/commit/d0336cd))
+* a window may be named after its app (closes [#6011](https://github.com/lwouis/alt-tab-macos/issues/6011)) ([66eb484](https://github.com/lwouis/alt-tab-macos/commit/66eb484))
+* a window may disappear after leaving fullscreen (closes [#6017](https://github.com/lwouis/alt-tab-macos/issues/6017)) ([388fedd](https://github.com/lwouis/alt-tab-macos/commit/388fedd))
+* delete after select-all in search only deleted one character ([3e7ddfd](https://github.com/lwouis/alt-tab-macos/commit/3e7ddfd)), closes [#6019](https://github.com/lwouis/alt-tab-macos/issues/6019)
+* rare crash when using trackpad gestures ([ea9bf0b](https://github.com/lwouis/alt-tab-macos/commit/ea9bf0b))
+* switching quickly may leave the previous window in front ([886f21a](https://github.com/lwouis/alt-tab-macos/commit/886f21a)), closes [#6016](https://github.com/lwouis/alt-tab-macos/issues/6016)
+* two windows of an app may be grouped as tabs and hidden ([ae89aef](https://github.com/lwouis/alt-tab-macos/commit/ae89aef))
+* windows may be missing after waking up (closes [#6021](https://github.com/lwouis/alt-tab-macos/issues/6021)) ([97ec5cb](https://github.com/lwouis/alt-tab-macos/commit/97ec5cb))
+
 # [11.6.0](https://github.com/lwouis/alt-tab-macos/compare/v11.5.0...v11.6.0) (2026-09-05)
 
 
