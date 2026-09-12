@@ -59,6 +59,9 @@ class PermissionView: StackView {
             case .skipped:
                 color = PermissionView.yellowColor
                 label = NSLocalizedString("Skipped", comment: "")
+        case .temporarilyUnavailable:
+            color = PermissionView.yellowColor
+            label = NSLocalizedString("Checking…", comment: "")
         }
         status.stringValue = "● " + label
         status.textColor = color.withAlphaComponent(1)
@@ -70,4 +73,5 @@ enum PermissionStatus {
     case granted
     case notGranted
     case skipped
+    case temporarilyUnavailable
 }

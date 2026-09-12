@@ -49,6 +49,26 @@ final class PreferencesMigrationsTests: XCTestCase {
         XCTAssertTrue(PreferencesMigrations.shouldRun("9.0.0", "10.0.0"))
     }
 
+    func testExistingOnboardedUserStartsWithGrantHistory() {
+        PreferencesMigrations.seedScreenRecordingGrantHistory(existingVersion: "11.5.0")
+
+        XCTAssertEqual(defaults.string(forKey: "screenRecordingPermissionWasGranted"), "true")
+    }
+
+    func testFreshInstallDoesNotStartWithGrantHistory() {
+        PreferencesMigrations.seedScreenRecordingGrantHistory(existingVersion: nil)
+
+        XCTAssertNil(defaults.object(forKey: "screenRecordingPermissionWasGranted"))
+    }
+
+    func testExistingUserWhoSkippedCaptureDoesNotStartWithGrantHistory() {
+        defaults.set("true", forKey: "screenRecordingPermissionSkipped")
+
+        PreferencesMigrations.seedScreenRecordingGrantHistory(existingVersion: "11.5.0")
+
+        XCTAssertNil(defaults.object(forKey: "screenRecordingPermissionWasGranted"))
+    }
+
     // MARK: - B. Grouping moved global -> per-shortcut
 
     func testGroupingCopiesGlobalShowAppsOrWindowsToPerShortcutKeysAndRemovesGlobal() {

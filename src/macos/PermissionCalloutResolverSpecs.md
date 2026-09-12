@@ -24,9 +24,8 @@ kernel deciding when the callout is worth showing and which feature(s) it names,
 - **The two inputs are independent dimensions.** The callout shows only at their intersection:
   permission missing **and** at least one feature depends on Screen Recording. The combinations where
   the permission is granted, or where `dependentFeatures` is `.none`, all hide it.
-- **`screenRecordingGranted` collapses three permission states into two.** Production passes
-  `ScreenRecordingPermission.status == .granted`, so both `.skipped` (user opted out) and
-  `.notGranted` (never granted) map to `false` → "permission missing". They behave identically.
+- **`screenRecordingGranted` hides temporary failures.** Production passes `false` only for
+  `.skipped` or a confirmed `.notGranted` state. A temporary probe failure does not show the callout.
 - **`dependentFeatures` is an OR of each flag across all shortcut slots.** Production computes it as
   `Preferences.screenRecordingDependentFeatures`, which OR-s the Thumbnails flag and the Preview flag
   independently over every shortcut (`0...maxShortcutCount`) using the *effective* per-shortcut

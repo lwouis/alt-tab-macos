@@ -2,12 +2,11 @@
 
 ## Summary
 
-One-shot window screenshots for thumbnails and Preview. macOS 26+ captures through ScreenCaptureKit
-(`WindowCaptureScreenshots`); older versions capture through the private `CGSHWCaptureWindowList`
-(`WindowCaptureScreenshotsPrivateApi`), because SCK is unreliable there (macOS 14 crashes inside Apple's
-code, macOS 15 leaks).
+One-shot window screenshots for thumbnails and Preview. macOS 27 routes trusted thumbnails through
+the private `CGSHWCaptureWindowList` path. It keeps ScreenCaptureKit only for full-size Preview frames.
+macOS 26 keeps ScreenCaptureKit for both uses. Older versions use `CGSHWCaptureWindowList`.
 
-## SCK API selection (macOS 26+)
+## SCK API selection
 
 Two public one-shot APIs exist, each broken differently:
 
@@ -26,6 +25,10 @@ Routing: `captureScreenshot` for every window, except fullscreen windows and, wh
 effective settings enable preview-selected-window, all windows (full-resolution path) — those use
 `captureSampleBuffer`.
 
+On macOS 27, this routing applies only to full-size Preview frames. Trusted thumbnails use WindowServer
+to avoid repeated replayd identity resolution. An SCK error keeps the prior image and starts a 15-second
+cooldown. A successful non-prompting preflight does not convert that error into a permission prompt.
+
 ## Edge cases
 
 - **Stale fullscreen state**: `isFullscreen` is snapshotted on the main thread when the burst is built, so
@@ -38,6 +41,8 @@ effective settings enable preview-selected-window, all windows (full-resolution 
 - **Privacy attribution cost is API-independent**: both APIs flip replayd's screen-capture attribution
   (~4 `updateScreenCaptureDidStart` events per capture) and cost systemstatusd the same CPU (measured
   within 2%). Switching APIs fixes the WindowServer leak, not the per-capture attribution overhead.
+- **Background capture disabled**: a closed switcher submits no capture request. Focused-window
+  background capture follows the same setting.
 
 ## Measurements (2026-07-11, macOS 26.5.1, M-series, 29-window payload, 10 switcher cycles per run)
 
