@@ -5,8 +5,9 @@ import AppCenterCrashes
 import Sparkle
 
 class App: AppCenterApplication {
-    /// periphery:ignore
-    static let activity = ProcessInfo.processInfo.beginActivity(options: .userInitiatedAllowingIdleSystemSleep,
+    /// Held for the process lifetime. `static let` is lazy, so `init` has to touch it or App Nap is never
+    /// disabled.
+    private static let activity = ProcessInfo.processInfo.beginActivity(options: .userInitiatedAllowingIdleSystemSleep,
         reason: "Prevent App Nap to preserve responsiveness")
     static let bundleIdentifier = Bundle.main.bundleIdentifier!
     static let bundleURL = Bundle.main.bundleURL
@@ -43,6 +44,7 @@ class App: AppCenterApplication {
 
     override init() {
         super.init()
+        _ = Self.activity
         delegate = self
     }
 
