@@ -19,14 +19,14 @@ final class PreferencesMigrationsTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        suiteName = "test-migrations-\(UUID().uuidString)"
-        defaults = UserDefaults(suiteName: suiteName)!
+        suiteName = "com.lwouis.alt-tab-macos.tests.migrations"
+        defaults = TestDefaults.make(suiteName)
         PreferencesMigrations.defaults = defaults
     }
 
     override func tearDown() {
         PreferencesMigrations.defaults = .standard
-        UserDefaults().removePersistentDomain(forName: suiteName)
+        TestDefaults.tearDown(defaults, suiteName)
         super.tearDown()
     }
 

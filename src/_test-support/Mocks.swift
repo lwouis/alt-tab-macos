@@ -263,3 +263,25 @@ enum ShortcutStylePreference: CaseIterable {
 class ModifierFlags {
     static var current: NSEvent.ModifierFlags = []
 }
+
+/// Scratch `UserDefaults` suite for tests.
+///
+/// `removePersistentDomain` clears a suite's keys but never unlinks its plist,
+/// so a suite named after a fresh UUID leaves one empty 42-byte file in
+/// ~/Library/Preferences per test, per run. That is how a dev machine ended up
+/// with 62k of them. Reuse one fixed suite name per test class and delete the
+/// file on the way out. Safe because the Test scheme sets parallelizable = NO.
+enum TestDefaults {
+    static func make(_ suiteName: String) -> UserDefaults {
+        let defaults = UserDefaults(suiteName: suiteName)!
+        defaults.removePersistentDomain(forName: suiteName)
+        return defaults
+    }
+
+    static func tearDown(_ defaults: UserDefaults, _ suiteName: String) {
+        defaults.removePersistentDomain(forName: suiteName)
+        UserDefaults.standard.removeSuite(named: suiteName)
+        let plist = NSHomeDirectory() + "/Library/Preferences/\(suiteName).plist"
+        try? FileManager.default.removeItem(atPath: plist)
+    }
+}

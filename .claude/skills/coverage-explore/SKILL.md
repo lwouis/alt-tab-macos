@@ -28,9 +28,12 @@ There is intentionally **nothing else**: no lcov, no HTML, no committed `.xcresu
    ```sh
    rm -rf /tmp/altcov.xcresult
    set -o pipefail && xcodebuild test \
-     -project alt-tab-macos.xcodeproj -scheme Test -configuration Release \
+     -project alt-tab-macos.xcodeproj -scheme Test -configuration Debug \
      -enableCodeCoverage YES -resultBundlePath /tmp/altcov.xcresult | scripts/xcbeautify
    ```
+   Debug, like `ai/test.sh` — Release means wholemodule + -O, which both rebuilds the whole test
+   target on every edit and lets the optimizer merge away counter regions, so its percentages are
+   less faithful to the source.
    If the build is red, stop and report — coverage on a failing suite is meaningless.
 
 2. **Parse** `xcrun xccov view --report --json /tmp/altcov.xcresult`. Each `targets[].files[]` has
