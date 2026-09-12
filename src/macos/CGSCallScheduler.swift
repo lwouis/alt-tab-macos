@@ -29,15 +29,6 @@ class CGSCallScheduler {
         queue.addOperation(block)
     }
 
-    /// The Space(s) a window currently belongs to. Fetched off-main, delivered on main. nil = no answer;
-    /// see `rawWindowSpaces` for why an EMPTY answer is not the same thing and is not evidence on its own.
-    static func windowSpaces(_ wid: CGWindowID, thenMain: @escaping ([CGSSpaceID]?) -> Void) {
-        queue.addOperation {
-            let spaceIds = rawWindowSpaces(wid)
-            DispatchQueue.main.async { thenMain(spaceIds) }
-        }
-    }
-
     /// Synchronous form for callers ALREADY off-main: the Space(s) a single window belongs to. Used by the
     /// #5791 backfill (a window the per-Space enumeration misses would otherwise get empty spaceIds).
     static func windowSpaces(_ wid: CGWindowID) -> [CGSSpaceID]? {

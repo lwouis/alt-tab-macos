@@ -38,7 +38,9 @@ class TileView: FlippedView {
     // TilesView.updateItemsAndLayout, so both walks are pure overhead on this subtree. Override as
     // no-ops to stop the recursion at the tile boundary. AppKit-native subviews (NSSearchField,
     // NSTextField labels) that live outside the tile subtree still get their normal passes.
+    // periphery:ignore - AppKit private overrides, found by the ObjC runtime rather than called
     @objc func _windowChangedKeyState() {}
+    // periphery:ignore - AppKit private overrides, found by the ObjC runtime rather than called
     @objc func _layoutSubtreeWithOldSize(_ oldSize: NSSize) {}
 
     override func isAccessibilityElement() -> Bool { true }
@@ -72,9 +74,9 @@ class TileView: FlippedView {
         window_ = element
         label.toolTip = nil
         applyCurrentStyle()
-        updateValues(element, index, newHeight)
+        updateValues(element, index)
         updateSizes(newHeight)
-        updatePositions(newHeight)
+        updatePositions()
         applySearchHighlight()
     }
 
@@ -277,12 +279,12 @@ class TileView: FlippedView {
         applySearchHighlight()
     }
 
-    private func updateAppIcon(_ element: Window, _ title: String) {
+    private func updateAppIcon(_ element: Window) {
         let appIconSize = TileView.iconSize()
         appIcon.updateContents(.cgImage(element.icon), appIconSize)
     }
 
-    private func updateValues(_ element: Window, _ index: Int, _ newHeight: CGFloat) {
+    private func updateValues(_ element: Window, _ index: Int) {
         assignIfDifferent(&windowlessAppIndicator.isHidden, !element.isWindowlessApp)
         statusIcons.update(
             isHidden: element.isHidden && !Preferences.hideStatusIcons,
@@ -322,7 +324,7 @@ class TileView: FlippedView {
                 statusIcons.setSpaceNumber(spaceIndex)
             }
         }
-        updateAppIcon(element, title)
+        updateAppIcon(element)
         updateDockLabelIcon(element.dockLabel)
         setAccessibilityHelp(getAccessibilityHelp(element.application.localizedName, element.dockLabel))
         mouseUpCallback = { () -> Void in App.focusSelectedWindow(element) }
@@ -332,7 +334,7 @@ class TileView: FlippedView {
     private func applySearchHighlight() {
         let attributes = baseTitleAttributes()
         let query = Search.normalizedQuery(SwitcherSession.current?.searchQuery ?? "")
-        let hasAppMatch = !(window_?.swAppResults.isEmpty ?? true)
+        let hasAppMatch = window_?.swAppMatchSpan != nil
         appIconHighlight.isHidden = query.isEmpty || !hasAppMatch
         if !appIconHighlight.isHidden {
             if Preferences.effectiveAppearanceStyle(SwitcherSession.activeShortcutIndex) == .appIcons {
@@ -376,14 +378,6 @@ class TileView: FlippedView {
         label.attributedStringValue = attributed
     }
 
-    static func invalidateTitleAttributesCache() {
-        // Kept as a no-op for callers — attributes are no longer cached. They depend on per-tile
-        // `label.alignment` (which varies by effective appearance style: `.center` for appIcons,
-        // `.natural` for the others) and on `label.lineBreakMode` (per-title truncation pref).
-        // With per-shortcut style overrides, those can differ across tiles in the same panel,
-        // so a shared static cache was returning stale alignment to whichever tile rendered second.
-    }
-
     private func baseTitleAttributes(_ forceClipping: Bool = false) -> [NSAttributedString.Key: Any] {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = label.alignment
@@ -392,30 +386,24 @@ class TileView: FlippedView {
         return [.foregroundColor: Appearance.fontColor, .font: Appearance.font, .paragraphStyle: paragraphStyle]
     }
 
+    /// The title the tile draws is built from the app name, the window title, or both joined by " - ",
+    /// so a title-side match has to be shifted by the joined prefix to land on the right characters.
     private func searchSpanRanges() -> [NSRange] {
-        var spanRanges = [NSRange]()
-        if Preferences.showTitles == .appName {
-            for result in window_?.swAppResults ?? [] {
-                spanRanges.append(NSRange(location: result.span.lowerBound, length: result.span.count))
-            }
-            return spanRanges
+        func range(_ span: Range<Int>?, offsetBy offset: Int = 0) -> [NSRange] {
+            guard let span else { return [] }
+            return [NSRange(location: offset + span.lowerBound, length: span.count)]
         }
-        if Preferences.showTitles == .appNameAndWindowTitle {
+        switch Preferences.showTitles {
+        case .appName:
+            return range(window_?.swAppMatchSpan)
+        case .appNameAndWindowTitle:
             let appName = window_?.application.localizedName ?? ""
             let windowTitle = window_?.title ?? ""
             let offset = (appName.isEmpty || appName == windowTitle) ? 0 : (appName + " - ").count
-            for result in window_?.swAppResults ?? [] {
-                spanRanges.append(NSRange(location: result.span.lowerBound, length: result.span.count))
-            }
-            for result in window_?.swTitleResults ?? [] {
-                spanRanges.append(NSRange(location: offset + result.span.lowerBound, length: result.span.count))
-            }
-            return spanRanges
+            return range(window_?.swAppMatchSpan) + range(window_?.swTitleMatchSpan, offsetBy: offset)
+        case .windowTitle:
+            return range(window_?.swTitleMatchSpan)
         }
-        for result in window_?.swTitleResults ?? [] {
-            spanRanges.append(NSRange(location: result.span.lowerBound, length: result.span.count))
-        }
-        return spanRanges
     }
 
     private func highlightedIndexes(_ ranges: [NSRange], _ titleLength: Int) -> Set<Int> {
@@ -535,7 +523,7 @@ class TileView: FlippedView {
         }
     }
 
-    private func updatePositions(_ newHeight: CGFloat) {
+    private func updatePositions() {
         let edgeInsets = Appearance.edgeInsetsSize
         assignIfDifferent(&appIcon.frame.origin, NSPoint(x: edgeInsets, y: edgeInsets))
         if Preferences.effectiveAppearanceStyle(SwitcherSession.activeShortcutIndex) != .appIcons {
@@ -673,21 +661,6 @@ class TileView: FlippedView {
         let labTitleView = TileTitleView(font: Appearance.font)
         labTitleView.stringValue = "abcdefghijklmnopqrstuvwxyz-abcdefghijklmnopqrstuvwxyz-abcdefghijklmnopqrstuvwxyz" + extraTextForPadding
         return labTitleView.cell!.cellSize.width
-    }
-
-    static func widthOfLongestTitle() -> CGFloat? {
-        let labTitleView = TileTitleView(font: Appearance.font)
-        var maxWidth = CGFloat(0)
-        for window in Windows.list {
-            guard window.shouldShowTheUser else { continue }
-            labTitleView.stringValue = window.title + extraTextForPadding
-            let width = labTitleView.cell!.cellSize.width
-            if width > maxWidth {
-                maxWidth = width
-            }
-        }
-        guard maxWidth > 0 else { return nil }
-        return maxWidth
     }
 
     static func minThumbnailWidth(_ screen: NSScreen = NSScreen.preferred) -> CGFloat {

@@ -41,13 +41,4 @@ final class WsEventRoutingTests: XCTestCase {
         XCTAssertEqual(WsEventRouting.action(for: .spaceCurrentChanged), .spaceTransition)
         XCTAssertEqual(WsEventRouting.action(for: .activeSpaceChanged), .spaceTransition)
     }
-
-    // MARK: - C. Payload
-
-    func testOnlySpaceMembershipNotificationsCarrySpaceId() {
-        for n in WsEventRouting.Notification.allCases {
-            let expected = (n == .windowAddedToSpace || n == .windowRemovedFromSpace)
-            XCTAssertEqual(WsEventRouting.payloadCarriesSpaceId(n), expected, "\(n)")
-        }
-    }
 }

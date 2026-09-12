@@ -1,13 +1,6 @@
 import Cocoa
 
 class AcknowledgmentsTab {
-    // going taller than this will crop the view on small screens or low scaling modes on retina displays
-    static let maxTabHeight = CGFloat(450)
-
-    static func initTab() -> NSView {
-        makeScrollableView(makeContentView(), maxTabHeight)
-    }
-
     static func makeContentView(columnWidth: CGFloat = 240, shouldFit: Bool = true, verticallyStacked: Bool = false) -> NSView {
         let sectionNames = ["acknowledgments"]
         let textViews: [NSTextView] = sectionNames.map { makeTextView($0, columnWidth) }
@@ -48,22 +41,5 @@ class AcknowledgmentsTab {
         textView.frame = textView.layoutManager!.usedRect(for: textView.textContainer!)
         textView.fit(textView.frame.width, textView.frame.height)
         return textView
-    }
-
-    private static func makeScrollableView(_ content: NSView, _ maxHeight: CGFloat) -> NSView {
-        let scrollView = NSScrollView()
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.drawsBackground = false
-        scrollView.hasVerticalScroller = true
-        scrollView.hasHorizontalScroller = false
-        scrollView.documentView = FlippedView(frame: .zero)
-        scrollView.documentView!.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.documentView!.subviews = [content]
-        let totalWidth = content.fittingSize.width
-        scrollView.frame.size = NSSize(width: totalWidth, height: maxHeight)
-        scrollView.contentView.frame.size = scrollView.frame.size
-        scrollView.documentView!.frame.size = content.fittingSize
-        scrollView.fit(totalWidth, maxHeight)
-        return scrollView
     }
 }

@@ -144,17 +144,17 @@ class ProTransitionManager {
         onAction?(action)
     }
 
-    // MARK: - Pass-through accessors for external callers (QAMenu, Day35FinalWindow, etc.)
-
+    // Pass-through accessors. The setters are what `QAMenu`'s Reset row writes, so they only look
+    // unused to a scan of the Release scheme, where `QAMenu.swift` is compiled out by its `#if DEBUG`.
     var hasSeenWelcome: Bool { get { state.hasSeenWelcome } set { state.hasSeenWelcome = newValue } }
+    // periphery:ignore - written by QAMenu, which the Release scheme compiles out
     var hasSeenDay4Tour: Bool { get { state.hasSeenDay4Tour } set { state.hasSeenDay4Tour = newValue } }
+    // periphery:ignore - written by QAMenu, which the Release scheme compiles out
     var hasSeenDay12: Bool { get { state.hasSeenDay12 } set { state.hasSeenDay12 = newValue } }
+    // periphery:ignore - written by QAMenu, which the Release scheme compiles out
     var freePassUsed: Bool { get { state.freePassUsed } set { state.freePassUsed = newValue } }
-    var hasSeenFullUpgrade: Bool { get { state.hasSeenFullUpgrade } set { state.hasSeenFullUpgrade = newValue } }
-    var hasSeenProactiveDay15: Bool { get { state.hasSeenProactiveDay15 } set { state.hasSeenProactiveDay15 = newValue } }
-    var hasSeenDay21: Bool { get { state.hasSeenDay21 } set { state.hasSeenDay21 = newValue } }
-    var hasSeenDay35: Bool { get { state.hasSeenDay35 } set { state.hasSeenDay35 = newValue } }
     var userOptedOut: Bool { get { state.userOptedOut } set { state.userOptedOut = newValue } }
+    // periphery:ignore - written by QAMenu, which the Release scheme compiles out
     var hasTriggeredPostExpirationSwitcher: Bool { get { state.hasTriggeredPostExpirationSwitcher } set { state.hasTriggeredPostExpirationSwitcher = newValue } }
 
     var shouldShowBadgeDot: Bool {
@@ -318,10 +318,6 @@ class ProTransitionManager {
         // Now that the flags are cleared, post again so observers re-render with the fresh state.
         NotificationCenter.default.post(name: Self.proLockStateDidChangeNotification, object: nil)
         scheduler.scheduleNext()
-    }
-
-    func showComponent(_ show: @autoclosure () -> Void) {
-        show()
     }
     #endif
 }

@@ -358,7 +358,6 @@ class PreferencesMigrations {
     }
 
     static func migrateDropdownsFromTextToIndexes() {
-        migratePreferenceValue("theme", [" macOS": "0", "❖ Windows 10": "1"])
         // "Main screen" was renamed to "Active screen"
         migratePreferenceValue("showOnScreen", ["Main screen": "0", "Active screen": "0", "Screen including mouse": "1"])
         migratePreferenceValue("appsToShow", ["All apps": "0", "Active app": "1"])
@@ -378,44 +377,6 @@ class PreferencesMigrations {
         if let old = Self.defaults.string(forKey: preference),
            let new = oldAndNew[old] {
             Self.defaults.set(new, forKey: preference)
-        }
-    }
-
-    static func migrateShortcutPreferencesToSecureCoding() {
-        Preferences.allShortcutPreferenceKeys.forEach {
-            let key = $0
-            guard let oldValue = Self.defaults.object(forKey: key) else { return }
-            if let oldStorage = oldValue as? [String: Any] {
-                let (isValid, shortcut) = Preferences.decodeShortcutStorage(oldStorage)
-                guard isValid else {
-                    Self.defaults.removeObject(forKey: key)
-                    return
-                }
-                Self.defaults.set(Preferences.shortcutStorage(shortcut, oldStorage["string"] as? String), forKey: key)
-                return
-            }
-            if let oldDataValue = oldValue as? Data {
-                let (isValid, shortcut) = Preferences.unarchiveShortcut(oldDataValue)
-                guard isValid else {
-                    Self.defaults.removeObject(forKey: key)
-                    return
-                }
-                Self.defaults.set(Preferences.shortcutStorage(shortcut, nil), forKey: key)
-                return
-            }
-            guard let oldStringValue = oldValue as? String else {
-                Self.defaults.removeObject(forKey: key)
-                return
-            }
-            if oldStringValue.isEmpty {
-                Self.defaults.set(Preferences.shortcutStorage(nil, ""), forKey: key)
-                return
-            }
-            guard let migratedShortcut = Preferences.shortcutFromKeyEquivalent(oldStringValue) else {
-                Self.defaults.removeObject(forKey: key)
-                return
-            }
-            Self.defaults.set(Preferences.shortcutStorage(migratedShortcut, oldStringValue), forKey: key)
         }
     }
 }

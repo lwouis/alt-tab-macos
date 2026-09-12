@@ -385,7 +385,6 @@ class TilesView {
         thumbnailOverView = TileOverView()
         thumbnailOverView.scrollView = scrollView
         lastRowSignature.removeAll()
-        TileView.invalidateTitleAttributesCache()
         cachedSearchBarHeight = nil
         Self.updateCachedSizes()
     }
@@ -768,7 +767,9 @@ class TilesDocumentView: FlippedView {
     private var timerResetLocation: NSPoint?
     private var dragAndDropTimer: Timer?
 
+    // periphery:ignore - AppKit private overrides, found by the ObjC runtime rather than called
     @objc func _windowChangedKeyState() {}
+    // periphery:ignore - AppKit private overrides, found by the ObjC runtime rather than called
     @objc func _layoutSubtreeWithOldSize(_ oldSize: NSSize) {}
 
     override func wantsPeriodicDraggingUpdates() -> Bool { false }

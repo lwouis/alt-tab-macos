@@ -1,28 +1,12 @@
 import Foundation
 
-struct SWOp {
-    let op: Character
-    let qi: Int
-    let tj: Int
-}
-
-struct SWResult {
-    let score: Int
-    let similarity: Double
-    let span: Range<Int>
-    let subspans: [Range<Int>]
-    let ops: [SWOp]
-}
-
 struct MatchResult {
     let score: Int
+    // periphery:ignore - diagnostics the search tests assert on
     let tier: Int
     let span: Range<Int>
+    // periphery:ignore - diagnostics the search tests assert on
     let subspans: [Range<Int>]
-
-    func toSWResult() -> SWResult {
-        SWResult(score: score, similarity: Double(score) / 1200.0, span: span, subspans: subspans, ops: [])
-    }
 }
 
 class SearchTestable {
@@ -84,13 +68,13 @@ class SearchTestable {
         if qLen == tLen && q == t {
             return makeResult(tierBase: tierExactBase, tier: 1, normSpan: 0..<tLen,
                               subspans: nil, qNorm: qNorm, tNorm: tNorm, query: query, text: text,
-                              queryHasUpper: queryHasUpper, words: words, edits: 0)
+                              queryHasUpper: queryHasUpper, words: words)
         }
         // Tier 2: text prefix
         if qLen < tLen && Array(t.prefix(qLen)) == q {
             return makeResult(tierBase: tierPrefixBase, tier: 2, normSpan: 0..<qLen,
                               subspans: nil, qNorm: qNorm, tNorm: tNorm, query: query, text: text,
-                              queryHasUpper: queryHasUpper, words: words, edits: 0)
+                              queryHasUpper: queryHasUpper, words: words)
         }
         // Tier 3: word prefix
         for word in words {
@@ -105,20 +89,20 @@ class SearchTestable {
                 let span = word.lowerBound..<(word.lowerBound + qLen)
                 return makeResult(tierBase: tierWordPrefixBase, tier: 3, normSpan: span,
                                   subspans: nil, qNorm: qNorm, tNorm: tNorm, query: query, text: text,
-                                  queryHasUpper: queryHasUpper, words: words, edits: 0)
+                                  queryHasUpper: queryHasUpper, words: words)
             }
         }
         // Tier 4: contiguous substring
         if let span = findSubarray(in: t, sub: q) {
             return makeResult(tierBase: tierSubstringBase, tier: 4, normSpan: span,
                               subspans: nil, qNorm: qNorm, tNorm: tNorm, query: query, text: text,
-                              queryHasUpper: queryHasUpper, words: words, edits: 0)
+                              queryHasUpper: queryHasUpper, words: words)
         }
         // Tier 5: acronym (subsequence of word starts)
         if let acronym = matchAcronym(query: q, text: t, words: words) {
             return makeResult(tierBase: tierAcronymBase, tier: 5, normSpan: acronym.span,
                               subspans: acronym.subspans, qNorm: qNorm, tNorm: tNorm, query: query, text: text,
-                              queryHasUpper: queryHasUpper, words: words, edits: 0)
+                              queryHasUpper: queryHasUpper, words: words)
         }
         // Tier 6: fuzzy prefix-of-word match (handles typos AND partial-prefix typing)
         // Use whole words (NOT camelCase-split) so e.g. "gthub" matches "GitHub" as one fuzzy unit.
@@ -141,7 +125,7 @@ class SearchTestable {
                     let span = word.lowerBound..<(word.lowerBound + m)
                     let candidate = makeResult(tierBase: baseScore, tier: 6, normSpan: span,
                                                subspans: nil, qNorm: qNorm, tNorm: tNorm, query: query, text: text,
-                                               queryHasUpper: queryHasUpper, words: words, edits: dist)
+                                               queryHasUpper: queryHasUpper, words: words)
                     if best == nil || candidate.score > best!.score {
                         best = candidate
                     }
@@ -155,7 +139,7 @@ class SearchTestable {
     private static func makeResult(tierBase: Int, tier: Int, normSpan: Range<Int>,
                                    subspans: [Range<Int>]?, qNorm: Normalized, tNorm: Normalized,
                                    query: String, text: String, queryHasUpper: Bool,
-                                   words: [Range<Int>], edits: Int) -> MatchResult {
+                                   words: [Range<Int>]) -> MatchResult {
         let bonus = computeBonuses(normSpan: normSpan, tier: tier, qNorm: qNorm, tNorm: tNorm,
                                    query: query, text: text, queryHasUpper: queryHasUpper, words: words)
         let nextTierBase: Int
@@ -392,36 +376,6 @@ class SearchTestable {
         let prev = chars[idx - 1]
         if !isAlphaNum(prev) { return true }
         return false
-    }
-
-    static func combinedScore(query: String, appName: String, title: String) -> Double {
-        let appResult = tierMatch(query: query, text: appName)
-        let titleResult = tierMatch(query: query, text: title)
-        return max(Double(appResult?.score ?? 0) * 1.02, Double(titleResult?.score ?? 0))
-    }
-
-    static func acronymBonus(query: String, text: String) -> Double {
-        let qNorm = normalize(query)
-        let tNorm = normalize(text)
-        if qNorm.chars.isEmpty || tNorm.chars.isEmpty { return 0 }
-        if tNorm.chars.starts(with: qNorm.chars) {
-            return 6.0 + min(2.0, Double(qNorm.chars.count) * 0.25)
-        }
-        let words = wordSpans(in: tNorm)
-        if words.isEmpty { return 0 }
-        let starts = words.map { tNorm.chars[$0.lowerBound] }
-        var qi = 0
-        var firstMatch: Int?
-        for (i, c) in starts.enumerated() {
-            if qi >= qNorm.chars.count { break }
-            if c == qNorm.chars[qi] {
-                if firstMatch == nil { firstMatch = i }
-                qi += 1
-            }
-        }
-        guard qi == qNorm.chars.count else { return 0 }
-        let pos = firstMatch ?? 0
-        return 4.0 + min(2.0, Double(qNorm.chars.count) * 0.2) + (pos == 0 ? 1.0 : max(0.0, 0.6 - Double(pos) * 0.15))
     }
 
     static func isAlphaNum(_ c: Character) -> Bool { c.unicodeScalars.allSatisfy { CharacterSet.alphanumerics.contains($0) } }

@@ -278,21 +278,12 @@ final class SelectionResolverTests: XCTestCase {
         XCTAssertEqual(SelectionResolver.decide(i), .resetThenSelect(1))
     }
 
-    /// D3. Target preservation works the same whether or not search is active. (Pre-fix this
-    /// scenario was specifically interesting because `focusedWindowChangedWhileShowing` had a
-    /// search-empty guard; with the fix the guard is irrelevant.)
+    /// D3. Target preservation works the same whether or not search is active — the resolver has no
+    /// search-empty branch, and this pins that it never grows one.
     func testTargetPreservedInSearchMode() {
         let list = [w("p", focusOrder: 0), w("a", focusOrder: 1), w("b", focusOrder: 2)]
         let i = inputs(list: list, selectedIndex: 2, selectedTarget: "b")
         XCTAssertEqual(SelectionResolver.decide(i), .selectAt(2))
-    }
-
-    /// D4. Search filters out the user's pick, but other matches remain — adapt to closest.
-    func testSearchTargetFilteredOutWithOthersMatching() {
-        let list = [w("a"), w("b", visible: false), w("c")]
-        let i = inputs(list: list, selectedIndex: 1, selectedTarget: "b")
-        // visibleIndexes = [0, 2]. selectedIndex=1 not in [0,2] → closest below is 0.
-        XCTAssertEqual(SelectionResolver.decide(i), .selectAt(0))
     }
 
     // MARK: - E. Edge cases

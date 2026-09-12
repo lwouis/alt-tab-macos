@@ -89,7 +89,7 @@ reports a non-zero `spaceTypeMask` for one it places, and passes the contradicti
 
 ### E. A transition that never commits, and transitions that overlap
 
-Both shapes became reachable when the QA harness learned to synthesize a dock swipe. A commanded
+Both shapes became reachable once a dock swipe could be synthesized. A commanded
 `SLSManagedDisplaySetCurrentSpace` always commits and always finishes before the next one starts, so neither
 could be produced before, and neither was pinned.
 
@@ -107,7 +107,7 @@ in between, so this is not a no-op at the event layer, only at the answer layer.
   to back with no settle between them. The edge holds no per-transition state, so the second is exactly the
   first.
 
-Both have live counterparts in the QA suite: an abandoned swipe, and three overlapping swipes.
+Both have live counterparts: an abandoned swipe, and three overlapping swipes.
 
 ### F. Whole topology snapshots apply in issue order
 

@@ -17,7 +17,8 @@
   },
   "scripts": {
     "format": "node scripts/swiftformat.js",
-    "format:check": "node scripts/swiftformat.js --lint"
+    "format:check": "node scripts/swiftformat.js --lint",
+    "deadcode": "periphery scan"
   },
   "devDependencies": {
     "@commitlint/cli": "^8.1.0",

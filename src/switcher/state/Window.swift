@@ -61,8 +61,8 @@ class Window {
     var rowIndex: Int?
     var debugId: String!
     var lastSearchQuery: String?
-    var swAppResults: [SWResult] = []
-    var swTitleResults: [SWResult] = []
+    var swAppMatchSpan: Range<Int>?
+    var swTitleMatchSpan: Range<Int>?
     var swBestSimilarity = 0.0
 
     /// Forwards every `TrackedWindow` field by name — `window.title` resolves to the backing record,
@@ -146,20 +146,6 @@ class Window {
         lastSearchQuery = nil
     }
 
-    /// Update the WindowServer-owned facts (geometry, fullscreen) from a WS snapshot — the live path for
-    /// move/resize events. Title/subrole/tabs/minimized stay on the AX read: WS can't give them cleanly, and
-    /// minimized in particular can't be inferred from the WS ordered-out bit (which also fires for closing /
-    /// other-Space / app-hidden windows). Returns whether a filter-relevant field changed.
-    @discardableResult
-    func updateFromWindowServer(position: CGPoint, size: CGSize, isFullscreen: Bool) -> Bool {
-        let changed = self.position != position || self.size != size || self.isFullscreen != isFullscreen
-        self.position = position
-        self.size = size
-        self.isFullscreen = isFullscreen
-        self.isFullscreenMirrored = false
-        return changed
-    }
-
     /// DERIVED "phantom" verdict, computed at read time and never latched — so a window whose Space
     /// membership recovers shows again immediately. (It was a stored flag written monotonically on every
     /// show, which needed force-clears in three places and flapped with CGS enumeration timing, #5791.)
@@ -172,8 +158,8 @@ class Window {
     ///   a group is the `TabGroups` registry's decision, not phantom detection's;
     /// - otherwise `PhantomWindowDetector.syncVerdict` over the stored record: the strong signal (no Space
     ///   at all — Joplin / Sprig / `show:false` Electron) evaluated live, OR'd with the latched CGS verdict
-    ///   (`tracked.cgsPhantomLatch`, the only place the weak/alpha=0 case can come from — owned by
-    ///   `applyCgsPhantomVerdict`) — see #5714.
+    ///   (`tracked.cgsPhantomLatch`, the only place the weak/alpha=0 case can come from — set by
+    ///   `WindowEventReducer`) — see #5714.
     var isPhantom: Bool {
         if let wid = cgWindowId {
             if Windows.windowsHeldVisibleForTab.contains(wid) { return false }
@@ -189,20 +175,10 @@ class Window {
             isOrderedIn: self.isOrderedIn, alpha: self.alpha)
     }
 
-    /// The raw latched CGS verdict. Get-only on purpose: writing it must go through the two methods below,
-    /// which is what keeps the latch's clearing rules in one place. Never read this as the user-facing
-    /// phantom; that's the derived `isPhantom` above.
+    /// The raw latched CGS verdict. Get-only on purpose: the reducer sets it, and clearing goes through
+    /// `clearCgsPhantomLatch` below, which is what keeps the clearing rules in one place. Never read this
+    /// as the user-facing phantom; that's the derived `isPhantom` above.
     var cgsPhantomLatch: Bool { tracked.cgsPhantomLatch }
-
-    /// Store the authoritative CGS verdict (~250ms post-show, both signals — the only path that can SET the
-    /// weak/alpha=0 case). Returns whether the derived `isPhantom` changed, so callers skip a re-render when
-    /// it didn't (e.g. the verdict flipped on a group member, whose exemption absorbs it).
-    @discardableResult
-    func applyCgsPhantomVerdict(_ verdict: Bool) -> Bool {
-        let before = isPhantom
-        tracked.cgsPhantomLatch = verdict
-        return isPhantom != before
-    }
 
     /// Drop a latched CGS verdict. Used when Space membership recovers (a verdict taken mid-transition is
     /// stale — a weak-signal phantom never loses its Space, so it can't be wrongly cleared here) and when a
@@ -431,7 +407,7 @@ class Window {
         }
         // Step 0 is the only step that blocks BEFORE this operation has touched the screen, so a supersede
         // caught here owes nothing. Counting the restore as a z-order move and repairing on this exit was
-        // tried and measured useless (2026-09-09, QA S-15): the re-front lands while macOS is still animating
+        // tried and measured useless (2026-09-09): the re-front lands while macOS is still animating
         // the window out of the Dock, and the restore draws over it afterwards. Nothing this operation can do
         // on its way out recalls a restore already in flight.
         guard FocusIntents.shared.mayProceed(generation) else { return }

@@ -56,7 +56,7 @@ those mechanisms, but cannot by itself create or dissolve that group.
 ## Where the decision lands
 
 Inside the same dispatch that produced it (`TrackedWindowStateBridge.dispatch`). A decision deferred to the
-next runloop turn would let the switcher draw one frame with the old order first, which the QA matrix scores
+next runloop turn would let the switcher draw one frame with the old order first, which is scored
 as "right, but late" rather than right.
 
 A decision naming an already-represented window checks its cached process owner before committing; this is
@@ -89,7 +89,7 @@ the only arbitration delay in the attention path. The AX answer's process genera
 are captured before that delay; the timer changes commit time, never evidence order. Thus an exact click
 arriving while AX settles remains newer when the timer fires. Widening the settle is not free: it delays
 every genuine switch by the same amount, against a measured floor of 219ms for the fastest human action ever captured.
-Raises spaced wider than the settle commit separately and #5974's shape returns; QA watches that limit
+Raises spaced wider than the settle commit separately and #5974's shape returns; the live runs watch that limit
 in amber rather than asserting it away.
 
 The factless-activation read has a separate 250ms messaging timeout. It is a blocking-IPC safety bound, not

@@ -24,7 +24,6 @@ class TrackpadEvents {
     /// `shouldBeEnabled` takes; a lock here would sit in the input hot path to buy nothing.
     private static var absorbGestures = false
     private static var shouldBeEnabled: Bool!
-    private static var cursorMovedDistance = CGFloat(0.0)
     /// All of the trigger's state. Owned here, mutated only from the tap thread and from `reset`'s hop
     /// onto that thread.
     static let triggerKernel = GestureTriggerKernel()

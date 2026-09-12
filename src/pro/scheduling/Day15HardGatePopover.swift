@@ -1,6 +1,7 @@
 import Cocoa
 
 class Day15HardGatePopover {
+    // periphery:ignore - strong hold, so the popover outlives `show()`
     private static var popover: NSPopover?
 
     static func show(for reason: HardGateReason? = nil) {

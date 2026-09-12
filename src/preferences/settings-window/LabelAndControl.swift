@@ -3,7 +3,6 @@ import ShortcutRecorder
 
 enum LabelPosition {
     case leftWithSeparator
-    case leftWithoutSeparator
     case right
 }
 
@@ -61,16 +60,6 @@ class ClickHoverImageView: MouseHoverView {
 }
 
 class LabelAndControl: NSObject {
-    // periphery:ignore
-    static func makeLabelWithImageRadioButtons(_ labelText: String,
-                                               _ rawName: String,
-                                               _ macroPreferences: [ImageMacroPreference],
-                                               extraAction: ActionClosure? = nil,
-                                               buttonSpacing: CGFloat = 15) -> [NSView] {
-        let view = makeImageRadioButtons(rawName, macroPreferences, extraAction: extraAction, buttonSpacing: buttonSpacing)
-        return [makeLabel(labelText), view]
-    }
-
     static func makeImageRadioButtons(_ rawName: String,
                                       _ macroPreferences: [ImageMacroPreference],
                                       extraAction: ActionClosure? = nil,
@@ -137,15 +126,6 @@ class LabelAndControl: NSObject {
         return button
     }
 
-    // periphery:ignore
-    static func makeCheckbox(_ rawName: String, extraAction: ActionClosure? = nil) -> NSButton {
-        let checkbox = NSButton(checkboxWithTitle: "", target: nil, action: nil)
-        checkbox.translatesAutoresizingMaskIntoConstraints = false
-        checkbox.state = CachedUserDefaults.bool(rawName) ? .on : .off
-        _ = setupControl(checkbox, rawName, extraAction: extraAction)
-        return checkbox
-    }
-
     static func makeInfoButton(size: CGFloat = 16,
                                searchableTooltipTexts: [String] = [],
                                onClick: EventClosure? = nil,
@@ -173,42 +153,6 @@ class LabelAndControl: NSObject {
         return view
     }
 
-    // periphery:ignore
-    static func makeLabelWithCheckboxAndInfoButton(_ labelText: String,
-                                                   _ rawName: String,
-                                                   extraAction: ActionClosure? = nil,
-                                                   labelPosition: LabelPosition = .leftWithSeparator,
-                                                   onClick: EventClosure? = nil,
-                                                   onMouseEntered: EventClosure? = nil,
-                                                   onMouseExited: EventClosure? = nil,
-                                                   size: CGFloat = 15) -> [NSView] {
-        let labelCheckboxViews = makeLabelWithCheckbox(labelText, rawName, extraAction: extraAction, labelPosition: labelPosition)
-        let infoButtonView = makeInfoButton(size: size, onClick: onClick, onMouseEntered: onMouseEntered, onMouseExited: onMouseExited)
-        var views: [NSView] = []
-        labelCheckboxViews.forEach { view in
-            views.append(view)
-        }
-        views.append(infoButtonView)
-        let hStack = NSStackView(views: views)
-        hStack.orientation = .horizontal
-        hStack.spacing = 8
-        hStack.alignment = .centerY
-        hStack.translatesAutoresizingMaskIntoConstraints = false
-        return [hStack]
-    }
-
-    // periphery:ignore
-    static func makeTextArea(_ nCharactersWide: CGFloat, _ nLinesHigh: Int, _ placeholder: String, _ rawName: String, extraAction: ActionClosure? = nil) -> [NSView] {
-        let textArea = TextArea(nCharactersWide, nLinesHigh, placeholder)
-        textArea.callback = {
-            controlWasChanged(textArea, nil)
-            extraAction?(textArea)
-        }
-        textArea.identifier = NSUserInterfaceItemIdentifier(rawName)
-        textArea.stringValue = CachedUserDefaults.string(rawName)
-        return [textArea]
-    }
-
     static func dropdown_(_ rawName: String, _ macroPreferences: [MacroPreference]) -> NSPopUpButton {
         let popUp = PopupButtonLikeSystemSettings()
         popUp.addItems(withTitles: macroPreferences.map {
@@ -223,22 +167,6 @@ class LabelAndControl: NSObject {
         SettingsSearchIndex.registerStrings(macroPreferences.map { $0.localizedString })
         SettingsSearchIndex.registerTarget(SettingsWindow.highlightTarget(dropdown))
         return setupControl(dropdown, rawName, extraAction: extraAction) as! NSPopUpButton
-    }
-
-    // periphery:ignore
-    static func makeLabelWithRadioButtons(_ labelText: String,
-                                          _ rawName: String,
-                                          _ values: [MacroPreference],
-                                          extraAction: ActionClosure? = nil,
-                                          buttonSpacing: CGFloat = 30) -> [NSView] {
-        let buttons = makeRadioButtons(rawName, values, extraAction: extraAction)
-        let horizontalStackView = NSStackView(views: buttons)
-        horizontalStackView.translatesAutoresizingMaskIntoConstraints = false
-        horizontalStackView.orientation = .horizontal
-        horizontalStackView.spacing = buttonSpacing
-        horizontalStackView.alignment = .centerY
-        horizontalStackView.translatesAutoresizingMaskIntoConstraints = false
-        return [makeLabel(labelText), horizontalStackView]
     }
 
     static func makeRadioButtons(_ rawName: String, _ macroPreferences: [MacroPreference], extraAction: ActionClosure? = nil) -> [NSButton] {
@@ -406,12 +334,6 @@ class LabelAndControl: NSObject {
                 return ((control as! NSButton).state == NSButton.StateValue.on) ? controlId : nil
             } else {
                 return String((control as! NSButton).state == NSButton.StateValue.on)
-            }
-        } else if control is Switch {
-            if let controlId {
-                return ((control as! Switch).state == NSButton.StateValue.on) ? controlId : nil
-            } else {
-                return String((control as! Switch).state == NSButton.StateValue.on)
             }
         } else if control is NSSegmentedControl {
             return String((control as! NSSegmentedControl).selectedSegment)

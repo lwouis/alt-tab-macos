@@ -4,15 +4,14 @@ import ShortcutRecorder
 /// A single recycled editor for the per-shortcut settings. Built once at ControlsTab init.
 ///
 /// The user can configure N shortcuts (each its own modifier combo, filter rules, appearance
-/// overrides, ordering rules). Previously the UI built one full editor view per shortcut and
-/// toggled `isHidden` between them; that meant N × (~50 NSViews) resident at once, which made
-/// every AppKit layout / key-state walk expensive — especially on macOS Tahoe where AppKit's
-/// per-control work routes through SwiftUI internals.
+/// overrides, ordering rules). One editor per shortcut would keep N × (~50 NSViews) resident, and
+/// every AppKit layout / key-state walk pays for all of them — especially on macOS Tahoe, where
+/// AppKit's per-control work routes through SwiftUI internals.
 ///
-/// The recycled design follows the same philosophy as `ExceptionEditorView` and the switcher's
-/// `ThumbnailsView.recycledViews` pool: one editor exists, `bind(toShortcut:)` re-aims each of
-/// its bound controls at a different preference key (and refreshes the displayed value). View
-/// identity and tree shape stay constant across shortcut switches.
+/// So this recycles, like `ExceptionEditorView` and the switcher's `TilesView.recycledViews`
+/// pool: one editor exists, `bind(toShortcut:)` re-aims each of its bound controls at a different
+/// preference key (and refreshes the displayed value). View identity and tree shape stay constant
+/// across shortcut switches.
 final class ShortcutEditor {
     let view: NSView
 
@@ -43,9 +42,9 @@ final class ShortcutEditor {
     /// the surrounding rounded section visibly snap up. The bottom just gets whitespace instead.
     private static let contentMinHeight: CGFloat = 400
     /// Fixed height for the Trigger row content (recorder + labels). Pinned rather than derived
-    /// from `mainRow.fittingSize.height` because `RecorderControl`'s intrinsic height isn't
-    /// guaranteed to be set when `TableGroupView.setMainRow` snapshots it, which previously
-    /// produced inconsistent Trigger row heights across shortcuts.
+    /// from `mainRow.fittingSize.height`: `RecorderControl`'s intrinsic height isn't guaranteed to be
+    /// set when `TableGroupView.setMainRow` snapshots it, so deriving it makes the Trigger row a
+    /// different height per shortcut.
     static let triggerRowContentHeight: CGFloat = 22
 
     /// Localized labels shared between the recycled shortcut editor and the fixed-bind gesture
@@ -216,7 +215,6 @@ final class TriggerBinding {
     let view: NSView
     private let holdRecorder: CustomRecorderControl
     private let nextRecorder: CustomRecorderControl
-    private let holdLabel = NSTextField(labelWithString: "")
     private let andPressLabel: NSTextField
     private static let holdLabelText = NSLocalizedString("Hold", comment: "")
     private static let andPressText = NSLocalizedString("and press", comment: "")

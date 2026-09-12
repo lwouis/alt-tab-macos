@@ -70,7 +70,7 @@ final class RealWorldScenariosTests: XCTestCase {
     /// size 757×583. The active tab (29328) holds Space 3 and its AXTabGroup lists all four "~"; the three
     /// background tabs are Space-less and expose no AXTabGroup.
     ///
-    /// **POSITIONS CORRECTED 2026-07-30** (live QA). This capture recorded all four tabs at ONE
+    /// **POSITIONS CORRECTED 2026-07-30** (measured live). This capture recorded all four tabs at ONE
     /// position (683,101), which is not what the OS produces: the merge does NOT converge the tabs' frames.
     /// The pre-merge windows keep their cascade positions and the merged window is a BRAND-NEW wid one cascade
     /// step further on, so the group spans four distinct positions 29px apart and only the SIZE is shared:
@@ -99,7 +99,7 @@ final class RealWorldScenariosTests: XCTestCase {
     }()
 
     /// Two Finder windows of the SAME size parked apart, 3 tabs each, and the top one switching a tab
-    /// (macOS 26, live QA T-20 2026-09-10). The switch takes the top window's active Space-less for the
+    /// (macOS 26, measured live 2026-09-10). The switch takes the top window's active Space-less for the
     /// handover, which leaves the BOTTOM window as the cluster's only genuine Space holder:
     ///
     ///     +0:Finder#166416    g=nil sp=[3] 1000x440@80,600   ← the bottom window's active, declares 3 tabs
@@ -123,7 +123,7 @@ final class RealWorldScenariosTests: XCTestCase {
         ]
     }()
 
-    /// Finder, Window ▸ Move Tab to New Window (macOS 26, live QA 2026-07-30). The tab was torn out into
+    /// Finder, Window ▸ Move Tab to New Window (macOS 26, measured live 2026-07-30). The tab was torn out into
     /// its own window at (290,712) and the drag-out was correctly confirmed — then geometry folded it straight
     /// back into the group it had just left:
     ///
@@ -453,7 +453,7 @@ final class RealWorldScenariosTests: XCTestCase {
     }
 
     func testMergedTabsFormAGroupFromNothingButTheTabCount() {
-        // The state a merge ACTUALLY leaves (live QA 2026-07-30, Finder + Terminal): no window
+        // The state a merge ACTUALLY leaves (measured live 2026-07-30, Finder + Terminal): no window
         // carries a link, because the title path can't make one — every tab is titled "~" and they sit at
         // four DIFFERENT cascade positions, so `positionsCompatible` rejects each candidate. Geometry was the
         // only path left and it never even formed a cluster: `framePartitions` split the four tabs into four
@@ -712,7 +712,6 @@ final class RealWorldScenariosTests: XCTestCase {
         for (id, _, _) in Self.tabbedWindowMovedBetweenSpaces {
             let n = WsEventRouting.notification(id)!
             XCTAssertEqual(WsEventRouting.action(for: n), .updateSpaceMembership)
-            XCTAssertTrue(WsEventRouting.payloadCarriesSpaceId(n))
         }
     }
 
@@ -908,7 +907,7 @@ final class RealWorldScenariosTests: XCTestCase {
     /// THE invariant: geometry never puts two DIFFERENT windows in one group. Two windows are different exactly
     /// when their frames differ — a tab is its parent's frame, so tabs of one window agree on it.
     ///
-    /// **With the one exception the OS forced (live QA 2026-07-30).** "Tabs of one window agree on the frame"
+    /// **With the one exception the OS forced (measured live 2026-07-30).** "Tabs of one window agree on the frame"
     /// is false after Merge All Windows: the merge never converges the tabs' frames, so a merged group spans a
     /// 29px cascade forever (`terminalMerge4Tabs`) and holding the invariant unconditionally meant no merged
     /// group could ever form. Frames may differ only where AX ITSELF accounted for every member — the visible's

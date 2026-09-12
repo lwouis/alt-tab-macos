@@ -44,7 +44,7 @@ matches candidates on TITLE alone, which cannot tell two windows apart at all: t
 the same folders each have a tab called "lwouis" (#5785: tab titles are not window titles, and no reliable
 tab→window mapping exists).
 
-Captured live (2026-08-01 QA): the scan run for window A adopted a tab of window B. Nothing broke
+Captured live (2026-08-01): the scan run for window A adopted a tab of window B. Nothing broke
 immediately — a non-representative member is simply hidden — but when the user later switched to that tab it
 became the REPRESENTATIVE of A's group, so every real member of A stopped being drawn and A vanished from the
 switcher, with the default pick landing past where it had been.

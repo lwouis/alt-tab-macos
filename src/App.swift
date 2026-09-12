@@ -33,9 +33,10 @@ class App: AppCenterApplication {
     private static let launchInventoryGraceInMs = 400
     private static var pendingShowSettingsWindow = false
     private static var firstLaunchSettingsObserver: NSObjectProtocol?
+    /// Written once and never read: AppCenter holds its delegate weakly, so this is the strong reference
+    /// that keeps the crash handler alive for the process lifetime.
     // periphery:ignore
     private static var appCenterDelegate: AppCenterCrash?
-    // periphery:ignore
     static var sparkleDelegate: SparkleDelegate?
     static var updaterController: SPUStandardUpdaterController?
     // don't queue multiple delayed rebuildUi() calls
@@ -133,6 +134,7 @@ class App: AppCenterApplication {
         GeneralTab.checkForUpdatesNow(sender)
     }
 
+    // periphery:ignore:parameters sender - NSMenuItem target/action signature
     @objc static func checkPermissions(_ sender: NSMenuItem) {
         showPermissionsWindow()
     }
@@ -415,7 +417,7 @@ class App: AppCenterApplication {
         // are appended with `shouldShowTheUser` still at its default `true`, and the repaint that would
         // filter them is throttled at 200ms — so the first frame can draw a window the filters exclude.
         // Measured on a cold start: three tabs of a 4-tab Finder group were adopted 28ms before the grace
-        // expired, and the group opened unfolded as 3 tiles, then folded a beat later (QA C-01).
+        // expired, and the group opened unfolded as 3 tiles, then folded a beat later (measured live).
         if listChangedSincePress, !Windows.updatesBeforeShowing() { hideUi(); return }
         Appearance.update()
         guard SwitcherSession.isActive else { return }
@@ -506,7 +508,7 @@ class App: AppCenterApplication {
         // Evaluate the "ignore shortcuts" exception for whatever app is already frontmost at launch (#5842):
         // no didActivateApplication fires for it, so without this an app blacklisted with ignore=.always keeps
         // AltTab's shortcut registered after an auto-update relaunch until the user switches away and back.
-        if let frontmostPid = Applications.frontmostPid, let frontmostApp = Applications.findOrCreate(frontmostPid, false) {
+        if let frontmostPid = Applications.frontmostPid, let frontmostApp = Applications.findOrCreate(frontmostPid) {
             checkIfShortcutsShouldBeDisabled(frontmostApp.focusedWindow, frontmostApp)
         }
         CursorEvents.observe()
@@ -618,7 +620,7 @@ extension App: NSApplicationDelegate {
               !licenseKey.isEmpty else {
             return
         }
-        UpgradeTab.showAutoActivating(licenseKey)
+        UpgradeTab.showAutoActivating()
         LicenseManager.shared.activate(licenseKey) { result in
             switch result {
             case .success:

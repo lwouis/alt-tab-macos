@@ -5,12 +5,19 @@ final class TrackingTelemetryTests: XCTestCase {
     /// has to be added here first, which is the point: the review is forced, not hoped for.
     private static let allowedKeys: Set<String> = [
         "v", "seq", "at", "kind", "source", "reason", "pid", "wid", "generation", "status",
-        "subtype", "candidateWid", "candidateReason", "verdict", "count", "millis",
-        "twoLevelWid", "twoLevelReason", "twoLevelVerdict",
+        "subtype", "count",
     ]
 
     private func record(_ state: TrackingTelemetryState) -> TelemetryRecord {
         state.ring.records.last!
+    }
+
+    /// The same `Codable` path `--qa-telemetry` encodes its drain through, one record at a time so a test can
+    /// read the key set of a single line. Sorted keys make a failure diff cleanly.
+    private func encoded(_ record: TelemetryRecord) -> String {
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = [.sortedKeys]
+        return String(data: try! encoder.encode(record), encoding: .utf8)!
     }
 
     // MARK: record schema
@@ -25,15 +32,16 @@ final class TrackingTelemetryTests: XCTestCase {
         XCTAssertEqual(state.drainRecords().map { $0.seq }, [2, 3])
     }
 
-    /// Unset fields are omitted, so a record carries only what its own kind observed. A type-13 event that
-    /// failed to decode names no window, and the line must not carry an empty or invented one.
-    func testUnsetFieldsAreOmittedFromTheLine() {
+    /// Unset fields are omitted from the encoding, so a record carries only what its own kind observed. A
+    /// type-13 event that failed to decode names no window, and the record must not carry an empty or
+    /// invented one.
+    func testUnsetFieldsAreOmittedFromTheEncoding() {
         var state = TrackingTelemetryState()
         state.recordSessionTapEvent(subtype: nil, pid: nil, wid: nil, decoded: false, at: 7)
-        let line = TrackingTelemetryNdjson.line(record(state))
-        XCTAssertFalse(line.contains("\"wid\""))
-        XCTAssertFalse(line.contains("\"pid\""))
-        XCTAssertTrue(line.contains("\"kind\":\"sessionTap\""))
+        let json = String(decoding: try! JSONEncoder().encode(record(state)), as: UTF8.self)
+        XCTAssertFalse(json.contains("\"wid\""))
+        XCTAssertFalse(json.contains("\"pid\""))
+        XCTAssertTrue(json.contains("\"kind\":\"sessionTap\""))
     }
 
     /// The encoded key set is closed: no title, no keystroke, no document name can ride along.
@@ -44,30 +52,15 @@ final class TrackingTelemetryTests: XCTestCase {
         state.recordAxProvider(pid: 4, state: .healthy, observerGeneration: 1, attempts: 2,
             capabilities: [.mainWindowChanged], lastError: .cannotComplete, at: 3)
         state.recordSessionTapEvent(subtype: 9, pid: 4, wid: 5, decoded: true, at: 4)
-        state.recordWindowServer(connectionGeneration: 3, watchedWids: 12, at: 6)
-        for line in state.drainRecords().map({ TrackingTelemetryNdjson.line($0) }) {
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = [.sortedKeys]
+        for line in state.drainRecords().map({ String(decoding: try! encoder.encode($0), as: UTF8.self) }) {
             let keys = Set(line.split(separator: ",").compactMap { chunk -> String? in
                 guard let colon = chunk.firstIndex(of: ":") else { return nil }
                 return String(chunk[..<colon]).trimmingCharacters(in: CharacterSet(charactersIn: "{\" ")).replacingOccurrences(of: "\"", with: "")
             })
             XCTAssertTrue(keys.isSubset(of: Self.allowedKeys), "unexpected keys \(keys.subtracting(Self.allowedKeys))")
         }
-    }
-
-    /// Keys are sorted, so two runs of the same scenario diff cleanly.
-    func testNdjsonSortsKeys() {
-        var state = TrackingTelemetryState()
-        state.recordAttention(pid: 4, wid: 5, processGeneration: nil, source: .altTab, reason: "altTab",
-            status: "committed", at: 1)
-        let line = TrackingTelemetryNdjson.line(record(state))
-        XCTAssertTrue(line.hasPrefix("{\"at\":1,\"kind\":\"attention\""), line)
-    }
-
-    func testLinesAreOnePerRecord() {
-        var state = TrackingTelemetryState()
-        state.recordSessionTapEvent(subtype: 9, pid: 1, wid: 2, decoded: true, at: 1)
-        state.recordSessionTapEvent(subtype: 9, pid: 1, wid: 3, decoded: true, at: 2)
-        XCTAssertEqual(TrackingTelemetryNdjson.lines(state.drainRecords()).split(separator: "\n").count, 2)
     }
 
     // MARK: ring buffer

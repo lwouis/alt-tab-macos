@@ -36,14 +36,6 @@ class TrackingTelemetryRecorder {
 
     // MARK: AX provider health
 
-    /// **Positive evidence that an app is not answering accessibility**, as opposed to not having answered
-    /// about one particular window. Unknown counts as healthy: without evidence, assume the app is fine.
-    static func axProviderIsUnresponsive(_ pid: pid_t) -> Bool {
-        guard let entry = state.axByPid[pid] else { return false }
-        return entry.providerState == AxProviderLifecycle.unresponsive.telemetryName
-            || entry.providerState == AxProviderLifecycle.globalPermissionFailure.telemetryName
-    }
-
     static func axProviderHealth(pid: pid_t, state providerState: AxProviderLifecycle,
                                  observerGeneration: UInt64, attempts: Int,
                                  capabilities: [AxNotificationCapability], lastError: AxObserverError?) {
@@ -90,13 +82,6 @@ class TrackingTelemetryRecorder {
 
     static func attentionTapLifecycle(installed: Bool, enabled: Bool) {
         onMain { state.recordSessionTapLifecycle(installed: installed, enabled: enabled, at: now()) }
-    }
-
-    // MARK: the WindowServer connection
-
-    static func windowServerSubscribed(connectionGeneration: UInt64, watchedWids: Int) {
-        state.recordWindowServer(connectionGeneration: connectionGeneration, watchedWids: watchedWids,
-            at: now())
     }
 
     static func drain() -> [TelemetryRecord] {

@@ -12,6 +12,7 @@ class InputSourceEvents: NSObject {
         DistributedNotificationCenter.default().addObserver(observer, selector: #selector(handleEvent), name: name, object: nil, suspensionBehavior: .deliverImmediately)
     }
 
+    // periphery:ignore:parameters notification - NotificationCenter selector signature
     @objc private func handleEvent(_ notification: Notification) {
         Logger.debug { InputSourceEvents.currentInputSource() }
         ControlsTab.inputSourceChanged()

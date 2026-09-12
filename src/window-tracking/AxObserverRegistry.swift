@@ -252,8 +252,8 @@ class AxObserverRegistry {
         publishHealth(process)
     }
 
-    /// Every `AXObserverCreate` result is checked. The old code force-unwrapped the observer and asked in a
-    /// comment whether it could ever be nil; it can, for a process that is already gone.
+    /// The observer is checked, never force-unwrapped: `AXObserverCreate` does return nil, for a process
+    /// that is already gone.
     private func makeObserver(_ process: ProcessGeneration, generation: UInt64)
         -> (entry: ObserverEntry?, error: AxObserverError?) {
         var observer: AXObserver?
@@ -495,10 +495,10 @@ class AxObserverRegistry {
         return .group(titles: group.titles, token: group.token)
     }
 
-    /// **Every notification arrives holding a live window element; three of the four handlers used to read
-    /// its wid and drop it.** Offering it costs nothing here: the wid it is keyed by was just read off this
-    /// same element, so the binding is proven rather than guessed. `Applications.applyObservedElement` owns
-    /// the decision, including the role check that keeps a descendant out of `Window.axUiElement`.
+    /// **Every notification arrives holding a live window element, so offer it rather than drop it.** It
+    /// costs nothing here: the wid it is keyed by was just read off this same element, so the binding is
+    /// proven rather than guessed. `Applications.applyObservedElement` owns the decision, including the
+    /// role check that keeps a descendant out of `Window.axUiElement`.
     ///
     /// The reason to bother is the other Space: the posting path has no Space term, so this is the only
     /// channel that hands over an element for a window `kAXWindows` hides, short of the brute-force sweep.

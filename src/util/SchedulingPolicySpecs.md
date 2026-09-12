@@ -39,7 +39,7 @@ Mirrors `SchedulingPolicyTests.swift` 1:1.
 
 The situation used to be recorded BEFORE the scan ran and then refused forever, so one fruitless attempt — the
 app's AX tree not ready yet, the classic at launch — permanently gave up on it, with no retry and no later
-trigger. Measured over a live QA run (2026-07-30): 82 tab reads named untracked tabs and the scan adopted
+trigger. Measured live (2026-07-30): 82 tab reads named untracked tabs and the scan adopted
 NOTHING, against 57 adoptions in a run whose first attempt happened to land. So the outcome is what gets
 recorded, and a situation gets a small budget instead of exactly one shot.
 
@@ -66,7 +66,7 @@ recorded, and a situation gets a small budget instead of exactly one shot.
   they are that window's tabs. Those are a find for a DIFFERENT requester, so stepping the shared cursor past
   them made two tab groups of one app permanently uncrossable — measured on a cold launch with Finder holding
   two 3-tab groups, each requester's sweep kept finding only the other's tabs and six tabs came back as the
-  two that were active (QA C-05). A deferred candidate rewinds the cursor onto itself; the attempt budget
+  two that were active (measured live). A deferred candidate rewinds the cursor onto itself; the attempt budget
   above still bounds the whole thing.
 
 ### D. SurfaceAcquisitionPolicy

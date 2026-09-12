@@ -78,7 +78,7 @@ final class AttentionDriverTests: XCTestCase {
         var driver = AttentionDriver()
         activated(&driver, pid)
         let offer = driver.offerSemantic(pid: pid, wid: 1, context: context())!
-        XCTAssertEqual(driver.decideDirected(.clickActivation, pid: pid, wid: 2,
+        XCTAssertEqual(driver.decideDirected(pid: pid, wid: 2,
             context: context()).wid, 2)
         let late = driver.decideSemantic(offer, context: context())
         XCTAssertNil(late.wid)
@@ -130,7 +130,7 @@ final class AttentionDriverTests: XCTestCase {
     func testAClickFrontsItsWindowWithoutWaitingForTheActivation() {
         var driver = AttentionDriver()
         activated(&driver, pid)
-        let outcome = driver.decideDirected(.clickActivation, pid: otherPid, wid: 9,
+        let outcome = driver.decideDirected(pid: otherPid, wid: 9,
             context: context())
         XCTAssertEqual(outcome.wid, 9)
     }
@@ -231,7 +231,8 @@ final class AttentionDriverTests: XCTestCase {
     func testSemanticAnswerUsesTheProvidersPid() {
         var driver = AttentionDriver()
         activated(&driver, otherPid)
-        let outcome = driver.decideSemantic(pid: otherPid, wid: 9, context: context())
+        let offer = driver.offerSemantic(pid: otherPid, wid: 9, context: context())!
+        let outcome = driver.decideSemantic(offer, context: context())
         XCTAssertEqual(outcome.wid, 9)
         XCTAssertEqual(driver.attention.visibleFront?.process.pid, otherPid)
     }

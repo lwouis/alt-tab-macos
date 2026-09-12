@@ -21,7 +21,7 @@ class MissionControl {
         Logger.info { state }
     }
 
-    // on macOS < 12, this is the way we used to guess if Mission Control is active
+    // on macOS < 12, this is how we guess whether Mission Control is active
     // on macOS >= 12, we listen to private notifications, which is accurate
     // when Mission Control is active, the Dock process spawns some windows. We observe this side-effect and infer
     private static func isActive() -> Bool {

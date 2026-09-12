@@ -25,8 +25,8 @@ iteration order isn't stable across launches) — leaving native ⌘⇥ enabled 
   is dropped. The `enable` set is the complement over `CGSSymbolicHotKey.allCases`.
 - **⌘⇥ pairing.** Disabling `.commandTab` implicitly disables `.commandShiftTab` too, so the native
   reverse switcher doesn't fire while AltTab owns ⌘⇥.
-- **No globals.** `combinedModifiersMatch` previously read `ControlsTab.shortcuts` to find the hold
-  modifiers; the kernel takes them as an explicit `holdShortcutModifiers: [UInt32]` parameter, so the
+- **No globals.** `combinedModifiersMatch` takes the hold modifiers as an explicit
+  `holdShortcutModifiers: [UInt32]` parameter rather than reading `ControlsTab.shortcuts`, so the
   resolver is independent of any global state.
 - **Primitive value record.** `ShortcutSnapshot` uses `UInt32` for both modifiers and keycode (no
   ShortcutRecorder / `Shortcut` types) so the kernel file compiles in the unit-tests target.

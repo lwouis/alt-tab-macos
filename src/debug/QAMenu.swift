@@ -271,7 +271,7 @@ final class QAMenu: NSPanel {
 
     /// Mock passage of time to a specific day. Resets transition state and marks earlier prompts
     /// as already seen so they don't re-fire. Mock Day 15 lands on the post-trial *grace* period
-    /// (trial expired, no Day15 window shown yet) so QA can click `Day15 Proactive` or
+    /// (trial expired, no Day15 window shown yet) so a tester can click `Day15 Proactive` or
     /// `Day15 FullUpgrade` to exercise each path, then observe the locked state after.
     private static func mockDay(_ day: Int) {
         let mgr = ProTransitionManager.shared

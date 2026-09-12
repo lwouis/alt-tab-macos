@@ -1,11 +1,5 @@
 import Cocoa
 
-/// An overlay view that lets clicks pass through to views behind it. Used for the Pro-lock ghost
-/// overlay on the `.auto` size segment so the underlying segmented control still receives the click.
-class NonHitTestingView: NSView {
-    override func hitTest(_ point: NSPoint) -> NSView? { nil }
-}
-
 struct ShowHideRowInfo {
     var rowId: String!
     var uncheckedImage: String!

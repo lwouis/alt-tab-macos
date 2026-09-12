@@ -95,7 +95,6 @@ final class AxObserverHealthTests: XCTestCase {
                            .capabilitySubscribed(.focusedWindowChanged))
             XCTAssertEqual(state.entry(for: process)?.capabilities, [.focusedWindowChanged])
             XCTAssertEqual(state.entry(for: process)?.lifecycle, .healthy)
-            XCTAssertEqual(state.entry(for: process)?.diagnostics.lastSuccess, time(7))
         }
     }
 
@@ -197,8 +196,7 @@ final class AxObserverHealthTests: XCTestCase {
     }
 
     func testEveryBoundedRecoveryTriggerTransitionsWhenPermitted() {
-        let triggers: [AxRecoveryTrigger] = [.processBecameFrontmost, .windowDiscovered, .semanticDomainDirty,
-                                             .wake, .unlock, .recoveryTick]
+        let triggers: [AxRecoveryTrigger] = [.processBecameFrontmost, .wake, .unlock, .recoveryTick]
         for trigger in triggers {
             var state = state([process])
             let generation = begin(&state, process)
@@ -216,7 +214,6 @@ final class AxObserverHealthTests: XCTestCase {
         XCTAssertEqual(AxObserverHealth.reduce(&state, .recoveryTriggered(process, .otherAxCallSucceeded,
                                                                           at: time(1)), policy: policy),
                        .recoveryStarted(.otherAxCallSucceeded))
-        XCTAssertEqual(state.entry(for: process)?.diagnostics.lastSuccess, time(1))
         XCTAssertEqual(state.entry(for: process)?.diagnostics.capabilityConsecutiveCannotComplete,
                        [.focusedWindowChanged: 1])
     }
@@ -304,7 +301,6 @@ final class AxObserverHealthTests: XCTestCase {
                                                                  .focusedWindowChanged, at: time(9)),
                                                policy: policy),
                        .callbackAccepted(.focusedWindowChanged))
-        XCTAssertEqual(state.entry(for: process)?.diagnostics.lastCallback, time(9))
         XCTAssertEqual(state.entry(for: process)?.lifecycle, .degraded)
         XCTAssertEqual(state.entry(for: process)?.notifications[.mainWindowChanged], .cooldown(until: time(100)))
     }

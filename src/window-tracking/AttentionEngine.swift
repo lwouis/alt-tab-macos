@@ -194,7 +194,7 @@ class AttentionEngine {
                 source: .annotatedSession, reason: "pidMismatch")
         }
         Windows.promoteAttentionEvidence(wid)
-        let outcome = driver.decideDirected(kind, pid: pid, wid: wid, context: context())
+        let outcome = driver.decideDirected(pid: pid, wid: wid, context: context())
         guard let target = outcome.wid else {
             return TrackingTelemetryRecorder.attentionRefused(pid: pid, wid: wid, source: .annotatedSession,
                 reason: outcome.reason)
@@ -249,7 +249,7 @@ class AttentionEngine {
                     return matching.forEach { $0.failure() }
                 }
                 if Windows.byWindowId[representativeWid] == nil {
-                    guard let app = Applications.findOrCreate(representative.pid, false, evidence: .attention) else {
+                    guard let app = Applications.findOrCreate(representative.pid, evidence: .attention) else {
                         return matching.forEach { $0.failure() }
                     }
                     WindowServerEvents.subscribe(representativeWid)

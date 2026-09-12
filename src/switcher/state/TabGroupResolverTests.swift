@@ -103,7 +103,7 @@ final class TabGroupResolverTests: XCTestCase {
     func testTabCountKeepsACascadedMergedClusterWhole() {
         // Merge All Windows leaves every tab at its PRE-MERGE cascade position — the OS never converges their
         // frames — so the position split (`framePartitions`) put each tab in its own partition and no merged
-        // group could form at all (live QA 2026-07-30). Position is there to separate two WINDOWS
+        // group could form at all (measured live, 2026-07-30). Position is there to separate two WINDOWS
         // that merely share a size, and here AX has already answered that question: the visible declares 3
         // tabs and the cluster holds exactly 3 same-size members, so there is no room for a second window.
         let visible = tw(wid: 1, position: CGPoint(x: 158, y: 158), spaceIds: [1], tabCount: 3)
@@ -394,7 +394,7 @@ final class TabGroupResolverTests: XCTestCase {
     }
 
     func testZeroSizedMergeKeepsThePromotedRepresentative() {
-        // Live QA T-03 (2026-08-29): after Merge All Windows the merged active is 0x0, so normalize promotes
+        // Measured live 2026-08-29: after Merge All Windows the merged active is 0x0, so normalize promotes
         // one absorbed tab to presentable representative — un-tabbed, wearing the Space it was lent. The
         // strict size gate on the borrowed leg can never pass against a 0x0 active, so the very next AX read
         // ejected that representative from its own group and it stood as a second Finder tile. The exact tab
@@ -416,7 +416,7 @@ final class TabGroupResolverTests: XCTestCase {
     }
 
     func testFramelessActiveKeepsThePromotedRepresentative() {
-        // Live QA T-12 (2026-08-31): mid Cmd+T burst the incoming tab is 0x0, so normalize left the previous
+        // Measured live 2026-08-31: mid Cmd+T burst the incoming tab is 0x0, so normalize left the previous
         // tab as the group's presentable representative — un-tabbed and on screen, which no claim path can
         // re-take. The discovery read kept it; the plain `axMainWindow` read that landed in the same
         // millisecond had no `activeIsNewlyDiscovered` and untabbed it, and the burst drew 3 Finder tiles

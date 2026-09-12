@@ -59,7 +59,7 @@ enum AttentionModel {
             }
             let before = state.visibleFront
             state.focusedWindow[process] = FocusedWindowFact(observed: observed, target: target,
-                namer: namer, sequence: sequence)
+                sequence: sequence)
             if namer.carriesTheFrontProcess { state.frontProcess = process }
             // R2, every namer writes a fact, never a command. A late answer from an app the user has already
             // left updates that app's entry and moves nothing.
@@ -140,7 +140,6 @@ enum CurrentUserContext: Equatable {
 struct FocusedWindowFact: Equatable {
     var observed: WindowIdentity
     var target: WindowIdentity
-    var namer: AttentionNamer
     var sequence: IngressSequence
 }
 

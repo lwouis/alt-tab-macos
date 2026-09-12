@@ -25,7 +25,6 @@ class Preferences {
             "appearanceStyle": AppearanceStylePreference.thumbnails.indexAsString,
             "appearanceSize": AppearanceSizePreference.auto.indexAsString,
             "appearanceTheme": AppearanceThemePreference.system.indexAsString,
-            "theme": ThemePreference.macOs.indexAsString,
             "showOnScreen": ShowOnScreenPreference.active.indexAsString,
             "titleTruncation": TitleTruncationPreference.end.indexAsString,
             "showTitles": ShowTitlesPreference.windowTitle.indexAsString,
@@ -84,16 +83,12 @@ class Preferences {
         "focusWindowShortcut", "previousWindowShortcut", "cancelShortcut", "closeWindowShortcut",
         "minDeminWindowShortcut", "toggleFullscreenWindowShortcut", "quitAppShortcut", "hideShowAppShortcut", "searchShortcut",
     ]
-    static var allShortcutPreferenceKeys: [String] {
-        staticShortcutKeys + (0..<maxShortcutCount).flatMap { [indexToName("holdShortcut", $0), indexToName("nextWindowShortcut", $0)] }
-    }
     static let emptyShortcut = Shortcut(code: .none, modifierFlags: [], characters: nil, charactersIgnoringModifiers: nil)
     private static let shortcutStorageStringField = "string"
     private static let shortcutStorageDataField = "secureData"
 
     // persisted values
     static var holdShortcut: [Shortcut?] { (0..<shortcutCount).map { CachedUserDefaults.shortcut(indexToName("holdShortcut", $0)) } }
-    static var nextWindowShortcut: [Shortcut?] { (0..<shortcutCount).map { CachedUserDefaults.shortcut(indexToName("nextWindowShortcut", $0)) } }
     static var nextWindowGesture: GesturePreference { CachedUserDefaults.macroPref("nextWindowGesture", GesturePreference.allCases) }
     static var focusWindowShortcut: Shortcut? { CachedUserDefaults.shortcut("focusWindowShortcut") }
     static var previousWindowShortcut: Shortcut? { CachedUserDefaults.shortcut("previousWindowShortcut") }
@@ -104,9 +99,7 @@ class Preferences {
     static var quitAppShortcut: Shortcut? { CachedUserDefaults.shortcut("quitAppShortcut") }
     static var hideShowAppShortcut: Shortcut? { CachedUserDefaults.shortcut("hideShowAppShortcut") }
     static var searchShortcut: Shortcut? { CachedUserDefaults.shortcut("searchShortcut") }
-    // periphery:ignore
     static var arrowKeysEnabled: Bool { CachedUserDefaults.bool("arrowKeysEnabled") }
-    // periphery:ignore
     static var vimKeysEnabled: Bool { CachedUserDefaults.bool("vimKeysEnabled") }
     static var mouseHoverEnabled: Bool { CachedUserDefaults.bool("mouseHoverEnabled") }
     static var cursorFollowFocus: CursorFollowFocus { CachedUserDefaults.macroPref("cursorFollowFocus", CursorFollowFocus.allCases) }
@@ -118,7 +111,6 @@ class Preferences {
     static var previewFadeInAnimation: Bool { CachedUserDefaults.bool("previewFadeInAnimation") }
     static var hideSpaceNumberLabels: Bool { CachedUserDefaults.bool("hideSpaceNumberLabels") }
     static var hideStatusIcons: Bool { CachedUserDefaults.bool("hideStatusIcons") }
-    // periphery:ignore
     static var startAtLogin: Bool { CachedUserDefaults.bool("startAtLogin") }
     static var exceptions: [ExceptionEntry] { CachedUserDefaults.json("exceptions", [ExceptionEntry].self) }
     static var previewSelectedWindow: Bool { CachedUserDefaults.bool("previewFocusedWindow") }
@@ -130,8 +122,6 @@ class Preferences {
     static var appearanceStyle: AppearanceStylePreference { ProGatedPreferences.appearanceStyle.read() }
     static var appearanceSize: AppearanceSizePreference { ProGatedPreferences.appearanceSize.read() }
     static var appearanceTheme: AppearanceThemePreference { CachedUserDefaults.macroPref("appearanceTheme", AppearanceThemePreference.allCases) }
-    // periphery:ignore
-    static var theme: ThemePreference { ThemePreference.macOs/*CachedUserDefaults.macroPref("theme", ThemePreference.allCases)*/ }
     static var showOnScreen: ShowOnScreenPreference { CachedUserDefaults.macroPref("showOnScreen", ShowOnScreenPreference.allCases) }
     static var titleTruncation: TitleTruncationPreference { CachedUserDefaults.macroPref("titleTruncation", TitleTruncationPreference.allCases) }
     static var showTitles: ShowTitlesPreference { CachedUserDefaults.macroPref("showTitles", ShowTitlesPreference.allCases) }
@@ -148,7 +138,6 @@ class Preferences {
 
     static func showMinimizedWindows(_ i: Int) -> ShowHowPreference { CachedUserDefaults.macroPref(indexToName("showMinimizedWindows", i), ShowHowPreference.allCases) }
     static func showHiddenWindows(_ i: Int) -> ShowHowPreference { CachedUserDefaults.macroPref(indexToName("showHiddenWindows", i), ShowHowPreference.allCases) }
-    static func showFullscreenWindows(_ i: Int) -> ShowHowPreference { CachedUserDefaults.macroPref(indexToName("showFullscreenWindows", i), ShowHowPreference.allCases) }
     static func showWindowlessApps(_ i: Int) -> ShowHowPreference { CachedUserDefaults.macroPref(indexToName("showWindowlessApps", i), ShowHowPreference.allCases) }
     static func windowOrder(_ i: Int) -> WindowOrderPreference { CachedUserDefaults.macroPref(indexToName("windowOrder", i), WindowOrderPreference.allCases) }
     static func groupApps(_ i: Int) -> GroupAppsPreference { CachedUserDefaults.macroPref(indexToName("showAppsOrWindows", i), GroupAppsPreference.allCases) }
@@ -194,12 +183,7 @@ class Preferences {
     }
 
     static func setShortcut(_ key: String, _ shortcut: Shortcut?, stringRepresentation: String?, _ notify: Bool = true) {
-        UserDefaults.standard.set(shortcutStorage(shortcut, stringRepresentation), forKey: key)
-        CachedUserDefaults.removeFromCache(key)
-        invalidateAllCache()
-        if notify {
-            PreferencesEvents.preferenceChanged(key)
-        }
+        write(key, notify) { UserDefaults.standard.set(shortcutStorage(shortcut, stringRepresentation), forKey: key) }
     }
 
     static func setShortcut(_ key: String, keyEquivalent: String, _ notify: Bool = true) {
@@ -211,16 +195,18 @@ class Preferences {
     }
 
     static func set<T>(_ key: String, _ value: T, _ notify: Bool = true) where T: Encodable {
-        UserDefaults.standard.set(key == "exceptions" ? jsonEncode(value) : value, forKey: key)
-        CachedUserDefaults.removeFromCache(key)
-        invalidateAllCache()
-        if notify {
-            PreferencesEvents.preferenceChanged(key)
-        }
+        write(key, notify) { UserDefaults.standard.set(key == "exceptions" ? jsonEncode(value) : value, forKey: key) }
     }
 
     static func remove(_ key: String, _ notify: Bool = true) {
-        UserDefaults.standard.removeObject(forKey: key)
+        write(key, notify) { UserDefaults.standard.removeObject(forKey: key) }
+    }
+
+    /// Every mutation of a preference goes through here: the store write, then the two caches that
+    /// shadow it (`CachedUserDefaults` per key, `cachedAll` for the whole domain), then the observers.
+    /// Skipping either invalidation leaves readers on a stale value.
+    private static func write(_ key: String, _ notify: Bool, _ mutate: () -> Void) {
+        mutate()
         CachedUserDefaults.removeFromCache(key)
         invalidateAllCache()
         if notify {
@@ -463,15 +449,6 @@ class CachedUserDefaults {
         return nil
     }
 
-    static func string(_ key: String) -> String {
-        if let cachedFinalValue = cache.withLock({ $0[key] }) {
-            return cachedFinalValue as! String
-        }
-        let finalValue = UserDefaults.standard.string(forKey: key)!
-        cache.withLock { $0[key] = finalValue }
-        return finalValue
-    }
-
     static func shortcut(_ key: String) -> Shortcut? {
         if let cachedFinalValue = cache.withLock({ $0[key] }) {
             return cachedFinalValue as? Shortcut
@@ -495,10 +472,6 @@ class CachedUserDefaults {
 
     static func bool(_ key: String) -> Bool {
         return getThenConvertOrReset(key, { s in Bool(s) })
-    }
-
-    static func double(_ key: String) -> Double {
-        return getThenConvertOrReset(key, { s in Double(s) })
     }
 
     static func macroPref<A>(_ key: String, _ macroPreferences: [A]) -> A {

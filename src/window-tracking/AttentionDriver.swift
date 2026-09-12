@@ -6,6 +6,7 @@ import CoreGraphics
 /// the decoder still distinguishes them and a future OS may start emitting them.
 enum DirectedAttentionKind: Equatable {
     case clickActivation
+    // periphery:ignore - never constructed today; kept for the reason above
     case clickReactivation
     case commandBacktick
 }
@@ -75,8 +76,7 @@ struct AttentionDriver {
     /// A click naming its target. The strongest evidence in the system and the earliest: it lands before the
     /// app has reacted, and it is right even when the app never reacts at all. In practice this is always the
     /// cross-app click — see `AttentionSubtype`, where 18 and 19 are decoded but never observed.
-    mutating func decideDirected(_ kind: DirectedAttentionKind, pid: pid_t, wid: CGWindowID,
-                                 context: Context) -> Outcome {
+    mutating func decideDirected(pid: pid_t, wid: CGWindowID, context: Context) -> Outcome {
         guard let process = register(pid, context), let identity = identity(wid, process, context) else {
             return Outcome(wid: nil, reason: "unknownProcess", observedWid: wid, readPid: nil)
         }
@@ -103,13 +103,6 @@ struct AttentionDriver {
         let result = reduceAttention([.named(.app, observed: identity.observed,
             representative: identity.representative, offer.sequence)])
         return Outcome(wid: result.wid, reason: result.reason, observedWid: offer.wid, readPid: nil)
-    }
-
-    mutating func decideSemantic(pid: pid_t, wid: CGWindowID, context: Context) -> Outcome {
-        guard let offer = offerSemantic(pid: pid, wid: wid, context: context) else {
-            return Outcome(wid: nil, reason: "unknownProcess", observedWid: wid, readPid: nil)
-        }
-        return decideSemantic(offer, context: context)
     }
 
     mutating func processExited(_ generation: ProcessGeneration) {

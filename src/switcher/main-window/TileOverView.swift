@@ -12,7 +12,9 @@ class TileOverView: FlippedView {
 
     var windowControlButtons: [TrafficLightButton] { [quitButton, closeButton, minimizeButton, maximizeButton] }
 
+    // periphery:ignore - AppKit private overrides, found by the ObjC runtime rather than called
     @objc func _windowChangedKeyState() {}
+    // periphery:ignore - AppKit private overrides, found by the ObjC runtime rather than called
     @objc func _layoutSubtreeWithOldSize(_ oldSize: NSSize) {}
 
     convenience init() {

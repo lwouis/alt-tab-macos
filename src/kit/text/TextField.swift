@@ -9,19 +9,4 @@ class TextField: NSTextField {
         self.init(labelWithString: labelWithString)
         translatesAutoresizingMaskIntoConstraints = false
     }
-
-    convenience init(_ attributedString: NSAttributedString) {
-        self.init(labelWithAttributedString: TextField.forceLeftToRight(attributedString))
-        translatesAutoresizingMaskIntoConstraints = false
-    }
-
-    // we know the content to display should be left-to-right, so we force it to avoid displayed it right-to-left
-    static func forceLeftToRight(_ attributedString: NSAttributedString) -> NSMutableAttributedString {
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.alignment = .left
-        paragraphStyle.baseWritingDirection = .leftToRight
-        let forced = NSMutableAttributedString(attributedString: attributedString)
-        forced.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSRange(location: 0, length: forced.length))
-        return forced
-    }
 }

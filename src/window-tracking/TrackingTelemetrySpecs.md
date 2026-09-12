@@ -5,14 +5,13 @@ attention decisions that were committed and refused. It is written after decisio
 recorder that owns nothing — the deciding is `AttentionEngine`'s (`AttentionOrderSpecs.md`). Switching
 telemetry off cannot change what AltTab does.
 
-The QA harness is the consumer: `--qa-state` reads `summary`, and `--qa-telemetry` drains the ring as NDJSON.
+Both consumers are CLI: `--qa-state` reads `summary`, `--qa-telemetry` drains the ring.
 
 ## Record schema
 
 - every record carries `v`, `seq`, `at` and `kind`; every other field is optional and omitted when unset
 - sequence numbers are monotonic and never reused, so a drained batch stitches onto the previous one
 - the field set is closed and carries no window title, keystroke or document name
-- NDJSON lines sort their keys, so two runs diff cleanly
 
 ## Ring buffer
 

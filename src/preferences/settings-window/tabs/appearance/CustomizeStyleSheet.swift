@@ -26,11 +26,8 @@ class CustomizeStyleSheet: SheetWindow {
     var showHideIllustratedView: ShowHideIllustratedView!
 
     override func makeContentView() -> NSView {
-        // The per-shortcut Customize sheet was trimmed to just style-tied global toggles. The
-        // settings that used to live here either (a) moved to per-shortcut storage and now live
-        // in `ControlsTab` (`showAppsOrWindows`, `showTabsAsWindows`) or (b) were dropped
-        // entirely (`alignThumbnails`). The "Show & Hide" / "Advanced" tab control is gone too —
-        // the remaining rows fit comfortably in one flat list.
+        // This sheet carries only the style-tied GLOBAL toggles. Anything per-shortcut
+        // (`showAppsOrWindows`, `showTabsAsWindows`) belongs in `ControlsTab` instead.
         illustratedImageView = IllustratedImageThemeView(style, CustomizeStyleSheet.illustratedImageWidth)
         showHideIllustratedView = ShowHideIllustratedView(style, illustratedImageView)
         let showHideView = showHideIllustratedView.makeView()

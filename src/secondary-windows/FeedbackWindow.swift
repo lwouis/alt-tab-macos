@@ -353,6 +353,7 @@ class FeedbackWindow: NSWindow {
     }
 
     // allow to close with the escape key
+    // periphery:ignore - responder-chain target, reached by Esc rather than by a call
     @objc func cancel(_ sender: Any?) {
         close()
     }

@@ -27,7 +27,7 @@ class TrackedWindowStateBridge {
         var effects = WindowEventReducer.reduce(&state, input)
         // **The attention decision lands inside the SAME dispatch.** Deferring it to the next runloop turn
         // would let the switcher draw one frame with the old order before the new one arrived, which is the
-        // "right, but late" verdict the QA matrix scores separately from being right.
+        // "right, but late" verdict that is scored separately from being right.
         let attention = AttentionEngine.dispatched(input)
         if let pid = attention.readPid { effects.append(.readFocusedWindowOnActivation(pid: pid)) }
         if let attention = attention.attention {
@@ -267,7 +267,7 @@ class TrackedWindowStateBridge {
                 WindowServerEvents.readFocusedWindowOnActivation(pid)
             case .checkShortcutsForFocusedWindow:
                 if let frontmostPid = Applications.frontmostPid,
-                   let frontmostApp = Applications.findOrCreate(frontmostPid, false),
+                   let frontmostApp = Applications.findOrCreate(frontmostPid),
                    let focusedWindow = frontmostApp.focusedWindow {
                     App.checkIfShortcutsShouldBeDisabled(focusedWindow, nil)
                 }

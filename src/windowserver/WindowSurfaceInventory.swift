@@ -24,7 +24,11 @@ enum WindowSurfaceInventory {
         return mutationSequence
     }
 
-    static func replace(_ rows: [WsRawWindow], issuedAt: UInt64) {
+    /// `issuedAt` defaults to a token taken right now, which is only right when the rows were fetched
+    /// synchronously. The asynchronous caller must stamp its own with `beginSnapshot()` BEFORE its query
+    /// leaves main, or a targeted mutation made while that query was in flight loses to the stale answer.
+    static func replace(_ rows: [WsRawWindow], issuedAt: UInt64? = nil) {
+        let issuedAt = issuedAt ?? beginSnapshot()
         guard issuedAt >= latestAppliedSnapshot else { return }
         latestAppliedSnapshot = issuedAt
         let answer = Dictionary(uniqueKeysWithValues: rows.map { ($0.wid, $0) })
@@ -38,10 +42,6 @@ enum WindowSurfaceInventory {
             lastMutation[wid] = issuedAt
         }
         hasFullSnapshot = true
-    }
-
-    static func replace(_ rows: [WsRawWindow]) {
-        replace(rows, issuedAt: beginSnapshot())
     }
 
     /// The visible surfaces of one process, for the callers that need to reason about an app's own window

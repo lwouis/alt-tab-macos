@@ -46,10 +46,4 @@ enum WsEventRouting {
             case .spaceCurrentChanged, .activeSpaceChanged: return .spaceTransition
         }
     }
-
-    /// The Space notifications carry an 8-byte spaceId + 4-byte wid, so membership is free (no follow-up
-    /// query). Every other window notification carries only the 4-byte wid.
-    static func payloadCarriesSpaceId(_ n: Notification) -> Bool {
-        n == .windowAddedToSpace || n == .windowRemovedFromSpace
-    }
 }

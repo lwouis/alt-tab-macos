@@ -37,28 +37,9 @@ class ProTransitionState {
         get { Self.int(ProGatedPreferences.appearanceStyle.gate!.rememberedKey) }
         set { Self.setInt(ProGatedPreferences.appearanceStyle.gate!.rememberedKey, newValue) }
     }
-    var rememberedAppearanceSize: Int? {
-        get { Self.int(ProGatedPreferences.appearanceSize.gate!.rememberedKey) }
-        set { Self.setInt(ProGatedPreferences.appearanceSize.gate!.rememberedKey, newValue) }
-    }
     var rememberedShortcutStyle: Int? {
         get { Self.int(ProGatedPreferences.shortcutStyle.gate!.rememberedKey) }
         set { Self.setInt(ProGatedPreferences.shortcutStyle.gate!.rememberedKey, newValue) }
-    }
-
-    // Per-shortcut override remembered indices. Shortcut 0 is the only index reachable while
-    // locked, so it's the only one we snapshot. Indices >= 1 are hard-gated at trigger time.
-    var rememberedAppearanceStyleOverride: Int? {
-        get { Self.int(ProGatedPreferences.appearanceStyleOverride0.gate!.rememberedKey) }
-        set { Self.setInt(ProGatedPreferences.appearanceStyleOverride0.gate!.rememberedKey, newValue) }
-    }
-    var rememberedAppearanceSizeOverride: Int? {
-        get { Self.int(ProGatedPreferences.appearanceSizeOverride0.gate!.rememberedKey) }
-        set { Self.setInt(ProGatedPreferences.appearanceSizeOverride0.gate!.rememberedKey, newValue) }
-    }
-    var rememberedShortcutStyleOverride: Int? {
-        get { Self.int(ProGatedPreferences.shortcutStyleOverride0.gate!.rememberedKey) }
-        set { Self.setInt(ProGatedPreferences.shortcutStyleOverride0.gate!.rememberedKey, newValue) }
     }
 
     // MARK: - Snapshot / restore Pro preferences

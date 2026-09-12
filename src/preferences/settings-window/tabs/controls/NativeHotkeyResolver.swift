@@ -48,9 +48,8 @@ enum NativeHotkeyResolver {
     }
 
     /// True iff some hold-shortcut modifier set turns `modifiers1` and `modifiers2` into the same
-    /// effective combo when OR'd in. Mirrors `CustomRecorderControlTestable.combinedModifiersMatch`
-    /// but takes hold-shortcut modifiers as an explicit parameter rather than reading
-    /// `ControlsTab.shortcuts` globals — keeps the kernel pure.
+    /// effective combo when OR'd in. Takes the hold-shortcut modifiers as an explicit parameter rather
+    /// than reading `ControlsTab.shortcuts` globals, which keeps the kernel pure.
     private static func combinedModifiersMatch(_ modifiers1: UInt32, _ modifiers2: UInt32, _ holdShortcutModifiers: [UInt32]) -> Bool {
         holdShortcutModifiers.contains { (($0 | modifiers1) == ($0 | modifiers2)) }
     }

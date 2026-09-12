@@ -65,7 +65,7 @@ final class SchedulingPolicyTests: XCTestCase {
 
     /// The bug, as a rule: an attempt that adopted NOTHING must be retryable. The situation used to be recorded
     /// before the scan ran and then refused forever, so one fruitless attempt (the app's AX tree not ready yet
-    /// at launch) permanently gave up — measured over a QA run as 82 tab reads naming untracked tabs and zero
+    /// at launch) permanently gave up — measured live as 82 tab reads naming untracked tabs and zero
     /// adoptions, against 57 in a run whose first attempt happened to land.
     func testFruitlessScanIsRetriedOnTheSameSituation() {
         let situation = "lwouis\u{1}lwouis|1"
@@ -129,7 +129,7 @@ final class SchedulingPolicyTests: XCTestCase {
     /// same app, so it is that window's tab — rewinds the cursor onto itself instead of being stepped over.
     /// Two tab groups of one app used to be permanently uncrossable this way: each requester's sweep stopped
     /// on the other group's tabs, dropped them, and moved the shared cursor past them, so the requester that
-    /// owned them started above them next time (QA C-05, six tabs collapsing to two).
+    /// owned them started above them next time (measured live: six tabs collapsing to two).
     func testACandidateLeftForAnotherWindowIsNotSteppedOver() {
         XCTAssertEqual(InactiveTabScanPolicy.nextCursor(adopted: 0, deferredId: 21446, sweptTo: 21267), 21267)
         XCTAssertEqual(InactiveTabScanPolicy.nextCursor(adopted: 0, deferredId: 21200, sweptTo: 21267), 21200)

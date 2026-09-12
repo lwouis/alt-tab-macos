@@ -67,5 +67,4 @@ Mirrors `DragAndDropResolverTests.swift` 1:1.
 - **testUseCaseDragPresentWhenSwitcherAppears** — drag present on show → `.inDeadzone`; after clearing the deadzone → `.track`.
 - **testUseCaseDropOnTileConcludes** — the regression: the tap yields the up (down unseen), and a valid target drops.
 - **testUseCaseReleaseOnPaddingEndsDragWithoutOpening** — release on the padding / outside the panel: the up is yielded so the drag ends, but no target means nothing opens.
-- **testUseCaseBetweenTilesStillTargets** — the 1px gap resolves to a tile upstream, so the kernel keeps tracking (never `.noTarget` over the grid).
 - **testUseCaseAutoSelectTimerSurvivesJitterButRearmsOnMove** — jitter keeps the timer; a real move re-arms it.

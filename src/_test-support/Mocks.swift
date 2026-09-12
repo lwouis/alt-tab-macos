@@ -115,6 +115,14 @@ extension NSView {
             anchor.constraint(equalToConstant: constant).isActive = true
         }
     }
+
+    func observeWindowKeyChanges(replacing previous: [NSObjectProtocol], _ onChange: @escaping () -> Void) -> [NSObjectProtocol] {
+        previous.forEach { NotificationCenter.default.removeObserver($0) }
+        guard let window else { return [] }
+        return [NSWindow.didBecomeKeyNotification, NSWindow.didResignKeyNotification].map { name in
+            NotificationCenter.default.addObserver(forName: name, object: window, queue: .main) { _ in onChange() }
+        }
+    }
 }
 
 enum SearchKeyResult {

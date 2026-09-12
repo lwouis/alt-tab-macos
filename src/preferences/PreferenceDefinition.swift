@@ -10,14 +10,11 @@ struct PreferenceGate<T: MacroPreference & CaseIterable & Equatable> {
     let isProValue: (T) -> Bool
 }
 
-/// Single-source-of-truth declaration for a macro preference: its key, default, and optional
-/// Pro gate. Both the read-side (downgrade-on-lock) and the write-side (snapshot + restore)
-/// go through this one definition — eliminating the duplicated Pro-gating logic that previously
-/// lived in both `Preferences.swift` getters and `ProFeature.snapshotAndDowngradeStored` /
-/// `restoreStored`.
+/// Single-source-of-truth declaration for a macro preference: its key and optional Pro gate.
+/// Both the read-side (downgrade-on-lock) and the write-side (snapshot + restore) go through
+/// this one definition. The default value lives in `Preferences.defaultValues`.
 struct PreferenceDefinition<T: MacroPreference & CaseIterable & Equatable> {
     let key: String
-    let `default`: T
     let gate: PreferenceGate<T>?
 
     /// Read the currently-stored value, applying the gate if Pro is locked. The read passes
@@ -95,14 +92,11 @@ extension PreferenceDefinition {
     }
 }
 
-/// Registry of every Pro-gated preference. Each entry is declared once here — no more parallel
-/// lists in `Preferences.defaultValues`, `Preferences.<prop>` getter, `ProFeature.preferenceKey`,
-/// `ProFeature.rememberedKey`, `ProFeature.snapshotAndDowngradeStored`, `ProFeature.restoreStored`,
-/// `ProFeature.isStoredValuePro`.
+/// Registry of every Pro-gated preference. Each entry is declared once here; `Preferences` getters,
+/// `ProTransitionState` lock/unlock passes and `ProFeature.isStoredValuePro` all read from it.
 enum ProGatedPreferences {
     static let appearanceStyle = PreferenceDefinition<AppearanceStylePreference>(
         key: "appearanceStyle",
-        default: .thumbnails,
         gate: PreferenceGate(
             freeEquivalent: .thumbnails,
             rememberedKey: "rememberedAppearanceStyle",
@@ -110,7 +104,6 @@ enum ProGatedPreferences {
 
     static let appearanceSize = PreferenceDefinition<AppearanceSizePreference>(
         key: "appearanceSize",
-        default: .auto,
         gate: PreferenceGate(
             freeEquivalent: .medium,
             rememberedKey: "rememberedAppearanceSize",
@@ -118,7 +111,6 @@ enum ProGatedPreferences {
 
     static let shortcutStyle = PreferenceDefinition<ShortcutStylePreference>(
         key: "shortcutStyle",
-        default: .focusOnRelease,
         gate: PreferenceGate(
             freeEquivalent: .doNothingOnRelease,
             rememberedKey: "rememberedShortcutStyle",
@@ -130,7 +122,6 @@ enum ProGatedPreferences {
     // no-op for unset overrides — only explicitly-set Pro overrides get snapshotted on lock.
     static let appearanceStyleOverride0 = PreferenceDefinition<AppearanceStylePreference>(
         key: "appearanceStyleOverride",
-        default: .thumbnails,
         gate: PreferenceGate(
             freeEquivalent: .thumbnails,
             rememberedKey: "rememberedAppearanceStyleOverride",
@@ -138,7 +129,6 @@ enum ProGatedPreferences {
 
     static let appearanceSizeOverride0 = PreferenceDefinition<AppearanceSizePreference>(
         key: "appearanceSizeOverride",
-        default: .medium,
         gate: PreferenceGate(
             freeEquivalent: .medium,
             rememberedKey: "rememberedAppearanceSizeOverride",
@@ -146,7 +136,6 @@ enum ProGatedPreferences {
 
     static let shortcutStyleOverride0 = PreferenceDefinition<ShortcutStylePreference>(
         key: "shortcutStyleOverride",
-        default: .doNothingOnRelease,
         gate: PreferenceGate(
             freeEquivalent: .doNothingOnRelease,
             rememberedKey: "rememberedShortcutStyleOverride",

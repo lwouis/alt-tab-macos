@@ -16,10 +16,6 @@ final class SearchTests: XCTestCase {
         match(query, text)?.score ?? 0
     }
 
-    private func combined(_ query: String, app: String, title: String) -> Double {
-        SearchTestable.combinedScore(query: query, appName: app, title: title)
-    }
-
     // MARK: - Tier 1: exact match
 
     func testT1Exact() throws {
@@ -238,19 +234,6 @@ final class SearchTests: XCTestCase {
         XCTAssertGreaterThan(score("Chrome", "Google Chrome"), score("Chrome", "google chrome"))
     }
 
-    // MARK: - App-name vs title ranking
-
-    func testAppNameMatchSurfacesEvenWhenTitleDoesNot() throws {
-        let s = combined("safari", app: "Safari", title: "google.com - Search")
-        XCTAssertGreaterThan(s, 0)
-    }
-
-    func testAppNameWeightedAboveTitleAtSameTier() throws {
-        let appWin = combined("chrome", app: "Chrome", title: "Issues")
-        let titleWin = combined("chrome", app: "Other", title: "Chrome Tab")
-        XCTAssertGreaterThan(appWin, titleWin)
-    }
-
     // MARK: - Tier ordering
 
     func testTierOrdering_ChrAcrossCandidates() throws {
@@ -328,30 +311,6 @@ final class SearchTests: XCTestCase {
         let wp = score("chrome", "Google Chrome - About")            // T3
         let sub = score("chrome", "abcdchromexyz")                    // T4
         XCTAssertGreaterThan(wp, sub)
-    }
-
-    // MARK: - Existing acronymBonus behavior (preserved)
-
-    func testAcronymBonusPrefixMatch() throws {
-        XCTAssertGreaterThan(SearchTestable.acronymBonus(query: "chr", text: "Chrome"), 0)
-        XCTAssertEqual(SearchTestable.acronymBonus(query: "chr", text: "My Chrome"), 0)
-    }
-
-    func testAcronymBonusWordStarts() throws {
-        XCTAssertGreaterThan(SearchTestable.acronymBonus(query: "cd", text: "Chrome DevTools"), 0)
-        XCTAssertEqual(SearchTestable.acronymBonus(query: "cd", text: "Chrome"), 0)
-    }
-
-    func testAcronymBonusPrefersEarlierMatch() throws {
-        let early = SearchTestable.acronymBonus(query: "cd", text: "Chrome DevTools")
-        let later = SearchTestable.acronymBonus(query: "cd", text: "Google Chrome DevTools")
-        XCTAssertGreaterThan(early, later)
-    }
-
-    func testAcronymBonusIgnoresSpacesInQuery() throws {
-        let compact = SearchTestable.acronymBonus(query: "cd", text: "Chrome DevTools")
-        let spaced = SearchTestable.acronymBonus(query: " c d ", text: "Chrome DevTools")
-        XCTAssertEqual(compact, spaced)
     }
 
     // MARK: - Boundary characters (inspired by fzf algo tests)
@@ -496,24 +455,4 @@ final class SearchTests: XCTestCase {
         XCTAssertNil(SearchTestable.damerauLevenshtein(Array("abcd"), Array("efgh"), k: 1))
     }
 
-    // MARK: - MatchResult → SWResult bridging
-
-    /// `toSWResult` is called by `Search.swift` to hand match data to the rendering layer. It
-    /// derives similarity from score / 1200, copies span and subspans verbatim, and clears `ops`
-    /// (operations metadata is unused downstream).
-    func testToSWResultBridgesMatchResultFields() {
-        let m = MatchResult(score: 1200, tier: 1, span: 0..<5, subspans: [0..<2, 3..<5])
-        let sw = m.toSWResult()
-        XCTAssertEqual(sw.score, 1200)
-        XCTAssertEqual(sw.similarity, 1.0, accuracy: 0.001, "1200/1200 normalizes to 1.0")
-        XCTAssertEqual(sw.span, 0..<5)
-        XCTAssertEqual(sw.subspans, [0..<2, 3..<5])
-        XCTAssertTrue(sw.ops.isEmpty, "ops is dropped on the way out — unused by the renderer")
-    }
-
-    func testToSWResultScalesSimilarityProportionally() {
-        let m = MatchResult(score: 600, tier: 3, span: 1..<3, subspans: [])
-        let sw = m.toSWResult()
-        XCTAssertEqual(sw.similarity, 0.5, accuracy: 0.001, "600 / 1200 = 0.5")
-    }
 }

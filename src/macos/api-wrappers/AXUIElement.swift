@@ -104,12 +104,6 @@ extension AXUIElement {
         try Self.onCorrectThread(pid: pid) { try cgWindowId() }
     }
 
-    func pid() throws -> pid_t {
-        var pid = pid_t(0)
-        try throwIfNotSuccess(AXUIElementGetPid(self, &pid))
-        return pid
-    }
-
     /// A direct liveness probe for the window behind this element. Returns the raw `AXError` so the caller can
     /// tell a DEAD element (`.invalidUIElement` — the window was closed/destroyed) apart from a merely
     /// UNRESPONSIVE app (`.cannotComplete` — retry later) or a live one (`.success`). Reads `kAXRole`, the
@@ -141,7 +135,6 @@ extension AXUIElement {
             case kAXMainAttribute: result.isMain = castSafely(value)
             case kAXIsApplicationRunningAttribute: result.appIsRunning = castSafely(value)
             case kAXURLAttribute: result.url = castSafely(value)
-            case kAXParentAttribute: result.parent = castSafely(value)
             case kAXFocusedWindowAttribute: result.focusedWindow = castSafely(value)
             case kAXMainWindowAttribute: result.mainWindow = castSafely(value)
             case kAXCloseButtonAttribute: result.closeButton = castSafely(value)
@@ -346,9 +339,8 @@ extension AXUIElement {
     /// geometry path's job: a fullscreen Space holds one window and its tabs, so the Space invariant plus
     /// Space-less-ness already identifies them.
     /// Returns the tab TITLES and the group's own identity (`TabGroupToken`), which is the `AXTabGroup`
-    /// element's `AXUIElementID`. The element was already in hand here and used to be discarded; every
-    /// window of a group hands out the same one while it is the selected tab, so it is a membership fact the
-    /// titles can only guess at. The BUTTONS are deliberately not kept: they are rebuilt by ordinary tab
+    /// element's `AXUIElementID`. Every window of a group hands out the same one while it is the selected
+    /// tab, so the token is a membership fact the titles can only guess at. The BUTTONS are deliberately not kept: they are rebuilt by ordinary tab
     /// operations (Finder rebuilds all of them on one Cmd+T) and each reports the SELECTED window's wid
     /// rather than its own, so a button is neither stable nor self-naming. Measured on Finder, Terminal and
     /// TextEdit.
@@ -392,7 +384,6 @@ struct AXAttributes {
     var isMinimized: Bool?
     var isFullscreen: Bool?
     var isMain: Bool?
-    var parent: AXUIElement?
     var children: [AXUIElement]?
     var focusedWindow: AXUIElement?
     var mainWindow: AXUIElement?

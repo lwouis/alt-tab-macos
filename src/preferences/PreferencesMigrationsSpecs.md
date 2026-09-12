@@ -1,6 +1,6 @@
 # PreferencesMigrations — Specs
 
-> **Line coverage:** `PreferencesMigrations.swift` 49% — the per-migration transforms are covered; the `migratePreferences`/`updateToNewPreferences` orchestrator, `migrateLoginItem`, and `migrateShortcutPreferencesToSecureCoding` are intentionally excluded (see "Not covered" below). _refreshed 2026-05-27 by `/coverage-explore`_
+> **Line coverage:** `PreferencesMigrations.swift` 49% — the per-migration transforms are covered; the `migratePreferences`/`updateToNewPreferences` orchestrator and `migrateLoginItem` are intentionally excluded (see "Not covered" below). _refreshed 2026-05-27 by `/coverage-explore`_
 
 ## Summary
 
@@ -15,7 +15,7 @@
 - **Idempotency**: `migrateExceptionsTitleArray` must be safe to re-run — already-migrated (array-form) data fails to decode into the legacy (`String?`) shape, triggering an early return that leaves data untouched.
 - **A quirk worth knowing** (pinned by a test): the global→per-shortcut grouping migration copies the global value into the indexed keys, but because index 0's key *is* the old global key, that key is removed at the end — so slot 0 ends up unset while slots 2…10 hold the value.
 - **Testability**: production reads/writes `UserDefaults.standard`; the tests inject an isolated suite via `PreferencesMigrations.defaults` (reset in `tearDown`) so they never touch the dev machine's real prefs.
-- **Not covered** (documented gaps): `migrateShortcutPreferencesToSecureCoding` (needs the real NSKeyedArchiver/ShortcutRecorder codec, stubbed compile-only) and `migrateLoginItem` (mutates real Login Items via deprecated LaunchServices APIs).
+- **Not covered** (documented gap): `migrateLoginItem` (mutates real Login Items via deprecated LaunchServices APIs).
 
 ---
 
@@ -82,4 +82,4 @@ Mirrors `PreferencesMigrationsTests.swift` 1:1.
 - **testShortcutIndexesMoveSuffix4To10AndSetCount** — suffix `4` → `10`; `shortcutCount` set to `3` when a 3rd shortcut exists.
 
 ### P. Dropdowns: English text → indexes
-- **testDropdownTextValuesBecomeIndexes** — `appsToShow "Active app"` → `"1"`; `theme "❖ Windows 10"` → `"1"`.
+- **testDropdownTextValuesBecomeIndexes** — `appsToShow "Active app"` → `"1"`; `screensToShow "Screen showing AltTab"` → `"1"`.

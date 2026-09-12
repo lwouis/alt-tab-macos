@@ -248,7 +248,7 @@ enum WindowEventReducer {
                 // `showMinimizedWindows == .showAtTheEnd` it is stranded at the very back of the list until
                 // some later show happens to fix it (the reported "the queue flashed and the window
                 // appeared"). Restoring the same window through AX instead does NOT show this: there the flag
-                // flips in ~35ms, which is why the AX-driven QA paths never caught it.
+                // flips in ~35ms, which is why the AX-driven paths never caught it.
                 //
                 // Deriving it from the event needs no timing at all: a minimized window is off-screen by
                 // definition, and the OS never orders one in for any other reason — a Space re-show brings
@@ -292,11 +292,11 @@ enum WindowEventReducer {
         // The same in-app raise, for a window we do not track YET. An app that hides its window instead of
         // closing it (WeChat to the tray) has that window removed from the model, keeps the CGWindow, and on
         // reopen the OS re-shows the SAME wid: no create event, no 808, just this order-in. Discovery then
-        // takes ~80ms, and if the user alt-tabs inside that gap the window used to land at the very BACK of
-        // the MRU, behind even the windowless placeholders (#5785, Weixin on the last tile). Remember the
-        // signal with the time it happened so discovery can place it where it belongs. `requirePid` because
-        // the frontmost-app test above cannot run yet: an untracked wid has no pid, so we keep the pid that
-        // was frontmost at this instant and let discovery confirm the window is that app's.
+        // takes ~80ms, and if the user alt-tabs inside that gap the window lands at the very BACK of the
+        // MRU, behind even the windowless placeholders (#5785, Weixin on the last tile). Remember the signal
+        // with the time it happened so discovery can place it where it belongs. The frontmost pid is carried
+        // along because the frontmost-app test above cannot run yet: an untracked wid has no pid, so we keep
+        // whoever was frontmost at this instant and let discovery confirm the window is that app's.
         if state.pendingFocusPromotion[wid] == nil, let frontmostPid = state.frontmostPid {
             state.pendingFocusPromotion[wid] = .circumstantial(at: now, frontmostPid: frontmostPid)
         }
@@ -317,6 +317,7 @@ enum WindowEventReducer {
 
     /// An 808 for a wid we do not track yet is not attention, but it IS evidence the window exists: discover
     /// just it, rather than a whole inventory.
+    // periphery:ignore:parameters state - keeps the reducer's uniform signature
     private static func untrackedWindowFocused(_ state: inout TrackedWindowState, wid: CGWindowID) -> [ReducerEffect] {
         [.discoverWindow(wid: wid, throttled: false)]
     }
@@ -397,7 +398,7 @@ enum WindowEventReducer {
     /// the membership down (`inheritance #a → #b`), so `siblingWids` says nothing for the whole burst. A chain
     /// member adopted early — an AX window-created answer lands mid-burst and attention admits the wid — then
     /// stands as a SECOND TILE until the burst's last mint is discovered and forms the group: a tab visibly
-    /// escapes its group (QA T-02, measured 2026-09-10, 250ms of two tiles during a 5x cmd+T on Finder).
+    /// escapes its group (measured live 2026-09-10, 250ms of two tiles during a 5x cmd+T on Finder).
     /// Both wids in ONE chain is the link. Fullscreen never has it: the chain that hold arms carries only the
     /// window going fullscreen, and its key is an UNTRACKED joiner, so the tracked window the app answers with
     /// can be neither.
@@ -564,9 +565,9 @@ enum WindowEventReducer {
                 // a burst of tabs outruns discovery, so each Cmd-T's window is created, added, and removed
                 // within ~300ms while we never see it. Its creation flag must die with it. Nothing else
                 // drains it: discovery never appends it, focus never lands on it, and 804 "lags a real
-                // close by seconds — or never fires — for apps that retain the CGWindow (Finder)". So every
-                // burst leaked a wid into `recentlyCreated` FOREVER, `discoveryPending` was then permanently
-                // true, and every hold-visible ran to its 20s safety cap instead of releasing (rec13).
+                // close by seconds — or never fires — for apps that retain the CGWindow (Finder)". Without
+                // this drain a burst leaks a wid into `recentlyCreated` FOREVER, so discovery never reads as
+                // complete and every hold-visible runs to its 20s safety cap instead of releasing (rec13).
                 // ...but ONLY if it was superseded, not if it merely MOVED. A window going fullscreen joins
                 // its new Space and then leaves the old one, so the leave arrives for a Space it is no longer
                 // on — draining there killed the promotion of a brand-new fullscreen tab (it never got
@@ -785,8 +786,8 @@ enum WindowEventReducer {
 
     /// Re-read the AXTabGroup of an app's ON-SCREEN (non-tabbed, Space-holding) windows right when a
     /// Space-membership event signals a tab change, so the tab state reconciles NOW instead of waiting for
-    /// the next switcher show (was `Applications.reconcileTabsForAppOnSpaceEvent` — see its comment there
-    /// for the two callers and why converging BETWEEN shows is load-bearing).
+    /// the next switcher show. Converging BETWEEN shows is load-bearing: a tab change the user makes while
+    /// the switcher is closed must not be discovered only once they summon it.
     /// FULLSCREEN windows are skipped: AX exposes no AXTabGroup for them, so the read yields no titles and
     /// the update no-ops — pure IPC for nothing, in exactly the case that generates the most Space events.
     /// Their grouping is geometry's job, which needs no AX at all.
@@ -802,10 +803,10 @@ enum WindowEventReducer {
     /// settle, and a summon lands inside that wait routinely — a Space switch and the Cmd+Tab that follows it
     /// are one gesture (#5864: 50ms apart in the reporter's capture, against a 250ms debounce), so the
     /// switcher filtered and sorted against the Space the user had just LEFT and visibly re-ordered under
-    /// them a beat later. v11.3.1 had no such gap: it reacted on the leading edge of NSWorkspace's
-    /// `activeSpaceDidChange`. The split is what the debounce is FOR — the per-window Space membership and
+    /// them a beat later. The split is what the debounce is FOR — the per-window Space membership and
     /// the WS state re-query below are expensive and would be re-run by every event of the burst, while the
     /// topology is one CGS round-trip (0.1ms p50, measured) and is the only part a summon needs.
+    // periphery:ignore:parameters state - keeps the reducer's uniform signature
     private static func spaceTransitionStarted(_ state: inout TrackedWindowState) -> [ReducerEffect] {
         // Deliberately NO `.refreshUi`. Repainting here looks free and is not: `refreshOpenUiAfterExternalEvent`
         // is throttled at 200ms with a leading edge, so a repaint fired the instant the Space flips SPENDS that
@@ -817,7 +818,7 @@ enum WindowEventReducer {
         [.refreshSpacesTopology]
     }
 
-    /// The Space-switch reaction, once the 1329/1401 burst settles (was `handleSpaceChanged`): refresh the
+    /// The Space-switch reaction, once the 1329/1401 burst settles: refresh the
     /// Space topology + per-window membership (cached for the switcher's hot path, #5721), re-read
     /// fullscreen for the current Space (the Safari full-screen-video window emits no resize/move event),
     /// re-check shortcut disabling for the focused window, and reconcile any open switcher.
@@ -1064,7 +1065,7 @@ enum WindowEventReducer {
                 // forming from the inherited set ALONE ejects whatever a better-informed signal already put in
                 // the group. That set is what `replaced` had when it left, which is a floor, not the answer:
                 // when the app's own AXTabGroup titles land in the same pass and group this wid with MORE of
-                // its tabs, they are the stronger claim about who is in the group. Live QA C-10: a tab opened
+                // its tabs, they are the stronger claim about who is in the group. Measured live: a tab opened
                 // while the cold scan was still running formed the right 4-tab group from `axTitles`, and the
                 // handover split it back into [new, replaced] plus the two it evicted — one window, two tiles.
                 // Union, so neither side can shrink the other. When the two agree, `form` takes its same-set
@@ -1077,7 +1078,7 @@ enum WindowEventReducer {
                 // This wid was discovered by the brute-force AX scan while it was still a background tab, so
                 // the position it arrived with is the one it wore THERE — and the order-in that moved it onto
                 // its parent's frame fired before we ever subscribed to its notifications, so no geometry
-                // event will ever correct it. Live QA T-20 caught it: clicking a background window's tab
+                // event will ever correct it. A live run caught it: clicking a background window's tab
                 // brought that window to the front, and the minted tab still sat at the other window's
                 // cascade position, which is a frame every geometry rule below then reasons from.
                 effects.append(.queryWindowServerState(wids: [wid] + members, throttled: false))

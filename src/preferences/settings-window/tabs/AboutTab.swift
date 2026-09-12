@@ -1,10 +1,6 @@
 import Cocoa
 
 class AboutTab {
-    static func initTab() -> NSView {
-        makeContentView()
-    }
-
     static func makeContentView(_ fitToContent: Bool = true, _ showFeedbackButton: Bool = true, _ centerHero: Bool = false) -> NSView {
         let appIcon = LightImageView()
         appIcon.translatesAutoresizingMaskIntoConstraints = false

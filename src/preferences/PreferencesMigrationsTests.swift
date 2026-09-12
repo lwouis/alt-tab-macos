@@ -1,5 +1,4 @@
 import Cocoa
-import ShortcutRecorder
 import XCTest
 
 /// Pins the `UserDefaults` transforms in `PreferencesMigrations`. These run on every app upgrade,
@@ -7,9 +6,8 @@ import XCTest
 /// the suite. Each test seeds the "old" keys in an isolated `UserDefaults` suite (injected via
 /// `PreferencesMigrations.defaults`), runs ONE migration, and asserts the resulting keys + removals.
 ///
-/// `migrateShortcutPreferencesToSecureCoding` and `migrateLoginItem` are intentionally NOT covered:
-/// the former needs the real NSKeyedArchiver/ShortcutRecorder codec (stubbed compile-only here), the
-/// latter mutates real Login Items via deprecated LaunchServices APIs.
+/// `migrateLoginItem` is intentionally NOT covered: it mutates real Login Items via deprecated
+/// LaunchServices APIs.
 ///
 /// Groups: A version gating · B grouping→per-shortcut · C language remap · D/E/F exceptions ·
 /// G/H show-windows dropdowns · I gestures · J cursor · K menubar · L/M sizes · N shortcuts · P dropdowns.
@@ -273,10 +271,10 @@ final class PreferencesMigrationsTests: XCTestCase {
 
     func testDropdownTextValuesBecomeIndexes() {
         defaults.set("Active app", forKey: "appsToShow")
-        defaults.set("❖ Windows 10", forKey: "theme")
+        defaults.set("Screen showing AltTab", forKey: "screensToShow")
         PreferencesMigrations.migrateDropdownsFromTextToIndexes()
         XCTAssertEqual(defaults.string(forKey: "appsToShow"), "1")
-        XCTAssertEqual(defaults.string(forKey: "theme"), "1")
+        XCTAssertEqual(defaults.string(forKey: "screensToShow"), "1")
     }
 
     // MARK: - Helpers
@@ -298,9 +296,6 @@ final class PreferencesMigrationsTests: XCTestCase {
 //     JSON produced by `jsonEncode` is byte-identical to production.
 //   - ShowHowPreference.indexAsString: same case order / index values.
 //   - Preferences.jsonEncode: the real JSONEncoder round-trip.
-// COMPILE-ONLY stubs (the migration that uses them is intentionally NOT covered — noted in the spec):
-//   - the shortcut-codec helpers (decode/unarchive/store/fromKeyEquivalent) + allShortcutPreferenceKeys,
-//     used only by `migrateShortcutPreferencesToSecureCoding`.
 
 // Faithful: exceptions model (matches src/preferences/Preferences.swift + MacroPreferences.swift)
 
@@ -357,7 +352,7 @@ enum ProTransitionState {
     static func markFreshInstallIfUnknown(_ value: Bool) {}
 }
 
-// Preferences codec surface used by the migrations
+// Preferences encoding surface used by the migrations
 
 extension Preferences {
     /// Faithful: same JSONEncoder default behavior as production, so exceptions migrations are tested for real.
@@ -365,13 +360,4 @@ extension Preferences {
         let data = try! JSONEncoder().encode(value)
         return String(data: data, encoding: .utf8)!
     }
-
-    // Compile-only: only `migrateShortcutPreferencesToSecureCoding` uses these, which is not covered
-    // by the test suite (it needs the real NSKeyedArchiver/ShortcutRecorder codec). Empty key list
-    // makes that migration a no-op here.
-    static var allShortcutPreferenceKeys: [String] { [] }
-    static func decodeShortcutStorage(_ value: Any) -> (Bool, Shortcut?) { (false, nil) }
-    static func shortcutStorage(_ shortcut: Shortcut?, _ stringRepresentation: String?) -> [String: Any] { [:] }
-    static func unarchiveShortcut(_ data: Data) -> (Bool, Shortcut?) { (false, nil) }
-    static func shortcutFromKeyEquivalent(_ keyEquivalent: String) -> Shortcut? { nil }
 }

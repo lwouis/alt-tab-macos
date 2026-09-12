@@ -18,7 +18,7 @@ Distances are fractions of the trackpad surface, the way `NSTouch.normalizedPosi
 
 "The trackpad gesture stops working, several times a day, and only relaunching AltTab fixes it." The
 trigger keeps state that outlives a single gesture, and two pieces of it could hold a value that made
-every later swipe fail. Neither is reachable from a live QA pass, and neither left a trace in the log,
+every later swipe fail. Neither is reachable from a live pass, and neither left a trace in the log,
 so the only way to hold the behaviour still is to test the state machine directly.
 
 **Root cause — recycled touch identities.** `GestureTracker` keys start positions by

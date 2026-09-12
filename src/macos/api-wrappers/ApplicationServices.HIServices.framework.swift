@@ -12,9 +12,6 @@ func _AXUIElementGetWindow(_ axUiElement: AXUIElement, _ wid: UnsafeMutablePoint
 @_silgen_name("_AXUIElementCreateWithRemoteToken") @discardableResult
 func _AXUIElementCreateWithRemoteToken(_ data: CFData) -> Unmanaged<AXUIElement>?
 
-/// for some reason, this constant is missing from ApplicationServices.HIServices.AXRoleConstants
-let kAXDocumentWindowSubrole = "AXDocumentWindow"
-
 /// for some reason, these constants are missing from ApplicationServices.HIServices.AXAttributeConstants
 let kAXFullscreenAttribute = "AXFullScreen"
 let kAXStatusLabelAttribute = "AXStatusLabel"

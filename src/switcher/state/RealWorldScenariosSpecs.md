@@ -30,11 +30,11 @@ order and unroll the free pairs as input states (see the "Race interleavings" se
   2026-07-30**: the original recording put all four at ONE position (683,101), which the OS does not produce —
   a merge never converges the tabs' frames. The merged window is a brand-new wid one cascade step past the
   windows it absorbed, and those keep their positions, frozen, so the group spans four origins 29px apart and
-  only the SIZE is shared. Re-measured from the live QA run (Terminal, `757x543@942,277 / @913,248 /
+  only the SIZE is shared. Re-measured live (Terminal, `757x543@942,277 / @913,248 /
   @884,219 / @855,190`, active first; Finder is the same shape at 920×436) and mapped onto this capture's
   wids in the same MRU order. The single position is why every kernel test here passed while both live merges
   formed NO group: the cascade is exactly what `framePartitions` splits on.
-- **`finderTabDraggedOutStillClaimsThreeTabs`** — Finder, Window ▸ Move Tab to New Window (live QA
+- **`finderTabDraggedOutStillClaimsThreeTabs`** — Finder, Window ▸ Move Tab to New Window (measured live
   2026-07-30). The torn-out window at (290,712) still reports the 3 tabs it had as the group's active,
   beside the group it left at (1116,683). The capture of a stale `tabCount`.
 - **`terminalActive9Titles` / `terminal9TabsTracked`** — mid-creation of a 9-tab group: active reports 9 `~`,
@@ -58,7 +58,7 @@ order and unroll the free pairs as input states (see the "Race interleavings" se
   Reference only: MC has no pure-kernel consumer and moves no window between Spaces (it orders thumbnails in/out);
   the ids it fires (818, 1327, 1328) are intentionally not routed. `AXExposeExit` is the clean end-of-transition hook.
 
-## 2026-07-14/15 captures (the rec8–rec13 QA rounds)
+## 2026-07-14/15 captures (the rec8–rec13 rounds)
 
 - **`terminalLiveGroupActive` / `BackgroundTab`** — a live 2-tab group whose ACTIVE transiently reported a nil
   AXTabGroup. A nil read is routine churn; it must never dissolve a group.
@@ -210,7 +210,7 @@ coarser layer.
   the handover, so the bottom window is the cluster's only genuine Space holder and its declared 3 matches the
   3 members — but one of them is the TOP window's active tab, which reports an AXTabGroup of its own from
   another position. The count is a coincidence there, not an account, and waiving the position split handed one
-  window's active to the other's group (live QA T-20, 2026-09-10).
+  window's active to the other's group (measured live, 2026-09-10).
 - **testSeparateWindowsNeverGroup** — separate windows (incl. a flaky Space-less read) ⇒ no group (the gate holds).
 - **testMergedTabsMatchByTitleOnlyOnceGeometryHasLinkedThem** — the title path cannot bootstrap a merged group
   and must not be taught to: four distinct cascade positions with one shared title is rec11's exact shape, where

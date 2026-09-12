@@ -111,7 +111,7 @@ final class TestReducerRunnerTests: XCTestCase {
         XCTAssertEqual(TestReducerRunner(initial: s).violations, [])
     }
 
-    /// Live QA (2026-08-02): "Move Tab to New Window", then the group re-forms around the two members that
+    /// Measured live (2026-08-02): "Move Tab to New Window", then the group re-forms around the two members that
     /// stayed. The exact-set form ungroups the window the user tore out, and ungrouping used to STRIP the
     /// Space the group had lent it. An empty `spaceIds` is the strong phantom signal — "CGS places this
     /// window nowhere" — so we asserted that about a window CGS had had on Space 3 the whole time, and its
@@ -300,7 +300,7 @@ final class TestReducerRunnerTests: XCTestCase {
         }, "merged two windows via the time-based pairing: \(harness.trace)")
     }
 
-    /// Reported live (2026-07-22 QA): on a FULLSCREEN Finder window, switching the visible tab to "Movies"
+    /// Reported live (2026-07-22): on a FULLSCREEN Finder window, switching the visible tab to "Movies"
     /// then immediately opening the switcher showed the PREVIOUS tab; closing and reopening fixed it. A
     /// fullscreen switch to a REUSED background wid reaches physical discovery with no promotion attached —
     /// no 808, no create, and (the wid untracked at its Space-join) no `pendingFocusPromotion` — so the
@@ -689,7 +689,7 @@ final class TestReducerRunnerTests: XCTestCase {
     /// A minted tab arrives wearing the frame it had as a BACKGROUND tab, and nothing will correct it: the
     /// order-in that moved it onto its parent's frame fires before we ever subscribe to that wid, and a
     /// background tab gets no geometry events. So the group formation has to ask the WindowServer, exactly as
-    /// the tracked half of the same handover does on `joinedSpace`. Live QA T-20 (2026-08-29): clicking a
+    /// the tracked half of the same handover does on `joinedSpace`. Measured live (2026-08-29): clicking a
     /// background window's tab fronted that window, and its new active tab still sat at the OTHER window's
     /// cascade position — a frame every geometry rule then reasons from.
     func testMintedTabSwitchRefreshesTheIncomingFrameFromTheWindowServer() {
@@ -774,7 +774,7 @@ final class TestReducerRunnerTests: XCTestCase {
     /// **The handover names a representative; it must not shrink the group.** When the app's AXTabGroup
     /// titles land in the same `discoveryLanded` as the mint, they group the incoming tab with every tab of
     /// the window — and `formGroup` is exact-set, so re-forming from the inherited pair evicted the rest.
-    /// Live QA C-10 (2026-09-04): a tab opened while the cold scan was still running turned one 4-tab Finder
+    /// Measured live (2026-09-04): a tab opened while the cold scan was still running turned one 4-tab Finder
     /// window into two tiles, because `axTitles` formed [900, 100, 101, 102] and the handover immediately
     /// split it back into [900, 100].
     func testMintedTabSwitchKeepsTheTabsTheTitlesAlreadyGrouped() {
@@ -858,7 +858,7 @@ final class TestReducerRunnerTests: XCTestCase {
     /// in place and reports nothing changed. The reducer then emits no log and, worse, no `.refreshUi`: the
     /// order really did change and the open switcher keeps drawing the old one.
     ///
-    /// Live evidence, 2026-08-25 QA run: an app's process reordered the MRU front onto a Finder window with no
+    /// Live evidence, 2026-08-25: an app's process reordered the MRU front onto a Finder window with no
     /// `zOrder seed reordered` line anywhere in its debug log — the change was visible only in telemetry.
     /// Three investigations dead-ended on that silence.
     func testZOrderReportsWhatItMovedOnAColdModel() {

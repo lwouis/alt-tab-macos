@@ -55,12 +55,5 @@ Mirrors `CustomRecorderControlTests.swift` 1:1.
 Guards the recycled-`ShortcutEditor` regression where a stale recorder id (id/identifier drift) reached the conflict check and silently suppressed the dialog.
 - **testIsWellFormedCandidateId** — hold/next ids must resolve to an in-range index; the `"…Shortcut0"` placeholders (index -1) and out-of-range ids are rejected; static/arrow/vim ids are always well-formed.
 
-### combinedModifiersMatch
-Used by the keyboard matcher to recognize a chord whose modifiers are physically split between the configured `holdShortcut` and a local shortcut (e.g. commandShiftTab = ⌘⌥-hold + ⇧).
-- **testCombinedModifiersMatchEqualToItself** — a modifier set matches itself (trivial union).
-- **testCombinedModifiersMatchUnifiesWhenHoldModifiersDominate** — two different inputs that produce the same union with the configured hold modifiers match.
-- **testCombinedModifiersMatchRejectsDisjointModifiers** — modifier sets that can't be unified by any holdShortcut union don't match.
-- **testCombinedModifiersMatchReturnsFalseWhenNoHoldShortcuts** — no holdShortcut configured at any slot → no union possible → false.
-
 ### Not tested: `Shortcut.keyEquivalent` (in `CustomRecorderControlTestable.swift`)
 This getter is used in production by `ControlsTab.shortcutSummary` (to render the Settings sidebar row summary) — not "for testing only" as the older comment in the source incorrectly claimed (now fixed). It's effectively untestable from the `unit-tests` target: it calls ShortcutRecorder's `readableStringRepresentation(isASCII:)`, which throws `NSInternalInconsistencyException: Unable to find bundle with resources` when the framework's bundle isn't loaded (the case for unit tests). Testing it would need either bundle-loading test setup or extracting the formatting logic away from `readableStringRepresentation`. Left alone for now; recorded here so the 0% line coverage on this getter isn't mistaken for a forgotten gap.

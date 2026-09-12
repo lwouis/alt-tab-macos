@@ -26,7 +26,7 @@ enum BruteForceWindowMatch {
 
     /// WHOSE tab is this? The inactive-tab scan is run for ONE window's missing tabs and matches candidates on
     /// TITLE alone, which cannot tell two windows apart at all: two Finder windows browsing the same folders
-    /// each have a tab called "lwouis". Captured live (2026-08-01 QA) — the scan run for window A adopted a tab
+    /// each have a tab called "lwouis". Captured live (2026-08-01) — the scan run for window A adopted a tab
     /// of window B, and when the user later switched to that tab it became the REPRESENTATIVE of A's group, so
     /// every real member of A stopped being drawn and A vanished from the switcher entirely.
     ///

@@ -38,7 +38,7 @@ class ControlsTab {
     /// tab control, one for the gesture editor's tab control.
     static var tabSegmentSearchableStrings = [ObjectIdentifier: [[String]]]()
 
-    // MARK: - Layout constants (unchanged from the old monolithic editor)
+    // MARK: - Layout constants
 
     private static let shortcutSidebarWidth = CGFloat(180)
     private static let sidebarRowHeight = CGFloat(52)
@@ -747,7 +747,7 @@ class ControlsTab {
         })
     }
 
-    // MARK: - Shortcut registry (global keyboard binding — unchanged from the old code)
+    // MARK: - Shortcut registry (global keyboard binding)
 
     private static func applyActiveShortcutPreferences() {
         (0..<Preferences.maxShortcutCount).forEach { index in
@@ -1058,6 +1058,7 @@ class ControlsTab {
         }
     }
 
+    // periphery:ignore:parameters sender - NSButton target/action signature
     @objc private static func openSystemGestures(_ sender: NSButton) {
         NSWorkspace.shared.open(URL(string: "x-apple.systempreferences:com.apple.Trackpad-Settings.extension")!)
     }

@@ -18,9 +18,11 @@ struct ProTransitionManagerTestable {
         var hasSeenProactiveDay15: Bool
         var hasSeenDay21: Bool
         var hasSeenDay35: Bool
+        // periphery:ignore - mirrored for completeness; opt-out is enforced in `ProTransitionScheduler`
         var userOptedOut: Bool
         var hasTriggeredPostExpirationSwitcher: Bool
 
+        // periphery:ignore - the factory every ProTransitionTests case starts from
         static func fresh() -> State {
             State(isPro: false, isTrialActive: true, daysSinceTrialStart: 0, isInTimeWindow: false,
                   hasSeenWelcome: false, hasSeenDay4Tour: false, hasSeenDay12: false, freePassUsed: false,
@@ -130,18 +132,6 @@ struct ProTransitionManagerTestable {
     /// Pro users never see the badge — spec: "Purchase at any point → all indicators cleared."
     static func shouldShowBadgeDot(_ s: State) -> Bool {
         !s.isPro && s.isTrialActive && s.daysSinceTrialStart >= 12 && s.daysSinceTrialStart <= 13
-    }
-
-    /// Is scheduling done (no more timed events to fire)?
-    static func isSchedulingComplete(_ s: State) -> Bool {
-        if s.isPro { return true }
-        if s.userOptedOut && s.hasSeenDay35 { return true }
-        // past the Day 49 cutoff — give up regardless of whether [G] was shown
-        if s.daysSinceTrialStart >= 48 { return true }
-        // all events shown
-        if s.hasSeenWelcome && s.hasSeenDay12 && s.hasSeenDay35 &&
-           (s.hasSeenProactiveDay15 || s.hasSeenFullUpgrade) && s.hasSeenDay21 { return true }
-        return false
     }
 
     /// Check if a given hour:minute falls within the allowed time windows (10:00-11:30 or 15:30-17:00)

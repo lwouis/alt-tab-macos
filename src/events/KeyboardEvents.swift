@@ -18,6 +18,7 @@ class KeyboardEvents {
     /// shortcut binds Esc (`updateEscapeAbsorptionTap`). Keeping this active HID keyDown tap out of
     /// normal typing is the #5766 fix (it was breaking third-party IMEs like Vietnamese EVKey).
     private static var escapeEventTap: CFMachPort?
+    // periphery:ignore - holds the monitor token so the handler stays installed
     private static var localEventMonitor: Any?
 
     /// Set by `ControlsTab` when the configured shortcuts change. When true and `SwitcherSession.isActive`,

@@ -47,8 +47,8 @@ focused; actions needing an AX element self-heal after acquisition succeeds.
 
 There is one route that is not a lookup at all. Every AX notification arrives holding the element of the
 window it is about, and nothing in AppKit's posting path consults a Space, so a window `kAXWindows` hides
-still hands its element over when the app announces it (measured cross-process, alt-tab-experiments
-`window-acquisition/offspace-push`). `Applications.applyObservedElement` adopts that element for a window
+still hands its element over when the app announces it (measured cross-process).
+`Applications.applyObservedElement` adopts that element for a window
 that has none, after a role check — a notification may name a descendant, whose wid is its window's. It is a
 push, so it only reaches windows that speak: it shrinks the brute-force population rather than replacing it.
 

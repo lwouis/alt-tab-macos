@@ -24,7 +24,3 @@ Mirrors `AxQueryRoutingTests.swift` 1:1.
 - **testPoolFirstTryForResponsiveEvent** — responsive, non-scan → `firstTry`.
 - **testPoolScanIsolatesBulkInventory** — scan work → `scan` (isolated from event reads).
 - **testPoolUnresponsiveQuarantinesToRetry** — unresponsive → `retry`, even for scan work (unresponsive wins).
-
-### Use-case integration (deterministic routing of the discussed scenarios)
-- **testUseCaseManualRefreshIsolatesOnScanPool** — the 60-app inventory routes entirely to `scan`.
-- **testUseCaseUnresponsiveAppQuarantines** — calls to a beach-balling app (incl. its scan) land on `retry`.

@@ -69,6 +69,7 @@ class SheetWindow: NSWindow {
     }
 
     // allow to close with the escape key
+    // periphery:ignore:parameters sender - responder-chain signature (Esc closes the sheet)
     @objc func cancel(_ sender: Any?) {
         sheetParent!.endSheet(self)
     }

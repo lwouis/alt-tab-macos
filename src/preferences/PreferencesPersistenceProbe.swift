@@ -24,6 +24,7 @@ enum PreferencesPersistenceProbe {
     /// Filesystem facts about one suite's backing plist. Primitives only, so this type compiles into the
     /// `unit-tests` target alongside the kernel (no AppKit, no `FileManager`).
     struct SuiteFacts: Equatable {
+        // periphery:ignore - read by the synthesized Equatable
         let suiteName: String
         /// Absolute path of the suite's plist, included verbatim in the user-facing message.
         let plistPath: String

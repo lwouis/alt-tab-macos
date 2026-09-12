@@ -37,7 +37,7 @@ class RunningApplicationsEvents {
         DispatchQueue.main.asyncAfter(deadline: .now() + newAppDebounce) {
             let stillAlive = launched.filter { !$0.isTerminated }
             guard !stillAlive.isEmpty else { return }
-            Applications.addRunningApplications(stillAlive, true)
+            Applications.addRunningApplications(stillAlive)
         }
     }
 }

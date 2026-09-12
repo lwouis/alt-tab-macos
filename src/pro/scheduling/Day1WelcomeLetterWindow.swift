@@ -65,9 +65,7 @@ class Day1WelcomeLetterWindow: ProPromptWindow {
         ])
 
         contentView = container
-
-        container.layoutSubtreeIfNeeded()
-        setContentSize(NSSize(width: contentView!.frame.width, height: container.fittingSize.height))
+        fitContentHeight()
     }
 
     private func makeComparisonView() -> NSView {

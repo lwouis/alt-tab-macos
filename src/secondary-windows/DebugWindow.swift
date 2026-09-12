@@ -287,6 +287,7 @@ class DebugWindow: NSPanel {
         isPerformingAutoScroll = false
     }
 
+    // periphery:ignore:parameters notification - NotificationCenter selector signature
     @objc private func scrollViewDidScroll(_ notification: Notification) {
         guard !isPerformingAutoScroll,
               let documentView = scrollView.documentView else { return }

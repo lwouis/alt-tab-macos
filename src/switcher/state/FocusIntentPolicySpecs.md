@@ -45,7 +45,7 @@ interleave; nothing else in `focus()` moves them apart.
 
 Un-minimizing (step 0) is the one step that runs before the operation has touched the screen, and a supersede
 caught there owes nothing. Counting the restore as a z-order move and repairing on that exit was tried and
-measured useless (2026-09-09, QA S-15): the re-front lands while macOS is still animating the window out of
+measured useless (2026-09-09): the re-front lands while macOS is still animating the window out of
 the Dock, and the restore draws over it afterwards. A restore already in flight cannot be recalled by anything
 the operation does on its way out — the window ends up on top of the one the user switched to, under that
 window's menu bar. Repairing it would take a re-assert scheduled after the animation, which is not this.

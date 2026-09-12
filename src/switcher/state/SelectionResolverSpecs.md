@@ -123,7 +123,7 @@ question from the frontmost app's windows (#5960) · plus direct helper-kernel c
 ### C. Target removed / no longer visible
 - **testTargetRemovedAdaptToClosestBelow** — target closed; backfill the target to the window now at that index.
 - **testTargetRemovedSelectedIndexOutOfBounds** — list shrank below `selectedIndex` → closest visible below.
-- **testTargetBecameInvisible** — target filtered out (search/space) → closest visible below.
+- **testTargetBecameInvisible** — target filtered out (search or space; same path either way) → closest visible below.
 - **testTargetRemovedAndListEmptied** — nothing left → `clearTargetAndHover`.
 - **testTargetRemovedOnlyOneLeft** — one window remains → select it and backfill the target.
 
@@ -131,7 +131,6 @@ question from the frontmost app's windows (#5960) · plus direct helper-kernel c
 - **testSearchBestMatchOnSearchChange** — new query produces a best match → jump to first visible.
 - **testSearchRestoreDefaultOnClear** — cleared query → restore the default initial pick.
 - **testTargetPreservedInSearchMode** — target preservation works the same with search active.
-- **testSearchTargetFilteredOutWithOthersMatching** — target filtered but others match → adapt to closest.
 
 ### E. Edge cases
 - **testEdgeSingleWindowBecomesInvisible** — the only window goes invisible → clear selection.

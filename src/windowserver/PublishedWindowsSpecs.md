@@ -9,8 +9,7 @@ elements.
 
 ## Why the app hides other-Space windows, and where it does not
 
-`-[NSApplication accessibilityWindowsAttribute]` (macOS 26.6.2 disassembly, alt-tab-experiments
-`window-acquisition/appkit-window-filter`) is:
+`-[NSApplication accessibilityWindowsAttribute]` (read off the macOS 26.6.2 disassembly) is:
 
 1. if the app is hidden, enumerate `_hiddenWindows` — no Space involved;
 2. otherwise ask the WindowServer

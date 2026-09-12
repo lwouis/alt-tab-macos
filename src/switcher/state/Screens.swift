@@ -96,11 +96,6 @@ extension NSScreen {
         return uuid
     }
 
-    // periphery:ignore
-    func refreshRate() -> Double? {
-        return number().flatMap { CGDisplayCopyDisplayMode($0)?.refreshRate }
-    }
-
     func physicalSize() -> CGSize? {
         if let number = number() {
             let size = CGDisplayScreenSize(number)

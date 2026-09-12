@@ -92,7 +92,7 @@ class CliServer {
         if rawValue == "--qa-state" {
             return qaState()
         }
-        // The provider timeline, drained rather than read: each record is reported exactly once, so a QA test
+        // The provider timeline, drained rather than read: each record is reported exactly once, so a test
         // gets the events of its own session and not the whole run's backlog. The harness writes them out as
         // NDJSON (`TrackingTelemetryNdjson`).
         if rawValue == "--qa-telemetry" {
@@ -132,7 +132,7 @@ class CliServer {
             App.showUi(shortcutIndex)
             return noOutput
         }
-        // The counterpart to `--show=`, for the QA harness. `--show=` opens the switcher WITHOUT making
+        // The counterpart to `--show=`, for automated runs. `--show=` opens the switcher WITHOUT making
         // AltTab the active app (no modifier is held, nothing activates us), and in that state Esc can
         // only arrive through the global cghid tap — the local monitor never sees it, because local
         // monitors only get events aimed at their own app. So a synthetic Esc is not a reliable way for
@@ -148,7 +148,7 @@ class CliServer {
     }
 
     /// Read-only snapshot of everything the switcher would decide, without showing the UI. Exists for the
-    /// automated QA harness: a live assertion oracle that costs one IPC round-trip instead of
+    /// automated runs: a live assertion oracle that costs one IPC round-trip instead of
     /// parsing debug logs or screenshotting tiles. Mutates nothing — `shown` is computed into a local, not
     /// written to `Window.shouldShowTheUser`, and the list is not sorted.
     private static func qaState() -> Codable {

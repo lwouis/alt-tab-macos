@@ -47,13 +47,10 @@ enum WsWindowState {
     /// comes from AppKit — but recorded here because it is the bit that would otherwise be confused with
     /// `minimizedTag`, and because it proved MORE accurate than AppKit's own flag in the mapping run
     /// (`NSRunningApplication.isHidden` read false while the app was hidden and this bit was set).
+    // periphery:ignore - deliberately recorded though unread; see the note above
     static let hiddenTag: UInt64 = 1 << 39
     /// `spaceTypeMask` bit set when the window lives on a fullscreen-type Space.
     static let fullscreenSpaceMask: UInt64 = 0x20
-    /// Most application windows sit at level 0. This is an acquisition hint, not an admission rule: floating
-    /// documents, presentation windows and custom toolkits legitimately use other levels.
-    static let applicationWindowLevel: Int32 = 0
-
     /// On screen / ordered-in. This is NOT "not minimized": an ordered-out window may be minimized, app-hidden,
     /// on another Space, or closing — `isMinimized` separates the first of those.
     static func isVisible(_ w: WsRawWindow) -> Bool {
@@ -71,10 +68,5 @@ enum WsWindowState {
 
     static func isFullscreen(_ w: WsRawWindow) -> Bool {
         w.spaceTypeMask & fullscreenSpaceMask != 0
-    }
-
-    /// A coarse acquisition hint, not a switch-destination verdict.
-    static func isApplicationWindowLevel(_ w: WsRawWindow) -> Bool {
-        w.level == applicationWindowLevel
     }
 }

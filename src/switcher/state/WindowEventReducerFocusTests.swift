@@ -357,7 +357,7 @@ final class WindowEventReducerFocusTests: XCTestCase {
     /// a 5x cmd+T burst on Finder mints a wid per tab, each displacing the last before discovery reaches it,
     /// so `pendingGroupInheritance` carries the membership while no group is formed. An AX window-created
     /// answer landed 1.25s into the burst for a wid already handed on, attention admitted it, and with only
-    /// the group check to go on it stood as a second tile for 250ms — the tab escaping its group that QA T-02
+    /// the group check to go on it stood as a second tile for 250ms — the tab escaping its group that the live run
     /// asserts against.
     func testSemanticFocusCarriesAHeldWindowLinkedByTheMintedChain() {
         let incomingWid: CGWindowID = 900

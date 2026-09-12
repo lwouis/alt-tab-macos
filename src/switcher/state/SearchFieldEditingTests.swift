@@ -32,7 +32,7 @@ final class SearchFieldEditingTests: XCTestCase {
 
         /// The field is not first responder: the session just opened, or a tile took the caret back.
         /// AppKit hands a text field its whole content selected when it becomes first responder, which is
-        /// the state `placeAtEnd` exists to undo.
+        /// the state `.takeCaretAndCollapseToEnd` exists to undo.
         func loseTheCaret() {
             ownsCaret = false
             editor.selectedRange = NSRange(location: 0, length: editor.string.utf16.count)

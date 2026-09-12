@@ -1,6 +1,19 @@
 project: alt-tab-macos.xcodeproj
+# Release only: the Debug scheme also compiles the `#if DEBUG` code (QAMenu, the mocks under
+# `src/_test-support/`), whose mock signatures must mirror the real ones and so report as unused en
+# masse. The cost is a blind spot — a declaration used ONLY from `#if DEBUG` code reads as dead here,
+# so check `src/debug/` by hand before deleting anything, and always run `ai/build.sh` after.
 schemes:
 - Release
 index_exclude:
   - vendor/**
-  - src/api-wrappers/private-apis/**
+# `report_exclude`, NOT `index_exclude`: the private-API wrappers hold declarations the app deliberately
+# never calls, so reporting them is noise — but they also CALL things (`AXUIElement.swift` is in here and
+# uses `PublishedWindows`), and dropping them from the INDEX loses those references, which makes their
+# callees read as dead. Excluding them from indexing is how this report came to be mostly false positives.
+report_exclude:
+  - src/macos/api-wrappers/**
+# Every field of a Codable struct is "assigned but never used" to periphery: JSONEncoder reads them by
+# reflection, which it cannot see. Without this, the `--qa-state` / telemetry schemas alone are 30 false
+# positives, which is enough noise to make the whole report get ignored.
+retain_assign_only_properties: true

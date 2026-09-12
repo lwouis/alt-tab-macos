@@ -26,7 +26,9 @@ class StatusIconsView: FlippedView {
     /// Single-character cell size, recomputed on appearance changes for the layout cache
     var iconCellSize: NSSize
 
+    // periphery:ignore - AppKit private overrides, found by the ObjC runtime rather than called
     @objc func _windowChangedKeyState() {}
+    // periphery:ignore - AppKit private overrides, found by the ObjC runtime rather than called
     @objc func _layoutSubtreeWithOldSize(_ oldSize: NSSize) {}
 
     convenience init() {
@@ -130,6 +132,7 @@ class StatusIconsView: FlippedView {
         }
     }
 
+    // periphery:ignore - NSViewToolTipOwner, called by AppKit through the ObjC runtime
     @objc func view(_ view: NSView, stringForToolTip tag: NSView.ToolTipTag, point: NSPoint, userData data: UnsafeMutableRawPointer?) -> String {
         return tooltipStrings[tag] ?? ""
     }

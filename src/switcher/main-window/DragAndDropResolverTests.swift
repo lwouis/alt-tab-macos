@@ -115,12 +115,6 @@ final class DragAndDropResolverTests: XCTestCase {
         XCTAssertFalse(DragAndDropResolver.canDrop(hasTarget: false, hasWindow: false, hasAppBundleURL: false, urlCount: 1))
     }
 
-    func testUseCaseBetweenTilesStillTargets() {
-        // the 1px inter-tile gap resolves to a tile upstream (findTarget expands each tile by 1px), so the
-        // kernel sees hasTarget == true and keeps tracking — never .noTarget while over the grid
-        XCTAssertEqual(DragAndDropResolver.dragOver(hasTarget: true, pastDeadzone: true, targetChanged: false, movedBeyondResetRadius: false), .track(restartTimer: false))
-    }
-
     func testUseCaseAutoSelectTimerSurvivesJitterButRearmsOnMove() {
         // dragging always runs the timer (no preference gate, unlike hover); jitter keeps it, a real move re-arms
         XCTAssertEqual(DragAndDropResolver.dragOver(hasTarget: true, pastDeadzone: true, targetChanged: false, movedBeyondResetRadius: false), .track(restartTimer: false))

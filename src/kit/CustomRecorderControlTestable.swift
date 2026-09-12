@@ -153,17 +153,6 @@ class CustomRecorderControlTestable {
         (a.keyCode == b.keyCode && a.modifierFlags == b.modifierFlags)
             || (a.keyCode == .none && b.keyCode == .none && (a.modifierFlags.isSuperset(of: b.modifierFlags) || b.modifierFlags.isSuperset(of: a.modifierFlags)))
     }
-
-    /// commandTab and commandKeyAboveTab are self-contained in the "nextWindowShortcut" shortcuts
-    /// but the keys of commandShiftTab can be spread between holdShortcut and a local shortcut
-    static func combinedModifiersMatch(_ modifiers1: UInt32, _ modifiers2: UInt32) -> Bool {
-        return (0..<Preferences.holdShortcut.count).contains {
-            if let holdShortcut = ControlsTab.shortcuts[Preferences.indexToName("holdShortcut", $0)] {
-                return (holdShortcut.shortcut.carbonModifierFlags | modifiers1) == (holdShortcut.shortcut.carbonModifierFlags | modifiers2)
-            }
-            return false
-        }
-    }
 }
 
 enum ShortcutAcceptance: Equatable {

@@ -5,35 +5,41 @@ final class WindowSurfaceInventoryTests: XCTestCase {
         WsRawWindow(wid: wid, pid: pid, attributes: 0, level: 0, spaceTypeMask: 0, title: "", parentWid: parent)
     }
 
+    /// A snapshot issued and applied back to back, which is what every test that does not deliberately
+    /// reorder the two wants.
+    private func replace(_ rows: [WsRawWindow]) {
+        WindowSurfaceInventory.replace(rows, issuedAt: WindowSurfaceInventory.beginSnapshot())
+    }
+
     override func tearDown() {
-        WindowSurfaceInventory.replace([])
+        replace([])
     }
 
     func testChildAndSheetResolveToDocumentRoot() {
-        WindowSurfaceInventory.replace([raw(1), raw(2, parent: 1), raw(3, parent: 2)])
+        replace([raw(1), raw(2, parent: 1), raw(3, parent: 2)])
         XCTAssertEqual(WindowSurfaceInventory.representativeWid(3), 1)
     }
 
     func testNativeTabRowsRemainIndependentRoots() {
-        WindowSurfaceInventory.replace([raw(1), raw(2)])
+        replace([raw(1), raw(2)])
         XCTAssertEqual(WindowSurfaceInventory.representativeWid(1), 1)
         XCTAssertEqual(WindowSurfaceInventory.representativeWid(2), 2)
     }
 
     func testCrossProcessAndMissingParentsAreNotFollowed() {
-        WindowSurfaceInventory.replace([raw(1, pid: 7, parent: 2), raw(2, pid: 8)])
+        replace([raw(1, pid: 7, parent: 2), raw(2, pid: 8)])
         XCTAssertEqual(WindowSurfaceInventory.representativeWid(1), 1)
-        WindowSurfaceInventory.replace([raw(1, parent: 9)])
+        replace([raw(1, parent: 9)])
         XCTAssertEqual(WindowSurfaceInventory.representativeWid(1), 1)
     }
 
     func testCycleStopsWithoutLooping() {
-        WindowSurfaceInventory.replace([raw(1, parent: 2), raw(2, parent: 1)])
+        replace([raw(1, parent: 2), raw(2, parent: 1)])
         XCTAssertEqual(WindowSurfaceInventory.representativeWid(1), 2)
     }
 
     func testRemovingASurfaceDropsItsRelationship() {
-        WindowSurfaceInventory.replace([raw(1), raw(2, parent: 1)])
+        replace([raw(1), raw(2, parent: 1)])
         WindowSurfaceInventory.remove(2)
         XCTAssertEqual(WindowSurfaceInventory.representativeWid(2), 2)
     }
@@ -46,7 +52,7 @@ final class WindowSurfaceInventoryTests: XCTestCase {
     }
 
     func testLateFullSnapshotDoesNotResurrectANewerRemoval() {
-        WindowSurfaceInventory.replace([raw(1)])
+        replace([raw(1)])
         let old = WindowSurfaceInventory.beginSnapshot()
         WindowSurfaceInventory.remove(1)
         WindowSurfaceInventory.replace([raw(1)], issuedAt: old)

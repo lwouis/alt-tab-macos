@@ -2,7 +2,7 @@ import CoreGraphics
 import Foundation
 
 /// Replays a transcribed debug-log recording against the pure `WindowEventReducer`, so an adapter-layer
-/// regression becomes a failing unit test instead of a live QA session. A fixture is an initial
+/// regression becomes a failing unit test instead of a live session. A fixture is an initial
 /// `TrackedWindowState` plus a sequence of steps; after EVERY step the harness checks the cross-cutting invariants
 /// the recordings kept violating one path at a time (one tile per group, no cross-frame group, the focused
 /// window shown, no on-Space window claimed, Space-less strays hidden, focus picks the representative).

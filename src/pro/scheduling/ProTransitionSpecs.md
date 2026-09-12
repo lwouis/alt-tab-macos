@@ -157,7 +157,7 @@ The first post-expiration switcher open always triggers free-pass + `[C]` (one-s
 
 Mirrors `ProTransitionTests.swift` 1:1. The tests drive `ProTransitionManagerTestable` — a pure state
 struct + decision functions (`evaluateTimedAction`, `evaluateHardGate`, `evaluateSwitcherOpen`,
-`shouldShowBadgeDot`, `isSchedulingComplete`, `isInTimeWindow`) — so the entire flow above is verified
+`shouldShowBadgeDot`, `isInTimeWindow`) — so the entire flow above is verified
 deterministically without AppKit, windows, or real time.
 
 ### Timed action: Day 1 Welcome
@@ -207,9 +207,6 @@ deterministically without AppKit, windows, or real time.
 ### Badge dot
 - **testBadgeDot_showsOnDays13and14** · **testBadgeDot_notShownBeforeDay13** · **testBadgeDot_removedOnDay15** · **testBadgeDot_notShownForProUser**
 
-### Scheduling completeness
-- **testSchedulingComplete_forProUser** · **testSchedulingComplete_afterOptOutAndDay35** · **testSchedulingNotComplete_optedOutButDay35NotShown** · **testSchedulingComplete_allEventsShown** · **testSchedulingComplete_allEventsShown_fullUpgradeInsteadOfProactive**
-
 ### Time window (10:00–11:30 / 15:30–17:00)
 - **testTimeWindow_10am** · **testTimeWindow_1130am** · **testTimeWindow_330pm** · **testTimeWindow_4pm** · **testTimeWindow_5pm** — inside.
 - **testTimeWindow_9am_outside** · **testTimeWindow_1131am_outside** · **testTimeWindow_1pm_gap** · **testTimeWindow_2pm_outside** · **testTimeWindow_230pm_outside** · **testTimeWindow_329pm_outside** · **testTimeWindow_501pm_outside** · **testTimeWindow_midnight** — outside.
@@ -235,9 +232,6 @@ deterministically without AppKit, windows, or real time.
 
 ### Day 35 retry window
 - **testDay35_retriesOnDay36** · **testDay35_retriesOnDay48**
-
-### Day 49 give-up
-- **testSchedulingComplete_pastDay49EvenWithoutDay35**
 
 ### Day 12 skip-entirely
 - **testDay12_skipsEntirelyOnDay13** · **testDay12_skipsEntirelyOnDay14**

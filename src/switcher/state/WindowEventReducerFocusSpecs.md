@@ -106,5 +106,5 @@ own any more — both were bursts of 815s and 808s, and neither event can reach 
 
 - **testAnAppExposePickMovesOnlyThePickedWindow** — the pick is a click naming one window, and the re-show
   that puts every window of the app back lands either side of it. Only the picked window may move. The #5936
-  mute never covered this: it was armed when Exposé opened, seconds before the pick. Live QA is the
+  mute never covered this: it was armed when Exposé opened, seconds before the pick. A live run is the
   counterpart.

@@ -51,7 +51,6 @@ class ProGradientButton: NSButton {
     }
 
     override func mouseEntered(with event: NSEvent) {
-        guard !isShining else { return }
         playShineAnimation()
     }
 
@@ -72,29 +71,8 @@ class ProGradientButton: NSButton {
     }
 
     func playShineAnimation() {
-        let shine = CAGradientLayer()
-        shine.colors = [
-            NSColor.white.withAlphaComponent(0).cgColor,
-            NSColor.white.withAlphaComponent(0.3).cgColor,
-            NSColor.white.withAlphaComponent(0).cgColor,
-        ]
-        shine.locations = [0, 0.5, 1]
-        shine.startPoint = CGPoint(x: 0, y: 0.5)
-        shine.endPoint = CGPoint(x: 1, y: 0.5)
-        shine.frame = CGRect(x: -bounds.width, y: 0, width: bounds.width, height: bounds.height)
-        gradientLayer.addSublayer(shine)
+        guard !isShining else { return }
         isShining = true
-        let animation = CABasicAnimation(keyPath: "position.x")
-        animation.fromValue = -bounds.width / 2
-        animation.toValue = bounds.width + bounds.width / 2
-        animation.duration = 0.6
-        animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
-        CATransaction.begin()
-        CATransaction.setCompletionBlock { [weak self] in
-            shine.removeFromSuperlayer()
-            self?.isShining = false
-        }
-        shine.add(animation, forKey: "shine")
-        CATransaction.commit()
+        ProGradient.playShine(over: gradientLayer) { [weak self] in self?.isShining = false }
     }
 }

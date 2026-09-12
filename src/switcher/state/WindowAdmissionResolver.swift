@@ -4,13 +4,17 @@ import Cocoa
 /// should offer: sheets, children, panels and menus are surfaces too.
 struct PhysicalSurface: Equatable {
     let wid: CGWindowID
+    // periphery:ignore - read by the synthesized Equatable
     let pid: pid_t
     let bounds: CGRect
     let level: CGWindowLevel
     let parentWid: CGWindowID
+    // periphery:ignore - read by the synthesized Equatable
     let isVisible: Bool
+    // periphery:ignore - read by the synthesized Equatable
     let isMinimized: Bool
     let isFullscreen: Bool
+    // periphery:ignore - read by the synthesized Equatable
     let alpha: Float
 
     init(wid: CGWindowID, pid: pid_t, bounds: CGRect, level: CGWindowLevel, parentWid: CGWindowID = 0,

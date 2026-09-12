@@ -67,7 +67,7 @@ class WindowServerEvents {
             if let app = runningApp(note) {
                 let pid = app.processIdentifier
                 Applications.frontmostPid = pid
-                let frontmostApp = Applications.findOrCreate(pid, false)
+                let frontmostApp = Applications.findOrCreate(pid)
                 let now = ProcessInfo.processInfo.systemUptime
                 var knownTarget: CGWindowID? = nil
                 if let intent = altTabInitiatedFocus, intent.pid == pid, now - intent.at < 1 {
@@ -210,7 +210,7 @@ class WindowServerEvents {
     /// occupy one bounded worker but never the main thread or the observer runloop. The answer carries the
     /// issue sequence allocated by `AttentionDriver`, and therefore loses to any app answer that overtook it.
     static func readFocusedWindowOnActivation(_ pid: pid_t) {
-        guard Applications.findOrCreate(pid, false) != nil else { return }
+        guard Applications.findOrCreate(pid) != nil else { return }
         AXCallScheduler.shared.schedule(key: "pid-\(pid)-activation-focus", pid: pid) {
             let appAx = AXUIElementCreateApplication(pid)
             AXUIElementSetMessagingTimeout(appAx, 0.25)
@@ -258,7 +258,7 @@ class WindowServerEvents {
         guard !list.isEmpty else { return }
         // The WHOLE set goes out every time, not the delta. `SLSRequestNotificationsForWindows` REPLACES this
         // connection's watch list; it does not add to it. Sending only the new wids left exactly one window
-        // watched and every previously-watched one deaf: measured over a QA run, 0 order-outs, 0 destroys and
+        // watched and every previously-watched one deaf: measured live, 0 order-outs, 0 destroys and
         // 0 focus events arrived (vs 91 / 143 / 51 for the same tests with the full array), while the
         // connection-wide creates/moves kept coming, so the app looked alive and simply never removed a
         // closed window, never noticed a minimize, and never updated the MRU.
@@ -278,8 +278,9 @@ class WindowServerEvents {
     /// a sweep sends one request.
     ///
     /// "App-level" is a precondition, not a formality: both callers gate on it (the sweep filters its
-    /// enumeration, `Applications.discoverWindow` runs `isApplicationWindow` first). Subscribing before that
-    /// verdict is what put every menu, tooltip and Dock indicator on this connection's per-window stream.
+    /// enumeration, `Applications.discoverWindow` runs `WindowAdmissionResolver.shouldAcquireSemantics`
+    /// first). Subscribing before that verdict is what put every menu, tooltip and Dock indicator on this
+    /// connection's per-window stream.
     static func subscribe(_ wid: CGWindowID) {
         guard wsWindows.insert(wid).inserted else { return }
         scheduleRequestNotifications()

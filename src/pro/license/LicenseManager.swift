@@ -235,18 +235,8 @@ class LicenseManager {
     }
 
     #if DEBUG
-    func mockTrialUser() {
-        keychain.remove(account: Self.keychainKeyAccount)
-        keychain.remove(account: Self.keychainInstanceAccount)
-        keychain.remove(account: Self.keychainVariantAccount)
-        defaults.set(clock.now.timeIntervalSince1970, forKey: "trialStartDate")
-        defaults.removeObject(forKey: "lastValidation")
-        defaults.removeObject(forKey: "lastValidationResult")
-        defaults.removeObject(forKey: Self.customerEmailKey)
-        state = .trial(daysRemaining: Self.trialDuration)
-    }
-
-    func mockTrialExpired() {
+    /// Wipe every stored license artefact so the next `state` assignment is the only thing deciding the tier.
+    private func clearLicenseStorage() {
         keychain.remove(account: Self.keychainKeyAccount)
         keychain.remove(account: Self.keychainInstanceAccount)
         keychain.remove(account: Self.keychainVariantAccount)
@@ -254,18 +244,12 @@ class LicenseManager {
         defaults.removeObject(forKey: "lastValidation")
         defaults.removeObject(forKey: "lastValidationResult")
         defaults.removeObject(forKey: Self.customerEmailKey)
-        state = .trialExpired
     }
 
+    /// `day` is 1-based: day 1 is the day the trial started.
     func mockTrialDay(_ day: Int) {
-        keychain.remove(account: Self.keychainKeyAccount)
-        keychain.remove(account: Self.keychainInstanceAccount)
-        keychain.remove(account: Self.keychainVariantAccount)
-        let trialStart = clock.now.addingTimeInterval(-Double(day - 1) * 86400)
-        defaults.set(trialStart.timeIntervalSince1970, forKey: "trialStartDate")
-        defaults.removeObject(forKey: "lastValidation")
-        defaults.removeObject(forKey: "lastValidationResult")
-        defaults.removeObject(forKey: Self.customerEmailKey)
+        clearLicenseStorage()
+        defaults.set(clock.now.addingTimeInterval(-Double(day - 1) * 86400).timeIntervalSince1970, forKey: "trialStartDate")
         let daysRemaining = Self.trialDuration - (day - 1)
         state = daysRemaining > 0 ? .trial(daysRemaining: daysRemaining) : .trialExpired
     }

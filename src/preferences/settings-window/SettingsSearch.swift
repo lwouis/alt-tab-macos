@@ -6,7 +6,6 @@ fileprivate struct SettingsSearchToken {
 }
 
 struct SettingsSearchResult {
-    let score: Double
     let ranges: [Range<Int>]
 }
 
@@ -36,9 +35,9 @@ enum SettingsSearch {
         let averageScore = tokenScores.reduce(0, +) / Double(tokenScores.count)
         guard averageScore >= minimumScore(queryTokens.map { $0.count }.max() ?? 0) else { return nil }
         if mergeAcrossSeparators && matchedRanges.count > 1 {
-            return SettingsSearchResult(score: averageScore, ranges: mergeRangesAcrossSeparators(matchedRanges, in: Array(text)))
+            return SettingsSearchResult(ranges: mergeRangesAcrossSeparators(matchedRanges, in: Array(text)))
         }
-        return SettingsSearchResult(score: averageScore, ranges: mergeRanges(matchedRanges))
+        return SettingsSearchResult(ranges: mergeRanges(matchedRanges))
     }
 
     private static func bestMatch(for queryToken: [Character], in textTokens: [SettingsSearchToken]) -> TokenMatch? {

@@ -40,7 +40,7 @@ final class WindowEventReducerSpaceTests: XCTestCase {
     /// here is the trap: `refreshOpenUiAfterExternalEvent` is throttled at 200ms leading-edge, so repainting
     /// the instant the Space flips spends that edge and the semantic focus answer that follows then waits
     /// out the tail (live: 19ms became 220ms). Exact equality, so re-adding any of it
-    /// fails here rather than in a QA run weeks later.
+    /// fails here rather than in a live run weeks later.
     func testSpaceTransitionStartedEmitsTheTopologyReadAlone() {
         var s = state()
         let effects = WindowEventReducer.reduce(&s, .spaceTransitionStarted)
@@ -156,7 +156,7 @@ final class WindowEventReducerSpaceTests: XCTestCase {
     /// agree that nothing changed — a model that took the START of a transition as its answer would be left
     /// filtering and sorting for a Space the user never reached, with no second event coming to correct it.
     ///
-    /// Only reachable live since the QA harness learned to synthesize a dock swipe; a
+    /// Only reachable live once a dock swipe could be synthesized; a
     /// commanded `SLSManagedDisplaySetCurrentSpace` always commits, so this shape could not be produced.
     func testATransitionThatNeverCommitsLeavesTheModelWhereItWas() {
         var s = state()

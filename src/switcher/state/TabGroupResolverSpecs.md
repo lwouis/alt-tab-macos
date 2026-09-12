@@ -147,7 +147,7 @@ Several independent signals locate tabs, used at different times:
   every position rule here rests on — is simply false after Window ▸ Merge All Windows. The merged window is a
   BRAND-NEW wid one cascade step past the last of the windows it absorbed, and those keep the positions they
   had, frozen (no geometry event reaches an ordered-out tab). Measured live in Finder and Terminal alike
-  (2026-07-30 QA; the capture is `terminalMerge4Tabs`): four tabs, one shared SIZE, four positions
+  (measured live 2026-07-30; the capture is `terminalMerge4Tabs`): four tabs, one shared SIZE, four positions
   29px apart. So `framePartitions` gave each tab a partition of one, no cluster survived `count > 1`, and no
   merged group could form in any app, ever — the tabs stayed Space-less and un-`isTabbed`, hence PHANTOM, so
   "separate window for each tab" showed 1 tile instead of 4 and three real windows sat exposed to the
@@ -349,7 +349,7 @@ and silence is not a verdict.
   AX-confirmed cluster still folds a candidate set wider than the tab count, because a wid-minting tab switch
   in flight leaves retired wids unswept (generator seed 163, the lost thumbnail inheritance).
 - **testTabCountKeepsACascadedMergedClusterWhole** — Merge All Windows leaves every tab at its pre-merge cascade
-  position, so the position split gave each its own partition and no merged group formed at all (live QA
+  position, so the position split gave each its own partition and no merged group formed at all (measured live
   2026-07-30). The visible declares as many tabs as the cluster has members, which accounts for all
   of them, so the cascade must not veto the cluster.
 - **testAnUnaccountedForMemberRestoresThePositionSplit** — one member more than the declared tabs and position
@@ -437,11 +437,11 @@ and silence is not a verdict.
   member the zero-sized merge claim already proved. After Merge All Windows the merged active is 0x0, so no
   real tab can ever match its size, and the absorbed tab normalize had promoted to representative (un-tabbed,
   holding a lent Space) was ejected from its own group on the next AX read — a second Finder tile that then
-  went phantom (live QA T-03, 2026-08-29).
+  went phantom (measured live, 2026-08-29).
 - **testFramelessActiveKeepsThePromotedRepresentative** — the same ejection through the other door: mid
   Cmd+T burst the incoming tab is 0x0, normalize promoted the previous tab to representative (un-tabbed, on
   screen, claimable by no pass), and the read that landed a millisecond behind the discovery one — without
-  `activeIsNewlyDiscovered` — untabbed it. The burst drew 3 Finder tiles instead of 2 (live QA T-12,
+  `activeIsNewlyDiscovered` — untabbed it. The burst drew 3 Finder tiles instead of 2 (measured live,
   2026-08-31).
 - **testDynamicTitleMismatchKeepsSibling** — the cause-B flap, now fixed: the active's AXTabGroup reports the
   inactive tab as "B2" (Terminal renamed it) but the tracked window still reads "B1". Title equality fails,

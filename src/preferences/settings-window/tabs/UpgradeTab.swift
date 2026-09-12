@@ -467,7 +467,7 @@ class UpgradeTab {
         SettingsWindow.shared?.showUpgradeView()
     }
 
-    static func showAutoActivating(_ licenseKey: String) {
+    static func showAutoActivating() {
         navigateToUpgradeTab()
     }
 

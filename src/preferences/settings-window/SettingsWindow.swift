@@ -243,17 +243,11 @@ private final class SidebarSearchField: NSSearchField {
 
 class SettingsWindow: NSWindow {
     static let contentWidth = CGFloat(710)
-    static let width = contentWidth
     /// Horizontal margin inside each section between the section's container and the
     /// TableGroupView's rounded background, so the gray-bg blocks "float" inside the section
     /// rather than extend edge-to-edge. The window width includes 2× this on top of the regular
     /// `contentWidth`, so TGVs keep their natural width and gain a visible gutter on each side.
     static let sectionContentHorizontalMargin = CGFloat(15)
-    static let sidebarActionButtonHeight: CGFloat = {
-        let button = NSButton(title: " ", target: nil, action: nil)
-        button.bezelStyle = .rounded
-        return button.fittingSize.height
-    }()
     private static let sidebarWidth = CGFloat(175)
     /// Outer left pad between the splitview divider and the TableGroupView background. Kept
     /// symmetric with `contentTrailingPadding` so the visible TGV "shoulders" match on both sides.
@@ -811,39 +805,6 @@ class SettingsWindow: NSWindow {
         })
     }
 
-    /// True iff any user-visible text in the view subtree matches `query`. Walks the same set of
-    /// view types as `collectSearchContent` (text fields, popups, segmented controls, buttons,
-    /// info popovers, text views) so the match semantics are consistent.
-    private static func subtreeContainsMatch(_ view: NSView, query: String) -> Bool {
-        if let tf = view as? NSTextField {
-            let s = SettingsWindow.trimmedText(tf.stringValue)
-            if !s.isEmpty, SettingsSearch.match(query, in: s) != nil { return true }
-        } else if let pop = view as? NSPopUpButton {
-            let title = SettingsWindow.trimmedText(pop.title)
-            if !title.isEmpty, SettingsSearch.match(query, in: title) != nil { return true }
-            for item in pop.itemTitles {
-                let s = SettingsWindow.trimmedText(item)
-                if !s.isEmpty, SettingsSearch.match(query, in: s) != nil { return true }
-            }
-        } else if let seg = view as? NSSegmentedControl {
-            for i in 0..<seg.segmentCount {
-                let s = SettingsWindow.trimmedText(seg.label(forSegment: i) ?? "")
-                if !s.isEmpty, SettingsSearch.match(query, in: s) != nil { return true }
-            }
-        } else if let btn = view as? NSButton {
-            let s = SettingsWindow.trimmedText(btn.title)
-            if !s.isEmpty, SettingsSearch.match(query, in: s) != nil { return true }
-        } else if let infoButton = view as? ClickHoverImageView {
-            for s in SettingsWindow.searchStrings(infoButton) {
-                if SettingsSearch.match(query, in: s) != nil { return true }
-            }
-        } else if let textView = view as? NSTextView {
-            let s = SettingsWindow.trimmedText(textView.string)
-            if !s.isEmpty, SettingsSearch.match(query, in: s) != nil { return true }
-        }
-        return view.subviews.contains { subtreeContainsMatch($0, query: query) }
-    }
-
     static func highlightTarget(_ infoButton: ClickHoverImageView) -> SettingsSearchHighlightTarget? {
         controlHighlightTarget(infoButton) {
             SettingsWindow.searchStrings(infoButton)
@@ -943,14 +904,6 @@ class SettingsWindow: NSWindow {
         appendTrimmed(popUpButton.title, &values)
         popUpButton.itemTitles.forEach {
             appendTrimmed($0, &values)
-        }
-        return Array(Set(values))
-    }
-
-    private static func searchStrings(_ segmentedControl: NSSegmentedControl) -> [String] {
-        var values = [String]()
-        (0..<segmentedControl.segmentCount).forEach {
-            appendTrimmed(segmentedControl.label(forSegment: $0) ?? "", &values)
         }
         return Array(Set(values))
     }
@@ -1072,6 +1025,7 @@ class SettingsWindow: NSWindow {
         targets.forEach { $0.clear() }
     }
 
+    // periphery:ignore:parameters notification - NotificationCenter selector signature
     @objc private func contentViewBoundsDidChange(_ notification: Notification) {
         guard !isShowingUpgradeView else { return }
         let currentY = rightScrollView.contentView.bounds.minY

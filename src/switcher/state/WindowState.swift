@@ -14,6 +14,7 @@ import Foundation
 /// app-only `CGSSpaceID` / `SpaceIndex` typealiases, so this file compiles in the unit-tests target
 /// without dragging in `Spaces` / SkyLight.
 struct WindowState: Equatable {
+    // periphery:ignore - read by the synthesized Equatable
     var id: String
     var isPhantom: Bool
     var isWindowlessApp: Bool

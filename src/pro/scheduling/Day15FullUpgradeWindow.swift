@@ -93,10 +93,4 @@ class Day15FullUpgradeWindow: ProPromptWindow {
 
         fitContentHeight()
     }
-
-    private func fitContentHeight() {
-        guard let view = contentView else { return }
-        view.layoutSubtreeIfNeeded()
-        setContentSize(NSSize(width: view.frame.width, height: view.fittingSize.height))
-    }
 }

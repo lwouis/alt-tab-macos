@@ -3,20 +3,10 @@ import Cocoa
 typealias CGWindow = [CFString: Any]
 
 extension CGWindow {
-    static let normalLevel = CGWindowLevelForKey(.normalWindow)
-    static let floatingWindow = CGWindowLevelForKey(.floatingWindow)
-
     static func windows(_ option: CGWindowListOption) -> [CGWindow] {
         return CGWindowListCopyWindowInfo([.excludeDesktopElements, option], kCGNullWindowID) as! [CGWindow]
     }
 
-    // periphery:ignore
-    // workaround: filtering this criteria seems to remove non-windows UI elements
-    func isNotMenubarOrOthers() -> Bool {
-        return layer() == 0
-    }
-
-    // periphery:ignore
     func id() -> CGWindowID? {
         return value(kCGWindowNumber, CGWindowID.self)
     }
@@ -25,7 +15,6 @@ extension CGWindow {
         return value(kCGWindowLayer, Int.self)
     }
 
-    // periphery:ignore
     func bounds() -> NSRect? {
         if let cfDictionary = value(kCGWindowBounds, CFDictionary.self) {
             return NSRect(dictionaryRepresentation: cfDictionary)

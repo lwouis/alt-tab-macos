@@ -26,8 +26,8 @@ final class WindowEventReducerPhantomTests: XCTestCase {
             lastFocusOrder: lastFocusOrder, creationOrder: 1, hasThumbnail: true)
     }
 
-    /// Another app's window, so the MRU has somewhere to shift a bump to (`bumpFocus` is a no-op on a
-    /// one-window list) and so "not frontmost" has a plausible owner.
+    /// Another app's window, so the MRU has somewhere to shift a bump to (`applyFocusAndBump` is a no-op on
+    /// a one-window list) and so "not frontmost" has a plausible owner.
     private func otherAppWindow(order: Int) -> TrackedWindow {
         TrackedWindow(id: "wid-\(Self.otherWid)", wid: Self.otherWid, pid: Self.otherPid, title: "Chrome",
             size: CGSize(width: 2056, height: 1204), position: CGPoint(x: 0, y: 40),

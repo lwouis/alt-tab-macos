@@ -99,7 +99,7 @@ class WindowCaptureScreenshots {
         // [weak window] avoids keeping a closed Window alive while the capture is queued or in-flight with the OS
         Applications.screenshotThrottler.throttleOrProceed(key: "\(keyPrefix)-wid-\(scWindow.windowID)", queue: BackgroundWork.screenshotsQueue, priority: isPrioritized ? .high : .normal) { [weak window = request.window] in
             guard !App.isTerminating, !ScreenLockEvents.isScreenLocked, let window else { return }
-            let config = SCStreamConfiguration.forWindow(scWindow, size, scaleFactor, request.fullRes, false)
+            let config = SCStreamConfiguration.forWindow(size, scaleFactor, request.fullRes)
             let filter = SCContentFilter(desktopIndependentWindow: scWindow)
             // Through the gate, not merely counted: these APIs are ASYNCHRONOUS, so the `screenshotsQueue`
             // slot frees the moment the request is handed to the OS, and a show of 60 windows fired 60
@@ -208,149 +208,15 @@ class WindowCaptureScreenshotsPrivateApi {
     }
 }
 
-// @available(macOS 12.3, *)
-// class WindowCaptureVideos {
-//     private static var streams = [CGWindowID: SCStream]()
-//     private static var streamOutputs = [CGWindowID: StreamOutput]()
-//     // SCStream.backgroundColor is [unowned], so we must keep own these variables
-//     static let scStreamBackgroundColorDark = NSColor(white: 0.23, alpha: 1).cgColor
-//     static let scStreamBackgroundColorLight = NSColor.white.cgColor
-//
-//     static func startCapturing(_ windowsWhichMayHaveChanged: [Window]) {
-//         let windowsToShow = Set<CGWindowID>(Windows.list.filter { !$0.isWindowlessApp && $0.shouldShowTheUser }.compactMap { $0.cgWindowId })
-//         let windowsAlreadyStreaming = Set<CGWindowID>(streams.keys)
-//         let windowsToStop = windowsAlreadyStreaming.subtracting(windowsToShow)
-//         stopCaptures(windowsToStop)
-//         let windowsToStart = windowsToShow.subtracting(windowsAlreadyStreaming)
-//         let windowsWhichMayHaveChanged_ = windowsWhichMayHaveChanged.compactMap { $0.cgWindowId }
-//         if !windowsToStart.isEmpty || !windowsWhichMayHaveChanged_.isEmpty {
-//             SCShareableContent.getExcludingDesktopWindows(true, onScreenWindowsOnly: false) { shareableContent, error in
-//                 guard let shareableContent, error == nil else {
-//                     Logger.error { "\(shareableContent == nil) \(error)" }
-//                     return
-//                 }
-//                 // this callback is executed on an undetermined queue
-//                 // we move execution to main-thread to avoid races with starting/stopping streams and the app being shown/hidden
-//                 DispatchQueue.main.async {
-//                     guard SwitcherSession.isActive else { return }
-//                     startCaptures(windowsToStart, shareableContent)
-//                     updateCaptures(windowsWhichMayHaveChanged_, shareableContent)
-//                     Logger.debug { streams.keys }
-//                 }
-//             }
-//         }
-//     }
-//
-//     static func stopCapturing() {
-//         Logger.debug { streams.keys }
-//         for stream in streams.values {
-//             stream.stopCapture()
-//         }
-//         streams.removeAll()
-//         streamOutputs.removeAll()
-//     }
-//
-//     private static func updateCaptures(_ windowsWhichMayHaveChanged: [CGWindowID], _ shareableContent: SCShareableContent) {
-//         for wid in windowsWhichMayHaveChanged {
-//             if let stream = streams[wid],
-//                let scWindow = shareableContent.windows.first(where: { $0.windowID == wid }) {
-//                 stream.updateConfiguration(SCStreamConfiguration.forWindow(scWindow, true)) { error in
-//                     if let error { Logger.error { error } }
-//                 }
-//             }
-//         }
-//     }
-//
-//     private static func startCaptures(_ windowsToStart: Set<CGWindowID>, _ shareableContent: SCShareableContent) {
-//         for wid in windowsToStart {
-//             if let scWindow = shareableContent.windows.first(where: { $0.windowID == wid }) {
-//                 startCapture(scWindow)
-//             }
-//         }
-//     }
-//
-//
-//     private static func startCapture(_ window: SCWindow) {
-//         let wid = window.windowID
-//         let output = StreamOutput(wid)
-//         let config = SCStreamConfiguration.forWindow(window, true)
-//         let filter = SCContentFilter(desktopIndependentWindow: window)
-//         let stream = SCStream(filter: filter, configuration: config, delegate: output)
-//         do {
-//             try stream.addStreamOutput(output, type: .screen, sampleHandlerQueue: BackgroundWork.screenshotsQueue.strongUnderlyingQueue)
-//             stream.startCapture { error in
-//                 if let error { Logger.error { error } }
-//             }
-//             streams[wid] = stream
-//             streamOutputs[wid] = output
-//         } catch {
-//             Logger.error { error }
-//         }
-//     }
-//
-//     private static func stopCaptures(_ windowsToStop: Set<CGWindowID>) {
-//         for wid in windowsToStop {
-//             stopCapture(wid)
-//         }
-//     }
-//
-//     private static func stopCapture(_ wid: CGWindowID) {
-//         if let stream = streams[wid] {
-//             stream.stopCapture()
-//             streams.removeValue(forKey: wid)
-//             streamOutputs.removeValue(forKey: wid)
-//         }
-//     }
-//
-//     class StreamOutput: NSObject, SCStreamOutput, SCStreamDelegate {
-//         let wid: CGWindowID
-//
-//         init(_ wid: CGWindowID) {
-//             self.wid = wid
-//         }
-//
-//         // from SCStreamOutput; handle captured samples
-//         func stream(_ stream: SCStream, didOutputSampleBuffer sampleBuffer: CMSampleBuffer, of type: SCStreamOutputType) {
-//             BackgroundWork.screenshotsQueue.trackCallbacks {
-//                 if sampleBuffer.isValid,
-//                    let pixelBuffer = sampleBuffer.pixelBuffer() {
-//                     DispatchQueue.main.async {
-//                         if let window = (Windows.list.first { $0.cgWindowId == self.wid }) {
-//                             window.refreshThumbnail(.pixelBuffer(pixelBuffer))
-//                         }
-//                     }
-//                 }
-//             }
-//         }
-//
-//         // from SCStreamDelegate; handle errors when opening a stream
-//         func stream(_ stream: SCStream, didStopWithError error: any Error) {
-//             BackgroundWork.screenshotsQueue.trackCallbacks {
-//                 Logger.error { error }
-//             }
-//         }
-//     }
-// }
-
 @available(macOS 12.3, *)
 extension SCStreamConfiguration {
     // size/scaleFactor are snapshotted on the main thread by the caller; we do not touch Window state here
     // (Window properties are mutated on main and would race with this background work).
-    static func forWindow(_ scWindow: SCWindow, _ size: CGSize, _ scaleFactor: CGFloat, _ fullRes: Bool, _ video: Bool) -> SCStreamConfiguration {
+    static func forWindow(_ size: CGSize, _ scaleFactor: CGFloat, _ fullRes: Bool) -> SCStreamConfiguration {
         let config = SCStreamConfiguration()
         config.setWindowSize(size, scaleFactor, fullRes)
         config.pixelFormat = kCVPixelFormatType_32BGRA
         config.showsCursor = false
-        // if video {
-        //     config.minimumFrameInterval = CMTime(value: 1, timescale: CMTimeScale(60))
-        //     config.queueDepth = 8
-        //     // ~60% memory reduction compared to kCVPixelFormatType_32BGRA
-        //     config.pixelFormat = kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange
-        //     // kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange doesn't have transparency, so we end up with an opaque background color around the window corners
-        //     // we use a background color that try and hide these corners as much as possible
-        //     config.backgroundColor = Appearance.currentTheme == .dark ? WindowCaptureVideos.scStreamBackgroundColorDark : WindowCaptureVideos.scStreamBackgroundColorLight
-        // }
-        // config.scalesToFit = true
         return config
     }
 
@@ -372,19 +238,6 @@ extension CMSampleBuffer {
             return imageBuffer
         }
         return nil
-    }
-
-    @available(macOS 12.3, *)
-    func metalTexture(_ device: MTLDevice) -> MTLTexture? {
-        guard let pixelBuffer = pixelBuffer(),
-              let surface = CVPixelBufferGetIOSurface(pixelBuffer)?.takeUnretainedValue() else { return nil }
-        let desc = MTLTextureDescriptor.texture2DDescriptor(
-            pixelFormat: .bgra8Unorm,
-            width: CVPixelBufferGetWidth(pixelBuffer),
-            height: CVPixelBufferGetHeight(pixelBuffer),
-            mipmapped: false
-        )
-        return device.makeTexture(descriptor: desc, iosurface: surface, plane: 0)
     }
 }
 

@@ -76,6 +76,7 @@ struct TabWindow: Equatable {
 struct GeometryGroup: Equatable {
     var visibleWid: CGWindowID
     var backgroundWids: [CGWindowID]
+    // periphery:ignore - assertion accessor for the tab-group tests
     var siblingWids: [CGWindowID] { [visibleWid] + backgroundWids }
 }
 
@@ -229,7 +230,7 @@ enum TabGroupResolver {
     /// Merge All Windows folds N windows into one tabbed window and never converges their frames: the merged
     /// window is a BRAND-NEW wid one cascade step past the last of them, and the absorbed windows keep the
     /// positions they had, frozen (no geometry event ever reaches an ordered-out tab). Measured live, Finder
-    /// and Terminal alike (2026-07-30 QA — the capture is `terminalMerge4Tabs`):
+    /// and Terminal alike (measured live 2026-07-30 — the capture is `terminalMerge4Tabs`):
     ///
     ///     +0:Terminal#65640(F) sp=[3] 757x543@942,277   ← the merged window
     ///     -1:Terminal#65637(p) sp=[]  757x543@913,248   ← the absorbed ones, frames frozen 29px apart
@@ -296,7 +297,7 @@ enum TabGroupResolver {
     /// **And no OTHER member may declare an AXTabGroup of its own from another position**, which is a third
     /// way for the count to be a coincidence rather than an account. Only an active tab reports an AXTabGroup,
     /// so a member that has one is a second tabbed window's active tab, and the two windows' tab counts are
-    /// routinely equal — QA T-20 parks two Finder windows of the same size, 3 tabs each. The moment the top
+    /// routinely equal — the live scenario parks two Finder windows of the same size, 3 tabs each. The moment the top
     /// window switched a tab its outgoing active went Space-less and held, which left the bottom window as the
     /// cluster's only genuine holder: {bottom's active, bottom's one discovered tab, top's held ex-active} is
     /// 3 members against the bottom's declared 3, nothing was linked yet, and the waiver handed the top
@@ -648,7 +649,7 @@ enum TabGroupResolver {
                     // promotes an absorbed tab to presentable representative (un-tabbed, holding the Space
                     // it was lent), and the next AX read then found it neither Space-less nor size-matched
                     // and ejected it from its own group — it stood as a second Finder tile and then went
-                    // phantom (live QA T-03, 2026-08-29). The exact AX count is what stands in for the
+                    // phantom (measured live, 2026-08-29). The exact AX count is what stands in for the
                     // geometry here, on this leg exactly as it already does for the position test below.
                     && (s.isTabbed || s.spaceIds.isEmpty
                         || (spaceIsOurAnnotation(s)
@@ -738,7 +739,7 @@ enum TabGroupResolver {
         // Keyed on the active's own size, not on `activeIsNewlyDiscovered` alone: the discovery read and a
         // plain `axMainWindow` read can land in the same millisecond and only the first carries the flag, so
         // the second untabbed the representative and a Cmd+T burst drew a third Finder tile until the
-        // geometry pass repaired it 385ms later (live QA T-12, 2026-08-31).
+        // geometry pass repaired it 385ms later (measured live, 2026-08-31).
         // Windows the OS itself puts in this group: they named the SAME `AXTabGroup` element as the active
         // (`TabGroupToken`). Every other route here is an inference ABOUT a group — a title that might be
         // shared or composed differently (#5785), a frame that might coincide — while this one is the group,

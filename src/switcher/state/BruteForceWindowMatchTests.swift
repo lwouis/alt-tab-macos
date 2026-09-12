@@ -94,7 +94,7 @@ final class BruteForceWindowMatchTests: XCTestCase {
 
     // MARK: - F. Whose tab is it? (the 2026-08-01 cross-window adoption)
 
-    /// The two Finder windows of the QA capture: parked 520pt apart, every tab titled "lwouis".
+    /// The two Finder windows of the capture: parked 520pt apart, every tab titled "lwouis".
     private static let requester = CGRect(x: 80, y: 80, width: 1000, height: 440)
     private static let otherWindow = CGRect(x: 80, y: 600, width: 1000, height: 440)
 

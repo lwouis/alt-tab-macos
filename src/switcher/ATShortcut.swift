@@ -93,9 +93,9 @@ class ATShortcut {
     /// Knowing this, we handle these edge-cases by double checking if holdShortcut is UP, when any shortcut state is UP
     /// If it is, then we trigger the holdShortcut action
     ///
-    /// Call it on the session's own holdShortcut, from `settleLostHoldRelease()`. It used to run per
-    /// shortcut inside the matching loop, which left the outcome to the dictionary's iteration order: fired
-    /// after `nextWindowShortcut` had cycled, the release commits one tile PAST what the user asked for.
+    /// Call it ONCE, on the session's own holdShortcut, from `settleLostHoldRelease()` — never per shortcut
+    /// inside the matching loop, where the dictionary's iteration order decides the outcome: fired after
+    /// `nextWindowShortcut` has cycled, the release commits one tile PAST what the user asked for.
     func settleLostRelease() {
         guard let session = SwitcherSession.current, !session.forceDoNothingOnRelease,
               Preferences.effectiveShortcutStyle(session.shortcutIndex) == .focusOnRelease,
@@ -127,14 +127,6 @@ enum ShortcutState {
 enum ShortcutScope {
     case global
     case local
-}
-
-extension NSEvent.ModifierFlags {
-    // NSEvent.addLocalMonitorForEvents may return events with broken modifiers (e.g. [.NSEventModifierFlagOption, .NSEventModifierFlagFunction, 0x120])
-    // we filter modifiers to only include valid modifiers; which doesn't include fn as we don't support it as a modifier
-    func cleaned() -> Self {
-        return self.intersection([.command, .shift, .option, .control, .capsLock])
-    }
 }
 
 typealias CarbonModifierFlags = UInt32

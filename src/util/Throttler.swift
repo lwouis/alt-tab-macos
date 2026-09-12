@@ -51,14 +51,6 @@ class ThrottlerWithKey {
         map.withLock { $0[key] = nil }
     }
 
-    func removeEntries(withSuffix suffix: String) {
-        map.withLock { map in
-            for key in map.keys where key.hasSuffix(suffix) {
-                map[key] = nil
-            }
-        }
-    }
-
     func removeEntries(withPrefix prefix: String) {
         map.withLock { map in
             for key in map.keys where key.hasPrefix(prefix) {

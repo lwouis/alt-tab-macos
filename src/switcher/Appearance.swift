@@ -69,7 +69,7 @@ class Appearance {
         if currentStyle == .appIcons {
             appIconsSize(size)
         } else if currentStyle == .titles {
-            titlesSize(isHorizontalScreen, size)
+            titlesSize(size)
         } else {
             thumbnailsSize(isHorizontalScreen, size)
         }
@@ -157,7 +157,7 @@ class Appearance {
         }
     }
 
-    private static func titlesSize(_ isHorizontalScreen: Bool, _ size: AppearanceSizePreference) {
+    private static func titlesSize(_ size: AppearanceSizePreference) {
         hideThumbnails = true
         windowPadding = 18
         windowCornerRadius = 23

@@ -118,7 +118,7 @@ Mirrors `WindowEventReducerMinimizeTests.swift` 1:1.
 ## What no unit test can cover
 
 That the live Dock path emits the 815 at all, and that every queryable source lags it. Both are OS facts;
-they were established by measurement (above) and are re-checked by live QA, not here.
+they were established by measurement (above) and are re-checked live, not here.
 
 ### E. The on-screen bit that tab-grouping reads (#5954)
 

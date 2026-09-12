@@ -10,10 +10,6 @@ class CustomRecorderControl: RecorderControl {
     /// of sync with the key the write path (`controlWasChanged`) and the conflict detector key off.
     var id: String { identifier!.rawValue }
 
-    convenience init(_ shortcutString: String, _ clearable: Bool, _ id: String) {
-        self.init(Shortcut(keyEquivalent: shortcutString), clearable, id)
-    }
-
     convenience init(_ shortcut: Shortcut?, _ clearable: Bool, _ id: String) {
         self.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
@@ -138,7 +134,7 @@ class CustomRecorderControl: RecorderControl {
         updateShortcut(self, candidateShortcut, self, id)
     }
 
-    func save(_ candidateShortcut: Shortcut) {
+    func save() {
         LabelAndControl.controlWasChanged(self, id)
         // shortcutChangedCallback is called automatically here
         // setting objectValue also happens automatically
@@ -148,7 +144,7 @@ class CustomRecorderControl: RecorderControl {
 extension CustomRecorderControl: RecorderControlDelegate {
     func recorderControl(_ control: RecorderControl, canRecord shortcut: Shortcut) -> Bool {
         switch CustomRecorderControlTestable.isShortcutAcceptable(id, shortcut) {
-        case .accepted: save(shortcut)
+        case .accepted: save()
         case .modifiersOnlyButContainsKeycode: return false
         case .conflictWithExistingShortcut(let s): alertIfSameShortcutAlreadyAssigned(shortcut, s)
         case .reservedByMacos(let s): alertIfShortcutReservedByMacos(shortcut, s)

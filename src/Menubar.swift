@@ -351,31 +351,8 @@ class UpgradeMenuItemView: NSView {
 
     private func playShineAnimation() {
         guard !isShining else { return }
-        let pillBounds = gradientLayer.bounds
-        let shine = CAGradientLayer()
-        shine.colors = [
-            NSColor.white.withAlphaComponent(0).cgColor,
-            NSColor.white.withAlphaComponent(0.3).cgColor,
-            NSColor.white.withAlphaComponent(0).cgColor,
-        ]
-        shine.locations = [0, 0.5, 1]
-        shine.startPoint = CGPoint(x: 0, y: 0.5)
-        shine.endPoint = CGPoint(x: 1, y: 0.5)
-        shine.frame = CGRect(x: -pillBounds.width, y: 0, width: pillBounds.width, height: pillBounds.height)
-        gradientLayer.addSublayer(shine)
         isShining = true
-        let animation = CABasicAnimation(keyPath: "position.x")
-        animation.fromValue = -pillBounds.width / 2
-        animation.toValue = pillBounds.width + pillBounds.width / 2
-        animation.duration = 0.6
-        animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
-        CATransaction.begin()
-        CATransaction.setCompletionBlock { [weak self] in
-            shine.removeFromSuperlayer()
-            self?.isShining = false
-        }
-        shine.add(animation, forKey: "shine")
-        CATransaction.commit()
+        ProGradient.playShine(over: gradientLayer) { [weak self] in self?.isShining = false }
     }
 
     func updateContent(_ state: LicenseState) {

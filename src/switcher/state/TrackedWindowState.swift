@@ -59,7 +59,7 @@ struct TrackedWindow: Equatable {
     var isMinimized = false
     var isMainWindow = false
     var isWindowlessApp = false
-    /// the latched CGS phantom verdict (`Window.storedState.isPhantom`); the user-facing value is
+    /// the latched CGS phantom verdict, mirroring `Window.cgsPhantomLatch`; the user-facing value is
     /// `TrackedWindowState.isPhantom(_:)`, derived at read like the live `Window.isPhantom`
     var cgsPhantomLatch = false
     /// The WindowServer's ordered-in bit (`WsWindowState.isVisible`): this window is ON SCREEN right now.
@@ -211,8 +211,6 @@ enum TabGroupObservation: Equatable {
         guard case .group(_, let token) = self else { return nil }
         return token
     }
-
-    var wasRead: Bool { self != .unknown }
 }
 
 enum SpaceMembershipObservation: Equatable {
@@ -444,7 +442,8 @@ struct TrackedWindowState: Equatable {
         /// superseded before discovery — opening a tab rather than switching to one.
         var lastWindowCreatedWid: CGWindowID?
         /// The most recent untracked Space JOIN on ANY Space, visible or not — the
-        /// `lastUntrackedVisibleSpaceJoin` pair without the visibility gate. A tab switch inside a window whose
+        /// `lastUntrackedVisibleSpaceJoinWid` / `lastUntrackedVisibleSpaceJoinAt` pair without the
+        /// visibility gate. A tab switch inside a window whose
         /// Space we are no longer LOOKING at still mints a wid, and that mint is still the successor of the one
         /// it replaced; gating on visibility lost exactly that handover (generator seed 106, where a
         /// `newWindow` moves the viewport back to the windowed Space first). Kept separate rather than widening
@@ -481,6 +480,7 @@ struct TrackedWindowState: Equatable {
     var carried = Carried()
 
     var visibleSpaces = [UInt64]()
+    // periphery:ignore - projection no reducer reads today; `TrackedWindowStateFieldsTests` pins the set
     var currentSpaceId: UInt64 = 0
     /// Space topology (`Spaces.idsAndIndexes`), for deriving `spaceIndexes` from `spaceIds`
     var spaceIndexById = [UInt64: Int]()
@@ -594,6 +594,7 @@ struct TrackedWindowState: Equatable {
     // MARK: MRU
 
     /// The window at the front of the MRU, i.e. the one the model currently calls "where the user is".
+    // periphery:ignore - assertion accessor for the MRU tests
     var mruFrontWid: CGWindowID? { windows.first { $0.lastFocusOrder == 0 }?.wid }
 
     /// Record that the OS brought `wid` forward at time `at`, then re-derive the ranks. Usually `at` is the
@@ -660,7 +661,7 @@ struct TrackedWindowState: Equatable {
         // 0, which is exactly the launch case this runs in — `recomputeFocusRanks` re-derives, finds its
         // answer already in place and reports nothing changed. The order really had changed; the reducer
         // just emitted no log and no `.refreshUi` for it, leaving an open switcher drawing the old list.
-        // Live evidence: the 2026-08-25 QA run moved the MRU front onto a Finder window with no
+        // Live evidence, 2026-08-25: the MRU front moved onto a Finder window with no
         // `zOrder seed reordered` line anywhere in its debug log.
         let before = windows.map { $0.lastFocusOrder }
         var zOrder = [CGWindowID: Int]()
@@ -922,6 +923,7 @@ enum ReducerInput: Equatable {
 extension ReducerInput {
     /// Fixture compatibility for recordings written before unknown and an explicit negative were distinct.
     /// Their Space arrays were completed answers; nil tab payloads were intentionally non-evidence.
+    // periphery:ignore - fixture-compatibility overload
     static func discoveryLanded(wid: CGWindowID, accepted: Bool, newlyTracked: Bool,
                                 adoptedAsInactiveTab: Bool, queriedSpaceIds: [UInt64], isOrderedIn: Bool,
                                 tabTitles: [String]?, tabGroupToken: TabGroupToken?) -> Self {
@@ -931,6 +933,7 @@ extension ReducerInput {
             isOrderedIn: isOrderedIn, tabGroup: tabs)
     }
 
+    // periphery:ignore - fixture-compatibility overload
     static func titleAndTabsRead(wid: CGWindowID, tabTitles: [String]?, tabGroupToken: TabGroupToken?,
                                  reconcileTabs: Bool, changedSoFar: Bool) -> Self {
         let tabs = tabTitles.map { TabGroupObservation.group(titles: $0, token: tabGroupToken) } ?? .unknown

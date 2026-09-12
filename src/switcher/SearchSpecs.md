@@ -73,9 +73,6 @@ Mirrors `SearchTests.swift` 1:1.
 ### Case-sensitivity
 - **testLowercaseQueryHasNoCaseBonus** · **testUppercaseQueryBoostsCaseExact** · **testCaseBonusNeverCrossesTierGap** · **testCaseBonusForT3WordPrefix**
 
-### App-name vs title ranking
-- **testAppNameMatchSurfacesEvenWhenTitleDoesNot** · **testAppNameWeightedAboveTitleAtSameTier**
-
 ### Tier ordering
 - **testTierOrdering_ChrAcrossCandidates** · **testEarlyMatchBeatsLateMatch**
 
@@ -90,9 +87,6 @@ Mirrors `SearchTests.swift` 1:1.
 
 ### Scoring relative ranking
 - **testFuzzyRanksBelowExactInSameField** · **testWordPrefixBeatsSubstring**
-
-### acronymBonus (preserved behavior)
-- **testAcronymBonusPrefixMatch** · **testAcronymBonusWordStarts** · **testAcronymBonusPrefersEarlierMatch** · **testAcronymBonusIgnoresSpacesInQuery**
 
 ### Boundary characters
 - **testUnderscoreAsWordBoundary** · **testDotAsWordBoundary** · **testSlashAsWordBoundary** · **testColonAsWordBoundary**
@@ -117,8 +111,3 @@ Mirrors `SearchTests.swift` 1:1.
 
 ### damerauLevenshtein primitive
 - **testDLEdits**
-
-### MatchResult → SWResult bridging
-The renderer consumes `SWResult`; `MatchResult.toSWResult()` converts the kernel's output, deriving similarity = score/1200 and dropping the unused `ops` field.
-- **testToSWResultBridgesMatchResultFields** — score, span, subspans copy verbatim; similarity = score/1200; ops cleared.
-- **testToSWResultScalesSimilarityProportionally** — similarity scales linearly with score (600 → 0.5).

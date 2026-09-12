@@ -2,9 +2,9 @@ import Foundation
 
 /// What every provider, decision and repair in the tracking pipeline reports about itself, as one value.
 ///
-/// Two consumers, one schema: `--qa-state` reads `summary` (the current health of each provider), and the QA
-/// harness drains `ring` as NDJSON to get the timeline that explains a visible outcome. The record is FLAT and
-/// its fields are a closed set — a wid, a pid, a generation, a reason code, a duration. There is deliberately
+/// Two consumers, one schema: `--qa-state` reads `summary` (the current health of each provider), and
+/// `--qa-telemetry` drains `ring` for the timeline that explains a visible outcome. The record is FLAT and
+/// its fields are a closed set — a wid, a pid, a generation, a reason code, a count. There is deliberately
 /// no field a window title, a keystroke or a document name could be written into; `TrackingTelemetryTests`
 /// pins the encoded key set so a later field cannot smuggle one in.
 ///
@@ -17,7 +17,6 @@ struct TrackingTelemetryState: Equatable {
     var lastAttention: AttentionTelemetry?
     var sessionTap = SessionTapTelemetry()
     var axByPid = [Int32: AxProviderTelemetry]()
-    var windowServer = WindowServerTelemetry()
     var ring = TelemetryRing()
     private var nextSequence: UInt64 = 1
 
@@ -109,12 +108,6 @@ struct TrackingTelemetryState: Equatable {
         }
     }
 
-    mutating func recordWindowServer(connectionGeneration: UInt64, watchedWids: Int, at: TimeInterval) {
-        windowServer.connectionGeneration = connectionGeneration
-        windowServer.watchedWids = watchedWids
-        windowServer.lastEventAt = at
-    }
-
     mutating func drainRecords() -> [TelemetryRecord] {
         ring.drain()
     }
@@ -123,7 +116,7 @@ struct TrackingTelemetryState: Equatable {
         TrackingTelemetrySummary(v: Self.schemaVersion, trackingGeneration: trackingGeneration,
             lastAttention: lastAttention, sessionTap: sessionTap,
             axByPid: Dictionary(uniqueKeysWithValues: axByPid.map { (String($0.key), $0.value) }),
-            ws: windowServer, recordsBuffered: ring.records.count, recordsDropped: ring.droppedCount)
+            recordsBuffered: ring.records.count, recordsDropped: ring.droppedCount)
     }
 
     @discardableResult
@@ -152,7 +145,6 @@ struct TelemetryRecord: Codable, Equatable {
     var status: String?
     var subtype: Int?
     var count: Int?
-    var millis: Double?
 }
 
 enum TelemetryEventKind: String {
@@ -161,7 +153,7 @@ enum TelemetryEventKind: String {
     case sessionTap
 }
 
-/// A bounded FIFO of records the QA harness drains between tests. Bounded because a burst of WindowServer
+/// A bounded FIFO of records `--qa-telemetry` drains between tests. Bounded because a burst of WindowServer
 /// events must not grow memory when nobody is draining; `droppedCount` makes a gap in the timeline visible
 /// instead of silent.
 struct TelemetryRing: Equatable {
@@ -213,15 +205,6 @@ struct AxProviderTelemetry: Codable, Equatable {
     var lastNotificationAt: TimeInterval?
 }
 
-struct WindowServerTelemetry: Codable, Equatable {
-    var connectionGeneration: UInt64 = 0
-    var watchedWids = 0
-    var lastEventAt: TimeInterval?
-}
-
-
-
-
 struct TrackingTelemetrySummary: Codable, Equatable {
     var v: Int
     var trackingGeneration: UInt64
@@ -229,30 +212,8 @@ struct TrackingTelemetrySummary: Codable, Equatable {
     var sessionTap: SessionTapTelemetry
     /// keyed by pid as a string: JSON object keys cannot be integers
     var axByPid: [String: AxProviderTelemetry]
-    var ws: WindowServerTelemetry
     var recordsBuffered: Int
     var recordsDropped: Int
-}
-
-/// The timeline format the QA harness stores alongside its results: one record per line, keys sorted so two
-/// runs diff cleanly.
-enum TrackingTelemetryNdjson {
-    static func line(_ record: TelemetryRecord) -> String {
-        guard let data = try? encoder.encode(record), let line = String(data: data, encoding: .utf8) else {
-            return "{\"v\":\(TrackingTelemetryState.schemaVersion),\"seq\":\(record.seq),\"kind\":\"encodeFailed\"}"
-        }
-        return line
-    }
-
-    static func lines(_ records: [TelemetryRecord]) -> String {
-        records.map { line($0) }.joined(separator: "\n")
-    }
-
-    private static let encoder: JSONEncoder = {
-        let encoder = JSONEncoder()
-        encoder.outputFormatting = [.sortedKeys]
-        return encoder
-    }()
 }
 
 extension TrackingProvider {

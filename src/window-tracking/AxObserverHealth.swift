@@ -27,13 +27,13 @@ struct AxDestroyCorrelation: Equatable {
 enum AxNotificationCapability: CaseIterable, Hashable {
     case focusedWindowChanged
     case mainWindowChanged
-    /// **The title, pushed instead of polled.** There is no WindowServer title event, so before this the
-    /// title was re-read from AX on every order-in, every order-out and every switcher show, and a title
-    /// that changed between two shows was simply stale (the one live exposure named in the AX-to-WS event
-    /// map: `matchSiblings` compares fresh AX tab titles against model window titles).
+    /// **The title, pushed instead of polled.** There is no WindowServer title event, so without this the
+    /// title has to be re-read from AX on every order-in, every order-out and every switcher show, and a
+    /// title that changes between two shows is simply stale (the one live exposure named in the AX-to-WS
+    /// event map: `matchSiblings` compares fresh AX tab titles against model window titles).
     ///
-    /// It is in the core set rather than optional because it REPLACES work we were already doing against
-    /// every app, and because it was measured to register on every app that owns user-facing windows.
+    /// It is in the core set rather than optional because it REPLACES per-app polling rather than adding to
+    /// it, and because it was measured to register on every app that owns user-facing windows.
     /// Unlike `kAXFocusedUIElementChanged` (which must never be subscribed) this is a window-level
     /// notification, not an element-level stream.
     case titleChanged
@@ -129,8 +129,6 @@ enum AxSubscriptionResult: Equatable {
 
 enum AxRecoveryTrigger: Equatable {
     case processBecameFrontmost
-    case windowDiscovered
-    case semanticDomainDirty
     case wake
     case unlock
     case otherAxCallSucceeded
@@ -144,8 +142,6 @@ struct AxObserverDiagnostics: Equatable {
     var consecutiveCannotComplete = 0
     var capabilityConsecutiveCannotComplete = [AxNotificationCapability: Int]()
     var lastError: AxObserverError?
-    var lastSuccess: MonotonicTimestamp?
-    var lastCallback: MonotonicTimestamp?
     var nextRetry: MonotonicTimestamp?
     var observerCreationAttempts = 0
     var consecutiveObserverCreationFailures = 0
@@ -274,15 +270,15 @@ enum AxObserverHealth {
                        policy: AxObserverRetryPolicy = .default) -> AxObserverHealthDecision {
         switch input {
         case let .processStarted(process): return processStarted(&state, process)
-        case let .beginObserverCreation(process, time): return beginObserverCreation(&state, process, time, policy)
+        case let .beginObserverCreation(process, time): return beginObserverCreation(&state, process, time)
         case let .observerCreationResult(process, generation, error, time):
             return observerCreationResult(&state, process, generation, error, time, policy)
         case let .beginSubscription(process, capability):
             return beginSubscription(&state, process, capability)
         case let .subscriptionResult(process, generation, capability, result, time):
             return subscriptionResult(&state, process, generation, capability, result, time, policy)
-        case let .callback(process, generation, capability, time):
-            return callback(&state, process, generation, capability, time)
+        case let .callback(process, generation, capability, _):
+            return callback(&state, process, generation, capability)
         case let .recoveryTriggered(process, trigger, time):
             return recovery(&state, process, trigger, time)
         case let .cooldownElapsed(process, time):
@@ -315,8 +311,8 @@ enum AxObserverHealth {
     }
 
     private static func beginObserverCreation(_ state: inout AxObserverHealthState,
-                                              _ process: ProcessGeneration, _ time: MonotonicTimestamp,
-                                              _ policy: AxObserverRetryPolicy) -> AxObserverHealthDecision {
+                                              _ process: ProcessGeneration,
+                                              _ time: MonotonicTimestamp) -> AxObserverHealthDecision {
         guard !state.hasGlobalPermissionFailure else { return .ignored(.globalPermissionFailure) }
         guard var entry = state.entries[process.pid] else { return .ignored(.unknownProcess) }
         guard entry.process == process else { return .ignored(.staleProcessGeneration) }
@@ -345,7 +341,6 @@ enum AxObserverHealth {
         guard let error else {
             entry.observer = .ready
             entry.lifecycle = .registering
-            entry.diagnostics.lastSuccess = time
             entry.diagnostics.lastError = nil
             entry.diagnostics.nextRetry = nil
             entry.diagnostics.consecutiveObserverCreationFailures = 0
@@ -393,7 +388,6 @@ enum AxObserverHealth {
         switch result {
         case .success, .alreadyRegistered:
             entry.notifications[capability] = .subscribed
-            entry.diagnostics.lastSuccess = time
             entry.diagnostics.resetCannotComplete(capability)
             entry.diagnostics.nextRetry = nextRetry(entry)
             refreshLifecycle(&entry)
@@ -421,15 +415,13 @@ enum AxObserverHealth {
     }
 
     private static func callback(_ state: inout AxObserverHealthState, _ process: ProcessGeneration,
-                                 _ generation: UInt64, _ capability: AxNotificationCapability,
-                                 _ time: MonotonicTimestamp) -> AxObserverHealthDecision {
+                                 _ generation: UInt64,
+                                 _ capability: AxNotificationCapability) -> AxObserverHealthDecision {
         guard var entry = state.entries[process.pid] else { return .ignored(.unknownProcess) }
         guard entry.process == process else { return .ignored(.staleProcessGeneration) }
         guard entry.diagnostics.observerGeneration == generation
         else { return .ignored(.staleObserverGeneration) }
         guard entry.notifications[capability] == .subscribed else { return .ignored(.notificationState) }
-        entry.diagnostics.lastCallback = time
-        entry.diagnostics.lastSuccess = time
         entry.diagnostics.resetCannotComplete(capability)
         refreshLifecycle(&entry)
         state.entries[process.pid] = entry
@@ -527,9 +519,6 @@ enum AxObserverHealth {
             return .ignored(entry.diagnostics.nextRetry == nil ? .noRecoveryNeeded : .cooldown)
         }
         for capability in recoverable { entry.notifications[capability] = .unattempted }
-        if bypassCooldown {
-            entry.diagnostics.lastSuccess = time
-        }
         entry.diagnostics.nextRetry = nextRetry(entry)
         entry.lifecycle = .recovering
         state.entries[process.pid] = entry

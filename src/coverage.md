@@ -9,7 +9,6 @@ unit-tested (Humble Object pattern), so it doesn't appear here; that's by design
 
 | Line coverage | File |
 |---:|---|
-| 0% (0/7) | `src/_test-support/Helpers.swift` |
 | 0% (0/6) | `src/kit/text/DynamicColorTextField.swift` |
 | 0% (0/1) | `src/pro/license/Clock.swift` |
 | 0% (0/61) | `src/pro/license/Keychain.swift` |

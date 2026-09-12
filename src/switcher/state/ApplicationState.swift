@@ -34,7 +34,7 @@ struct RefusedApplication: Equatable {
 ///
 /// **The fast path in `findOrCreate` is the app list, which only ever holds ACCEPTED apps.** A refused pid
 /// is never added to it, so every inventory sweep re-bought the same verdict: `GetProcessForPID`,
-/// `GetProcessInformation` and a `sysctl` zombie probe, per refused pid, forever. Measured over one QA pass:
+/// `GetProcessInformation` and a `sysctl` zombie probe, per refused pid, forever. Measured over one live pass:
 /// 8,978 classifications, of which a single `ThemeWidgetControlViewService` accounted for 1,072 and a single
 /// `CursorUIViewService` for 708, every one of them reaching the same answer.
 ///

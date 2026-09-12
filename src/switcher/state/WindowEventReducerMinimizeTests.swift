@@ -85,7 +85,7 @@ final class WindowEventReducerMinimizeTests: XCTestCase {
     ///
     /// The ORDER is deliberately not asserted: an 815 is not a statement about what the user is looking at,
     /// so the restored window reaches the front when its app says it has focus, not because it was ordered
-    /// in. Covered live by QA.
+    /// in. Covered live, end to end.
     func testRestoringFromTheDockClearsTheFlag() {
         let runner = TestReducerRunner(initial: desktop())
         runner.run(dockRestoreSteps())

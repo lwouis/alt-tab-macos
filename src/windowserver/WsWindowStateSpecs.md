@@ -73,7 +73,7 @@ WindowServer still says the window is off screen.
 
 Mirrors `WsWindowStateTests.swift` 1:1.
 
-### A. Ordered-in / on-screen (NOT a minimized signal — that is `tags` bit 60, section D)
+### A. Ordered-in / on-screen (NOT a minimized signal — that is `tags` bit 60, section C)
 - **testVisibleWhenAttributeBitSet** — `attributes = 0x3` (observed normal on-screen) → visible.
 - **testNotVisibleWhenAttributeBitClear** — `attributes = 0x1` (observed after the window ordered out) → not visible.
 
@@ -81,11 +81,7 @@ Mirrors `WsWindowStateTests.swift` 1:1.
 - **testFullscreenWhenSpaceMaskBitSet** — `spaceTypeMask = 0x20` (observed fullscreen) → fullscreen.
 - **testNotFullscreenOnNormalSpace** — `spaceTypeMask = 0x1` (observed normal Space) → not fullscreen.
 
-### C. Application-window level hint
-- **testApplicationWindowAtLevelZero** — `level = 0` → application-window level.
-- **testChromeAndPanelsAreNotApplicationLevel** — floating panel (3), menu bar (24), Control Center (25), and a large chrome level are all not application-window level.
-
-### D. Minimized
+### C. Minimized
 - **testMinimizedWhenTagBitSet** — `tags = 0x1300000100480001` (observed minimized) → minimized.
 - **testNotMinimizedWhenTagBitClear** — `tags = 0x0300000100482001` (observed normal) → not minimized.
 - **testOrderedOutWindowIsNotMinimized** — `tags = 0x0300000100480001`, the observed `orderOut:` / background-tab

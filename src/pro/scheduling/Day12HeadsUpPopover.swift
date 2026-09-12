@@ -1,6 +1,7 @@
 import Cocoa
 
 class Day12HeadsUpPopover {
+    // periphery:ignore - strong hold, so the popover outlives `show()`
     private static var popover: NSPopover?
 
     static func show() {

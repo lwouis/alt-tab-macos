@@ -1,6 +1,7 @@
 import Cocoa
 
 class Day21ReminderPopover {
+    // periphery:ignore - strong hold, so the popover outlives `show()`
     private static var popover: NSPopover?
 
     static func show() {

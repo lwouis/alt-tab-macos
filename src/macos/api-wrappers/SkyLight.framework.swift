@@ -14,8 +14,6 @@ typealias CGSSpaceID = UInt64
 struct CGSWindowCaptureOptions: OptionSet {
     let rawValue: UInt32
     static let ignoreGlobalClipShape = CGSWindowCaptureOptions(rawValue: 1 << 11)
-    // on a retina display, 1px is spread on 4px, so nominalResolution is 1/4 of bestResolution
-    static let nominalResolution = CGSWindowCaptureOptions(rawValue: 1 << 9)
     static let bestResolution = CGSWindowCaptureOptions(rawValue: 1 << 8)
     // when Stage Manager is enabled, screenshots can become skewed. This param gets us full-size screenshots regardless
     static let fullSize = CGSWindowCaptureOptions(rawValue: 1 << 19)
@@ -36,83 +34,27 @@ func CGSMainConnectionID() -> CGSConnectionID
 @_silgen_name("CGSHWCaptureWindowList")
 func CGSHWCaptureWindowList(_ cid: CGSConnectionID, _ windowList: UnsafeMutablePointer<CGWindowID>, _ windowCount: UInt32, _ options: CGSWindowCaptureOptions) -> Unmanaged<CFArray>
 
-/// returns an array of displays (as NSDictionary) -> each having an array of spaces (as NSDictionary) at the "Spaces" key; each having a space ID (as UInt64) at the "id64" key
+/// returns an array of displays (as NSDictionary), each with its Spaces (as NSDictionary) under the "Spaces"
+/// key, each Space carrying its id (as UInt64) under "id64".
+/// /!\ only returns correct values when the user has checked System Settings > Desktop & Dock >
+/// Mission Control > "Displays have separate Spaces". Unchecked, every display collapses into one entry whose
+/// "Display Identifier" is the literal string "Main", so per-screen topology is unavailable.
 /// * macOS 10.10+
-/// /!\ only returns correct values if the user has checked the checkbox in Preferences > Mission Control > "Displays have separate Spaces"
-/// See this example with 2 screens (1 laptop internal + 1 external):
-/// * Output with "Displays have separate Spaces" checked:
-///   [{
-///       "Current Space" =     {
-///           ManagedSpaceID = 4;
-///           id64 = 4;
-///           type = 0;
-///           uuid = "6622AC87-2FD2-48E8-934D-F6EB303AC9BA";
-///       };
-///       "Display Identifier" = "6FBB92D9-84CE-8D20-C114-3B1052DD9529";
-///       Spaces =     (
-///           {
-///               ManagedSpaceID = 4;
-///               id64 = 4;
-///               type = 0;
-///               uuid = "6622AC87-2FD2-48E8-934D-F6EB303AC9BA";
-///           }
-///       );
-///   }, {
-///       "Current Space" =     {
-///           ManagedSpaceID = 5;
-///           id64 = 5;
-///           type = 0;
-///           uuid = "BE05AFA2-B253-4199-B39E-A8E77CD4851B";
-///       };
-///       "Display Identifier" = "BB2327F9-3D4F-FD8F-A0EA-B9745A0B818F";
-///       Spaces =     (
-///           {
-///               ManagedSpaceID = 5;
-///               id64 = 5;
-///               type = 0;
-///               uuid = "BE05AFA2-B253-4199-B39E-A8E77CD4851B";
-///           }
-///       );
-///   }]
-/// * Output with "Displays have separate Spaces" unchecked:
-///   [{
-///       "Current Space" =     {
-///           ManagedSpaceID = 4;
-///           id64 = 4;
-///           type = 0;
-///           uuid = "6622AC87-2FD2-48E8-934D-F6EB303AC9BA";
-///       };
-///       "Display Identifier" = Main;
-///       Spaces =     (
-///           {
-///               ManagedSpaceID = 4;
-///               id64 = 4;
-///               type = 0;
-///               uuid = "6622AC87-2FD2-48E8-934D-F6EB303AC9BA";
-///           }
-///       );
-///   }]
 @_silgen_name("CGSCopyManagedDisplaySpaces")
 func CGSCopyManagedDisplaySpaces(_ cid: CGSConnectionID) -> CFArray
 
+/// Only the bits we pass. The rest of the map was surveyed and is not production code.
 struct CGSCopyWindowsOptions: OptionSet {
     let rawValue: Int
     static let invisible1 = CGSCopyWindowsOptions(rawValue: 1 << 0)
     // retrieves windows when their app is assigned to All Spaces, and windows at ScreenSaver level 1000
     static let screenSaverLevel1000 = CGSCopyWindowsOptions(rawValue: 1 << 1)
     static let invisible2 = CGSCopyWindowsOptions(rawValue: 1 << 2)
-    static let unknown1 = CGSCopyWindowsOptions(rawValue: 1 << 3)
-    static let unknown2 = CGSCopyWindowsOptions(rawValue: 1 << 4)
-    static let desktopIconWindowLevel2147483603 = CGSCopyWindowsOptions(rawValue: 1 << 5)
 }
 
+/// We pass an empty set for both the set- and clear-tags arguments, so none of the tag bits are named here.
 struct CGSCopyWindowsTags: OptionSet {
     let rawValue: Int
-    static let level0 = CGSCopyWindowsTags(rawValue: 1 << 0)
-    static let noTitleMaybePopups = CGSCopyWindowsTags(rawValue: 1 << 1)
-    static let unknown1 = CGSCopyWindowsTags(rawValue: 1 << 2)
-    static let mainMenuWindowAndDesktopIconWindow = CGSCopyWindowsTags(rawValue: 1 << 3)
-    static let unknown2 = CGSCopyWindowsTags(rawValue: 1 << 4)
 }
 
 /// returns an array of window IDs (as UInt32) for the space(s) provided as `spaces`
@@ -268,12 +210,11 @@ func makeKeyWindow(_ psn: inout ProcessSerialNumber, _ wid: CGWindowID) {
 // pushes events. SkyLight calls the proc on whichever thread snarfs the datagram (the `_NSEventThread`); we
 // keep that callback trivial and hop to main ourselves (see WindowServerEvents.notifyProc).
 //
-// Do NOT call `SLSConnectionDispatchNotificationsToMainQueueIfNotMainThread` on the AppKit-shared main
-// connection: it is NOT needed for delivery (the opt-in alone delivers, confirmed at runtime), and on the
-// shared connection it displaced AppKit's own coordinated-notification routing, so AppKit's
-// `activeSpaceChanged:` / appearance handlers fired off-main on the `_NSEventThread` and crashed. It is kept
-// declared below only to document the trap. All symbols exist since ≥10.10 (CoreGraphics re-exports the
-// CGS-named aliases).
+// Do NOT call `SLSConnectionDispatchNotificationsToMainQueueIfNotMainThread` on this connection: it is not
+// needed for delivery, and it displaces AppKit's own coordinated-notification routing on the connection they
+// share, which fires AppKit's `activeSpaceChanged:` / appearance handlers off-main and crashes. Delivery was
+// confirmed at runtime to need only the per-window opt-in below, never that call. All symbols below exist
+// since ≥10.10 (CoreGraphics re-exports the CGS-named aliases).
 
 /// The per-connection notification callback: (event id, payload, payload length, context, connection id).
 typealias CGSConnectionNotifyProc = @convention(c) (_ event: UInt32, _ data: UnsafeMutableRawPointer?, _ dataLength: Int, _ context: UnsafeMutableRawPointer?, _ cid: CGSConnectionID) -> Void
@@ -282,14 +223,9 @@ typealias CGSConnectionNotifyProc = @convention(c) (_ event: UInt32, _ data: Uns
 @_silgen_name("SLSRegisterConnectionNotifyProc") @discardableResult
 func SLSRegisterConnectionNotifyProc(_ cid: CGSConnectionID, _ proc: CGSConnectionNotifyProc, _ event: UInt32, _ context: UnsafeMutableRawPointer?) -> CGError
 
-/// route this connection's notifications to the main dispatch queue. NOT needed for delivery, and harmful on
-/// the AppKit-shared connection (see the MARK comment above) — declared only to document why we don't call it.
-@_silgen_name("SLSConnectionDispatchNotificationsToMainQueueIfNotMainThread") @discardableResult
-func SLSConnectionDispatchNotificationsToMainQueueIfNotMainThread(_ cid: CGSConnectionID) -> CGError
-
 /// opt this connection into per-window notifications for the given windows (yabai's mechanism). macOS 10.10+.
 /// REPLACES this connection's watch list — it does not add to it. Always pass every wid you still want to
-/// hear from; passing only the new ones silences all the others (measured on macOS 26.5: a QA run that sent
+/// hear from; passing only the new ones silences all the others (measured on macOS 26.5: a live run that sent
 /// deltas saw 0 order-outs, 0 destroys and 0 focus events instead of 91 / 143 / 51, while the
 /// connection-wide creates and moves kept arriving, so nothing looked broken until windows stopped being
 /// removed). There is also no explicit way back: SkyLight exports no `SLSRemoveNotificationsForWindows` /

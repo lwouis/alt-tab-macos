@@ -20,6 +20,36 @@ enum ProGradient {
         return g
     }
 
+    /// A white highlight that sweeps once across `layer`, left to right, then removes itself.
+    /// `onFinished` runs on the main thread once the sweep is gone, so the caller can clear its
+    /// "already shining" guard.
+    static func playShine(over layer: CALayer, onFinished: @escaping () -> Void) {
+        let size = layer.bounds.size
+        let shine = CAGradientLayer()
+        shine.colors = [
+            NSColor.white.withAlphaComponent(0).cgColor,
+            NSColor.white.withAlphaComponent(0.3).cgColor,
+            NSColor.white.withAlphaComponent(0).cgColor,
+        ]
+        shine.locations = [0, 0.5, 1]
+        shine.startPoint = CGPoint(x: 0, y: 0.5)
+        shine.endPoint = CGPoint(x: 1, y: 0.5)
+        shine.frame = CGRect(x: -size.width, y: 0, width: size.width, height: size.height)
+        layer.addSublayer(shine)
+        let animation = CABasicAnimation(keyPath: "position.x")
+        animation.fromValue = -size.width / 2
+        animation.toValue = size.width + size.width / 2
+        animation.duration = 0.6
+        animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+        CATransaction.begin()
+        CATransaction.setCompletionBlock {
+            shine.removeFromSuperlayer()
+            onFinished()
+        }
+        shine.add(animation, forKey: "shine")
+        CATransaction.commit()
+    }
+
     static func setEndpoints(on layer: CAGradientLayer, flipped: Bool) {
         if flipped {
             layer.startPoint = CGPoint(x: startPoint.x, y: 1 - startPoint.y)
@@ -28,10 +58,6 @@ enum ProGradient {
             layer.startPoint = startPoint
             layer.endPoint = endPoint
         }
-    }
-
-    static func makeProImage(font: NSFont) -> NSImage {
-        return makeGradientTextImage(ProBadgeView.proLabel, font: font)
     }
 
     static func makeGradientTextImage(_ string: String, font: NSFont) -> NSImage {
@@ -82,107 +108,6 @@ enum ProGradient {
             result.addAttribute(.baselineOffset, value: baselineOffset, range: NSRange(location: 0, length: result.length))
         }
         return result
-    }
-
-    /// Render the full `ProBadgeView` (gradient fill + gradient border + gradient "Pro" text) into
-    /// an `NSImage` so it can be used where only images are accepted — e.g. `NSMenuItem.image`, which
-    /// is what `NSPopUpButton` draws in its button face when the popup is closed.
-    static func makeFullProBadgeImage() -> NSImage {
-        let badge = ProBadgeView()
-        badge.setSelected(false)
-        let size = badge.fittingSize
-        badge.frame = NSRect(origin: .zero, size: size)
-        badge.layoutSubtreeIfNeeded()
-        return NSImage(size: size, flipped: false) { _ in
-            guard let ctx = NSGraphicsContext.current?.cgContext else { return false }
-            badge.layer?.render(in: ctx)
-            return true
-        }
-    }
-
-    static func drawGradientFill(in path: NSBezierPath, rect: NSRect, colorsOverride: [CGColor]? = nil) {
-        guard let ctx = NSGraphicsContext.current?.cgContext else { return }
-        NSGraphicsContext.current?.saveGraphicsState()
-        path.addClip()
-        let cs = CGColorSpaceCreateDeviceRGB()
-        let used = colorsOverride ?? colors
-        if let gradient = CGGradient(colorsSpace: cs, colors: used as CFArray, locations: [0, 0.5, 1]) {
-            let start = CGPoint(x: rect.origin.x + rect.width * startPoint.x,
-                y: rect.origin.y + rect.height * startPoint.y)
-            let end = CGPoint(x: rect.origin.x + rect.width * endPoint.x,
-                y: rect.origin.y + rect.height * endPoint.y)
-            ctx.drawLinearGradient(gradient, start: start, end: end,
-                options: [.drawsBeforeStartLocation, .drawsAfterEndLocation])
-        }
-        NSGraphicsContext.current?.restoreGraphicsState()
-    }
-}
-
-/// Custom view for an `NSMenuItem` that shows a title alongside the full gradient `ProBadgeView`.
-/// Set as `NSMenuItem.view` so the menu row renders a real Pro pill instead of an inline gradient
-/// text attachment (which can't reproduce the bordered/filled badge look).
-class ProDropdownItemView: NSView {
-    private let titleLabel = NSTextField(labelWithString: "")
-    private let badge = ProBadgeView()
-
-    init(title: String) {
-        super.init(frame: NSRect(x: 0, y: 0, width: 1, height: 22))
-        autoresizingMask = [.width]
-        titleLabel.font = NSFont.systemFont(ofSize: 13)
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.stringValue = title
-        titleLabel.backgroundColor = .clear
-        titleLabel.drawsBackground = false
-        addSubview(titleLabel)
-        addSubview(badge)
-        NSLayoutConstraint.activate([
-            // +3 over the 21pt "matches NSMenu checkmark gutter" estimate so this label's text
-            // baseline aligns with the other (system-drawn) dropdown items.
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24),
-            titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            badge.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 6),
-            badge.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 1),
-            badge.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -12),
-        ])
-    }
-
-    required init?(coder: NSCoder) { fatalError("Class only supports programmatic initialization") }
-
-    override func draw(_ dirtyRect: NSRect) {
-        super.draw(dirtyRect)
-        let highlighted = enclosingMenuItem?.isHighlighted ?? false
-        // macOS Big Sur+ draws menu-item highlights as a rounded rect with a small horizontal
-        // inset so they don't touch the menu's outer rounded corners. Match that inset.
-        let rect = bounds.insetBy(dx: 5, dy: 0)
-        let path = NSBezierPath(roundedRect: rect, xRadius: 6, yRadius: 6)
-        if highlighted {
-            // Use the system accent color rather than `.selectedMenuItemColor` — the latter can
-            // drift from the live accent on some macOS versions and appearance combos.
-            let highlightColor: NSColor
-            if #available(macOS 10.14, *) {
-                highlightColor = .controlAccentColor
-            } else {
-                highlightColor = .selectedMenuItemColor
-            }
-            highlightColor.setFill()
-            path.fill()
-            titleLabel.textColor = .selectedMenuItemTextColor
-            badge.setSelected(true)
-        } else {
-            titleLabel.textColor = .labelColor
-            badge.setSelected(false)
-        }
-    }
-
-    override func mouseUp(with event: NSEvent) {
-        // Forward to the enclosing menu item: cancel tracking + perform the item's action so
-        // the popup-button's selection updates and its `onAction` fires.
-        if let menuItem = enclosingMenuItem, let menu = menuItem.menu {
-            menu.cancelTracking()
-            menu.performActionForItem(at: menu.index(of: menuItem))
-        } else {
-            super.mouseUp(with: event)
-        }
     }
 }
 
@@ -402,14 +327,7 @@ class ProBadgeView: NSView {
 
     override func viewDidMoveToWindow() {
         super.viewDidMoveToWindow()
-        windowObservers.forEach { NotificationCenter.default.removeObserver($0) }
-        windowObservers.removeAll()
-        guard let window else { return }
-        for name in [NSWindow.didBecomeKeyNotification, NSWindow.didResignKeyNotification] {
-            windowObservers.append(NotificationCenter.default.addObserver(forName: name, object: window, queue: .main) { [weak self] _ in
-                self?.updateColors()
-            })
-        }
+        windowObservers = observeWindowKeyChanges(replacing: windowObservers) { [weak self] in self?.updateColors() }
         // Resync colors + force a layout pass for the current key state. This matters when the
         // badge is built lazily (e.g. the per-shortcut Appearance pane's `Size` Pro segment,
         // created when the user clicks the Appearance tab while Settings is already key) —

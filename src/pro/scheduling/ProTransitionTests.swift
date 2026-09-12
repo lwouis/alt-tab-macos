@@ -263,48 +263,6 @@ final class ProTransitionTests: XCTestCase {
         XCTAssertFalse(ProTransitionManagerTestable.shouldShowBadgeDot(s))
     }
 
-    // MARK: - Scheduling completeness
-
-    func testSchedulingComplete_forProUser() {
-        var s = S.fresh()
-        s.isPro = true
-        XCTAssertTrue(ProTransitionManagerTestable.isSchedulingComplete(s))
-    }
-
-    func testSchedulingComplete_afterOptOutAndDay35() {
-        var s = S.fresh()
-        s.userOptedOut = true
-        s.hasSeenDay35 = true
-        XCTAssertTrue(ProTransitionManagerTestable.isSchedulingComplete(s))
-    }
-
-    func testSchedulingNotComplete_optedOutButDay35NotShown() {
-        var s = S.fresh()
-        s.userOptedOut = true
-        s.hasSeenDay35 = false
-        XCTAssertFalse(ProTransitionManagerTestable.isSchedulingComplete(s))
-    }
-
-    func testSchedulingComplete_allEventsShown() {
-        var s = S.fresh()
-        s.hasSeenWelcome = true
-        s.hasSeenDay12 = true
-        s.hasSeenProactiveDay15 = true
-        s.hasSeenDay21 = true
-        s.hasSeenDay35 = true
-        XCTAssertTrue(ProTransitionManagerTestable.isSchedulingComplete(s))
-    }
-
-    func testSchedulingComplete_allEventsShown_fullUpgradeInsteadOfProactive() {
-        var s = S.fresh()
-        s.hasSeenWelcome = true
-        s.hasSeenDay12 = true
-        s.hasSeenFullUpgrade = true // hard-gate path instead of proactive
-        s.hasSeenDay21 = true
-        s.hasSeenDay35 = true
-        XCTAssertTrue(ProTransitionManagerTestable.isSchedulingComplete(s))
-    }
-
     // MARK: - Time window
 
     func testTimeWindow_10am() {
@@ -470,9 +428,6 @@ final class ProTransitionTests: XCTestCase {
         s.daysSinceTrialStart = 34
         XCTAssertEqual(ProTransitionManagerTestable.evaluateTimedAction(s), .showDay35Final)
         s.hasSeenDay35 = true
-
-        // After: scheduling complete
-        XCTAssertTrue(ProTransitionManagerTestable.isSchedulingComplete(s))
     }
 
     // MARK: - Full flow: hard-gate user
@@ -519,7 +474,6 @@ final class ProTransitionTests: XCTestCase {
         s.isPro = true
         XCTAssertEqual(ProTransitionManagerTestable.evaluateTimedAction(s), .none)
         XCTAssertEqual(ProTransitionManagerTestable.evaluateHardGate(s), .allow)
-        XCTAssertTrue(ProTransitionManagerTestable.isSchedulingComplete(s))
     }
 
     // MARK: - Edge case: Day 35 close ⨉ vs opt-out
@@ -548,8 +502,6 @@ final class ProTransitionTests: XCTestCase {
         s.hasSeenDay35 = true
         s.userOptedOut = true
         s.isTrialActive = false
-        // scheduling is done
-        XCTAssertTrue(ProTransitionManagerTestable.isSchedulingComplete(s))
         // but hard-gate popover still fires
         s.freePassUsed = true
         s.hasSeenFullUpgrade = true
@@ -618,19 +570,6 @@ final class ProTransitionTests: XCTestCase {
         s.daysSinceTrialStart = 47 // Day 48 — last retry before give-up
         s.isInTimeWindow = true
         XCTAssertEqual(ProTransitionManagerTestable.evaluateTimedAction(s), .showDay35Final)
-    }
-
-    // MARK: - Day 49 give-up
-
-    func testSchedulingComplete_pastDay49EvenWithoutDay35() {
-        // User was inactive from Day 15 through Day 49 — [G] never shown.
-        // Spec: "give up at Day 49". Scheduling must still be considered complete.
-        var s = S.fresh()
-        s.hasSeenWelcome = true
-        s.hasSeenDay12 = true
-        s.isTrialActive = false
-        s.daysSinceTrialStart = 48
-        XCTAssertTrue(ProTransitionManagerTestable.isSchedulingComplete(s))
     }
 
     // MARK: - Day 12 skip-entirely

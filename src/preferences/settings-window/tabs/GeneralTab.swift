@@ -137,6 +137,7 @@ class GeneralTab {
         }
     }
 
+    // periphery:ignore:parameters sender - LabelAndControl callback signature
     static func setLanguageCallback(_ sender: NSControl) {
         if Preferences.language == .systemDefault {
             UserDefaults.standard.removeObject(forKey: "AppleLanguages")

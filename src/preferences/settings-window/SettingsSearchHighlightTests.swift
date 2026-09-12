@@ -4,9 +4,9 @@ import Cocoa
 /// Coverage for the settings-search *highlight* machinery — the layer that turns a query match
 /// into yellow-highlighted text on a specific control.
 ///
-/// Why this suite exists: we've repeatedly regressed search highlighting in the editor. The most
-/// recent case was the sidebar shortcut rows ("Shortcut 1", "Shortcut 2", …) no longer lighting
-/// up when the user typed "sho". Two distinct things have to work for that to happen:
+/// Why this suite exists: search highlighting in the editor regresses easily, and the regressions are
+/// invisible until someone types the exact query. Typing "sho" and having the sidebar shortcut rows
+/// ("Shortcut 1", "Shortcut 2", …) light up needs two distinct things to work:
 ///
 ///   1. `SettingsSearchHighlight.highlightTarget(_:)` must turn a label into a *working*
 ///      `SettingsSearchHighlightTarget` — one that reports a match and applies the highlight to

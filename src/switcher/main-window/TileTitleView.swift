@@ -21,6 +21,7 @@ class TileTitleView: NSTextField {
     /// Not marked `override`: `NSView`'s `CALayerDelegate` conformance is via Objective-C and
     /// Swift doesn't expose the method as overridable. Providing it here at the Swift level
     /// installs it for the runtime to find when the layer asks the delegate for actions.
+    // periphery:ignore - CALayerDelegate, called by CoreAnimation through the ObjC runtime
     @objc func action(for layer: CALayer, forKey event: String) -> CAAction? {
         switch event {
         case "position", "bounds", "frame", "hidden", "opacity", "transform":

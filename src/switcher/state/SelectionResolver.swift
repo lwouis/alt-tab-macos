@@ -244,7 +244,6 @@ enum SelectionResolver {
     }
 
     /// Find the user's chosen window by id, returning its current index if visible.
-    /// Mirrors the lookup in the old `Windows.restoreSelectionTargetIfVisible`.
     static func findTarget(_ list: [SelectionWindow], _ targetId: String?) -> Int? {
         guard let targetId else { return nil }
         return list.firstIndex { $0.id == targetId && $0.visible }
@@ -259,9 +258,9 @@ enum SelectionResolver {
         return .resetWithoutSelection
     }
 
-    /// Mirrors `adaptSelectionToVisibleIndexes`. `visibleIndexes` is non-empty by caller's guard,
-    /// and `decide()` only invokes `adapt` after the `selectedTarget == nil` early-return — so
-    /// the only branching here is "is `selectedIndex` still in `visibleIndexes`?"
+    /// `visibleIndexes` is non-empty by the caller's guard, and `decide()` only invokes `adapt` after
+    /// the `selectedTarget == nil` early-return — so the only branching here is "is `selectedIndex`
+    /// still in `visibleIndexes`?"
     private static func adapt(_ i: SelectionInputs, visibleIndexes: [Int], lastVisible: Int) -> SelectionDecision {
         if !visibleIndexes.contains(i.selectedIndex) {
             let closest = visibleIndexes.last(where: { $0 < i.selectedIndex }) ?? lastVisible

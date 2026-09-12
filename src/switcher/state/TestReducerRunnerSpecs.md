@@ -149,7 +149,7 @@ report a violation. These are tests OF the harness, not of the reducer.
   window's representative leaving the windowed one.
 - **testFullscreenTabSwitchToAReusedWidFrontsItAtDiscovery** — a fullscreen switch to a REUSED background wid
   carries no focus signal at all, so the incoming tab must be fronted explicitly at discovery; otherwise the
-  switcher shows the PREVIOUS tab until reopened (2026-07-22 QA).
+  switcher shows the PREVIOUS tab until reopened (measured live, 2026-07-22).
 - **testTitlesThatNameNothingKeepTheGroup** — an AX read naming 2+ tabs and matching NO window says the
   titles aren't comparable (#5785) or the siblings aren't tracked; either way the group stands.
 - **testTitleReadThatChangesMembershipLeavesAFixedPoint** — a title read that changes membership must
@@ -215,7 +215,7 @@ order nothing pins, so both arrival orders are tested — the same thing `Handov
   `replacedWid` that `dragOutVerdict` reads as settled.
 - **testMintedTabSwitchKeepsTheTabsTheTitlesAlreadyGrouped** — the handover claims a REPRESENTATIVE, not a
   membership. When the AXTabGroup titles land in the same discovery and group the mint with every tab of the
-  window, re-forming from the inherited pair would evict the rest, since `formGroup` is exact-set. Live QA
+  window, re-forming from the inherited pair would evict the rest, since `formGroup` is exact-set. Measured live
   C-10: one 4-tab Finder window drawn as two tiles.
 - **testHandoverIsClearedWhenTheReplacedWindowComesBack** — the edge describes the CURRENT state, so it
   expires when either end moves again.
@@ -240,7 +240,7 @@ has to be reported accurately.
   launch case it runs in) the re-derivation finds its own answer already in place and reports nothing. The
   reducer then emits no log and no `.refreshUi` while the order really has changed, and an open switcher
   keeps drawing the old list. Teeth-verified: it fails against the pre-fix `return recomputeFocusRanks()`.
-  Live evidence — the 2026-08-25 QA run moved the MRU front onto a Finder window with no
+  Live evidence, 2026-08-25 — the MRU front moved onto a Finder window with no
   `zOrder seed reordered` line anywhere in its debug log, which is why three investigations dead-ended.
 - **testZOrderThatChangesNothingSaysNothing** — the other side: a seed that really changes nothing stays
   silent, so a first summon does not repaint for nothing.

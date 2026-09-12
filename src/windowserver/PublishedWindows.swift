@@ -10,9 +10,8 @@ import Cocoa
 /// a bare `objc_loadWeak` of `NSApplication._keyWindow` / `._mainWindow`: no Space query, and no `isActive`
 /// guard either — unlike the public `NSApp.keyWindow`, which returns nil for a background app and is why this
 /// looks like it cannot work. So a background app whose windows all sit on another Space still hands back its
-/// last key window here, as a genuine `AXWindow` root with the right wid (measured on macOS 26.6.2;
-/// alt-tab-experiments `window-acquisition/appkit-window-filter`). That is one other-Space window per app the
-/// brute-force sweep never has to search for.
+/// last key window here, as a genuine `AXWindow` root with the right wid (measured on macOS 26.6.2). That is
+/// one other-Space window per app the brute-force sweep never has to search for.
 enum PublishedWindows {
     /// Asked for together, because `AXUIElementCopyMultipleAttributeValues` batches them into ONE round trip:
     /// the two unfiltered attributes cost no IPC over reading `kAXWindows` alone. Dropping either back out of

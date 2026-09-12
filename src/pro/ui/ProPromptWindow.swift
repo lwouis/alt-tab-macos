@@ -20,6 +20,15 @@ class ProPromptWindow: NSWindow {
         isReleasedWhenClosed = false
     }
 
+    /// Shrink-wrap the window's height around its content. Called after building the content view, and
+    /// again on every re-show: the singletons are reused, and their content (usage numbers, supporting
+    /// lines) changes height between shows.
+    func fitContentHeight() {
+        guard let view = contentView else { return }
+        view.layoutSubtreeIfNeeded()
+        setContentSize(NSSize(width: view.frame.width, height: view.fittingSize.height))
+    }
+
     override func cancelOperation(_ sender: Any?) {
         close()
     }

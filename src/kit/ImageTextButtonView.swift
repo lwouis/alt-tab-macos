@@ -153,14 +153,7 @@ class ImageTextButtonView: NSStackView {
 
     override func viewDidMoveToWindow() {
         super.viewDidMoveToWindow()
-        windowObservers.forEach { NotificationCenter.default.removeObserver($0) }
-        windowObservers.removeAll()
-        guard let window else { return }
-        for name in [NSWindow.didBecomeKeyNotification, NSWindow.didResignKeyNotification] {
-            windowObservers.append(NotificationCenter.default.addObserver(forName: name, object: window, queue: .main) { [weak self] _ in
-                self?.updateStyle()
-            })
-        }
+        windowObservers = observeWindowKeyChanges(replacing: windowObservers) { [weak self] in self?.updateStyle() }
     }
 
     override func draw(_ dirtyRect: NSRect) {

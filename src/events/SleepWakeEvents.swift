@@ -9,6 +9,7 @@ class SleepWakeEvents {
         nc.addObserver(self, selector: #selector(handleWake), name: NSWorkspace.screensDidWakeNotification, object: nil)
     }
 
+    // periphery:ignore:parameters notification - NotificationCenter selector signature
     @objc private static func handleWake(_ notification: Notification) {
         Logger.info { "" }
         reEnableAllTaps()

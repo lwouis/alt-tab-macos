@@ -4,18 +4,13 @@ import Cocoa
 ///
 /// Two responsibilities:
 ///
-/// 1. **Inline registration during section construction.** Before Phase 3 the index was built by
-///    `SettingsWindow.collectSearchContent`, a post-construction recursive walk that visited every
-///    NSView in a section's tree and shape-matched its strings out of it (two traversals per
-///    section: construct, then harvest). The new model is push, not pull: as each widget factory
-///    (`LabelAndControl.makeDropdown`, `TableGroupView.makeText`, etc.) builds a control, it
-///    pushes the strings it would produce — plus a `SettingsSearchHighlightTarget` (a closure-bag
-///    that knows how to highlight that specific control) — into the currently-active `Builder`.
-///    `SettingsWindow.addSection` opens a builder before calling the section's view-builder
-///    closure and closes it after; the resulting `Builder.strings` and `Builder.targets` are
-///    exactly what the old walk produced, just collected during construction rather than after.
-///    A post-construction walk still runs as a safety net for any direct widget creation that
-///    bypasses the factories.
+/// 1. **Inline registration during section construction.** Registration is push, not pull: as each
+///    widget factory (`LabelAndControl.makeDropdown`, `TableGroupView.makeText`, etc.) builds a
+///    control, it pushes the strings it would produce — plus a `SettingsSearchHighlightTarget` (a
+///    closure-bag that knows how to highlight that specific control) — into the currently-active
+///    `Builder`. `SettingsWindow.addSection` opens a builder before calling the section's
+///    view-builder closure and closes it after. A post-construction walk still runs as a safety net
+///    for any direct widget creation that bypasses the factories.
 ///
 /// 2. **Pre-build sheet metadata.** Sheets are lazy (Phase 2) — their view trees don't exist
 ///    until the user opens them once. Search's button-match check needs to know whether a sheet's

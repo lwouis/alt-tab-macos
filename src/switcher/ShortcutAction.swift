@@ -41,7 +41,7 @@ enum ShortcutActions {
     /// open switcher — fullscreen moves the window to its own Space, minimize/hide/quit move the MRU — and
     /// the default pick means "the second visible window", so it stayed on the SLOT while the window the
     /// user aimed at slid out of it. Live: F fullscreened the selected window, the list reordered, and a
-    /// second F to undo fullscreened a different app's window instead (QA U-06).
+    /// second F to undo fullscreened a different app's window instead (measured live).
     private static func onSelectedWindow(_ act: (Window) -> Void) {
         guard let window = Windows.selectedWindow() else { return }
         SwitcherSession.current?.userPickedSelection = true

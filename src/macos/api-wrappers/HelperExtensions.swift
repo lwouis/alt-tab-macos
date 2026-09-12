@@ -43,17 +43,6 @@ extension NSAppearance {
 }
 
 extension NSColor {
-    // periphery:ignore
-    func toHex() -> String? {
-        guard let rgbColor = usingColorSpace(.deviceRGB) else {
-            return nil
-        }
-        let red = Int(rgbColor.redComponent * 255.0)
-        let green = Int(rgbColor.greenComponent * 255.0)
-        let blue = Int(rgbColor.blueComponent * 255.0)
-        return String(format: "#%02X%02X%02X", red, green, blue)
-    }
-
     class var systemAccentColor: NSColor {
         if #available(macOS 10.14, *) {
             // dynamically adapts to changes in System Default; no need to listen to notifications
@@ -139,24 +128,19 @@ extension NSView {
         }
     }
 
-    func centerFrameInParent(x: Bool = false, y: Bool = false) {
-        let selfSize = (self is NSTextField) ? (self as! NSTextField).fittingSize : frame.size
-        let superviewSize = (superview! is NSTextField) ? (superview! as! NSTextField).fittingSize : superview!.frame.size
-        if (x) {
-            frame.origin.x = ((superviewSize.width - selfSize.width) / 2).rounded()
-        }
-        if (y) {
-            let diff = superviewSize.height - selfSize.height
-            frame.origin.y = (diff / 2).rounded()
-        }
-    }
-
-    func setSubviews(_ views: [NSView]) {
-        subviews = views
-    }
-
     func addSubviews(_ views: [NSView]) {
         subviews = subviews + views
+    }
+
+    /// Observe key / resign-key on this view's CURRENT window. Call from `viewDidMoveToWindow` and store
+    /// the returned tokens: that override fires again on every window change, so the previous window's
+    /// observers have to be dropped first (hence `replacing:`) or they outlive the window they watch.
+    func observeWindowKeyChanges(replacing previous: [NSObjectProtocol], _ onChange: @escaping () -> Void) -> [NSObjectProtocol] {
+        previous.forEach { NotificationCenter.default.removeObserver($0) }
+        guard let window else { return [] }
+        return [NSWindow.didBecomeKeyNotification, NSWindow.didResignKeyNotification].map { name in
+            NotificationCenter.default.addObserver(forName: name, object: window, queue: .main) { _ in onChange() }
+        }
     }
 
     func setSubviewAbove(_ view: NSView) {
@@ -250,28 +234,9 @@ extension NSImage {
         image.isTemplate = true
         return image
     }
-
-    func tinted(_ color: NSColor) -> NSImage {
-        NSImage(size: size, flipped: false) { rect in
-            color.set()
-            rect.fill()
-            self.draw(in: rect, from: NSRect(origin: .zero, size: self.size), operation: .destinationIn, fraction: 1.0)
-            return true
-        }
-    }
 }
 
 extension CGImage {
-    func nsImage() -> NSImage {
-        return NSImage(cgImage: self, size: size())
-    }
-
-    static func named(_ imageName: String) -> CGImage {
-        let imageURL = Bundle.main.url(forResource: imageName, withExtension: nil)!
-        let imageSource = CGImageSourceCreateWithURL(imageURL as CFURL, nil)!
-        return CGImageSourceCreateImageAtIndex(imageSource, 0, nil)!
-    }
-
     static func allNamed(_ imageName: String) -> [CGImage] {
         let imageURL = Bundle.main.url(forResource: imageName, withExtension: nil)!
         let imageSource = CGImageSourceCreateWithURL(imageURL as CFURL, nil)!
@@ -288,7 +253,6 @@ extension CGImage {
     func size() -> NSSize {
         return NSSize(width: width, height: height)
     }
-
 }
 
 extension CVPixelBuffer {
@@ -306,9 +270,6 @@ extension pid_t {
         var size = MemoryLayout<kinfo_proc>.stride
         var mib: [Int32] = [CTL_KERN, KERN_PROC, KERN_PROC_PID, self]
         sysctl(&mib, u_int(mib.count), &kinfo, &size, nil, 0)
-        _ = withUnsafePointer(to: &kinfo.kp_proc.p_comm) {
-            String(cString: UnsafeRawPointer($0).assumingMemoryBound(to: CChar.self))
-        }
         return kinfo.kp_proc.p_stat == SZOMB
     }
 }
@@ -317,18 +278,6 @@ extension String {
     // convert a FourCharCode into a String
     init(_ fourCharCode: FourCharCode) { // or `OSType`, or `UInt32`
         self = NSFileTypeForHFSTypeCode(fourCharCode).trimmingCharacters(in: CharacterSet(charactersIn: "'"))
-    }
-}
-
-extension Int {
-    func compare(_ otherNumber: Int) -> ComparisonResult {
-        return (self as NSNumber).compare(otherNumber as NSNumber)
-    }
-}
-
-extension Optional where Wrapped == String {
-    func localizedStandardCompare(_ string: String?) -> ComparisonResult {
-        return (self ?? "").localizedStandardCompare(string ?? "")
     }
 }
 
@@ -372,25 +321,6 @@ class ModifierFlags {
     }
 }
 
-extension NSPoint {
-    static func +=(lhs: inout NSPoint, rhs: NSPoint) {
-        lhs.x += rhs.x
-        lhs.y += rhs.y
-    }
-
-    static func +(lhs: NSPoint, rhs: NSPoint) -> NSPoint {
-        return NSPoint(x: lhs.x + rhs.x, y: lhs.y + rhs.y)
-    }
-
-    static func -(lhs: NSPoint, rhs: NSPoint) -> NSPoint {
-        return NSPoint(x: lhs.x - rhs.x, y: lhs.y - rhs.y)
-    }
-
-    static func /(lhs: NSPoint, rhs: Int) -> NSPoint {
-        return NSPoint(x: lhs.x / Double(rhs), y: lhs.y / Double(rhs))
-    }
-}
-
 extension Optional {
     enum Error: Swift.Error {
         case unexpectedNil
@@ -402,37 +332,8 @@ extension Optional {
     }
 }
 
-extension DispatchTimeInterval {
-    var toMilliseconds: Int {
-        switch self {
-            case .seconds(let s): return s / 1000
-            case .milliseconds(let ms): return ms
-            case .microseconds(let us): return us * 1000
-            case .nanoseconds(let ns): return ns * 1_000_000
-            default: return .max
-        }
-    }
-}
-
 extension NSRunningApplication {
     func debugId() -> String { "(pid:\(processIdentifier) \(bundleIdentifier ?? bundleURL?.absoluteString ?? executableURL?.absoluteString ?? localizedName))" }
-}
-
-// 250ms is similar to human delay in processing changes on screen
-// See https://humanbenchmark.com/tests/reactiontime
-let humanPerceptionDelay = DispatchTimeInterval.milliseconds(250)
-
-extension NSTouch.Phase {
-    var readable: String {
-        switch self {
-        case .began:      "began"
-        case .moved:      "moved"
-        case .stationary: "stationary"
-        case .ended:      "ended"
-        case .cancelled:  "cancelled"
-        default:          "unknown"
-        }
-    }
 }
 
 /// this changes the behavior of interpolating optional values (e.g. "\(optionalValue)")

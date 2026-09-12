@@ -22,7 +22,7 @@ switcher to show).
 So the initial-delay grace must be measured from when the panel was actually **visible**, not from arm
 time. A fast, normal summon is unaffected (visible within ~tens of ms of arming).
 
-## The anchor that went missing (live QA, 2026-07-30)
+## The anchor that went missing (measured live, 2026-07-30)
 
 Anchoring only on `SwitcherSession.panelBecameVisibleAt` — our own panel's WindowServer `orderedIn` —
 made the fallback the NORMAL path, because that notification never arrives. Order-in is only delivered

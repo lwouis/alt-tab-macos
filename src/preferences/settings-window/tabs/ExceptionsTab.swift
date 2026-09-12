@@ -9,7 +9,6 @@ class ExceptionsTab {
     private static let editorTopBottomPadding = TableGroupView.padding
     private static let editorHorizontalPadding = TableGroupView.padding
     private static var editorWidth: CGFloat { SettingsWindow.contentWidth - sidebarWidth - 1 }
-    private static var editorContentWidth: CGFloat { editorWidth - 2 * editorHorizontalPadding }
 
     private static var items: [ExceptionEntry] = []
     private static var selectedIndex = -1
@@ -182,6 +181,7 @@ class ExceptionsTab {
         menu.popUp(positioning: nil, at: NSPoint(x: 0, y: sender.bounds.height + 2), in: sender)
     }
 
+    // periphery:ignore:parameters sender - NSMenuItem target/action signature
     @objc private static func addFromDisk(_ sender: NSMenuItem) {
         let dialog = NSOpenPanel()
         dialog.allowsMultipleSelection = false

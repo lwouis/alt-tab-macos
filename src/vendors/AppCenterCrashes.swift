@@ -27,7 +27,7 @@ class AppCenterCrash: NSObject {
         }
     }
 
-    // periphery:ignore
+    // periphery:ignore:parameters errorReports - AppCenter's callback signature; it calls this, we never do
     func confirmationHandler(_ errorReports: [ErrorReport]) -> Bool {
         initNecessaryFacilities()
         // Defer the modal NSAlert to the next runloop tick. AppCenter can call this handler while

@@ -47,7 +47,7 @@ enum RetryPolicy {
 /// **An attempt that adopted nothing must be RETRYABLE, which is where this went wrong.** The situation used to
 /// be recorded before the scan even ran, and once recorded it was refused forever — so a single fruitless
 /// attempt (the app's AX tree not ready yet, the classic at launch) permanently gave up on that situation, with
-/// no retry and no later trigger. Measured over a QA run: 82 tab reads named untracked tabs and the scan
+/// no retry and no later trigger. Measured live: 82 tab reads named untracked tabs and the scan
 /// adopted nothing at all, while a run where the first attempt happened to land adopted 57.
 ///
 /// So a situation gets a small number of attempts rather than exactly one. Bounded, because the fruitless case
@@ -99,7 +99,7 @@ enum InactiveTabScanPolicy {
     /// launch, Finder with two 3-tab groups: the sweep for group B's active tab stopped on group A's two
     /// tabs and dropped them, the cursor moved past their ids, and the sweep for group A's active tab then
     /// started ABOVE them and found group B's instead — each requester repeatedly finding only the other's
-    /// tabs, six tabs collapsing to the two that were active (QA C-05).
+    /// tabs, six tabs collapsing to the two that were active (measured live).
     ///
     /// So a deferred candidate rewinds the cursor to itself: the very next sweep starts on it, and whichever
     /// requester owns it adopts it. The attempt budget above still bounds the whole thing.

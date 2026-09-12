@@ -37,8 +37,8 @@ final class TestScenarioSimulator {
     /// notify proc runs on whichever thread snarfs each one and then hops to main
     /// (`WindowServerEvents.notifyProc`), so nothing in the delivery path pins their relative order. The live
     /// captures show both: a fullscreen tab switch arrived JOIN-first, the outgoing tab's 1326 lagging
-    /// (`fullscreenTabSwitchEvents`), while moving a window between Spaces arrived LEAVE-first
-    /// (`spaceMovementEvents`). The model emits one canonical order per action; this axis replays the other,
+    /// (`RealWorldScenariosTests.fullscreenTabSwitchEvents`), while moving a window between Spaces arrived
+    /// LEAVE-first. The model emits one canonical order per action; this axis replays the other,
     /// so a rule that quietly depends on the pair arriving one way round fails here rather than in the field.
     ///
     /// A HANDOVER is defined narrowly, and the definition is the whole design: **two DIFFERENT wids, opposite
