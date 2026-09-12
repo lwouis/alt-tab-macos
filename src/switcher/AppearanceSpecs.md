@@ -30,3 +30,17 @@ Mirrors `AppearanceTests.swift` 1:1.
 - **testComfortableWidth** — for every model, the comfortable width fraction matches for both horizontal and vertical screen use.
 - **testComfortableWidthFallsBackToDefaultWhenPhysicalWidthIsNil** — when the screen's physical dimensions aren't reported, fall back to the 0.9 default rather than the 0.45 floor.
 - **testGoodValuesForThumbnailsWidthMinMaxPortrait** — for aspectRatio < 1 (portrait usage), the (min, max) uses the portrait formula and stays within the [0.09, 0.30] clamps.
+
+## macOS 27 glass panel corners
+
+The backing layer of each `NSGlassEffectView` clips to the same continuous corner
+radius as the glass. This bounds the rectangular corner artifacts reported in
+[#5757](https://github.com/lwouis/alt-tab-macos/issues/5757). Update both radii when
+reusing an effect view after a style or size change. The existing window shadow
+and glass material remain enabled. macOS 26 and earlier retain their rendering.
+
+Manual verification: repeatedly summon/dismiss Titles and Thumbnails, change
+between those styles (23pt and 43pt corners), and change App Icons sizes
+(50pt, 55pt, 75pt corners). Inspect all four corners in light and dark appearances,
+including against contrasting backgrounds. Check that selection, scrolling and
+search remain usable. Recheck on later macOS 27 builds before removing the workaround.
