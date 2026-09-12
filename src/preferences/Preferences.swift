@@ -439,14 +439,19 @@ class CachedUserDefaults {
 
     /// retrieve strings in the globalDomain (e.g. defaults read -g KeyRepeat)
     /// these may be nil since we they don't have default values from AltTab
+    ///
+    /// The value is cached on the way out. It used to be cached and then DROPPED — every caller got nil on
+    /// the first read and fell back to its hardcoded default, which is why the first hold-cycle of a launch
+    /// repeated at AltTab's built-in rate instead of the user's `KeyRepeat` (`KeyRepeatTimer`).
+    /// A missing key caches `NSNull` rather than nothing, so the absent case stops being an XPC round trip
+    /// to cfprefsd on every read; `cached as? String` reads that back as nil.
     static func globalString(_ key: String) -> String? {
         if let cached = cache.withLock({ $0[key] }) {
             return cached as? String
         }
-        if let string = UserDefaults.standard.string(forKey: key) {
-            cache.withLock { $0[key] = string }
-        }
-        return nil
+        let string = UserDefaults.standard.string(forKey: key)
+        cache.withLock { $0[key] = string ?? NSNull() }
+        return string
     }
 
     static func shortcut(_ key: String) -> Shortcut? {

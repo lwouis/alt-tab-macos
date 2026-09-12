@@ -49,7 +49,11 @@ class KeyRepeatTimer {
     private static func startTimerForRepeatingKey(_ atShortcut: ATShortcut, _ block: @escaping () -> Void) {
         guard timerIsSuspended && atShortcut.state != .up && (atShortcut.scope == .local || !holdModifierIsReleased()) else { return }
         currentTimerShortcutName = atShortcut.id
-        // reading these user defaults every time guarantees we have the latest value, if the user has updated those
+        // The fallbacks are macOS's own defaults, for a machine that has never had these set. They are NOT
+        // what a user with custom key-repeat settings should get: `CachedUserDefaults.globalString` used to
+        // return nil on its first read, so every launch's first hold-cycle ran at these instead.
+        // Read per arm, but served from the cache after the first time, so a change made in System Settings
+        // mid-session isn't picked up until relaunch.
         let repeatRate = ticksToSeconds(CachedUserDefaults.globalString("KeyRepeat") ?? "6")
         let initialDelay = ticksToSeconds(CachedUserDefaults.globalString("InitialKeyRepeat") ?? "25")
         armedAt = ProcessInfo.processInfo.systemUptime
