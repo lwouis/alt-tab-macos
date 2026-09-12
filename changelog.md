@@ -1,3 +1,9 @@
+## Unreleased
+
+### Bug Fixes
+
+* Clip the switcher's glass panel to rounded corners on macOS 27 to avoid rectangular edge artifacts ([#5757](https://github.com/lwouis/alt-tab-macos/issues/5757)).
+
 ## [11.6.1](https://github.com/lwouis/alt-tab-macos/compare/v11.6.0...v11.6.1) (2026-09-11)
 
 
