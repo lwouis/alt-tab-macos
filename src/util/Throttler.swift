@@ -24,9 +24,14 @@ class Throttler {
                 block()
             case .coalesce:
                 break
-            case .scheduleTail:
+            case .scheduleTail(let remainingNs):
                 nextScheduled = true
-                DispatchQueue.main.asyncAfter(deadline: .now() + .nanoseconds(Int(delayInNanoseconds) + 10_000_000)) { [self] in
+                // `remaining`, not a whole fresh window. Scheduling `delay` from HERE made the tail land up
+                // to twice as late as the throttle promises: a call arriving 190ms into a 200ms window ran
+                // at ~400ms instead of ~200ms. `ThrottlerWithKey` has always used `remaining`; this makes
+                // the two agree. The 10ms margin keeps the re-entrant `decide` from landing a hair early
+                // and scheduling a second tail for the remainder.
+                DispatchQueue.main.asyncAfter(deadline: .now() + .nanoseconds(Int(remainingNs) + 10_000_000)) { [self] in
                     nextScheduled = false
                     throttleOrProceed(block)
                 }

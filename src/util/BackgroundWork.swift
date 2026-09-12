@@ -158,7 +158,7 @@ class LabeledOperationQueue: OperationQueue, @unchecked Sendable {
     let strongUnderlyingQueue: DispatchQueue
 
     init(_ label: String, _ qos: DispatchQoS, _ maxConcurrentOperationCount: Int) {
-        strongUnderlyingQueue = DispatchQueue(label: label, attributes: [.concurrent])
+        strongUnderlyingQueue = DispatchQueue(label: label, qos: qos, attributes: [.concurrent])
         super.init()
         self.maxConcurrentOperationCount = maxConcurrentOperationCount
         BackgroundWork.addPotentialThreadCount(maxConcurrentOperationCount)

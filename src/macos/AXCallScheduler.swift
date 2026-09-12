@@ -18,7 +18,8 @@ import Foundation
 class AXCallScheduler {
     static let shared = AXCallScheduler()
 
-    // first-try: event-driven reads · scan: the bursty periodic inventory, isolated · retry: quarantine for timed-out apps
+    // first-try: event-driven reads · scan: the bursty periodic inventory · retry: quarantine for timed-out
+    // apps. Isolated from each other by width AND by QoS; see `init`.
     let axQueryFirstTryQueue: LabeledOperationQueue
     let axQueryScanQueue: LabeledOperationQueue
     let axQueryRetryQueue: LabeledOperationQueue
@@ -52,14 +53,24 @@ class AXCallScheduler {
         var cancelRetries = false
     }
 
+    /// **The three lanes are separated by QoS, not only by width.** An AX call is a synchronous Mach send,
+    /// and macOS donates the caller's QoS to the receiving process for the duration — so the QoS here does
+    /// not just order our own workers, it decides how fast the app on the other end answers us. Equal QoS
+    /// across the lanes therefore did NOT give the first-try lane the isolation its width implies: a bulk
+    /// scan asked every app to answer at the same priority as the read a summon was waiting on.
     private init() {
         // WindowServer now owns geometry/visibility/space reads (moved off these pools), so the event-read
         // first-try lane carries far less now (focus reads + element acquires); 8 is ample (was 10).
+        // The only lane a user is ever waiting on, and the donation is working FOR us here.
         axQueryFirstTryQueue = LabeledOperationQueue("axQueryFirstTry", .userInteractive, 8)
-        axQueryScanQueue = LabeledOperationQueue("axQueryScan", .userInteractive, 6)
+        // The bursty periodic inventory: below the event-read lane on purpose, which is what actually keeps
+        // it from starving a summon's reads.
+        axQueryScanQueue = LabeledOperationQueue("axQueryScan", .userInitiated, 6)
         // ...and the unresponsive-app retry lane sees fewer queries too; 6 is ample. Freed budget funds the
-        // wider cgsCall lane (B6).
-        axQueryRetryQueue = LabeledOperationQueue("axQueryRetry", .userInteractive, 6)
+        // wider cgsCall lane (B6). `.utility` because every call on it is a retry against an app that has
+        // already blown the 1s messaging timeout, on a 200ms-5s backoff: nobody is waiting on any one of
+        // them, and donating user-interactive to a wedged app only asks it to beach-ball at high priority.
+        axQueryRetryQueue = LabeledOperationQueue("axQueryRetry", .utility, 6)
     }
 
     /// Run an outgoing AX call, retrying with backoff if the app is unresponsive. `scan: true` routes the
