@@ -72,8 +72,11 @@ class SystemPermissions {
             DispatchQueue.main.async {
                 preStartupPermissionsPassed = true
                 PermissionsWindow.shared?.close()
-                setInfrequentTimer()
+                // The listener first: `setInfrequentTimer` picks the 60s backstop only once it exists, and
+                // nothing re-arms the timer later. The other way round left the 5s launch cadence, an
+                // `AXIsProcessTrusted` round trip to tccd, running for the life of the process.
                 startListeningForDistributedRevoke()
+                setInfrequentTimer()
                 App.continueAppLaunchAfterPermissionsAreGranted()
             }
         } else {

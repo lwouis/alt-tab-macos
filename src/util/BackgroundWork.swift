@@ -125,11 +125,17 @@ class BackgroundWork {
 
         /// Same, after a delay. The timer is scheduled ON this thread's runloop, so the block still lands
         /// where the state it touches lives.
+        ///
+        /// A `CFRunLoopTimer` defaults to ZERO tolerance, i.e. it demands its own exact wakeup and the OS
+        /// can't batch it with anything else. Nothing scheduled here is a deadline a user waits on — it is
+        /// AX retry backoff and the 30s recovery tick, all of it aimed at apps that are already not
+        /// answering — so give it the same 10% the OS applies to `dispatch_after` on its own.
         func asyncAfter(_ seconds: Double, _ block: @escaping () -> Void) {
             guard let runLoop else { return }
             let timer = CFRunLoopTimerCreateWithHandler(nil, CFAbsoluteTimeGetCurrent() + seconds, 0, 0, 0) { _ in
                 block()
             }
+            CFRunLoopTimerSetTolerance(timer, seconds / 10)
             CFRunLoopAddTimer(runLoop, timer, .commonModes)
             CFRunLoopWakeUp(runLoop)
         }

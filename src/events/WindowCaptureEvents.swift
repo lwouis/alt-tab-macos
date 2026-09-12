@@ -290,12 +290,20 @@ class ActiveWindowCaptures {
     private static func start(_ capture: @escaping (@escaping () -> Void) -> Void) {
         // one-shot: whoever gets there first (the OS callback or the watchdog) releases the slot exactly once
         let done = FinishOnce()
-        let finish = { if done.claim() { release() } }
-        DispatchQueue.global().asyncAfter(deadline: .now() + watchdogSeconds) {
+        // CANCELLED on the normal path, not just neutered by `done`. An `asyncAfter` block that has lost the
+        // race still exists and still wakes the process at its deadline, so a 60-window show used to leave 60
+        // wakeups behind it, all firing seconds after the switcher was gone. `done` still guards the race;
+        // `cancel` is what keeps an idle AltTab idle.
+        let watchdog = DispatchWorkItem {
             guard done.claim() else { return }
             Logger.warning { "a window capture never answered after \(Int(watchdogSeconds))s; releasing its slot" }
             release()
         }
+        let finish = {
+            watchdog.cancel()
+            if done.claim() { release() }
+        }
+        DispatchQueue.global().asyncAfter(deadline: .now() + watchdogSeconds, execute: watchdog)
         capture(finish)
     }
 
