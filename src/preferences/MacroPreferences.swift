@@ -153,12 +153,14 @@ enum AppsToShowPreference: CaseIterable, MacroPreference {
     case all
     case active
     case nonActive
+    case underCursor
 
     var localizedString: LocalizedString {
         switch self {
             case .all: return NSLocalizedString("All apps", comment: "")
             case .active: return NSLocalizedString("Active app", comment: "")
             case .nonActive: return NSLocalizedString("Non-active apps", comment: "")
+            case .underCursor: return NSLocalizedString("Windows under the cursor", comment: "")
         }
     }
 }

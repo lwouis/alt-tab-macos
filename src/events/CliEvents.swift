@@ -155,12 +155,14 @@ class CliServer {
         let filters = WindowFilters.snapshot()
         let frontmostPid = Applications.frontmostPid
         let visibleSpaceIds = Spaces.visibleSpaces
+        let cursor = filters.appsToShow == .underCursor ? NSScreen.mouseLocationInQuartzCoordinates() : nil
         let windows = Windows.list.enumerated().map { (i, w) -> QaWindow in
             let wid = w.cgWindowId
             let shown = WindowFilterResolver.shouldShow(
                 w.state, w.application.state,
                 onlyFrontmostApp: filters.appsToShow == .active,
                 excludeFrontmostApp: filters.appsToShow == .nonActive,
+                onlyUnderCursor: filters.appsToShow == .underCursor,
                 hideHidden: filters.showHiddenWindows == .hide,
                 hideWindowless: filters.showWindowlessApps == .hide,
                 hideFullscreen: filters.showFullscreenWindows == .hide,
@@ -172,7 +174,8 @@ class CliServer {
                 frontmostPid: frontmostPid,
                 visibleSpaceIds: visibleSpaceIds,
                 exceptions: filters.exceptions,
-                isOnPreferredScreen: w.isOnScreen(NSScreen.preferred))
+                isOnPreferredScreen: w.isOnScreen(NSScreen.preferred),
+                isUnderCursor: cursor.map { w.contains($0) } ?? false)
             return QaWindow(
                 index: i,
                 wid: wid,

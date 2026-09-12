@@ -589,6 +589,14 @@ class Window {
         return true
     }
 
+    /// Whether the window's frame contains `point`, in Quartz coordinates (origin at the top-left of the main
+    /// screen, like `position`). A tabbed window borrows the visible tab's frame, as `isOnScreen` does.
+    func contains(_ point: CGPoint) -> Bool {
+        let referenceWindow = referenceWindowForTabbedWindow()
+        guard let topLeftCorner = referenceWindow?.position, let size = referenceWindow?.size else { return false }
+        return CGRect(origin: topLeftCorner, size: size).contains(point)
+    }
+
     func referenceWindowForTabbedWindow() -> Window? {
         // if the window is tabbed, we can't know its position/size before it's focused, so we use the currently
         // visible window-tab. Its data will match the tabbed window's
