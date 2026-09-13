@@ -1,3 +1,8 @@
+## Integrated website icons (2026-09-13)
+
+- Add general public HTTPS discovery, a default-off preference, private-window disclosure, globe fallback and cancellation.
+- Select one integrated implementation; deprecate the extension route as historical development work.
+
 ## Experimental native browser icon review
 
 - Add an opt-in, reviewed-origin browser icon experiment with bounded fetching and normalized artwork. Default behavior remains unchanged; release/privacy gates are documented in `docs/native-browser-icons.md`.

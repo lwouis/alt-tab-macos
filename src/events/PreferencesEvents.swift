@@ -68,6 +68,7 @@ class PreferencesEvents {
         case "nextWindowGesture": TrackpadEvents.toggle(Preferences.nextWindowGesture != .disabled)
         case "startAtLogin": LoginItem.applyCurrentPreference()
         case "updatePolicy": applyUpdatePolicyPreference()
+        case "showWebsiteIcons": NativeBrowserIconPrototype.reset()
         case let k where preferencesRequiringUiReset.contains(k): App.resetPreferencesDependentComponents()
         case let k where isOverrideKey(k) || isPerShortcutGroupingKey(k): App.resetPreferencesDependentComponents()
         default: break

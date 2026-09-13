@@ -14,9 +14,10 @@ parser.add_argument('--real-sites', action='store_true', help='Also fetch the ei
 args = parser.parse_args()
 root = Path(__file__).resolve().parent.parent
 env = {key: value for key, value in os.environ.items() if not key.startswith('ALTTAB_NATIVE_ICON_')}
+env['ALTTAB_NATIVE_ICON_PROTOTYPE'] = '1'
 renderer = root / 'src/switcher/main-window/IconRenderer.swift'
 resolver = root / 'src/switcher/main-window/FixtureIconResolver.swift'
-tests = ['IconRendererTests', 'FixtureIconResolverTests', 'FixtureIconStressTests', 'FixtureIconAdmissionTests']
+tests = ['IconRendererTests', 'FixtureIconResolverTests', 'FixtureIconStressTests', 'FixtureIconAdmissionTests', 'PublicWebsiteIconTests']
 if args.real_sites:
     tests.append('RealWebsiteIconTests')
 
@@ -52,7 +53,10 @@ with tempfile.TemporaryDirectory(prefix='alttab-native-tests-') as output:
                 command = [executable]
                 if name == 'RealWebsiteIconTests':
                     command = [sys.executable, str(root / 'ai/run-native-icon-demo.py'), executable]
-                subprocess.run(command, check=True, env=env, timeout=180)
+                run_env = dict(env)
+                if name == 'PublicWebsiteIconTests':
+                    run_env.pop('ALTTAB_NATIVE_ICON_PROTOTYPE', None)
+                subprocess.run(command, check=True, env=run_env, timeout=180)
         finally:
             server.terminate()
             try:

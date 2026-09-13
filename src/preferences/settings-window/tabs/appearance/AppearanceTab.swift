@@ -466,7 +466,7 @@ class AppearanceTab: NSObject {
         // 20pt here pushes the TGV content to `container.leading + 20`, while the section title
         // sits at `container.leading + TableGroupView.padding(10)` — a 10pt visible misalignment
         // between the title and the row content below it.
-        let view = TableGroupSetView(originalViews: [appearanceView, multipleScreensView, animationsButton], titleTableGroupSpacing: 15, padding: 0, bottomPadding: 0)
+        let view = TableGroupSetView(originalViews: [appearanceView, makeWebsiteIconsView(), multipleScreensView, animationsButton], titleTableGroupSpacing: 15, padding: 0, bottomPadding: 0)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.widthAnchor.constraint(equalToConstant: view.fittingSize.width).isActive = true
         return view
@@ -641,6 +641,13 @@ class AppearanceTab: NSObject {
         })
         _ = table.addRow(leftText: AppearanceTab.labelPreviewSelectedWindow,
             rightViews: [switchControl, makeOverrideIcon("previewFocusedWindowOverride")])
+    }
+
+    private static func makeWebsiteIconsView() -> NSView {
+        let table = TableGroupView(subTitle: NSLocalizedString("Fetches public website icons directly, including for private windows. Requests happen outside your browser session, without its cookies or sign-in information.", comment: ""), width: SettingsWindow.contentWidth)
+        _ = table.addRow(leftText: NSLocalizedString("Show website icons", comment: ""),
+            rightViews: [LabelAndControl.makeSwitch("showWebsiteIcons")])
+        return table
     }
 
     private static func makeMultipleScreensView() -> NSView {

@@ -1,12 +1,20 @@
-# Native browser icons: experimental review scope
+# Integrated browser website icons
 
-This branch is based directly on upstream 11.6.1 (`850a7235`). It contains only the opt-in native provider, renderer, fixture tooling and the TileView icon hook. It excludes local layout, selection, hover, Device Hub, Safari companion, entitlements and preview patches. It is a reviewable experiment, not a release candidate.
+One main implementation is built into AltTab. The Safari extension and Chrome probes are deprecated development history, not additional supported products, installation requirements or runtime fallbacks.
 
-Normal app launches retain upstream behavior. `python3 ai/run-native-icon-demo.py /path/to/AltTab.app` enables the reviewed-origin experiment for that process. No settings, login items or extra permissions are installed by this launcher. Quit the experiment and reopen the ordinary app to restore normal behavior.
+## Current behavior
 
-The provider discovers AX document URLs with bounded traversal off-main and maps eight reviewed HTTPS origins to clean public homepages. It never forwards document paths, queries or fragments. Network access remains restricted to the exact configured homepages and icon resources. It uses ephemeral, credential-free requests, bounded responses and redirects, and a generic renderer copied unchanged from the Safari companion. It can produce a different icon from the actual browser document.
+**Show website icons** in Appearance defaults off. Its disclosure explains that public website requests also apply to private windows, outside the browser session and without browser cookies or sign-in information. Turning it off cancels pending transfers and clears native icon state.
 
-Limits: 32 pending page resolutions, 32 pending asset resolutions, 256 waiters per key, eight active URLSession transfers globally, 32 queued transfers, 32 entries per cache, 1MiB retained response buffers, and 30s positive / 5s negative cache lifetimes. Excess demand completes without artwork and can retry later. Window freshness is checked on subsequent UI updates without a polling timer.
+Normal operation is no longer restricted to laboratory sites. Bounded Accessibility discovery obtains a document URL and resolves its public HTTPS homepage without the document path, query or fragment. Declared artwork and a root favicon fallback use the shared white-first, rounded renderer. Ready icons remain while replacements resolve; confirmed webpages without usable artwork receive a globe. Settings and unidentified windows keep app icons.
+
+This does not claim generic private-window detection or exact browser-selected favicon parity. Authenticated, script-generated, article-specific or unsupported artwork can differ or fall back.
+
+## Resource boundaries
+
+Four background AX workers, 32 pending window probes and 128 window cache entries bound discovery. Page and asset caches each hold 32 entries. Pending page and asset resolutions are limited to 32 each, with 256 waiters per key. Eight transfers run concurrently and 32 can queue. Responses are capped at 1 MiB; positive and negative cache lifetimes are 30 and 5 seconds. No continuous refresh timer runs.
+
+Ephemeral URLSession requests omit browser credentials and cookies. Public HTTPS destinations and redirects undergo address screening, rejecting local names, private addresses, credentials and unusual ports. DNS screening is not transport pinning and cannot guarantee protection against DNS rebinding or proxy behavior. System DNS calls are not cancellable. Maintainer security review remains necessary before distribution.
 
 ## Development path: extension first, then native integration
 
@@ -17,44 +25,16 @@ Limits: 32 pending page resolutions, 32 pending asset resolutions, 256 waiters p
 | Integrated native prototype | Moved URL discovery and independent icon retrieval into AltTab. Same-title red/blue fixtures appeared correctly in Safari and Chrome in the actual switcher, with the Safari companion disabled and its receiver bypassed. Later tests covered eight public origins. | Demonstrated a shared extension-free baseline instead of requiring a Safari-native/Chrome-extension split. Independent homepage artwork remains an approximation of the browser's selected icon. |
 | Reused presentation and audited resources | Reused the companion renderer as a byte-identical vendored copy with parity checks. Added rounded white-first artwork, coalesced requests/decodes, cache and transfer limits, obsolete-result checks and performance measurements. | Keeps successful artwork work while changing acquisition. The clean upstream branch excludes unrelated local UI and window-management patches. |
 
-The selected direction for this proposal is the integrated native provider. It is a working restricted prototype, not a completed replacement for every extension capability. Exact active-tab metadata, private-state detection, script-updated icons and broad browser/OS coverage remain important differences. Neither the Safari companion nor the Chrome probe was published to an extension store as part of this proposal.
+The integrated provider is the selected product direction. Historical extension instructions remain archived for traceability. Neither extension was published to an extension store for this proposal.
 
-Earlier implementation and dated evidence remain available in the [Safari companion source](https://github.com/josdyr/dotfiles/tree/52dd5be/macos/alt-tab-site-icons), [capability experiments](https://github.com/josdyr/dotfiles/blob/52dd5be/macos/alt-tab-site-icons/prototypes/README.md) and [research journal](https://github.com/josdyr/dotfiles/blob/52dd5be/docs/alt-tab-browser-icon-research.md). The journal preserves superseded recommendations; this document describes the current proposal.
+Historical evidence: [companion source](https://github.com/josdyr/dotfiles/tree/52dd5be/macos/alt-tab-site-icons), [capability experiments](https://github.com/josdyr/dotfiles/blob/52dd5be/macos/alt-tab-site-icons/prototypes/README.md), and [research journal](https://github.com/josdyr/dotfiles/blob/52dd5be/docs/alt-tab-browser-icon-research.md).
 
-### Why an arbitrary site still shows its browser icon
+## Verification and remaining qualification
 
-The running demo only resolves origins listed in `ai/native-icon-sites.json`. A document on another origin returns no native artwork before fetching, even if that site has a valid favicon. Article paths, query parameters and fragment anchors are removed for lookup on admitted origins, so an article or `#section` does not itself prevent matching. This is the test boundary, not a finding that other websites or browsers are unsupported. Broader operation requires replacing the laboratory list with the reviewed general network policy and product opt-in; adding individual reported sites is not the intended release design.
+Run `python3 ai/test-native-icons.py` for artwork, resolver, stress, admission, cancellation and public-URL policy checks. Add `--real-sites` for eight network-dependent examples. Laboratory mode remains for loopback fixtures only.
 
-## Release gates
+On September 13, builds and 1,266 project tests passed, as did 44 artwork checks and the standalone suite. General-policy resolution produced icons for Dario Amodei's site, Google and DuckDuckGo without the laboratory allowlist. The preference was verified on and off in the running local app.
 
-- Native AX discovery does not reliably identify private windows across supported browsers. Private-window rendering is not proof of private-state detection. The public-site allowlist remains in place for this review. Ephemeral requests still contact websites outside the browser session.
-- Add a user-facing opt-in and a supported provider/privacy policy before unrestricted operation.
-- Qualify temporary AX loss, cross-origin continuity, missing-icon globe behavior, window recycling and cancellation.
-- Compare full-process CPU, memory, wakeups and keyboard latency against the same upstream binary with the feature disabled, on supported macOS versions. Isolated resolver timings are not sufficient.
-- Review actual browser favicon selection, dynamic icons, formats, appearance, profile behavior and distribution with maintainers.
+Local Xcode validation used a macOS 12 deployment override and disabled warnings-as-errors for the installed macOS 27 SDK. CI, the complete supported-OS/browser matrix, general-mode whole-process performance and final installed-app navigation remain unverified. The proposal remains open for review, not universally release-qualified.
 
-## Local checks
-
-Run `python3 ai/test-native-icons.py` for the renderer and loopback resolver, stress and admission checks. It compiles into a temporary directory, starts its own fixture server and stops that server on completion or failure. It refuses an occupied fixture port. Add `--real-sites` to make independent requests to the eight reviewed public homepages and icons. These live-site checks depend on current network responses and are not deterministic CI tests.
-
-Compile a standalone test with both `src/switcher/main-window/IconRenderer.swift` and `src/switcher/main-window/FixtureIconResolver.swift`, plus one test entry point under `ai`. Fixture resolver, stress and admission tests use `python3 ai/native-icon-server.py`; real-site tests use `ai/run-native-icon-demo.py`. Compile `ai/IconRendererTests.swift` with the renderer alone. Renderer source/test parity can be checked with `ai/check-icon-renderer-parity.py /path/to/macos/alt-tab-site-icons`.
-
-The admission test completes 1,000 unique slow-page callers, admits at most 32 concurrent resolutions, and verifies recovery. Artwork regressions cover white-first backing and corner protection. These checks do not claim private-mode exclusion or release readiness.
-
-## Preparation evidence
-
-Final clean-branch validation on 2026-09-13: Debug build and strict bundle signature verification passed; the Test scheme passed all 1,266 project tests. The standalone runner passed 44 artwork checks, loopback resolver/stress/admission checks, and all eight live public-site resolutions, including Google and DuckDuckGo. Local Xcode commands used macOS 12 deployment and disabled warnings-as-errors for the installed macOS 27 SDK; this does not validate upstream's full supported-OS matrix. CI is unverified.
-
-The local-patch development binary completed five equal 5-second cycles per mode: native off sampled 4.46s CPU and 232,080 KiB peak RSS, native on 3.91s CPU and 228,816 KiB. This is one noisy pair, not evidence of an improvement or a measurement of this clean review branch. It exposed background self-process AX inspection; excluding the current process removed the AppKit warning on rerun. The clean review project separately builds and passes strict signature verification, but has not undergone the same live comparison.
-
-## Proposed release behavior
-
-Recommend one explicit, default-off setting: **Show website icons**. Explain beneath it: "Fetches website icons directly, including for private windows. Requests happen outside your browser session, without its cookies or sign-in information." This is proposed product copy, not an implemented preference. The experimental launcher now prints this disclosure before starting.
-
-Keep a ready icon while a replacement is loading; show a neutral globe for a confirmed webpage without usable artwork, and retain the browser app icon for settings or unidentified windows. The native prototype still needs the globe and full navigation continuity work. Do not silently broaden this branch's reviewed URL list into arbitrary fetching.
-
-This proposal does not require browser extensions or claim browser-selected favicon parity. Safari exposes a [private-browsing property to app extensions](https://developer.apple.com/documentation/safariservices/sfsafaripageproperties/usesprivatebrowsing); Chrome exposes [incognito state and favicon URLs to extensions](https://developer.chrome.com/docs/extensions/reference/api/tabs). Neither establishes a generic private-state signal for this standalone AX provider. Browser integrations remain an alternative if maintainers require private-window exclusion or browser-owned artwork.
-
-Publish this as a separate **draft PR for architecture review**, with the release gates above open. It is not an unrestricted browsing release or a request to merge unfinished behavior. Maintainers decide whether to proceed with independent fetching before distribution work or extension-store publication.
-
-Related upstream discussions: [Show selected tab favicon on browser windows](https://github.com/lwouis/alt-tab-macos/issues/527) and [Use Website Favicon for Chrome Window Icons](https://github.com/lwouis/alt-tab-macos/issues/4651). This experiment addresses feasibility with independent public-homepage discovery; it does not claim direct access to the exact active-tab favicon or close those feature requests.
+Related discussions: [browser favicons](https://github.com/lwouis/alt-tab-macos/issues/527) and [Chrome window icons](https://github.com/lwouis/alt-tab-macos/issues/4651).
