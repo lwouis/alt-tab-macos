@@ -6,6 +6,8 @@ env = dict(os.environ, ALTTAB_NATIVE_ICON_PROTOTYPE='1',
            ALTTAB_NATIVE_ICON_TEST_PAGES='|'.join(sites['pages']),
            ALTTAB_NATIVE_ICON_TEST_ASSETS='|'.join(sites['assets']))
 if len(sys.argv) < 2: raise SystemExit('Usage: run-native-icon-demo.py <test-executable-or-AltTab.app> [arguments]')
+print('Experimental website icons: independently fetches reviewed public homepages and icons, including for private windows. '
+      'Document paths and queries are omitted; browser cookies and credentials are not used.', file=sys.stderr, flush=True)
 if sys.argv[1].endswith('.app'):
     args = ['open', '-n']
     for key in ['ALTTAB_NATIVE_ICON_PROTOTYPE', 'ALTTAB_NATIVE_ICON_TEST_PAGES', 'ALTTAB_NATIVE_ICON_TEST_ASSETS']:
