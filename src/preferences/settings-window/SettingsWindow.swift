@@ -131,11 +131,27 @@ private final class SettingsSidebarCellView: NSTableCellView {
 }
 
 final class UpgradeButton: ProGradientButton {
+    private static let mainFont = NSFont.systemFont(ofSize: 13, weight: .semibold)
+    private static let secondaryAttributes: [NSAttributedString.Key: Any] = [
+        .foregroundColor: NSColor.white.withAlphaComponent(0.8),
+        .font: NSFont.systemFont(ofSize: 11, weight: .regular),
+    ]
+    private static let emailMaxLines = 3
+    private static let emailMinFontSize = CGFloat(11.5)
+    /// `NSButton` gives its title no side padding, so without this the email would run into the
+    /// pill's rounded corners.
+    private static let titleHorizontalInset = CGFloat(6)
+    private static let oneLineHeight = CGFloat(24)
+    /// The secondary line plus one line of `mainFont`.
+    private static let twoLineHeight = CGFloat(35)
+
     private var heightConstraint: NSLayoutConstraint!
+    /// Width the title was last wrapped for, so `layout` only re-wraps when the sidebar resizes.
+    private var wrappedWidth = CGFloat(0)
 
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
-        heightConstraint = heightAnchor.constraint(equalToConstant: 24)
+        heightConstraint = heightAnchor.constraint(equalToConstant: Self.oneLineHeight)
         heightConstraint.isActive = true
         refreshTitle()
     }
@@ -146,44 +162,47 @@ final class UpgradeButton: ProGradientButton {
 
     override func layout() {
         super.layout()
-        refreshEmailTooltip()
+        guard bounds.width != wrappedWidth else { return }
+        refreshTitle()
     }
 
     func refreshTitle() {
-        let result = NSMutableAttributedString()
-        let mainAttrs: [NSAttributedString.Key: Any] = [
-            .foregroundColor: NSColor.white,
-            .font: NSFont.systemFont(ofSize: 13, weight: .semibold),
-        ]
-        let secondaryAttrs: [NSAttributedString.Key: Any] = [
-            .foregroundColor: NSColor.white.withAlphaComponent(0.8),
-            .font: NSFont.systemFont(ofSize: 11, weight: .regular),
-        ]
+        wrappedWidth = bounds.width
         let state = LicenseManager.shared.state
-        if case .pro = state {
-            let title = LicenseManager.shared.isLifetimeVariant
-                ? NSLocalizedString("Pro Lifetime activated", comment: "")
-                : NSLocalizedString("Pro activated", comment: "")
-            if let email = LicenseManager.shared.customerEmail {
-                result.append(NSAttributedString(string: title, attributes: secondaryAttrs))
-                result.append(NSAttributedString(string: "\n", attributes: secondaryAttrs))
-                result.append(NSAttributedString(string: email, attributes: mainAttrs))
-            } else {
-                result.append(NSAttributedString(string: title, attributes: mainAttrs))
-            }
-        } else {
-            let subtitleText: String
-            if case .trial(let daysRemaining) = state {
-                subtitleText = String(format: NSLocalizedString("Trial: %d days remaining", comment: ""), daysRemaining)
-            } else if case .proExpired = state {
-                subtitleText = NSLocalizedString("License doesn't cover this version", comment: "")
-            } else {
-                subtitleText = NSLocalizedString("Trial expired", comment: "")
-            }
-            result.append(NSAttributedString(string: subtitleText, attributes: secondaryAttrs))
-            result.append(NSAttributedString(string: "\n", attributes: secondaryAttrs))
-            result.append(NSAttributedString(string: NSLocalizedString("Get Pro", comment: ""), attributes: mainAttrs))
+        guard case .pro = state else {
+            toolTip = nil
+            applyTitle(secondary: trialSubtitle(state), main: Self.attributed(NSLocalizedString("Get Pro", comment: ""), Self.mainFont), height: Self.twoLineHeight)
+            return
         }
+        let title = LicenseManager.shared.isLifetimeVariant
+            ? NSLocalizedString("Pro Lifetime activated", comment: "")
+            : NSLocalizedString("Pro activated", comment: "")
+        guard let email = LicenseManager.shared.customerEmail else {
+            toolTip = nil
+            applyTitle(secondary: nil, main: Self.attributed(title, Self.mainFont), height: Self.oneLineHeight)
+            return
+        }
+        setEmailTitle(title, email)
+    }
+
+    /// The email is often the customer's name, so it keeps the big font and grows the button over up
+    /// to 3 lines instead of shrinking; past that the tail is dropped and the tooltip carries the
+    /// full address.
+    private func setEmailTitle(_ title: String, _ email: String) {
+        let width = availableTitleWidth
+        let font = EmailLineWrap.fittedFont(email, baseFont: Self.mainFont, maxWidth: width, minSize: Self.emailMinFontSize, maxLines: Self.emailMaxLines)
+        let wrapped = EmailLineWrap.wrap(email, font: font, maxWidth: width, maxLines: Self.emailMaxLines)
+        toolTip = wrapped.isTruncated ? email : nil
+        applyTitle(secondary: title, main: Self.attributed(wrapped.lines.joined(separator: "\n"), font),
+            height: Self.twoLineHeight + CGFloat(wrapped.lines.count - 1) * Self.lineHeight(font))
+    }
+
+    private func applyTitle(secondary: String?, main: NSAttributedString, height: CGFloat) {
+        let result = NSMutableAttributedString()
+        if let secondary = secondary {
+            result.append(NSAttributedString(string: secondary + "\n", attributes: Self.secondaryAttributes))
+        }
+        result.append(main)
         let style = NSMutableParagraphStyle()
         style.alignment = .center
         style.lineBreakMode = .byTruncatingTail
@@ -192,25 +211,32 @@ final class UpgradeButton: ProGradientButton {
         if #available(macOS 10.14, *) {
             contentTintColor = .white
         }
-        let hasSecondLine: Bool
-        if case .pro = state, LicenseManager.shared.customerEmail == nil {
-            hasSecondLine = false
-        } else {
-            hasSecondLine = true
-        }
-        heightConstraint.constant = hasSecondLine ? 35 : 24
-        refreshEmailTooltip()
+        heightConstraint.constant = height
     }
 
-    private func refreshEmailTooltip() {
-        guard case .pro = LicenseManager.shared.state,
-              let email = LicenseManager.shared.customerEmail else {
-            toolTip = nil
-            return
+    private func trialSubtitle(_ state: LicenseState) -> String {
+        if case .trial(let daysRemaining) = state {
+            return String(format: NSLocalizedString("Trial: %d days remaining", comment: ""), daysRemaining)
         }
-        let attrs: [NSAttributedString.Key: Any] = [.font: NSFont.systemFont(ofSize: 13, weight: .semibold)]
-        let emailWidth = (email as NSString).size(withAttributes: attrs).width
-        toolTip = emailWidth > bounds.width ? email : nil
+        if case .proExpired = state {
+            return NSLocalizedString("License doesn't cover this version", comment: "")
+        }
+        return NSLocalizedString("Trial expired", comment: "")
+    }
+
+    /// Before the first layout there is no width to measure, so fall back to the sidebar geometry
+    /// the button's own constraints will give it.
+    private var availableTitleWidth: CGFloat {
+        let pillWidth = bounds.width > 0 ? bounds.width : SettingsWindow.sidebarWidth - 2 * SettingsWindow.sidebarHorizontalPadding
+        return pillWidth - 2 * Self.titleHorizontalInset
+    }
+
+    private static func attributed(_ text: String, _ font: NSFont) -> NSAttributedString {
+        NSAttributedString(string: text, attributes: [.foregroundColor: NSColor.white, .font: font])
+    }
+
+    private static func lineHeight(_ font: NSFont) -> CGFloat {
+        ceil(font.ascender - font.descender + font.leading)
     }
 }
 
@@ -248,7 +274,7 @@ class SettingsWindow: NSWindow {
     /// rather than extend edge-to-edge. The window width includes 2× this on top of the regular
     /// `contentWidth`, so TGVs keep their natural width and gain a visible gutter on each side.
     static let sectionContentHorizontalMargin = CGFloat(15)
-    private static let sidebarWidth = CGFloat(175)
+    static let sidebarWidth = CGFloat(175)
     /// Outer left pad between the splitview divider and the TableGroupView background. Kept
     /// symmetric with `contentTrailingPadding` so the visible TGV "shoulders" match on both sides.
     private static let contentHorizontalPadding = CGFloat(5)
@@ -270,7 +296,7 @@ class SettingsWindow: NSWindow {
     private static let minWindowHeight = CGFloat(400)
     private static let defaultWindowHeight = CGFloat(570)
     private static let sidebarTopInset = CGFloat(40)
-    private static let sidebarHorizontalPadding = CGFloat(10)
+    static let sidebarHorizontalPadding = CGFloat(10)
     /// Padding inside the row's cell view between the cell's leading edge and the icon.
     /// `NSTableView.style = .sourceList` already inserts the cell content into its rounded
     /// highlight pill, so we only add a small visual breathing-room here.

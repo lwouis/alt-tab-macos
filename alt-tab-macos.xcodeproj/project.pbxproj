@@ -354,6 +354,9 @@
 		D04BAA16F21AC41A23DDA63D /* ControlsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA1B438BF3E65044D1138 /* ControlsTab.swift */; };
 		D04BAE1F00000000ED001001 /* ShortcutEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAE1F00000000ED001002 /* ShortcutEditor.swift */; };
 		D04BAE2000000000ED002001 /* SettingsSearchIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAE2000000000ED002002 /* SettingsSearchIndex.swift */; };
+		D04BAE2200000000ED007001 /* EmailLineWrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAE2200000000ED007002 /* EmailLineWrap.swift */; };
+		D04BAE2200000000ED007003 /* EmailLineWrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAE2200000000ED007002 /* EmailLineWrap.swift */; };
+		D04BAE2200000000ED007T11 /* EmailLineWrapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAE2200000000ED007T12 /* EmailLineWrapTests.swift */; };
 		D04BAE2200000000ED004001 /* SettingsSearchHighlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAE2200000000ED004002 /* SettingsSearchHighlight.swift */; };
 		D04BAE2200000000ED004003 /* SettingsSearchHighlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAE2200000000ED004002 /* SettingsSearchHighlight.swift */; };
 		D04BAE2200000000ED005001 /* SettingsSectionSearchContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAE2200000000ED005002 /* SettingsSectionSearchContent.swift */; };
@@ -735,6 +738,8 @@
 		D04BA1B438BF3E65044D1138 /* ControlsTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlsTab.swift; sourceTree = "<group>"; };
 		D04BAE1F00000000ED001002 /* ShortcutEditor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShortcutEditor.swift; sourceTree = "<group>"; };
 		D04BAE2000000000ED002002 /* SettingsSearchIndex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsSearchIndex.swift; sourceTree = "<group>"; };
+		D04BAE2200000000ED007002 /* EmailLineWrap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailLineWrap.swift; sourceTree = "<group>"; };
+		D04BAE2200000000ED007T12 /* EmailLineWrapTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailLineWrapTests.swift; sourceTree = "<group>"; };
 		D04BAE2200000000ED004002 /* SettingsSearchHighlight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsSearchHighlight.swift; sourceTree = "<group>"; };
 		D04BAE2200000000ED005002 /* SettingsSectionSearchContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsSectionSearchContent.swift; sourceTree = "<group>"; };
 		D04BA1D80F4EEF2A91BAD29C /* release.config.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = release.config.js; sourceTree = "<group>"; };
@@ -1791,6 +1796,8 @@
 				D04BA099FA155FB4D517D66B /* SettingsWindow.swift */,
 				D04BA00000000000C0DE0001 /* SettingsSearch.swift */,
 				D04BAE2000000000ED002002 /* SettingsSearchIndex.swift */,
+				D04BAE2200000000ED007002 /* EmailLineWrap.swift */,
+				D04BAE2200000000ED007T12 /* EmailLineWrapTests.swift */,
 				D04BAE2200000000ED004002 /* SettingsSearchHighlight.swift */,
 				D04BAE2200000000ED004T12 /* SettingsSearchHighlightTests.swift */,
 				D04BAE2200000000ED005002 /* SettingsSectionSearchContent.swift */,
@@ -2176,6 +2183,8 @@
 				D04BAFF90A98CF287F85DA25 /* SidebarList.swift in Sources */,
 				D04BAE2200000000ED006T11 /* SidebarListTests.swift in Sources */,
 				D04BAE2200000000ED005003 /* SettingsSectionSearchContent.swift in Sources */,
+				D04BAE2200000000ED007003 /* EmailLineWrap.swift in Sources */,
+				D04BAE2200000000ED007T11 /* EmailLineWrapTests.swift in Sources */,
 				D04BAE2200000000ED004003 /* SettingsSearchHighlight.swift in Sources */,
 				D04BAE2200000000ED004T01 /* TableGroupView.swift in Sources */,
 				D04BAE2200000000ED004T03 /* SettingsSearch.swift in Sources */,
@@ -2367,6 +2376,7 @@
 				DD6771EE8ACE714C2599FEB7 /* OverrideClickResolver.swift in Sources */,
 				D04BADE4DDF7597749FB13BD /* SettingsWindow.swift in Sources */,
 				D04BAE2000000000ED002001 /* SettingsSearchIndex.swift in Sources */,
+				D04BAE2200000000ED007001 /* EmailLineWrap.swift in Sources */,
 				D04BAE2200000000ED004001 /* SettingsSearchHighlight.swift in Sources */,
 				D04BAE2200000000ED005001 /* SettingsSectionSearchContent.swift in Sources */,
 				BF0C8CC5057406014FD612CC /* ATShortcut.swift in Sources */,
