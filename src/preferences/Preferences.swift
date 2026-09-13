@@ -21,6 +21,7 @@ class Preferences {
             "mouseHoverEnabled": "false",
             "cursorFollowFocus": CursorFollowFocus.never.indexAsString,
             "hideColoredCircles": "false",
+            "showWebsiteIcons": "false",
             "windowDisplayDelay": "100",
             "appearanceStyle": AppearanceStylePreference.thumbnails.indexAsString,
             "appearanceSize": AppearanceSizePreference.auto.indexAsString,
@@ -111,6 +112,7 @@ class Preferences {
     static var mouseHoverEnabled: Bool { CachedUserDefaults.bool("mouseHoverEnabled") }
     static var cursorFollowFocus: CursorFollowFocus { CachedUserDefaults.macroPref("cursorFollowFocus", CursorFollowFocus.allCases) }
     static var trackpadHapticFeedbackEnabled: Bool { CachedUserDefaults.bool("trackpadHapticFeedbackEnabled") }
+    static var showWebsiteIcons: Bool { CachedUserDefaults.bool("showWebsiteIcons") }
     static var hideColoredCircles: Bool { CachedUserDefaults.bool("hideColoredCircles") }
     static var windowDisplayDelayInMs: Int { CachedUserDefaults.int("windowDisplayDelay") }
     static var windowDisplayDelay: DispatchTimeInterval { DispatchTimeInterval.milliseconds(windowDisplayDelayInMs) }
