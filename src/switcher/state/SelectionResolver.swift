@@ -51,6 +51,7 @@ struct SelectionInputs: Equatable {
     ///
     /// Defaults to `true`: the ordinary case, and what every scenario written before #5941 assumes.
     var currentWindowIsDrawn = true
+    var removalFallback: SelectionRemovalFallback? = nil
 }
 
 /// One window of the frontmost app, seen the way "is the window the user is looking at drawn?" needs it.
@@ -88,10 +89,21 @@ enum SelectionDecision: Equatable {
     case ensureTargetSet(Int)
 }
 
+struct SelectionRemovalFallback: Equatable {
+    let target: String
+    let candidates: [String]
+}
+
 enum SelectionResolver {
-    /// Pure port of `Windows.updateSelectedWindow`. Branching order matches the original so the
-    /// behavior-preserving extraction can be verified against the running app before we touch
-    /// the logic.
+    /// Capture neighbors before an action can reorder windows through application focus events.
+    static func removalFallback(_ list: [SelectionWindow], target: String) -> SelectionRemovalFallback? {
+        guard let index = list.firstIndex(where: { $0.id == target }) else { return nil }
+        let next = list.dropFirst(index + 1).filter { $0.visible }.map { $0.id }
+        let previous = list.prefix(index).reversed().filter { $0.visible }.map { $0.id }
+        return SelectionRemovalFallback(target: target, candidates: next + previous)
+    }
+
+    /// Preserve deliberate selection by identity, including its pre-action neighbors when it leaves.
     static func decide(_ i: SelectionInputs) -> SelectionDecision {
         // 1) Search-clear path takes precedence — runs even when no visible windows.
         if i.restoreDefaultOnSearchClear {
@@ -119,7 +131,12 @@ enum SelectionResolver {
         if let targetIndex = findTarget(i.list, i.selectedTarget) {
             return .selectAt(targetIndex)
         }
-        // 6) Target gone — adapt to the closest visible.
+        if let fallback = i.removalFallback, fallback.target == i.selectedTarget {
+            for candidate in fallback.candidates {
+                if let index = findTarget(i.list, candidate) { return .selectAt(index) }
+            }
+        }
+        // 6) Target gone without a surviving action neighbor: adapt to the visible list.
         return adapt(i, visibleIndexes: visibleIndexes, lastVisible: visibleIndexes.last!)
     }
 
@@ -259,12 +276,10 @@ enum SelectionResolver {
         return .resetWithoutSelection
     }
 
-    /// Mirrors `adaptSelectionToVisibleIndexes`. `visibleIndexes` is non-empty by caller's guard,
-    /// and `decide()` only invokes `adapt` after the `selectedTarget == nil` early-return — so
-    /// the only branching here is "is `selectedIndex` still in `visibleIndexes`?"
+    /// Keep the vacated position, preferring the next visible row. At the end, use the last survivor.
     private static func adapt(_ i: SelectionInputs, visibleIndexes: [Int], lastVisible: Int) -> SelectionDecision {
         if !visibleIndexes.contains(i.selectedIndex) {
-            let closest = visibleIndexes.last(where: { $0 < i.selectedIndex }) ?? lastVisible
+            let closest = visibleIndexes.first(where: { $0 > i.selectedIndex }) ?? lastVisible
             return .selectAt(closest)
         }
         // selectedIndex is in visibleIndexes (so it's already between firstVisible and lastVisible),

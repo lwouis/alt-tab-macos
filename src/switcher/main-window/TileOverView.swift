@@ -111,8 +111,11 @@ class TileOverView: FlippedView {
 
     func resetHoveredWindow() {
         previousTarget = nil
-        if let oldIndex = SwitcherSession.current?.hoveredIndex {
-            SwitcherSession.current?.hoveredIndex = nil
+        let oldIndex = SwitcherSession.current?.hoveredIndex
+        // Clear the identity too, so a later title refresh cannot reanchor dismissed hover.
+        SwitcherSession.current?.hoveredIndex = nil
+        SwitcherSession.current?.hoveredTarget = nil
+        if let oldIndex {
             TilesView.highlight(oldIndex)
         }
         hideWindowControls()
