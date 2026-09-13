@@ -314,11 +314,17 @@ class App: AppCenterApplication {
 
     static func refreshOpenUiAfterExternalEvent(_ windowsToScreenshot: [Window], windowRemoved: Bool = false) {
         WindowThumbnails.refreshAsync(windowsToScreenshot, .refreshUiAfterExternalEvent, windowRemoved: windowRemoved)
-        switcherUiRefreshThrottler.throttleOrProceed {
-            guard SwitcherSession.isActive else { return }
-            if !Windows.updatesBeforeShowing() { hideUi(); return }
-            refreshUi(true)
-        }
+        // A removed row (closing or quitting from the switcher) should disappear at once. The throttle coalesces
+        // bursts of title and state updates; with a spinner in any title it is always busy, which delayed the
+        // removal by up to 200ms. Removals are rare and already batched by `Windows.removeWindows`.
+        guard !windowRemoved else { refreshOpenUiNow(); return }
+        switcherUiRefreshThrottler.throttleOrProceed { refreshOpenUiNow() }
+    }
+
+    private static func refreshOpenUiNow() {
+        guard SwitcherSession.isActive else { return }
+        if !Windows.updatesBeforeShowing() { hideUi(); return }
+        refreshUi(true)
     }
 
     static func refreshOpenUiImmediatelyAfterExternalEvent(_ windowsToScreenshot: [Window]) {
