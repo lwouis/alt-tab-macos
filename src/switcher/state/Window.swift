@@ -40,6 +40,8 @@ class Window {
     var thumbnail: CALayerContents? { didSet { tracked.hasThumbnail = thumbnail != nil } }
     var icon: CGImage? { get { application.icon } }
     var shouldShowTheUser = true
+    /// When the user last closed this window from the switcher; skips the AX-end settle delay (`reconcileAxElementEnd`).
+    var closeRequestedAt: TimeInterval?
     /// DERIVED from the `TabGroups` registry (the single owner of group membership): the ordered members of
     /// this window's group, or nil when it's in none. The registry can't hold a group of one, so the
     /// `TabWindow` invariant (non-nil ⇒ ≥ 2 members) holds by construction.
@@ -293,6 +295,7 @@ class Window {
             return
         }
         guard let element = axUiElement else { return }
+        closeRequestedAt = ProcessInfo.processInfo.systemUptime
         let wasFullscreen = self.isFullscreen
         BackgroundWork.accessibilityCommandsQueue.addOperation {
             if wasFullscreen {

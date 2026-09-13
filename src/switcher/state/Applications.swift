@@ -504,7 +504,11 @@ class Applications {
         pendingAxEnds[wid] = PendingAxEndReconciliation(token: token, pid: window.application.pid,
             isTabbed: groupWids.count > 1, groupWids: groupWids,
             previousTabCount: previousTabCount, axQueryCoversWindow: axQueryCoversWindow)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+        // Chromium and Electron rebuild a live window's AX node, so an unexpected end settles for 150ms before the
+        // query. A window the user just closed from the switcher is expected to end: query at once. The query still
+        // decides, so a window that survives its close stays listed.
+        let expected = window.closeRequestedAt.map { ProcessInfo.processInfo.systemUptime - $0 < 2 } ?? false
+        DispatchQueue.main.asyncAfter(deadline: .now() + (expected ? 0 : 0.15)) {
             guard pendingAxEnds[wid]?.token == token else { return }
             queryAxElementEnd(wid: wid, token: token)
             querySurfaceEnd(wid: wid, token: token)

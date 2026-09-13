@@ -166,7 +166,7 @@ class Windows {
             frontmostPid: Applications.frontmostPid,
             visibleSpaceIds: Spaces.visibleSpaces,
             exceptions: f.exceptions,
-            isOnPreferredScreen: window.isOnScreen(NSScreen.preferred))
+            isOnPreferredScreen: window.isOnScreen(NSScreen.preferred)) && !window.application.isQuittingFromSwitcher
     }
 
     /// selection + hover methods (all operate on `SwitcherSession.current`)

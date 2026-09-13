@@ -30,6 +30,11 @@ class Application: NSObject {
     private(set) var isTerminated: Bool
     var focusedWindow: Window? = nil
     var alreadyRequestedToQuit = false
+    /// Set when the user quits the app from the switcher. Its rows hide at once instead of waiting for the app to
+    /// finish terminating (Chrome can take seconds); if it's still running after 5 seconds (a save dialog, a
+    /// cancelled quit), they come back.
+    private(set) var quitRequestedAt: TimeInterval?
+    var isQuittingFromSwitcher: Bool { quitRequestedAt.map { ProcessInfo.processInfo.systemUptime - $0 < 5 } ?? false }
     /// The tracking pipeline's identity for this process, so a late teardown cannot hit a replacement that
     /// reused the pid (`AxObserverRegistry.processExited`).
     var trackingGeneration: UInt64 = 0
@@ -210,6 +215,9 @@ class Application: NSObject {
             NSSound.beep()
             return
         }
+        quitRequestedAt = ProcessInfo.processInfo.systemUptime
+        App.refreshOpenUiAfterExternalEvent([], windowRemoved: true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5.1) { App.refreshOpenUiAfterExternalEvent([]) }
         if alreadyRequestedToQuit {
             runningApplication.forceTerminate()
         } else {
