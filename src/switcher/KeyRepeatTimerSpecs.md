@@ -117,15 +117,15 @@ Mirrors `KeyRepeatTimerTests.swift` 1:1.
 
 ## Cycling boundaries
 
-Keyboard cycling wraps in both directions, including OS repeats and artificial
-held-shortcut repeats. The selection and row-navigation paths honor `allowWrap`
-without making an exception for repeats. Trackpad navigation passes `allowWrap: false`
-and retains its edge stops.
+By default, holding the shortcut (OS key repeats and the artificial held-shortcut repeats) stops at the first and last
+window, so a held key can't overshoot. Individual presses always wrap.
 
-The existing timer reads macOS `InitialKeyRepeat` and `KeyRepeat` at each start.
-No faster custom timer is introduced: visibility gating, late-tick rejection, and
-one-shot rearming remain in effect, so rendering load may reduce the achieved rate.
+**Keep cycling while holding the shortcut** (Controls > Additional controls, off by default) lets held repeats wrap
+too, in both directions and across rows, so holding the shortcut loops through the windows until it is released.
+Trackpad navigation passes `allowWrap: false` and keeps its edge stops either way.
 
-Runtime check: hold the next shortcut for multiple complete laps, then repeat in
-reverse. Releasing must stop immediately, including after a busy main-thread period.
-Also check repeated vertical navigation and trackpad edge stops.
+The timer still reads macOS `InitialKeyRepeat` and `KeyRepeat` at each start; no faster timer is added. Visibility
+gating, late-tick rejection and one-shot rearming stay in effect, so a busy main thread may lower the achieved rate.
+
+Runtime check: with the setting on, hold the shortcut for several laps, then in reverse; releasing must stop
+immediately. With it off, holding must stop at the ends. Trackpad swipes stop at the ends in both cases.
