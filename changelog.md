@@ -1,3 +1,7 @@
+## Experimental native browser icon review
+
+- Add an opt-in, reviewed-origin browser icon experiment with bounded fetching and normalized artwork. Default behavior remains unchanged; release/privacy gates are documented in `docs/native-browser-icons.md`.
+
 ## [11.6.1](https://github.com/lwouis/alt-tab-macos/compare/v11.6.0...v11.6.1) (2026-09-11)
 
 

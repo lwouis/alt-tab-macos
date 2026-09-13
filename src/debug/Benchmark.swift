@@ -3,7 +3,11 @@ import Foundation
 final class BenchmarkRunner {
     static let launchDuration = 10000
     static let startupDelay = 5000
-    static let showDuration = 500
+    static let showDuration: Int = {
+        if let raw = ProcessInfo.processInfo.environment["ALTTAB_BENCHMARK_SHOW_MS"],
+           let duration = Int(raw), (100...10000).contains(duration) { return duration }
+        return ProcessInfo.processInfo.environment["ALTTAB_NATIVE_ICON_PROTOTYPE"] == "1" ? 5000 : 500
+    }()
     static let hideDuration = 500
     static let shortcutIndex = 0
     private static var remainingCycles = 0

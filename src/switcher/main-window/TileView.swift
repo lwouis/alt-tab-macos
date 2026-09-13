@@ -278,8 +278,15 @@ class TileView: FlippedView {
     }
 
     private func updateAppIcon(_ element: Window, _ title: String) {
-        let appIconSize = TileView.iconSize()
-        appIcon.updateContents(.cgImage(element.icon), appIconSize)
+        updateDisplayedAppIcon(NativeBrowserIconPrototype.enabled
+            ? NativeBrowserIconPrototype.icon(for: element) ?? element.icon : element.icon)
+    }
+
+    func updateDisplayedAppIcon(_ image: CGImage?) {
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        defer { CATransaction.commit() }
+        appIcon.updateContents(.cgImage(image), TileView.iconSize())
     }
 
     private func updateValues(_ element: Window, _ index: Int, _ newHeight: CGFloat) {

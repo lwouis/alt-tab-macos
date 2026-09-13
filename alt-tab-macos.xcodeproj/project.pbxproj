@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D19000000000000000000005 /* IconRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D19000000000000000000006 /* IconRenderer.swift */; };
+		D19000000000000000000003 /* FixtureIconResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = D19000000000000000000004 /* FixtureIconResolver.swift */; };
+		D19000000000000000000001 /* NativeBrowserIconPrototype.swift in Sources */ = {isa = PBXBuildFile; fileRef = D19000000000000000000002 /* NativeBrowserIconPrototype.swift */; };
 		1C96101BC5817A7F85FA1F8D /* titles_show_running_applications_light@2x.heic in Resources */ = {isa = PBXBuildFile; fileRef = 1C961F57248D4E2377A9038E /* titles_show_running_applications_light@2x.heic */; };
 		1C96108A0CB2565233FE100B /* TableGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C961FB3DCF4906FEEF4A23D /* TableGroupView.swift */; };
 		1C9610F8AF7AD8CA53B62913 /* titles_hide_status_icons_light@2x.heic in Resources */ = {isa = PBXBuildFile; fileRef = 1C961E64CF8FB6E3FDAA3DAA /* titles_hide_status_icons_light@2x.heic */; };
@@ -448,6 +451,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D19000000000000000000006 /* IconRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconRenderer.swift; sourceTree = "<group>"; };
+		D19000000000000000000004 /* FixtureIconResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixtureIconResolver.swift; sourceTree = "<group>"; };
+		D19000000000000000000002 /* NativeBrowserIconPrototype.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeBrowserIconPrototype.swift; sourceTree = "<group>"; };
 		02540420CE27E6C973652426 /* menubar-0.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "menubar-0.pdf"; sourceTree = "<group>"; };
 		126D5AA615CEE89F73C22DA7 /* menubar-1.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "menubar-1.pdf"; sourceTree = "<group>"; };
 		1C961003A0D16B9AE3932B3F /* thumbnails_show_colored_circles_light@2x.heic */ = {isa = PBXFileReference; lastKnownFileType = image.heic; path = "thumbnails_show_colored_circles_light@2x.heic"; sourceTree = "<group>"; };
@@ -1632,6 +1638,9 @@
 				D04BA653BD073CB58E2CFC93 /* TilesPanel.swift */,
 				D04BAD1297730B191E96E7FE /* TileTitleView.swift */,
 				D04BA1DF8CAB2FAB7FE9244B /* TileFontIconView.swift */,
+				D19000000000000000000002 /* NativeBrowserIconPrototype.swift */,
+				D19000000000000000000004 /* FixtureIconResolver.swift */,
+				D19000000000000000000006 /* IconRenderer.swift */,
 				D04BA258B56193958D60978A /* TileView.swift */,
 				5F7B6AFB2F3BAB98003E25E8 /* StatusIconsView.swift */,
 				D04BAA998119CAA8B70A2B67 /* TilesView.swift */,
@@ -2282,6 +2291,9 @@
 				D04BAB048DE698E013577C51 /* TilesPanel.swift in Sources */,
 				D04BA69D47B5E60A6AD9CBD9 /* TileTitleView.swift in Sources */,
 				D04BA1B133D53572D7B312C2 /* TileFontIconView.swift in Sources */,
+				D19000000000000000000001 /* NativeBrowserIconPrototype.swift in Sources */,
+				D19000000000000000000003 /* FixtureIconResolver.swift in Sources */,
+				D19000000000000000000005 /* IconRenderer.swift in Sources */,
 				D04BA1CEC6B9C8945FEC8740 /* TileView.swift in Sources */,
 				D04BA14D93726795A6937832 /* LabelAndControl.swift in Sources */,
 				5F791E4B2F1C65E100B6419C /* ApplicationDiscriminator.swift in Sources */,
