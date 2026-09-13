@@ -13,6 +13,27 @@ import XCTest
 ///   - EdgeCases (E): corruption, single-window flips, multi-step sequences
 final class SelectionResolverTests: XCTestCase {
 
+    func testActionRemovalUsesNeighborBeforeFocusReorder() {
+        let original = [w("closing"), w("next"), w("last")]
+        var i = inputs(list: [w("next"), w("closing"), w("last")], selectedIndex: 1, selectedTarget: "closing")
+        i.removalFallback = SelectionResolver.removalFallback(original, target: "closing")
+        XCTAssertEqual(SelectionResolver.decide(i), .selectAt(1))
+        i = SelectionInputs(list: [w("next"), w("last")], selectedIndex: 1, selectedTarget: "closing", useLastFocusedRule: false, visibleCountAtSummon: 3, userPickedSelection: true, restoreDefaultOnSearchClear: false, bestMatchOnSearchChange: false, removalFallback: i.removalFallback)
+        XCTAssertEqual(SelectionResolver.decide(i), .selectAt(0))
+    }
+
+    func testActionRemovalSkipsAllClosedOrHiddenAppWindows() {
+        var i = inputs(list: [w("sameApp", visible: false), w("nextApp"), w("previous")], selectedIndex: 2, selectedTarget: "closing")
+        i.removalFallback = SelectionResolver.removalFallback([w("previous"), w("closing"), w("sameApp"), w("nextApp")], target: "closing")
+        XCTAssertEqual(SelectionResolver.decide(i), .selectAt(1))
+    }
+
+    func testActionFallbackDoesNotOverrideNewUserSelection() {
+        var i = inputs(list: [w("next"), w("chosen")], selectedIndex: 1, selectedTarget: "chosen")
+        i.removalFallback = SelectionResolver.removalFallback([w("closing"), w("next"), w("chosen")], target: "closing")
+        XCTAssertEqual(SelectionResolver.decide(i), .selectAt(1))
+    }
+
     // MARK: - Builders
 
     /// Concise window builder. Defaults model the common case: visible, non-minimized, non-windowless.
@@ -234,13 +255,31 @@ final class SelectionResolverTests: XCTestCase {
         XCTAssertEqual(SelectionResolver.decide(i), .selectAt(1))
     }
 
+    func testFirstTargetHiddenThenRemovedKeepsSuccessor() {
+        let hidden = [w("closed", visible: false), w("next"), w("last")]
+        XCTAssertEqual(SelectionResolver.decide(inputs(list: hidden, selectedIndex: 0, selectedTarget: "closed")), .selectAt(1))
+        let removed = [w("next"), w("last")]
+        XCTAssertEqual(SelectionResolver.decide(inputs(list: removed, selectedIndex: 1, selectedTarget: "next")), .selectAt(0))
+        XCTAssertEqual(SelectionResolver.decide(inputs(list: removed, selectedIndex: 0, selectedTarget: "closed")), .ensureTargetSet(0))
+    }
+
+    func testHiddenTargetSkipsHiddenSuccessors() {
+        let list = [w("a"), w("closed", visible: false), w("hidden", visible: false), w("next")]
+        XCTAssertEqual(SelectionResolver.decide(inputs(list: list, selectedIndex: 1, selectedTarget: "closed")), .selectAt(3))
+    }
+
+    func testLastTargetHiddenSelectsLastSurvivor() {
+        let list = [w("a"), w("b"), w("closed", visible: false)]
+        XCTAssertEqual(SelectionResolver.decide(inputs(list: list, selectedIndex: 2, selectedTarget: "closed")), .selectAt(1))
+    }
+
     /// C2. Target still in `list` but filtered out by `visible == false` (e.g. search match miss
     /// or app went to a non-visible space). Same flow as C1 — target lookup excludes invisible.
     func testTargetBecameInvisible() {
         let list = [w("a"), w("b", visible: false), w("c")]
         let i = inputs(list: list, selectedIndex: 1, selectedTarget: "b")
-        // visibleIndexes = [0, 2]. selectedIndex (1) not in [0,2] → closest visible < 1 is 0.
-        XCTAssertEqual(SelectionResolver.decide(i), .selectAt(0))
+        // Skip the hidden target and continue to the next visible row.
+        XCTAssertEqual(SelectionResolver.decide(i), .selectAt(2))
     }
 
     /// C3. Target removed AND list emptied — `clearTargetAndHover` path takes over.
@@ -291,8 +330,8 @@ final class SelectionResolverTests: XCTestCase {
     func testSearchTargetFilteredOutWithOthersMatching() {
         let list = [w("a"), w("b", visible: false), w("c")]
         let i = inputs(list: list, selectedIndex: 1, selectedTarget: "b")
-        // visibleIndexes = [0, 2]. selectedIndex=1 not in [0,2] → closest below is 0.
-        XCTAssertEqual(SelectionResolver.decide(i), .selectAt(0))
+        // Continue to the next matching row.
+        XCTAssertEqual(SelectionResolver.decide(i), .selectAt(2))
     }
 
     // MARK: - E. Edge cases

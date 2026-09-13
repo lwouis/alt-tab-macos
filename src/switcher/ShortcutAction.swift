@@ -44,7 +44,7 @@ enum ShortcutActions {
     /// second F to undo fullscreened a different app's window instead (QA U-06).
     private static func onSelectedWindow(_ act: (Window) -> Void) {
         guard let window = Windows.selectedWindow() else { return }
-        SwitcherSession.current?.userPickedSelection = true
+        Windows.prepareSelectedWindowAction()
         act(window)
     }
 

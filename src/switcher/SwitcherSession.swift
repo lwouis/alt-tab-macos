@@ -36,6 +36,7 @@ final class SwitcherSession {
     var selectedIndex: Int = 0
     var hoveredIndex: Int?
     var selectedTarget: String?
+    var removalFallback: SelectionRemovalFallback?
     /// The window `hoveredIndex` MEANS, so the highlight can be re-anchored when the list changes under it.
     /// An index alone survives a structural change as a valid number pointing at a different window: insert
     /// or remove a tile before the hovered one and the hover silently moves to its neighbour, which the
