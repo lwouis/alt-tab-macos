@@ -90,7 +90,38 @@ class PreviewPanel: NSPanel {
 }
 
 private class BorderView: NSView {
+    @available(macOS 27.0, *)
+    override var cornerConfiguration: NSViewCornerConfiguration? {
+        .uniformCorners(radius: .containerConcentric)
+    }
+
+    @available(macOS 27.0, *)
+    override func viewDidChangeEffectiveCornerRadii() {
+        super.viewDidChangeEffectiveCornerRadii()
+        updateNativeBorder()
+    }
+
+    override func viewDidChangeEffectiveAppearance() {
+        super.viewDidChangeEffectiveAppearance()
+        if #available(macOS 27.0, *) { updateNativeBorder() }
+    }
+
+    override func viewDidMoveToWindow() {
+        super.viewDidMoveToWindow()
+        if #available(macOS 27.0, *) { updateNativeBorder() }
+    }
+
+    @available(macOS 27.0, *)
+    private func updateNativeBorder() {
+        wantsLayer = true
+        layer!.cornerRadius = effectiveCornerRadii?.topLeft ?? 0
+        layer!.cornerCurve = .continuous
+        layer!.borderWidth = 5
+        layer!.borderColor = NSColor.systemAccentColor.withAlphaComponent(0.5).cgColor
+    }
+
     override func draw(_ dirtyRect: NSRect) {
+        if #available(macOS 27.0, *) { return }
         let path = NSBezierPath(rect: bounds)
         path.append(NSBezierPath(roundedRect: bounds.insetBy(dx: 5, dy: 5), xRadius: 5, yRadius: 5).reversed)
         NSColor.systemAccentColor.withAlphaComponent(0.5).setFill()
