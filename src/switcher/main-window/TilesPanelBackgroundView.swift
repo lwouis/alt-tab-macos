@@ -10,6 +10,10 @@ protocol EffectView: NSView {
 extension NSGlassEffectView: EffectView {
     func updateAppearance() {
         cornerRadius = Appearance.windowCornerRadius
+        // Left rectangular, the clip set in `makeGlassEffectView` draws a straight outline outside the
+        // glass shape on macOS 27 (#5757). Set here, not there: cached views are reused across style
+        // and size changes.
+        layer!.cornerRadius = cornerRadius
     }
 
     var hostView: NSView { contentView! }
@@ -100,10 +104,12 @@ private func makeGlassEffectView(clear: Bool) -> NSGlassEffectView {
     // NSGlassEffectView only renders views embedded in `contentView`; this single host holds the
     // scroll view, search field and empty-state label so they all sit inside the glass.
     glass.contentView = NSView()
-    glass.updateAppearance()
     // without this, there are weird shadows around the corners (most visible with .regular glass)
     glass.wantsLayer = true
     glass.layer!.masksToBounds = true
+    glass.layer!.cornerCurve = .continuous
+    // after the layer exists: `updateAppearance` rounds the clip through it
+    glass.updateAppearance()
     return glass
 }
 
