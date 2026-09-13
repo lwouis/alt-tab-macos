@@ -22,6 +22,7 @@ class TilesView {
     static var thumbnailsWidth = CGFloat(0.0)
     static var thumbnailsHeight = CGFloat(0.0)
     static var layoutCache = LayoutCache()
+    private static let appNameMeasurement = TileTitleView(font: Appearance.font)
     static var thumbnailUnderLayer = TileUnderLayer()
     static var thumbnailOverView = TileOverView()
     private static var initialized = false
@@ -41,6 +42,8 @@ class TilesView {
     static var isSearchEditing: Bool { searchMode == .editing }
 
     static func startSearchSession(_ startInSearchMode: Bool) {
+        layoutCache.appNameWidth = 0
+        layoutCache.fittedTitlesWidth = nil
         searchField.stringValue = ""
         Windows.updateSearchQuery("")
         searchMode = SearchModeResolver.startMode(startInSearch: startInSearchMode)
@@ -453,12 +456,17 @@ class TilesView {
     }
 
     static func updateItemsAndLayout(_ preservedScrollOrigin: CGPoint?) {
+        let previousWidth = layoutCache.fittedTitlesWidth
+        layoutCache.fittedTitlesWidth = nil
         var widthMax = TilesPanel.maxThumbnailsWidth().rounded()
         if Preferences.effectiveAppearanceSize(SwitcherSession.activeShortcutIndex) == .auto {
             resolveAutoSize(widthMax)
             Self.updateCachedSizes()
             widthMax = TilesPanel.maxThumbnailsWidth().rounded()
         }
+        updateAppNameColumnWidth()
+        fitTitlesWidth(widthMax, previous: previousWidth)
+        widthMax = TilesPanel.maxThumbnailsWidth().rounded()
         if let (maxX, maxY, labelHeight, rowSignature) = layoutTileViews(widthMax) {
             layoutParentViews(maxX, widthMax, maxY, labelHeight)
             centerRows(TilesView.thumbnailsWidth)
@@ -478,6 +486,37 @@ class TilesView {
                 restoreScrollOrigin(preservedScrollOrigin)
             }
         }
+    }
+
+    /// Widest app name among visible windows, capped at 240pt and a quarter of the unfitted row. During search the
+    /// column never shrinks, so filtering doesn't shift the titles.
+    private static func updateAppNameColumnWidth() {
+        guard Preferences.effectiveAppearanceStyle(SwitcherSession.activeShortcutIndex) == .titles, Preferences.titlesAppNameColumn else { return }
+        appNameMeasurement.font = Appearance.font
+        let names = Set(Windows.list.filter { $0.shouldShowTheUser }.compactMap { $0.application.localizedName })
+        let measuredWidth = names.map { name -> CGFloat in
+            appNameMeasurement.stringValue = name
+            return appNameMeasurement.cell!.cellSize.width.rounded(.up)
+        }.max() ?? 0
+        layoutCache.appNameWidth = AppearanceTestable.appNameColumnWidth(measured: measuredWidth,
+            previous: isSearchModeOn ? layoutCache.appNameWidth : 0, rowWidth: TileView.maxThumbnailWidth())
+    }
+
+    /// Titles fit the widest visible row between the minimum width and the screen-based maximum. A little spare width
+    /// absorbs small title changes (spinners, counters) so the panel doesn't jitter.
+    private static func fitTitlesWidth(_ limit: CGFloat, previous: CGFloat?) {
+        guard Preferences.effectiveAppearanceStyle(SwitcherSession.activeShortcutIndex) == .titles else { return }
+        let height = TileView.height(layoutCache.labelHeight)
+        var measured = CGFloat(0)
+        for (index, window) in Windows.list.enumerated() where Windows.shouldDisplay(window) {
+            guard SwitcherSession.isActive, index < recycledViews.count else { continue }
+            let view = recycledViews[index]
+            view.updateRecycledCellWithNewContent(window, index, height)
+            measured = max(measured, view.idealTitlesWidth)
+        }
+        layoutCache.fittedTitlesWidth = AppearanceTestable.stableTitlesWidth(
+            measured: measured + Appearance.interCellPadding * 2, limit: limit,
+            previous: previous, tolerance: max(24, Appearance.font.pointSize * 2), minimum: Preferences.titlesMinimumWidth)
     }
 
     static func currentScrollOrigin() -> CGPoint {
@@ -709,6 +748,8 @@ class TilesView {
 
     struct LayoutCache {
         var labelHeight = CGFloat(0)
+        var appNameWidth = CGFloat(0)
+        var fittedTitlesWidth: CGFloat?
         var iconWidth = CGFloat(0)
         var iconHeight = CGFloat(0)
         var comfortableReadabilityWidth: CGFloat?

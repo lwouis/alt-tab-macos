@@ -164,7 +164,7 @@ class Appearance {
         cellCornerRadius = 10
         edgeInsetsSize = 7
         windowMinWidthInRow = 0.6
-        windowMaxWidthInRow = 0.9
+        windowMaxWidthInRow = 1
         rowsCount = 1
         switch size {
             case .small:

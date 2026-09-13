@@ -1,6 +1,52 @@
 import Foundation
 
 class AppearanceTestable {
+    static func fittedTitlesWidth(measured: CGFloat, limit: CGFloat, minimum: CGFloat = 300) -> CGFloat {
+        min(max(0, limit), max(max(0, minimum), measured.rounded(.up)))
+    }
+
+    static func stableTitlesWidth(measured: CGFloat, limit: CGFloat, previous: CGFloat?, tolerance: CGFloat, minimum: CGFloat = 300) -> CGFloat {
+        let required = fittedTitlesWidth(measured: measured, limit: limit, minimum: minimum)
+        let slack = max(0, tolerance)
+        if let previous, previous <= limit, previous >= required, previous - required <= slack * 2 {
+            return previous
+        }
+        return min(max(0, limit), required + slack)
+    }
+
+    static func appNameColumnWidth(measured: CGFloat, previous: CGFloat, rowWidth: CGFloat) -> CGFloat {
+        min(240, max(0, rowWidth * 0.25), max(previous, measured))
+    }
+
+    static func relativeLuminance(_ rgb: [Double]) -> Double {
+        let linear = rgb.map { $0 <= 0.04045 ? $0 / 12.92 : pow(($0 + 0.055) / 1.055, 2.4) }
+        return linear[0] * 0.2126 + linear[1] * 0.7152 + linear[2] * 0.0722
+    }
+
+    static func needsIconSeparation(_ samples: [Double], background: [Double]) -> Bool {
+        guard !samples.isEmpty else { return false }
+        let backgroundLuminance = relativeLuminance(background)
+        let lowContrast = samples.filter { (max($0, backgroundLuminance) + 0.05) / (min($0, backgroundLuminance) + 0.05) < 1.5 }
+        return Double(lowContrast.count) / Double(samples.count) >= 0.6
+    }
+
+    // First opaque pixels from each side follow the artwork silhouette rather than transparent padding.
+    static func iconEdgeLuminances(_ bytes: [UInt8], side: Int) -> [Double] {
+        guard side > 0, bytes.count == side * side * 4 else { return [] }
+        var offsets = Set<Int>()
+        for line in 0..<side {
+            for indexes in [(0..<side).map { (line * side + $0) * 4 },
+                            (0..<side).map { ($0 * side + line) * 4 }] {
+                if let first = indexes.first(where: { bytes[$0 + 3] >= 192 }) { offsets.insert(first) }
+                if let last = indexes.last(where: { bytes[$0 + 3] >= 192 }) { offsets.insert(last) }
+            }
+        }
+        return offsets.map { offset in
+            let alpha = Double(bytes[offset + 3])
+            return relativeLuminance((0..<3).map { min(1, Double(bytes[offset + $0]) / alpha) })
+        }
+    }
+
     /// How wide should the TilesPanel be, for comfortable viewing?
     /// * a comfortable field-of-view is 50-60 degrees
     /// * people sit at various distances from the screen. We can't know how far they sit
