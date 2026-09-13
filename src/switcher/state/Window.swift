@@ -5,6 +5,7 @@ import Cocoa
 /// `WindowSurfaceInventory`; native tabs are grouped into logical destinations by `TabGroups`.
 class Window {
     private static var globalCreationCounter = Int.zero
+    private static var pendingDeviceHubFocus: BlockOperation?
 
     /// **The single backing record for every fact the reducer owns** (`TrackedWindow`), held as ONE value so
     /// the bridge moves it whole: `TrackedWindowStateBridge.modelWindow` reads it and `adopt(_:)` takes the
@@ -366,11 +367,15 @@ class Window {
 
     func focus() {
         MainThreadStall.step()
+        Self.pendingDeviceHubFocus?.cancel()
+        Self.pendingDeviceHubFocus = nil
         if let altTabWindow = altTabWindow() {
             FocusIntents.shared.supersede()
             App.shared.activate(ignoringOtherApps: true)
             altTabWindow.makeKeyAndOrderFront(nil)
             WindowThumbnails.previewSelectedIfNeeded()
+        } else if application.bundleIdentifier == "com.apple.dt.Devices", let bundleUrl = application.bundleURL {
+            focusDeviceHub(bundleUrl)
         } else if self.isWindowlessApp || cgWindowId == nil {
             FocusIntents.shared.supersede()
             if let bundleUrl = application.bundleURL, self.isWindowlessApp {
@@ -403,6 +408,68 @@ class Window {
                 self?.applyFocus(generation, originSpaceId, originFrontPid)
             }
         }
+    }
+
+    /// Device Hub (macOS 27) can take key focus without raising its window, and reopening it through LaunchServices is
+    /// slow and flickers under the preview. Activation and an AX raise run first on the accessibility queue; reopening
+    /// is only the fallback. A later AltTab focus cancels queued work, and the fallback never runs once the user has
+    /// switched to another app.
+    private func focusDeviceHub(_ bundleUrl: URL) {
+        if let cgWindowId {
+            WindowServerEvents.noteAltTabInitiatedFocus(cgWindowId, application.pid)
+            Windows.promoteAttentionEvidence(cgWindowId)
+        }
+        let operation = BlockOperation()
+        operation.queuePriority = .veryHigh
+        Self.pendingDeviceHubFocus = operation
+        let runningApplication = application.runningApplication
+        let cachedElement = axUiElement
+        let minimized = self.isMinimized
+        let pid = application.pid
+        let wid = cgWindowId
+        operation.addExecutionBlock { [weak operation] in
+            guard let operation, !operation.isCancelled else { return }
+            let activated = runningApplication.activate(options: [])
+            guard !operation.isCancelled else { return }
+            if activated, let wid, Self.isFrontmostNormalWindow(wid) {
+                DispatchQueue.main.async {
+                    guard !operation.isCancelled, !SwitcherSession.isActive else { return }
+                    WindowThumbnails.previewSelectedIfNeeded()
+                }
+            }
+            // The remote-token fallback can scan for hundreds of milliseconds; the published windows are enough here.
+            func publishedElement() -> AXUIElement? {
+                guard let wid else { return nil }
+                return WindowElementAcquisition.element(for: wid, pid: pid, route: .currentSpaceViaApplicationWindows)
+            }
+            let element = cachedElement ?? publishedElement()
+            if minimized, let element { try? element.setAttribute(kAXMinimizedAttribute, false) }
+            guard !operation.isCancelled else { return }
+            let raised = element?.raiseWindow() == .success
+            if !activated || !raised, !operation.isCancelled, Self.frontmostIsAltTabOr(pid), NSWorkspace.shared.open(bundleUrl), !operation.isCancelled {
+                (publishedElement() ?? element)?.raiseWindow()
+            }
+            DispatchQueue.main.async {
+                guard !operation.isCancelled else { return }
+                WindowThumbnails.previewSelectedIfNeeded()
+            }
+        }
+        BackgroundWork.accessibilityCommandsQueue.addOperation(operation)
+    }
+
+    /// `NSWorkspace` is thread safe (see AGENTS.md). Unknown frontmost state doesn't block the fallback.
+    private static func frontmostIsAltTabOr(_ pid: pid_t) -> Bool {
+        guard let front = NSWorkspace.shared.frontmostApplication?.processIdentifier else { return true }
+        return front == pid || front == ProcessInfo.processInfo.processIdentifier
+    }
+
+    private static func isFrontmostNormalWindow(_ wid: CGWindowID) -> Bool {
+        guard let windows = CGWindowListCopyWindowInfo([.optionOnScreenOnly, .excludeDesktopElements], kCGNullWindowID) as? [[String: Any]],
+              let first = windows.first(where: {
+                  ($0[kCGWindowLayer as String] as? Int) == 0
+                      && ($0[kCGWindowOwnerPID as String] as? pid_t) != ProcessInfo.processInfo.processIdentifier
+              }) else { return false }
+        return (first[kCGWindowNumber as String] as? CGWindowID) == wid
     }
 
     /// Focusing another app's window reliably takes the steps below. The public APIs alone don't move key

@@ -32,3 +32,20 @@ priority or extra same-subsystem query can manufacture that fact.
 - **testAxElementEndWaitsForCrossSourceReconciliation**
 - **testAxReplacementHealsWhileConfirmedCloseRemoves**
 - AX reconciliation policy cases live in `AxObserverHealthTests`.
+
+## Device Hub focus
+
+Device Hub (`com.apple.dt.Devices`, macOS 27) can take key focus without raising its window, so an ordinary focus
+leaves it hidden behind other windows. Focusing it:
+
+- Requests activation of its running application, then raises the selected AX window, both on the accessibility
+  command queue. A minimized window is restored first. Nothing blocks the main thread.
+- Dismisses the preview early only when the WindowServer stack confirms the exact window is already frontmost
+  (excluding AltTab); otherwise the preview stays until the command completes.
+- Reopens Device Hub through LaunchServices only when activation or the raise failed, and only while AltTab or
+  Device Hub is still frontmost, so a delayed fallback can't pull it over an app the user switched to.
+- A later AltTab focus request cancels queued work, its fallback and its completion. An IPC already sent can't be
+  recalled, and activation is advisory, so front-window stacking is a manual verification step.
+
+Local probe (macOS 27.0): activate plus raise moved the existing Device Hub window to the front in four of four
+trials, returning in 25 to 42ms; reopening alone took 86ms.
