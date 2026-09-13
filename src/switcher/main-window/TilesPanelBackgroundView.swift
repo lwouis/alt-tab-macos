@@ -10,6 +10,13 @@ protocol EffectView: NSView {
 extension NSGlassEffectView: EffectView {
     func updateAppearance() {
         cornerRadius = Appearance.windowCornerRadius
+        if #available(macOS 27.0, *) {
+            // The glass can draw outside its rounded shape on macOS 27 (#5757).
+            // Keep the backing-layer clip aligned when a cached view changes style or size.
+            wantsLayer = true
+            layer!.cornerRadius = cornerRadius
+            layer!.cornerCurve = .continuous
+        }
     }
 
     var hostView: NSView { contentView! }
