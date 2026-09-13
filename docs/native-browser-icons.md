@@ -8,6 +8,23 @@ The provider discovers AX document URLs with bounded traversal off-main and maps
 
 Limits: 32 pending page resolutions, 32 pending asset resolutions, 256 waiters per key, eight active URLSession transfers globally, 32 queued transfers, 32 entries per cache, 1MiB retained response buffers, and 30s positive / 5s negative cache lifetimes. Excess demand completes without artwork and can retry later. Window freshness is checked on subsequent UI updates without a polling timer.
 
+## Development path: extension first, then native integration
+
+| Stage | Work and evidence | Why the approach changed |
+| --- | --- | --- |
+| Safari companion | Built and locally tested a Safari extension, native messaging/snapshot bridge and AltTab receiver. Iterated on navigation retention, missing-icon placeholders, transparent artwork, appearance contrast and companion icon packaging. | Established the desired behavior, but added a separately installed component, permissions and distribution work. The audit also found repeated batch publication and rendering work to reduce before shipping that route. |
+| Browser capability research | Probed Accessibility URLs/images and Apple Events in Safari and Chrome. Safari exposed favicon pixels in a controlled toolbar test with our extension disabled. Chrome's lightweight extension favicon-cache prototype passed a navigation test. A direct Chrome database read failed with a lock in the tested setup. | These results supported several possible providers, not a universal native bitmap API. Apple Events URL reads worked without enabling browser JavaScript; direct toolbar bitmap access did not generalize across the tested browsers. |
+| Integrated native prototype | Moved URL discovery and independent icon retrieval into AltTab. Same-title red/blue fixtures appeared correctly in Safari and Chrome in the actual switcher, with the Safari companion disabled and its receiver bypassed. Later tests covered eight public origins. | Demonstrated a shared extension-free baseline instead of requiring a Safari-native/Chrome-extension split. Independent homepage artwork remains an approximation of the browser's selected icon. |
+| Reused presentation and audited resources | Reused the companion renderer as a byte-identical vendored copy with parity checks. Added rounded white-first artwork, coalesced requests/decodes, cache and transfer limits, obsolete-result checks and performance measurements. | Keeps successful artwork work while changing acquisition. The clean upstream branch excludes unrelated local UI and window-management patches. |
+
+The selected direction for this proposal is the integrated native provider. It is a working restricted prototype, not a completed replacement for every extension capability. Exact active-tab metadata, private-state detection, script-updated icons and broad browser/OS coverage remain important differences. Neither the Safari companion nor the Chrome probe was published to an extension store as part of this proposal.
+
+Earlier implementation and dated evidence remain available in the [Safari companion source](https://github.com/josdyr/dotfiles/tree/52dd5be/macos/alt-tab-site-icons), [capability experiments](https://github.com/josdyr/dotfiles/blob/52dd5be/macos/alt-tab-site-icons/prototypes/README.md) and [research journal](https://github.com/josdyr/dotfiles/blob/52dd5be/docs/alt-tab-browser-icon-research.md). The journal preserves superseded recommendations; this document describes the current proposal.
+
+### Why an arbitrary site still shows its browser icon
+
+The running demo only resolves origins listed in `ai/native-icon-sites.json`. A document on another origin returns no native artwork before fetching, even if that site has a valid favicon. Article paths, query parameters and fragment anchors are removed for lookup on admitted origins, so an article or `#section` does not itself prevent matching. This is the test boundary, not a finding that other websites or browsers are unsupported. Broader operation requires replacing the laboratory list with the reviewed general network policy and product opt-in; adding individual reported sites is not the intended release design.
+
 ## Release gates
 
 - Native AX discovery does not reliably identify private windows across supported browsers. Private-window rendering is not proof of private-state detection. The public-site allowlist remains in place for this review. Ephemeral requests still contact websites outside the browser session.
