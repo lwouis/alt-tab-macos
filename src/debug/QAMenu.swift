@@ -72,11 +72,7 @@ final class QAMenu: NSPanel {
             let index = (sender as! NSPopUpButton).indexOfSelectedItem
             UserDefaults.standard.set(String(index), forKey: "language")
             CachedUserDefaults.removeFromCache("language")
-            if Preferences.language == .systemDefault {
-                UserDefaults.standard.removeObject(forKey: "AppleLanguages")
-            } else {
-                UserDefaults.standard.set([Preferences.language.appleLanguageCode!], forKey: "AppleLanguages")
-            }
+            Preferences.language.applyToAppleLanguages()
             App.restart()
         }
         let settingsButton = NSButton(title: "Settings…", target: nil, action: nil)

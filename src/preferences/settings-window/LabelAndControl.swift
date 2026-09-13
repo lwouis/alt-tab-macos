@@ -60,6 +60,8 @@ class ClickHoverImageView: MouseHoverView {
 }
 
 class LabelAndControl: NSObject {
+    private static let overrideSymbolButtonSize = CGFloat(20)
+
     static func makeImageRadioButtons(_ rawName: String,
                                       _ macroPreferences: [ImageMacroPreference],
                                       extraAction: ActionClosure? = nil,
@@ -123,6 +125,23 @@ class LabelAndControl: NSObject {
     static func makeSwitch(_ rawName: String, extraAction: ActionClosure? = nil) -> Switch {
         let button = Switch(CachedUserDefaults.bool(rawName))
         _ = setupControl(button, rawName, extraAction: extraAction)
+        return button
+    }
+
+    /// The small accent-tinted symbol button used by the per-shortcut override affordances: the
+    /// "this value has overrides" branch icon and the "sync with global value" unlink icon. Starts
+    /// hidden, since both only show up on rows that actually have an override.
+    static func makeOverrideSymbolButton(_ image: NSImage, target: AnyObject? = nil, action: Selector? = nil) -> NSButton {
+        let button = NSButton(image: image, target: target, action: action)
+        button.bezelStyle = .regularSquare
+        button.isBordered = false
+        if #available(macOS 10.14, *) {
+            button.contentTintColor = .controlAccentColor
+        }
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.widthAnchor.constraint(equalToConstant: overrideSymbolButtonSize).isActive = true
+        button.heightAnchor.constraint(equalToConstant: overrideSymbolButtonSize).isActive = true
+        button.isHidden = true
         return button
     }
 

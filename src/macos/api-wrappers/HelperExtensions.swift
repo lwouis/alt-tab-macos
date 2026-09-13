@@ -281,7 +281,88 @@ extension String {
     }
 }
 
+/// Whether AltTab's non-switcher windows may take key focus. They are only ever flipped together,
+/// while the switcher's panel is ordered out: a window taking key focus there would steal it from the
+/// app the user is switching to (`App.hideTilesPanelWithoutChangingKeyWindow`).
+enum SecondaryWindows {
+    static var canBecomeKey = true
+}
+
+extension NSTextView {
+    /// A read-only, selectable text view sized to one settings column, for the Markdown-rendered
+    /// panes. Text checking is off: these are static documents, so the checker would only ever
+    /// underline product names.
+    static func makeReadOnlyMarkdownView(_ columnWidth: CGFloat) -> NSTextView {
+        let textView = NSTextView()
+        textView.textContainer!.widthTracksTextView = true
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.drawsBackground = false
+        textView.isSelectable = true
+        textView.isEditable = false
+        textView.enabledTextCheckingTypes = 0
+        textView.frame.size.width = columnWidth
+        return textView
+    }
+}
+
+extension NSPanel {
+    /// The chrome AltTab's two floating panels (the switcher and the window preview) share.
+    /// `.canJoinAllSpaces` matters because triggering AltTab before or during a Space transition
+    /// otherwise only brings the panel over once the transition ends. The `.unknown` accessibility
+    /// subrole is what keeps these panels out of AltTab's own thumbnails.
+    func applyFloatingPanelChrome() {
+        isFloatingPanel = true
+        animationBehavior = .none
+        hidesOnDeactivate = false
+        titleVisibility = .hidden
+        backgroundColor = .clear
+        collectionBehavior = .canJoinAllSpaces
+        setAccessibilitySubrole(.unknown)
+    }
+}
+
+extension NSSearchField {
+    /// The switcher's search field and the settings sidebar's look the same and both want every
+    /// keystroke rather than a debounced one. `controlSize` tracks the OS: macOS 26 draws search
+    /// fields as a taller pill, and 13 through 15 as the `.large` bezel.
+    func applySearchStyle() {
+        placeholderString = NSLocalizedString("Search", comment: "")
+        sendsSearchStringImmediately = true
+        sendsWholeSearchString = true
+        bezelStyle = .roundedBezel
+        if #available(macOS 26.0, *) {
+            controlSize = .extraLarge
+        } else if #available(macOS 13.0, *) {
+            controlSize = .large
+        }
+    }
+}
+
+extension NotificationCenter {
+    /// Drop a stored observer token. Nilling the token matters as much as the removal: the
+    /// re-subscribe guards elsewhere read `observer == nil` to decide whether to observe again.
+    func removeObserver(_ observer: inout NSObjectProtocol?) {
+        guard let token = observer else { return }
+        removeObserver(token)
+        observer = nil
+    }
+}
+
 extension NSWindow {
+    /// The chrome every secondary window shares: a title that only shows in the Window menu and in
+    /// Mission Control, and a window that survives both being closed and the app deactivating.
+    /// `hiddenTitlebar` is what makes the content extend under the traffic lights; the Debug window
+    /// keeps a real titlebar because it is resizable.
+    func applySecondaryWindowChrome(_ title: String, hiddenTitlebar: Bool = true) {
+        self.title = title
+        hidesOnDeactivate = false
+        isReleasedWhenClosed = false
+        if hiddenTitlebar {
+            titleVisibility = .hidden
+            titlebarAppearsTransparent = true
+        }
+    }
+
     func hideAppIfLastWindowIsClosed() {
         if (!NSApp.windows.contains { $0.isVisible && $0.className != "NSStatusBarWindow" && $0.windowNumber != windowNumber }) {
             App.shared.hide(nil)
@@ -360,5 +441,27 @@ extension CGEvent {
             nsEvent = NSEvent(cgEvent: self)
         }
         return nsEvent
+    }
+
+    /// Create an event tap and put it on `runLoop`. `tapCreate` returns nil when the Accessibility
+    /// permission isn't granted, and every input tap we install is load-bearing, so that case restarts
+    /// the app rather than running on with a dead tap.
+    static func createTapOrRestart(tap: CGEventTapLocation, options: CGEventTapOptions, eventsOfInterest: CGEventMask,
+                                   callback: @escaping CGEventTapCallBack, runLoop: CFRunLoop?) -> CFMachPort? {
+        guard let port = CGEvent.tapCreate(tap: tap, place: .headInsertEventTap, options: options,
+            eventsOfInterest: eventsOfInterest, callback: callback, userInfo: nil) else {
+            App.restart()
+            return nil
+        }
+        CFRunLoopAddSource(runLoop, CFMachPortCreateRunLoopSource(nil, port, 0), .commonModes)
+        return port
+    }
+
+    /// macOS disables taps on sleep and on a callback timeout (#5723). Put one back in the stream if we
+    /// still want it on. Returns whether it re-enabled, so each caller logs its own wording.
+    static func reEnableTapIfNeeded(_ port: CFMachPort?, wanted: Bool) -> Bool {
+        guard let port, wanted, !CGEvent.tapIsEnabled(tap: port) else { return false }
+        CGEvent.tapEnable(tap: port, enable: true)
+        return true
     }
 }

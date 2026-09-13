@@ -96,6 +96,10 @@ func noAnimation<T: CALayer>(_ make: () -> T) -> T {
     return make()
 }
 
+func caTransaction(_ body: () -> Void) {
+    body()
+}
+
 // 10.13-safe stand-ins (the test target's deployment floor matches the app's 10.13). The real
 // extensions in HelperExtensions.swift `#available`-gate the 10.14+ system colors; the tests
 // never inspect these values, so plain 10.13-era colors suffice.

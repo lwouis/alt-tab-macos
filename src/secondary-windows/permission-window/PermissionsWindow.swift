@@ -3,8 +3,7 @@ import Cocoa
 class PermissionsWindow: NSWindow {
     static var accessibilityView: PermissionView!
     static var screenRecordingView: PermissionView!
-    static var canBecomeKey_ = true
-    override var canBecomeKey: Bool { Self.canBecomeKey_ }
+    override var canBecomeKey: Bool { SecondaryWindows.canBecomeKey }
     static var shared: PermissionsWindow!
 
     convenience init() {
@@ -33,11 +32,7 @@ class PermissionsWindow: NSWindow {
     }
 
     private func setupWindow() {
-        title = NSLocalizedString("AltTab needs some permissions", comment: "")
-        titleVisibility = .hidden
-        titlebarAppearsTransparent = true
-        hidesOnDeactivate = false
-        isReleasedWhenClosed = false
+        applySecondaryWindowChrome(NSLocalizedString("AltTab needs some permissions", comment: ""))
         styleMask.insert([.closable])
     }
 

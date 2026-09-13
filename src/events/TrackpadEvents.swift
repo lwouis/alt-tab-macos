@@ -46,9 +46,9 @@ class TrackpadEvents {
     }
 
     static func reEnableTapIfNeeded() {
-        guard let detectTap, shouldBeEnabled, !CGEvent.tapIsEnabled(tap: detectTap) else { return }
-        Logger.warning { "" }
-        CGEvent.tapEnable(tap: detectTap, enable: true)
+        if CGEvent.reEnableTapIfNeeded(detectTap, wanted: shouldBeEnabled) {
+            Logger.warning { "" }
+        }
     }
 
     /// Called from the main thread (`App.hideUi`), while the detectors it clears are otherwise only ever

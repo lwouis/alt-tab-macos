@@ -116,6 +116,15 @@ class StatusIconsView: FlippedView {
         tooltipsDirty = false
         removeAllToolTips()
         tooltipStrings.removeAll()
+        forEachVisibleIcon { icon, rect in
+            guard let tooltip = icon.tooltip else { return }
+            tooltipStrings[addToolTip(rect, owner: self, userData: nil)] = tooltip
+        }
+    }
+
+    /// The tooltip rects and the glyphs must land in the same slots, so both get their geometry
+    /// here: icons fill from the trailing edge inwards, one `iconWidth` cell each.
+    private func forEachVisibleIcon(_ body: (Icon, NSRect) -> Void) {
         let iconWidth = TilesView.layoutCache.iconWidth
         let iconHeight = TilesView.layoutCache.iconHeight
         let isLTR = App.shared.userInterfaceLayoutDirection == .leftToRight
@@ -125,10 +134,7 @@ class StatusIconsView: FlippedView {
             guard icon.visible else { continue }
             offset += iconWidth
             let x = isLTR ? frame.width - offset : offset - iconWidth
-            if let tooltip = icon.tooltip {
-                let tag = addToolTip(NSRect(x: x, y: yOffset, width: iconWidth, height: iconHeight), owner: self, userData: nil)
-                tooltipStrings[tag] = tooltip
-            }
+            body(icon, NSRect(x: x, y: yOffset, width: iconWidth, height: iconHeight))
         }
     }
 
@@ -139,16 +145,8 @@ class StatusIconsView: FlippedView {
 
     override func draw(_ dirtyRect: NSRect) {
         guard visibleCount > 0 else { return }
-        let iconWidth = TilesView.layoutCache.iconWidth
-        let iconHeight = TilesView.layoutCache.iconHeight
-        let isLTR = App.shared.userInterfaceLayoutDirection == .leftToRight
-        let yOffset = ((frame.height - iconHeight) / 2).rounded()
-        var offset = CGFloat(0)
-        for icon in icons {
-            guard icon.visible else { continue }
-            offset += iconWidth
-            let x = isLTR ? frame.width - offset : offset - iconWidth
-            Self.cachedAttrString(for: icon.symbol).draw(at: NSPoint(x: x, y: yOffset))
+        forEachVisibleIcon { icon, rect in
+            Self.cachedAttrString(for: icon.symbol).draw(at: rect.origin)
         }
     }
 }

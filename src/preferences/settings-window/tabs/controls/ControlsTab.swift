@@ -148,14 +148,8 @@ class ControlsTab {
     }
 
     static func cleanup() {
-        if let observer = proLockObserver {
-            NotificationCenter.default.removeObserver(observer)
-            proLockObserver = nil
-        }
-        if let observer = shortcutRowsScrollObserver {
-            NotificationCenter.default.removeObserver(observer)
-            shortcutRowsScrollObserver = nil
-        }
+        NotificationCenter.default.removeObserver(&proLockObserver)
+        NotificationCenter.default.removeObserver(&shortcutRowsScrollObserver)
         shortcutsWhenActiveSheet = nil
         additionalControlsSheet = nil
         arrowKeysCheckbox = nil
@@ -290,30 +284,17 @@ class ControlsTab {
         let listContainer = NSView()
         listContainer.translatesAutoresizingMaskIntoConstraints = false
         let shortcutsSection = SidebarListContainer()
-        let rows = NSStackView()
-        rows.orientation = .vertical
-        rows.alignment = .leading
-        rows.spacing = 0
-        rows.translatesAutoresizingMaskIntoConstraints = false
+        let list = makeSidebarRowsList()
+        let rows = list.rows
+        let rowsScrollView = list.scrollView
         shortcutRowsStackView = rows
         // Start the recycled row pool empty and bound to this freshly-built stack view;
         // `refreshShortcutRows` grows it on demand. (`cleanup` also clears it on window close.)
         shortcutRows.removeAll()
-        let rowsScrollView = ForwardingVerticalScrollView()
-        rowsScrollView.translatesAutoresizingMaskIntoConstraints = false
-        rowsScrollView.drawsBackground = false
-        rowsScrollView.hasVerticalScroller = true
-        rowsScrollView.verticalScrollElasticity = .none
-        rowsScrollView.hasHorizontalScroller = false
-        rowsScrollView.scrollerStyle = .overlay
-        rowsScrollView.usesPredominantAxisScrolling = true
-        rowsScrollView.contentView.postsBoundsChangedNotifications = true
-        let documentView = ForwardingVerticalDocumentView(frame: .zero)
-        documentView.translatesAutoresizingMaskIntoConstraints = false
-        rowsScrollView.documentView = documentView
-        documentView.addSubview(rows)
         shortcutRowsScrollView = rowsScrollView
-        installShortcutSidebarHoverObserver(rowsScrollView)
+        shortcutRowsScrollObserver = observeSidebarListScroll(rowsScrollView, replacing: shortcutRowsScrollObserver) {
+            syncShortcutSidebarHoverState()
+        }
         let gestureSeparator = sidebarSeparatorView()
         let gestureRow = SidebarListRow()
         gestureRow.onClick = { _, _ in selectGesture() }
@@ -343,12 +324,6 @@ class ControlsTab {
             listContainer.leadingAnchor.constraint(equalTo: sidebar.leadingAnchor),
             listContainer.trailingAnchor.constraint(equalTo: sidebar.trailingAnchor),
             listContainer.bottomAnchor.constraint(equalTo: sidebar.bottomAnchor),
-            documentView.widthAnchor.constraint(equalTo: rowsScrollView.contentView.widthAnchor),
-            documentView.heightAnchor.constraint(greaterThanOrEqualTo: rowsScrollView.contentView.heightAnchor),
-            rows.topAnchor.constraint(equalTo: documentView.topAnchor),
-            rows.leadingAnchor.constraint(equalTo: documentView.leadingAnchor),
-            rows.trailingAnchor.constraint(equalTo: documentView.trailingAnchor),
-            rows.bottomAnchor.constraint(lessThanOrEqualTo: documentView.bottomAnchor),
             shortcutsSection.topAnchor.constraint(equalTo: listContainer.topAnchor, constant: TableGroupView.padding),
             shortcutsSection.leadingAnchor.constraint(equalTo: listContainer.leadingAnchor, constant: sidebarHorizontalPadding),
             shortcutsSection.trailingAnchor.constraint(equalTo: listContainer.trailingAnchor, constant: -sidebarHorizontalPadding),
@@ -680,15 +655,6 @@ class ControlsTab {
 
     // MARK: - Hover state
 
-    private static func installShortcutSidebarHoverObserver(_ scrollView: NSScrollView) {
-        if let shortcutRowsScrollObserver {
-            NotificationCenter.default.removeObserver(shortcutRowsScrollObserver)
-        }
-        shortcutRowsScrollObserver = NotificationCenter.default.addObserver(forName: NSView.boundsDidChangeNotification, object: scrollView.contentView, queue: .main) { _ in
-            syncShortcutSidebarHoverState()
-        }
-    }
-
     private static func setHoveredShortcutRow(_ row: SidebarListRow?) {
         shortcutRows.forEach { $0.setHovered($0 === row) }
         if let gestureSidebarRow {
@@ -698,25 +664,7 @@ class ControlsTab {
 
     private static func syncShortcutSidebarHoverState() {
         guard let shortcutRowsScrollView else { return }
-        setHoveredShortcutRow(hoveredShortcutRowAtCursor(shortcutRowsScrollView))
-    }
-
-    private static func hoveredShortcutRowAtCursor(_ scrollView: NSScrollView) -> SidebarListRow? {
-        guard let window = scrollView.window else { return nil }
-        let cursorInScrollView = scrollView.convert(window.mouseLocationOutsideOfEventStream, from: nil)
-        guard scrollView.bounds.contains(cursorInScrollView) else { return nil }
-        guard let documentView = scrollView.documentView else { return nil }
-        let cursorInDocumentView = documentView.convert(window.mouseLocationOutsideOfEventStream, from: nil)
-        return enclosingSidebarListRow(documentView.hitTest(cursorInDocumentView))
-    }
-
-    private static func enclosingSidebarListRow(_ view: NSView?) -> SidebarListRow? {
-        var current = view
-        while let candidate = current {
-            if let row = candidate as? SidebarListRow { return row }
-            current = candidate.superview
-        }
-        return nil
+        setHoveredShortcutRow(sidebarListRowAtCursor(shortcutRowsScrollView))
     }
 
     private static func clearArrangedSubviews(_ stackView: NSStackView) {
@@ -949,16 +897,25 @@ class ControlsTab {
     }
 
     private static func shouldClearConflictingShortcuts(_ conflicts: [String], _ messageFormat: String) -> Bool {
+        let list = conflicts.map { "• " + $0 }.joined(separator: "\n")
+        return confirmUnassigningConflict(String(format: messageFormat, nonBreaking(list)))
+    }
+
+    /// The prompt both conflict detectors raise: unassign whatever holds the shortcut, or cancel
+    /// (Esc). `true` means the user chose to unassign.
+    static func confirmUnassigningConflict(_ informativeText: String) -> Bool {
         let alert = NSAlert()
         alert.alertStyle = .warning
         alert.messageText = NSLocalizedString("Conflicting shortcut", comment: "")
-        let informativeText = conflicts.map { "• " + $0 }.joined(separator: "\n")
-        alert.informativeText = String(format: messageFormat, informativeText.replacingOccurrences(of: " ", with: "\u{00A0}"))
+        alert.informativeText = informativeText
         alert.addButton(withTitle: NSLocalizedString("Unassign existing shortcut and continue", comment: "")).setAccessibilityFocused(true)
-        let cancelButton = alert.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))
-        cancelButton.keyEquivalent = "\u{1b}"
-        let userChoice = alert.runModal()
-        return userChoice == .alertFirstButtonReturn
+        alert.addButton(withTitle: NSLocalizedString("Cancel", comment: "")).keyEquivalent = "\u{1b}"
+        return alert.runModal() == .alertFirstButtonReturn
+    }
+
+    /// An action's name must not be split across lines by the alert's own wrapping.
+    static func nonBreaking(_ text: String) -> String {
+        text.replacingOccurrences(of: " ", with: "\u{00A0}")
     }
 
     private static func removeShortcutIfExists(_ controlId: String) {

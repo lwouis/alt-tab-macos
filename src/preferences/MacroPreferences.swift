@@ -95,6 +95,16 @@ enum LanguagePreference: CaseIterable, MacroPreference {
     var appleLanguageCode: String? {
         Self.metadata[self]!.code
     }
+
+    /// AppKit resolves which `.lproj` the app loads from `AppleLanguages` at launch, so writing it
+    /// only takes effect after a restart. `.systemDefault` means removing the key, not writing one.
+    func applyToAppleLanguages() {
+        if self == .systemDefault {
+            UserDefaults.standard.removeObject(forKey: "AppleLanguages")
+        } else {
+            UserDefaults.standard.set([appleLanguageCode!], forKey: "AppleLanguages")
+        }
+    }
 }
 
 enum ShortcutStylePreference: CaseIterable, SfSymbolMacroPreference {

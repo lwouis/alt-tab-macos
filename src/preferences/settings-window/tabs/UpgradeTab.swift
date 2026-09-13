@@ -333,16 +333,7 @@ class UpgradeTab {
                     presentSeatLimitSheet(key: key, instances: instances)
                     return
                 }
-                let alert = NSAlert()
-                alert.alertStyle = .warning
-                alert.messageText = NSLocalizedString("Activation failed", comment: "")
-                alert.informativeText = error.localizedDescription
-                addDebugInfoToAlert(alert, error)
-                alert.addButton(withTitle: NSLocalizedString("OK", comment: ""))
-                alert.addButton(withTitle: NSLocalizedString("My Account", comment: ""))
-                if alert.runModal() == .alertSecondButtonReturn {
-                    openAccountPage()
-                }
+                presentLicenseError(NSLocalizedString("Activation failed", comment: ""), error)
             }
         }
     }
@@ -408,17 +399,21 @@ class UpgradeTab {
                 refreshStatus()
                 App.resetPreferencesDependentComponents()
             case .failure(let error):
-                let alert = NSAlert()
-                alert.alertStyle = .warning
-                alert.messageText = NSLocalizedString("Deactivation failed", comment: "")
-                alert.informativeText = error.localizedDescription
-                addDebugInfoToAlert(alert, error)
-                alert.addButton(withTitle: NSLocalizedString("OK", comment: ""))
-                alert.addButton(withTitle: NSLocalizedString("My Account", comment: ""))
-                if alert.runModal() == .alertSecondButtonReturn {
-                    openAccountPage()
-                }
+                presentLicenseError(NSLocalizedString("Deactivation failed", comment: ""), error)
             }
+        }
+    }
+
+    private static func presentLicenseError(_ title: String, _ error: Error) {
+        let alert = NSAlert()
+        alert.alertStyle = .warning
+        alert.messageText = title
+        alert.informativeText = error.localizedDescription
+        addDebugInfoToAlert(alert, error)
+        alert.addButton(withTitle: NSLocalizedString("OK", comment: ""))
+        alert.addButton(withTitle: NSLocalizedString("My Account", comment: ""))
+        if alert.runModal() == .alertSecondButtonReturn {
+            openAccountPage()
         }
     }
 

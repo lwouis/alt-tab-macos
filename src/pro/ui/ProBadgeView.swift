@@ -11,6 +11,7 @@ enum ProGradient {
     static let startPoint = CGPoint(x: 0.5 - 0.5 * 0.809, y: 0.5 - 0.5 * 0.588)
     static let endPoint = CGPoint(x: 0.5 + 0.5 * 0.809, y: 0.5 + 0.5 * 0.588)
     static let representativeColor = NSColor(red: 0xFF / 255.0, green: 0x44 / 255.0, blue: 0x88 / 255.0, alpha: 1)
+    private static let shineAnimationKey = "shine"
 
     static func makeLayer(alpha: CGFloat = 1, flipped: Bool = false) -> CAGradientLayer {
         let g = CAGradientLayer()
@@ -20,10 +21,11 @@ enum ProGradient {
         return g
     }
 
-    /// A white highlight that sweeps once across `layer`, left to right, then removes itself.
-    /// `onFinished` runs on the main thread once the sweep is gone, so the caller can clear its
-    /// "already shining" guard.
-    static func playShine(over layer: CALayer, onFinished: @escaping () -> Void) {
+    /// A white highlight that sweeps once across `layer`, left to right, then removes itself. A
+    /// call landing while a sweep is still running is dropped: the running sweep's own sublayer is
+    /// the "already shining" flag, so no caller has to keep one.
+    static func playShine(over layer: CALayer) {
+        guard layer.sublayers?.contains(where: { $0.animation(forKey: shineAnimationKey) != nil }) != true else { return }
         let size = layer.bounds.size
         let shine = CAGradientLayer()
         shine.colors = [
@@ -42,11 +44,8 @@ enum ProGradient {
         animation.duration = 0.6
         animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
         CATransaction.begin()
-        CATransaction.setCompletionBlock {
-            shine.removeFromSuperlayer()
-            onFinished()
-        }
-        shine.add(animation, forKey: "shine")
+        CATransaction.setCompletionBlock { shine.removeFromSuperlayer() }
+        shine.add(animation, forKey: shineAnimationKey)
         CATransaction.commit()
     }
 
@@ -312,17 +311,16 @@ class ProBadgeView: NSView {
 
     override func layout() {
         super.layout()
-        CATransaction.begin()
-        CATransaction.setDisableActions(true)
-        let b = bounds
-        fillGradient.frame = b
-        borderGradient.frame = b
-        borderMask.frame = b
-        borderMask.path = CGPath(roundedRect: b.insetBy(dx: 0.5, dy: 0.5), cornerWidth: 3.5, cornerHeight: 3.5, transform: nil)
-        textGradient.frame = b
-        let labelFrame = label.frame
-        textMask.frame = labelFrame.isEmpty ? b : labelFrame
-        CATransaction.commit()
+        caTransaction {
+            let b = bounds
+            fillGradient.frame = b
+            borderGradient.frame = b
+            borderMask.frame = b
+            borderMask.path = CGPath(roundedRect: b.insetBy(dx: 0.5, dy: 0.5), cornerWidth: 3.5, cornerHeight: 3.5, transform: nil)
+            textGradient.frame = b
+            let labelFrame = label.frame
+            textMask.frame = labelFrame.isEmpty ? b : labelFrame
+        }
     }
 
     override func viewDidMoveToWindow() {
@@ -350,27 +348,26 @@ class ProBadgeView: NSView {
 
     private func updateColors() {
         onWindowKeyChanged?()
-        CATransaction.begin()
-        CATransaction.setDisableActions(true)
-        if isSelectedState && isWindowKey {
-            let white = NSColor.white
-            layer?.borderWidth = 1
-            layer?.borderColor = white.withAlphaComponent(0.5).cgColor
-            layer?.backgroundColor = white.withAlphaComponent(0.15).cgColor
-            fillGradient.isHidden = true
-            borderGradient.isHidden = true
-            textGradient.isHidden = true
-            label.textColor = white.withAlphaComponent(0.97)
-            label.alphaValue = 1
-        } else {
-            layer?.borderWidth = 0
-            layer?.borderColor = nil
-            layer?.backgroundColor = nil
-            fillGradient.isHidden = false
-            borderGradient.isHidden = false
-            textGradient.isHidden = false
-            label.alphaValue = 0
+        caTransaction {
+            if isSelectedState && isWindowKey {
+                let white = NSColor.white
+                layer?.borderWidth = 1
+                layer?.borderColor = white.withAlphaComponent(0.5).cgColor
+                layer?.backgroundColor = white.withAlphaComponent(0.15).cgColor
+                fillGradient.isHidden = true
+                borderGradient.isHidden = true
+                textGradient.isHidden = true
+                label.textColor = white.withAlphaComponent(0.97)
+                label.alphaValue = 1
+            } else {
+                layer?.borderWidth = 0
+                layer?.borderColor = nil
+                layer?.backgroundColor = nil
+                fillGradient.isHidden = false
+                borderGradient.isHidden = false
+                textGradient.isHidden = false
+                label.alphaValue = 0
+            }
         }
-        CATransaction.commit()
     }
 }

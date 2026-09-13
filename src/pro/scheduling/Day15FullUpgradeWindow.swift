@@ -46,51 +46,17 @@ class Day15FullUpgradeWindow: ProPromptWindow {
 
     convenience init() {
         self.init(size: NSSize(width: 440, height: 340))
-
-        let container = NSView()
-        container.translatesAutoresizingMaskIntoConstraints = false
-
         let header = ProPromptHeader(title: ResolvedReason.nonEngaged.unlockHeader, size: .large)
         self.header = header
-
         let hero = UsageStatHeroView(supportingLine: Self.supportingLine(for: nil))
         self.hero = hero
-
-        let purchaseButton = NSButton(title: NSLocalizedString("Get Pro", comment: ""), target: nil, action: nil)
-        purchaseButton.translatesAutoresizingMaskIntoConstraints = false
-        purchaseButton.bezelStyle = .rounded
-        if #available(macOS 11.0, *) { purchaseButton.controlSize = .large }
-        // no .keyEquivalent: this prompt steals focus, so a stray Return must not trigger checkout (#5738)
-        purchaseButton.onAction = { _ in ProTransitionManager.openCheckout() }
-
         let continueLink = NotAdvisedButton(NSLocalizedString("Continue with Free", comment: ""))
         continueLink.onAction = { [weak self] _ in self?.close() }
-
-        container.addSubview(header)
-        container.addSubview(hero)
-        container.addSubview(purchaseButton)
-        container.addSubview(continueLink)
-
-        NSLayoutConstraint.activate([
-            header.topAnchor.constraint(equalTo: container.topAnchor, constant: 24),
-            header.centerXAnchor.constraint(equalTo: container.centerXAnchor),
-            header.leadingAnchor.constraint(greaterThanOrEqualTo: container.leadingAnchor, constant: 30),
-            header.trailingAnchor.constraint(lessThanOrEqualTo: container.trailingAnchor, constant: -30),
-
-            hero.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 24),
-            hero.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 30),
-            hero.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -30),
-
-            purchaseButton.topAnchor.constraint(equalTo: hero.bottomAnchor, constant: 24),
-            purchaseButton.centerXAnchor.constraint(equalTo: container.centerXAnchor),
-
-            continueLink.topAnchor.constraint(equalTo: purchaseButton.bottomAnchor, constant: 12),
-            continueLink.centerXAnchor.constraint(equalTo: container.centerXAnchor),
-            continueLink.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -20),
-        ])
-
-        contentView = container
-
-        fitContentHeight()
+        setHeroContentView(
+            header: header,
+            hero: hero,
+            purchase: ProPromptButtons.makeGetPro(large: true) { ProTransitionManager.openCheckout() },
+            dismiss: continueLink,
+            sidePadding: 30, gap: 24, dismissGap: 12)
     }
 }

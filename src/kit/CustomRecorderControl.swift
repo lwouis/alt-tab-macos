@@ -81,18 +81,11 @@ class CustomRecorderControl: RecorderControl {
         // `conflictLabel` returns nil only for an id with no known action, which can't happen for a
         // real detected conflict; keep the prior plain-string fallback (not a new l10n key).
         let label = ControlsTab.conflictLabel(shortcutAlreadyAssigned) ?? "an unknown action"
-        let alert = NSAlert()
-        alert.alertStyle = .warning
-        alert.messageText = NSLocalizedString("Conflicting shortcut", comment: "")
-        alert.informativeText = String(format: NSLocalizedString("Shortcut already assigned to: %@", comment: ""),
-                                       label.replacingOccurrences(of: " ", with: "\u{00A0}"))
         // Always offer to resolve it, including when editing a Hold: unassigning a conflicting Trigger
         // clears its "and press" part (the hold itself is never the thing unassigned).
-        alert.addButton(withTitle: NSLocalizedString("Unassign existing shortcut and continue", comment: "")).setAccessibilityFocused(true)
-        let cancelButton = alert.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))
-        cancelButton.keyEquivalent = "\u{1b}"
-        let userChoice = alert.runModal()
-        guard userChoice == .alertFirstButtonReturn else { return }
+        let informativeText = String(format: NSLocalizedString("Shortcut already assigned to: %@", comment: ""),
+                                     ControlsTab.nonBreaking(label))
+        guard ControlsTab.confirmUnassigningConflict(informativeText) else { return }
         switch conflict {
         case .arrow:
             if let cb = ControlsTab.arrowKeysCheckbox {

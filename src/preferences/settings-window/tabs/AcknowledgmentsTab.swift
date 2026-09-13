@@ -28,14 +28,7 @@ class AcknowledgmentsTab {
             content.removeLast()
         }
         let attributedString = Markdown.toAttributedString(content)
-        let textView = NSTextView()
-        textView.textContainer!.widthTracksTextView = true
-        textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.drawsBackground = false
-        textView.isSelectable = true
-        textView.isEditable = false
-        textView.enabledTextCheckingTypes = 0
-        textView.frame.size.width = columnWidth
+        let textView = NSTextView.makeReadOnlyMarkdownView(columnWidth)
         textView.textStorage!.setAttributedString(attributedString)
         textView.layoutManager!.ensureLayout(for: textView.textContainer!)
         textView.frame = textView.layoutManager!.usedRect(for: textView.textContainer!)

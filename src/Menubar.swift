@@ -269,7 +269,6 @@ class UpgradeMenuItemView: NSView {
     private let backdrop = NSView()
     private var highlightObservation: NSKeyValueObservation?
     private let gradientLayer = ProGradient.makeLayer()
-    private var isShining = false
 
     override init(frame: NSRect) {
         super.init(frame: frame)
@@ -324,10 +323,7 @@ class UpgradeMenuItemView: NSView {
 
     override func layout() {
         super.layout()
-        CATransaction.begin()
-        CATransaction.setDisableActions(true)
-        gradientLayer.frame = backdrop.bounds
-        CATransaction.commit()
+        caTransaction { gradientLayer.frame = backdrop.bounds }
     }
 
     override func viewDidMoveToWindow() {
@@ -350,9 +346,7 @@ class UpgradeMenuItemView: NSView {
     }
 
     private func playShineAnimation() {
-        guard !isShining else { return }
-        isShining = true
-        ProGradient.playShine(over: gradientLayer) { [weak self] in self?.isShining = false }
+        ProGradient.playShine(over: gradientLayer)
     }
 
     func updateContent(_ state: LicenseState) {

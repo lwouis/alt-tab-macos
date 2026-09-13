@@ -31,14 +31,7 @@ class ContextMenuEvents {
 
     private static func stopObserving() {
         openMenuCount = 0
-        let center = NotificationCenter.default
-        if let beginObserver {
-            center.removeObserver(beginObserver)
-            self.beginObserver = nil
-        }
-        if let endObserver {
-            center.removeObserver(endObserver)
-            self.endObserver = nil
-        }
+        NotificationCenter.default.removeObserver(&beginObserver)
+        NotificationCenter.default.removeObserver(&endObserver)
     }
 }

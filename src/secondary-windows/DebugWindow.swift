@@ -2,8 +2,7 @@ import Cocoa
 
 class DebugWindow: NSPanel {
     static var shared: DebugWindow?
-    static var canBecomeKey_ = true
-    override var canBecomeKey: Bool { Self.canBecomeKey_ }
+    override var canBecomeKey: Bool { SecondaryWindows.canBecomeKey }
     private var scrollView: NSScrollView!
     private var textView: NSTextView!
     private var copyLogsButton: NSButton!
@@ -40,9 +39,7 @@ class DebugWindow: NSPanel {
     }
 
     private func setupWindow() {
-        title = NSLocalizedString("Debug tools", comment: "")
-        hidesOnDeactivate = false
-        isReleasedWhenClosed = false
+        applySecondaryWindowChrome(NSLocalizedString("Debug tools", comment: ""), hiddenTitlebar: false)
         minSize = NSSize(width: 400, height: 300)
     }
 

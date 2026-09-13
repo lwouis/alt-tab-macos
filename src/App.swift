@@ -110,17 +110,9 @@ class App: AppCenterApplication {
 
     /// we don't want another window to become key when the TilesPanel is hidden
     static func hideTilesPanelWithoutChangingKeyWindow() {
-        allSecondaryWindowsCanBecomeKey(false)
+        SecondaryWindows.canBecomeKey = false
         TilesPanel.shared.orderOut(nil)
-        allSecondaryWindowsCanBecomeKey(true)
-    }
-
-    private static func allSecondaryWindowsCanBecomeKey(_ canBecomeKey_: Bool) {
-        SettingsWindow.canBecomeKey_ = canBecomeKey_
-        AboutWindow.canBecomeKey_ = canBecomeKey_
-        PermissionsWindow.canBecomeKey_ = canBecomeKey_
-        FeedbackWindow.canBecomeKey_ = canBecomeKey_
-        DebugWindow.canBecomeKey_ = canBecomeKey_
+        SecondaryWindows.canBecomeKey = true
     }
 
     static func focusTarget() {
@@ -245,10 +237,7 @@ class App: AppCenterApplication {
         firstLaunchSettingsObserver = NotificationCenter.default.addObserver(
             forName: NSWindow.willCloseNotification, object: nil, queue: .main) { notification in
             guard notification.object is Day1WelcomeLetterWindow else { return }
-            if let observer = firstLaunchSettingsObserver {
-                NotificationCenter.default.removeObserver(observer)
-                firstLaunchSettingsObserver = nil
-            }
+            NotificationCenter.default.removeObserver(&firstLaunchSettingsObserver)
             DispatchQueue.main.async { showAndCenterSettingsWindowOnFirstLaunch() }
         }
     }

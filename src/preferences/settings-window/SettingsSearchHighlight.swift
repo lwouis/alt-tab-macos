@@ -129,6 +129,16 @@ enum SettingsSearchHighlight {
         return NSRange(start..<end, in: text)
     }
 
+    /// The inline form of the highlight: the yellow box and dark text baked straight into
+    /// `attributed`, for text the caller renders itself as an attributed string instead of through
+    /// the layer-backed pills above.
+    static func applyInlineHighlight(to attributed: NSMutableAttributedString, ranges: [Range<Int>], in text: String) {
+        ranges.compactMap { characterRangeToNSRange($0, in: text) }.forEach {
+            attributed.addAttribute(.backgroundColor, value: Appearance.searchMatchHighlightColor, range: $0)
+            attributed.addAttribute(.foregroundColor, value: Appearance.searchMatchForegroundColor, range: $0)
+        }
+    }
+
     static func clearRoundedHighlights(from view: NSView) {
         view.layer?.sublayers?.filter { $0.name == roundedHighlightLayerName }.forEach { $0.removeFromSuperlayer() }
     }

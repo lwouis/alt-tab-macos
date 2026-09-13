@@ -139,11 +139,7 @@ class GeneralTab {
 
     // periphery:ignore:parameters sender - LabelAndControl callback signature
     static func setLanguageCallback(_ sender: NSControl) {
-        if Preferences.language == .systemDefault {
-            UserDefaults.standard.removeObject(forKey: "AppleLanguages")
-        } else {
-            UserDefaults.standard.set([Preferences.language.appleLanguageCode!], forKey: "AppleLanguages")
-        }
+        Preferences.language.applyToAppleLanguages()
         // Inform the user that the app needs to restart to apply the language change
         let alert = NSAlert()
         alert.alertStyle = .informational

@@ -117,14 +117,9 @@ enum AxObserverError: Equatable {
 enum AxSubscriptionResult: Equatable {
     case success
     case alreadyRegistered
-    case notificationUnsupported
-    case notImplemented
-    case cannotComplete
-    case invalidUIElement
-    case apiDisabled
-    case invalidObserver
-    case invalidArgument
-    case genericFailure
+    /// Every refusal is an `AxObserverError`. Spelling the cases out a second time here is what let the
+    /// two lists drift, and forced three hand-written mappings of one onto the other.
+    case failed(AxObserverError)
 }
 
 enum AxRecoveryTrigger: Equatable {
@@ -393,24 +388,24 @@ enum AxObserverHealth {
             refreshLifecycle(&entry)
             state.entries[process.pid] = entry
             return .capabilitySubscribed(capability)
-        case .notificationUnsupported, .notImplemented:
-            entry.notifications[capability] = .unsupported
-            entry.diagnostics.lastError = result == .notificationUnsupported
-                ? .notificationUnsupported
-                : .notImplemented
-            entry.diagnostics.nextRetry = nextRetry(entry)
-            refreshLifecycle(&entry)
-            state.entries[process.pid] = entry
-            return .capabilityUnsupported(capability)
-        case .cannotComplete:
-            return cannotComplete(&state, entry, capability, time, policy)
-        case .invalidUIElement, .invalidObserver:
-            return rebuild(&state, entry, result == .invalidUIElement ? .invalidUIElement : .invalidObserver)
-        case .apiDisabled:
-            return permissionFailed(&state)
-        case .invalidArgument, .genericFailure:
-            let error: AxObserverError = result == .invalidArgument ? .invalidArgument : .genericFailure
-            return sparseFailure(&state, entry, capability, error, time, policy)
+        case .failed(let error):
+            switch error {
+            case .notificationUnsupported, .notImplemented:
+                entry.notifications[capability] = .unsupported
+                entry.diagnostics.lastError = error
+                entry.diagnostics.nextRetry = nextRetry(entry)
+                refreshLifecycle(&entry)
+                state.entries[process.pid] = entry
+                return .capabilityUnsupported(capability)
+            case .cannotComplete:
+                return cannotComplete(&state, entry, capability, time, policy)
+            case .invalidUIElement, .invalidObserver:
+                return rebuild(&state, entry, error)
+            case .apiDisabled:
+                return permissionFailed(&state)
+            case .invalidArgument, .genericFailure:
+                return sparseFailure(&state, entry, capability, error, time, policy)
+            }
         }
     }
 

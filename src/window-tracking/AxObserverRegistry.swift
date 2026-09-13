@@ -627,40 +627,31 @@ class AxObserverRegistry {
     /// is a busy process and cools down; `.notificationUnsupported` is permanent for THAT notification only
     /// and must not mark the whole observer unhealthy; `.apiDisabled` is global and must not be hammered per
     /// pid.
-    private static func result(from error: AXError) -> AxSubscriptionResult {
-        switch error {
-        case .success: return .success
-        case .notificationAlreadyRegistered: return .alreadyRegistered
+    ///
+    /// **Only OUR permission being gone is global.** Measured: several processes on a machine with
+    /// Accessibility granted still answer `kAXErrorAPIDisabled` (-25211) for their own reasons. Passing
+    /// that straight through set the provider's global-permission flag and every later subscription for
+    /// EVERY app was refused before it was attempted — 138 successful subscriptions, then silence. So the
+    /// escalation is gated on `AXIsProcessTrusted`, and an individual app's refusal is a per-pid
+    /// temporary failure like any other.
+    private static func error(from result: AXError) -> AxObserverError {
+        switch result {
         case .notificationUnsupported: return .notificationUnsupported
         case .notImplemented: return .notImplemented
         case .cannotComplete: return .cannotComplete
         case .invalidUIElement: return .invalidUIElement
         case .invalidUIElementObserver: return .invalidObserver
-        // **Only OUR permission being gone is global.** Measured: several processes on a machine with
-        // Accessibility granted still answer `kAXErrorAPIDisabled` (-25211) for their own reasons. Passing
-        // that straight through set the provider's global-permission flag and every later subscription for
-        // EVERY app was refused before it was attempted — 138 successful subscriptions, then silence. So the
-        // escalation is gated on `AXIsProcessTrusted`, and an individual app's refusal is a per-pid
-        // temporary failure like any other.
         case .apiDisabled: return AXIsProcessTrusted() ? .cannotComplete : .apiDisabled
         case .illegalArgument: return .invalidArgument
         default: return .genericFailure
         }
     }
 
-    private static func error(from result: AXError) -> AxObserverError {
-        switch result {
-        case .cannotComplete: return .cannotComplete
-        case .invalidUIElement: return .invalidUIElement
-        // **Only OUR permission being gone is global.** Measured: several processes on a machine with
-        // Accessibility granted still answer `kAXErrorAPIDisabled` (-25211) for their own reasons. Passing
-        // that straight through set the provider's global-permission flag and every later subscription for
-        // EVERY app was refused before it was attempted — 138 successful subscriptions, then silence. So the
-        // escalation is gated on `AXIsProcessTrusted`, and an individual app's refusal is a per-pid
-        // temporary failure like any other.
-        case .apiDisabled: return AXIsProcessTrusted() ? .cannotComplete : .apiDisabled
-        case .illegalArgument: return .invalidArgument
-        default: return .genericFailure
+    private static func result(from axError: AXError) -> AxSubscriptionResult {
+        switch axError {
+        case .success: return .success
+        case .notificationAlreadyRegistered: return .alreadyRegistered
+        default: return .failed(error(from: axError))
         }
     }
 }

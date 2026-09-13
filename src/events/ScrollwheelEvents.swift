@@ -5,7 +5,12 @@ class ScrollwheelEvents {
     private static var eventTap: CFMachPort!
 
     static func observe() {
-        observe_()
+        eventTap = CGEvent.createTapOrRestart(
+            tap: .cghidEventTap, // we need raw data
+            options: .defaultTap,
+            eventsOfInterest: NSEvent.EventTypeMask.scrollWheel.rawValue,
+            callback: handleEvent,
+            runLoop: BackgroundWork.keyboardAndMouseAndTrackpadEventsThread.runLoop)
         toggle(false)
     }
 
@@ -18,25 +23,8 @@ class ScrollwheelEvents {
     }
 
     static func reEnableTapIfNeeded() {
-        guard let eventTap, shouldBeEnabled, !CGEvent.tapIsEnabled(tap: eventTap) else { return }
-        CGEvent.tapEnable(tap: eventTap, enable: true)
-        Logger.warning { "" }
-    }
-
-    private static func observe_() {
-        // CGEvent.tapCreate returns null if ensureAccessibilityCheckboxIsChecked() didn't pass
-        eventTap = CGEvent.tapCreate(
-            tap: .cghidEventTap, // we need raw data
-            place: .headInsertEventTap,
-            options: .defaultTap,
-            eventsOfInterest: NSEvent.EventTypeMask.scrollWheel.rawValue,
-            callback: handleEvent,
-            userInfo: nil)
-        if let eventTap {
-            let runLoopSource = CFMachPortCreateRunLoopSource(nil, eventTap, 0)
-            CFRunLoopAddSource(BackgroundWork.keyboardAndMouseAndTrackpadEventsThread.runLoop, runLoopSource, .commonModes)
-        } else {
-            App.restart()
+        if CGEvent.reEnableTapIfNeeded(eventTap, wanted: shouldBeEnabled) {
+            Logger.warning { "" }
         }
     }
 

@@ -103,12 +103,11 @@ class WindowAttentionEvents {
         TrackingTelemetryRecorder.attentionTapLifecycle(installed: true, enabled: true)
     }
 
-    /// Taps get disabled by the system on sleep and on a timeout; re-arm alongside the input taps (#5723).
     static func reEnableTapIfNeeded() {
-        guard let eventTap, enabled, !CGEvent.tapIsEnabled(tap: eventTap) else { return }
-        CGEvent.tapEnable(tap: eventTap, enable: true)
-        TrackingTelemetryRecorder.attentionTapLifecycle(installed: true, enabled: true)
-        Logger.warning { "attention tap re-enabled" }
+        if CGEvent.reEnableTapIfNeeded(eventTap, wanted: enabled) {
+            TrackingTelemetryRecorder.attentionTapLifecycle(installed: true, enabled: true)
+            Logger.warning { "attention tap re-enabled" }
+        }
     }
 
     private static let handler: CGEventTapCallBack = { _, type, event, _ in

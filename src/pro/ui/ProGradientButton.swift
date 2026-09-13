@@ -4,7 +4,6 @@ class ProGradientButton: NSButton {
     static let cornerRadius = CGFloat(7)
 
     private var isPressed = false
-    private var isShining = false
     let gradientLayer = ProGradient.makeLayer(flipped: true)
 
     override init(frame frameRect: NSRect) {
@@ -32,22 +31,18 @@ class ProGradientButton: NSButton {
 
     override func layout() {
         super.layout()
-        CATransaction.begin()
-        CATransaction.setDisableActions(true)
-        gradientLayer.frame = bounds
-        layer?.shadowPath = CGPath(roundedRect: bounds,
-            cornerWidth: ProGradientButton.cornerRadius,
-            cornerHeight: ProGradientButton.cornerRadius,
-            transform: nil)
-        CATransaction.commit()
+        caTransaction {
+            gradientLayer.frame = bounds
+            layer?.shadowPath = CGPath(roundedRect: bounds,
+                cornerWidth: ProGradientButton.cornerRadius,
+                cornerHeight: ProGradientButton.cornerRadius,
+                transform: nil)
+        }
     }
 
     override func updateLayer() {
         super.updateLayer()
-        CATransaction.begin()
-        CATransaction.setDisableActions(true)
-        gradientLayer.opacity = isPressed ? 0.82 : 1.0
-        CATransaction.commit()
+        caTransaction { gradientLayer.opacity = isPressed ? 0.82 : 1.0 }
     }
 
     override func mouseEntered(with event: NSEvent) {
@@ -71,8 +66,6 @@ class ProGradientButton: NSButton {
     }
 
     func playShineAnimation() {
-        guard !isShining else { return }
-        isShining = true
-        ProGradient.playShine(over: gradientLayer) { [weak self] in self?.isShining = false }
+        ProGradient.playShine(over: gradientLayer)
     }
 }

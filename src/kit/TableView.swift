@@ -1,5 +1,43 @@
 import Cocoa
 
+/// The scrolling list of rows both sidebar tabs put inside their `SidebarListContainer`. The caller
+/// still constrains `scrollView` against its own section, and fills `rows`.
+struct SidebarRowsList {
+    let scrollView: ForwardingVerticalScrollView
+    let documentView: ForwardingVerticalDocumentView
+    let rows: NSStackView
+}
+
+func makeSidebarRowsList() -> SidebarRowsList {
+    let rows = NSStackView()
+    rows.orientation = .vertical
+    rows.alignment = .leading
+    rows.spacing = 0
+    rows.translatesAutoresizingMaskIntoConstraints = false
+    let scrollView = ForwardingVerticalScrollView()
+    scrollView.translatesAutoresizingMaskIntoConstraints = false
+    scrollView.drawsBackground = false
+    scrollView.hasVerticalScroller = true
+    scrollView.verticalScrollElasticity = .none
+    scrollView.hasHorizontalScroller = false
+    scrollView.scrollerStyle = .overlay
+    scrollView.usesPredominantAxisScrolling = true
+    scrollView.contentView.postsBoundsChangedNotifications = true
+    let documentView = ForwardingVerticalDocumentView(frame: .zero)
+    documentView.translatesAutoresizingMaskIntoConstraints = false
+    scrollView.documentView = documentView
+    documentView.addSubview(rows)
+    NSLayoutConstraint.activate([
+        documentView.widthAnchor.constraint(equalTo: scrollView.contentView.widthAnchor),
+        documentView.heightAnchor.constraint(greaterThanOrEqualTo: scrollView.contentView.heightAnchor),
+        rows.topAnchor.constraint(equalTo: documentView.topAnchor),
+        rows.leadingAnchor.constraint(equalTo: documentView.leadingAnchor),
+        rows.trailingAnchor.constraint(equalTo: documentView.trailingAnchor),
+        rows.bottomAnchor.constraint(lessThanOrEqualTo: documentView.bottomAnchor),
+    ])
+    return SidebarRowsList(scrollView: scrollView, documentView: documentView, rows: rows)
+}
+
 class ForwardingVerticalScrollView: NSScrollView {
     override func wantsForwardedScrollEvents(for axis: NSEvent.GestureAxis) -> Bool {
         axis == .vertical

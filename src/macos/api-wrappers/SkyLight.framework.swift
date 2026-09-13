@@ -89,12 +89,6 @@ func CGSCopySpacesForWindows(_ cid: CGSConnectionID, _ mask: CGSSpaceMask.RawVal
 @_silgen_name("CGSGetWindowLevel") @discardableResult
 func CGSGetWindowLevel(_ cid: CGSConnectionID, _ wid: CGWindowID, _ level: UnsafeMutablePointer<CGWindowLevel>) -> CGError
 
-/// returns status of the checkbox in System Preferences > Security & Privacy > Privacy > Screen Recording
-/// returns 1 if checked or 0 if unchecked; also prompts the user the first time if unchecked
-/// the return value will be the same during the app lifetime; it will not reflect the actual status of the checkbox
-@_silgen_name("SLSRequestScreenCaptureAccess") @discardableResult
-func SLSRequestScreenCaptureAccess() -> UInt8
-
 /// enables/disables a symbolic hotkeys. These are system shortcuts such as command+tab or Spotlight
 /// it is possible to find all the existing hotkey IDs by using CGSGetSymbolicHotKeyValue on the first few hundred numbers
 /// note: the effect of enabling/disabling persists after the app is quit

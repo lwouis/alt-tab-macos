@@ -282,8 +282,7 @@ class SettingsWindow: NSWindow {
     private static let controlHighlightMaxCornerRadius = CGFloat(9)
     static var shared: SettingsWindow!
 
-    static var canBecomeKey_ = true
-    override var canBecomeKey: Bool { Self.canBecomeKey_ }
+    override var canBecomeKey: Bool { SecondaryWindows.canBecomeKey }
 
     private let splitViewController = NSSplitViewController()
     private let sidebarContainer = NSView()
@@ -451,15 +450,7 @@ class SettingsWindow: NSWindow {
 
     private func setupSearchField(_ parent: NSView) {
         searchField.delegate = self
-        searchField.placeholderString = NSLocalizedString("Search", comment: "")
-        searchField.sendsSearchStringImmediately = true
-        searchField.sendsWholeSearchString = true
-        searchField.bezelStyle = .roundedBezel
-        if #available(macOS 26.0, *) {
-            searchField.controlSize = .extraLarge
-        } else if #available(macOS 13.0, *) {
-            searchField.controlSize = .large
-        }
+        searchField.applySearchStyle()
         searchField.translatesAutoresizingMaskIntoConstraints = false
         parent.addSubview(searchField)
         NSLayoutConstraint.activate([

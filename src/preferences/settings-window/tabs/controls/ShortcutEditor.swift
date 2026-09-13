@@ -524,21 +524,68 @@ final class ShortcutBoundDropdown: PopupButtonLikeSystemSettings {
 
 // MARK: - Bindings: override controls
 
+/// What a control bound to a per-shortcut "override" preference (e.g. `appearanceSizeOverride2`) has
+/// in common, whatever the control: which shortcut it currently shows, that shortcut's key, whether
+/// an override is set for it, and the unlink button that drops the override. Subclasses own the
+/// control and how a value is rendered into it.
+class ShortcutOverrideBinding {
+    let unlink: NSButton
+    let baseName: String
+    private(set) var currentShortcutIndex = 0
+    private let onChange: (() -> Void)?
+
+    init(baseName: String, onChange: (() -> Void)?) {
+        self.baseName = baseName
+        self.onChange = onChange
+        unlink = ShortcutEditor.makeUnlinkButton()
+        let weakSelf = WeakRef(self)
+        unlink.onAction = { _ in weakSelf.value?.unlinkOverride() }
+    }
+
+    var key: String { Preferences.indexToName(baseName, currentShortcutIndex) }
+    var hasOverride: Bool { Preferences.hasOverride(baseName, currentShortcutIndex) }
+    var storedValue: String? { UserDefaults.standard.string(forKey: key) }
+
+    /// Point the control at `index`'s preference and show the override if there is one, the global
+    /// otherwise. The unlink button is visible exactly when an override is set.
+    final func bind(toShortcut index: Int) {
+        currentShortcutIndex = index
+        render()
+        unlink.isHidden = !hasOverride
+        didRender()
+    }
+
+    final func unlinkOverride() {
+        Preferences.removeOverride(baseName, currentShortcutIndex)
+        renderGlobal()
+        unlink.isHidden = true
+        didRender()
+        notifyChanged()
+    }
+
+    func notifyChanged() {
+        onChange?()
+    }
+
+    /// Show the override value if one is set, the global otherwise.
+    func render() {}
+    /// Show the global value, whatever is stored.
+    func renderGlobal() {}
+    /// Anything the control needs after its value changed (the segmented control's Pro badge).
+    func didRender() {}
+}
+
 /// A segmented control wired to a per-shortcut "override" preference (e.g. `appearanceSizeOverride2`).
 /// Displays the override value when one is set, otherwise the global. Owns its own unlink button
 /// and an optional pro-badge overlay on a Pro-gated segment.
-final class ShortcutOverrideSegmented {
+final class ShortcutOverrideSegmented: ShortcutOverrideBinding {
     let segmented: NSSegmentedControl
-    let unlink: NSButton
     private let badgeOverlay: ProBadgeView.SegmentOverlay?
 
-    private let baseName: String
     private let cases: [MacroPreference]
     private let globalIndex: () -> Int
     private let proGatedIndices: Set<Int>
     private let refreshBadge: ((NSSegmentedControl, ProBadgeView.SegmentOverlay) -> Void)?
-    private let onChange: (() -> Void)?
-    private var currentShortcutIndex: Int = 0
 
     init(baseName: String,
          cases: [MacroPreference],
@@ -548,13 +595,10 @@ final class ShortcutOverrideSegmented {
          attachBadge: ((NSSegmentedControl) -> ProBadgeView.SegmentOverlay)?,
          refreshBadge: ((NSSegmentedControl, ProBadgeView.SegmentOverlay) -> Void)?,
          onChange: (() -> Void)?) {
-        self.baseName = baseName
         self.cases = cases
         self.globalIndex = globalIndex
         self.proGatedIndices = proGatedIndices
         self.refreshBadge = refreshBadge
-        self.onChange = onChange
-
         segmented = LabelAndControl.makeSegmentedControl(
             Preferences.indexToName(baseName, 0), cases, segmentWidth: segmentWidth, extraAction: nil)
         badgeOverlay = attachBadge?(segmented)
@@ -564,235 +608,167 @@ final class ShortcutOverrideSegmented {
                 refreshBadge(segmented, overlay)
             }
         }
-        unlink = ShortcutEditor.makeUnlinkButton()
-
+        super.init(baseName: baseName, onChange: onChange)
         let weakSelf = WeakRef(self)
         segmented.onAction = { control in
             weakSelf.value?.handleClick(control as! NSSegmentedControl)
         }
-        unlink.onAction = { _ in
-            weakSelf.value?.unlinkOverride()
+    }
+
+    override func render() {
+        segmented.identifier = NSUserInterfaceItemIdentifier(key)
+        select(hasOverride ? CachedUserDefaults.intFromMacroPref(key, cases) : globalIndex())
+    }
+
+    override func renderGlobal() {
+        select(globalIndex())
+    }
+
+    override func didRender() {
+        if let overlay = badgeOverlay, let refreshBadge {
+            refreshBadge(segmented, overlay)
         }
     }
 
-    func bind(toShortcut index: Int) {
-        currentShortcutIndex = index
-        let key = Preferences.indexToName(baseName, index)
-        segmented.identifier = NSUserInterfaceItemIdentifier(key)
-        let displayedIndex: Int
-        if Preferences.hasOverride(baseName, index) {
-            displayedIndex = CachedUserDefaults.intFromMacroPref(key, cases)
-        } else {
-            displayedIndex = globalIndex()
-        }
-        let clamped = max(0, min(displayedIndex, cases.count - 1))
-        segmented.selectedSegment = clamped
-        unlink.isHidden = !Preferences.hasOverride(baseName, index)
-        refreshOverlayIfNeeded()
+    private func select(_ index: Int) {
+        segmented.selectedSegment = max(0, min(index, cases.count - 1))
     }
 
     private func handleClick(_ control: NSSegmentedControl) {
         let newIndex = control.selectedSegment
         // Pro-lock intercept: clicking a Pro-gated segment while locked redirects to Upgrade.
         if proGatedIndices.contains(newIndex) && LicenseManager.shared.isProLocked {
-            let stored = CachedUserDefaults.intFromMacroPref(
-                Preferences.indexToName(baseName, currentShortcutIndex), cases)
-            let revertTo = Preferences.hasOverride(baseName, currentShortcutIndex) ? stored : globalIndex()
-            control.selectedSegment = max(0, min(revertTo, cases.count - 1))
-            refreshOverlayIfNeeded()
+            let stored = CachedUserDefaults.intFromMacroPref(key, cases)
+            select(hasOverride ? stored : globalIndex())
+            didRender()
             UpgradeTab.navigateToUpgradeTab()
             return
         }
-        let key = Preferences.indexToName(baseName, currentShortcutIndex)
         let decision = OverrideClickResolver.decide(
             newIndex: newIndex,
-            hasOverride: Preferences.hasOverride(baseName, currentShortcutIndex),
-            storedOverrideValue: UserDefaults.standard.string(forKey: key),
+            hasOverride: hasOverride,
+            storedOverrideValue: storedValue,
             globalIndex: globalIndex(),
             valueAtIndex: { String($0) })
         if case .write(let value) = decision {
             Preferences.set(key, value)
             unlink.isHidden = false
-            onChange?()
+            notifyChanged()
         }
-        refreshOverlayIfNeeded()
-    }
-
-    private func unlinkOverride() {
-        Preferences.removeOverride(baseName, currentShortcutIndex)
-        // Resnap to global.
-        segmented.selectedSegment = max(0, min(globalIndex(), cases.count - 1))
-        unlink.isHidden = true
-        refreshOverlayIfNeeded()
-        onChange?()
-    }
-
-    private func refreshOverlayIfNeeded() {
-        if let overlay = badgeOverlay, let refreshBadge {
-            refreshBadge(segmented, overlay)
-        }
+        didRender()
     }
 }
 
 /// Radio-button equivalent (an NSStackView of `ImageTextButtonView`s) bound to a per-shortcut
 /// override preference. Used for the Appearance Style picker.
-final class ShortcutOverrideRadios {
+final class ShortcutOverrideRadios: ShortcutOverrideBinding {
     let stack: NSStackView
-    let unlink: NSButton
 
-    private let baseName: String
     private let cases: [MacroPreference]
     private let globalIndex: () -> Int
     private let proGatedIndices: Set<Int>
-    private let onChange: (() -> Void)?
-    private var currentShortcutIndex: Int = 0
 
     init(baseName: String,
          cases: [MacroPreference],
          globalIndex: @escaping () -> Int,
          proGatedIndices: Set<Int>,
          onChange: (() -> Void)?) {
-        self.baseName = baseName
         self.cases = cases
         self.globalIndex = globalIndex
         self.proGatedIndices = proGatedIndices
-        self.onChange = onChange
-
         stack = LabelAndControl.makeImageRadioButtons(
             Preferences.indexToName(baseName, 0),
             cases as! [ImageMacroPreference],
             extraAction: nil,
             buttonSpacing: 10,
             proGatedIndices: proGatedIndices)
-        unlink = ShortcutEditor.makeUnlinkButton()
-
+        super.init(baseName: baseName, onChange: onChange)
         let weakSelf = WeakRef(self)
-        let buttonViews = stack.arrangedSubviews.compactMap { $0 as? ImageTextButtonView }
         for (i, buttonView) in buttonViews.enumerated() {
             buttonView.onClick = { [weak stack] _ in
                 guard let _ = stack else { return }
                 weakSelf.value?.handleClick(buttonIndex: i)
             }
         }
-        unlink.onAction = { _ in
-            weakSelf.value?.unlinkOverride()
-        }
     }
 
-    func bind(toShortcut index: Int) {
-        currentShortcutIndex = index
-        let key = Preferences.indexToName(baseName, index)
-        // Radios don't use NSControl.identifier for their writes — they call controlWasChanged
-        // with a manually computed value. So no identifier-swap needed; we re-target manually below.
-        let displayedIndex: Int
-        if Preferences.hasOverride(baseName, index) {
-            displayedIndex = CachedUserDefaults.intFromMacroPref(key, cases)
-        } else {
-            displayedIndex = globalIndex()
-        }
-        let buttonViews = stack.arrangedSubviews.compactMap { $0 as? ImageTextButtonView }
-        for (i, b) in buttonViews.enumerated() {
-            b.state = (i == displayedIndex) ? .on : .off
-        }
-        unlink.isHidden = !Preferences.hasOverride(baseName, index)
+    private var buttonViews: [ImageTextButtonView] {
+        stack.arrangedSubviews.compactMap { $0 as? ImageTextButtonView }
+    }
+
+    // Radios don't use NSControl.identifier for their writes — they call controlWasChanged with a
+    // manually computed value. So no identifier-swap here, unlike the segmented and switch bindings.
+    override func render() {
+        select(hasOverride ? CachedUserDefaults.intFromMacroPref(key, cases) : globalIndex())
+    }
+
+    override func renderGlobal() {
+        select(globalIndex())
+    }
+
+    private func select(_ index: Int) {
+        buttonViews.enumerated().forEach { $1.state = $0 == index ? .on : .off }
+    }
+
+    private func storedIndex() -> Int {
+        Int(storedValue ?? "") ?? -1
     }
 
     private func handleClick(buttonIndex i: Int) {
-        let buttonViews = stack.arrangedSubviews.compactMap { $0 as? ImageTextButtonView }
-        let key = Preferences.indexToName(baseName, currentShortcutIndex)
         if proGatedIndices.contains(i) && LicenseManager.shared.isProLocked {
             // Snap back to the stored value.
-            let storedIndex = Int(UserDefaults.standard.string(forKey: key) ?? "") ?? -1
-            for (j, b) in buttonViews.enumerated() { b.state = (j == storedIndex) ? .on : .off }
+            select(storedIndex())
             UpgradeTab.navigateToUpgradeTab()
             return
         }
         let decision = OverrideClickResolver.decide(
             newIndex: i,
-            hasOverride: Preferences.hasOverride(baseName, currentShortcutIndex),
-            storedOverrideValue: UserDefaults.standard.string(forKey: key),
+            hasOverride: hasOverride,
+            storedOverrideValue: storedValue,
             globalIndex: globalIndex(),
             valueAtIndex: { String($0) })
-        let onIndex: Int
         switch decision {
         case .skip:
-            onIndex = Preferences.hasOverride(baseName, currentShortcutIndex)
-                ? (Int(UserDefaults.standard.string(forKey: key) ?? "") ?? -1)
-                : globalIndex()
+            select(hasOverride ? storedIndex() : globalIndex())
         case .write(let value):
             Preferences.set(key, value)
-            onIndex = i
-        }
-        for (j, b) in buttonViews.enumerated() { b.state = (j == onIndex) ? .on : .off }
-        if case .write = decision {
+            select(i)
             unlink.isHidden = false
-            onChange?()
+            notifyChanged()
         }
-    }
-
-    private func unlinkOverride() {
-        Preferences.removeOverride(baseName, currentShortcutIndex)
-        let buttonViews = stack.arrangedSubviews.compactMap { $0 as? ImageTextButtonView }
-        let gi = globalIndex()
-        for (j, b) in buttonViews.enumerated() { b.state = (j == gi) ? .on : .off }
-        unlink.isHidden = true
-        onChange?()
     }
 }
 
 /// Switch bound to a per-shortcut override preference. Used for "Preview selected window".
-final class ShortcutOverrideSwitch {
+final class ShortcutOverrideSwitch: ShortcutOverrideBinding {
     let toggle: Switch
-    let unlink: NSButton
 
-    private let baseName: String
     private let globalValue: () -> Bool
-    private let onChange: (() -> Void)?
-    private var currentShortcutIndex: Int = 0
 
     init(baseName: String, globalValue: @escaping () -> Bool, onChange: (() -> Void)?) {
-        self.baseName = baseName
         self.globalValue = globalValue
-        self.onChange = onChange
         toggle = LabelAndControl.makeSwitch(Preferences.indexToName(baseName, 0), extraAction: nil)
-        unlink = ShortcutEditor.makeUnlinkButton()
-
+        super.init(baseName: baseName, onChange: onChange)
         let weakSelf = WeakRef(self)
         toggle.onAction = { c in
             weakSelf.value?.handleToggle(c as! Switch)
         }
-        unlink.onAction = { _ in
-            weakSelf.value?.unlinkOverride()
-        }
     }
 
-    func bind(toShortcut index: Int) {
-        currentShortcutIndex = index
-        let key = Preferences.indexToName(baseName, index)
+    override func render() {
         toggle.identifier = NSUserInterfaceItemIdentifier(key)
-        let on: Bool
-        if Preferences.hasOverride(baseName, index) {
-            on = CachedUserDefaults.bool(key)
-        } else {
-            on = globalValue()
-        }
-        toggle.setSilently(on ? .on : .off)
-        unlink.isHidden = !Preferences.hasOverride(baseName, index)
+        toggle.setSilently((hasOverride ? CachedUserDefaults.bool(key) : globalValue()) ? .on : .off)
+    }
+
+    override func renderGlobal() {
+        toggle.setSilently(globalValue() ? .on : .off)
     }
 
     private func handleToggle(_ control: Switch) {
         // Toggling always changes state — always write the override.
-        let key = Preferences.indexToName(baseName, currentShortcutIndex)
         Preferences.set(key, control.state == .on ? "true" : "false")
         unlink.isHidden = false
-        onChange?()
-    }
-
-    private func unlinkOverride() {
-        Preferences.removeOverride(baseName, currentShortcutIndex)
-        toggle.setSilently(globalValue() ? .on : .off)
-        unlink.isHidden = true
-        onChange?()
+        notifyChanged()
     }
 }
 
@@ -802,18 +778,8 @@ extension ShortcutEditor {
     /// Builds an unlink button used by all override bindings. Visibility is managed by each
     /// binding's `bind()` based on `Preferences.hasOverride`.
     static func makeUnlinkButton() -> NSButton {
-        let image = NSImage.fromSymbol(.link, pointSize: 14)
-        let button = NSButton(image: image, target: nil, action: nil)
-        button.bezelStyle = .regularSquare
-        button.isBordered = false
-        if #available(macOS 10.14, *) {
-            button.contentTintColor = .controlAccentColor
-        }
+        let button = LabelAndControl.makeOverrideSymbolButton(NSImage.fromSymbol(.link, pointSize: 14))
         button.toolTip = NSLocalizedString("Sync with global value", comment: "")
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.widthAnchor.constraint(equalToConstant: 20).isActive = true
-        button.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        button.isHidden = true
         return button
     }
 }

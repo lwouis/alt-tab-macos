@@ -233,7 +233,7 @@ class TableGroupView: ClickHoverStackView {
         if hasHeader {
             setupHeaderView()
         }
-        setupTableView()
+        addNewTable()
     }
 
     private func setupTitleView() {
@@ -294,10 +294,6 @@ class TableGroupView: ClickHoverStackView {
         headerStackView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
     }
 
-    private func setupTableView() {
-        addNewTable()
-    }
-
     @discardableResult
     func addNewTable() -> NSStackView {
         let tableStackView = NSStackView()
@@ -355,7 +351,7 @@ class TableGroupView: ClickHoverStackView {
     }
 
     @discardableResult
-    func addRow(tableIndex: Int = -1, leftText: String? = nil, rightViews: [NSView]? = nil, subText: String? = nil,
+    func addRow(leftText: String? = nil, rightViews: [NSView]? = nil, subText: String? = nil,
                 isAddSeparator: Bool = true,
                 onClick: EventClosure? = nil,
                 onMouseEntered: EventClosure? = nil,
@@ -372,8 +368,7 @@ class TableGroupView: ClickHoverStackView {
         }
         let rowInfo = RowInfo(view: rowView)
         rowInfo.leftViews = leftViews
-        let tableStackView = tableIndex == -1 ? tableStackViews[tableStackViews.count - 1] : tableStackViews[tableIndex]
-        finalizeRow(tableStackView: tableStackView, rowInfo: rowInfo, rowView: rowView, isAddSeparator: isAddSeparator,
+        finalizeRow(rowInfo: rowInfo, rowView: rowView, isAddSeparator: isAddSeparator,
             onClick: onClick, onMouseEntered: onMouseEntered, onMouseExited: onMouseExited)
         rowInfoTables[rowInfoTables.count - 1].append(rowInfo)
         updateRowCornerRadius()
@@ -381,7 +376,7 @@ class TableGroupView: ClickHoverStackView {
     }
 
     @discardableResult
-    func addRow(tableIndex: Int = -1, leftViews: [NSView]? = nil, rightViews: [NSView]? = nil, secondaryViews: [NSView]? = nil,
+    func addRow(leftViews: [NSView]? = nil, rightViews: [NSView]? = nil, secondaryViews: [NSView]? = nil,
                 isAddSeparator: Bool = true,
                 secondaryViewsOrientation: NSUserInterfaceLayoutOrientation = .horizontal,
                 secondaryViewsAlignment: NSLayoutConstraint.Attribute = .leading,
@@ -399,17 +394,17 @@ class TableGroupView: ClickHoverStackView {
         }
         let rowInfo = RowInfo(view: rowView)
         rowInfo.leftViews = leftViews
-        let tableStackView = tableIndex == -1 ? tableStackViews[tableStackViews.count - 1] : tableStackViews[tableIndex]
-        finalizeRow(tableStackView: tableStackView, rowInfo: rowInfo, rowView: rowView, isAddSeparator: isAddSeparator,
+        finalizeRow(rowInfo: rowInfo, rowView: rowView, isAddSeparator: isAddSeparator,
             onClick: onClick, onMouseEntered: onMouseEntered, onMouseExited: onMouseExited)
         rowInfoTables[rowInfoTables.count - 1].append(rowInfo)
         updateRowCornerRadius()
         return rowInfo
     }
 
-    private func finalizeRow(tableStackView: NSStackView, rowInfo: RowInfo, rowView: ClickHoverStackView, isAddSeparator: Bool,
+    /// Rows always go to the table opened last: `addNewTable` is what starts a new one.
+    private func finalizeRow(rowInfo: RowInfo, rowView: ClickHoverStackView, isAddSeparator: Bool,
                              onClick: EventClosure?, onMouseEntered: EventClosure?, onMouseExited: EventClosure?) {
-        rowInfo.previousSeparator = addSeparatorIfNeeded(tableStackView: tableStackView, isAddSeparator: isAddSeparator)
+        rowInfo.previousSeparator = addSeparatorIfNeeded(isAddSeparator: isAddSeparator)
         tableStackViews.last?.addArrangedSubview(rowView)
         setRowViewEvents(rowView, onClick: onClick, onMouseEntered: onMouseEntered, onMouseExited: onMouseExited)
     }
@@ -545,9 +540,9 @@ class TableGroupView: ClickHoverStackView {
         }
     }
 
-    private func addSeparatorIfNeeded(tableStackView: NSStackView, isAddSeparator: Bool = true) -> NSView? {
+    private func addSeparatorIfNeeded(isAddSeparator: Bool = true) -> NSView? {
         guard !rowInfoTables[rowInfoTables.count - 1].isEmpty else { return nil }
-        guard isAddSeparator else { return nil }
+        guard isAddSeparator, let tableStackView = tableStackViews.last else { return nil }
         // NSBox with a dynamic fillColor, so AppKit re-resolves the separator color per appearance.
         let separator = NSBox()
         separator.boxType = .custom

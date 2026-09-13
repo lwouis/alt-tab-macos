@@ -13,10 +13,6 @@ class CursorEvents {
     static var deadZoneInitialPosition: CGPoint?
     static var isAllowedToMouseHover = true
 
-    static func observe() {
-        observe_()
-    }
-
     static func toggle(_ enabled: Bool) {
         guard enabled != shouldBeEnabled else { return }
         shouldBeEnabled = enabled
@@ -31,28 +27,22 @@ class CursorEvents {
     }
 
     static func reEnableTapIfNeeded() {
-        guard let eventTap, shouldBeEnabled, !CGEvent.tapIsEnabled(tap: eventTap) else { return }
-        CGEvent.tapEnable(tap: eventTap, enable: true)
-        Logger.warning { "" }
+        if CGEvent.reEnableTapIfNeeded(eventTap, wanted: shouldBeEnabled) {
+            Logger.warning { "" }
+        }
     }
 
-    private static func observe_() {
+    static func observe() {
         let eventMask = [CGEventType.leftMouseDown, CGEventType.leftMouseUp, CGEventType.rightMouseDown, CGEventType.rightMouseUp, CGEventType.otherMouseDown, CGEventType.otherMouseUp, CGEventType.mouseMoved].reduce(CGEventMask(0), { $0 | (1 << $1.rawValue) })
-        // CGEvent.tapCreate returns nil if ensureAccessibilityCheckboxIsChecked() didn't pass
-        eventTap = CGEvent.tapCreate(
+        eventTap = CGEvent.createTapOrRestart(
             tap: .cgSessionEventTap,
-            place: .headInsertEventTap,
             options: .defaultTap,
             eventsOfInterest: eventMask,
             callback: handleEvent,
-            userInfo: nil)
-        if let eventTap {
-            toggle(false)
-            let runLoopSource = CFMachPortCreateRunLoopSource(nil, eventTap, 0)
             // we run on main-thread directly since all we do is check NSEvent and UI coordinates, which we must do on main-thread
-            CFRunLoopAddSource(CFRunLoopGetMain(), runLoopSource, .commonModes)
-        } else {
-            App.restart()
+            runLoop: CFRunLoopGetMain())
+        if eventTap != nil {
+            toggle(false)
         }
     }
 

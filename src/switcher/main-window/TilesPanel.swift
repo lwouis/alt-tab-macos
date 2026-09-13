@@ -11,20 +11,12 @@ class TilesPanel: NSPanel {
     convenience init() {
         self.init(contentRect: .zero, styleMask: .nonactivatingPanel, backing: .buffered, defer: false)
         delegate = self
-        isFloatingPanel = true
-        animationBehavior = .none
-        hidesOnDeactivate = false
-        titleVisibility = .hidden
-        backgroundColor = .clear
+        applyFloatingPanelChrome()
         TilesView.initialize()
         contentView! = TilesView.contentView
-        // triggering AltTab before or during Space transition animation brings the window on the Space post-transition
-        collectionBehavior = .canJoinAllSpaces
         // 2nd highest level possible; this allows the app to go on top of context menus
         // highest level is .screenSaver but makes drag and drop on top the main window impossible
         level = .popUpMenu
-        // helps filter out this window from the thumbnails
-        setAccessibilitySubrole(.unknown)
         // for VoiceOver
         setAccessibilityLabel(App.name)
         updateAppearance()

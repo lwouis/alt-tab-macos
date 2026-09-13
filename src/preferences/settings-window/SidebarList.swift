@@ -35,6 +35,34 @@ func makeSidebarEditorContainer(sidebar: NSView, editor: NSView, minHeight: CGFl
     return container
 }
 
+/// Scrolling moves rows under a stationary cursor, and `NSTrackingArea` doesn't fire for that, so the
+/// hovered row has to be recomputed on every bounds change. Pass the token from the previous call:
+/// the list is rebuilt on tab rebuilds, and the old observer would otherwise watch a dead scroll view.
+func observeSidebarListScroll(_ scrollView: NSScrollView, replacing previous: NSObjectProtocol?,
+                              _ onScroll: @escaping () -> Void) -> NSObjectProtocol {
+    if let previous {
+        NotificationCenter.default.removeObserver(previous)
+    }
+    return NotificationCenter.default.addObserver(forName: NSView.boundsDidChangeNotification,
+        object: scrollView.contentView, queue: .main) { _ in onScroll() }
+}
+
+/// The `SidebarListRow` under the cursor, or nil when the cursor is outside the list. Hit-testing
+/// rather than tracking areas, so it stays right while the list scrolls under a still cursor.
+func sidebarListRowAtCursor(_ scrollView: NSScrollView) -> SidebarListRow? {
+    guard let window = scrollView.window else { return nil }
+    let cursorInScrollView = scrollView.convert(window.mouseLocationOutsideOfEventStream, from: nil)
+    guard scrollView.bounds.contains(cursorInScrollView) else { return nil }
+    guard let documentView = scrollView.documentView else { return nil }
+    let cursorInDocumentView = documentView.convert(window.mouseLocationOutsideOfEventStream, from: nil)
+    var current = documentView.hitTest(cursorInDocumentView)
+    while let candidate = current {
+        if let row = candidate as? SidebarListRow { return row }
+        current = candidate.superview
+    }
+    return nil
+}
+
 class SidebarListContainer: NSView {
     enum ArrowDirection { case up, down }
 

@@ -48,8 +48,7 @@ class FeedbackWindow: NSWindow {
     private var updateCheckGeneration: UInt = 0
     private var bugCard: FeedbackKindCard?
     private var enhancementCard: FeedbackKindCard?
-    static var canBecomeKey_ = true
-    override var canBecomeKey: Bool { Self.canBecomeKey_ }
+    override var canBecomeKey: Bool { SecondaryWindows.canBecomeKey }
 
     convenience init() {
         self.init(contentRect: .zero, styleMask: [.titled, .miniaturizable, .closable, .fullSizeContentView], backing: .buffered, defer: false)
@@ -70,11 +69,7 @@ class FeedbackWindow: NSWindow {
     }
 
     private func setupWindow() {
-        title = NSLocalizedString("Send feedback", comment: "")
-        titleVisibility = .hidden
-        titlebarAppearsTransparent = true
-        hidesOnDeactivate = false
-        isReleasedWhenClosed = false
+        applySecondaryWindowChrome(NSLocalizedString("Send feedback", comment: ""))
     }
 
     // MARK: - Draft management
