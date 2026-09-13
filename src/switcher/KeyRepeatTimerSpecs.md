@@ -114,3 +114,18 @@ Mirrors `KeyRepeatTimerTests.swift` 1:1.
 - **testAppliesATickThatReachedMainPromptly** — the ordinary microsecond hop still cycles.
 - **testTheLateBudgetIsOneRepeatInterval** — a slower `KeyRepeat` tolerates a proportionally longer wait.
 - **testAZeroRepeatRateStillAppliesPromptTicks** — the 20ms floor keeps `KeyRepeat 0` working.
+
+## Cycling boundaries
+
+Keyboard cycling wraps in both directions, including OS repeats and artificial
+held-shortcut repeats. The selection and row-navigation paths honor `allowWrap`
+without making an exception for repeats. Trackpad navigation passes `allowWrap: false`
+and retains its edge stops.
+
+The existing timer reads macOS `InitialKeyRepeat` and `KeyRepeat` at each start.
+No faster custom timer is introduced: visibility gating, late-tick rejection, and
+one-shot rearming remain in effect, so rendering load may reduce the achieved rate.
+
+Runtime check: hold the next shortcut for multiple complete laps, then repeat in
+reverse. Releasing must stop immediately, including after a busy main-thread period.
+Also check repeated vertical navigation and trackpad edge stops.

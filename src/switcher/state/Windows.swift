@@ -402,9 +402,9 @@ class Windows {
         let selectedIndex = min(session.selectedIndex, list.count - 1)
         session.userPickedSelection = true  // from here the selection is the USER's pick, not the default
         let nextIndex = selectedWindowIndexAfterCycling(step)
-        // don't wrap-around at the end, if key-repeat
+        // Trackpad navigation can stop at an edge; keyboard repeats wrap like individual presses.
         if (((step > 0 && nextIndex < selectedIndex) || (step < 0 && nextIndex > selectedIndex)) &&
-            (!allowWrap || ATShortcut.lastEventIsARepeat || !KeyRepeatTimer.timerIsSuspended))
+            !allowWrap)
                // don't cycle to another row, if !allowWrap
                || (!allowWrap && list[nextIndex].rowIndex != list[selectedIndex].rowIndex) {
             return

@@ -424,10 +424,6 @@ class TilesView {
                     return nil
                 }
             }
-            if ((step > 0 && nextRow < currentRow) || (step < 0 && nextRow > currentRow)) &&
-                   (ATShortcut.lastEventIsARepeat || !KeyRepeatTimer.timerIsSuspended) {
-                return nil
-            }
             return rows[nextRow]
         }
         return nil
