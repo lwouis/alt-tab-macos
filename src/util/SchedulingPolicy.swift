@@ -130,6 +130,12 @@ enum InactiveTabScanPolicy {
 /// gaining or losing a window is what plausibly makes a previously-unreachable element reachable — an app
 /// still building its accessibility tree at launch moves it repeatedly, so a genuinely-slow app keeps
 /// getting fresh budget rather than being written off on a startup race.
+///
+/// A window set is not the only thing that can move, so the caller drops its records outright at the two
+/// other moments its verdicts stop meaning anything: the process starts answering accessibility after
+/// answering nothing (`Applications.forgetAcquisitionFailures`), and it never records one reached while the
+/// screen is locked, where every app publishes zero windows and the sweep would write off the whole machine
+/// (#6031).
 enum SurfaceAcquisitionPolicy {
     static let maxAttemptsPerSituation = 3
 

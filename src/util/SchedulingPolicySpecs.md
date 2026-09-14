@@ -87,6 +87,11 @@ this policy still bounds repeated batches whose unresolved members remain unchan
 its own event, and that path uses the cheap `kAXWindows` route with no brute-force, so refusing the sweep
 cannot make a window undiscoverable.
 
+**A window that changes nothing is the case this budget cannot judge alone**, and the caller owns that half:
+it records no failure reached while the screen is locked, and drops a process's records once it starts
+answering accessibility again. Without those, a wake wrote off every window AltTab did not already hold an
+element for, and a quiescent background app never moved its window set to earn another attempt (#6031).
+
 - **testAFreshSurfaceIsAlwaysAttempted** — a surface with no failure on record is swept, as before.
 - **testAFailedSurfaceIsRetriedWithinTheBudget** — a failure is not a verdict: the situation keeps its three
   attempts, because an app still building its accessibility tree at launch fails transiently.

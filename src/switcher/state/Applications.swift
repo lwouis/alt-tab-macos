@@ -56,6 +56,11 @@ class Applications {
     private static var latestWindowServerScan: UInt64 = 0
 
     static func noteAcquisitionFailed(_ wid: CGWindowID, _ pid: pid_t, _ situation: UInt64) {
+        // The sweep already refuses to ask in the dark (`refreshWindowsViaWindowServer`); this is the same
+        // rule for a batch issued while the screen was up that lands after it locked. It has to hold here
+        // too, because giving up also CONDEMNS a window below, and a locked screen is the one moment where
+        // an app answering "no windows" means nothing.
+        guard !ScreenLockEvents.isScreenLocked else { return }
         let previous = failedAcquisitions[wid]
         let attempts = SurfaceAcquisitionPolicy.attemptsAfterFailure(
             previousAttempts: previous?.attempts ?? 0, sameSituation: previous?.situation == situation)
@@ -66,6 +71,14 @@ class Applications {
 
     static func forgetAcquisitionFailure(_ wid: CGWindowID) {
         failedAcquisitions[wid] = nil
+    }
+
+    /// Every verdict the sweep reached about one process, dropped. Its two callers are the two moments a
+    /// verdict about that process stops meaning anything: it exited, or it started answering accessibility
+    /// after answering nothing, which is the moment its windows may be acquirable at last
+    /// (`AxObserverRegistry.applySubscriptionResult`).
+    static func forgetAcquisitionFailures(pid: pid_t) {
+        failedAcquisitions = failedAcquisitions.filter { $0.value.pid != pid }
     }
 
     static func initialDiscovery() {
@@ -220,6 +233,16 @@ class Applications {
                 // Same reconcile for the opt-in dedup set: this enumeration is the only place that sees which
                 // wids still exist, and destroy events don't erase reliably.
                 WindowServerEvents.pruneSubscriptions(allWids)
+                // **Nothing is asked in the dark, and nothing is concluded from it.** A locked screen makes
+                // every app publish zero windows (#6021), so a sweep that runs then acquires nothing at all
+                // and spends the surface budget on every window on the machine. That budget is keyed to the
+                // app's window set, which a quiescent background app never moves, so verdicts reached in the
+                // dark outlive the lock and the windows stay icon placeholders once the screen is back
+                // (#6031). Measured 2026-09-13 with the screen locked: every app whose window AltTab had to
+                // acquire was a placeholder, while the two it already held elements for were untouched.
+                // Read once, so the whole pass judges against one verdict rather than a flag that can flip
+                // mid-enumeration.
+                let screenIsDark = ScreenLockEvents.isScreenLocked
                 var acquisitionRequests = [(raw: WsRawWindow, app: Application, situation: UInt64)]()
                 for raw in acceptedRawWindows {
                     let physical = PhysicalSurface(raw)
@@ -232,6 +255,7 @@ class Applications {
                     // genuinely-new windows.
                     guard Windows.byWindowId[raw.wid]?.axUiElement == nil else { continue }
                     guard !widsConfirmedClosed.contains(raw.wid) else { continue }
+                    guard !screenIsDark else { continue }
                     // A surface that has failed to acquire three times at this app's current window set is
                     // not asked a fourth time. Eligible surfaces are collected here and grouped by pid below,
                     // so one app pays at most one 250ms traversal for the whole inventory pass rather than one
@@ -262,9 +286,14 @@ class Applications {
                 //
                 // The suppression is lifted by the batch itself, in `scheduleSurfaceAcquisitions`, not by a
                 // later sweep — sweeps are event-driven, so there may not be one.
-                let pidsAcquiringSurfaces = Set(acquisitionRequests.map { $0.raw.pid })
-                for app in list where !pidsAcquiringSurfaces.contains(app.pid) {
-                    _ = app.addWindowlessWindowIfNeeded()
+                //
+                // In the dark nothing was attempted, so "no surface being acquired" says nothing about which
+                // apps have windows and the whole pass would put a placeholder under every one of them.
+                if !screenIsDark {
+                    let pidsAcquiringSurfaces = Set(acquisitionRequests.map { $0.raw.pid })
+                    for app in list where !pidsAcquiringSurfaces.contains(app.pid) {
+                        _ = app.addWindowlessWindowIfNeeded()
+                    }
                 }
                 // phantom detection reuses this same all-Space fetch; the per-window verdicts + latches are
                 // the reducer's `.cgsWindowListsRead` branch
@@ -303,7 +332,10 @@ class Applications {
                     // on screen, leaving the user no way back to them (measured live). Only on an empty batch: a
                     // resolved element becomes a `Window` a few main-thread turns later, so testing the app
                     // for windows here instead would put a placeholder up in that gap.
-                    if elements.isEmpty { _ = app.addWindowlessWindowIfNeeded() }
+                    // Not in the dark: an empty batch there is the locked screen answering, not the app.
+                    if elements.isEmpty && !ScreenLockEvents.isScreenLocked {
+                        _ = app.addWindowlessWindowIfNeeded()
+                    }
                 }
                 for request in batch {
                     guard let element = elements[request.raw.wid] else { continue }
@@ -1132,7 +1164,7 @@ class Applications {
             Windows.forgetAppWindowSetVersion(pid)
             refusedByDiscovery[pid] = nil
             ApplicationDiscriminator.forgetProcess(pid)
-            failedAcquisitions = failedAcquisitions.filter { $0.value.pid != pid }
+            forgetAcquisitionFailures(pid: pid)
             pendingAxCreations = pendingAxCreations.filter { $0.value.pid != pid }
             pendingAxEnds = pendingAxEnds.filter { $0.value.pid != pid }
             Windows.forgetSurfaceRetirements(pid)

@@ -322,7 +322,14 @@ class AxObserverRegistry {
         // owed when a process that had no working subscriptions gains one: that is the moment its windows
         // may be acquirable at last.
         if hadNothing, case .capabilitySubscribed = decision {
-            DispatchQueue.main.async { Applications.manuallyRefreshAllWindows() }
+            DispatchQueue.main.async {
+                // The rescan is owed a fresh surface budget or it cannot act on what this moment just
+                // taught it: the inventory sweep's give-up is keyed to the app's window set, so the
+                // verdicts it reached while this process was silent would refuse this very pass, and the
+                // app would keep its icon placeholder for as long as it keeps its window set still (#6031).
+                Applications.forgetAcquisitionFailures(pid: process.pid)
+                Applications.manuallyRefreshAllWindows()
+            }
         }
         switch decision {
         case let .retryScheduled(_, at, _): scheduleRetry(process, at)
