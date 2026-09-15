@@ -95,8 +95,10 @@ class IllustratedImageThemeView: ClickHoverImageView {
         ])
         placeholderLabel = placeholder
         highlight(false)
-        onClick = { (event, view) in
-            self.highlight(false)
+        // [weak self]: `onClick` is our own stored property, so a strong capture keeps this view alive
+        // forever, along with the decoded illustration `loadIllustration` works to keep reclaimable.
+        onClick = { [weak self] (event, view) in
+            self?.highlight(false)
         }
     }
 
