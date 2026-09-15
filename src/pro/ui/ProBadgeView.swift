@@ -216,6 +216,11 @@ class ProBadgeView: NSView {
     /// Inset between the badge and the segmented control's trailing edge.
     static let segmentTrailingPadding: CGFloat = 4
 
+    /// Width `attach` takes out of its segment: the badge itself plus the leading gap and the two
+    /// paddings around it. Callers sizing a segmented control add this to the badged segment so its
+    /// label keeps its own room.
+    static var segmentReservedWidth: CGFloat { ProBadgeView().fittingSize.width + 3 * segmentTrailingPadding }
+
     /// The literal text rendered on the badge. Exposed as a constant so the search index can
     /// reference the same string (e.g. `ShortcutsWhenActiveSheet.searchableStrings`) without
     /// duplicating the `NSLocalizedString` call.

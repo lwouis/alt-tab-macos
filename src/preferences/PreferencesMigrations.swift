@@ -29,6 +29,7 @@ class PreferencesMigrations {
     static func updateToNewPreferences(_ versionInPlist: String) {
         Logger.debug { "App-version:\(App.version), Plist-version:\(versionInPlist)" }
         for (version, migration) in [
+            ("11.4.4", migrateAppearanceSizeIndexes),
             ("10.13.0", migrateGroupingToPerShortcut),
             ("10.12.0", migrateExceptionsTitleArray),
             ("10.12.0", migrateLanguagePreferenceIndex),
@@ -98,6 +99,35 @@ class PreferencesMigrations {
         }
         if oldGlobal != nil {
             Self.defaults.removeObject(forKey: "showTabsAsWindows")
+        }
+    }
+
+    // AppearanceSizePreference gained extraSmall (first) and extraLarge (before auto); stored indexes need remapping
+    // before: small 0, medium 1, large 2, auto 3
+    // after: extraSmall 0, small 1, medium 2, large 3, extraLarge 4, auto 5
+    // this runs before registerDefaults(), so an unset override stays unset, which hasOverride() relies on
+    static func migrateAppearanceSizeIndexes() {
+        let oldToNew = ["0": "1", "1": "2", "2": "3", "3": "5"]
+        let keys = ["appearanceSize"] + (0...Preferences.maxShortcutCount).map {
+            Preferences.indexToName("appearanceSizeOverride", $0)
+        }
+        for key in keys {
+            if let old = Self.defaults.string(forKey: key), let new = oldToNew[old] {
+                Self.defaults.set(new, forKey: key)
+            }
+        }
+        migrateRememberedAppearanceSizeIndexes(oldToNew)
+    }
+
+    // the Pro gate snapshots the stored index under `proTransition.remembered*`: a different suite,
+    // stored as Int. Left unmapped, a locked Pro user on auto would be restored to large on unlock
+    private static func migrateRememberedAppearanceSizeIndexes(_ oldToNew: [String: String]) {
+        let defaults = ProTransitionState.defaults
+        for key in ["proTransition.rememberedAppearanceSize", "proTransition.rememberedAppearanceSizeOverride"] {
+            if let old = defaults.object(forKey: key) as? Int,
+               let new = oldToNew[String(old)].flatMap({ Int($0) }) {
+                defaults.set(new, forKey: key)
+            }
         }
     }
 

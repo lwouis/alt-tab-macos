@@ -102,6 +102,10 @@ class Appearance {
             cellCornerRadius = 18
         }
         switch size {
+            case .extraSmall:
+                rowsCount = isHorizontalScreen ? 6 : 9
+                iconSize = 14
+                fontHeight = 12
             case .small:
                 rowsCount = isHorizontalScreen ? 5 : 8
                 iconSize = 16
@@ -114,6 +118,10 @@ class Appearance {
                 rowsCount = isHorizontalScreen ? 3 : 6
                 iconSize = 28
                 fontHeight = 16
+            case .extraLarge:
+                rowsCount = isHorizontalScreen ? 2 : 5
+                iconSize = 32
+                fontHeight = 18
         }
         let tilesPanelRatio = (NSScreen.preferred.frame.width * maxWidthOnScreen) / (NSScreen.preferred.frame.height * maxHeightOnScreen)
         (windowMinWidthInRow, windowMaxWidthInRow) = AppearanceTestable.goodValuesForThumbnailsWidthMinMax(tilesPanelRatio, rowsCount)
@@ -132,6 +140,13 @@ class Appearance {
         windowMaxWidthInRow = 0.3
         rowsCount = 1
         switch size {
+            case .extraSmall:
+                iconSize = 45
+                fontHeight = 12
+                if #available(macOS 26.0, *) {
+                    windowCornerRadius = 42
+                    cellCornerRadius = 18
+                }
             case .small:
                 iconSize = 70
                 fontHeight = 13
@@ -154,6 +169,14 @@ class Appearance {
                     windowCornerRadius = 75
                     cellCornerRadius = 45
                 }
+            case .extraLarge:
+                windowPadding = 28
+                iconSize = 190
+                fontHeight = 18
+                if #available(macOS 26.0, *) {
+                    windowCornerRadius = 85
+                    cellCornerRadius = 55
+                }
         }
     }
 
@@ -167,6 +190,9 @@ class Appearance {
         windowMaxWidthInRow = 0.9
         rowsCount = 1
         switch size {
+            case .extraSmall:
+                iconSize = 14
+                fontHeight = 12
             case .small:
                 iconSize = 18
                 fontHeight = 13
@@ -176,6 +202,9 @@ class Appearance {
             case .large, .auto:
                 iconSize = 30
                 fontHeight = 16
+            case .extraLarge:
+                iconSize = 36
+                fontHeight = 18
         }
     }
 

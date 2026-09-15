@@ -435,7 +435,9 @@ final class AppearancePane {
             cases: AppearanceSizePreference.allCases,
             globalIndex: { Preferences.appearanceSize.index },
             proGatedIndices: [AppearanceSizePreference.allCases.firstIndex(of: .auto)!],
-            segmentWidth: 100,
+            // this pane's table is much narrower than the Appearance tab's; 4 × 100 is what the row
+            // already carried here, so the 6 segments get scaled into the same budget
+            segmentWidths: AppearanceTab.sizeSegmentWidths(maxTotal: 400),
             attachBadge: { c in AppearanceTab.addProBadgeToAutoSegment(c) },
             refreshBadge: { c, overlay in
                 AppearanceTab.refreshTrailingSegmentBadge(c, proIndex: AppearanceSizePreference.allCases.firstIndex(of: .auto)!, overlay: overlay)
@@ -546,7 +548,8 @@ final class ShortcutOverrideSegmented {
          cases: [MacroPreference],
          globalIndex: @escaping () -> Int,
          proGatedIndices: Set<Int>,
-         segmentWidth: CGFloat,
+         segmentWidth: CGFloat = -1,
+         segmentWidths: [CGFloat]? = nil,
          attachBadge: ((NSSegmentedControl) -> ProBadgeView.SegmentOverlay)?,
          refreshBadge: ((NSSegmentedControl, ProBadgeView.SegmentOverlay) -> Void)?,
          onChange: (() -> Void)?) {
@@ -558,7 +561,7 @@ final class ShortcutOverrideSegmented {
         self.onChange = onChange
 
         segmented = LabelAndControl.makeSegmentedControl(
-            Preferences.indexToName(baseName, 0), cases, segmentWidth: segmentWidth, extraAction: nil)
+            Preferences.indexToName(baseName, 0), cases, segmentWidth: segmentWidth, segmentWidths: segmentWidths, extraAction: nil)
         badgeOverlay = attachBadge?(segmented)
         if let overlay = badgeOverlay {
             overlay.badge.onWindowKeyChanged = { [weak segmented] in

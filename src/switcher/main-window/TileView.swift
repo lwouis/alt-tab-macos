@@ -237,10 +237,18 @@ class TileView: FlippedView {
         return maxLabelWidth - Appearance.intraCellPadding * 2
     }
 
+    private func appIconsLabelPaddingSteps() -> CGFloat {
+        switch Appearance.resolvedSize {
+            case .extraSmall, .small: return 0
+            case .medium: return 1
+            case .large, .extraLarge, .auto: return 2
+        }
+    }
+
     private func updateAppIconsLabelFrame() {
         let viewWidth = frame.width
         let labelWidth = fullTitleWidth
-        let padding = (Appearance.resolvedSize == .small ? 0 : (Appearance.resolvedSize == .medium ? 1 : 2)) * Appearance.intraCellPadding
+        let padding = appIconsLabelPaddingSteps() * Appearance.intraCellPadding
         let maxAllowedLabelWidth = getMaxAllowedLabelWidth()
         let sidesToOffset: CGFloat = (isFirstInRow ? 1 : 0) + (isLastInRow ? 1 : 0)
         let paddingForOffset = sidesToOffset * padding
@@ -566,7 +574,7 @@ class TileView: FlippedView {
 
     private func updateDockLabelIconPosition() {
         let iconSize = max(appIcon.frame.width, appIcon.frame.height)
-        let offset = (iconSize * (Preferences.effectiveAppearanceStyle(SwitcherSession.activeShortcutIndex) == .appIcons && Appearance.resolvedSize == .large ? 0.03 : 0.05)).rounded()
+        let offset = (iconSize * (Preferences.effectiveAppearanceStyle(SwitcherSession.activeShortcutIndex) == .appIcons && Appearance.resolvedSize.isLargeOrAbove ? 0.03 : 0.05)).rounded()
         let badgeTopRightX = appIcon.frame.maxX + offset
         let badgeTopRightY = appIcon.frame.minY - offset
         assignIfDifferent(&dockLabelIcon.frame.origin.x, badgeTopRightX - dockLabelIcon.frame.width)

@@ -305,26 +305,39 @@ enum AppearanceStylePreference: CaseIterable, ImageMacroPreference {
     }
 }
 
+/// Cases are stored as their `allCases` position, so inserting one shifts every stored index
+/// (`migrateAppearanceSizeIndexes`). `.auto` must stay last: `AppearanceTab` addresses it as
+/// `allCases.count - 1`.
 enum AppearanceSizePreference: CaseIterable, SfSymbolMacroPreference {
+    case extraSmall
     case small
     case medium
     case large
+    case extraLarge
     case auto
 
     var localizedString: LocalizedString {
         switch self {
+            case .extraSmall: return NSLocalizedString("XS", comment: "Extra small appearance size")
             case .small: return NSLocalizedString("Small", comment: "")
             case .medium: return NSLocalizedString("Medium", comment: "")
             case .large: return NSLocalizedString("Large", comment: "")
+            case .extraLarge: return NSLocalizedString("XL", comment: "Extra large appearance size")
             case .auto: return NSLocalizedString("Auto", comment: "")
         }
     }
 
+    /// `.auto` is excluded on purpose: callers read `Appearance.resolvedSize`, which `updateSize()`
+    /// has already resolved to a concrete size.
+    var isLargeOrAbove: Bool { self == .large || self == .extraLarge }
+
     var symbol: Symbols {
         switch self {
+            case .extraSmall: return .circledMinusSign
             case .small: return .moonphaseWaningGibbousInverse
             case .medium: return .moonphaseLastQuarterInverse
             case .large: return .moonphaseWaningCrescentInverse
+            case .extraLarge: return .circledPlusSign
             case .auto: return .sparkles
         }
     }

@@ -406,6 +406,15 @@ class AppearanceTab: NSObject {
     static let labelShortcutStyle = NSLocalizedString("After keys are released", comment: "")
     static let labelPreviewSelectedWindow = NSLocalizedString("Preview selected window", comment: "")
 
+    /// Widths for the 6-segment Size control. `maxTotal` is what the row can spare for it: this tab's
+    /// table is `SettingsWindow.contentWidth` wide, so the control clears its label and override icon
+    /// with room over; the Controls tab's per-shortcut copy sits in a much narrower table and passes
+    /// its own. The reserve goes on the trailing segment because `.auto` is last and carries the badge.
+    static func sizeSegmentWidths(maxTotal: CGFloat = 560) -> [CGFloat] {
+        LabelAndControl.fittedSegmentWidths(AppearanceSizePreference.allCases,
+            extraOnLast: ProBadgeView.segmentReservedWidth, maxTotal: maxTotal)
+    }
+
     static var customizeStyleButton: NSButton!
     static var animationsButton: NSButton!
     static var customizeStyleSheet: CustomizeStyleSheet!
@@ -491,7 +500,7 @@ class AppearanceTab: NSObject {
         styleRow.alignment = .centerY
         styleRow.spacing = TableGroupView.padding
         table.addRow(secondaryViews: [styleRow], secondaryViewsAlignment: .centerX)
-        let sizeControl = LabelAndControl.makeSegmentedControl("appearanceSize", AppearanceSizePreference.allCases, segmentWidth: 105, extraAction: { control in
+        let sizeControl = LabelAndControl.makeSegmentedControl("appearanceSize", AppearanceSizePreference.allCases, segmentWidths: sizeSegmentWidths(), extraAction: { control in
             refreshAutoSegmentAppearance(control as! NSSegmentedControl)
             ControlsTab.syncOverrideControlsToGlobal()
             refreshAllOverrideInfoLabels()
