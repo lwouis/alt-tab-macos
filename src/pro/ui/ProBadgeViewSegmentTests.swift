@@ -154,10 +154,8 @@ final class ProBadgeViewSegmentTests: XCTestCase {
         let overlay = attachOverlay(on: control)
         // The initial contentTintColor should be the system color the provider returned, not
         // an RGB literal. We verify equality with the system token at attach time.
-        if #available(macOS 10.14, *) {
-            XCTAssertEqual(overlay.icon.contentTintColor, NSColor.controlTextColor,
-                "regression: initial icon tint must be `.controlTextColor` (a system token), not a hard-coded RGB — system tokens auto-resolve for every appearance state")
-        }
+        XCTAssertEqual(overlay.icon.contentTintColor, NSColor.controlTextColor,
+            "regression: initial icon tint must be `.controlTextColor` (a system token), not a hard-coded RGB — system tokens auto-resolve for every appearance state")
     }
 
     func testAttachDoesNotHardcodeLabelColor() {
@@ -176,10 +174,8 @@ final class ProBadgeViewSegmentTests: XCTestCase {
     func testIconIsTemplateImage() {
         let control = makeControl()
         let overlay = attachOverlay(on: control)
-        if #available(macOS 11.0, *) {
-            XCTAssertTrue(overlay.icon.image?.isTemplate ?? false,
-                "regression: SF Symbol must be template so `contentTintColor` is honored — sibling segments use AppKit's native rendering which forces monochrome internally, so our overlay must do the same or `sparkles`-style glyphs render with intrinsic colors and visually clash with the row")
-        }
+        XCTAssertTrue(overlay.icon.image?.isTemplate ?? false,
+            "regression: SF Symbol must be template so `contentTintColor` is honored — sibling segments use AppKit's native rendering which forces monochrome internally, so our overlay must do the same or `sparkles`-style glyphs render with intrinsic colors and visually clash with the row")
     }
 
     // MARK: - Selection sync

@@ -41,7 +41,7 @@ class Appearance {
     private static var currentSize: AppearanceSizePreference { Preferences.effectiveAppearanceSize(SwitcherSession.activeShortcutIndex) }
     static var currentTheme: AppearanceThemePreference {
         let theme = Preferences.effectiveAppearanceTheme(SwitcherSession.activeShortcutIndex)
-        return theme == .system ? NSAppearance.current.getThemeName() : theme
+        return theme == .system ? NSAppearance.currentDrawing().getThemeName() : theme
     }
 
     static func update() {

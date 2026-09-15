@@ -27,7 +27,7 @@ enum Symbols: String {
     // Feedback window icons
     case ladybug = "􀯔"               // ladybug
     case lightbulb = "􀛭"             // lightbulb
-    // Segmented-control / button icons (previously gated by macOS 11)
+    // Segmented-control / button icons
     case plus = "􀅼"                  // plus
     case minus = "􀅽"                 // minus
     case minusCircleFill = "􀁏"       // minus.circle.fill

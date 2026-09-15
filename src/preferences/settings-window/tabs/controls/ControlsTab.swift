@@ -386,7 +386,6 @@ class ControlsTab {
         ]
         let tabControl = NSSegmentedControl(labels: labels, trackingMode: .selectOne, target: nil, action: nil)
         tabControl.selectedSegment = ShortcutEditor.selectedTabSegment
-        LabelAndControl.applySystemSelectedSegmentStyle(tabControl)
         tabControl.widthAnchor.constraint(equalToConstant: width).isActive = true
         let segmentWidth = width / CGFloat(labels.count)
         for i in 0..<labels.count { tabControl.setWidth(segmentWidth, forSegment: i) }

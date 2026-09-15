@@ -312,16 +312,12 @@ class SidebarListRow: ClickHoverStackView {
     private func updateStyle() {
         let isKey = isWindowKey
         let selectedBackground: NSColor
-        if #available(macOS 10.14, *) {
-            // `controlAccentColor` matches the blue NSSegmentedControl uses for its selected
-            // segment, so the shortcut sidebar selection visually lines up with the
-            // Filtering / Appearance tabs and the segmented buttons above.
-            // `unemphasizedSelectedContentBackgroundColor` is what AppKit table cells fall back
-            // to when the window isn't key.
-            selectedBackground = isKey ? .controlAccentColor : .unemphasizedSelectedContentBackgroundColor
-        } else {
-            selectedBackground = isKey ? .systemAccentColor : .lightGray
-        }
+        // `controlAccentColor` matches the blue NSSegmentedControl uses for its selected
+        // segment, so the shortcut sidebar selection visually lines up with the
+        // Filtering / Appearance tabs and the segmented buttons above.
+        // `unemphasizedSelectedContentBackgroundColor` is what AppKit table cells fall back
+        // to when the window isn't key.
+        selectedBackground = isKey ? .controlAccentColor : .unemphasizedSelectedContentBackgroundColor
         let backgroundColor: NSColor
         if isSelectedRow {
             backgroundColor = selectedBackground
@@ -331,10 +327,9 @@ class SidebarListRow: ClickHoverStackView {
             backgroundColor = .clear
         }
         titleLabel.font = NSFont.systemFont(ofSize: 13, weight: isSelectedRow ? .semibold : .regular)
-        let previousAppearance = NSAppearance.current
-        NSAppearance.current = effectiveAppearance
-        layer?.backgroundColor = backgroundColor.cgColor
-        NSAppearance.current = previousAppearance
+        effectiveAppearance.performAsCurrentDrawingAppearance {
+            layer?.backgroundColor = backgroundColor.cgColor
+        }
         titleLabel.needsDisplay = true
         summaryLabel.needsDisplay = true
         chevronLabel.needsDisplay = true

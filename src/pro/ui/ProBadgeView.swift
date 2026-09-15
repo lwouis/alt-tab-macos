@@ -130,7 +130,7 @@ class DynamicColorImageView: NSImageView {
     var colorProvider: (() -> NSColor)?
     override func viewWillDraw() {
         super.viewWillDraw()
-        if #available(macOS 10.14, *), let newColor = colorProvider?(), contentTintColor != newColor {
+        if let newColor = colorProvider?(), contentTintColor != newColor {
             contentTintColor = newColor
         }
     }
@@ -183,9 +183,7 @@ class ProBadgeView: NSView {
         let selected = segmentedControl.selectedSegment == segmentIndex
         segmentedControl.setLabel("", forSegment: segmentIndex)
         segmentedControl.setImage(nil, forSegment: segmentIndex)
-        if #available(macOS 10.13, *) {
-            segmentedControl.setToolTip(label, forSegment: segmentIndex)
-        }
+        segmentedControl.setToolTip(label, forSegment: segmentIndex)
         let segmentLeading = (0..<segmentIndex).reduce(CGFloat(0)) { $0 + segmentedControl.width(forSegment: $1) }
         let colorProvider = segmentColorProvider(for: segmentedControl, segmentIndex: segmentIndex)
         let iconView = DynamicColorImageView()
@@ -194,7 +192,7 @@ class ProBadgeView: NSView {
         // Rendered from our bundled font subset; `isTemplate = true` (set by NSImage.fromSymbol)
         // makes AppKit apply `contentTintColor`. Mirrors the sibling segments' native rendering.
         iconView.image = NSImage.fromSymbol(symbol, pointSize: 13)
-        if #available(macOS 10.14, *) { iconView.contentTintColor = colorProvider() }
+        iconView.contentTintColor = colorProvider()
         iconView.setContentHuggingPriority(.required, for: .horizontal)
         iconView.setContentCompressionResistancePriority(.required, for: .horizontal)
         let textLabel = DynamicColorTextField(labelWithString: label)

@@ -1,6 +1,7 @@
 import Cocoa
 import Carbon.HIToolbox.Events
 import ShortcutRecorder
+import UniformTypeIdentifiers
 
 enum SearchKeyResult {
     case handled
@@ -767,7 +768,7 @@ class TilesDocumentView: FlippedView {
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
         // we only handle URLs (i.e. not text, image, or other draggable things)
-        registerForDraggedTypes([NSPasteboard.PasteboardType(kUTTypeURL as String)])
+        registerForDraggedTypes([NSPasteboard.PasteboardType(UTType.url.identifier)])
     }
 
     required init?(coder: NSCoder) {
@@ -797,9 +798,14 @@ class TilesDocumentView: FlippedView {
         let urls = (sender.draggingPasteboard.readObjects(forClasses: [NSURL.self]) as? [URL]) ?? []
         guard DragAndDropResolver.canDrop(hasTarget: target != nil, hasWindow: target?.window_ != nil, hasAppBundleURL: appUrl != nil, urlCount: urls.count),
               let appUrl else { return false }
-        let open = try? NSWorkspace.shared.open(urls, withApplicationAt: appUrl, options: [], configuration: [:])
-        if open != nil { App.hideUi() }
-        return open != nil
+        // `openApplication` reports the launch outcome on a background queue, long after AppKit
+        // needs this return value. So the drop is accepted on the guard above, and a failed launch
+        // is only logged.
+        NSWorkspace.shared.open(urls, withApplicationAt: appUrl, configuration: NSWorkspace.OpenConfiguration()) { _, error in
+            if let error { Logger.error { "drag-and-drop failed to open urls: \(error)" } }
+        }
+        App.hideUi()
+        return true
     }
 
     override func concludeDragOperation(_ sender: NSDraggingInfo?) {

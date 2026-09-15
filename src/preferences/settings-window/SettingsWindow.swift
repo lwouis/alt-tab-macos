@@ -124,9 +124,7 @@ private final class SettingsSidebarCellView: NSTableCellView {
         let selected = backgroundStyle == .emphasized
         titleLabel.font = NSFont.systemFont(ofSize: 13.5, weight: .medium)
         titleLabel.textColor = selected ? .white : .labelColor
-        if #available(macOS 10.14, *) {
-            iconView.contentTintColor = selected ? .white : .secondaryLabelColor
-        }
+        iconView.contentTintColor = selected ? .white : .secondaryLabelColor
     }
 }
 
@@ -208,9 +206,7 @@ final class UpgradeButton: ProGradientButton {
         style.lineBreakMode = .byTruncatingTail
         result.addAttribute(.paragraphStyle, value: style, range: NSRange(location: 0, length: result.length))
         attributedTitle = result
-        if #available(macOS 10.14, *) {
-            contentTintColor = .white
-        }
+        contentTintColor = .white
         heightConstraint.constant = height
     }
 
@@ -377,10 +373,8 @@ class SettingsWindow: NSWindow {
         let toolbar = NSToolbar(identifier: "SettingsToolbar")
         toolbar.showsBaselineSeparator = false
         self.toolbar = toolbar
-        if #available(macOS 11.0, *) {
-            toolbarStyle = .unified
-            titlebarSeparatorStyle = .none
-        }
+        toolbarStyle = .unified
+        titlebarSeparatorStyle = .none
     }
 
     private func setupView() {
@@ -429,9 +423,7 @@ class SettingsWindow: NSWindow {
         rightScrollView.hasVerticalScroller = true
         rightScrollView.hasHorizontalScroller = false
         rightScrollView.scrollerStyle = .overlay
-        if #available(macOS 11.0, *) {
-            rightScrollView.automaticallyAdjustsContentInsets = false
-        }
+        rightScrollView.automaticallyAdjustsContentInsets = false
         rightScrollView.contentInsets = NSEdgeInsetsZero
         rightScrollView.scrollerInsets = NSEdgeInsetsZero
         rightScrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -494,13 +486,10 @@ class SettingsWindow: NSWindow {
         sidebarTableView.headerView = nil
         sidebarTableView.intercellSpacing = NSSize(width: 0, height: 2)
         sidebarTableView.rowHeight = 30
-        sidebarTableView.selectionHighlightStyle = .sourceList
         sidebarTableView.backgroundColor = .clear
         sidebarTableView.focusRingType = .none
         sidebarTableView.usesAlternatingRowBackgroundColors = false
-        if #available(macOS 11.0, *) {
-            sidebarTableView.style = .sourceList
-        }
+        sidebarTableView.style = .sourceList
         sidebarTableView.delegate = self
         sidebarTableView.dataSource = self
         let column = NSTableColumn(identifier: NSUserInterfaceItemIdentifier(rawValue: "SettingsSidebarColumn"))

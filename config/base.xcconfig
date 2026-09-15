@@ -2,10 +2,11 @@
 
 PRODUCT_NAME = AltTab
 PRODUCT_BUNDLE_IDENTIFIER = com.lwouis.alt-tab-macos
-// 10.14.4 is where the Swift 5 runtime starts shipping in macOS. Below it, Xcode embeds ~11MB of
-// libswift*.dylib for the x86_64 slice (arm64 never needs them, its floor is 11.0). Keep the value
-// bare: scripts/update_appcast.sh awk-splits this line to fill sparkle:minimumSystemVersion.
-MACOSX_DEPLOYMENT_TARGET = 10.14.4
+// 12.0 is the lowest target current Xcode supports. 0.15% of monthly users were below it when it
+// was set (appcast analytics, 2026-08), and the appcast's sparkle:minimumSystemVersion holds those
+// users on the last compatible build rather than breaking them.
+// Keep the value bare: scripts/update_appcast.sh awk-splits this line to fill that tag.
+MACOSX_DEPLOYMENT_TARGET = 12.0
 SWIFT_VERSION = 5.8 // xcode 14.2 translates this to 5.0; xcode 16.2 as 5.8
 SWIFT_TREAT_WARNINGS_AS_ERRORS = YES
 INFOPLIST_FILE = Info.plist

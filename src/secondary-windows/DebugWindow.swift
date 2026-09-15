@@ -83,7 +83,6 @@ class DebugWindow: NSPanel {
         filterControl = NSSegmentedControl(labels: ["Debug", "Info", "Warning", "Error"],
                                            trackingMode: .selectOne, target: nil, action: nil)
         filterControl.translatesAutoresizingMaskIntoConstraints = false
-        LabelAndControl.applySystemSelectedSegmentStyle(filterControl)
         filterControl.selectedSegment = 0
         filterControl.onAction = { [weak self] _ in self?.filterChanged() }
         for i in 0..<Self.levels.count {
@@ -127,10 +126,8 @@ class DebugWindow: NSPanel {
         copyLogsButton.bezelStyle = .rounded
         copyLogsButton.controlSize = .small
         copyLogsButton.font = NSFont.systemFont(ofSize: NSFont.smallSystemFontSize)
-        if #available(macOS 11.0, *) {
-            copyLogsButton.image = NSImage(systemSymbolName: "doc.on.doc", accessibilityDescription: nil)
-            copyLogsButton.imagePosition = .imageLeading
-        }
+        copyLogsButton.image = NSImage(systemSymbolName: "doc.on.doc", accessibilityDescription: nil)
+        copyLogsButton.imagePosition = .imageLeading
         copyLogsButton.onAction = { [weak self] _ in self?.copyAllLogs() }
         // Inspect group box
         let inspectBox = NSBox()
@@ -260,16 +257,12 @@ class DebugWindow: NSPanel {
         NSPasteboard.general.setString(text, forType: .string)
         // brief "Copied!" confirmation, like the copy buttons on code blocks
         copyLogsButton.title = "Copied!"
-        if #available(macOS 11.0, *) {
-            copyLogsButton.image = NSImage(systemSymbolName: "checkmark", accessibilityDescription: nil)
-        }
+        copyLogsButton.image = NSImage(systemSymbolName: "checkmark", accessibilityDescription: nil)
         copyFeedbackTimer?.invalidate()
         copyFeedbackTimer = Timer.scheduledTimer(withTimeInterval: 1.2, repeats: false) { [weak self] _ in
             guard let self else { return }
             self.copyLogsButton.title = "Copy all"
-            if #available(macOS 11.0, *) {
-                self.copyLogsButton.image = NSImage(systemSymbolName: "doc.on.doc", accessibilityDescription: nil)
-            }
+            self.copyLogsButton.image = NSImage(systemSymbolName: "doc.on.doc", accessibilityDescription: nil)
         }
     }
 
@@ -306,9 +299,7 @@ class DebugWindow: NSPanel {
         copyFeedbackTimer?.invalidate()
         copyFeedbackTimer = nil
         copyLogsButton.title = "Copy all"
-        if #available(macOS 11.0, *) {
-            copyLogsButton.image = NSImage(systemSymbolName: "doc.on.doc", accessibilityDescription: nil)
-        }
+        copyLogsButton.image = NSImage(systemSymbolName: "doc.on.doc", accessibilityDescription: nil)
         entries.removeAll()
         textView.textStorage?.setAttributedString(NSAttributedString())
         selectedMinLevel = .debug

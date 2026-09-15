@@ -67,9 +67,12 @@ cp    "$SRCROOT/vendor/Sparkle/Helpers/Autoupdate"  "$SPARKLE_VERSIONED/"
 # Mirror SPM-generated resource bundle (lprojs + nibs + css) into the framework.
 # Read from the SPM output ($BUILT_PRODUCTS_DIR/Sparkle_Sparkle.bundle), which exists before
 # Xcode copies it to $APP_RES — avoids ordering races on incremental builds.
-# rsync (not mv) tolerates pre-existing dirs from prior builds.
+# rsync (not mv) tolerates pre-existing dirs from prior builds. --force lets it replace a stale
+# directory with a file of the same name, which a warm DerivedData needs whenever
+# MACOSX_DEPLOYMENT_TARGET moves: ibtool emits a .nib as a bundle directory for older targets and
+# as a flat file for newer ones, and plain rsync fails that with "unlinkat: Directory not empty".
 if [ -d "$SPM_BUNDLE/Contents/Resources" ]; then
-    rsync -a "$SPM_BUNDLE/Contents/Resources/" "$SPARKLE_VERSIONED/Resources/"
+    rsync -a --force "$SPM_BUNDLE/Contents/Resources/" "$SPARKLE_VERSIONED/Resources/"
 fi
 
 # Xcode also copies Sparkle_Sparkle.bundle into $APP_RES (we can't disable that auto-embed).
@@ -82,7 +85,7 @@ rm -rf "$APP_RES/Sparkle_Sparkle.bundle"
 if [ -d "$SPARKLE_PKG" ]; then
     mkdir -p "$SPARKLE_PKG/Resources"
     if [ -d "$SPM_BUNDLE/Contents/Resources" ]; then
-        rsync -a "$SPM_BUNDLE/Contents/Resources/" "$SPARKLE_PKG/Resources/"
+        rsync -a --force "$SPM_BUNDLE/Contents/Resources/" "$SPARKLE_PKG/Resources/"
     fi
 fi
 

@@ -135,9 +135,7 @@ class LabelAndControl: NSObject {
         let button = NSButton(image: image, target: target, action: action)
         button.bezelStyle = .regularSquare
         button.isBordered = false
-        if #available(macOS 10.14, *) {
-            button.contentTintColor = .controlAccentColor
-        }
+        button.contentTintColor = .controlAccentColor
         button.translatesAutoresizingMaskIntoConstraints = false
         button.widthAnchor.constraint(equalToConstant: overrideSymbolButtonSize).isActive = true
         button.heightAnchor.constraint(equalToConstant: overrideSymbolButtonSize).isActive = true
@@ -208,7 +206,6 @@ class LabelAndControl: NSObject {
         button.translatesAutoresizingMaskIntoConstraints = false
         SettingsSearchIndex.registerStrings(macroPreferences.map { $0.localizedString })
         SettingsSearchIndex.registerTarget(SettingsWindow.highlightTarget(button))
-        applySystemSelectedSegmentStyle(button)
         for (i, preference) in macroPreferences.enumerated() {
             if segmentWidth > 0 {
                 button.setWidth(segmentWidth, forSegment: i)
@@ -233,21 +230,13 @@ class LabelAndControl: NSObject {
                 let textWidth = (label as NSString).size(withAttributes: [.font: button.font ?? NSFont.systemFont(ofSize: NSFont.systemFontSize)]).width
                 let imageWidth: CGFloat = hasImage ? 16 + 4 : 0
                 let availableTextWidth = segmentWidth - 12 - imageWidth
-                if textWidth > availableTextWidth, #available(macOS 10.13, *) {
+                if textWidth > availableTextWidth {
                     button.setToolTip(label, forSegment: i)
                 }
             }
             _ = setupControl(button, rawName, String(i), extraAction: extraAction)
         }
         return button
-    }
-
-    static func applySystemSelectedSegmentStyle(_ control: NSSegmentedControl) {
-        if #available(macOS 10.14, *) {
-            control.segmentStyle = .automatic
-        } else {
-            control.segmentStyle = .texturedRounded
-        }
     }
 
     static func makeLabelWithSlider(_ labelText: String, _ rawName: String, _ minValue: Double, _ maxValue: Double,

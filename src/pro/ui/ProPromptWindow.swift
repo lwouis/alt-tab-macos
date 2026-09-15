@@ -8,11 +8,7 @@ enum ProPromptButtons {
         let button = NSButton(title: NSLocalizedString("Get Pro", comment: ""), target: nil, action: nil)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.bezelStyle = .rounded
-        if large {
-            if #available(macOS 11.0, *) { button.controlSize = .large }
-        } else {
-            button.controlSize = .small
-        }
+        button.controlSize = large ? .large : .small
         button.onAction = { _ in onClick() }
         return button
     }

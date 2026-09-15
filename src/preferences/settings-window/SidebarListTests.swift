@@ -10,8 +10,8 @@ import Cocoa
 /// adding the title row's spacing, progressively squeezing and head-truncating "Shortcut 2" /
 /// "Shortcut 3". These tests pin that `setProBadge` is idempotent and fully removes its wrapper.
 ///
-/// (`SidebarListRow` compiles into the test target: the deployment target is 10.13 — same as the
-/// app — and `_test-support/Mocks.swift` stubs the few app-only symbols it touches,
+/// (`SidebarListRow` compiles into the test target: the deployment target is the same as the
+/// app's, and `_test-support/Mocks.swift` stubs the few app-only symbols it touches,
 /// `SettingsWindow.contentWidth` and `SettingsSearchIndex`.)
 final class SidebarListTests: XCTestCase {
 

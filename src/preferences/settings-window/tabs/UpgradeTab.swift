@@ -104,9 +104,7 @@ class UpgradeTab {
         let button = NSButton(title: title, target: nil, action: nil)
         button.isBordered = false
         button.font = NSFont.systemFont(ofSize: 11, weight: .medium)
-        if #available(macOS 10.14, *) {
-            button.contentTintColor = .controlAccentColor
-        }
+        button.contentTintColor = .controlAccentColor
         button.onAction = { _ in onClick() }
         return button
     }
@@ -299,11 +297,7 @@ class UpgradeTab {
     private static func makeKeyField(prefilled: String) -> NSTextField {
         let placeholder = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
         let font: NSFont
-        if #available(macOS 10.15, *) {
-            font = NSFont.monospacedSystemFont(ofSize: 14, weight: .regular)
-        } else {
-            font = NSFont(name: "Menlo", size: 14) ?? NSFont.systemFont(ofSize: 14)
-        }
+        font = NSFont.monospacedSystemFont(ofSize: 14, weight: .regular)
         let textSize = (placeholder as NSString).size(withAttributes: [.font: font])
         let width = ceil(textSize.width) + 14
         let height = ceil(font.boundingRectForFont.height) + 10
@@ -431,11 +425,7 @@ class UpgradeTab {
         let textView = NSTextView(frame: NSRect(x: 0, y: 0, width: 350, height: 0))
         textView.isEditable = false
         textView.isSelectable = true
-        if #available(macOS 10.15, *) {
-            textView.font = NSFont.monospacedSystemFont(ofSize: 10, weight: .regular)
-        } else {
-            textView.font = NSFont(name: "Menlo", size: 10) ?? NSFont.systemFont(ofSize: 10)
-        }
+        textView.font = NSFont.monospacedSystemFont(ofSize: 10, weight: .regular)
         textView.string = debugInfo
         textView.textContainer?.widthTracksTextView = true
         textView.isVerticallyResizable = true
@@ -500,9 +490,7 @@ final class ProHeroButton: ProGradientButton {
         let title = NSMutableAttributedString(string: NSLocalizedString("Get Pro", comment: ""), attributes: attrs)
         title.addAttribute(.paragraphStyle, value: style, range: NSRange(location: 0, length: title.length))
         attributedTitle = title
-        if #available(macOS 10.14, *) {
-            contentTintColor = .white
-        }
+        contentTintColor = .white
     }
 
     required init?(coder: NSCoder) {

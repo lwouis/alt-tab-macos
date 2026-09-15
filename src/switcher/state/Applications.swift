@@ -848,7 +848,9 @@ class Applications {
     /// An attempt should act on, and be recorded against, the facts as they are when it runs.
     static func discoverInactiveTabs(_ app: Application, _ untrackedTitles: [String], _ requesterWid: CGWindowID) {
         let pid = app.pid
-        tabAdoptThrottler.throttleOrProceed(key: "\(pid)") {
+        // `app` is captured explicitly: the throttled block deliberately holds it for up to 3s (see
+        // above), so the scheduled block's `[weak app]` only starts mattering once this one is gone.
+        tabAdoptThrottler.throttleOrProceed(key: "\(pid)") { [app] in
             let appWindowCount = Windows.list.reduce(0) { $1.application.pid == pid ? $0 + 1 : $0 }
             let situation = "\(untrackedTitles.sorted().joined(separator: "\u{1}"))|\(appWindowCount)"
             let previous = lastInactiveTabScan[pid]

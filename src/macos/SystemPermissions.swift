@@ -144,21 +144,18 @@ class ScreenRecordingPermission {
     }
 
     private static func detect() -> PermissionStatus {
-        if #available(macOS 10.15, *) {
-            // The user opted out of the prompt (#5548), so we must not call isGrantedOnSomeDisplay()
-            // here — it shows the system prompt when ungranted. But probing silently with the
-            // non-prompting preflight lets us still pick up a permission granted later in System
-            // Settings, instead of staying stuck on app-icons-only forever (#5739). The skip flag
-            // only downgrades .notGranted to .skipped to suppress nagging; it never masks a real grant.
-            // CGPreflightScreenCaptureAccess is frozen per-process (see isGrantedOnSomeDisplay below),
-            // so this reads the true state at launch but won't see a mid-session grant; that case
-            // recovers via the menubar "Grant permission" callout, which clears the flag and restarts.
-            guard !Preferences.screenRecordingPermissionSkipped else {
-                return CGPreflightScreenCaptureAccess() ? .granted : .skipped
-            }
-            return isGrantedOnSomeDisplay() ? .granted : .notGranted
+        // The user opted out of the prompt (#5548), so we must not call isGrantedOnSomeDisplay()
+        // here — it shows the system prompt when ungranted. But probing silently with the
+        // non-prompting preflight lets us still pick up a permission granted later in System
+        // Settings, instead of staying stuck on app-icons-only forever (#5739). The skip flag
+        // only downgrades .notGranted to .skipped to suppress nagging; it never masks a real grant.
+        // CGPreflightScreenCaptureAccess is frozen per-process (see isGrantedOnSomeDisplay below),
+        // so this reads the true state at launch but won't see a mid-session grant; that case
+        // recovers via the menubar "Grant permission" callout, which clears the flag and restarts.
+        guard !Preferences.screenRecordingPermissionSkipped else {
+            return CGPreflightScreenCaptureAccess() ? .granted : .skipped
         }
-        return .granted
+        return isGrantedOnSomeDisplay() ? .granted : .notGranted
     }
 
     // workaround: public API CGPreflightScreenCaptureAccess and private API SLSRequestScreenCaptureAccess exist, but

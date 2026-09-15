@@ -292,7 +292,7 @@ class UpgradeMenuItemView: NSView {
         let icon = NSImageView()
         icon.translatesAutoresizingMaskIntoConstraints = false
         icon.image = NSImage.fromSymbol(.starFill, pointSize: 11)
-        if #available(macOS 10.14, *) { icon.contentTintColor = .white }
+        icon.contentTintColor = .white
         icon.setContentHuggingPriority(.required, for: .horizontal)
         icon.setContentCompressionResistancePriority(.required, for: .horizontal)
         addSubview(icon)

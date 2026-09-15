@@ -350,8 +350,11 @@ class Window {
         } else if self.isWindowlessApp || cgWindowId == nil {
             FocusIntents.shared.supersede()
             if let bundleUrl = application.bundleURL, self.isWindowlessApp {
-                if (try? NSWorkspace.shared.launchApplication(at: bundleUrl, configuration: [:])) == nil {
-                    application.runningApplication.activate(options: .activateAllWindows)
+                // `openApplication` reports its outcome on a background queue, so the fallback
+                // activation runs there. `NSRunningApplication.activate` is documented thread safe.
+                let runningApplication = application.runningApplication
+                NSWorkspace.shared.openApplication(at: bundleUrl, configuration: NSWorkspace.OpenConfiguration()) { app, _ in
+                    if app == nil { runningApplication.activate(options: .activateAllWindows) }
                 }
             } else {
                 application.runningApplication.activate(options: .activateAllWindows)

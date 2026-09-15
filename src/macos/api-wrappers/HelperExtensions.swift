@@ -22,48 +22,30 @@ func caTransaction(_ body: () -> Void) {
 
 extension NSAppearance {
     func getThemeName() -> AppearanceThemePreference {
-        if #available(macOS 10.14, *) {
-            let appearance = NSApp.effectiveAppearance.name
-            if appearance == .darkAqua || appearance == .vibrantDark {
-                return .dark
-            }
-        }
-        return .light
+        let appearance = NSApp.effectiveAppearance.name
+        return appearance == .darkAqua || appearance == .vibrantDark ? .dark : .light
     }
 
     /// Whether *this* appearance is a dark one (unlike `getThemeName()`, which always reads
     /// `NSApp.effectiveAppearance`). Used by the dynamic-color provider so AppKit can resolve a
     /// color for whatever appearance a view is drawing in.
     var isDarkMode: Bool {
-        if #available(macOS 10.14, *) {
-            return bestMatch(from: [.aqua, .darkAqua]) == .darkAqua
-        }
-        return false
+        bestMatch(from: [.aqua, .darkAqua]) == .darkAqua
     }
 }
 
 extension NSColor {
+    /// Dynamically adapts to changes in System Settings; no need to listen to notifications.
     class var systemAccentColor: NSColor {
-        if #available(macOS 10.14, *) {
-            // dynamically adapts to changes in System Default; no need to listen to notifications
-            return NSColor.controlAccentColor
-        }
-        return NSColor.blue
+        NSColor.controlAccentColor
     }
 
     /// A color that resolves itself per-appearance, so AppKit re-renders it automatically on a
     /// Dark/Light switch with no event observing and no manual repaint (as long as it's drawn by a
     /// view that re-resolves `NSColor`s, e.g. `NSBox`, rather than baked into `layer.backgroundColor`
-    /// via `.cgColor`). Below 10.15 there's no dynamic-provider API, so it resolves once for the
-    /// current app appearance — fine, since 10.13 has no Dark mode and 10.14 is vanishingly rare.
+    /// via `.cgColor`).
     private static func dynamicAppearanceColor(light: NSColor, dark: NSColor) -> NSColor {
-        if #available(macOS 10.15, *) {
-            return NSColor(name: nil) { $0.isDarkMode ? dark : light }
-        }
-        if #available(macOS 10.14, *) {
-            return NSApp.effectiveAppearance.isDarkMode ? dark : light
-        }
-        return light
+        NSColor(name: nil) { $0.isDarkMode ? dark : light }
     }
 
     class var tableBorderColor: NSColor {
@@ -200,9 +182,9 @@ extension NSImage {
     }
 
     /// Render an SF Symbol from the bundled `SF Pro Text` subset font as a template NSImage.
-    /// Tint at the call site via `NSImageView.contentTintColor` (macOS 10.14+) or by drawing
-    /// into a tinted container. The image is rasterised at `pointSize`; for crisp Retina output,
-    /// pass the displayed point size — AppKit handles @2x via the backing scale.
+    /// Tint at the call site via `NSImageView.contentTintColor` or by drawing into a tinted
+    /// container. The image is rasterised at `pointSize`; for crisp Retina output, pass the
+    /// displayed point size — AppKit handles @2x via the backing scale.
     ///
     /// The image is cropped to the glyph's ink bounds (the actual visible pixels), not the
     /// font's typographic box. This makes `NSSegmentedControl` and similar containers center

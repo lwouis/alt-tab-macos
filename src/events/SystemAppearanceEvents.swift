@@ -2,9 +2,7 @@ import Cocoa
 
 class SystemAppearanceEvents {
     static func observe() {
-        if #available(macOS 10.14, *) {
-            DistributedNotificationCenter.default.addObserver(self, selector: #selector(handleEvent), name: NSNotification.Name("AppleInterfaceThemeChangedNotification"), object: nil)
-        }
+        DistributedNotificationCenter.default.addObserver(self, selector: #selector(handleEvent), name: NSNotification.Name("AppleInterfaceThemeChangedNotification"), object: nil)
     }
 
     @objc private static func handleEvent(_ notification: Notification) {

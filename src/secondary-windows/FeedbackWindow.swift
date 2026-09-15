@@ -556,7 +556,7 @@ class FeedbackKindCard: NSButton {
         let image = NSImage.fromSymbol(symbol, pointSize: 28)
         let iv = NSImageView(image: image)
         iv.imageScaling = .scaleProportionallyUpOrDown
-        if #available(macOS 10.14, *) { iv.contentTintColor = tint }
+        iv.contentTintColor = tint
         iv.translatesAutoresizingMaskIntoConstraints = false
         iv.fit(36, 36)
         return iv

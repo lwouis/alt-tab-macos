@@ -48,10 +48,7 @@ class Application: NSObject {
             return 84
         }
         // Big Sur redesigned app icons. A big change from square icons to rounded icons, and reducing their size; we trim that padding
-        if #available(macOS 11.0, *) {
-            return 24
-        }
-        return 0
+        return 24
     }()
 
     /// Converting NSImage to CGImage may seem simple, but it's actually very tricky. Lots of time has been put to make it work robustly
@@ -72,8 +69,7 @@ class Application: NSObject {
         let sourceWidth = finalWidth + padding * 2
         // we ask the NSImage for the closest image it has to our desired size. It's likely to return a 1024x1024 or 512x512 image; whichever is closest
         var proposedRect = CGRect(origin: .zero, size: NSSize(width: sourceWidth, height: sourceWidth))
-        // this convoluted style avoids a crash on macOS 10.13 (see #5255)
-        let hints : [NSImageRep.HintKey : NSNumber] = [.interpolation : NSNumber(value: NSImageInterpolation.high.rawValue)]
+        let hints: [NSImageRep.HintKey: NSNumber] = [.interpolation: NSNumber(value: NSImageInterpolation.high.rawValue)]
         guard let cgImage = icon.cgImage(forProposedRect: &proposedRect, context: nil, hints: hints) else { return nil }
         // we have to crop this image; let's scale our intended padding, given the image size we got
         let paddingScaled = padding * (CGFloat(cgImage.width) / sourceWidth)

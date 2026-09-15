@@ -37,7 +37,7 @@ class Day1WelcomeLetterWindow: ProPromptWindow {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.bezelStyle = .rounded
         button.keyEquivalent = "\r"
-        if #available(macOS 11.0, *) { button.controlSize = .large }
+        button.controlSize = .large
         button.onAction = { [weak self] _ in self?.close() }
 
         container.addSubview(header)

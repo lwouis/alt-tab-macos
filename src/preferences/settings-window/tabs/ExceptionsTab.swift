@@ -1,4 +1,5 @@
 import Cocoa
+import UniformTypeIdentifiers
 
 class ExceptionsTab {
     private static let sidebarWidth = CGFloat(280)
@@ -160,7 +161,7 @@ class ExceptionsTab {
     @objc private static func addFromDisk(_ sender: NSMenuItem) {
         let dialog = NSOpenPanel()
         dialog.allowsMultipleSelection = false
-        dialog.allowedFileTypes = ["app"]
+        dialog.allowedContentTypes = [.application]
         dialog.canChooseDirectories = false
         dialog.beginSheetModal(for: SettingsWindow.shared) {
             if $0 == .OK, let url = dialog.url, let bundleId = Bundle(url: url)?.bundleIdentifier {
@@ -294,9 +295,9 @@ class ExceptionsTab {
         // BundleId changed (or first paint): show a synchronous placeholder, then resolve async.
         row.setIcon(AppDisplayInfo.genericIcon, size: iconSize)
         row.setContent(bundleId, summary)
-        DispatchQueue.global(qos: .userInitiated).async {
+        DispatchQueue.global(qos: .userInitiated).async { [weak row] in
             let info = AppDisplayInfo.resolve(bundleId: bundleId)
-            DispatchQueue.main.async { [weak row] in
+            DispatchQueue.main.async {
                 guard let row else { return }
                 guard let currentIndex = rows.firstIndex(where: { $0 === row }),
                       currentIndex < items.count,
@@ -365,7 +366,7 @@ struct AppDisplayInfo {
     let name: String
     let icon: NSImage
 
-    static let genericIcon: NSImage = NSWorkspace.shared.icon(forFileType: "app")
+    static let genericIcon: NSImage = NSWorkspace.shared.icon(for: .application)
 
     static func resolve(bundleId: String) -> AppDisplayInfo {
         guard !bundleId.isEmpty else {
