@@ -5,7 +5,8 @@ class AppearanceTestable {
         min(max(0, limit), max(max(0, minimum), measured.rounded(.up)))
     }
 
-    static func stableTitlesWidth(measured: CGFloat, limit: CGFloat, previous: CGFloat?, tolerance: CGFloat, minimum: CGFloat = 300) -> CGFloat {
+    static func stableTitlesWidth(measured: CGFloat, limit: CGFloat, previous: CGFloat?, tolerance: CGFloat, minimum: CGFloat = 300, visible: Bool = false) -> CGFloat {
+        if visible, let previous { return min(max(0, limit), previous) }
         let required = fittedTitlesWidth(measured: measured, limit: limit, minimum: minimum)
         let slack = max(0, tolerance)
         if let previous, previous <= limit, previous >= required, previous - required <= slack * 2 {

@@ -1,6 +1,13 @@
 import XCTest
 
 final class AppearanceTests: XCTestCase {
+    func testTitlesWidthNeverChangesWhileVisible() {
+        XCTAssertEqual(AppearanceTestable.stableTitlesWidth(measured: 900, limit: 1000, previous: 532, tolerance: 32, visible: true), 532)
+        XCTAssertEqual(AppearanceTestable.stableTitlesWidth(measured: 100, limit: 1000, previous: 832, tolerance: 32, visible: true), 832)
+        XCTAssertEqual(AppearanceTestable.stableTitlesWidth(measured: 100, limit: 480, previous: 832, tolerance: 32, visible: true), 480)
+        XCTAssertEqual(AppearanceTestable.stableTitlesWidth(measured: 500, limit: 1000, previous: nil, tolerance: 32, visible: true), 532)
+    }
+
     func testTitlesWidthAbsorbsSpinnerChangesButStillGrowsAndShrinks() {
         var width = AppearanceTestable.stableTitlesWidth(measured: 500, limit: 1000, previous: nil, tolerance: 32)
         XCTAssertEqual(width, 532)

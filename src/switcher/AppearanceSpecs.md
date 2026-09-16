@@ -46,12 +46,13 @@ can grow during a switcher session but never shrinks while searching, so filteri
 
 The Titles panel fits its widest visible row (title, app name column, icon, status icons and padding) between
 **Minimum width** (240 to 600pt, default 300) and **Maximum width** (50 to 95% of the visible screen, default 90%).
-The maximum always wins on small screens. Rows use the whole fitted width. Closing or renaming the widest window can
-shrink the open panel; selection changes alone never resize it.
+The maximum always wins on small screens. Rows use the whole fitted width.
 
-To avoid jitter from spinners and counters in titles, the panel keeps spare room of max(24pt, twice the font size).
-It keeps its current width while content fits and unused room stays within twice that allowance, grows immediately
-when content needs more, and shrinks when materially less is needed.
+The width is fitted once per summon, before the panel appears, with spare room of max(24pt, twice the font size) so
+spinners and counters in titles don't truncate right away. Once the panel is visible its width never changes: title
+changes, windows opening or closing, and search filtering don't grow or shrink it, and longer titles truncate instead.
+A width change under the pointer is distracting and moves rows the user is aiming at (Apple's layout guidance: avoid
+gratuitous layout changes). The only exception is clamping to a smaller maximum, for example after a display change.
 
 Titles are measured with the current font on every layout. With Auto size the font changes between displays; an
 unchanged title must not keep the previous display's measurement, or the panel would be too narrow and truncate.
@@ -75,4 +76,4 @@ pick a window, tooltips popped up over neighboring rows and duplicated what the 
 status descriptions stay available to VoiceOver as accessibility labels and help. Settings tooltips are unchanged.
 
 Manual checks: long and short app names, right-to-left layout, dark mode, Increase Contrast, search filtering, closing
-the widest window, a terminal title with a spinner, and switching between displays of different sizes with Auto size.
+the widest window while open (width must not change), a terminal title with a spinner, and switching between displays of different sizes with Auto size.
