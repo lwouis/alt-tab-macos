@@ -234,6 +234,7 @@ class CliServer {
             visibleSpaceIds: visibleSpaceIds,
             allSpaces: Spaces.idsAndIndexes.map { QaSpace(id: $0.0, index: $0.1) },
             screens: qaScreens(),
+            missionControl: MissionControl.state().rawValue,
             switcherVisible: SwitcherSession.isActive,
             selectedIndex: SwitcherSession.current?.selectedIndex,
             heldWids: Array(Windows.windowsHeldVisibleForTab),
@@ -307,6 +308,10 @@ class CliServer {
         var visibleSpaceIds: [UInt64]
         var allSpaces: [QaSpace]
         var screens: [QaScreen]
+        /// What the app believes Mission Control, App Exposé or Show Desktop is doing, as the notification
+        /// name `MissionControlState` carries. Two decisions hang off it — whether the pre-show refresh is
+        /// skipped, and whether a pick may focus — and nothing else reports it.
+        var missionControl: String
         var switcherVisible: Bool
         var selectedIndex: Int?
         var heldWids: [CGWindowID]

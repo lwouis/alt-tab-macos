@@ -90,7 +90,8 @@ class Windows {
     }
 
     static func updatesBeforeShowing() -> Bool {
-        if MissionControl.state() == .showAllWindows || MissionControl.state() == .showFrontWindows { return false }
+        let missionControl = MissionControl.state()
+        if missionControl == .showAllWindows || missionControl == .showFrontWindows { return false }
         if list.isEmpty { return true }
         // Space/screen membership is refreshed OFF the hot path now (#5721): reactively on Space change
         // (WindowServerEvents) and screen change (ScreensEvents), and after show in

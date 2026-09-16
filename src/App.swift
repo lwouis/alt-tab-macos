@@ -286,7 +286,8 @@ class App: AppCenterApplication {
     static func focusSelectedWindow(_ selectedWindow: Window?) {
         MainThreadStall.step()
         guard beginHideUi(true) else { return } // already hidden
-        if let window = selectedWindow, MissionControl.state() == .inactive || MissionControl.state() == .showDesktop {
+        let missionControl = MissionControl.state()
+        if let window = selectedWindow, missionControl == .inactive || missionControl == .showDesktop {
             window.focus()
             if Preferences.cursorFollowFocus == .always || (
                 Preferences.cursorFollowFocus == .differentScreen && (Spaces.screenSpacesMap.first { $0.value.contains { space in window.spaceIds.contains(space) } })?.key != NSScreen.active()?.cachedUuid()) {

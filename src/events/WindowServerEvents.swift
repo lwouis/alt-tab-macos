@@ -114,6 +114,10 @@ class WindowServerEvents {
         }
     }
 
+    /// The four window-lifecycle cases each tell `MissionControl` to take a look: the overlay that says a
+    /// gesture is up is created, ordered in, ordered out and destroyed like any other surface, and that is
+    /// the only announcement left on macOS 27 (see `MissionControl`). The look is coalesced there, so every
+    /// other window doing the same thing costs one throttled window-list read.
     private static func handle(_ event: UInt32, _ w0: UInt32, _ space: UInt64, _ widInSpace: UInt32,
                               _ at: TimeInterval) {
         guard let n = WsEventRouting.notification(event) else { return }
@@ -130,10 +134,11 @@ class WindowServerEvents {
             // Creation bookkeeping lives in the reducer (`.windowCreated`). Window numbers are unique for
             // the login session, so this event must not discard facts already learned for the same surface.
             // Discovery subscribes after it has read the level.
-            break
+            MissionControl.surfacesChanged()
         case .windowDestroyed:
             unsubscribe(w0)
             WindowSurfaceInventory.remove(w0)
+            MissionControl.surfacesChanged()
         case .windowOrderedIn:
             // Our own panel's orderedIn is the true "pixels on screen" moment — it can trail the show's
             // main-thread work by ~500ms while the WindowServer settles a Space transition. Anchor the
@@ -142,6 +147,9 @@ class WindowServerEvents {
                let panel = TilesPanel.shared, panel.windowNumber > 0, w0 == CGWindowID(panel.windowNumber) {
                 session.panelBecameVisibleAt = ProcessInfo.processInfo.systemUptime
             }
+            MissionControl.surfacesChanged()
+        case .windowOrderedOut:
+            MissionControl.surfacesChanged()
         default:
             break
         }
