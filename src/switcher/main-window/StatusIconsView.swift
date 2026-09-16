@@ -20,6 +20,9 @@ class StatusIconsView: FlippedView {
     ]
 
     var icons: [Icon]
+    var selectionTextColor: NSColor? {
+        didSet { if selectionTextColor != oldValue { needsDisplay = true } }
+    }
     private var visibleCount = 0
     private var tooltipsDirty = true
     private var tooltipStrings: [NSView.ToolTipTag: String] = [:]
@@ -114,20 +117,7 @@ class StatusIconsView: FlippedView {
         tooltipsDirty = false
         removeAllToolTips()
         tooltipStrings.removeAll()
-        let iconWidth = TilesView.layoutCache.iconWidth
-        let iconHeight = TilesView.layoutCache.iconHeight
-        let isLTR = App.shared.userInterfaceLayoutDirection == .leftToRight
-        let yOffset = ((frame.height - iconHeight) / 2).rounded()
-        var offset = CGFloat(0)
-        for icon in icons {
-            guard icon.visible else { continue }
-            offset += iconWidth
-            let x = isLTR ? frame.width - offset : offset - iconWidth
-            if let tooltip = icon.tooltip {
-                let tag = addToolTip(NSRect(x: x, y: yOffset, width: iconWidth, height: iconHeight), owner: self, userData: nil)
-                tooltipStrings[tag] = tooltip
-            }
-        }
+        setAccessibilityHelp(icons.filter { $0.visible }.compactMap { $0.tooltip }.joined(separator: ", "))
     }
 
     @objc func view(_ view: NSView, stringForToolTip tag: NSView.ToolTipTag, point: NSPoint, userData data: UnsafeMutableRawPointer?) -> String {
@@ -145,7 +135,11 @@ class StatusIconsView: FlippedView {
             guard icon.visible else { continue }
             offset += iconWidth
             let x = isLTR ? frame.width - offset : offset - iconWidth
-            Self.cachedAttrString(for: icon.symbol).draw(at: NSPoint(x: x, y: yOffset))
+            let text = NSMutableAttributedString(attributedString: Self.cachedAttrString(for: icon.symbol))
+            if let selectionTextColor {
+                text.addAttribute(.foregroundColor, value: selectionTextColor, range: NSRange(location: 0, length: text.length))
+            }
+            text.draw(at: NSPoint(x: x, y: yOffset))
         }
     }
 }

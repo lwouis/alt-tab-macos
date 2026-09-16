@@ -105,7 +105,7 @@ class TileFontIconView: NSView {
 
     convenience init(symbol: Symbols, tooltip: String? = nil, size: CGFloat = Appearance.fontHeight, color: NSColor = Appearance.fontColor) {
         self.init(rendering: .symbol, initialText: symbol.rawValue, size: size, symbolColor: color, badgeFillColor: .clear, badgeTextColor: .clear)
-        toolTip = tooltip
+        setAccessibilityHelp(tooltip)
         frame.size = symbolSizeForCurrentText()
     }
 

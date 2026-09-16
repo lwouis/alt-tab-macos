@@ -29,6 +29,10 @@ class Preferences {
             "showOnScreen": ShowOnScreenPreference.active.indexAsString,
             "titleTruncation": TitleTruncationPreference.end.indexAsString,
             "showTitles": ShowTitlesPreference.windowTitle.indexAsString,
+            "titlesAppNameColumn": "false",
+            "titlesAppNameTrailingAlignment": "false",
+            "titlesMinimumWidth": "300",
+            "titlesMaximumWidthPercent": "90",
             "fadeOutAnimation": "false",
             "previewFadeInAnimation": "true",
             "startAtLogin": "true",
@@ -134,6 +138,10 @@ class Preferences {
     static var theme: ThemePreference { ThemePreference.macOs/*CachedUserDefaults.macroPref("theme", ThemePreference.allCases)*/ }
     static var showOnScreen: ShowOnScreenPreference { CachedUserDefaults.macroPref("showOnScreen", ShowOnScreenPreference.allCases) }
     static var titleTruncation: TitleTruncationPreference { CachedUserDefaults.macroPref("titleTruncation", TitleTruncationPreference.allCases) }
+    static var titlesAppNameColumn: Bool { CachedUserDefaults.bool("titlesAppNameColumn") }
+    static var titlesAppNameTrailingAlignment: Bool { CachedUserDefaults.bool("titlesAppNameTrailingAlignment") }
+    static var titlesMinimumWidth: CGFloat { CGFloat(min(600, max(240, CachedUserDefaults.int("titlesMinimumWidth")))) }
+    static var titlesMaximumWidthRatio: CGFloat { CGFloat(min(95, max(50, CachedUserDefaults.int("titlesMaximumWidthPercent")))) / 100 }
     static var showTitles: ShowTitlesPreference { CachedUserDefaults.macroPref("showTitles", ShowTitlesPreference.allCases) }
     static var updatePolicy: UpdatePolicyPreference { CachedUserDefaults.macroPref("updatePolicy", UpdatePolicyPreference.allCases) }
     static var crashPolicy: CrashPolicyPreference { CachedUserDefaults.macroPref("crashPolicy", CrashPolicyPreference.allCases) }

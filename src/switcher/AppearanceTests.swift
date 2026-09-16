@@ -1,6 +1,77 @@
 import XCTest
 
 final class AppearanceTests: XCTestCase {
+    func testTitlesWidthNeverChangesWhileVisible() {
+        XCTAssertEqual(AppearanceTestable.stableTitlesWidth(measured: 900, limit: 1000, previous: 532, tolerance: 32, visible: true), 532)
+        XCTAssertEqual(AppearanceTestable.stableTitlesWidth(measured: 100, limit: 1000, previous: 832, tolerance: 32, visible: true), 832)
+        XCTAssertEqual(AppearanceTestable.stableTitlesWidth(measured: 100, limit: 480, previous: 832, tolerance: 32, visible: true), 480)
+        XCTAssertEqual(AppearanceTestable.stableTitlesWidth(measured: 500, limit: 1000, previous: nil, tolerance: 32, visible: true), 532)
+    }
+
+    func testTitlesWidthAbsorbsSpinnerChangesButStillGrowsAndShrinks() {
+        var width = AppearanceTestable.stableTitlesWidth(measured: 500, limit: 1000, previous: nil, tolerance: 32)
+        XCTAssertEqual(width, 532)
+        for measured in [501.0, 499, 515, 500, 525, 498] {
+            width = AppearanceTestable.stableTitlesWidth(measured: measured, limit: 1000, previous: width, tolerance: 32)
+            XCTAssertEqual(width, 532)
+        }
+        width = AppearanceTestable.stableTitlesWidth(measured: 800, limit: 1000, previous: width, tolerance: 32)
+        XCTAssertEqual(width, 832)
+        width = AppearanceTestable.stableTitlesWidth(measured: 400, limit: 1000, previous: width, tolerance: 32)
+        XCTAssertEqual(width, 432)
+        XCTAssertEqual(AppearanceTestable.stableTitlesWidth(measured: 990, limit: 1000, previous: width, tolerance: 32), 1000)
+        XCTAssertEqual(AppearanceTestable.stableTitlesWidth(measured: 450, limit: 480, previous: 832, tolerance: 32), 480)
+        XCTAssertEqual(AppearanceTestable.stableTitlesWidth(measured: 500, limit: 1000, previous: nil, tolerance: 32), 532)
+    }
+
+    func testTitlesWidthShrinksWithContentAndRespectsScreenLimit() {
+        XCTAssertEqual(AppearanceTestable.fittedTitlesWidth(measured: 900, limit: 1000), 900)
+        XCTAssertEqual(AppearanceTestable.fittedTitlesWidth(measured: 410.2, limit: 1000), 411)
+        XCTAssertEqual(AppearanceTestable.fittedTitlesWidth(measured: 100, limit: 1000), 300)
+        XCTAssertEqual(AppearanceTestable.fittedTitlesWidth(measured: 1400, limit: 1000), 1000)
+        XCTAssertEqual(AppearanceTestable.fittedTitlesWidth(measured: 100, limit: 250), 250)
+    }
+
+    func testCustomTitlesMinimumStillHonorsScreenLimitAndHysteresis() {
+        XCTAssertEqual(AppearanceTestable.fittedTitlesWidth(measured: 100, limit: 1000, minimum: 600), 600)
+        XCTAssertEqual(AppearanceTestable.fittedTitlesWidth(measured: 100, limit: 400, minimum: 600), 400)
+        XCTAssertEqual(AppearanceTestable.stableTitlesWidth(measured: 100, limit: 1000, previous: 350, tolerance: 32, minimum: 600), 632)
+        XCTAssertEqual(AppearanceTestable.stableTitlesWidth(measured: 100, limit: 1000, previous: 632, tolerance: 32, minimum: 240), 272)
+    }
+
+    func testAppNameColumnPreservesSessionWidthWithinBounds() {
+        XCTAssertEqual(AppearanceTestable.appNameColumnWidth(measured: 220, previous: 100, rowWidth: 1000), 220)
+        XCTAssertEqual(AppearanceTestable.appNameColumnWidth(measured: 80, previous: 220, rowWidth: 1000), 220)
+        XCTAssertEqual(AppearanceTestable.appNameColumnWidth(measured: 400, previous: 220, rowWidth: 1000), 240)
+        XCTAssertEqual(AppearanceTestable.appNameColumnWidth(measured: 400, previous: 220, rowWidth: 600), 150)
+    }
+
+    func testIconSeparationUsesBoundaryContrast() {
+        let blue = [0.0, 0.35, 0.9]
+        let blueLuminance = AppearanceTestable.relativeLuminance(blue)
+        XCTAssertTrue(AppearanceTestable.needsIconSeparation([blueLuminance], background: blue))
+        XCTAssertFalse(AppearanceTestable.needsIconSeparation([1], background: blue))
+        XCTAssertFalse(AppearanceTestable.needsIconSeparation([], background: blue))
+        XCTAssertFalse(AppearanceTestable.needsIconSeparation([blueLuminance, 1, 1], background: blue))
+        XCTAssertTrue(AppearanceTestable.needsIconSeparation([1], background: [0.95, 0.95, 0.95]))
+    }
+
+    func testIconSamplingSkipsTransparentMarginsAndCentralArtwork() {
+        var bytes = [UInt8](repeating: 0, count: 5 * 5 * 4)
+        for y in 1...3 {
+            for x in 1...3 {
+                let offset = (y * 5 + x) * 4
+                bytes[offset + 2] = 255
+                bytes[offset + 3] = 255
+            }
+        }
+        for component in 0..<3 { bytes[(2 * 5 + 2) * 4 + component] = 255 }
+        let samples = AppearanceTestable.iconEdgeLuminances(bytes, side: 5)
+        XCTAssertEqual(samples.count, 8)
+        XCTAssertTrue(samples.allSatisfy { abs($0 - 0.0722) < 0.0001 })
+        XCTAssertEqual(AppearanceTestable.iconEdgeLuminances([], side: 5), [])
+    }
+
     // TODO add 6, 7, 8 rowsCount and reuse vertical screens data from bellow
     func testGoodValuesForThumbnailsWidthMinMax() throws {
         var actual: (CGFloat, CGFloat)

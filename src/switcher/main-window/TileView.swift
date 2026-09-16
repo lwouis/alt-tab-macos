@@ -8,11 +8,23 @@ class TileView: FlippedView {
     var window_: Window?
     var thumbnail = LightImageLayer()
     var appIcon = LightImageLayer()
+    private var sampledIcon: CGImage?
+    private var iconEdgeSamples = [Double]()
     var appIconHighlight = noAnimation { CALayer() }
     var label = TileTitleView(font: Appearance.font)
+    var appNameLabel = TileTitleView(font: Appearance.font)
+    private var appNameColumnWidth: CGFloat {
+        Preferences.effectiveAppearanceStyle(SwitcherSession.activeShortcutIndex) == .titles && Preferences.titlesAppNameColumn
+            ? TilesView.layoutCache.appNameWidth + Appearance.appIconLabelSpacing : 0
+    }
     var statusIcons = StatusIconsView()
     var dockLabelIcon = TileFontIconView(badgeSize: TileFontIconView.badgeBaseSize(forIconSize: TileView.iconSize().width))
     var windowlessAppIndicator = WindowlessAppIndicator(tooltip: TileView.noOpenWindowToolTip)
+    /// Width a Titles row needs to show its whole title; the panel fits the widest visible row.
+    var idealTitlesWidth: CGFloat {
+        fullTitleWidth + appNameColumnWidth + appIcon.frame.width + Appearance.appIconLabelSpacing
+            + statusIcons.totalWidth + Appearance.edgeInsetsSize * 2
+    }
     private var fullTitle = ""
     private var fullTitleWidth = CGFloat(0)
 
@@ -50,7 +62,7 @@ class TileView: FlippedView {
 
     private func updateLabelTooltipIfNeeded() {
         guard Preferences.effectiveAppearanceStyle(SwitcherSession.activeShortcutIndex) != .appIcons else { return }
-        label.toolTip = fullTitleWidth >= label.frame.size.width ? fullTitle : nil
+        label.toolTip = nil
     }
 
     convenience init() {
@@ -69,16 +81,29 @@ class TileView: FlippedView {
     }
 
     func updateRecycledCellWithNewContent(_ element: Window, _ index: Int, _ newHeight: CGFloat) {
+        appNameLabel.isHidden = appNameColumnWidth == 0
+        appNameLabel.font = Appearance.font
+        appNameLabel.stringValue = element.application.localizedName ?? ""
         window_ = element
+        indexInRecycledViews = index
         label.toolTip = nil
         applyCurrentStyle()
         updateValues(element, index, newHeight)
         updateSizes(newHeight)
         updatePositions(newHeight)
         applySearchHighlight()
+        if Preferences.effectiveAppearanceStyle(SwitcherSession.activeShortcutIndex) == .titles {
+            updateSelectionTextColor()
+        } else {
+            statusIcons.selectionTextColor = nil
+        }
     }
 
     func drawHighlight() {
+        updateIconSeparation()
+        if Preferences.effectiveAppearanceStyle(SwitcherSession.activeShortcutIndex) == .titles {
+            updateSelectionTextColor()
+        }
         if Preferences.effectiveAppearanceStyle(SwitcherSession.activeShortcutIndex) == .appIcons {
             let session = SwitcherSession.current
             let isFocused = indexInRecycledViews == (session?.selectedIndex ?? 0)
@@ -96,6 +121,19 @@ class TileView: FlippedView {
             label.isHidden = !shouldBeVisible
             updateAppIconsLabel(isFocused: isFocused, isHovered: isHovered)
         }
+    }
+
+    /// The selected Titles row uses the solid system selection color, so its text switches to the matching text color.
+    private func updateSelectionTextColor() {
+        let selected = indexInRecycledViews == SwitcherSession.current?.selectedIndex
+        let color = selected ? NSColor.alternateSelectedControlTextColor : Appearance.fontColor
+        let text = NSMutableAttributedString(attributedString: label.attributedStringValue)
+        text.enumerateAttribute(TileTitleView.searchHighlightBackgroundKey, in: NSRange(location: 0, length: text.length)) { value, range, _ in
+            if value == nil { text.addAttribute(.foregroundColor, value: color, range: range) }
+        }
+        label.attributedStringValue = text
+        appNameLabel.textColor = color
+        statusIcons.selectionTextColor = selected ? color : nil
     }
 
     func updateDockLabelIcon(_ dockLabel: String?) {
@@ -126,6 +164,7 @@ class TileView: FlippedView {
         layer!.addSublayer(thumbnail)
         addSubviews([label, statusIcons])
         setSubviewAbove(windowlessAppIndicator)
+        addSubview(appNameLabel)
         addSubview(dockLabelIcon)
         label.fixHeight()
         // Disable implicit CALayer animations on every subview that moves between styles. The
@@ -161,7 +200,7 @@ class TileView: FlippedView {
 
     private func applyShadows() {
         thumbnail.applyShadow(TileView.makeThumbnailShadow(Appearance.imagesShadowColor))
-        appIcon.applyShadow(TileView.makeAppIconShadow(Appearance.imagesShadowColor))
+        updateIconSeparation()
         dockLabelIcon.shadow = TileView.makeShadow(Appearance.imagesShadowColor)
     }
 
@@ -273,13 +312,52 @@ class TileView: FlippedView {
         let yPosition = appIcon.frame.maxY + Appearance.intraCellPadding * 2
         label.frame = NSRect(x: xPosition, y: yPosition, width: effectiveLabelWidth, height: height)
         label.setWidth(effectiveLabelWidth)
-        label.toolTip = labelWidth >= label.frame.size.width ? fullTitle : nil
+        label.toolTip = nil
         applySearchHighlight()
     }
 
     private func updateAppIcon(_ element: Window, _ title: String) {
-        let appIconSize = TileView.iconSize()
-        appIcon.updateContents(.cgImage(element.icon), appIconSize)
+        if sampledIcon !== element.icon {
+            sampledIcon = element.icon
+            iconEdgeSamples = element.icon.map(Self.sampleIconEdges) ?? []
+        }
+        appIcon.updateContents(.cgImage(element.icon), TileView.iconSize())
+        updateIconSeparation()
+    }
+
+    private static func sampleIconEdges(_ image: CGImage) -> [Double] {
+        var bytes = [UInt8](repeating: 0, count: 16 * 16 * 4)
+        let rendered = bytes.withUnsafeMutableBytes { buffer -> Bool in
+            guard let context = CGContext(data: buffer.baseAddress, width: 16, height: 16,
+                                          bitsPerComponent: 8, bytesPerRow: 64,
+                                          space: CGColorSpace(name: CGColorSpace.sRGB)!,
+                                          bitmapInfo: CGBitmapInfo.byteOrder32Big.rawValue | CGImageAlphaInfo.premultipliedLast.rawValue) else { return false }
+            context.draw(image, in: CGRect(x: 0, y: 0, width: 16, height: 16))
+            return true
+        }
+        guard rendered else { return [] }
+        return AppearanceTestable.iconEdgeLuminances(bytes, side: 16)
+    }
+
+    /// An icon whose silhouette has too little contrast with the selected row's accent color (a blue icon on blue)
+    /// gets a tight neutral halo instead of the usual shadow. Stronger with Increase Contrast.
+    private func updateIconSeparation() {
+        let selected = Preferences.effectiveAppearanceStyle(SwitcherSession.activeShortcutIndex) == .titles
+            && indexInRecycledViews == SwitcherSession.current?.selectedIndex
+        guard selected, let background = NSColor.selectedContentBackgroundColor.usingColorSpace(.sRGB),
+              AppearanceTestable.needsIconSeparation(iconEdgeSamples, background: [Double(background.redComponent),
+                  Double(background.greenComponent), Double(background.blueComponent)]) else {
+            appIcon.applyShadow(TileView.makeAppIconShadow(Appearance.imagesShadowColor))
+            return
+        }
+        let luminance = AppearanceTestable.relativeLuminance([Double(background.redComponent),
+            Double(background.greenComponent), Double(background.blueComponent)])
+        let color: NSColor = luminance < 0.179 ? .white : .black
+        let shadow = NSShadow()
+        shadow.shadowColor = color.withAlphaComponent(NSWorkspace.shared.accessibilityDisplayShouldIncreaseContrast ? 0.85 : 0.65)
+        shadow.shadowOffset = .zero
+        shadow.shadowBlurRadius = NSWorkspace.shared.accessibilityDisplayShouldIncreaseContrast ? 1 : 1.5
+        appIcon.applyShadow(shadow)
     }
 
     private func updateValues(_ element: Window, _ index: Int, _ newHeight: CGFloat) {
@@ -312,8 +390,11 @@ class TileView: FlippedView {
             setAccessibilityLabel(title)
         }
         fullTitle = title
-        fullTitleWidth = label.cell!.cellSize.width
         label.updateTruncationModeIfNeeded()
+        // An unchanged title still carries the previous layout's font; measure with the current one, which changes
+        // between displays when the size is Auto.
+        label.attributedStringValue = NSAttributedString(string: title, attributes: baseTitleAttributes())
+        fullTitleWidth = label.cell!.cellSize.width
         if statusIcons.spaceVisible {
             let spaceIndex = element.spaceIndexes.first
             if element.isOnAllSpaces || (spaceIndex != nil && spaceIndex! > 30) {
@@ -394,13 +475,13 @@ class TileView: FlippedView {
 
     private func searchSpanRanges() -> [NSRange] {
         var spanRanges = [NSRange]()
-        if Preferences.showTitles == .appName {
+        if appNameColumnWidth == 0 && Preferences.showTitles == .appName {
             for result in window_?.swAppResults ?? [] {
                 spanRanges.append(NSRange(location: result.span.lowerBound, length: result.span.count))
             }
             return spanRanges
         }
-        if Preferences.showTitles == .appNameAndWindowTitle {
+        if appNameColumnWidth == 0 && Preferences.showTitles == .appNameAndWindowTitle {
             let appName = window_?.application.localizedName ?? ""
             let windowTitle = window_?.title ?? ""
             let offset = (appName.isEmpty || appName == windowTitle) ? 0 : (appName + " - ").count
@@ -530,27 +611,33 @@ class TileView: FlippedView {
         setFrameWidthHeight(newHeight)
         if Preferences.effectiveAppearanceStyle(SwitcherSession.activeShortcutIndex) != .appIcons {
             let hWidth = frame.width - Appearance.edgeInsetsSize * 2
-            let labelWidth = hWidth - appIcon.frame.width - Appearance.appIconLabelSpacing - statusIcons.totalWidth
+            let labelWidth = max(0, hWidth - appNameColumnWidth - appIcon.frame.width - Appearance.appIconLabelSpacing - statusIcons.totalWidth)
             label.setWidth(labelWidth)
         }
     }
 
     private func updatePositions(_ newHeight: CGFloat) {
         let edgeInsets = Appearance.edgeInsetsSize
-        assignIfDifferent(&appIcon.frame.origin, NSPoint(x: edgeInsets, y: edgeInsets))
+        assignIfDifferent(&appIcon.frame.origin, NSPoint(x: edgeInsets + appNameColumnWidth, y: edgeInsets))
         if Preferences.effectiveAppearanceStyle(SwitcherSession.activeShortcutIndex) != .appIcons {
             let hWidth = frame.width - edgeInsets * 2
             let hHeight = max(appIcon.frame.height, TilesView.layoutCache.labelHeight)
             if App.shared.userInterfaceLayoutDirection == .rightToLeft {
-                assignIfDifferent(&appIcon.frame.origin.x, edgeInsets + hWidth - appIcon.frame.width)
+                assignIfDifferent(&appIcon.frame.origin.x, edgeInsets + hWidth - appNameColumnWidth - appIcon.frame.width)
             }
+            let isLeftToRight = App.shared.userInterfaceLayoutDirection == .leftToRight
+            appNameLabel.alignment = isLeftToRight != Preferences.titlesAppNameTrailingAlignment ? .left : .right
+            appNameLabel.frame = NSRect(
+                x: isLeftToRight ? edgeInsets : frame.width - edgeInsets - TilesView.layoutCache.appNameWidth,
+                y: edgeInsets + ((hHeight - TilesView.layoutCache.labelHeight) / 2).rounded(),
+                width: TilesView.layoutCache.appNameWidth, height: TilesView.layoutCache.labelHeight)
             statusIcons.layoutIcons(hWidth: hWidth, hHeight: hHeight, edgeInsets: edgeInsets)
-            let labelWidth = hWidth - appIcon.frame.width - Appearance.appIconLabelSpacing - statusIcons.totalWidth
+            let labelWidth = max(0, hWidth - appNameColumnWidth - appIcon.frame.width - Appearance.appIconLabelSpacing - statusIcons.totalWidth)
             let labelX: CGFloat
             if App.shared.userInterfaceLayoutDirection == .leftToRight {
                 labelX = appIcon.frame.maxX + Appearance.appIconLabelSpacing
             } else {
-                labelX = edgeInsets + hWidth - appIcon.frame.width - Appearance.appIconLabelSpacing - labelWidth
+                labelX = edgeInsets + hWidth - appNameColumnWidth - appIcon.frame.width - Appearance.appIconLabelSpacing - labelWidth
             }
             assignIfDifferent(&label.frame.origin.x, labelX)
             assignIfDifferent(&label.frame.origin.y, edgeInsets + ((hHeight - TilesView.layoutCache.labelHeight) / 2).rounded())
@@ -596,6 +683,7 @@ class TileView: FlippedView {
     }
 
     private func getAppOrAndWindowTitle() -> String {
+        if appNameColumnWidth > 0 { return window_?.title ?? "" }
         let appName = window_?.application.localizedName
         let windowTitle = window_?.title
         if Preferences.showTitles == .appName {
