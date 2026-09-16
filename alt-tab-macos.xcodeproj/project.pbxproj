@@ -255,6 +255,7 @@
 		BF0C875A28B98904F8F4A66A /* ATShortcut.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C8BA452332236D972C60E /* ATShortcut.swift */; };
 		BF0C87732A6E660899D13BFD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C886B1D6E707E9E6BE46C /* InfoPlist.strings */; };
 		BF0C88449007A09F1D175029 /* KeyboardEventsTestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C8643F524515224BF1618 /* KeyboardEventsTestable.swift */; };
+		BF0C8A11E7C34D2190AB4402 /* ModifierReleaseLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C8A11E7C34D2190AB4401 /* ModifierReleaseLog.swift */; };
 		BF0C8846AFEE2FFF93FAB36F /* AppearanceTestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C8D57C86AF492D43A576D /* AppearanceTestable.swift */; };
 		BF0C884D88B74F05B8BBF956 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C88A25E1ED37E5F80AC91 /* Localizable.strings */; };
 		BF0C8879F979414A87AB2958 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C89348E07FC05870FEE62 /* InfoPlist.strings */; };
@@ -276,6 +277,7 @@
 		BF0C8BD4410A3D597409C328 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C8E2C97A8B888CEFBDBF7 /* InfoPlist.strings */; };
 		BF0C8C0EDECEA32BBCE5B27D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C8849751E65B51A470278 /* Localizable.strings */; };
 		BF0C8C5FA4B401A8C0F75B7A /* KeyboardEventsTestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C8643F524515224BF1618 /* KeyboardEventsTestable.swift */; };
+		BF0C8A11E7C34D2190AB4403 /* ModifierReleaseLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C8A11E7C34D2190AB4401 /* ModifierReleaseLog.swift */; };
 		BF0C8C7E96DB48120462DA00 /* TrafficLightButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C8DF400A1AF64EB0CD0B3 /* TrafficLightButton.swift */; };
 		BF0C8CC5057406014FD612CC /* ATShortcut.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C8BA452332236D972C60E /* ATShortcut.swift */; };
 		BF0C8CEBBC2E851D16FF4757 /* CustomRecorderControlTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C8308B436837FA3EDED86 /* CustomRecorderControlTests.swift */; };
@@ -664,6 +666,7 @@
 		BF0C85C20516C4210508F349 /* tsconfig.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = tsconfig.json; sourceTree = "<group>"; };
 		BF0C863EDD60D925950B223B /* convert_iconset_to_icns.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = convert_iconset_to_icns.sh; sourceTree = "<group>"; };
 		BF0C8643F524515224BF1618 /* KeyboardEventsTestable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardEventsTestable.swift; sourceTree = "<group>"; };
+		BF0C8A11E7C34D2190AB4401 /* ModifierReleaseLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModifierReleaseLog.swift; sourceTree = "<group>"; };
 		BF0C8645B4CD1B11FABEF027 /* test-debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "test-debug.xcconfig"; sourceTree = "<group>"; };
 		BF0C869E544F968051715452 /* SystemAppearanceEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemAppearanceEvents.swift; sourceTree = "<group>"; };
 		BF0C86E06A44AC151FEA4903 /* sv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = sv; path = InfoPlist.strings; sourceTree = "<group>"; };
@@ -1000,6 +1003,7 @@
 				5F04852D2F09AC9700235D4A /* WindowCaptureEvents.swift */,
 				D04BA4A621A8A15660F973C1 /* KeyboardEvents.swift */,
 				BF0C8643F524515224BF1618 /* KeyboardEventsTestable.swift */,
+				BF0C8A11E7C34D2190AB4401 /* ModifierReleaseLog.swift */,
 				BF0C899905524253DC170B56 /* KeyboardEventsTests.swift */,
 				5883F0A729A5182C0071DB65 /* TrackpadEvents.swift */,
 				5E9E570000000000000F1001 /* GestureTriggerKernel.swift */,
@@ -2192,6 +2196,7 @@
 				6D42BE46F595D567EDBF559A /* DynamicColorTextField.swift in Sources */,
 				D04BAE2100000000ED003001 /* LightLabel.swift in Sources */,
 				BF0C8C5FA4B401A8C0F75B7A /* KeyboardEventsTestable.swift in Sources */,
+				BF0C8A11E7C34D2190AB4403 /* ModifierReleaseLog.swift in Sources */,
 				F00DCAFE0000000000001103 /* SearchTestable.swift in Sources */,
 				BF0C875A28B98904F8F4A66A /* ATShortcut.swift in Sources */,
 				D04BA00000000000C0DE0022 /* SwitcherSession.swift in Sources */,
@@ -2409,6 +2414,7 @@
 				BF0C827A169F0DE86C8F12AD /* SystemScrollerStyleEvents.swift in Sources */,
 				BF0C8846AFEE2FFF93FAB36F /* AppearanceTestable.swift in Sources */,
 				BF0C88449007A09F1D175029 /* KeyboardEventsTestable.swift in Sources */,
+				BF0C8A11E7C34D2190AB4402 /* ModifierReleaseLog.swift in Sources */,
 				BF0C85DA2D285400801C514A /* Logger.swift in Sources */,
 				BF0C89B4B17D7843C32A102E /* Markdown.swift in Sources */,
 				BF0C8A49891371E4027E0641 /* MacroPreferences.swift in Sources */,

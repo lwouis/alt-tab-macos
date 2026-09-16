@@ -112,6 +112,21 @@ class CliServer {
             Logger.info { "QA: muting ax destroys for \(pids.isEmpty ? "no pids" : "\(pids.sorted())")" }
             return noOutput
         }
+        // **Fault injection: hold the main thread for a while.** Takes milliseconds, and returns before the
+        // stall starts so the caller can post events into it. Keyboard events keep arriving throughout — the
+        // Carbon hotkeys queue on the main run loop, the `.flagsChanged` tap keeps running on its own thread
+        // — and what they look like when main comes back is the thing under test.
+        //
+        // The machine does this on its own, rarely: on 2026-09-15 a 450ms gap under load made two alt-tab
+        // pairs arrive back to back and AltTab committed the wrong window. Waiting for that to happen again
+        // is not a test, so the gap is posed here instead. Nothing else can pose it: every other path into
+        // main is work AltTab would also have to do, which changes what the events land on.
+        if rawValue.hasPrefix("--qa-stall-main=") {
+            let ms = Int(rawValue.dropFirst("--qa-stall-main=".count)) ?? 0
+            Logger.info { "QA: stalling main for \(ms)ms" }
+            DispatchQueue.main.async { Thread.sleep(forTimeInterval: Double(ms) / 1000) }
+            return noOutput
+        }
         if rawValue.hasPrefix("--qa-mark=") {
             let mark = String(rawValue.dropFirst("--qa-mark=".count))
             Logger.info { "QAMARK \(mark)" }

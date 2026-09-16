@@ -96,12 +96,19 @@ class ATShortcut {
     /// Call it ONCE, on the session's own holdShortcut, from `settleLostHoldRelease()` — never per shortcut
     /// inside the matching loop, where the dictionary's iteration order decides the outcome: fired after
     /// `nextWindowShortcut` has cycled, the release commits one tile PAST what the user asked for.
-    func settleLostRelease() {
+    func settleLostRelease(_ recordedHoldRelease: Bool = false) {
         guard let session = SwitcherSession.current, !session.forceDoNothingOnRelease,
               Preferences.effectiveShortcutStyle(session.shortcutIndex) == .focusOnRelease,
               id == Preferences.indexToName("holdShortcut", session.shortcutIndex) else { return }
         let currentModifiers = cocoaToCarbonFlags(ModifierFlags.current)
-        guard currentModifiers != (currentModifiers | shortcut.carbonModifierFlags) else { return }
+        let isUpNow = currentModifiers != (currentModifiers | shortcut.carbonModifierFlags)
+        // Up now, OR the passive input log paired this Carbon hotkey with a physical release. The second
+        // reading survives either main-runloop drain order and cannot mistake a later held modifier for this
+        // gesture's state.
+        guard isUpNow || recordedHoldRelease else { return }
+        if !isUpNow {
+            Logger.debug { "settling \(self.id) on the physical release paired with this hotkey" }
+        }
         state = .up
         ShortcutActions.execute(id)
     }

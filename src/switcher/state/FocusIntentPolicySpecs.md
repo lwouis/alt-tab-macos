@@ -43,6 +43,12 @@ interleave; nothing else in `focus()` moves them apart.
 - a focus this policy cannot re-assert — AltTab's own window, or a windowless app, which `Window.focus()`
   reaches without a target wid — still supersedes what is pending, with nothing to repair to
 
+The caller owes one ordering in return: **request before announcing the target.** A repair re-asserts
+whatever is current when the stale operation finishes, so any work `Window.focus()` does between telling the
+model where it is going (`noteAltTabInitiatedFocus`) and registering the intent here is a window in which a
+repair re-fronts the PREVIOUS target over a switch already announced. With two windows alternating that
+costs the parity of the whole run — the next alt-tab offers the window the user just left (F-01).
+
 Un-minimizing (step 0) is the one step that runs before the operation has touched the screen, and a supersede
 caught there owes nothing. Counting the restore as a z-order move and repairing on that exit was tried and
 measured useless (2026-09-09): the re-front lands while macOS is still animating the window out of

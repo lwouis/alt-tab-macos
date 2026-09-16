@@ -10,8 +10,8 @@ class KeyboardEvents {
     private static var hotKeyPressedEventHandler: EventHandlerRef?
     private static var hotKeyReleasedEventHandler: EventHandlerRef?
     private static var globalShortcutsAreDisabled = false
-    /// Permanent `.flagsChanged`-only tap on `cgSessionEventTap` + `.listenOnly` (the pre-11.0 config).
-    /// Drives hold-shortcut triggering; never touches `.keyDown`, so it stays clear of input methods.
+    /// Permanent passive tap on `cgSessionEventTap` + `.listenOnly`. Flags drive hold-shortcut triggering;
+    /// key-downs only preserve source order for Carbon hotkeys delayed behind a main-thread stall.
     private static var eventTap: CFMachPort?
     /// `.keyDown` tap on `cghidEventTap` + `.defaultTap`, used only to absorb Esc ahead of macOS 26
     /// Game Overlay (#5585). Created DISABLED; enabled only while a switcher session is open and a
@@ -27,18 +27,32 @@ class KeyboardEvents {
     /// `escapeEventTap` is enabled at all (see `updateEscapeAbsorptionTap`).
     static var anyShortcutUsesEscape = false
 
-    private static let cgEventHandler: CGEventTapCallBack = { _, type, cgEvent, _ in
+    private static let inputEventHandler: CGEventTapCallBack = { _, type, cgEvent, _ in
         switch type {
         case .flagsChanged:
-            // TODO: it would be great to shortcut matching and trigger on the background thread
-            // it would enable us to set App.shared.isBeingUsed here, and could stop tasks on main when they check the flag
+            let modifiers = NSEvent.ModifierFlags(rawValue: UInt(cgEvent.flags.rawValue))
+            ModifierReleaseLog.record(modifiers)
             DispatchQueue.main.async {
-                let modifiers = NSEvent.ModifierFlags(rawValue: UInt(cgEvent.flags.rawValue))
-                // TODO: ideally, we want to absorb all modifier keys except holdShortcut
-                // it was pressed down before AltTab was triggered, so we should let the up event through
                 handleKeyboardEvent(nil, nil, nil, modifiers, false)
             }
             return Unmanaged.passUnretained(cgEvent)
+        case .keyDown:
+            let modifiers = NSEvent.ModifierFlags(rawValue: UInt(cgEvent.flags.rawValue))
+            let keyCode = UInt32(cgEvent.getIntegerValueField(.keyboardEventKeycode))
+            let isARepeat = cgEvent.getIntegerValueField(.keyboardEventAutorepeat) != 0
+            ModifierReleaseLog.recordKeyDown(keyCode, modifiers, isARepeat: isARepeat)
+            return Unmanaged.passUnretained(cgEvent)
+        case .tapDisabledByUserInput, .tapDisabledByTimeout:
+            Logger.info { "input tap \(type == .tapDisabledByTimeout ? "timed out" : "was disabled by user input")" }
+            reEnableTapIfNeeded()
+            return Unmanaged.passUnretained(cgEvent)
+        default:
+            return Unmanaged.passUnretained(cgEvent)
+        }
+    }
+
+    private static let escapeEventHandler: CGEventTapCallBack = { _, type, cgEvent, _ in
+        switch type {
         case .keyDown:
             // Issue #5585. Esc only — absorb when AltTab is using it and a shortcut binds it. cghid is
             // the earliest tap point; absorbing here preempts macOS 26 Game Overlay's hook on `⌘⎋`.
@@ -58,10 +72,6 @@ class KeyboardEvents {
             // log said a tap had died. `byTimeout` means our own callback was too slow — the main thread
             // was busy — and it is the one worth chasing; `byUserInput` is macOS being defensive.
             //
-            // Both taps share this callback, so say whether the Esc tap was even wanted on. Without
-            // that, the expected case reads alarming: `byUserInput` fires once per summon, as the tap we
-            // just disabled ourselves at session end goes away, and 266 such lines in one session look
-            // like macOS fighting us when nothing is being re-enabled at all.
             Logger.info { "\(type == .tapDisabledByTimeout ? "byTimeout" : "byUserInput") wantEscapeTap:\(anyShortcutUsesEscape && SwitcherSession.isActive)" }
             reEnableTapIfNeeded()
             return Unmanaged.passUnretained(cgEvent)
@@ -73,11 +83,35 @@ class KeyboardEvents {
     static func addGlobalShortcut(_ controlId: String, _ shortcut: Shortcut) {
         addGlobalHandlerIfNeeded(shortcut)
         registerHotKeyIfNeeded(controlId, shortcut)
+        ModifierReleaseLog.setSwitchingChords(switchingChords())
+    }
+
+    private static func claimRecordedRelease(_ globalId: Int) -> Bool {
+        guard let controlId = KeyboardEventsTestable.globalShortcutsIds.first(where: { $0.value == globalId })?.key,
+              controlId.hasPrefix("nextWindowShortcut"), let control = ControlsTab.shortcuts[controlId],
+              let hold = ControlsTab.shortcuts[Preferences.indexToName("holdShortcut", Preferences.nameToIndex(controlId))]
+        else { return false }
+        return ModifierReleaseLog.claimRelease(after: chord(control),
+                                               holdModifiers: hold.shortcut.carbonModifierFlags)
+    }
+
+    /// `ControlsTab.shortcuts` still lists a shortcut being removed when its unregistration runs, hence
+    /// `excluding`.
+    private static func switchingChords(excluding removedControlId: String? = nil) -> Set<ModifierReleaseLog.Chord> {
+        Set(ControlsTab.shortcuts.values
+            .filter { $0.id.hasPrefix("nextWindowShortcut") && $0.id != removedControlId }
+            .map { chord($0) })
+    }
+
+    private static func chord(_ shortcut: ATShortcut) -> ModifierReleaseLog.Chord {
+        ModifierReleaseLog.Chord(keyCode: shortcut.shortcut.carbonKeyCode,
+                                 modifiers: shortcut.shortcut.carbonModifierFlags)
     }
 
     static func removeGlobalShortcut(_ controlId: String, _ shortcut: Shortcut) {
         unregisterHotKeyIfNeeded(controlId, shortcut)
         removeHandlerIfNeeded()
+        ModifierReleaseLog.setSwitchingChords(switchingChords(excluding: controlId))
     }
 
     static func toggleGlobalShortcuts(_ shouldDisable: Bool) {
@@ -90,13 +124,15 @@ class KeyboardEvents {
             }
             Logger.info { "disabled:\(shouldDisable)" }
             globalShortcutsAreDisabled = shouldDisable
+            ModifierReleaseLog.reset()
         }
     }
 
     static func reEnableTapIfNeeded() {
         if let eventTap, !CGEvent.tapIsEnabled(tap: eventTap) {
             CGEvent.tapEnable(tap: eventTap, enable: true)
-            Logger.warning { "flags tap was disabled; re-enabled" }
+            ModifierReleaseLog.reset()
+            Logger.warning { "input tap was disabled; re-enabled" }
         }
         // `updateEscapeAbsorptionTap` covers the Esc tap: it compares `tapIsEnabled` against what it
         // wants, so a tap macOS disabled while the switcher is open is re-enabled by that comparison.
@@ -172,17 +208,18 @@ class KeyboardEvents {
         // SecureInput does not block `.flagsChanged` on either cgSession or cghid taps; `.keyDown` is
         // filtered out at the system level for both.
         //
-        // Two taps. The flags tap is the pre-11.0 config (cgSession + listenOnly): always on, drives
-        // hold-shortcut triggering, never in the keyDown path. The Esc tap is cghid + defaultTap (the
-        // only way to swallow Esc ahead of macOS 26 Game Overlay, #5585); it is created disabled and
-        // only enabled while the switcher is open (updateEscapeAbsorptionTap), so it stays out of
-        // normal typing and can't disturb third-party input methods (#5766).
+        // Two taps. The session tap is passive: flags drive hold-shortcut triggering, while key-downs are
+        // only recorded to preserve their order relative to those flags when Carbon drains late. It never
+        // handles or suppresses typing. The Esc tap is cghid + defaultTap (the only way to swallow Esc ahead
+        // of macOS 26 Game Overlay, #5585); it is disabled outside a switcher session, keeping the active HID
+        // path out of normal typing for #5766.
         eventTap = CGEvent.tapCreate(
             tap: .cgSessionEventTap,
             place: .headInsertEventTap,
             options: .listenOnly,
-            eventsOfInterest: CGEventMask(1 << CGEventType.flagsChanged.rawValue),
-            callback: cgEventHandler,
+            eventsOfInterest: [CGEventType.flagsChanged, .keyDown]
+                .reduce(CGEventMask(0)) { $0 | (1 << $1.rawValue) },
+            callback: inputEventHandler,
             userInfo: nil)
         guard let eventTap else { App.restart(); return }
         addToKeyboardRunLoop(eventTap)
@@ -191,7 +228,7 @@ class KeyboardEvents {
             place: .headInsertEventTap,
             options: .defaultTap,
             eventsOfInterest: CGEventMask(1 << CGEventType.keyDown.rawValue),
-            callback: cgEventHandler,
+            callback: escapeEventHandler,
             userInfo: nil)
         guard let escapeEventTap else { App.restart(); return }
         CGEvent.tapEnable(tap: escapeEventTap, enable: false)
@@ -210,7 +247,9 @@ class KeyboardEvents {
             InstallEventHandler(shortcutEventTarget, { (_: EventHandlerCallRef?, event: EventRef?, _: UnsafeMutableRawPointer?) -> OSStatus in
                 var id = EventHotKeyID()
                 GetEventParameter(event, EventParamName(kEventParamDirectObject), EventParamType(typeEventHotKeyID), nil, MemoryLayout<EventHotKeyID>.size, nil, &id)
-                handleKeyboardEvent(Int(id.id), .down, nil, nil, false)
+                let globalId = Int(id.id)
+                handleKeyboardEvent(globalId, .down, nil, nil, false, nil,
+                                    KeyboardEvents.claimRecordedRelease(globalId))
                 return noErr
             }, eventTypes.count, &eventTypes, nil, &hotKeyPressedEventHandler)
         }
