@@ -918,6 +918,7 @@ enum ReducerInput: Equatable {
     // timer checks firing
     case holdReleaseCheck(wid: CGWindowID, attempt: Int)                                     // `checkHoldRelease`
     case dragOutCheck(wid: CGWindowID, previousRepWid: CGWindowID, attempt: Int)             // `checkDragOut`
+    case standaloneTabCheck(wid: CGWindowID, siblingWid: CGWindowID, attempt: Int)
 }
 
 extension ReducerInput {
@@ -985,6 +986,8 @@ enum ReducerEffect: Equatable {
     case scheduleHoldReleaseCheck(wid: CGWindowID, attempt: Int)
     /// re-arm the drag-out re-check (`checkDragOut`'s 0.4s timer)
     case scheduleDragOutCheck(wid: CGWindowID, previousRepWid: CGWindowID, attempt: Int)
+    /// confirm that a completed standalone AX read is a real split, not a transient tab-bar gap
+    case scheduleStandaloneTabCheck(wid: CGWindowID, siblingWid: CGWindowID, attempt: Int)
     /// re-read the Space topology alone (`Spaces.refresh` — one CGS round-trip, 0.1ms p50), so the switcher
     /// filters and sorts against the Space being ARRIVED on. Fires on the leading edge of a transition.
     case refreshSpacesTopology

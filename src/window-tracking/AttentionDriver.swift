@@ -149,6 +149,7 @@ struct AttentionDriver {
         case .attentionCommitted: return "attentionCommitted"
         case .holdReleaseCheck: return "holdRelease"
         case .dragOutCheck: return "dragOut"
+        case .standaloneTabCheck: return "standaloneTab"
         }
     }
 
@@ -187,7 +188,7 @@ struct AttentionDriver {
              .spaceTransitionStarted, .spaceChangeSettled, .discoveryLanded, .titleAndTabsRead,
              .windowServerStateRead, .spacesSynced, .cgsWindowListsRead,
              .axElementEnded, .axElementReconciled,
-             .holdReleaseCheck, .dragOutCheck,
+             .holdReleaseCheck, .dragOutCheck, .standaloneTabCheck,
              // Our own commit coming back through the bridge. Offering it again would decide against our own
              // output.
              .attentionCommitted:

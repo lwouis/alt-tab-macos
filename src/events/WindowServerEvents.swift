@@ -205,6 +205,13 @@ class WindowServerEvents {
         }
     }
 
+    static func armStandaloneTabCheck(_ wid: CGWindowID, siblingWid: CGWindowID, attempt: Int) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + recheckInterval) {
+            TrackedWindowStateBridge.dispatch(.standaloneTabCheck(wid: wid, siblingWid: siblingWid,
+                                                                  attempt: attempt))
+        }
+    }
+
     /// A plain activation names only a process. When the model has no focused-window fact for it, perform the
     /// one read that fills that hole. A dedicated element carries the measured 250ms cap, so a wedged app can
     /// occupy one bounded worker but never the main thread or the observer runloop. The answer carries the

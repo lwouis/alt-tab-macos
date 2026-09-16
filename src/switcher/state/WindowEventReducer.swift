@@ -192,6 +192,8 @@ enum WindowEventReducer {
             return holdReleaseCheck(&state, wid: wid, attempt: attempt)
         case .dragOutCheck(let wid, let previousRepWid, let attempt):
             return dragOutCheck(&state, wid: wid, previousRepWid: previousRepWid, attempt: attempt)
+        case .standaloneTabCheck(let wid, let siblingWid, let attempt):
+            return standaloneTabCheck(&state, wid: wid, siblingWid: siblingWid, attempt: attempt)
         }
     }
 
@@ -1168,8 +1170,53 @@ enum WindowEventReducer {
                 effects.append(contentsOf: reconcile(&state))
             }
         }
+        // EVERY completed standalone answer arms the confirmation, not just the first one to follow a group
+        // answer. An inactive tab reads standalone permanently (only the selected tab exposes a bar at all),
+        // so a tab that was displaced and only then dragged out has already been recorded standalone by the
+        // read that followed the displacement, and gating on that edge dropped the read that reported the
+        // real tear-out: T-06 live on 2026-09-17, where Finder kept all three windows in one group and the
+        // escaped one never got its tile. `standaloneSplitSibling` is the gate instead, and an inactive tab
+        // does not pass it: it is ordered OUT.
+        if reconcileTabs, tabGroup == .standalone, state.groups.groupId(of: wid) != nil {
+            let siblingWid = standaloneSplitSibling(state, wid: wid)
+            effects.append(.log("standalone #\(wid) peer=\(siblingWid.map { "#\($0)" } ?? "none") "
+                + "members=[\(standaloneSplitFacts(state, wid: wid))]"))
+            if let siblingWid {
+                effects.append(.queryWindowServerState(wids: [wid, siblingWid], throttled: false))
+                effects.append(.scheduleStandaloneTabCheck(wid: wid, siblingWid: siblingWid, attempt: 0))
+            }
+        }
         if changed { effects.append(.refreshUi(wids: [wid], onlyWhileSwitcherOpen: true)) }
         return effects
+    }
+
+    /// The physical facts each member of the group carries, for the line above. "No peer" and "a peer, and
+    /// the frames still matched" are different findings and a capture cannot otherwise tell them apart.
+    private static func standaloneSplitFacts(_ state: TrackedWindowState, wid: CGWindowID) -> String {
+        (state.groups.siblingWids(of: wid) ?? []).sorted().map { member -> String in
+            guard let w = state.window(member) else { return "#\(member)gone" }
+            let spaces = w.spaceMembershipObservation.spaceIds.map { "\($0)" } ?? "nil"
+            return "#\(member)\(w.isOrderedIn ? "in" : "out")\(w.spaceIsBorrowed ? "borrowed" : "")sp\(spaces)"
+        }.joined(separator: " ")
+    }
+
+    /// Physical presence is read off `spaceMembershipObservation`, and NOT off `spaceIsBorrowed`. The
+    /// observation is CGS's own answer for this wid and nothing else writes it; `spaceIsBorrowed` is our
+    /// annotation, and every pass that keeps a group coherent re-applies it to the members
+    /// (`geometryGroup`, `updateTabState`, `applyWindowSpaces`). So a window that has just escaped a group
+    /// still wears the flag while CGS places it on a Space in its own right: measured 2026-09-17, T-06's
+    /// torn-out window read `in borrowed sp[1]` and the split declined itself on its own group's
+    /// bookkeeping. An inactive tab is still excluded, by the two facts that are really its own: it is
+    /// ordered OUT, and CGS places it on no Space at all.
+    private static func standaloneSplitSibling(_ state: TrackedWindowState, wid: CGWindowID) -> CGWindowID? {
+        guard let window = state.window(wid), window.isOrderedIn,
+              let spaces = window.spaceMembershipObservation.spaceIds, !spaces.isEmpty,
+              let siblings = state.groups.siblingWids(of: wid) else { return nil }
+        return siblings.sorted().first { siblingWid in
+            guard siblingWid != wid, let sibling = state.window(siblingWid), sibling.isOrderedIn,
+                  let siblingSpaces = sibling.spaceMembershipObservation.spaceIds else { return false }
+            return siblingSpaces.contains { spaces.contains($0) }
+        }
     }
 
     /// A batched WS state query landed (the apply-side of `Applications.updateWindowStatesViaWindowServer`):
@@ -1411,6 +1458,36 @@ enum WindowEventReducer {
         case .none:
             return attempt < dragOutMaxAttempts ? [.scheduleDragOutCheck(wid: wid, previousRepWid: previousRepWid, attempt: attempt + 1)] : []
         }
+    }
+
+    /// A completed `standalone` AX answer is still not enough to dissolve a group: live tab switches expose
+    /// that answer transiently. A real active-tab tear-out supplies two independent physical facts after it
+    /// settles, though: the escaped window and the remaining group's active window are both ordered in on
+    /// the same directly-observed Space, at different frames. Re-query WindowServer across a timer boundary,
+    /// then act only if the AX answer and both physical facts still agree.
+    private static func standaloneTabCheck(_ state: inout TrackedWindowState, wid: CGWindowID,
+                                           siblingWid: CGWindowID, attempt: Int) -> [ReducerEffect] {
+        guard let window = state.window(wid), let sibling = state.window(siblingWid),
+              let gid = state.groups.groupId(of: wid), state.groups.groupId(of: siblingWid) == gid,
+              window.tabGroupObservation == .standalone else { return [] }
+        if attempt == 0 {
+            return [.queryWindowServerState(wids: [wid, siblingWid], throttled: false),
+                    .scheduleStandaloneTabCheck(wid: wid, siblingWid: siblingWid, attempt: 1)]
+        }
+        guard window.isOrderedIn, sibling.isOrderedIn,
+              let spaces = window.spaceMembershipObservation.spaceIds, !spaces.isEmpty,
+              let siblingSpaces = sibling.spaceMembershipObservation.spaceIds,
+              siblingSpaces.contains(where: { spaces.contains($0) }),
+              !state.tabWindow(window).isFullscreen, !state.tabWindow(sibling).isFullscreen,
+              let size = window.size, let position = window.position,
+              let siblingSize = sibling.size, let siblingPosition = sibling.position else { return [] }
+        guard size != siblingSize || position != siblingPosition else { return [] }
+        var effects: [ReducerEffect] = [.log("standalone split confirmed #\(wid) from group peer #\(siblingWid)")]
+        effects.append(contentsOf: state.removeFromGroup(wid, reason: "standaloneSplit").map { .log($0) })
+        if let i = state.windowIndex(wid) { state.windows[i].tabCount = 0 }
+        effects.append(contentsOf: reconcile(&state))
+        effects.append(.refreshUi(wids: [wid, siblingWid], onlyWhileSwitcherOpen: true))
+        return effects
     }
 
     // MARK: - reconcile (was `TabGroup.reconcile` + its three passes)

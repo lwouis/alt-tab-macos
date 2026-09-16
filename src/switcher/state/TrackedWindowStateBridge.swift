@@ -67,7 +67,8 @@ class TrackedWindowStateBridge {
         case .discoveryLanded, .titleAndTabsRead, .windowServerStateRead, .spacesSynced,
              .axFocusedWindowRead, .livenessConfirmedDead, .axElementEnded, .axElementReconciled,
              .cgsWindowListsRead, .zOrderRead,
-             .holdReleaseCheck, .dragOutCheck, .altTabFocusedWindowInFrontmostApp, .axFocusedWindowReadFailed:
+             .holdReleaseCheck, .dragOutCheck, .standaloneTabCheck,
+             .altTabFocusedWindowInFrontmostApp, .axFocusedWindowReadFailed:
             return false
         }
     }
@@ -246,6 +247,8 @@ class TrackedWindowStateBridge {
                 WindowServerEvents.armHoldReleaseCheck(wid, attempt: attempt)
             case .scheduleDragOutCheck(let wid, let previousRepWid, let attempt):
                 WindowServerEvents.armDragOutCheck(wid, previousRepWid: previousRepWid, attempt: attempt)
+            case .scheduleStandaloneTabCheck(let wid, let siblingWid, let attempt):
+                WindowServerEvents.armStandaloneTabCheck(wid, siblingWid: siblingWid, attempt: attempt)
             case .refreshSpacesTopology:
                 Spaces.refresh()
             case .refreshSpacesTopologyAndSync:

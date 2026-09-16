@@ -155,6 +155,21 @@ report a violation. These are tests OF the harness, not of the reducer.
 - **testTitleReadThatChangesMembershipLeavesAFixedPoint** — a title read that changes membership must
   reconcile, or derived per-member facts (above all the fullscreen mirror) stay stale and the state is not a
   reconcile fixed point.
+- **testStandaloneActiveTabAtASecondPhysicalFrameLeavesItsOldGroup** — T-06's selected Finder tab was
+  successfully dragged into a second window, but the completed standalone AX answer followed the transient-
+  nil keep rule and left all three wids grouped forever. A second ordered-in window on the same directly-
+  observed Space, still at a different frame after a WindowServer re-query, confirms the split.
+- **testTransientStandaloneAnswerCannotSplitARecoveredTabGroup** — the safety side: a newer AX group answer
+  arriving before physical confirmation cancels the split, because real tab switches expose standalone
+  transiently too.
+- **testStandaloneAnswerSplitsEvenWhenTheWindowWasAlreadyRecordedStandalone** — T-06's live shape
+  (2026-09-17), with the two facts that each kept the group whole on their own: the escaped tab was
+  DISPLACED before being dragged out, so its standalone answer is not a group→standalone edge; and it still
+  wears `spaceIsBorrowed`, the annotation every group pass re-applies to its members, while CGS places it on
+  a Space in its own right. Physical presence is therefore read off `spaceMembershipObservation`.
+- **testStandaloneAnswerFromAnOrderedOutTabArmsNothing** — an inactive tab answers standalone on every read
+  and must arm nothing: being ordered OUT, on no Space of its own, is what separates it from a window that
+  escaped its group.
 
 ### C. Order-in, and what it is still allowed to mean
 
