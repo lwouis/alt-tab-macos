@@ -40,9 +40,14 @@ class Applications {
         let groupWids: [CGWindowID]
         let previousTabCount: Int?
         let axQueryCoversWindow: Bool
+        /// the group's `AXTabGroup` identities, and whether a member is on a visible Space so the current-Space
+        /// AX read would list the group's active tab if the group still existed
+        let groupTokens: Set<TabGroupToken>
+        let axQueryCoversGroup: Bool
         var ax: AxElementEndAvailability?
         var freshElement: AXUIElement?
         var groupShrank = false
+        var groupGone = false
         var surfacePresent: Bool?
     }
     private static var axEndSequence: UInt64 = 0
@@ -519,7 +524,8 @@ class Applications {
     /// Reconcile an app-side node end against an independently queried WindowServer surface. A replacement
     /// AX node heals in place; physical absence confirms a close; retained Electron surfaces are retired only
     /// when AX positively omits a non-tab, current-Space window. Tabs and other-Space AX absences remain
-    /// pending unless a positive group shrink corroborates them.
+    /// pending unless a positive group shrink, or the group's disappearance from every published window,
+    /// corroborates them (`AxElementEndPolicy`).
     static func reconcileAxElementEnd(_ wid: CGWindowID) {
         guard let window = Windows.byWindowId[wid] else { return }
         axEndSequence += 1
@@ -533,9 +539,15 @@ class Applications {
         case .known(let ids):
             axQueryCoversWindow = ids.isEmpty || ids.contains { Spaces.visibleSpaces.contains($0) }
         }
+        let axQueryCoversGroup = groupWids.contains { memberWid in
+            guard case .known(let ids) = Windows.byWindowId[memberWid]?.spaceMembershipObservation else { return false }
+            return ids.contains { Spaces.visibleSpaces.contains($0) }
+        }
         pendingAxEnds[wid] = PendingAxEndReconciliation(token: token, pid: window.application.pid,
             isTabbed: groupWids.count > 1, groupWids: groupWids,
-            previousTabCount: previousTabCount, axQueryCoversWindow: axQueryCoversWindow)
+            previousTabCount: previousTabCount, axQueryCoversWindow: axQueryCoversWindow,
+            groupTokens: Set(groupWids.compactMap { TabGroups.table.tokenByWid[$0] }),
+            axQueryCoversGroup: axQueryCoversGroup)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
             guard pendingAxEnds[wid]?.token == token else { return }
             queryAxElementEnd(wid: wid, token: token)
@@ -552,19 +564,42 @@ class Applications {
             let outcome = WindowElementAcquisition.outcome(for: wid, pid: pending.pid,
                 route: .currentSpaceViaApplicationWindows)
             var groupShrank = false
+            var siblingMayLive = false
             if outcome == .absent, let previousTabCount = pending.previousTabCount {
                 for siblingWid in pending.groupWids where siblingWid != wid {
-                    guard case let .found(element) = WindowElementAcquisition.outcome(for: siblingWid,
-                        pid: pending.pid, route: .currentSpaceViaApplicationWindows),
+                    let sibling = WindowElementAcquisition.outcome(for: siblingWid, pid: pending.pid,
+                                                                    route: .currentSpaceViaApplicationWindows)
+                    siblingMayLive = siblingMayLive || sibling != .absent
+                    guard case let .found(element) = sibling,
                         let children = try? element.attributes([kAXChildrenAttribute], pid: pending.pid).children,
                         let group = TabGroup.extractTabGroup(children) else { continue }
                     groupShrank = group.titles.count < previousTabCount
                     if groupShrank { break }
                 }
             }
+            // Every tracked member absent is not yet a close: a tab created a moment ago can be the group's
+            // active tab before discovery lands, and it is the only member the app publishes. So ask the app
+            // whether any window it publishes still carries the group's identity.
+            let groupGone = outcome == .absent && pending.isTabbed && !siblingMayLive && pending.axQueryCoversGroup
+                && !pending.groupTokens.isEmpty && !appHostsTabGroup(pid: pending.pid, tokens: pending.groupTokens)
             DispatchQueue.main.async {
-                receiveAxElementEnd(wid: wid, token: token, outcome: outcome, groupShrank: groupShrank)
+                receiveAxElementEnd(wid: wid, token: token, outcome: outcome, groupShrank: groupShrank,
+                                    groupGone: groupGone)
             }
+        }
+    }
+
+    /// Whether a window the app publishes on the current Space still names one of these `AXTabGroup`
+    /// elements. Silence from the app counts as "still hosted": only a positive answer may condemn.
+    private static func appHostsTabGroup(pid: pid_t, tokens: Set<TabGroupToken>) -> Bool {
+        let app = AXUIElementCreateApplication(pid)
+        guard let published = AXUIElement.onCorrectThread(pid: pid, { try? app.windowsIncludingKeyAndMain() }) else {
+            return true
+        }
+        return published.contains { window in
+            guard let children = try? window.attributes([kAXChildrenAttribute], pid: pid).children,
+                  let token = TabGroup.extractTabGroup(children)?.token else { return false }
+            return tokens.contains(token)
         }
     }
 
@@ -577,7 +612,7 @@ class Applications {
 
     private static func receiveAxElementEnd(wid: CGWindowID, token: UInt64,
                                             outcome: WindowElementAcquisition.Outcome,
-                                            groupShrank: Bool) {
+                                            groupShrank: Bool, groupGone: Bool) {
         guard var pending = pendingAxEnds[wid], pending.token == token else { return }
         switch outcome {
         case .found(let element):
@@ -587,6 +622,7 @@ class Applications {
         case .noAnswer: pending.ax = .noAnswer
         }
         pending.groupShrank = groupShrank
+        pending.groupGone = groupGone
         pendingAxEnds[wid] = pending
         finishAxElementEnd(wid: wid, token: token)
     }
@@ -602,7 +638,7 @@ class Applications {
         guard let pending = pendingAxEnds[wid], pending.token == token, let ax = pending.ax,
               let surfacePresent = pending.surfacePresent else { return }
         let verdict = AxElementEndPolicy.decide(ax: ax, surfacePresent: surfacePresent,
-            isTabbed: pending.isTabbed, groupShrank: pending.groupShrank,
+            isTabbed: pending.isTabbed, groupShrank: pending.groupShrank, groupGone: pending.groupGone,
             axQueryCoversWindow: pending.axQueryCoversWindow)
         commitAxElementEnd(wid: wid, pending: pending, verdict: verdict)
     }
@@ -616,6 +652,10 @@ class Applications {
 
     private static func commitAxElementEnd(wid: CGWindowID, pending: PendingAxEndReconciliation,
                                            verdict: AxElementEndVerdict) {
+        // The evidence behind the verdict, so a capture says WHICH fact condemned or kept the window
+        Logger.debug { "axEnd #\(wid) verdict=\(verdict) ax=\(pending.ax.map { "\($0)" } ?? "pending") "
+            + "surface=\(pending.surfacePresent.map { "\($0)" } ?? "pending") tabbed=\(pending.isTabbed) "
+            + "shrank=\(pending.groupShrank) gone=\(pending.groupGone)" }
         pendingAxEnds[wid] = nil
         if let fresh = pending.freshElement { Windows.byWindowId[wid]?.rebindAxElement(fresh) }
         if verdict == .confirmedClosed { widsConfirmedClosed.insert(wid) }

@@ -163,13 +163,18 @@ enum AxElementEndVerdict: Equatable {
     case confirmedClosed
 }
 
+/// `groupShrank`: a still-published sibling's tab bar lost a tab. `groupGone`: no window the app publishes on
+/// a Space the group was on carries the group's `AXTabGroup` identity any more. Either is the positive tab
+/// evidence a retained surface needs; an inactive tab is absent from the app's window list while alive, so
+/// absence alone never condemns a tab. Finder retains the closed group's last surface and sends no destroy
+/// for it, so without `groupGone` a whole-group close left that window pending forever (QA T-09).
 enum AxElementEndPolicy {
     static func decide(ax: AxElementEndAvailability, surfacePresent: Bool, isTabbed: Bool,
-                       groupShrank: Bool, axQueryCoversWindow: Bool) -> AxElementEndVerdict {
+                       groupShrank: Bool, groupGone: Bool, axQueryCoversWindow: Bool) -> AxElementEndVerdict {
         if ax == .foundReplacement { return .replacementFound }
         if !surfacePresent { return .confirmedClosed }
         if ax == .noAnswer { return .inconclusive }
-        if isTabbed { return groupShrank ? .confirmedClosed : .inconclusive }
+        if isTabbed { return groupShrank || groupGone ? .confirmedClosed : .inconclusive }
         if !axQueryCoversWindow { return .inconclusive }
         return .confirmedClosed
     }

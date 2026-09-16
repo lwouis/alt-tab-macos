@@ -69,8 +69,10 @@ window. The reducer moves the window through `axElementEnded` and joins two sepa
 - a fresh AX lookup can heal the cached element in place;
 - WindowServer absence confirms that the physical surface ended;
 - a retained surface plus a completed current-Space AX absence confirms a non-tab semantic close;
-- tabs require a positive reduction from the last completed tab count, and other-Space or unknown-Space
-  windows remain `replacementPending` because the AX query did not cover them.
+- tabs require positive evidence: a still-published sibling whose tab bar lost a tab, or no published window
+  on a Space the group was on carrying the group's `AXTabGroup` identity any more (a whole-group close, where
+  Finder retains the last surface and never destroys it). Other-Space or unknown-Space windows remain
+  `replacementPending` because the AX query did not cover them.
 
 The join has a timeout. A found replacement or physical absence can still decide from partial evidence;
 every other partial result stays inconclusive rather than turning silence into closure.

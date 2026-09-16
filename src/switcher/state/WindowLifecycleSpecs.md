@@ -8,8 +8,9 @@ other. The reducer records `unverified`, `alive`, `axElementEnded`, `replacement
 
 `AXUIElementDestroyed` moves the window to `axElementEnded` and requests reconciliation. A fresh element for
 the same wid heals it to `alive`. Independent WindowServer absence, a scoped non-tab AX absence with a retained
-surface, or a positive tab-count shrink may confirm closure. Unknown, other-Space, and incomplete answers
-remain `replacementPending`. The join is time-bounded and late results cannot revive a completed verdict.
+surface, a positive tab-count shrink, or a tab group no published window hosts any more may confirm closure.
+Unknown, other-Space, and incomplete answers remain `replacementPending`. The join is time-bounded and late
+results cannot revive a completed verdict.
 
 ## WindowServer surface end
 

@@ -392,26 +392,33 @@ final class AxObserverHealthTests: XCTestCase {
 
     func testAxNodeReplacementAlwaysKeepsTheWindow() {
         XCTAssertEqual(AxElementEndPolicy.decide(ax: .foundReplacement, surfacePresent: false,
-            isTabbed: false, groupShrank: false, axQueryCoversWindow: true), .replacementFound)
+            isTabbed: false, groupShrank: false, groupGone: false, axQueryCoversWindow: true), .replacementFound)
     }
 
     func testAxDestroyAndWindowServerAbsenceConfirmClose() {
         XCTAssertEqual(AxElementEndPolicy.decide(ax: .noAnswer, surfacePresent: false,
-            isTabbed: true, groupShrank: false, axQueryCoversWindow: false), .confirmedClosed)
+            isTabbed: true, groupShrank: false, groupGone: false, axQueryCoversWindow: false), .confirmedClosed)
     }
 
     func testRetainedSurfaceDoesNotShieldSemanticClose() {
         XCTAssertEqual(AxElementEndPolicy.decide(ax: .absent, surfacePresent: true,
-            isTabbed: false, groupShrank: false, axQueryCoversWindow: true), .confirmedClosed)
+            isTabbed: false, groupShrank: false, groupGone: false, axQueryCoversWindow: true), .confirmedClosed)
+    }
+
+    func testWholeTabGroupCloseConfirmsWhenNoPublishedWindowHostsTheGroup() {
+        XCTAssertEqual(AxElementEndPolicy.decide(ax: .absent, surfacePresent: true,
+            isTabbed: true, groupShrank: false, groupGone: true, axQueryCoversWindow: true), .confirmedClosed)
+        XCTAssertEqual(AxElementEndPolicy.decide(ax: .noAnswer, surfacePresent: true,
+            isTabbed: true, groupShrank: false, groupGone: true, axQueryCoversWindow: true), .inconclusive)
     }
 
     func testAmbiguousTabAndOutOfScopeAbsencesRemainPending() {
         XCTAssertEqual(AxElementEndPolicy.decide(ax: .absent, surfacePresent: true,
-            isTabbed: true, groupShrank: false, axQueryCoversWindow: true), .inconclusive)
+            isTabbed: true, groupShrank: false, groupGone: false, axQueryCoversWindow: true), .inconclusive)
         XCTAssertEqual(AxElementEndPolicy.decide(ax: .absent, surfacePresent: true,
-            isTabbed: false, groupShrank: false, axQueryCoversWindow: false), .inconclusive)
+            isTabbed: false, groupShrank: false, groupGone: false, axQueryCoversWindow: false), .inconclusive)
         XCTAssertEqual(AxElementEndPolicy.decide(ax: .absent, surfacePresent: true,
-            isTabbed: true, groupShrank: true, axQueryCoversWindow: true), .confirmedClosed)
+            isTabbed: true, groupShrank: true, groupGone: false, axQueryCoversWindow: true), .confirmedClosed)
     }
 
 }
