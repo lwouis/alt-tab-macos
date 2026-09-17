@@ -1,3 +1,34 @@
+# [11.7.0](https://github.com/lwouis/alt-tab-macos/compare/v11.6.1...v11.7.0) (2026-09-17)
+
+
+### Bug Fixes
+
+* a fast alt-tab may land on the wrong window ([4d2342d](https://github.com/lwouis/alt-tab-macos/commit/4d2342d))
+* a tab dragged out to its own window may stay grouped with old tabs ([590d3ae](https://github.com/lwouis/alt-tab-macos/commit/590d3ae))
+* closing all tabs at once may leave a ghost window in the switcher ([2fcb217](https://github.com/lwouis/alt-tab-macos/commit/2fcb217))
+* memory use may grow each time the Settings window is reopened ([68d9ff0](https://github.com/lwouis/alt-tab-macos/commit/68d9ff0))
+* rare crash when AltTab quits on logout or shutdown ([9700787](https://github.com/lwouis/alt-tab-macos/commit/9700787))
+* some tabs may be missing from the switcher after Merge All Windows ([36bbcfa](https://github.com/lwouis/alt-tab-macos/commit/36bbcfa))
+* the first shortcut hold after launch may cycle at the wrong speed ([d393f06](https://github.com/lwouis/alt-tab-macos/commit/d393f06))
+* the macOS force-quit shortcut (⌘⌥⇧⎋) may get disabled or re-enabled ([c99e175](https://github.com/lwouis/alt-tab-macos/commit/c99e175))
+* the switcher may be slow to appear after a long idle ([651fd51](https://github.com/lwouis/alt-tab-macos/commit/651fd51))
+* the switcher's corners may look square on macOS 27 (closes [#5757](https://github.com/lwouis/alt-tab-macos/issues/5757)) ([d2ffc62](https://github.com/lwouis/alt-tab-macos/commit/d2ffc62))
+* windows may show as app icons after waking up (closes [#6031](https://github.com/lwouis/alt-tab-macos/issues/6031)) ([7728197](https://github.com/lwouis/alt-tab-macos/commit/7728197))
+* wrong windows listed or focused during Mission Control on macOS 27 ([357953e](https://github.com/lwouis/alt-tab-macos/commit/357953e))
+* your email may be cut off in the Settings sidebar ([4f35efb](https://github.com/lwouis/alt-tab-macos/commit/4f35efb))
+
+
+### Features
+
+* macOS 12 is now the minimum supported version ([1aa0a7b](https://github.com/lwouis/alt-tab-macos/commit/1aa0a7b))
+
+
+### Performance Improvements
+
+* fewer accessibility calls to web pages and the window manager ([fc72513](https://github.com/lwouis/alt-tab-macos/commit/fc72513))
+* less battery used while AltTab is idle ([02d32d2](https://github.com/lwouis/alt-tab-macos/commit/02d32d2))
+* the switcher opens and refreshes faster ([8be058d](https://github.com/lwouis/alt-tab-macos/commit/8be058d))
+
 ## [11.6.1](https://github.com/lwouis/alt-tab-macos/compare/v11.6.0...v11.6.1) (2026-09-11)
 
 
