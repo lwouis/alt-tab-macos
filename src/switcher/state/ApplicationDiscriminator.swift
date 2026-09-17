@@ -8,12 +8,16 @@ class ApplicationDiscriminator {
             Logger.debug { logTemplate("zombie process", processIdentifier, bundleIdentifier) }
             return false
         }
-        let isXpc = !isNotXpc(processIdentifier, bundleIdentifier)
+        let isWindowManager = bundleIdentifier == ApplicationAdmissionResolver.windowManagerBundleId
+        // the bundle id alone refuses the window manager, so it never pays the process-type IPC below
+        let isXpc = !isWindowManager && !isNotXpc(processIdentifier, bundleIdentifier)
         let isKnownUserFacingException = isXpc && (isPasswords(bundleIdentifier)
             || isAndroidEmulator(bundleIdentifier, processIdentifier))
         guard ApplicationAdmissionResolver.accepts(isXpc: isXpc, isZombie: false,
-                  isKnownUserFacingException: isKnownUserFacingException, evidence: evidence) else {
-            Logger.debug { logTemplate("XPC process without attention", processIdentifier, bundleIdentifier) }
+                  isKnownUserFacingException: isKnownUserFacingException, isWindowManager: isWindowManager,
+                  evidence: evidence) else {
+            let reason = isWindowManager ? "window manager" : "XPC process without attention"
+            Logger.debug { logTemplate(reason, processIdentifier, bundleIdentifier) }
             return false
         }
         Logger.debug { logTemplate(nil, processIdentifier, bundleIdentifier) }

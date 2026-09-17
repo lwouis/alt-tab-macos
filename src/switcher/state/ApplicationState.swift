@@ -17,9 +17,17 @@ enum ApplicationAdmissionEvidence: Equatable {
 }
 
 enum ApplicationAdmissionResolver {
+    /// The process that draws the desktop chrome on macOS 13+: the wallpaper, the Stage Manager strip and
+    /// the Mission Control overlays. It owns no window a user can switch to, so nothing about it is worth
+    /// an accessibility observer or an acquisition scan, and a click on its surfaces (the desktop) names no
+    /// window. It answers accessibility with nothing, so without this rule every inventory pass spent three
+    /// 250ms brute-force scans on its wallpaper surface alone, whose size passes the physical gate and whose
+    /// level does not reject it (`WindowAdmissionResolver.shouldAcquireSemantics`).
+    static let windowManagerBundleId = "com.apple.WindowManager"
+
     static func accepts(isXpc: Bool, isZombie: Bool, isKnownUserFacingException: Bool,
-                        evidence: ApplicationAdmissionEvidence) -> Bool {
-        guard !isZombie else { return false }
+                        isWindowManager: Bool = false, evidence: ApplicationAdmissionEvidence) -> Bool {
+        guard !isZombie, !isWindowManager else { return false }
         return !isXpc || isKnownUserFacingException || evidence == .attention
     }
 }

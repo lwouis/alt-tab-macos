@@ -37,6 +37,8 @@ parentage intentionally says nothing about them because both active and backgrou
 
 Window admission and application admission use the same evidence without conflating their permissions. Ordinary
 discovery still excludes XPC processes unless they are an established user-facing exception. Exact attention may
-admit the process which owns that destination; zombie status always rejects it. Owning an exact destination does not
+admit the process which owns that destination; zombie status always rejects it, and so does being the window
+manager (`com.apple.WindowManager`), which draws the wallpaper, the Stage Manager strip and the Mission Control
+overlays and owns no window a user can switch to. Owning an exact destination does not
 grant speculative placeholders: only regular apps get one. An accessory or prohibited process that briefly took
 focus (Raycast's palette, CoreServicesUIAgent's Gatekeeper alert) is not an app the user can switch back to.

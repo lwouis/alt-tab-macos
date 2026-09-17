@@ -261,6 +261,15 @@ final class ApplicationAdmissionResolverTests: XCTestCase {
         XCTAssertFalse(ApplicationAdmissionResolver.accepts(isXpc: false, isZombie: true,
             isKnownUserFacingException: false, evidence: .attention))
     }
+
+    /// The window manager is a regular process, so nothing else refuses it; and a click on the desktop is
+    /// exact attention on one of its surfaces, so the refusal has to hold for attention too.
+    func testWindowManagerIsRejectedEvenWhenAttentionNamesIt() {
+        XCTAssertFalse(ApplicationAdmissionResolver.accepts(isXpc: false, isZombie: false,
+            isKnownUserFacingException: false, isWindowManager: true, evidence: .discovery))
+        XCTAssertFalse(ApplicationAdmissionResolver.accepts(isXpc: false, isZombie: false,
+            isKnownUserFacingException: false, isWindowManager: true, evidence: .attention))
+    }
 }
 
 final class WindowlessApplicationResolverTests: XCTestCase {

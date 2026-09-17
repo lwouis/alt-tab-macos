@@ -106,6 +106,32 @@ class AxObserverRegistry {
 
     static func forgetTrackedElements(pid: pid_t) {
         trackedElements.withLock { $0[pid] = nil }
+        nonWindowElements.withLock { $0[pid] = nil }
+    }
+
+    /// Elements that answered a non-window role to a title notification, per pid, so the next delivery from
+    /// the same element costs nothing. The subscription is on the application element, and a web page with a
+    /// live timer retitles one `AXStaticText` several times a second: measured 88 of 100 deliveries from a
+    /// single element over 45s of one idle Chrome window, each paying two round trips to learn it was not
+    /// the window. A descendant never becomes a window (an `AXUIElementID` is not reused within a process),
+    /// so the verdict holds for the process's life; dropped with `forgetTrackedElements`.
+    ///
+    /// Bounded and FIFO: a page that re-creates its nodes would otherwise grow it without limit, and the
+    /// element it retitles most is the one that stays hot.
+    private static let nonWindowElements = ConcurrentMap<pid_t, [AXUIElement]>()
+    private static let nonWindowElementsCapacity = 32
+
+    private static func isKnownNonWindow(_ element: AXUIElement, pid: pid_t) -> Bool {
+        nonWindowElements.withLock { $0[pid]?.contains { CFEqual($0, element) } ?? false }
+    }
+
+    private static func noteNonWindow(_ element: AXUIElement, pid: pid_t) {
+        nonWindowElements.withLock { map in
+            var elements = map[pid] ?? []
+            elements.append(element)
+            if elements.count > nonWindowElementsCapacity { elements.removeFirst() }
+            map[pid] = elements
+        }
     }
 
     /// Which tracked window this dead element was. A linear `CFEqual` scan over one app's windows: no IPC, so
@@ -429,21 +455,34 @@ class AxObserverRegistry {
     /// `AXCallScheduler` plus the per-wid throttle on the apply side are what bound an app that renames its
     /// window continuously.
     ///
-    /// **The role is read with the title, and decides whether the title counts.** A delivery names any
-    /// element of the app, and only a window's own element speaks for the window: `AxTitleNotificationPolicy`
-    /// says why, and #6011 is what it costs to skip. The role rides along in the same
-    /// `AXUIElementCopyMultipleAttributeValues`, so it costs no extra round trip.
+    /// **The role decides whether the title counts.** A delivery names any element of the app, and only a
+    /// window's own element speaks for the window: `AxTitleNotificationPolicy` says why, and #6011 is what
+    /// it costs to skip.
+    ///
+    /// Two local `CFEqual` scans run before any IPC, on the observer thread. An element cached as a window's
+    /// root (`trackedElements`) IS the window, so its wid is known and only the title is read. An element
+    /// already seen to be a descendant (`nonWindowElements`) is dropped outright. Anything else pays one read
+    /// for role and title together, and the wid only once the role says window, so a descendant's first
+    /// delivery costs one round trip rather than two and its later ones cost none.
     private func refreshTitle(_ process: ProcessGeneration, _ element: AXUIElement) {
+        guard !Self.isKnownNonWindow(element, pid: process.pid) else { return }
+        let trackedWid = Self.trackedWid(of: element, pid: process.pid)
         AXCallScheduler.shared.schedule(key: Self.perElementKey("axobs-title", process.pid, element),
                                         context: "axSemantics", pid: process.pid) {
-            guard let wid = try? element.cgWindowId(pid: process.pid), wid != 0,
-                  let attributes = try? element.attributes([kAXTitleAttribute, kAXRoleAttribute], pid: process.pid)
+            if let wid = trackedWid {
+                guard let title = try? element.attributes([kAXTitleAttribute], pid: process.pid).title else { return }
+                DispatchQueue.main.async { Applications.applyObservedTitle(wid: wid, title: title) }
+                return
+            }
+            guard let attributes = try? element.attributes([kAXTitleAttribute, kAXRoleAttribute], pid: process.pid)
                 else { return }
             switch AxTitleNotificationPolicy.verdict(role: attributes.role, title: attributes.title) {
                 case .ignoreNotTheWindow:
-                    Logger.debug { "axTitle #\(wid) named role=\(attributes.role ?? "nil"); ignored" }
+                    Self.noteNonWindow(element, pid: process.pid)
+                    Logger.debug { "axTitle pid=\(process.pid) named role=\(attributes.role ?? "nil"); ignored" }
                 case .ignoreNoTitle: break
                 case .apply(let title):
+                    guard let wid = try? element.cgWindowId(pid: process.pid), wid != 0 else { return }
                     Self.offerElement(process, wid, element, source: "axTitle")
                     DispatchQueue.main.async { Applications.applyObservedTitle(wid: wid, title: title) }
             }
