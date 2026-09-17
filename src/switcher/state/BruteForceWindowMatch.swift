@@ -42,10 +42,20 @@ enum BruteForceWindowMatch {
     ///
     /// Position only, not size: a tabbed window's members diverge in size as the tab bar resizes them, which is
     /// the same reason `TabGroupResolver.framePartitions` keys on position.
-    static func isPlausibleInactiveTab(candidate: CGRect, requester: CGRect?, otherWindowsOfApp: [CGRect]) -> Bool {
+    ///
+    /// **A candidate is never its own blocker**, which is why the frames carry wids rather than being bare
+    /// rectangles. The caller reads `otherWindowsOfApp` from the surface inventory, whose rows go stale in
+    /// exactly the situation this gate runs in: Merge All Windows orders the absorbed windows out, the
+    /// inventory keeps their last-known `visible` bit until a full sweep refreshes it, and the candidate's
+    /// own stale row then sits at the candidate's own frozen frame. Without the wid the rule read "parked on
+    /// another window" off the candidate itself and deferred it to a window that no longer exists, so the
+    /// tab was never adopted and its row never refreshed — a deadlock, measured live 2026-09-17 on a 6-tab
+    /// merge where two tabs were lost from the group for good.
+    static func isPlausibleInactiveTab(candidateWid: CGWindowID, candidate: CGRect, requester: CGRect?,
+                                       otherWindowsOfApp: [(wid: CGWindowID, frame: CGRect)]) -> Bool {
         guard let requester else { return true }
         if samePosition(candidate, requester) { return true }
-        return !otherWindowsOfApp.contains { samePosition(candidate, $0) }
+        return !otherWindowsOfApp.contains { $0.wid != candidateWid && samePosition(candidate, $0.frame) }
     }
 
     /// Rounded exact equality, the same test `TabGroupResolver.samePosition` applies — tabs of one window are

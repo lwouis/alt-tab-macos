@@ -922,11 +922,17 @@ class Applications {
             // `visibleSurfaces` answers nil before the first sweep, which is the only state where the
             // inventory could hand back the short list that made `others=[]` dangerous; there we pay for the
             // live call exactly as before.
+            //
+            // It can be LONG, though: a row keeps its last-known `visible` bit until a sweep refreshes it, so
+            // a window ordered out a moment ago is still in here. That is why each frame travels with its wid
+            // — `isPlausibleInactiveTab` needs it to keep a candidate from rejecting itself against its own
+            // stale row.
             let surfaces = WindowSurfaceInventory.visibleSurfaces(pid: pid)
-            let frames = surfaces.map { rows -> (CGRect?, [CGRect]) in
+            let frames = surfaces.map { rows -> (CGRect?, [(wid: CGWindowID, frame: CGRect)]) in
                 // the requester may be off-screen mid-transition, so it is looked up in the whole inventory
                 let requester = WindowSurfaceInventory.raw(requesterWid).map { CGRect(origin: $0.bounds.origin, size: .zero) }
-                return (requester, rows.filter { $0.wid != requesterWid }.map { CGRect(origin: $0.bounds.origin, size: .zero) })
+                return (requester, rows.filter { $0.wid != requesterWid }
+                    .map { (wid: $0.wid, frame: CGRect(origin: $0.bounds.origin, size: .zero)) })
             }
             AXCallScheduler.shared.schedule(key: "pid-\(pid)-tabadopt", context: app.debugId, pid: pid, scan: true) { [weak app] in
                 guard let app else { return }
@@ -934,12 +940,12 @@ class Applications {
                     let onScreen = WindowServerQuery.query(CGWindow.windows(.optionOnScreenOnly).compactMap { $0.id() })
                     return (onScreen.first { $0.wid == requesterWid }.map { CGRect(origin: $0.bounds.origin, size: .zero) },
                             onScreen.filter { $0.pid == pid && $0.wid != requesterWid && WsWindowState.isVisible($0) }
-                                .map { CGRect(origin: $0.bounds.origin, size: .zero) })
+                                .map { (wid: $0.wid, frame: CGRect(origin: $0.bounds.origin, size: .zero)) })
                 }()
                 // `isPlausibleInactiveTab` waves everything through when the requester has no frame or the app
                 // has no other windows, so both inputs are logged: without them a green run cannot be told
                 // apart from a gate that is wired up but inert.
-                Logger.debug { "inactive-tab scan pid:\(pid) knownIds=\(knownIds.sorted().prefix(6)) from=\(startId) requester=#\(requesterWid)@\(requesterFrame?.origin.debugDescription ?? "nil") others=\(otherFrames.map { $0.origin })" }
+                Logger.debug { "inactive-tab scan pid:\(pid) knownIds=\(knownIds.sorted().prefix(6)) from=\(startId) requester=#\(requesterWid)@\(requesterFrame?.origin.debugDescription ?? "nil") others=\(otherFrames.map { "#\($0.wid)@\($0.frame.origin)" })" }
                 let (found, nextId) = AXUIElement.untrackedWindowsByBruteForce(
                     pid, excluding: trackedWids, matching: untrackedTitles, from: startId)
                 var adopted = 0
@@ -970,7 +976,8 @@ class Applications {
                         continue
                     }
                     guard BruteForceWindowMatch.isPlausibleInactiveTab(
-                        candidate: raw.bounds, requester: requesterFrame, otherWindowsOfApp: otherFrames) else {
+                        candidateWid: wid, candidate: raw.bounds, requester: requesterFrame,
+                        otherWindowsOfApp: otherFrames) else {
                         if let elementId = element.id() { deferredId = min(deferredId ?? elementId, elementId) }
                         Logger.debug { "inactive tab candidate wid:\(wid) '\(title)' sits at \(raw.bounds.origin), on another window of this app rather than on #\(requesterWid); it is that window's tab, deferring it to that window's own scan" }
                         continue

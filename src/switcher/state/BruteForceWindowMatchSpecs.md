@@ -60,6 +60,14 @@ inside it and no longer offered (live 2026-08-25: `requester=#52149@(80,600) oth
 (80,80) adopted). The WindowServer's on-screen list is complete from the first scan. Read `requester=`/
 `others=` in the scan log before believing this gate did anything.
 
+**A candidate is never its own blocker**, which is why each frame travels with its wid. The inventory can be
+LONG as well as short: a row keeps its last-known `visible` bit until a full sweep refreshes it, so a window
+ordered out a moment ago is still in it. Merge All Windows orders every absorbed window out at once, and the
+candidate's own stale row then sits at the candidate's own frozen frame — the rule read "parked on another
+window" off the candidate itself and deferred it to a window that no longer exists, so it was never adopted
+and its row was never refreshed. A deadlock: two tabs of a 6-tab merge were lost from the group for good
+(live, 2026-09-17), while a cold rescan of the same merge found all six.
+
 `isPlausibleInactiveTab` rejects a candidate that sits **exactly on another of this app's tracked windows**
 while not sitting on the requester — a tab is positioned by its parent, so that frame names its parent. The
 test is one-sided on purpose. Merge All Windows never converges the absorbed windows' frames (they keep their
@@ -101,6 +109,9 @@ Mirrors `BruteForceWindowMatchTests.swift` 1:1.
 - **testAdoptsATabParkedOnTheRequester** — the ordinary case: candidate at the requester's origin → true.
 - **testRejectsATabParkedOnAnotherWindowOfTheSameApp** — the captured failure: the scan run for the window at
   y=80 found a candidate sitting exactly on the window at y=600 → false.
+- **testAdoptsATabWhoseOwnStaleSurfaceRowIsStillListed** — the candidate's own row is still listed as visible
+  at its own frame (the inventory has not caught up with the merge's order-out) → true; matching it would
+  defer the tab to itself forever.
 - **testAdoptsAMergedTabAtItsOwnFrozenCascadePosition** — Merge All Windows leaves absorbed tabs at their own
   frozen frames, on top of nothing → true (the merged-group cases go red otherwise).
 - **testAdoptsATabWhoseSizeDriftedFromItsParent** — same origin, different size → true.
