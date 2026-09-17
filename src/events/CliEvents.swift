@@ -270,16 +270,30 @@ class CliServer {
             guard view.frame != .zero, let window = view.window_ else { return nil }
             let icons = view.statusIcons.icons
             let frame = view.frame
+            let badge = view.dockLabelIcon
             return QaTile(index: i, wid: window.cgWindowId, title: window.title,
                 app: window.application.runningApplication.localizedName,
                 minimizedIcon: icons[StatusIconsView.minimizedIdx].visible,
                 fullscreenIcon: icons[StatusIconsView.fullscreenIdx].visible,
                 appHiddenIcon: icons[StatusIconsView.hiddenIdx].visible,
                 spaceIcon: icons[StatusIconsView.spaceIdx].visible,
+                dockLabel: badge.isHidden ? nil : badge.text,
+                dockLabelAccessibility: badge.isHidden ? nil : badge.accessibilityLabel(),
+                thumbnailPixelSize: window.thumbnail?.size(),
+                expectedThumbnailPixelSize: expectedThumbnailPixelSize(window),
                 x: frame.origin.x, y: frame.origin.y, w: frame.size.width, h: frame.size.height,
                 thumbY: view.thumbnail.frame.origin.y, labelY: view.label.frame.origin.y,
                 row: window.rowIndex ?? -1)
         }
+    }
+
+    /// The pixel size a thumbnail capture of this window should measure right now, from the same
+    /// `capturePixelSize` the capture request is configured with. Reported next to the size the last
+    /// capture actually came back with, so a harness can judge the capture path without knowing the
+    /// thumbnail-scale arithmetic.
+    private static func expectedThumbnailPixelSize(_ window: Window) -> CGSize? {
+        guard let size = window.size else { return nil }
+        return WindowThumbnails.capturePixelSize(size, WindowThumbnails.captureScaleFactor(window), false)
     }
 
     /// The panel-wide numbers every tile is placed from. `labelHeight` is the one #6010 moved: it is meant
@@ -341,6 +355,17 @@ class CliServer {
         var fullscreenIcon: Bool
         var appHiddenIcon: Bool
         var spaceIcon: Bool
+        /// The Dock badge as DRAWN on the tile, nil when the badge view is hidden. `dockLabelAccessibility`
+        /// is the VoiceOver text next to it, which differs for a numeric and a non-numeric label
+        /// (`TileView.getAccessibilityTextForBadge`).
+        var dockLabel: String?
+        var dockLabelAccessibility: String?
+        /// The pixel size of the window's last accepted capture (nil: never captured, so the tile shows the
+        /// app icon), and the size a capture should come back with now (nil: no window geometry). The
+        /// ScreenCaptureKit path is configured with the second, so the two differ by at most a pixel or two
+        /// when the capture path works.
+        var thumbnailPixelSize: CGSize?
+        var expectedThumbnailPixelSize: CGSize?
         /// **The laid-out geometry, so a test can judge the GRID and not just the list.** The tile's own
         /// frame moves when the row height is wrong (titles / appIcons styles), and the thumbnail's origin
         /// inside it moves when only the label metric is wrong (thumbnails style) — which is the shape of

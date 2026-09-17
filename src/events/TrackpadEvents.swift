@@ -137,12 +137,16 @@ class TrackpadEvents {
     }
 
     private static func touchEventHandler(_ cgEvent: CGEvent) -> Bool {
-        guard let nsEvent = cgEvent.toNSEvent() else { return false } // don't absorb the touch event
+        guard let nsEvent = cgEvent.toNSEvent() else {
+            logFirstGesture { "gesture decode: the CGEvent did not convert to an NSEvent" }
+            return false // don't absorb the touch event
+        }
         // Gesture detection only applies to indirect (trackpad) touches. Drop direct touches up front
         // (touchscreen, Touch Bar): they aren't trackpad fingers and have no `normalizedPosition`, so
         // they'd break the gesture math and make the getter throw. This does NOT cover Universal
         // Control touches (those report as .indirect); `safeNormalizedPosition` guards those reads.
         let touches = nsEvent.allTouches().filter { $0.type == .indirect }
+        if !didLogFirstGesture { reportFirstDecode(touches) }
         // macOS often sends faulty events with no touches between valid events; we ignore these as they would break our gesture logic
         guard touches.count > 0 else  { return false }
         let touchesDown = touches.filter { $0.phase == .began || $0.phase == .moved || $0.phase == .stationary }
@@ -178,6 +182,42 @@ class TrackpadEvents {
             App.showUiOrCycleSelection(Preferences.gestureIndex, false)
         }
         return true // absorb the touch event, so the focused app doesn't also act on it
+    }
+
+    /// **One line per launch on the first gesture that reaches the decoder**, so a run's log says whether
+    /// this macOS still hands us what the gesture math needs: an `NSEvent` out of the tap's `CGEvent`, its
+    /// trackpad touches, and a readable `normalizedPosition` on each. Every one of those is a private
+    /// bridge Apple rewrites freely, and a break in any of them is silent (the swipe simply never triggers).
+    /// Logged from the tap thread; both counters are only ever touched there.
+    private static var didLogFirstGesture = false
+    /// An empty event is normal between valid ones, so a swipe that decodes is always reported from a real
+    /// touch. **A run of them is the break itself** — events arriving with nothing in them is what a rewritten
+    /// bridge looks like from here — and it has to be told apart from a trackpad nobody touched, which
+    /// produces no event at all. So a report is forced once this many have arrived with no touch.
+    private static let emptyTouchEventsBeforeReporting = 20
+    private static var emptyTouchEvents = 0
+
+    private static func reportFirstDecode(_ touches: Set<NSTouch>) {
+        if touches.isEmpty {
+            emptyTouchEvents += 1
+            guard emptyTouchEvents >= emptyTouchEventsBeforeReporting else { return }
+        }
+        logFirstGesture { describeDecodedGesture(touches) }
+    }
+
+    private static func logFirstGesture(_ line: () -> String) {
+        guard !didLogFirstGesture else { return }
+        didLogFirstGesture = true
+        let text = line()
+        Logger.info { text }
+    }
+
+    /// The touch count comes first in the line either way, so a reader can judge it without parsing prose.
+    private static func describeDecodedGesture(_ touches: Set<NSTouch>) -> String {
+        guard !touches.isEmpty else { return "gesture decode: 0 touches on \(emptyTouchEvents) events" }
+        let readable = touches.filter { safeNormalizedPosition($0) != nil }.count
+        let position = readable == touches.count ? "position ok" : "position unavailable on \(touches.count - readable)"
+        return "gesture decode: \(touches.count) touches, \(position)"
     }
 
     /// `NSTouch.identity` is an opaque object; its description is all we need, since `GestureTracker`

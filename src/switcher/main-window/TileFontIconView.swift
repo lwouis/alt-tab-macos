@@ -101,7 +101,8 @@ class TileFontIconView: NSView {
     private let badgeFont: NSFont
     private let badgeContainerHeight: CGFloat
     private let badgeHorizontalPadding: CGFloat
-    private var text = ""
+    /// Readable so `--qa-state` can report the badge as drawn (`QaTile.dockLabel`).
+    private(set) var text = ""
     private var cachedSymbolAttributedString: NSAttributedString?
     private var cachedBadgeAttributedString: NSAttributedString?
     private var cachedBadgeTextSize = NSSize.zero
