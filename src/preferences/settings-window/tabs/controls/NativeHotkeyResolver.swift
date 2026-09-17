@@ -7,9 +7,10 @@ struct ShortcutSnapshot: Equatable {
     let keyCode: UInt32     // shortcut.carbonKeyCode
 }
 
-/// Decides which native macOS symbolic hotkeys (⌘⇥ / ⌘⇧⇥ / ⌘`) AltTab must disable vs (re-)enable
-/// to make room for the configured shortcuts. Pure kernel: takes the configured shortcuts plus the
-/// set of hold-shortcut modifier flags currently in effect, returns disjoint disable/enable sets.
+/// Decides which native macOS symbolic hotkeys (⌘⇥ / ⌘⇧⇥) AltTab must disable vs (re-)enable to make
+/// room for the configured shortcuts. ⌘` needs no disabling; `CGSSymbolicHotKey` says why. Pure kernel:
+/// takes the configured shortcuts plus the set of hold-shortcut modifier flags currently in effect,
+/// returns disjoint disable/enable sets.
 ///
 /// Issue #5653: the previous in-place implementation in `ControlsTab.toggleNativeCommandTabIfNeeded`
 /// used `nativeHotkeys.first { … }`, which made the classification depend on Swift dictionary
@@ -25,7 +26,6 @@ enum NativeHotkeyResolver {
         for s in shortcuts {
             if matchesCommandTab(s) { disable.insert(.commandTab) }
             if matchesCommandShiftTab(s, holdShortcutModifiers) { disable.insert(.commandShiftTab) }
-            if matchesCommandKeyAboveTab(s) { disable.insert(.commandKeyAboveTab) }
         }
         // binding ⌘⇥ should also suppress the native reverse switcher (⌘⇧⇥)
         if disable.contains(.commandTab) { disable.insert(.commandShiftTab) }
@@ -41,10 +41,6 @@ enum NativeHotkeyResolver {
 
     private static func matchesCommandShiftTab(_ s: ShortcutSnapshot, _ holdShortcutModifiers: [UInt32]) -> Bool {
         s.keyCode == UInt32(kVK_Tab) && combinedModifiersMatch(s.modifiers, UInt32(cmdKey | shiftKey), holdShortcutModifiers)
-    }
-
-    private static func matchesCommandKeyAboveTab(_ s: ShortcutSnapshot) -> Bool {
-        s.modifiers == UInt32(cmdKey) && s.keyCode == UInt32(kVK_ANSI_Grave)
     }
 
     /// True iff some hold-shortcut modifier set turns `modifiers1` and `modifiers2` into the same

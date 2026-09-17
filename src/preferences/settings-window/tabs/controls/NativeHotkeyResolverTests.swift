@@ -5,7 +5,7 @@ import Carbon.HIToolbox.Events
 /// issue #5653 (intermittent native ⌘⇥ override on launch).
 ///
 /// Groups: A repro case (⌘⇥ + ⌘⇧⇥ with hold ⌘ + ⌘⇧) · B single ⌘⇥ pairing ·
-/// C ⌘\` only · D default option · E empty.
+/// C ⌘\` only (nothing to disable) · D default option · E empty.
 final class NativeHotkeyResolverTests: XCTestCase {
     private func snap(_ mods: Int, _ key: Int) -> ShortcutSnapshot {
         ShortcutSnapshot(modifiers: UInt32(mods), keyCode: UInt32(key))
@@ -22,7 +22,7 @@ final class NativeHotkeyResolverTests: XCTestCase {
             shortcuts: [snap(cmdKey, kVK_Tab), snap(cmdKey | shiftKey, kVK_Tab)],
             holdShortcutModifiers: [UInt32(cmdKey), UInt32(cmdKey | shiftKey)])
         XCTAssertEqual(result.disable, [.commandTab, .commandShiftTab])
-        XCTAssertEqual(result.enable, [.commandKeyAboveTab])
+        XCTAssertEqual(result.enable, [])
     }
 
     /// Within one process the result must be stable across repeated calls on identical inputs.
@@ -48,18 +48,18 @@ final class NativeHotkeyResolverTests: XCTestCase {
             shortcuts: [snap(cmdKey, kVK_Tab)],
             holdShortcutModifiers: [UInt32(cmdKey)])
         XCTAssertEqual(result.disable, [.commandTab, .commandShiftTab])
-        XCTAssertEqual(result.enable, [.commandKeyAboveTab])
+        XCTAssertEqual(result.enable, [])
     }
 
-    // MARK: - C. ⌘` alone — disables only that hotkey
+    // MARK: - C. ⌘` alone — disables nothing
 
-    /// Binding ⌘\` overrides the native "key above Tab" hotkey but leaves both switcher hotkeys
-    /// alone. No cross-talk between Tab and grave key predicates.
-    func testCommandKeyAboveTabAloneDisablesOnlyThatHotkey() {
+    /// Binding ⌘\` disables no native hotkey: the OS's ⌘` is handled by AppKit inside the front app, which
+    /// AltTab's Carbon hotkey already pre-empts, and neither switcher hotkey overlaps it.
+    func testCommandKeyAboveTabAloneDisablesNothing() {
         let result = NativeHotkeyResolver.resolve(
             shortcuts: [snap(cmdKey, kVK_ANSI_Grave)],
             holdShortcutModifiers: [UInt32(cmdKey)])
-        XCTAssertEqual(result.disable, [.commandKeyAboveTab])
+        XCTAssertEqual(result.disable, [])
         XCTAssertEqual(result.enable, [.commandTab, .commandShiftTab])
     }
 
@@ -72,7 +72,7 @@ final class NativeHotkeyResolverTests: XCTestCase {
             shortcuts: [snap(optionKey, kVK_Tab)],
             holdShortcutModifiers: [UInt32(optionKey)])
         XCTAssertEqual(result.disable, [])
-        XCTAssertEqual(result.enable, [.commandTab, .commandShiftTab, .commandKeyAboveTab])
+        XCTAssertEqual(result.enable, [.commandTab, .commandShiftTab])
     }
 
     // MARK: - E. No shortcuts at all — nothing to override
@@ -81,6 +81,6 @@ final class NativeHotkeyResolverTests: XCTestCase {
     func testEmptyConfigReleasesAllNativeHotkeys() {
         let result = NativeHotkeyResolver.resolve(shortcuts: [], holdShortcutModifiers: [])
         XCTAssertEqual(result.disable, [])
-        XCTAssertEqual(result.enable, [.commandTab, .commandShiftTab, .commandKeyAboveTab])
+        XCTAssertEqual(result.enable, [.commandTab, .commandShiftTab])
     }
 }
