@@ -107,17 +107,34 @@ class Application: NSObject {
         AxObserverRegistry.shared.processStarted(state.pid)
         ensureAxUiElement()
         kvObservers = [
-            runningApplication.observe(\.activationPolicy, options: [.new]) { [weak self] app, _ in
+            observeMirror(\.activationPolicy) { [weak self] app, _ in
                 guard let self else { return }
                 self.activationPolicy = app.activationPolicy
                 if self.canShowWindowlessPlaceholder() { _ = self.addWindowlessWindowIfNeeded() }
                 else { self.removeWindowlessAppWindow() }
                 self.ensureAxUiElement()
             },
-            runningApplication.observe(\.isTerminated, options: [.new]) { [weak self] app, _ in
+            observeMirror(\.isTerminated) { [weak self] app, _ in
                 self?.isTerminated = app.isTerminated
             },
-        ]
+        ].compactMap { $0 }
+    }
+
+    /// Observing an `NSRunningApplication` property makes AppKit subscribe to a LaunchServices notification
+    /// callback, and when that subscription fails AppKit raises NSInternalInconsistencyException
+    /// ("Failed to register for runningApplicationNotificationCallback") instead of returning, which
+    /// terminated AltTab from `init`. Losing an observer only costs the mirror's freshness: the value
+    /// seeded above stands, and `RunningApplicationsEvents` still sees launches and quits.
+    private func observeMirror<Value>(_ keyPath: KeyPath<NSRunningApplication, Value>,
+                                      _ handler: @escaping (NSRunningApplication, NSKeyValueObservedChange<Value>) -> Void) -> NSKeyValueObservation? {
+        var observation: NSKeyValueObservation?
+        guard ObjCExceptionCatcher.attempt({
+            observation = self.runningApplication.observe(keyPath, options: [.new], changeHandler: handler)
+        }) else {
+            Logger.warning { "KVO registration refused by LaunchServices \(self.debugId)" }
+            return nil
+        }
+        return observation
     }
 
     deinit {
@@ -126,11 +143,9 @@ class Application: NSObject {
         // `Applications.removeRunningApplications`. Checked against the generation this object registered,
         // so a late deinit cannot tear down a replacement process that reused the pid.
         AxObserverRegistry.shared.processExited(state.pid, generation: trackingGeneration)
-        // `NSRunningApplication` KVO removal can throw NSInternalInconsistencyException
-        // ("Failed to register for runningApplicationNotificationCallback") — an Apple bug
-        // when the underlying notification XPC service has gone away (e.g. observed app
-        // terminated, or we are quitting). Pre-emptively invalidate inside an ObjC try/catch;
-        // the subsequent automatic ivar destroy of `kvObservers` is then a no-op.
+        // Removing the observation raises the same AppKit exception as registering it (see `observeMirror`),
+        // here when the notification XPC service has gone away: the observed app terminated, or we are
+        // quitting. Invalidate inside an ObjC try/catch, so the automatic ivar destroy below is a no-op.
         let observers = kvObservers
         kvObservers = nil
         ObjCExceptionCatcher.catching {
