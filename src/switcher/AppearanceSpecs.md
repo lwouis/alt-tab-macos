@@ -30,3 +30,22 @@ Mirrors `AppearanceTests.swift` 1:1.
 - **testComfortableWidth** — for every model, the comfortable width fraction matches for both horizontal and vertical screen use.
 - **testComfortableWidthFallsBackToDefaultWhenPhysicalWidthIsNil** — when the screen's physical dimensions aren't reported, fall back to the 0.9 default rather than the 0.45 floor.
 - **testGoodValuesForThumbnailsWidthMinMaxPortrait** — for aspectRatio < 1 (portrait usage), the (min, max) uses the portrait formula and stays within the [0.09, 0.30] clamps.
+
+## Selected-window preview corners on macOS 27
+
+The selected-window preview outline follows the native preview panel's effective
+container-concentric radius. It uses a continuous layer border and refreshes when
+the effective radius or appearance changes. Earlier macOS versions retain the
+existing drawn outline. This does not infer an arbitrary source window's silhouette.
+
+Manual regression scenarios:
+- On macOS 27, summon with selected-window preview enabled and cycle among normal
+  windows. Check that the outer outline follows the preview panel without square
+  protrusions and updates after resizing or changing appearance.
+- Check fullscreen and custom-shaped source windows, different displays and
+  scale factors, and light/dark appearance. These require visual validation.
+- On macOS 26 or earlier, compare against an unpatched build to verify unchanged
+  outline rendering. Native corner configuration is unavailable on those systems.
+
+The original local candidate was visually checked with Device Hub on macOS 27.
+That observation does not establish the broader scenarios above.
