@@ -299,11 +299,15 @@ class TileView: FlippedView {
         )
         if !thumbnail.isHidden {
             if let screenshot = element.thumbnail {
+                thumbnail.contentsGravity = .resize
                 let thumbnailSize = TileView.thumbnailSize(element.size, false)
                 thumbnail.updateContents(screenshot, thumbnailSize)
             } else {
-                // if no thumbnail, show appIcon instead
-                let thumbnailSize = TileView.thumbnailSize(element.icon?.size(), true)
+                let reservesWindowGeometry = ThumbnailPlaceholderLayout.reservesWindowGeometry(
+                    element.size, screenRecordingGranted: ScreenRecordingPermission.status == .granted)
+                thumbnail.contentsGravity = reservesWindowGeometry ? .resizeAspect : .resize
+                let sourceSize = reservesWindowGeometry ? element.size : element.icon?.size()
+                let thumbnailSize = TileView.thumbnailSize(sourceSize, !reservesWindowGeometry)
                 thumbnail.updateContents(.cgImage(element.icon), thumbnailSize)
             }
         }

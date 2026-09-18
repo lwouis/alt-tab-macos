@@ -30,3 +30,9 @@ Mirrors `AppearanceTests.swift` 1:1.
 - **testComfortableWidth** — for every model, the comfortable width fraction matches for both horizontal and vertical screen use.
 - **testComfortableWidthFallsBackToDefaultWhenPhysicalWidthIsNil** — when the screen's physical dimensions aren't reported, fall back to the 0.9 default rather than the 0.45 floor.
 - **testGoodValuesForThumbnailsWidthMinMaxPortrait** — for aspectRatio < 1 (portrait usage), the (min, max) uses the portrait formula and stays within the [0.09, 0.30] clamps.
+
+## Thumbnail placeholders
+
+- **testThumbnailPlaceholderReservesKnownWindowGeometryWhileCaptureIsAvailable** — a newly discovered window reserves its final aspect ratio while its first capture is in flight, so replacing the app-icon placeholder does not resize the switcher.
+- **testThumbnailPlaceholderUsesIconGeometryWithoutScreenRecording** — an icon-only tile stays square when no window capture can arrive.
+- **testThumbnailPlaceholderUsesIconGeometryWithoutValidWindowSize** — unknown or invalid window geometry falls back to the app icon.

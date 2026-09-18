@@ -48,6 +48,21 @@ final class AppearanceTests: XCTestCase {
         XCTAssertEqual(hi2, min(0.30, 2.1 / 16), accuracy: 0.001)
     }
 
+    func testThumbnailPlaceholderReservesKnownWindowGeometryWhileCaptureIsAvailable() {
+        XCTAssertTrue(ThumbnailPlaceholderLayout.reservesWindowGeometry(
+            CGSize(width: 1200, height: 800), screenRecordingGranted: true))
+    }
+
+    func testThumbnailPlaceholderUsesIconGeometryWithoutScreenRecording() {
+        XCTAssertFalse(ThumbnailPlaceholderLayout.reservesWindowGeometry(
+            CGSize(width: 1200, height: 800), screenRecordingGranted: false))
+    }
+
+    func testThumbnailPlaceholderUsesIconGeometryWithoutValidWindowSize() {
+        XCTAssertFalse(ThumbnailPlaceholderLayout.reservesWindowGeometry(nil, screenRecordingGranted: true))
+        XCTAssertFalse(ThumbnailPlaceholderLayout.reservesWindowGeometry(.zero, screenRecordingGranted: true))
+    }
+
     private let screens: [(String, (CGFloat, CGFloat), (CGFloat, CGFloat), (CGFloat, CGFloat), [(Int, CGFloat, CGFloat)])] = [
         // screen model, (widthInPixels, heightInPixels), (physicalWidthInMM, physicalHeightInMM), (expectedWidthForHorizontal, expectedWidthForVertical), (rowCount, expectedMinWidth, expectedMaxWidth)
         ("11\" Laptop: MacBook Air 11\": HD", (1366, 768), (255.7, 178.6), (0.90, 0.90), [(3, 0.12, 0.25), (4, 0.09, 0.19), (5, 0.09, 0.15)]),

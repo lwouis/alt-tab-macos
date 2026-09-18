@@ -33,3 +33,10 @@ class AppearanceTestable {
         return (max(0.09, minRatio), min(0.30, maxRatio))
     }
 }
+
+enum ThumbnailPlaceholderLayout {
+    static func reservesWindowGeometry(_ windowSize: CGSize?, screenRecordingGranted: Bool) -> Bool {
+        guard screenRecordingGranted, let windowSize else { return false }
+        return windowSize.width > 0 && windowSize.height > 0
+    }
+}
