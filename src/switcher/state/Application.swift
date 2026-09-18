@@ -81,10 +81,11 @@ class Application: NSObject {
         return (result, cgImage.width)
     }
 
-    init(_ runningApplication: NSRunningApplication) {
+    // Preserve the discovery PID: NSRunningApplication can report -1 for a live Device Hub process.
+    init(_ runningApplication: NSRunningApplication, pid: pid_t) {
         self.runningApplication = runningApplication
         state = ApplicationState(
-            pid: runningApplication.processIdentifier,
+            pid: pid,
             bundleIdentifier: runningApplication.bundleIdentifier,
             localizedName: runningApplication.localizedName,
             isHidden: runningApplication.isHidden)

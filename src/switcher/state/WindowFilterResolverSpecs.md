@@ -91,3 +91,25 @@ Mirrors `WindowFilterResolverTests.swift` 1:1. Each test flips one knob from an 
 ### J. Combinations
 - **testAllFiltersOnAndWindowPassesEachShows** — every filter on, a window that satisfies all of them shows.
 - **testPhantomBeatsWindowlessShow** — `isPhantom` overrides the windowless "show" path.
+
+## Running-app visibility identity
+
+Application discovery retains the positive PID supplied by WindowServer even when
+NSRunningApplication reports -1. Bulk discovery skips invalid PIDs. Workspace
+hide, unhide and activation notifications with an invalid PID resolve against the
+tracked running-app identity; termination cleanup uses the retained model PID.
+This prevents duplicate model records and applying visibility to the wrong record.
+
+Regression scenarios requiring the macOS running-app layer:
+- Discover an app using a positive PID while its running-app PID is invalid.
+  Repeated discovery must retain one record and its original positive PID.
+- Hide and unhide that app. Its tracked windows follow the configured hidden-app
+  filter, and activation updates the same tracked identity.
+- Terminate it after its running-app PID becomes invalid. All per-PID inventory,
+  observer and attention state for the retained PID must be removed.
+- An unmatched invalid-PID notification does not create or update an app.
+- Apps with ordinary positive PIDs continue using their existing notification path.
+
+Device Hub on macOS 27 exposed this condition. Three hide/unhide cycles passed
+in the original local candidate. Resolver unit tests exercise filtering and order,
+but do not substitute for these Workspace notification integration scenarios.

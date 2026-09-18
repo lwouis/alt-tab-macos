@@ -65,7 +65,7 @@ class WindowServerEvents {
         let center = NSWorkspace.shared.notificationCenter
         center.addObserver(forName: NSWorkspace.didActivateApplicationNotification, object: nil, queue: .main) { note in
             if let app = runningApp(note) {
-                let pid = app.processIdentifier
+                guard let pid = trackedPid(app) else { return }
                 Applications.frontmostPid = pid
                 let frontmostApp = Applications.findOrCreate(pid)
                 let now = ProcessInfo.processInfo.systemUptime
@@ -85,10 +85,10 @@ class WindowServerEvents {
             }
         }
         center.addObserver(forName: NSWorkspace.didHideApplicationNotification, object: nil, queue: .main) { note in
-            if let app = runningApp(note) { applicationVisibilityChanged(app.processIdentifier, hidden: true) }
+            if let app = runningApp(note) { applicationVisibilityChanged(app, hidden: true) }
         }
         center.addObserver(forName: NSWorkspace.didUnhideApplicationNotification, object: nil, queue: .main) { note in
-            if let app = runningApp(note) { applicationVisibilityChanged(app.processIdentifier, hidden: false) }
+            if let app = runningApp(note) { applicationVisibilityChanged(app, hidden: false) }
         }
     }
 
@@ -261,9 +261,15 @@ class WindowServerEvents {
         note.userInfo?[NSWorkspace.applicationUserInfoKey] as? NSRunningApplication
     }
 
+    private static func trackedPid(_ runningApp: NSRunningApplication) -> pid_t? {
+        if runningApp.processIdentifier > 0 { return runningApp.processIdentifier }
+        // Device Hub can report -1 even when acquired using its real WindowServer PID.
+        return Applications.list.first { $0.runningApplication.isEqual(runningApp) }?.pid
+    }
+
     /// Replaces AX's kAXApplicationHidden/Shown: "hidden" is an AppKit state the WindowServer doesn't own.
-    private static func applicationVisibilityChanged(_ pid: pid_t, hidden: Bool) {
-        guard let app = Applications.list.first(where: { $0.pid == pid }) else { return }
+    private static func applicationVisibilityChanged(_ runningApp: NSRunningApplication, hidden: Bool) {
+        guard let pid = trackedPid(runningApp), let app = Applications.list.first(where: { $0.pid == pid }) else { return }
         app.isHidden = hidden
         App.refreshOpenUiAfterExternalEvent(Windows.list.filter { $0.application.pid == pid })
     }

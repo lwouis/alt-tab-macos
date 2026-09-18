@@ -1161,6 +1161,7 @@ class Applications {
         runningApps.forEach { runningApp in
             let bundleIdentifier = runningApp.bundleIdentifier
             let processIdentifier = runningApp.processIdentifier
+            guard processIdentifier > 0 else { return }
             if bundleIdentifier == "com.apple.dock" {
                 DockEvents.observe(processIdentifier)
             }
@@ -1184,8 +1185,8 @@ class Applications {
     // ran off-main via ProcessCallScheduler. Runs on main; dedups by pid so it can't race a parallel creation.
     private static func createActualApp(_ runningApp: NSRunningApplication) {
         let pid = runningApp.processIdentifier
-        guard !(list.contains { $0.pid == pid }) else { return }
-        list.append(Application(runningApp))
+        guard pid > 0, !(list.contains { $0.pid == pid }) else { return }
+        list.append(Application(runningApp, pid: pid))
     }
 
     static func removeRunningApplications(_ terminatingApps: [NSRunningApplication]) {
@@ -1199,8 +1200,8 @@ class Applications {
             // comparing pid here can fail here, as it can be already nil; we use isEqual here to avoid the issue
             list.removeAll { $0.runningApplication.isEqual(tApp) }
         }
-        for tApp in terminatingApps {
-            let pid = tApp.processIdentifier
+        for app in existingAppsToRemove {
+            let pid = app.pid
             WindowSurfaceInventory.remove(pid: pid)
             AxObserverRegistry.shared.processExited(pid, generation: AttentionEngine.generation(of: pid))
             AttentionEngine.processExited(pid)
@@ -1285,7 +1286,7 @@ class Applications {
             return nil
         }
         refusedByDiscovery[pid] = nil
-        let app = Application(runningApp)
+        let app = Application(runningApp, pid: pid)
         list.append(app)
         return app
     }
