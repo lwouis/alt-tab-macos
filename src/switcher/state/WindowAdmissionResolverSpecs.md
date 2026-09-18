@@ -42,3 +42,5 @@ manager (`com.apple.WindowManager`), which draws the wallpaper, the Stage Manage
 overlays and owns no window a user can switch to. Owning an exact destination does not
 grant speculative placeholders: only regular apps get one. An accessory or prohibited process that briefly took
 focus (Raycast's palette, CoreServicesUIAgent's Gatekeeper alert) is not an app the user can switch back to.
+When WindowServer has already named a positive process id, that id remains the application's identity even if
+`NSRunningApplication.processIdentifier` temporarily reports `-1`. Discovery without either positive id is ignored.

@@ -272,6 +272,25 @@ final class ApplicationAdmissionResolverTests: XCTestCase {
     }
 }
 
+final class ApplicationPidResolverTests: XCTestCase {
+    func testWindowServerPidSurvivesAnInvalidRunningApplicationPid() {
+        XCTAssertEqual(ApplicationPidResolver.resolve(discoveredPid: 42, reportedPid: -1), 42)
+    }
+
+    func testDiscoveredPidRemainsCanonicalWhenLaunchServicesChanges() {
+        XCTAssertEqual(ApplicationPidResolver.resolve(discoveredPid: 42, reportedPid: 99), 42)
+    }
+
+    func testRunningApplicationPidIsUsedWithoutDiscoveryEvidence() {
+        XCTAssertEqual(ApplicationPidResolver.resolve(discoveredPid: nil, reportedPid: 42), 42)
+    }
+
+    func testInvalidPidsDoNotCreateAnApplicationIdentity() {
+        XCTAssertNil(ApplicationPidResolver.resolve(discoveredPid: nil, reportedPid: -1))
+        XCTAssertNil(ApplicationPidResolver.resolve(discoveredPid: 0, reportedPid: 0))
+    }
+}
+
 final class WindowlessApplicationResolverTests: XCTestCase {
     private func accepts(isRegular: Bool = false, isTerminated: Bool = false,
                          hasPlaceholder: Bool = false, hasWindow: Bool = false) -> Bool {

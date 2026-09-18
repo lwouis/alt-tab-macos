@@ -64,8 +64,7 @@ class WindowServerEvents {
         // app activation + hidden state have no WindowServer equivalent (they're AppKit concepts) — NSWorkspace
         let center = NSWorkspace.shared.notificationCenter
         center.addObserver(forName: NSWorkspace.didActivateApplicationNotification, object: nil, queue: .main) { note in
-            if let app = runningApp(note) {
-                let pid = app.processIdentifier
+            if let app = runningApp(note), let pid = knownPid(app) {
                 Applications.frontmostPid = pid
                 let frontmostApp = Applications.findOrCreate(pid)
                 let now = ProcessInfo.processInfo.systemUptime
@@ -85,10 +84,10 @@ class WindowServerEvents {
             }
         }
         center.addObserver(forName: NSWorkspace.didHideApplicationNotification, object: nil, queue: .main) { note in
-            if let app = runningApp(note) { applicationVisibilityChanged(app.processIdentifier, hidden: true) }
+            if let app = runningApp(note), let pid = knownPid(app) { applicationVisibilityChanged(pid, hidden: true) }
         }
         center.addObserver(forName: NSWorkspace.didUnhideApplicationNotification, object: nil, queue: .main) { note in
-            if let app = runningApp(note) { applicationVisibilityChanged(app.processIdentifier, hidden: false) }
+            if let app = runningApp(note), let pid = knownPid(app) { applicationVisibilityChanged(pid, hidden: false) }
         }
     }
 
@@ -259,6 +258,12 @@ class WindowServerEvents {
 
     private static func runningApp(_ note: Notification) -> NSRunningApplication? {
         note.userInfo?[NSWorkspace.applicationUserInfoKey] as? NSRunningApplication
+    }
+
+    private static func knownPid(_ runningApp: NSRunningApplication) -> pid_t? {
+        let trackedPid = Applications.list.first { $0.runningApplication.isEqual(runningApp) }?.pid
+        return ApplicationPidResolver.resolve(discoveredPid: trackedPid,
+                                              reportedPid: runningApp.processIdentifier)
     }
 
     /// Replaces AX's kAXApplicationHidden/Shown: "hidden" is an AppKit state the WindowServer doesn't own.

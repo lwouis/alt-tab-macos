@@ -1160,7 +1160,8 @@ class Applications {
     static func addRunningApplications(_ runningApps: [NSRunningApplication]) {
         runningApps.forEach { runningApp in
             let bundleIdentifier = runningApp.bundleIdentifier
-            let processIdentifier = runningApp.processIdentifier
+            guard let processIdentifier = ApplicationPidResolver.resolve(
+                discoveredPid: nil, reportedPid: runningApp.processIdentifier) else { return }
             if bundleIdentifier == "com.apple.dock" {
                 DockEvents.observe(processIdentifier)
             }
@@ -1175,32 +1176,31 @@ class Applications {
                     return
                 }
                 refusedByDiscovery[processIdentifier] = nil
-                createActualApp(runningApp)
+                createActualApp(runningApp, processIdentifier)
             }
         }
     }
 
     // The post-classification half of findOrCreate, for the discovery path where classification already
     // ran off-main via ProcessCallScheduler. Runs on main; dedups by pid so it can't race a parallel creation.
-    private static func createActualApp(_ runningApp: NSRunningApplication) {
-        let pid = runningApp.processIdentifier
+    private static func createActualApp(_ runningApp: NSRunningApplication, _ pid: pid_t) {
         guard !(list.contains { $0.pid == pid }) else { return }
-        list.append(Application(runningApp))
+        list.append(Application(runningApp, pid: pid))
     }
 
     static func removeRunningApplications(_ terminatingApps: [NSRunningApplication]) {
         let existingAppsToRemove = list.filter { app in terminatingApps.contains { tApp in app.runningApplication.isEqual(tApp) } }
         let existingWindowstoRemove = Windows.list.filter { window in terminatingApps.contains { tApp in window.application.runningApplication.isEqual(tApp) } }
         if existingAppsToRemove.isEmpty && existingWindowstoRemove.isEmpty { return }
+        let pidsToRemove = Set(existingAppsToRemove.map(\.pid) + existingWindowstoRemove.map { $0.application.pid })
         for tApp in terminatingApps {
             let ofQuitApp = Windows.list.filter { $0.application.runningApplication.isEqual(tApp) }
             if !ofQuitApp.isEmpty { Logger.debug { "remove appQuit count=\(ofQuitApp.count) \(ofQuitApp.map { $0.debugId })" } }
             Windows.removeWindows(ofQuitApp, false)
-            // comparing pid here can fail here, as it can be already nil; we use isEqual here to avoid the issue
+            // processIdentifier may already be -1; identity comparison keeps the tracked pid available for cleanup
             list.removeAll { $0.runningApplication.isEqual(tApp) }
         }
-        for tApp in terminatingApps {
-            let pid = tApp.processIdentifier
+        for pid in pidsToRemove {
             WindowSurfaceInventory.remove(pid: pid)
             AxObserverRegistry.shared.processExited(pid, generation: AttentionEngine.generation(of: pid))
             AttentionEngine.processExited(pid)
@@ -1285,7 +1285,7 @@ class Applications {
             return nil
         }
         refusedByDiscovery[pid] = nil
-        let app = Application(runningApp)
+        let app = Application(runningApp, pid: pid)
         list.append(app)
         return app
     }

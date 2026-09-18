@@ -11,6 +11,15 @@ struct ApplicationState: Equatable {
     var isHidden: Bool
 }
 
+enum ApplicationPidResolver {
+    /// A WindowServer or tracked-model pid names the process independently of LaunchServices, whose
+    /// `NSRunningApplication.processIdentifier` can temporarily become `-1` during lifecycle notifications.
+    static func resolve(discoveredPid: pid_t?, reportedPid: pid_t) -> pid_t? {
+        if let discoveredPid, discoveredPid > 0 { return discoveredPid }
+        return reportedPid > 0 ? reportedPid : nil
+    }
+}
+
 enum ApplicationAdmissionEvidence: Equatable {
     case discovery
     case attention

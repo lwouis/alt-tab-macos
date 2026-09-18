@@ -81,10 +81,10 @@ class Application: NSObject {
         return (result, cgImage.width)
     }
 
-    init(_ runningApplication: NSRunningApplication) {
+    init(_ runningApplication: NSRunningApplication, pid: pid_t) {
         self.runningApplication = runningApplication
         state = ApplicationState(
-            pid: runningApplication.processIdentifier,
+            pid: pid,
             bundleIdentifier: runningApplication.bundleIdentifier,
             localizedName: runningApplication.localizedName,
             isHidden: runningApplication.isHidden)
