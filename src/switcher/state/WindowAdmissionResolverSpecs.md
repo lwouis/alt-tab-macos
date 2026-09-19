@@ -43,4 +43,5 @@ overlays and owns no window a user can switch to. Owning an exact destination do
 grant speculative placeholders: only regular apps get one. An accessory or prohibited process that briefly took
 focus (Raycast's palette, CoreServicesUIAgent's Gatekeeper alert) is not an app the user can switch back to.
 When WindowServer has already named a positive process id, that id remains the application's identity even if
-`NSRunningApplication.processIdentifier` temporarily reports `-1`. Discovery without either positive id is ignored.
+`NSRunningApplication.processIdentifier` reports `-1` (briefly during lifecycle notifications, or permanently for
+Xcode's Device Hub). Discovery without either positive id is ignored.

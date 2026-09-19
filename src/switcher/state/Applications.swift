@@ -1266,6 +1266,11 @@ class Applications {
         }
     }
 
+    static func knownPid(_ runningApp: NSRunningApplication) -> pid_t? {
+        let trackedPid = list.first { $0.runningApplication.isEqual(runningApp) }?.pid
+        return ApplicationPidResolver.resolve(discoveredPid: trackedPid, reportedPid: runningApp.processIdentifier)
+    }
+
     @discardableResult
     static func findOrCreate(_ pid: pid_t, evidence: ApplicationAdmissionEvidence = .discovery) -> Application? {
         if let app = (list.first { $0.pid == pid }) { return app }

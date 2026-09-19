@@ -375,7 +375,7 @@ class Window {
             Windows.promoteAttentionEvidence(cgWindowId!)
             let targetMaybeCrossSpace = !self.spaceIds.isEmpty && !self.spaceIds.contains(originSpaceId)
             let originFrontPid = targetMaybeCrossSpace
-                ? NSWorkspace.shared.frontmostApplication?.processIdentifier : nil
+                ? NSWorkspace.shared.frontmostApplication.flatMap(Applications.knownPid) : nil
             BackgroundWork.accessibilityCommandsQueue.addOperation { [weak self] in
                 self?.applyFocus(generation, originSpaceId, originFrontPid)
             }

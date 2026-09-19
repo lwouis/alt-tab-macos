@@ -13,7 +13,10 @@ struct ApplicationState: Equatable {
 
 enum ApplicationPidResolver {
     /// A WindowServer or tracked-model pid names the process independently of LaunchServices, whose
-    /// `NSRunningApplication.processIdentifier` can temporarily become `-1` during lifecycle notifications.
+    /// `NSRunningApplication.processIdentifier` can report `-1`: temporarily during lifecycle notifications, and
+    /// for the whole life of an app whose launcher re-execs into another binary. Measured on Xcode 27's Device
+    /// Hub (`DevicesTrampoline` re-execs `DeviceHub` in place): `runningApplications`, `frontmostApplication`
+    /// and `NSRunningApplication(processIdentifier:)` with the real pid all report `-1`.
     static func resolve(discoveredPid: pid_t?, reportedPid: pid_t) -> pid_t? {
         if let discoveredPid, discoveredPid > 0 { return discoveredPid }
         return reportedPid > 0 ? reportedPid : nil
