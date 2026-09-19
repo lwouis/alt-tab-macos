@@ -36,6 +36,44 @@ final class SchedulingPolicyTests: XCTestCase {
         XCTAssertEqual(ThrottleDecision.decide(lastFireNs: 0, nowNs: 30, delayNs: 200, tailScheduled: true), .coalesce)
     }
 
+    // MARK: - A1. ThrottleSlot
+
+    /// #6047: a page load retitles a Chrome window several times within 200ms, and the switcher must end on
+    /// the last title, not the second one
+    func testThrottleSlotTailRunsTheLatestWorkOfABurst() {
+        var slot = ThrottleSlot<String>()
+        XCTAssertEqual(slot.offer("A", nowNs: 0, delayNs: 200), .runNow)
+        XCTAssertEqual(slot.offer("B", nowNs: 30, delayNs: 200), .scheduleTail(remainingNs: 170))
+        XCTAssertEqual(slot.offer("C", nowNs: 60, delayNs: 200), .coalesce)
+        XCTAssertEqual(slot.offer("D", nowNs: 90, delayNs: 200), .coalesce)
+        XCTAssertEqual(slot.takeTail(nowNs: 200), "D")
+    }
+
+    func testThrottleSlotTailRestartsTheWindow() {
+        var slot = ThrottleSlot<String>()
+        _ = slot.offer("A", nowNs: 0, delayNs: 200)
+        _ = slot.offer("B", nowNs: 30, delayNs: 200)
+        XCTAssertEqual(slot.takeTail(nowNs: 200), "B")
+        XCTAssertFalse(slot.tailScheduled)
+        XCTAssertEqual(slot.offer("C", nowNs: 250, delayNs: 200), .scheduleTail(remainingNs: 150))
+    }
+
+    func testThrottleSlotTailWithNothingPendingRunsNothing() {
+        var slot = ThrottleSlot<String>()
+        _ = slot.offer("A", nowNs: 0, delayNs: 200)
+        XCTAssertNil(slot.takeTail(nowNs: 200))
+        XCTAssertEqual(slot.lastFireNs, 0)
+    }
+
+    /// the tail's deadline passed but its queue was busy, and a newer call ran on the leading edge first
+    func testThrottleSlotLateTailCannotLandOlderWorkOverNewer() {
+        var slot = ThrottleSlot<String>()
+        _ = slot.offer("A", nowNs: 0, delayNs: 200)
+        _ = slot.offer("B", nowNs: 30, delayNs: 200)
+        XCTAssertEqual(slot.offer("C", nowNs: 500, delayNs: 200), .runNow)
+        XCTAssertNil(slot.takeTail(nowNs: 510))
+    }
+
     // MARK: - A2. RepaintCoalescingPolicy
 
     func testRepaintLoneRequestWaitsOneFrame() {

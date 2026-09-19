@@ -9,7 +9,7 @@ import Foundation
 enum ThrottleDecision: Equatable {
     case runNow                            // leading edge (or window already elapsed): run now, (re)start the window
     case scheduleTail(remainingNs: UInt64) // within window, no trailing run pending yet: schedule one after `remaining`
-    case coalesce                          // within window, a trailing run is already pending: drop (latest runs on the tail)
+    case coalesce                          // within window, a trailing run is already pending: it now runs this call's work instead
 
     static func decide(lastFireNs: UInt64?, nowNs: UInt64, delayNs: UInt64, tailScheduled: Bool) -> ThrottleDecision {
         // first call ever, or a (practically impossible) backwards clock → treat as a fresh leading edge
@@ -17,6 +17,43 @@ enum ThrottleDecision: Equatable {
         let elapsed = nowNs - last
         if elapsed >= delayNs { return .runNow }
         return tailScheduled ? .coalesce : .scheduleTail(remainingNs: delayNs - elapsed)
+    }
+}
+
+/// One throttle key's state: when it last ran, and the work its pending tail will run.
+///
+/// **The tail runs the LATEST work offered, never the one that scheduled it.** Callers hand in closures that
+/// carry values (`Applications.applyObservedTitle` carries the title an app just announced), so a tail that
+/// kept the closure it was scheduled with applied the second title of a burst and dropped the last one. The
+/// window then kept a stale or empty title until something re-read it (#6047).
+struct ThrottleSlot<Work> {
+    private(set) var lastFireNs: UInt64?
+    private var pending: Work?
+
+    var tailScheduled: Bool { pending != nil }
+
+    /// `.runNow`: the caller runs `work` itself. `.scheduleTail`: the caller schedules one `takeTail` after
+    /// `remainingNs`. `.coalesce`: nothing to do, the tail already scheduled will run `work`.
+    ///
+    /// A `.runNow` while a tail is still queued (its deadline passed but its queue has not got to it yet)
+    /// empties the slot, so that late tail finds nothing and cannot land older work over this one.
+    mutating func offer(_ work: Work, nowNs: UInt64, delayNs: UInt64) -> ThrottleDecision {
+        let decision = ThrottleDecision.decide(lastFireNs: lastFireNs, nowNs: nowNs, delayNs: delayNs, tailScheduled: tailScheduled)
+        switch decision {
+            case .runNow:
+                lastFireNs = nowNs
+                pending = nil
+            case .scheduleTail, .coalesce: pending = work
+        }
+        return decision
+    }
+
+    /// The tail fired: hand back the latest work offered, and restart the window from now.
+    mutating func takeTail(nowNs: UInt64) -> Work? {
+        guard let work = pending else { return nil }
+        pending = nil
+        lastFireNs = nowNs
+        return work
     }
 }
 

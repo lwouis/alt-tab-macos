@@ -2,14 +2,12 @@ import Cocoa
 
 class Throttler {
     private let delayInNanoseconds: UInt64
-    /// nil until the first run, so the FIRST call is a leading edge rather than one throttled against the
+    /// Starts with no last run, so the FIRST call is a leading edge rather than one throttled against the
     /// instant this object happened to be built. Swift builds a static lazily, i.e. inside the first call
     /// itself, so `now` there meant the first call always paid the whole delay: the launch window inventory
     /// could not run in AltTab's first second however early it was asked for, and a summon at +0.4s drew an
-    /// empty switcher and filled it 1.3s later. `ThrottlerWithKey` has always started from no entry, and
-    /// `ThrottleDecision` documents nil as a fresh leading edge; this makes the two agree.
-    private var lastTimeInNanoseconds: UInt64?
-    private var nextScheduled = false
+    /// empty switcher and filled it 1.3s later.
+    private var slot = ThrottleSlot<() -> Void>()
 
     init(delayInMs: Int) {
         self.delayInNanoseconds = UInt64(delayInMs) * 1_000_000
@@ -17,23 +15,12 @@ class Throttler {
 
     func throttleOrProceed(_ block: @escaping () -> Void) {
         dispatchPrecondition(condition: .onQueue(.main))
-        let now = DispatchTime.now().uptimeNanoseconds
-        switch ThrottleDecision.decide(lastFireNs: lastTimeInNanoseconds, nowNs: now, delayNs: delayInNanoseconds, tailScheduled: nextScheduled) {
-            case .runNow:
-                lastTimeInNanoseconds = now
-                block()
-            case .coalesce:
-                break
+        switch slot.offer(block, nowNs: DispatchTime.now().uptimeNanoseconds, delayNs: delayInNanoseconds) {
+            case .runNow: block()
+            case .coalesce: break
             case .scheduleTail(let remainingNs):
-                nextScheduled = true
-                // `remaining`, not a whole fresh window. Scheduling `delay` from HERE made the tail land up
-                // to twice as late as the throttle promises: a call arriving 190ms into a 200ms window ran
-                // at ~400ms instead of ~200ms. `ThrottlerWithKey` has always used `remaining`; this makes
-                // the two agree. The 10ms margin keeps the re-entrant `decide` from landing a hair early
-                // and scheduling a second tail for the remainder.
-                DispatchQueue.main.asyncAfter(deadline: .now() + .nanoseconds(Int(remainingNs) + 10_000_000)) { [self] in
-                    nextScheduled = false
-                    throttleOrProceed(block)
+                DispatchQueue.main.asyncAfter(deadline: .now() + .nanoseconds(Int(remainingNs))) { [self] in
+                    slot.takeTail(nowNs: DispatchTime.now().uptimeNanoseconds)?()
                 }
         }
     }
@@ -41,17 +28,13 @@ class Throttler {
 
 class ThrottlerWithKey {
     private let delayInNanoseconds: UInt64
-    private let map = ConcurrentMap<String, ThrottleState>()
-
-    private struct ThrottleState {
-        let time: UInt64
-        var tailScheduled: Bool
-    }
+    private let map = ConcurrentMap<String, ThrottleSlot<() -> Void>>()
 
     init(delayInMs: Int) {
         self.delayInNanoseconds = UInt64(delayInMs) * 1_000_000
     }
 
+    /// Also cancels a pending tail: it finds no slot and runs nothing.
     func removeEntry(withKey key: String) {
         map.withLock { $0[key] = nil }
     }
@@ -65,47 +48,36 @@ class ThrottlerWithKey {
     }
 
     func throttleOrProceed(key: String, queue: LabeledOperationQueue? = nil, priority: Operation.QueuePriority = .normal, _ block: @escaping () -> Void) {
-        let shouldThrottle = map.withLock { map -> Bool in
-            let now = DispatchTime.now().uptimeNanoseconds
-            switch ThrottleDecision.decide(lastFireNs: map[key]?.time, nowNs: now, delayNs: delayInNanoseconds, tailScheduled: map[key]?.tailScheduled ?? false) {
-                case .runNow:
-                    map[key] = ThrottleState(time: now, tailScheduled: false)
-                    return false
-                case .coalesce:
-                    return true
-                case .scheduleTail(let remaining):
-                    map[key] = ThrottleState(time: map[key]!.time, tailScheduled: true)
-                    let tailBlock = {
-                        let shouldExecute = self.map.withLock { map -> Bool in
-                            guard let state = map[key], state.tailScheduled else { return false }
-                            map[key] = ThrottleState(time: DispatchTime.now().uptimeNanoseconds, tailScheduled: false)
-                            return true
-                        }
-                        if shouldExecute { block() }
-                    }
-                    if let queue {
-                        queue.strongUnderlyingQueue.asyncAfter(deadline: .now() + .nanoseconds(Int(remaining))) { [weak queue] in
-                            guard let queue else { return }
-                            let op = BlockOperation(block: tailBlock)
-                            op.queuePriority = priority
-                            queue.addOperation(op)
-                        }
-                    } else {
-                        let callerQueue = OperationQueue.current?.underlyingQueue ?? DispatchQueue.main
-                        callerQueue.asyncAfter(deadline: .now() + .nanoseconds(Int(remaining)), execute: tailBlock)
-                    }
-                    return true
-            }
+        let decision = map.withLock { map in
+            map[key, default: ThrottleSlot()].offer(block, nowNs: DispatchTime.now().uptimeNanoseconds, delayNs: delayInNanoseconds)
         }
-        if !shouldThrottle {
-            if let queue {
-                let op = BlockOperation(block: block)
-                op.queuePriority = priority
-                queue.addOperation(op)
-            } else {
-                block()
-            }
+        switch decision {
+            case .runNow: run(block, queue, priority)
+            case .coalesce: break
+            case .scheduleTail(let remaining): scheduleTail(key, remaining, queue, priority)
         }
+    }
+
+    private func scheduleTail(_ key: String, _ remaining: UInt64, _ queue: LabeledOperationQueue?, _ priority: Operation.QueuePriority) {
+        let tailBlock = {
+            let latest = self.map.withLock { $0[key]?.takeTail(nowNs: DispatchTime.now().uptimeNanoseconds) }
+            latest?()
+        }
+        guard let queue else {
+            let callerQueue = OperationQueue.current?.underlyingQueue ?? DispatchQueue.main
+            return callerQueue.asyncAfter(deadline: .now() + .nanoseconds(Int(remaining)), execute: tailBlock)
+        }
+        queue.strongUnderlyingQueue.asyncAfter(deadline: .now() + .nanoseconds(Int(remaining))) { [weak queue] in
+            guard let queue else { return }
+            self.run(tailBlock, queue, priority)
+        }
+    }
+
+    private func run(_ block: @escaping () -> Void, _ queue: LabeledOperationQueue?, _ priority: Operation.QueuePriority) {
+        guard let queue else { return block() }
+        let op = BlockOperation(block: block)
+        op.queuePriority = priority
+        queue.addOperation(op)
     }
 }
 

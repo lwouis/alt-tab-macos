@@ -32,6 +32,17 @@ Mirrors `SchedulingPolicyTests.swift` 1:1.
 - **testThrottleClockGoingBackwardsRunsNow** — now < last (monotonic-clock guard) → `runNow`.
 - **testThrottleBurstCoalescesAfterOneTail** — a burst yields one leading run, one `scheduleTail`, then `coalesce` for the rest.
 
+### A1. ThrottleSlot
+
+One key's throttle state, holding the work its pending tail will run. The tail runs the LATEST work offered:
+callers pass closures that carry values, so running the one that scheduled the tail applied a burst's second
+value and dropped its last. A window kept a stale title that way until something re-read it (#6047).
+
+- **testThrottleSlotTailRunsTheLatestWorkOfABurst** — A runs now, B schedules the tail, C and D coalesce, the tail runs D.
+- **testThrottleSlotTailRestartsTheWindow** — the tail counts as a run: the next call inside 200ms of it schedules a new tail.
+- **testThrottleSlotTailWithNothingPendingRunsNothing** — a tail with no work pending returns nil and leaves the window alone.
+- **testThrottleSlotLateTailCannotLandOlderWorkOverNewer** — a leading-edge run empties the slot, so a tail its queue ran late finds nothing.
+
 ### A2. RepaintCoalescingPolicy
 
 A fresh request waits 16ms so a burst can merge before drawing. If the previous paint left a later quiet
