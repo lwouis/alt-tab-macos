@@ -23,7 +23,7 @@ struct SemanticAttentionOffer: Equatable {
 /// arrival sequences; every decision itself belongs to the pure kernel.
 ///
 /// Its real job is translation, and the translation IS the architecture. The reducer's vocabulary is shaped
-/// by where an event came from (the WindowServer, accessibility, our own switch). The model's is shaped by
+/// by where an event came from (the WindowServer, accessibility, `NSWorkspace`). The model's is shaped by
 /// what the evidence MEANS: a plain activation names an app and nothing else, an app's answer is a fact about
 /// that app rather than a bid for the global front, and the WindowServer's order and focus family maps to
 /// nothing at all. Physical lifecycle can erase a dead cached wid but cannot name attention, which is why the
@@ -37,6 +37,9 @@ struct AttentionDriver {
         let representativeOf: (CGWindowID) -> CGWindowID?
         /// the app that is frontmost RIGHT NOW, from the model rather than from observed transitions
         let frontmostPid: () -> pid_t?
+        /// is a `kAXFocusedWindow` answer for this app already on its way, because AltTab asked it to focus a
+        /// window and reads back where focus landed (`FocusIntents.awaitedAnswer`)
+        let answerPending: (pid_t) -> Bool
     }
 
     /// What the model decided, and the window it decided about before the tab mapping was applied.
@@ -62,7 +65,7 @@ struct AttentionDriver {
     mutating func decide(_ input: ReducerInput, context: Context) -> Outcome {
         var result = reduceAttention(translate(input, context))
         let observed = Self.namedWindow(in: input) ?? result.observedWid
-        if case let .appActivated(pid, _, nil) = input, let observed, result.wid != nil {
+        if case let .appActivated(pid, _) = input, let observed, result.wid != nil {
             if let representative = context.representativeOf(observed) {
                 result.wid = representative
             } else if let process = context.generation(pid) {
@@ -115,8 +118,6 @@ struct AttentionDriver {
     private static func namedWindow(in input: ReducerInput) -> CGWindowID? {
         switch input {
         case let .axFocusedWindowRead(_, wid, _): return wid
-        case let .altTabFocusedWindowInFrontmostApp(wid, _, _): return wid
-        case let .appActivated(_, _, altTabTargetWid): return altTabTargetWid
         default: return nil
         }
     }
@@ -139,7 +140,6 @@ struct AttentionDriver {
         case .spacesSynced: return "spacesSynced"
         case .axFocusedWindowRead(_, _, let viaActivationRead):
             return viaActivationRead ? "axActivationRead" : "axFocusedRead"
-        case .altTabFocusedWindowInFrontmostApp: return "altTab"
         case .axFocusedWindowReadFailed: return "axReadFailed"
         case .livenessConfirmedDead: return "livenessDead"
         case .axElementEnded: return "axElementEnded"
@@ -156,18 +156,10 @@ struct AttentionDriver {
     /// The reducer's vocabulary, expressed in the model's.
     private mutating func translate(_ input: ReducerInput, _ context: Context) -> [AttentionModelInput] {
         switch input {
-        case let .appActivated(pid, _, altTabTargetWid):
+        case let .appActivated(pid, _):
             guard let process = register(pid, context) else { return [] }
-            if let wid = altTabTargetWid, let identity = identity(wid, process, context) {
-                return [.named(.altTab, observed: identity.observed,
-                    representative: identity.representative, nextAttention())]
-            }
+            if context.answerPending(pid) { return [.frontProcessChangedAwaitingAnswer(process)] }
             return [.frontProcessChanged(process)]
-        case let .altTabFocusedWindowInFrontmostApp(wid, pid, _):
-            guard let process = register(pid, context),
-                  let identity = identity(wid, process, context) else { return [] }
-            return [.named(.altTab, observed: identity.observed, representative: identity.representative,
-                nextAttention())]
         case let .axFocusedWindowRead(pid, wid, viaActivationRead):
             syncFrontmost(context)
             guard let process = register(pid, context),

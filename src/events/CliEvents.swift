@@ -107,6 +107,11 @@ class CliServer {
             App.deferRepaintsForQa(min(5000, max(0, ms)))
             return noOutput
         }
+        if rawValue == "--qa-refuse-next-focus" {
+            FocusIntents.shared.refuseNextForQa()
+            Logger.info { "QA: refusing the next focus" }
+            return noOutput
+        }
         if rawValue == "--qa-drop-next-discovery", #available(macOS 26.0, *) {
             WindowCaptureScreenshots.dropNextDiscoveryForQa()
             return noOutput

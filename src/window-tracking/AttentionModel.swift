@@ -41,11 +41,21 @@ enum AttentionModel {
             guard isLive(state, process) else { return .ignored(.staleGeneration) }
             let before = state.visibleFront
             state.frontProcess = process
+            state.awaitingAnswer.remove(process)
             // R6, one bounded read, one trigger. An app activation names NO window from any source when the
             // app's focused window did not change — measured, and it is the one hole nothing else fills.
             guard let fact = state.focusedWindow[process] else { return .readFocusedWindow(process) }
             guard fact.target != before else { return .none }
             return .front(fact.target)
+        case let .frontProcessChangedAwaitingAnswer(process):
+            // R7, an answer already on its way beats the one already here. The app's stored fact is its
+            // answer from BEFORE the switch, so fronting it here walks the window the user is leaving to the
+            // top of the order and leaves it one tile from the next summon's default pick. No read either:
+            // the one that will answer this is already out.
+            guard isLive(state, process) else { return .ignored(.staleGeneration) }
+            state.frontProcess = process
+            state.awaitingAnswer.insert(process)
+            return .none
         case let .named(namer, observed, representative, sequence):
             guard isLive(state, observed.process) else { return .ignored(.staleGeneration) }
             guard let target = eligible(observed, representative) else { return .ignored(.ineligible) }
@@ -58,12 +68,16 @@ enum AttentionModel {
                 return .ignored(.staleSequence)
             }
             let before = state.visibleFront
+            // The activation this answers went by without moving the front, so the move is owed here even
+            // when the answer names the window the app had already stored: unmoved, the order still has the
+            // app the user LEFT on top.
+            let owesFront = state.awaitingAnswer.remove(process) != nil
             state.focusedWindow[process] = FocusedWindowFact(observed: observed, target: target,
                 sequence: sequence)
             if namer.carriesTheFrontProcess { state.frontProcess = process }
             // R2, every namer writes a fact, never a command. A late answer from an app the user has already
             // left updates that app's entry and moves nothing.
-            guard state.frontProcess == process, target != before else { return .recorded(target) }
+            guard state.frontProcess == process, owesFront || target != before else { return .recorded(target) }
             return .front(target)
         case let .focusedWindowUnknown(process):
             // R5, unknown is a value: do not move the front for this process. A read that came back empty is
@@ -75,6 +89,7 @@ enum AttentionModel {
 
     private static func forget(_ state: inout AttentionModelState, _ process: ProcessGeneration) {
         state.focusedWindow[process] = nil
+        state.awaitingAnswer.remove(process)
         if state.frontProcess == process { state.frontProcess = nil }
     }
 
@@ -95,6 +110,9 @@ struct AttentionModelState: Equatable {
     var liveGenerations = [Int32: ProcessGeneration]()
     var frontProcess: ProcessGeneration?
     var focusedWindow = [ProcessGeneration: FocusedWindowFact]()
+    /// Processes that took the front while an answer about their focused window was already on its way, so
+    /// the front was not moved for them. The answer owes that move, whichever window it names.
+    var awaitingAnswer = Set<ProcessGeneration>()
 
     /// **Nil means "nobody has said", not "nothing is focused".** The decision stream is the API: a consumer
     /// moves the order when it is handed `.front`, and does nothing otherwise. Writing this value through
@@ -143,19 +161,17 @@ struct FocusedWindowFact: Equatable {
     var sequence: IngressSequence
 }
 
-/// Who named the window. Two of these carry the front process with them, because the user's action names the
-/// app and the window in the same breath; the other two are the app talking about itself.
+/// Who named the window. The click carries the front process with it, because the user's action names the app
+/// and the window in the same breath; the other two are the app talking about itself.
 enum AttentionNamer: Equatable {
     /// the type-13 click channel — the earliest source there is, and the only one that survives a wedged app
     case click
-    /// AltTab's own switch: we activate the app ourselves, so the action names both levels
-    case altTab
     /// the app's own accessibility answer about which of its windows is focused
     case app
     /// the one bounded `kAXFocusedWindow` read fired on an activation that named no window
     case activationRead
 
-    var carriesTheFrontProcess: Bool { self == .click || self == .altTab }
+    var carriesTheFrontProcess: Bool { self == .click }
 }
 
 enum AttentionModelInput: Equatable {
@@ -165,6 +181,10 @@ enum AttentionModelInput: Equatable {
     case windowInvalidated(UInt32)
     /// `NSWorkspace` named an app. It names no window, and that is the whole point of the split.
     case frontProcessChanged(ProcessGeneration)
+    /// The same, for the activation provoked by a switch AltTab asked for and has not heard back about. The
+    /// app's stored answer predates that switch, so it names nothing here either — and this time not even a
+    /// read, because the answer is already out.
+    case frontProcessChangedAwaitingAnswer(ProcessGeneration)
     case named(AttentionNamer, observed: WindowIdentity, representative: WindowIdentity?, IngressSequence)
     /// the bounded read came back with no window
     case focusedWindowUnknown(ProcessGeneration)

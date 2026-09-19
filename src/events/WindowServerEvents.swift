@@ -35,18 +35,6 @@ class WindowServerEvents {
     static var inSpaceTransition: Bool { ProcessInfo.processInfo.systemUptime < spaceTransitionUntil }
     /// debounces the 1329/1401 Space-change burst into one settled handler (replaces SpacesEvents)
     private static var spaceChangeWorkItem: DispatchWorkItem?
-    /// **AltTab's own switch names its target.** It is one of the model's namers, so it goes there
-    /// directly rather than waiting for the OS to describe what we just did. The activation that follows a
-    /// cross-app switch carries the same wid, which is redundant and deliberately so: the two arrive in
-    /// either order and naming the same window twice is a no-op.
-    static func noteAltTabInitiatedFocus(_ wid: CGWindowID, _ pid: pid_t) {
-        let now = ProcessInfo.processInfo.systemUptime
-        altTabInitiatedFocus = (wid: wid, pid: pid, at: now)
-        TrackedWindowStateBridge.dispatch(.altTabFocusedWindowInFrontmostApp(wid: wid, pid: pid, now: now))
-    }
-
-    /// One-shot and time-bounded, for the activation that follows a cross-app switch.
-    private static var altTabInitiatedFocus: (wid: CGWindowID, pid: pid_t, at: TimeInterval)?
 
     static func observe() {
         guard !started else { return }
@@ -70,13 +58,7 @@ class WindowServerEvents {
             if let app = runningApp(note), let pid = knownPid(app) {
                 Applications.frontmostPid = pid
                 let frontmostApp = Applications.findOrCreate(pid)
-                let now = ProcessInfo.processInfo.systemUptime
-                var knownTarget: CGWindowID? = nil
-                if let intent = altTabInitiatedFocus, intent.pid == pid, now - intent.at < 1 {
-                    knownTarget = intent.wid
-                    altTabInitiatedFocus = nil
-                }
-                TrackedWindowStateBridge.dispatch(.appActivated(pid: pid, now: now, altTabTargetWid: knownTarget))
+                TrackedWindowStateBridge.dispatch(.appActivated(pid: pid, now: ProcessInfo.processInfo.systemUptime))
                 if let frontmostApp {
                     _ = frontmostApp.addWindowlessWindowIfNeeded()
                     App.checkIfShortcutsShouldBeDisabled(frontmostApp.focusedWindow, frontmostApp)
@@ -246,31 +228,50 @@ class WindowServerEvents {
     }
 
     /// A plain activation names only a process. When the model has no focused-window fact for it, perform the
-    /// one read that fills that hole. A dedicated element carries the measured 250ms cap, so a wedged app can
-    /// occupy one bounded worker but never the main thread or the observer runloop. The answer carries the
-    /// issue sequence allocated by `AttentionDriver`, and therefore loses to any app answer that overtook it.
+    /// one read that fills that hole. The answer carries the issue sequence allocated by `AttentionDriver`,
+    /// and therefore loses to any app answer that overtook it.
     static func readFocusedWindowOnActivation(_ pid: pid_t) {
+        readFocusedWindow(pid, key: "pid-\(pid)-activation-focus", viaActivationRead: true)
+    }
+
+    /// **AltTab's own switch is heard from the OS, never assumed.** Once the focus operation has run, ask the
+    /// app where key focus actually landed. A switch inside the app that is already frontmost produces no
+    /// activation, so for an app whose AX focus notifications never arrive this read is the only thing that
+    /// says the user moved (`testTwoAltTabsIntoTheSameAppBothMoveTheOrder`). A focus that did not take reads
+    /// back the window that kept focus, and the order stays true to the screen (#6055).
+    static func readFocusedWindowAfterFocusing(_ pid: pid_t) {
+        readFocusedWindow(pid, key: "pid-\(pid)-post-focus", viaActivationRead: false)
+    }
+
+    /// A dedicated element carries the measured 250ms cap, so a wedged app can occupy one bounded worker but
+    /// never the main thread or the observer runloop.
+    private static func readFocusedWindow(_ pid: pid_t, key: String, viaActivationRead: Bool) {
         guard Applications.findOrCreate(pid) != nil else { return }
-        AXCallScheduler.shared.schedule(key: "pid-\(pid)-activation-focus", pid: pid) {
+        AXCallScheduler.shared.schedule(key: key, pid: pid) {
             let appAx = AXUIElementCreateApplication(pid)
             AXUIElementSetMessagingTimeout(appAx, 0.25)
             // Our own windows (e.g. Preferences) are tracked like any app's; both reads use the pid-aware
             // wrappers so an own-process query runs AppKit on main.
-            guard let focused = try? appAx.attributes([kAXFocusedWindowAttribute], pid: pid).focusedWindow,
-                  let wid = try? focused.cgWindowId(pid: pid) else {
-                // A wedged or windowless app. Reported, not dropped: the model asked for this read and would
-                // otherwise keep waiting on it forever.
-                return DispatchQueue.main.async {
-                    TrackedWindowStateBridge.dispatch(.axFocusedWindowReadFailed(pid: pid))
-                }
-            }
-            DispatchQueue.main.async {
-                TrackedWindowStateBridge.dispatch(.axFocusedWindowRead(pid: pid, wid: wid,
-                    viaActivationRead: true))
-            }
+            let focused = try? appAx.attributes([kAXFocusedWindowAttribute], pid: pid).focusedWindow
+            let wid = focused.flatMap { try? $0.cgWindowId(pid: pid) }
+            DispatchQueue.main.async { focusedWindowAnswered(pid, wid, viaActivationRead) }
         }
     }
 
+    /// The read came back. The post-focus one is the answer the pending switch was waiting for, whether or
+    /// not the app named a window: a wedged app that cannot answer must not keep the rest of the model
+    /// waiting on it either.
+    private static func focusedWindowAnswered(_ pid: pid_t, _ wid: CGWindowID?, _ viaActivationRead: Bool) {
+        if !viaActivationRead { FocusIntents.shared.heardBack(pid: pid) }
+        if let wid {
+            return TrackedWindowStateBridge.dispatch(.axFocusedWindowRead(pid: pid, wid: wid,
+                viaActivationRead: viaActivationRead))
+        }
+        // A wedged or windowless app. The activation read reports it: the model asked for that read and would
+        // otherwise keep waiting on it forever.
+        guard viaActivationRead else { return }
+        TrackedWindowStateBridge.dispatch(.axFocusedWindowReadFailed(pid: pid))
+    }
 
     /// 1329/1401 can fire several times during one Space transition; debounce so the topology refresh + UI
     /// reconcile run once, after it settles. The settled reaction (topology refresh + Space re-sync +

@@ -370,17 +370,8 @@ class Window {
             // and it goes stale after sleep/monitor changes until syncSpacesState re-queries). Treating unknown
             // as cross-Space ran SLSSpaceSetFrontPSN on the CURRENT Space, re-fronting the previous app and
             // undoing the raise while the window stayed key (#5586, the Slack-after-sleep variant).
-            // **Become the current intent BEFORE telling the model where we are going.** A stale operation
-            // finishing on the queue repairs to whatever `FocusIntents` calls current, so any gap between
-            // the two leaves it re-asserting the PREVIOUS target — after the model has already been told
-            // the new one. That is a switch the user then has to make twice: with targets alternating, the
-            // next alt-tab offers the window they just left. Measured on a 10-pair run (F-01, 2026-09-17):
-            // the announcement landed at 07.827, an operation from 642ms earlier finished 3ms later and
-            // re-fronted the previous window, and the pairs ended one window off.
+            // The window order is NOT moved here. It moves when the OS reports the focus (#6055).
             let generation = FocusIntents.shared.request(wid: cgWindowId!, pid: application.pid)
-            // AltTab knows exactly which window it is focusing — record it so the coming app activation
-            // bumps this window directly instead of divining the focus from a racy 808 / AX read (#5596).
-            WindowServerEvents.noteAltTabInitiatedFocus(cgWindowId!, application.pid)
             Windows.promoteAttentionEvidence(cgWindowId!)
             let targetMaybeCrossSpace = !self.spaceIds.isEmpty && !self.spaceIds.contains(originSpaceId)
             let originFrontPid = targetMaybeCrossSpace
@@ -412,6 +403,9 @@ class Window {
     /// z-order re-asserts the newer intent on its way out — see FocusIntentPolicySpecs.md.
     private func applyFocus(_ generation: FocusGeneration, _ originSpaceId: CGSSpaceID, _ originFrontPid: pid_t?) {
         guard FocusIntents.shared.mayProceed(generation) else { return }
+        #if DEBUG
+        if FocusIntents.shared.consumeRefusalForQa() { return refusedForQa() }
+        #endif
         if self.isMinimized, let element = axUiElement {
             try? element.setAttribute(kAXMinimizedAttribute, false)
         }
@@ -429,10 +423,24 @@ class Window {
         restoreOriginSpaceFront(originSpaceId, originFrontPid)
         repairIfSuperseded(generation)
         guard FocusIntents.shared.mayProceed(generation) else { return }
+        hearWhereFocusLanded()
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) {
             WindowThumbnails.previewSelectedIfNeeded()
         }
     }
+
+    private func hearWhereFocusLanded() {
+        let pid = application.pid
+        DispatchQueue.main.async { WindowServerEvents.readFocusedWindowAfterFocusing(pid) }
+    }
+
+    #if DEBUG
+    /// The operation still asks where focus landed, as a real one the OS ignored would.
+    private func refusedForQa() {
+        Logger.info { "QA: refused the focus of #\(self.cgWindowId ?? 0)" }
+        hearWhereFocusLanded()
+    }
+    #endif
 
     /// Steps 2 and 3. Step 3 is the only AX-dependent step: 1 and 2 use the wid and psn directly, so a window
     /// with no element still gets fronted and made key — which is the whole point of keeping a hung app's
@@ -477,8 +485,7 @@ class Window {
     /// The wid goes in so the policy can tell that apart from a stale operation aiming at the SAME window as
     /// the newer one, whose late raise puts exactly the right window on top and owes nothing.
     /// Steps 1 and 2 only: step 3 would need that window's AX element, and `Windows` is main-thread state,
-    /// while the wid and psn are enough to front it and make it key again. Re-name the target too, so the
-    /// activation this provokes is attributed to it rather than to a racy read (#5596).
+    /// while the wid and psn are enough to front it and make it key again.
     private func repairIfSuperseded(_ generation: FocusGeneration) {
         guard let intent = FocusIntents.shared.finish(generation, wid: cgWindowId ?? 0) else { return }
         var psn = ProcessSerialNumber()
@@ -489,9 +496,7 @@ class Window {
         // indistinguishable in the log from an ordinary switch, and reading one back out of a run took an
         // elimination over every other emitter of that naming (F-01, 2026-09-17).
         Logger.debug { "focus repair: re-asserting #\(intent.wid) over the late \(self.cgWindowId ?? 0)" }
-        DispatchQueue.main.async {
-            WindowServerEvents.noteAltTabInitiatedFocus(intent.wid, intent.pid)
-        }
+        DispatchQueue.main.async { WindowServerEvents.readFocusedWindowAfterFocusing(intent.pid) }
     }
 
     /// For some windows (e.g. Slack) the AX API returns no title, so we fall back to the WindowServer's, and

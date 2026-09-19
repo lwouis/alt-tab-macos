@@ -4,8 +4,8 @@ import Cocoa
 /// looking at.** Main-thread only, like the model it feeds.
 ///
 /// Three channels reach it, and they are the only three:
-/// - **the reducer's input stream** (`dispatched`), for an app activation, an answer to the bounded
-///   `kAXFocusedWindow` read, and AltTab's own switch into an app already in front;
+/// - **the reducer's input stream** (`dispatched`), for an app activation and the `kAXFocusedWindow` reads
+///   (the per-app seed, the bounded read on activation, and the read after AltTab's own switch);
 /// - **the app's own accessibility observer** (`axSemanticFocus`), settled per process;
 /// - **the click channel** (`directedAttention`), the type-13 tap in `WindowAttentionEvents`.
 ///
@@ -63,7 +63,6 @@ class AttentionEngine {
     private static func provider(of input: ReducerInput) -> TrackingProvider {
         switch input {
         case .appActivated: return .workspace
-        case .altTabFocusedWindowInFrontmostApp: return .altTab
         default: return .accessibility
         }
     }
@@ -278,6 +277,7 @@ class AttentionEngine {
                 return TabGroups.groupId(of: physicalRepresentative).flatMap { TabGroups.representativeByGroup[$0] }
                     ?? physicalRepresentative
             },
-            frontmostPid: { Applications.frontmostPid })
+            frontmostPid: { Applications.frontmostPid },
+            answerPending: { FocusIntents.shared.isAwaitingAnswer(from: $0) })
     }
 }

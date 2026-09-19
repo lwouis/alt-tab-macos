@@ -223,7 +223,6 @@ extension TrackingProvider {
         case .workspace: return "workspace"
         case .accessibility: return "ax"
         case .annotatedSession: return "type13"
-        case .altTab: return "altTab"
         }
     }
 }

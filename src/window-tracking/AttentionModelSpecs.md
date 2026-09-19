@@ -17,8 +17,8 @@ may erase a cached answer when its window ceases to exist; it never names or mov
 
 ## Levels
 
-- `frontProcess` is set by an app activation, and by the two namers that carry an app with them: the click
-  and AltTab's own switch. An app's own answer never changes which app is in front.
+- `frontProcess` is set by an app activation, and by the one namer that carries an app with it: the click.
+  An app's own answer never changes which app is in front.
 - `focusedWindow` is per process. Two apps holding different facts is not a conflict, it is the normal state.
 - the visible front is the lookup, computed rather than stored
 - an unknown front window is nil, and nil means "nobody has said" rather than "nothing is focused". The
@@ -37,8 +37,12 @@ may erase a cached answer when its window ceases to exist; it never names or mov
 - **one bounded read, one trigger** — activating a process with no fact at all emits `readFocusedWindow`, and
   that is the only thing that emits it. A plain activation names no window from any source when the app's
   focused window did not change; that is the one hole nothing else fills.
-- an AltTab activation already carries its target and therefore needs no read; an activation for a process
-  with a cached app answer also needs no read
+- an activation for a process with a cached app answer needs no read either
+- **an answer already on its way beats the one already here** — the activation provoked by a switch AltTab
+  asked for takes the front for that app and names no window: the app's cached answer is about the window the
+  user is LEAVING, and fronting it walks that window to the top of the order. No read either, since the one
+  that will answer this is already out. The answer then moves the front even when it names the cached window,
+  because the activation did not move it
 - **the app outranks the click** — not as a rule of its own, but because the app's answer arrives later and
   arrival is the sequence. The click is a prediction; the app's answer is the outcome.
 - a settle taking the LAST answer per process is correct with no extra rule, and lives in the impure caller
@@ -85,3 +89,7 @@ may erase a cached answer when its window ceases to exist; it never names or mov
 - `testARaiseBurstEndsWhereItStarted` — #5974's shape needs no guess made in advance and taken back later.
 - `testNamingTheWindowThatAlreadyHoldsTheFrontMovesNothing` — a repeat is a fact, not a move.
 - `testAStaleAnswerFlushedByAnUnwedgeLosesToTheClicksOutcome` — the measured race resolves on arrival order.
+- `testAnActivationAwaitingAnAnswerNeitherFrontsNorReads` — the app's cached answer predates the switch that
+  provoked this activation, and the read that will settle it is already out.
+- `testTheAwaitedAnswerMovesTheFrontEvenNamingTheCachedWindow` — otherwise a switch back to the window an app
+  was already on leaves the order with the app the user LEFT on top.

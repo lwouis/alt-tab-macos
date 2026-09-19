@@ -6,15 +6,17 @@ final class AttentionDriverTests: XCTestCase {
     private let otherPid: pid_t = 20
 
     /// Every wid belongs to `pid` and stands for itself, unless a test says otherwise.
-    private func context(representatives: [CGWindowID: CGWindowID] = [:]) -> AttentionDriver.Context {
+    private func context(representatives: [CGWindowID: CGWindowID] = [:],
+                         answerPending: Set<pid_t> = []) -> AttentionDriver.Context {
         AttentionDriver.Context(
             generation: { ProcessGeneration(pid: $0, generation: 1) },
             representativeOf: { representatives[$0] ?? $0 },
-            frontmostPid: { nil })
+            frontmostPid: { nil },
+            answerPending: { answerPending.contains($0) })
     }
 
     private func activated(_ driver: inout AttentionDriver, _ pid: pid_t) {
-        _ = driver.decide(.appActivated(pid: pid, now: 0, altTabTargetWid: nil), context: context())
+        _ = driver.decide(.appActivated(pid: pid, now: 0), context: context())
     }
 
     // MARK: what is, and is not, attention
@@ -47,7 +49,7 @@ final class AttentionDriverTests: XCTestCase {
     /// hole nothing else fills, because a plain activation names no window from any source.
     func testActivationWithNoFactAsksForARead() {
         var driver = AttentionDriver()
-        let outcome = driver.decide(.appActivated(pid: pid, now: 0, altTabTargetWid: nil), context: context())
+        let outcome = driver.decide(.appActivated(pid: pid, now: 0), context: context())
         XCTAssertNil(outcome.wid)
         XCTAssertEqual(outcome.reason, "needsRead")
         XCTAssertEqual(outcome.readPid, pid)
@@ -57,8 +59,8 @@ final class AttentionDriverTests: XCTestCase {
     /// IPC, this leaves one unambiguous issue sequence for the answer to consume.
     func testRepeatedFactlessActivationDoesNotDuplicateTheRead() {
         var driver = AttentionDriver()
-        let first = driver.decide(.appActivated(pid: pid, now: 0, altTabTargetWid: nil), context: context())
-        let second = driver.decide(.appActivated(pid: pid, now: 1, altTabTargetWid: nil), context: context())
+        let first = driver.decide(.appActivated(pid: pid, now: 0), context: context())
+        let second = driver.decide(.appActivated(pid: pid, now: 1), context: context())
         XCTAssertEqual(first.readPid, pid)
         XCTAssertNil(second.readPid)
         XCTAssertEqual(second.reason, "needsRead")
@@ -103,7 +105,7 @@ final class AttentionDriverTests: XCTestCase {
         activated(&driver, pid)
         _ = driver.decide(.axFocusedWindowRead(pid: otherPid, wid: 9, viaActivationRead: false),
             context: context())
-        let outcome = driver.decide(.appActivated(pid: otherPid, now: 1, altTabTargetWid: nil),
+        let outcome = driver.decide(.appActivated(pid: otherPid, now: 1),
             context: context())
         XCTAssertEqual(outcome.wid, 9)
         XCTAssertEqual(outcome.reason, "front")
@@ -118,7 +120,7 @@ final class AttentionDriverTests: XCTestCase {
         _ = driver.decide(.axFocusedWindowRead(pid: pid, wid: 8, viaActivationRead: true),
             context: context(representatives: [8: 3]))
         activated(&driver, otherPid)
-        let outcome = driver.decide(.appActivated(pid: pid, now: 2, altTabTargetWid: nil),
+        let outcome = driver.decide(.appActivated(pid: pid, now: 2),
             context: context(representatives: [8: 4]))
         XCTAssertEqual(outcome.wid, 4)
         XCTAssertEqual(outcome.observedWid, 8)
@@ -135,12 +137,33 @@ final class AttentionDriverTests: XCTestCase {
         XCTAssertEqual(outcome.wid, 9)
     }
 
-    /// AltTab's own switch names the window it is switching to.
-    func testAnActivationCarryingAnAltTabTargetFrontsIt() {
+    /// #6055: AltTab's own switch names nothing. When the focus did not take, no activation follows, and the
+    /// read AltTab makes of the target app afterwards is a fact about that app, so the front stays where the
+    /// OS left it.
+    func testAFocusThatDidNotTakeLeavesTheFrontAlone() {
         var driver = AttentionDriver()
-        let outcome = driver.decide(.appActivated(pid: pid, now: 0, altTabTargetWid: 4), context: context())
-        XCTAssertEqual(outcome.wid, 4)
-        XCTAssertNil(outcome.readPid)
+        activated(&driver, pid)
+        _ = driver.decide(.axFocusedWindowRead(pid: pid, wid: 2, viaActivationRead: false), context: context())
+        let outcome = driver.decide(.axFocusedWindowRead(pid: otherPid, wid: 9, viaActivationRead: false),
+            context: context())
+        XCTAssertNil(outcome.wid)
+        XCTAssertEqual(driver.attention.visibleFront?.wid, 2)
+    }
+
+    /// Picking another window of an app AltTab has just asked to switch: the activation arrives before the
+    /// app has answered, and its cached answer is the window the user is leaving. Fronting that one would
+    /// leave it at the top of the order until the real answer lands, and one tile from the next default pick.
+    func testAnActivationWeAreStillWaitingOnDoesNotFrontTheCachedWindow() {
+        var driver = AttentionDriver()
+        activated(&driver, otherPid)
+        _ = driver.decide(.axFocusedWindowRead(pid: pid, wid: 2, viaActivationRead: false), context: context())
+        let activation = driver.decide(.appActivated(pid: pid, now: 1),
+            context: context(answerPending: [pid]))
+        XCTAssertNil(activation.wid)
+        XCTAssertNil(activation.readPid, "the read that answers this one is already out")
+        let answer = driver.decide(.axFocusedWindowRead(pid: pid, wid: 5, viaActivationRead: false),
+            context: context())
+        XCTAssertEqual(answer.wid, 5)
     }
 
     /// An app that answers with a background tab names the tile that stands for it, since that is what the
@@ -168,9 +191,8 @@ final class AttentionDriverTests: XCTestCase {
     /// An app already running when AltTab started must not answer as a stale generation.
     func testUnseenPidIsRegisteredBeforeItsEvent() {
         var driver = AttentionDriver()
-        let outcome = driver.decide(.altTabFocusedWindowInFrontmostApp(wid: 2, pid: pid, now: 0),
-            context: context())
-        XCTAssertEqual(outcome.wid, 2)
+        let outcome = driver.decide(.appActivated(pid: pid, now: 0), context: context())
+        XCTAssertEqual(outcome.reason, "needsRead")
     }
 
     /// A relaunched pid does not inherit the dead process's facts.
@@ -182,8 +204,9 @@ final class AttentionDriverTests: XCTestCase {
         let relaunched = AttentionDriver.Context(
             generation: { ProcessGeneration(pid: $0, generation: 2) },
             representativeOf: { $0 },
-            frontmostPid: { nil })
-        let outcome = driver.decide(.appActivated(pid: pid, now: 1, altTabTargetWid: nil),
+            frontmostPid: { nil },
+            answerPending: { _ in false })
+        let outcome = driver.decide(.appActivated(pid: pid, now: 1),
             context: relaunched)
         XCTAssertEqual(outcome.reason, "needsRead", "the new generation starts with no fact of its own")
     }
@@ -192,7 +215,7 @@ final class AttentionDriverTests: XCTestCase {
     /// app that spoke for itself in the meantime keeps the last word.
     func testTheBoundedReadLosesToAnAnswerThatOvertookIt() {
         var driver = AttentionDriver()
-        let outcome = driver.decide(.appActivated(pid: pid, now: 0, altTabTargetWid: nil), context: context())
+        let outcome = driver.decide(.appActivated(pid: pid, now: 0), context: context())
         XCTAssertEqual(outcome.reason, "needsRead")
         _ = driver.decide(.axFocusedWindowRead(pid: pid, wid: 3, viaActivationRead: false), context: context())
         let late = driver.decide(.axFocusedWindowRead(pid: pid, wid: 1, viaActivationRead: true), context: context())
@@ -204,12 +227,12 @@ final class AttentionDriverTests: XCTestCase {
     /// not spend another IPC verifying the fact it just supplied.
     func testAFailedReadDoesNotCauseAnotherReadAfterTheAppAnswers() {
         var driver = AttentionDriver()
-        XCTAssertEqual(driver.decide(.appActivated(pid: pid, now: 0, altTabTargetWid: nil),
+        XCTAssertEqual(driver.decide(.appActivated(pid: pid, now: 0),
             context: context()).reason, "needsRead")
         _ = driver.decide(.axFocusedWindowReadFailed(pid: pid), context: context())
         _ = driver.decide(.axFocusedWindowRead(pid: pid, wid: 3, viaActivationRead: false), context: context())
         XCTAssertEqual(driver.attention.visibleFront?.wid, 3)
-        let next = driver.decide(.appActivated(pid: pid, now: 1, altTabTargetWid: nil), context: context())
+        let next = driver.decide(.appActivated(pid: pid, now: 1), context: context())
         XCTAssertEqual(driver.attention.visibleFront?.wid, 3)
         XCTAssertNil(next.readPid)
     }
@@ -218,10 +241,10 @@ final class AttentionDriverTests: XCTestCase {
     /// instead of emitting attention for a wid the reducer can no longer apply.
     func testDestroyedCachedWindowMakesTheNextActivationReadAgain() {
         var driver = AttentionDriver()
-        _ = driver.decide(.appActivated(pid: pid, now: 0, altTabTargetWid: nil), context: context())
+        _ = driver.decide(.appActivated(pid: pid, now: 0), context: context())
         _ = driver.decide(.axFocusedWindowRead(pid: pid, wid: 3, viaActivationRead: true), context: context())
         _ = driver.decide(.windowDestroyed(wid: 3), context: context())
-        let next = driver.decide(.appActivated(pid: pid, now: 1, altTabTargetWid: nil), context: context())
+        let next = driver.decide(.appActivated(pid: pid, now: 1), context: context())
         XCTAssertEqual(next.reason, "needsRead")
         XCTAssertEqual(next.readPid, pid)
     }
@@ -244,7 +267,7 @@ final class AttentionDriverTests: XCTestCase {
         let inputs: [ReducerInput] = [
             .windowFocused(wid: 1, now: 0),
             .windowOrderedIn(wid: 1, now: 0, inSpaceTransition: false),
-            .appActivated(pid: 1, now: 0, altTabTargetWid: nil),
+            .appActivated(pid: 1, now: 0),
             .axFocusedWindowRead(pid: 1, wid: 1, viaActivationRead: false),
             .axFocusedWindowRead(pid: 1, wid: 1, viaActivationRead: true),
             .axFocusedWindowReadFailed(pid: 1),

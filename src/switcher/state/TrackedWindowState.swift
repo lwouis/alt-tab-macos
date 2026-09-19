@@ -841,9 +841,8 @@ enum ReducerInput: Equatable {
                                 now: TimeInterval, inSpaceTransition: Bool)                  // 1325/1326
     case spaceTransitionStarted                                                              // 1329/1401, leading edge
     case spaceChangeSettled                                                                  // 1329/1401, debounced
-    /// NSWorkspace didActivateApplication (no WS equivalent). `altTabTargetWid` = a fresh AltTab-initiated
-    /// focus of this app, when known.
-    case appActivated(pid: pid_t, now: TimeInterval, altTabTargetWid: CGWindowID?)
+    /// NSWorkspace didActivateApplication (no WS equivalent)
+    case appActivated(pid: pid_t, now: TimeInterval)
 
     // async read results landing
     /// The apply-side of `Applications.addDiscoveredWindow`: acquisition + discrimination ran in the shell;
@@ -886,12 +885,9 @@ enum ReducerInput: Equatable {
                       answered: Set<CGWindowID>,
                       placedByWindowServer: Set<CGWindowID>, topologyChanged: Bool)
     /// An AX `kAXFocusedWindow` read landed. `viaActivationRead` means the attention model requested the
-    /// bounded read for a factless activation; false means the per-app discovery seed (`Window.checkIfFocused`).
+    /// bounded read for a factless activation; false means the per-app discovery seed (`Window.checkIfFocused`)
+    /// or the read after AltTab's own focus (`WindowServerEvents.readFocusedWindowAfterFocusing`).
     case axFocusedWindowRead(pid: pid_t, wid: CGWindowID, viaActivationRead: Bool)
-    /// AltTab focused a window of the app that is ALREADY frontmost, so no activation is coming to carry the
-    /// target (`WindowServerEvents.noteAltTabInitiatedFocus`). A namer like any other: it says which window
-    /// the user asked for, and `AttentionDriver` decides what that is worth.
-    case altTabFocusedWindowInFrontmostApp(wid: CGWindowID, pid: pid_t, now: TimeInterval)
     /// The bounded `kAXFocusedWindow` read an activation asked for came back with nothing — the app is wedged,
     /// or genuinely has no focused window (`WindowServerEvents.readFocusedWindowOnActivation`). Reported rather than
     /// dropped: unknown is a value, so the model records the silence instead of leaving the read outstanding
@@ -912,8 +908,8 @@ enum ReducerInput: Equatable {
     case zOrderRead(widsTopFirst: [CGWindowID])
 
     /// **The attention reducer committed a decision.** The only input that may move the order: a click or
-    /// Cmd+` naming its target, AltTab's own switch, or an app answering which of
-    /// its windows it considers focused. Physical events reach the model through their own cases and change
+    /// Cmd+` naming its target, or an app answering which of its windows it considers focused. AltTab's own
+    /// switch is not on that list: it moves the order when the OS reports it, like any other switch. Physical events reach the model through their own cases and change
     /// visibility, geometry, membership and Space — never this.
     /// `wid` is where attention lands — the tile the user ends up on. `observed` is the window the provider
     /// actually named, which differs when that window is a background TAB: the driver maps a tab to the

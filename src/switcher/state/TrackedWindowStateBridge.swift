@@ -71,7 +71,7 @@ class TrackedWindowStateBridge {
              .axFocusedWindowRead, .livenessConfirmedDead, .axElementEnded, .axElementReconciled,
              .cgsWindowListsRead, .zOrderRead,
              .holdReleaseCheck, .dragOutCheck, .standaloneTabCheck,
-             .altTabFocusedWindowInFrontmostApp, .axFocusedWindowReadFailed:
+             .axFocusedWindowReadFailed:
             return false
         }
     }

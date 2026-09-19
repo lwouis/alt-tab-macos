@@ -135,5 +135,27 @@ final class FocusIntentPolicyTests: XCTestCase {
         policy.supersede()
         XCTAssertFalse(policy.mayProceed(pending), "an operation kept acting after a focus it cannot repair to")
         XCTAssertNil(policy.finish(pending, wid: 1, now: 0.3))
+        XCTAssertNil(policy.awaitedAnswer(now: 0.3), "nothing was asked of an app, so nothing is awaited")
+    }
+
+    /// The switch is awaited from the request until the app it aimed at answers. Only that app can: a read
+    /// about anyone else says nothing about where this switch landed.
+    func testASwitchIsAwaitedUntilItsOwnAppAnswers() {
+        var policy = FocusIntentPolicy()
+        _ = policy.request(wid: 1, pid: safari, now: 0)
+        XCTAssertEqual(policy.awaitedAnswer(now: 0.05)?.wid, 1)
+        policy.heardBack(pid: terminal)
+        XCTAssertEqual(policy.awaitedAnswer(now: 0.06)?.wid, 1)
+        policy.heardBack(pid: safari)
+        XCTAssertNil(policy.awaitedAnswer(now: 0.07))
+    }
+
+    /// An operation that bailed before its read never answers, so the wait expires on the same horizon a
+    /// repair does rather than leaving every later activation of that app waiting on it.
+    func testAnUnansweredSwitchStopsBeingAwaitedAtTheHorizon() {
+        var policy = FocusIntentPolicy()
+        _ = policy.request(wid: 1, pid: safari, now: 0)
+        XCTAssertNotNil(policy.awaitedAnswer(now: FocusIntentPolicy.repairHorizon))
+        XCTAssertNil(policy.awaitedAnswer(now: FocusIntentPolicy.repairHorizon + 0.01))
     }
 }

@@ -567,9 +567,10 @@ final class TestReducerRunnerTests: XCTestCase {
 
     /// #5785, the stuck switcher: two alt-tabs in a row into the SAME app, 219ms apart (log2). The first is a
     /// cross-app activation, the second a switch inside the app that is already frontmost — which produces no
-    /// activation at all, so AltTab naming its own target is the only thing that says the user moved. Since
-    /// re-focusing an already-focused window emits nothing either, a second switch that goes unheard is never
-    /// corrected, and every later alt-tab lands on the window the user is already in.
+    /// activation at all, so the app's answer (its AX focus notification, or the read AltTab makes after its
+    /// own focus) is the only thing that says the user moved. Since re-focusing an already-focused window
+    /// emits nothing either, a second switch that goes unheard is never corrected, and every later alt-tab
+    /// lands on the window the user is already in.
     func testTwoAltTabsIntoTheSameAppBothMoveTheOrder() {
         let chromeA = window(100, spaceIds: [3], lastFocusOrder: 1)
         let chromeB = window(101, spaceIds: [3], lastFocusOrder: 2)
@@ -579,12 +580,12 @@ final class TestReducerRunnerTests: XCTestCase {
             localizedName: "WeChat", isHidden: false), isActive: true)
         let harness = TestReducerRunner(initial: s)
         harness.run([
-            // alt-tab 1: AltTab focuses Chrome's window A, so its activation carries the known target
+            // alt-tab 1: AltTab focuses Chrome's window A; the activation arrives, then Chrome names A
             .setFrontmost(pid: 500),
-            .input(.appActivated(pid: 500, now: 10.0, altTabTargetWid: 100)),
+            .input(.appActivated(pid: 500, now: 10.0)),
             .input(.attentionCommitted(wid: 100, observed: 100, at: 10.0)),
-            // alt-tab 2, a beat later: AltTab focuses window B inside the app that is already frontmost, so
-            // our own switch names it. No activation follows, and the 808 it produces is not attention.
+            // alt-tab 2, a beat later: AltTab focuses window B inside the app that is already frontmost, and
+            // Chrome names B. No activation follows, and the 808 it produces is not attention.
             .input(.attentionCommitted(wid: 101, observed: 101, at: 10.219)),
         ])
         XCTAssertEqual(harness.violations, [])

@@ -214,4 +214,30 @@ final class AttentionModelTests: XCTestCase {
         XCTAssertEqual(name(&state, .app, wid(p1, 9), 4), .recorded(wid(p1, 9)))
         XCTAssertEqual(state.visibleFront, wid(p1, 9))
     }
+
+    /// The user picked p2's window 7 while p2 last answered window 8. Fronting 8 on the activation would put
+    /// the window they are LEAVING p2 for at the top of the order, one tile from the next summon's default
+    /// pick — and the read that says 7 is already out.
+    func testAnActivationAwaitingAnAnswerNeitherFrontsNorReads() {
+        var state = state()
+        name(&state, .app, wid(p2, 8), 2)
+        name(&state, .app, wid(p1, 1), 3)
+        _ = AttentionModel.reduce(&state, .frontProcessChanged(p1))
+        XCTAssertEqual(AttentionModel.reduce(&state, .frontProcessChangedAwaitingAnswer(p2)), .none)
+        XCTAssertEqual(state.frontProcess, p2)
+        XCTAssertEqual(name(&state, .app, wid(p2, 7), 4), .front(wid(p2, 7)))
+    }
+
+    /// Switching back into the window an app was already on: the answer names the cached window, and it is
+    /// still a move, because the activation before it declined to make one.
+    func testTheAwaitedAnswerMovesTheFrontEvenNamingTheCachedWindow() {
+        var state = state()
+        name(&state, .app, wid(p2, 8), 2)
+        name(&state, .app, wid(p1, 1), 3)
+        _ = AttentionModel.reduce(&state, .frontProcessChanged(p1))
+        _ = AttentionModel.reduce(&state, .frontProcessChangedAwaitingAnswer(p2))
+        XCTAssertEqual(name(&state, .app, wid(p2, 8), 4), .front(wid(p2, 8)))
+        // and the debt is settled: the next repeat of that answer is an ordinary fact again
+        XCTAssertEqual(name(&state, .app, wid(p2, 8), 5), .recorded(wid(p2, 8)))
+    }
 }

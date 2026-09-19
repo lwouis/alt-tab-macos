@@ -59,7 +59,6 @@ enum TrackingProvider: Hashable {
     case workspace
     case accessibility
     case annotatedSession
-    case altTab
 }
 
 /// What entitles a call to move the window order. See `WindowEventReducer.applyFocusAndBump` and

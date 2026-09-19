@@ -95,7 +95,7 @@ final class TrackingTelemetryTests: XCTestCase {
     /// A refused result is recorded, but `lastAttention` keeps the last committed one.
     func testRefusedAttentionDoesNotOverwriteLastAttention() {
         var state = TrackingTelemetryState()
-        state.recordAttention(pid: 1, wid: 2, processGeneration: 1, source: .altTab, reason: "altTab", status: "committed", at: 1)
+        state.recordAttention(pid: 1, wid: 2, processGeneration: 1, source: .workspace, reason: "activation", status: "committed", at: 1)
         state.recordAttentionRefused(pid: 1, wid: 9, source: .accessibility, reason: "ignored.inactiveProcess",
             at: 2)
         XCTAssertEqual(state.lastAttention?.wid, 2)

@@ -679,7 +679,8 @@ class Windows {
     }
 
     /// Exact attention named this window, so it is shown on that evidence rather than waiting for AX
-    /// acquisition. This covers a click, AltTab's own target, and the app's focus notification.
+    /// acquisition. This covers a click, AltTab's own target, and the app's focus notification. Admission
+    /// only: it does not move the window order.
     static func promoteAttentionEvidence(_ wid: CGWindowID) {
         let representativeWid = WindowSurfaceInventory.representativeWid(wid)
         guard let window = byWindowId[representativeWid] else { return }

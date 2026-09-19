@@ -22,7 +22,7 @@ Both consumers are CLI: `--qa-state` reads `summary`, `--qa-telemetry` drains th
 ## Attention
 
 - a committed decision records the pid, wid, process generation, source, reason code and status
-- `source` is the CHANNEL that named the window (`workspace`, `altTab`, `accessibility`, `annotatedSession`),
+- `source` is the CHANNEL that named the window (`workspace`, `accessibility`, `annotatedSession`),
   so a disagreement is attributable to one of them rather than to "focus" in general
 - `lastAttention` always reflects the most recent COMMITTED decision — a refusal is recorded as its own event
   rather than overwriting it, because a reader asking "where does the model think the user is" is not helped

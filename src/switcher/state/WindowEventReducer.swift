@@ -127,7 +127,7 @@ enum WindowEventReducer {
             return spaceTransitionStarted(&state)
         case .spaceChangeSettled:
             return spaceChangeSettled(&state)
-        case .appActivated(let pid, _, _):
+        case .appActivated(let pid, _):
             return appActivated(&state, pid: pid)
         case .discoveryLanded(let wid, let accepted, let newlyTracked, let adoptedAsInactiveTab,
                               let spaceMembership, let isOrderedIn, let tabGroup):
@@ -138,10 +138,6 @@ enum WindowEventReducer {
             return titleAndTabsRead(&state, wid: wid, tabGroup: tabGroup,
                 reconcileTabs: reconcileTabs, changedSoFar: changedSoFar)
         case .axFocusedWindowRead:
-            return []
-        case .altTabFocusedWindowInFrontmostApp:
-            // Our own switch into the app that is already frontmost. It names its target, so it reaches the
-            // order through `AttentionDriver` like every other namer.
             return []
         case .axFocusedWindowReadFailed:
             // The app did not answer. `AttentionDriver` records the silence so the read it issued stops
@@ -831,7 +827,8 @@ enum WindowEventReducer {
     /// An app became frontmost (NSWorkspace — no WS equivalent). It names an app and nothing else: the 808s
     /// macOS emits alongside it fire once per on-Space window, which is a set rather than an answer, so which
     /// window the user landed on can only come from the app. `AttentionModel` reuses that app's last answer,
-    /// or requests one bounded `kAXFocusedWindow` read when it has no answer yet.
+    /// or requests one bounded `kAXFocusedWindow` read when it has no answer yet — unless an answer is
+    /// already on its way because AltTab asked this app for the switch, and then it waits for that one.
     private static func appActivated(_ state: inout TrackedWindowState, pid: pid_t) -> [ReducerEffect] {
         state.frontmostPid = pid
         return []

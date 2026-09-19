@@ -36,6 +36,12 @@ struct FocusIntentPolicy {
 
     private var nextGeneration = UInt64(1)
     private(set) var current: Intent?
+    /// **The switch AltTab has asked for and not yet heard about.** Once an operation has run, it reads the
+    /// app's focused window back (`readFocusedWindowAfterFocusing`); until that answer lands, what the app
+    /// would say about its focused window is about the window the user is LEAVING. Its one reader does not
+    /// write the order from the request either: attention refuses to reuse that previous answer on the
+    /// activation this focus provokes, and waits for the real one.
+    private var awaited: Intent?
     /// When each live operation LAST moved the z-order — every such call reports, so the newest stamp is
     /// the one the one-repair rule compares against. Absent means the operation bailed before touching
     /// anything.
@@ -49,8 +55,23 @@ struct FocusIntentPolicy {
         let generation = FocusGeneration(rawValue: nextGeneration)
         nextGeneration += 1
         current = Intent(generation: generation, wid: wid, pid: pid, at: now)
+        awaited = current
         repairedAt = nil
         return generation
+    }
+
+    /// The app answered where focus landed. Only the app the pending switch aimed at can answer for it, so a
+    /// read about anyone else leaves it waiting.
+    mutating func heardBack(pid: pid_t) {
+        guard awaited?.pid == pid else { return }
+        awaited = nil
+    }
+
+    /// Bounded by `repairHorizon`, like a repair and for the same reason: an operation that bailed before its
+    /// read never answers at all, and past that horizon what the app says is more likely the user's own doing.
+    func awaitedAnswer(now: TimeInterval) -> Intent? {
+        guard let awaited, now - awaited.at <= Self.repairHorizon else { return nil }
+        return awaited
     }
 
     /// A focus that this policy cannot re-assert took over: `Window.focus()` also lands on AltTab's own
@@ -58,6 +79,7 @@ struct FocusIntentPolicy {
     /// stop, so they are superseded with nothing to repair to.
     mutating func supersede() {
         current = nil
+        awaited = nil
         repairedAt = nil
     }
 
@@ -119,4 +141,35 @@ class FocusIntents {
     func finish(_ generation: FocusGeneration, wid: CGWindowID) -> FocusIntentPolicy.Intent? {
         withPolicy { $0.finish(generation, wid: wid, now: ProcessInfo.processInfo.systemUptime) }
     }
+
+    func heardBack(pid: pid_t) {
+        withPolicy { $0.heardBack(pid: pid) }
+    }
+
+    /// Is AltTab still waiting to hear where its own switch into this app landed? See
+    /// `FocusIntentPolicy.awaited`.
+    func isAwaitingAnswer(from pid: pid_t) -> Bool {
+        withPolicy { $0.awaitedAnswer(now: ProcessInfo.processInfo.systemUptime)?.pid == pid }
+    }
+
+    #if DEBUG
+    private var refusalArmedForQa = false
+
+    /// **Fault injection (`--qa-refuse-next-focus`): the next focus operation makes none of its OS calls**, as
+    /// if macOS had refused the switch. That is the state #6055 is about, a switch AltTab asked for and the OS
+    /// never carried out, and no app can be made to refuse one on demand.
+    func refuseNextForQa() {
+        lock.lock()
+        refusalArmedForQa = true
+        lock.unlock()
+    }
+
+    func consumeRefusalForQa() -> Bool {
+        lock.lock()
+        defer { lock.unlock() }
+        let armed = refusalArmedForQa
+        refusalArmedForQa = false
+        return armed
+    }
+    #endif
 }
