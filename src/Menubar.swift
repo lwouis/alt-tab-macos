@@ -321,6 +321,11 @@ class UpgradeMenuItemView: NSView {
         fatalError("Class only supports programmatic initialization")
     }
 
+    override var intrinsicContentSize: NSSize {
+        let labelSize = label.intrinsicContentSize
+        return NSSize(width: NSView.noIntrinsicMetric, height: ceil(labelSize.height) + 6)
+    }
+
     override func layout() {
         super.layout()
         caTransaction { gradientLayer.frame = backdrop.bounds }
@@ -374,6 +379,9 @@ class UpgradeMenuItemView: NSView {
         result.append(NSAttributedString(string: "\n", attributes: mainAttrs))
         result.append(NSAttributedString(string: NSLocalizedString("Get Pro", comment: "Menubar option"), attributes: mainAttrs))
         label.attributedStringValue = result
+        invalidateIntrinsicContentSize()
+        let height = intrinsicContentSize.height
+        if frame.height != height { frame.size.height = height }
     }
 
     override func mouseUp(with event: NSEvent) {
