@@ -33,9 +33,16 @@ class RunningApplicationsEvents {
     /// `Applications.manuallyRefreshAllWindows` (the WindowServer discovery pass calls `findOrCreate` on
     /// each window's owner pid), and on-demand lookups still go through `findOrCreate` immediately, so
     /// nothing user-visible is missed by the delay.
+    ///
+    /// **Liveness comes from the kernel, not from `isTerminated`** (`pid_t.isAlive`). A process that dies
+    /// inside the debounce has already had its removal announced and processed, so admitting it here is
+    /// permanent: nothing will announce it again, and its `Application`, its `AXObserver` and its
+    /// accessibility-health entry stay for the rest of the session. Every 30s recovery tick then re-attempts
+    /// subscriptions against it forever. On a machine that spawns short-lived processes at ~1/s this reached
+    /// 56k dead processes and a permanently pegged core in three days (#6051).
     private static func debounceThenAddRunningApplications(_ launched: [NSRunningApplication]) {
         DispatchQueue.main.asyncAfter(deadline: .now() + newAppDebounce) {
-            let stillAlive = launched.filter { !$0.isTerminated }
+            let stillAlive = launched.filter { $0.processIdentifier.isAlive() }
             guard !stillAlive.isEmpty else { return }
             Applications.addRunningApplications(stillAlive)
         }
