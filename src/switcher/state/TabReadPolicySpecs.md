@@ -4,12 +4,22 @@ Decides which tracked windows pay for an OS-tab read (`AXTabGroup`) on a given s
 
 ## Why it exists
 
-`AXUIElement.tabGroupInfo` looks for an `AXTabGroup` among a window's **direct children**. There is no OS
-batch across elements, so it costs **one Mach round trip per child**, and a window with no tabs pays for all
-of them before concluding there is no tab bar. An ordinary AppKit window exposes several children (window
-buttons, a toolbar, a split group), so reading every tracked window on every show ran to several hundred
-round trips per summon, spread across as many processes — each able to stall a bounded worker for the whole
-1s messaging timeout.
+`AXUIElement.tabGroupObservation` looks for an `AXTabGroup` among a window's **direct children**. It reads
+the foreign child count, uses pages of at most 64 direct children and 128 tab children, and continues through
+subsequent pages while the time budget remains. These are allocation limits, not window or tab-count limits.
+There is no OS batch across elements, so it still costs **one Mach round trip per inspected child**, and a window with no
+tabs pays for all of its direct children before concluding there is no tab bar. An ordinary AppKit window
+exposes several children (window buttons, a toolbar, a split group), so reading every tracked window on
+every show ran to several hundred round trips per summon, spread across as many processes — each able to
+stall a bounded worker for the whole 1s messaging timeout.
+
+The 250ms traversal budget is checked before each AX request. It does not shorten the per-request messaging
+timeout: a request already in flight may finish later, but another request will not start afterward. A failed
+read, elapsed budget, truncated child page, or child count that changes between pages is `unknown`,
+not evidence that the window is standalone. No partial tree is retained across observations.
+
+Pagination tests cover 300 tab children, a tab group beyond direct child 64, deadline exhaustion during
+the count read and during a later page, failed or truncated later pages, and changing child counts.
 
 The per-show read was never the mechanism that keeps tab groups correct. Every real change already
 announces itself:
@@ -51,8 +61,8 @@ answer lands, which would mark a window up to date with a window set that change
 
 ## What the caller does with a skip
 
-`Applications.refreshWindowTitleAndTabs(_:_:_:reconcileTabs:)` reads `reconcileTabs: false` as "drop
-`kAXChildren` from the attribute batch and skip the child walk". When the app also holds a live
+`Applications.refreshWindowTitleAndTabs(_:_:_:reconcileTabs:)` reads `reconcileTabs: false` as "skip the
+bounded child walk". When the app also holds a live
 `AXTitleChanged` subscription it skips **the whole call**, because a title-only read is work the notification
 has already done. So a skipped window costs either one round trip (title) or zero.
 

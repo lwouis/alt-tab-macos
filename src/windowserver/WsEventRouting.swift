@@ -47,3 +47,53 @@ enum WsEventRouting {
         }
     }
 }
+
+/// Ordered ingress buffer for the WindowServer notify proc. Move/resize reports only say "read the latest
+/// geometry", so repeated reports for one wid are interchangeable until a semantic edge intervenes. Focus,
+/// order, lifecycle and Space events split segments and are never coalesced or reordered.
+struct WsEventIngress {
+    struct Event: Equatable {
+        let notification: WsEventRouting.Notification
+        let w0: UInt32
+        let space: UInt64
+        let widInSpace: UInt32
+        let at: TimeInterval
+    }
+
+    struct Drain: Equatable {
+        let events: [Event]
+        let coalescedGeometryEvents: Int
+    }
+
+    private struct GeometryKey: Hashable {
+        let segment: UInt64
+        let wid: UInt32
+    }
+
+    private var events = [Event]()
+    private var geometryIndexes = [GeometryKey: Int]()
+    private var segment: UInt64 = 0
+    private var coalescedGeometryEvents = 0
+
+    mutating func append(_ event: Event) {
+        guard event.notification == .windowMoved || event.notification == .windowResized else {
+            events.append(event)
+            segment &+= 1
+            return
+        }
+        let key = GeometryKey(segment: segment, wid: event.w0)
+        if let index = geometryIndexes[key] {
+            events[index] = event
+            coalescedGeometryEvents += 1
+        } else {
+            geometryIndexes[key] = events.count
+            events.append(event)
+        }
+    }
+
+    mutating func drain() -> Drain {
+        let result = Drain(events: events, coalescedGeometryEvents: coalescedGeometryEvents)
+        self = WsEventIngress()
+        return result
+    }
+}

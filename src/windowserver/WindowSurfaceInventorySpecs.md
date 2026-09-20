@@ -27,3 +27,7 @@ queries, not because numeric reuse is expected.
 - **testLateFullSnapshotDoesNotRestoreAnExitedProcessMissingFromTheInventory**
 - **testOlderFullSnapshotCannotOverwriteANewerFullSnapshot**
 - parent traversal stops at missing, cross-process, and cyclic relationships.
+- targeted discovery follows at most 32 same-process, acyclic parent rows and keeps the last trustworthy row
+  when the next edge is missing, cyclic, or cross-process.
+- the private WindowServer iterator accepts only requested, unique rows and cannot advance more times than
+  the number of unique requested windows.

@@ -160,3 +160,36 @@ enum SurfaceAcquisitionPolicy {
         attempts >= maxAttemptsPerSituation
     }
 }
+
+/// Bounds private AXUIElementID traversal by elapsed time, not by an ID ceiling: callers that start at zero
+/// must be able to reach high, sparse IDs while time remains. An IPC already in flight may finish after the
+/// budget, but no subsequent IPC starts once the deadline has been observed.
+enum AxTraversalPolicy {
+    static let budgetMs: Double = 250
+
+    static func mayStartIpc(elapsedMs: Double) -> Bool {
+        elapsedMs < budgetMs
+    }
+
+    /// Only fully inspected ids advance the resume cursor. A deadline refused between two IPCs leaves
+    /// that candidate for the next slice.
+    static func scan<Candidate>(from startId: UInt64, elapsedMs: @escaping () -> Double,
+                                candidate: (UInt64) -> Candidate?,
+                                inspect: (Candidate, () -> Bool) -> Bool) -> UInt64 {
+        for id in startId..<UInt64.max {
+            guard mayStartIpc(elapsedMs: elapsedMs()) else { return id }
+            var interrupted = false
+            var stop = false
+            if let element = candidate(id) {
+                stop = inspect(element) {
+                    let allowed = mayStartIpc(elapsedMs: elapsedMs())
+                    interrupted = interrupted || !allowed
+                    return allowed
+                }
+            }
+            guard !interrupted else { return id }
+            if stop { return id + 1 }
+        }
+        return UInt64.max
+    }
+}

@@ -527,18 +527,16 @@ class AxObserverRegistry {
     /// identity rather than a guess from titles or geometry — and it is readable at the instant the OS
     /// announces the window (measured on Finder, Terminal and TextEdit).
     ///
-    /// **Not gated on the app's known tab capability, deliberately.** The walk costs one `kAXChildren` round
-    /// trip plus one per child, which IS the expense `TabReadPolicy` rations — but what it rations is the
-    /// per-show pass doing this for every tracked window on every summon, hundreds of trips per press. Here
-    /// it is one window, on a real user action, and `AXCallScheduler`'s per-key dedup collapses a burst.
+    /// **Not gated on the app's known tab capability, deliberately.** The walk costs a bounded child-count +
+    /// child-page pair, then one round trip per child, which IS the expense `TabReadPolicy` rations — but
+    /// what it rations is the per-show pass doing this for every tracked window on every summon, hundreds of
+    /// trips per press. Here it is one window, on a real user action, and `AXCallScheduler`'s per-key dedup
+    /// collapses a burst.
     /// Gating on "this app has shown tabs before" was tried and is worse than useless: an app whose windows
     /// happened to have no tabs when AltTab started has the gate closed, so the tabs it opens later are never
     /// read on the notification at all.
     private static func readTabGroup(_ element: AXUIElement, pid: pid_t) -> TabGroupObservation {
-        guard let children = try? element.attributes([kAXChildrenAttribute], pid: pid).children
-            else { return .unknown }
-        guard let group = TabGroup.extractTabGroup(children) else { return .standalone }
-        return .group(titles: group.titles, token: group.token)
+        element.tabGroupObservation(pid: pid)
     }
 
     /// **Every notification arrives holding a live window element, so offer it rather than drop it.** It

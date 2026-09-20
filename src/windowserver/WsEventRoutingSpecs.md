@@ -31,3 +31,10 @@ Mirrors `WsEventRoutingTests.swift` 1:1.
 
 ### B. Action mapping
 - **testActionForEachNotification** — created→acquireAndDiscriminate, destroyed→remove, moved/resized→updateGeometry, focused→noteFocusEvent, orderedIn/orderedOut→refreshVisibility, added/removed-Space→updateSpaceMembership, current/active-Space→spaceTransition.
+
+### C. Ingress coalescing
+- **testGeometryBurstKeepsOnlyTheLatestEventPerWindow** — repeated move/resize reports for one wid collapse to
+  the latest report, while another wid keeps its own slot.
+- **testSemanticEdgePreventsGeometryFromCrossingIt** — focus, order, lifecycle and Space events split the
+  coalescing segment, preserving the exact sequence on both sides.
+- **testDrainResetsTheCoalescingSegment** — a drained batch cannot absorb a later event.

@@ -38,6 +38,46 @@ final class WindowSurfaceInventoryTests: XCTestCase {
         XCTAssertEqual(WindowSurfaceInventory.representativeWid(1), 2)
     }
 
+    func testDiscoveryParentChainStopsAtACycle() {
+        let rows: [CGWindowID: WsRawWindow] = [1: raw(1, parent: 2), 2: raw(2, parent: 1)]
+        let result = WindowParentChain.resolve(1) { rows[$0] }
+        XCTAssertEqual(result.rows.map(\.wid), [1, 2])
+        XCTAssertEqual(result.stop, .cycle)
+    }
+
+    func testDiscoveryParentChainStopsBeforeACrossProcessParent() {
+        let rows: [CGWindowID: WsRawWindow] = [1: raw(1, pid: 7, parent: 2), 2: raw(2, pid: 8)]
+        let result = WindowParentChain.resolve(1) { rows[$0] }
+        XCTAssertEqual(result.rows.map(\.wid), [1])
+        XCTAssertEqual(result.stop, .crossProcess)
+    }
+
+    func testDiscoveryParentChainKeepsRowsBeforeAMissingParent() {
+        let rows: [CGWindowID: WsRawWindow] = [1: raw(1, parent: 2)]
+        let result = WindowParentChain.resolve(1) { rows[$0] }
+        XCTAssertEqual(result.rows.map(\.wid), [1])
+        XCTAssertEqual(result.stop, .missing)
+    }
+
+    func testDiscoveryParentChainHasAHardDepthLimit() {
+        let result = WindowParentChain.resolve(1) { wid in raw(wid, parent: wid + 1) }
+        XCTAssertEqual(result.rows.count, WindowParentChain.maxDepth)
+        XCTAssertEqual(result.stop, .depthLimit)
+    }
+
+    func testWindowQueryGuardCapsRowsAndRejectsDuplicatesOrForeignIds() {
+        var guardrail = WindowQueryGuard([1, 2])
+        XCTAssertTrue(guardrail.beginRow())
+        XCTAssertTrue(guardrail.accepts(1))
+        XCTAssertTrue(guardrail.beginRow())
+        XCTAssertFalse(guardrail.accepts(1))
+        XCTAssertFalse(guardrail.canReadAnotherRow)
+        XCTAssertFalse(guardrail.beginRow())
+        var foreign = WindowQueryGuard([1])
+        XCTAssertTrue(foreign.beginRow())
+        XCTAssertFalse(foreign.accepts(9))
+    }
+
     func testRemovingASurfaceDropsItsRelationship() {
         replace([raw(1), raw(2, parent: 1)])
         WindowSurfaceInventory.remove(2)

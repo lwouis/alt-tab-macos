@@ -77,17 +77,9 @@ class TabGroups {
 }
 
 /// What is left of the impure OS-tab adapter, now that the orchestration lives in `WindowEventReducer` and
-/// the `Window` ⇄ `TabWindow` projection lives in `TrackedWindowState`: two live reads with nowhere better
-/// to be. See `TabGroupResolverSpecs.md` for the decision logic and its scenarios.
+/// the `Window` ⇄ `TabWindow` projection lives in `TrackedWindowState`. See `TabGroupResolverSpecs.md` for
+/// the decision logic and its scenarios.
 class TabGroup {
-
-    /// Parse AXTabGroup children from a prior `.attributes([..., kAXChildrenAttribute])` call.
-    /// Returns the tab titles (always >= 2) and the group's `TabGroupToken`, or nil when the window has no
-    /// tabs. Both halves come from ONE read and travel together into the reducer for that reason.
-    static func extractTabGroup(_ children: [AXUIElement]?) -> (titles: [String], token: TabGroupToken?)? {
-        AXUIElement.tabGroupInfo(children)
-    }
-
     /// Find the active tab (non-isTabbed) sibling in the same tab group.
     static func activeTabSibling(of window: Window) -> Window? {
         guard let siblingWids = window.tabbedSiblingWids else { return nil }

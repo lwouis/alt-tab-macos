@@ -22,19 +22,41 @@ Two public one-shot APIs exist, each broken differently:
     of large windows (relevant to Preview; at thumbnail sizes it is slightly *faster* than
     `captureSampleBuffer`).
 
-Routing: `captureScreenshot` for every window, except fullscreen windows and, when any shortcut's
-effective settings enable preview-selected-window, all windows (full-resolution path) — those use
-`captureSampleBuffer`.
+Routing: `captureScreenshot` for every non-fullscreen window, including full-resolution Preview frames.
+Fullscreen windows use `captureSampleBuffer` because the screenshot API fails when their Space is inactive.
+
+## Work bounds
+
+- Only one `SCShareableContent` refresh is in flight. Requests arriving while it runs are deduplicated by
+  `(wid, resolution)`. A request missing from a snapshot started before it arrived remains queued for the
+  next discovery. A request already present at discovery start is drained even if absent, so nonexistent
+  windows cannot trigger an endless retry. A late request present in the returned snapshot captures at once.
+  The cache and request generations are published under the discovery lock before another read can start.
+  Failed discovery uses the same generation rule, with no available windows. After five seconds without
+  a completion, the watchdog expires that generation by the same rule. It does not retry covered requests
+  indefinitely; late requests get their own generation, and a future ordinary refresh can retry expired
+  requests. A late callback cannot publish a stale cache or finish a newer generation. Successful callbacks
+  cancel their watchdog. The bound is one non-expired request; timed-out OS calls cannot be cancelled.
+- The pending discovery set and the asynchronous capture wait list each cap at 256 entries. A prioritized
+  request can evict a non-prioritized pending discovery; excess work is logged and dropped, relying on the
+  next ordinary refresh rather than allowing an exotic desktop to grow queues without limit.
+- The capture gate still permits at most 8 requests in flight. A thumbnail-only request is checked again
+  when it reaches that gate, so work queued for a switcher session that has since ended does not reach the OS.
 
 ## Edge cases
+
+- **Lost discovery callback**: unit tests cover timeout recovery, late-callback rejection, late-watchdog
+  rejection, and progress of requests arriving during a lost call. Live QA `CP-03` drops one real discovery
+  callback through a debug-only hook, then checks that a new window gets its capture on a later summon
+  without restarting AltTab.
 
 - **Stale fullscreen state**: `isFullscreen` is snapshotted on the main thread when the burst is built, so
   a window mid-transition can be routed to `captureScreenshot` and fail with -3811. Deliberately no
   fallback/retry: the thumbnail keeps its previous contents and the next refresh re-routes. A fallback
   would silently reintroduce stream churn and hide new failure modes.
-- **Preview is burst-wide, not per-window**: background captures aren't tied to a shortcut, so if any
-  shortcut slot enables preview, every capture in the burst is full-resolution and uses
-  `captureSampleBuffer` (`Preferences.anyShortcutUsesPreview`).
+- **Thumbnail and Preview requests stay distinct**: pending discovery and throttling keys include the
+  resolution, so a thumbnail request cannot coalesce away a full-resolution Preview request for the same
+  window.
 - **Privacy attribution cost is API-independent**: both APIs flip replayd's screen-capture attribution
   (~4 `updateScreenCaptureDidStart` events per capture) and cost systemstatusd the same CPU (measured
   within 2%). Switching APIs fixes the WindowServer leak, not the per-capture attribution overhead.
@@ -49,3 +71,14 @@ effective settings enable preview-selected-window, all windows (full-resolution 
 | replayd CPU | 2.0 s | 1.8 s |
 | systemstatusd CPU | 4.8 s | 4.7 s |
 | failures | 0 | only fullscreen-on-inactive-Space, always -3811 |
+
+## Discovery regression tests
+
+`CaptureDiscoveryTests.swift` exercises the production pending buffer without ScreenCaptureKit:
+
+- A late window absent from the old snapshot gets a newer discovery.
+- A window still absent from its own discovery stops retrying.
+- Late requests already covered by the returned content capture without another discovery.
+- Repeated requests for a covered missing window merge without extending its retry.
+- Arrivals during the follow-up belong to the next generation.
+- The 256-entry production cap applies across generations, preserving priority and separate resolutions.

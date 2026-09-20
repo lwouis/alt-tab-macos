@@ -1,5 +1,64 @@
 import Cocoa
 
+struct WindowQueryGuard {
+    private let requested: Set<CGWindowID>
+    private(set) var rowsRead = 0
+    private var seen = Set<CGWindowID>()
+
+    init(_ requested: [CGWindowID]) {
+        self.requested = Set(requested)
+    }
+
+    var canReadAnotherRow: Bool { rowsRead < requested.count }
+
+    mutating func beginRow() -> Bool {
+        guard canReadAnotherRow else { return false }
+        rowsRead += 1
+        return true
+    }
+
+    mutating func accepts(_ wid: CGWindowID) -> Bool {
+        requested.contains(wid) && seen.insert(wid).inserted
+    }
+}
+
+struct WindowParentChain {
+    enum Stop: Equatable {
+        case root
+        case missing
+        case cycle
+        case crossProcess
+        case depthLimit
+    }
+
+    struct Resolution: Equatable {
+        let rows: [WsRawWindow]
+        let stop: Stop
+    }
+
+    static let maxDepth = 32
+
+    /// Follow private WindowServer parent ids without trusting them to be a finite, same-process tree. The
+    /// final row is the last trustworthy representative; a malformed next edge never discards the rows that
+    /// were already validated.
+    static func resolve(_ start: CGWindowID, fetch: (CGWindowID) -> WsRawWindow?) -> Resolution {
+        var rows = [WsRawWindow]()
+        var visited = Set<CGWindowID>()
+        var current = start
+        var owner: pid_t?
+        for _ in 0..<maxDepth {
+            guard visited.insert(current).inserted else { return Resolution(rows: rows, stop: .cycle) }
+            guard let row = fetch(current) else { return Resolution(rows: rows, stop: .missing) }
+            guard owner == nil || owner == row.pid else { return Resolution(rows: rows, stop: .crossProcess) }
+            owner = row.pid
+            rows.append(row)
+            guard row.parentWid != 0 else { return Resolution(rows: rows, stop: .root) }
+            current = row.parentWid
+        }
+        return Resolution(rows: rows, stop: .depthLimit)
+    }
+}
+
 /// Main-thread inventory of every WindowServer surface from the latest all-Space snapshot. Keeping this
 /// separate from `Windows.byWindowId` is essential: a physical background-tab row is not yet a tracked
 /// switch destination and must not prevent inactive-tab AX adoption from looking for it.

@@ -19,6 +19,9 @@ class WindowServerEvents {
     /// Level is only a positive hint: substantial floating/presentation surfaces are subscribed too.
     private static var wsWindows = Set<CGWindowID>()
     private static var started = false
+    private static let ingressLock = NSLock()
+    private static var ingress = WsEventIngress()
+    private static var ingressDrainScheduled = false
 
     /// The cadence the shell re-arms the reducer's re-checks on (hold-release, drag-out). The reducer owns the
     /// attempt CAPS (`WindowEventReducer.holdReleaseMaxAttempts` / `dragOutMaxAttempts`); the wall-clock
@@ -106,10 +109,34 @@ class WindowServerEvents {
         if let d = data, len >= 4 { memcpy(&w0, d, 4) }
         if let d = data, len >= 8 { memcpy(&s0, d, 8) }
         if let d = data, len >= 12 { memcpy(&w8, d.advanced(by: 8), 4) }
-        if Thread.isMainThread {
-            handle(event, w0, s0, w8, at)
-        } else {
-            DispatchQueue.main.async { handle(event, w0, s0, w8, at) }
+        guard let notification = WsEventRouting.notification(event) else { return }
+        enqueue(WsEventIngress.Event(notification: notification, w0: w0, space: s0, widInSpace: w8, at: at))
+    }
+
+    /// Serialize every callback through one ordered buffer. A resize drag can emit faster than main can
+    /// snapshot and reduce the model; one queued GCD block per notification then turns a finite drag into a
+    /// long tail of stale work. The pure buffer keeps the latest geometry report per wid and segment while
+    /// semantic edges split segments, so nothing capable of changing focus/lifecycle/order is crossed.
+    private static func enqueue(_ event: WsEventIngress.Event) {
+        ingressLock.lock()
+        ingress.append(event)
+        let shouldSchedule = !ingressDrainScheduled
+        ingressDrainScheduled = true
+        ingressLock.unlock()
+        if shouldSchedule { DispatchQueue.main.async { drainIngress() } }
+    }
+
+    private static func drainIngress() {
+        dispatchPrecondition(condition: .onQueue(.main))
+        ingressLock.lock()
+        let batch = ingress.drain()
+        ingressDrainScheduled = false
+        ingressLock.unlock()
+        if batch.coalescedGeometryEvents > 0 {
+            Logger.debug { "coalesced \(batch.coalescedGeometryEvents) WindowServer geometry events" }
+        }
+        for event in batch.events {
+            handle(event.notification, event.w0, event.space, event.widInSpace, event.at)
         }
     }
 
@@ -117,9 +144,8 @@ class WindowServerEvents {
     /// gesture is up is created, ordered in, ordered out and destroyed like any other surface, and that is
     /// the only announcement left on macOS 27 (see `MissionControl`). The look is coalesced there, so every
     /// other window doing the same thing costs one throttled window-list read.
-    private static func handle(_ event: UInt32, _ w0: UInt32, _ space: UInt64, _ widInSpace: UInt32,
+    private static func handle(_ n: WsEventRouting.Notification, _ w0: UInt32, _ space: UInt64, _ widInSpace: UInt32,
                               _ at: TimeInterval) {
-        guard let n = WsEventRouting.notification(event) else { return }
         switch n {
         case .activeSpaceChanged, .spaceCurrentChanged:
             // The same clock that mutes the transition's window storm also names the burst's LEADING edge:

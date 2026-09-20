@@ -100,3 +100,12 @@ element for, and a quiescent background app never moved its window set to earn a
   makes a previously-unreachable element reachable, so it restarts the budget however exhausted it was.
 - **testAttemptsResetOnANewSituation** — the counter is per situation, not cumulative, so a long-lived app
   that churns windows never accumulates its way into a permanent refusal.
+
+### E. Accessibility traversal
+
+`AxTraversalPolicy.scan` visits candidates within a 250ms slice, with no numeric ID or candidate ceiling.
+Callers that restart at zero can reach high, sparse IDs while time remains. If the deadline refuses an IPC,
+the resume cursor names that unfinished candidate. A completed inspection, including a missing private
+element, advances the cursor. Tests cover reaching ID 30,000 within budget, contiguous timed slices,
+expiration between window-id and role reads, expiration during construction, absent elements, and the end
+of the UInt64 id range.

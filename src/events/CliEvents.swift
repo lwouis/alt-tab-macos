@@ -92,6 +92,12 @@ class CliServer {
         if rawValue == "--qa-state" {
             return qaState()
         }
+        #if DEBUG
+        if rawValue == "--qa-drop-next-discovery", #available(macOS 26.0, *) {
+            WindowCaptureScreenshots.dropNextDiscoveryForQa()
+            return noOutput
+        }
+        #endif
         // The provider timeline, drained rather than read: each record is reported exactly once, so a test
         // gets the events of its own session and not the whole run's backlog. The harness writes them out as
         // NDJSON (`TrackingTelemetryNdjson`).

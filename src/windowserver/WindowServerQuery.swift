@@ -12,10 +12,14 @@ enum WindowServerQuery {
         let result = SLSWindowQueryWindows(CGS_CONNECTION, wids as CFArray, Int32(wids.count)).takeRetainedValue()
         let iterator = SLSWindowQueryResultCopyWindows(result).takeRetainedValue()
         var out: [WsRawWindow] = []
-        out.reserveCapacity(wids.count)
-        while SLSWindowIteratorAdvance(iterator) {
+        var guardrail = WindowQueryGuard(wids)
+        out.reserveCapacity(Set(wids).count)
+        while guardrail.canReadAnotherRow && SLSWindowIteratorAdvance(iterator) {
+            guard guardrail.beginRow() else { break }
+            let wid = SLSWindowIteratorGetWindowID(iterator)
+            guard guardrail.accepts(wid) else { continue }
             out.append(WsRawWindow(
-                wid: SLSWindowIteratorGetWindowID(iterator),
+                wid: wid,
                 pid: SLSWindowIteratorGetPID(iterator),
                 attributes: SLSWindowIteratorGetAttributes(iterator),
                 level: SLSWindowIteratorGetLevel(iterator),

@@ -375,12 +375,10 @@ class Applications {
             let isSelf = app.pid == AXUIElement.currentProcessPid
             // The WS minimized tag is distinct from the ordered-out bit, which is also cleared for closing,
             // app-hidden and other-Space windows.
-            let keys = [kAXTitleAttribute, kAXSubroleAttribute, kAXRoleAttribute, kAXMainAttribute] + (isSelf ? [] : [kAXChildrenAttribute])
+            let keys = [kAXTitleAttribute, kAXSubroleAttribute, kAXRoleAttribute, kAXMainAttribute]
             let a = try element.attributes(keys, pid: app.pid)
             let semantic = SemanticSurface(title: a.title, subrole: a.subrole, role: a.role, isMain: a.isMain)
-            let tabGroup = isSelf ? nil : TabGroup.extractTabGroup(a.children)
-            let tabObservation: TabGroupObservation = isSelf ? .unknown
-                : tabGroup.map { .group(titles: $0.titles, token: $0.token) } ?? .standalone
+            let tabObservation: TabGroupObservation = isSelf ? .unknown : element.tabGroupObservation(pid: app.pid)
             let isFullscreen = WsWindowState.isFullscreen(raw)
             // Both from the SAME WindowServer snapshot this discovery already holds. Minimized used to be an
             // AX `kAXMinimized` read in the batch above; it is a WindowServer tag now, so it cannot be
@@ -400,7 +398,11 @@ class Applications {
                 guard let app else { return }
                 // discovery always reads tabs (`isSelf` aside), so it teaches `TabReadPolicy` as much as the
                 // review pass does — and it is what settles a brand-new app's capability on its first window
-                if !isSelf { noteTabRead(wid: wid, pid: app.pid, foundTabGroup: tabGroup != nil) }
+                if case .group = tabObservation {
+                    noteTabRead(wid: wid, pid: app.pid, foundTabGroup: true)
+                } else if tabObservation == .standalone {
+                    noteTabRead(wid: wid, pid: app.pid, foundTabGroup: false)
+                }
                 windowAttributesThrottler.throttleOrProceed(key: "\(wid)-generic") {
                     // The shell's job ends at acquisition + raw-fact ingestion: findOrCreate applies the AX/WS
                     // attributes (and appends a genuinely-new window). Everything decided AFTER that — the
@@ -571,9 +573,8 @@ class Applications {
                                                                     route: .currentSpaceViaApplicationWindows)
                     siblingMayLive = siblingMayLive || sibling != .absent
                     guard case let .found(element) = sibling,
-                        let children = try? element.attributes([kAXChildrenAttribute], pid: pending.pid).children,
-                        let group = TabGroup.extractTabGroup(children) else { continue }
-                    groupShrank = group.titles.count < previousTabCount
+                          case .group(let titles, _) = element.tabGroupObservation(pid: pending.pid) else { continue }
+                    groupShrank = titles.count < previousTabCount
                     if groupShrank { break }
                 }
             }
@@ -596,11 +597,15 @@ class Applications {
         guard let published = AXUIElement.onCorrectThread(pid: pid, { try? app.windowsIncludingKeyAndMain() }) else {
             return true
         }
-        return published.contains { window in
-            guard let children = try? window.attributes([kAXChildrenAttribute], pid: pid).children,
-                  let token = TabGroup.extractTabGroup(children)?.token else { return false }
-            return tokens.contains(token)
+        for window in published {
+            switch window.tabGroupObservation(pid: pid) {
+                case .unknown: return true
+                case .standalone: continue
+                case .group(_, let token):
+                    if let token, tokens.contains(token) { return true }
+            }
         }
+        return false
     }
 
     private static func querySurfaceEnd(wid: CGWindowID, token: UInt64) {
@@ -819,16 +824,16 @@ class Applications {
     /// window instead of a full inventory; `Window.init` seeds the app's per-process focus fact after append.
     static func discoverWindow(_ wid: CGWindowID) {
         CGSCallScheduler.run {
-            guard let raw = WindowServerQuery.query([wid]).first else { return }
+            let chain = WindowParentChain.resolve(wid) { WindowServerQuery.query([$0]).first }
+            guard let raw = chain.rows.last else { return }
             DispatchQueue.main.async {
-                WindowSurfaceInventory.upsert([raw])
-                if raw.parentWid != 0 {
-                    WindowServerEvents.subscribe(raw.parentWid)
-                    discoverWindow(raw.parentWid)
-                    return
+                WindowSurfaceInventory.upsert(chain.rows)
+                for parent in chain.rows.dropFirst() { WindowServerEvents.subscribe(parent.wid) }
+                if chain.stop != .root {
+                    Logger.warning { "stopped WindowServer parent chain for #\(wid) at #\(raw.wid): \(chain.stop)" }
                 }
                 guard WindowAdmissionResolver.shouldAcquireSemantics(PhysicalSurface(raw)) ||
-                        Windows.byWindowId[wid]?.admissionEvidence == .attention else { return }
+                        Windows.byWindowId[raw.wid]?.admissionEvidence == .attention else { return }
                 // Opt in HERE, not on the raw 811: the physical acquisition verdict is only known once the
                 // query above answers, and subscribing before it put every menu, tooltip and Dock indicator
                 // on our per-window stream.
@@ -845,14 +850,14 @@ class Applications {
                 // exact attention arriving inside the gap waits for this wid to have a model object before it
                 // commits. The per-app discovery seed covers an already-front app at cold start.
                 // Deliberately before the guards below — a window AX rejects must stay subscribed (#5785).
-                WindowServerEvents.subscribe(wid)
+                WindowServerEvents.subscribe(raw.wid)
                 // A window kept on WindowServer evidence alone must NOT block its own re-acquisition: it is
                 // tracked, so the old "already tracked, nothing to do" guard would leave it unverified and
                 // unshown for good. Proceed whenever there is no AX element yet.
-                guard Windows.byWindowId[wid]?.axUiElement == nil,
+                guard Windows.byWindowId[raw.wid]?.axUiElement == nil,
                       let app = findOrCreate(raw.pid) else { return }
-                AXCallScheduler.shared.schedule(key: "wid-\(wid)-acquire", context: app.debugId, pid: raw.pid, scan: true) {
-                    guard let element = WindowElementAcquisition.element(for: wid, pid: raw.pid,
+                AXCallScheduler.shared.schedule(key: "wid-\(raw.wid)-acquire", context: app.debugId, pid: raw.pid, scan: true) {
+                    guard let element = WindowElementAcquisition.element(for: raw.wid, pid: raw.pid,
                         route: .currentSpaceViaApplicationWindows) else { return }
                     addDiscoveredWindow(element, raw, app)
                 }
@@ -1035,8 +1040,7 @@ class Applications {
             // ordered-out window reports its AXTabGroup inconsistently mid-transition, and order-out never
             // changes tab membership anyway. Saves the kAXChildren IPC too.
             let readTabs = !isSelf && reconcileTabs
-            let keys = [kAXTitleAttribute, kAXSubroleAttribute, kAXRoleAttribute, kAXMainAttribute] +
-                (readTabs ? [kAXChildrenAttribute] : [])
+            let keys = [kAXTitleAttribute, kAXSubroleAttribute, kAXRoleAttribute, kAXMainAttribute]
             let a: AXAttributes
             do {
                 a = try axWindow.attributes(keys, pid: app.pid)
@@ -1053,17 +1057,19 @@ class Applications {
                 }
                 return
             }
-            let tabGroup = readTabs ? TabGroup.extractTabGroup(a.children) : nil
-            let tabObservation: TabGroupObservation = readTabs
-                ? tabGroup.map { .group(titles: $0.titles, token: $0.token) } ?? .standalone
-                : .unknown
+            let tabObservation: TabGroupObservation = readTabs ? axWindow.tabGroupObservation(pid: app.pid) : .unknown
             DispatchQueue.main.async {
                 // Recorded outside the throttle: this read HAPPENED, and "no tab group" is as much of an
                 // answer as a group. Inside, a coalesced call would leave the window looking never-read and
                 // `TabReadPolicy` would keep re-electing it.
-                if readTabs {
-                    noteTabRead(wid: wid, pid: app.pid, foundTabGroup: tabGroup != nil,
-                        appWindowSetVersion: appWindowSetVersionAtRead)
+                if readTabs, tabObservation != .unknown {
+                    if case .group = tabObservation {
+                        noteTabRead(wid: wid, pid: app.pid, foundTabGroup: true,
+                            appWindowSetVersion: appWindowSetVersionAtRead)
+                    } else {
+                        noteTabRead(wid: wid, pid: app.pid, foundTabGroup: false,
+                            appWindowSetVersion: appWindowSetVersionAtRead)
+                    }
                 }
                 windowAttributesThrottler.throttleOrProceed(key: "\(wid)-generic") {
                     guard let window = Windows.byWindowId[wid] else { return }

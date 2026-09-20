@@ -22,10 +22,10 @@ struct TabReadCandidate: Equatable {
 
 /// **Which windows pay for a tab read on a given switcher show.**
 ///
-/// The tab read is the most expensive thing AltTab asks of other processes. `AXUIElement.tabGroupInfo` hunts
-/// for an `AXTabGroup` among a window's DIRECT children, and there is no OS batch across elements, so it
-/// costs one Mach round trip per child — and a window with no tabs pays for every one of them before
-/// concluding there is no tab bar. An ordinary AppKit window has several children (the close/minimize/zoom
+/// The tab read is the most expensive thing AltTab asks of other processes. `tabGroupObservation` hunts for
+/// an `AXTabGroup` among bounded pages of a window's DIRECT children, and there is no OS batch across
+/// elements, so it costs one Mach round trip per child — and a window with no tabs pays for every one of them
+/// before concluding there is no tab bar. An ordinary AppKit window has several children (the close/minimize/zoom
 /// buttons, a toolbar, a split group), so reading every tracked window on every show ran to several hundred
 /// round trips per summon on an ordinary desktop, into as many processes, each capable of stalling a bounded
 /// worker for the full 1s messaging timeout.
@@ -70,5 +70,35 @@ enum TabReadPolicy {
         }
         for candidate in ordered.prefix(backstopReadsPerPass) { read.insert(candidate.wid) }
         return read
+    }
+}
+
+/// Page size bounds each allocation, not the number of children a window may expose. All pages share
+/// the caller's time budget; partial reads are unknown and cannot prove a window has no tab group.
+enum AxChildrenTraversal {
+    enum Result: Equatable {
+        case complete
+        case stopped
+        case unknown
+    }
+
+    static func walk<Element>(pageSize: Int, mayRead: () -> Bool, count: () -> Int?,
+                              page: (Int, Int) -> [Element]?, visit: (Element) -> Bool?) -> Result {
+        guard pageSize > 0, mayRead(), let total = count(), total >= 0 else { return .unknown }
+        var offset = 0
+        while offset < total {
+            let amount = min(pageSize, total - offset)
+            guard mayRead(), let elements = page(offset, amount), elements.count == amount else { return .unknown }
+            for element in elements {
+                guard mayRead(), let stop = visit(element) else { return .unknown }
+                if stop { return .stopped }
+            }
+            offset += amount
+        }
+        // A shrinking or growing tree between page IPCs is not a complete observation.
+        if total > pageSize {
+            guard mayRead(), count() == total else { return .unknown }
+        }
+        return .complete
     }
 }
