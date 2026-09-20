@@ -1,3 +1,24 @@
+## [11.7.1](https://github.com/lwouis/alt-tab-macos/compare/v11.7.0...v11.7.1) (2026-09-20)
+
+
+### Bug Fixes
+
+* a Dock badge an app cleared could linger for a second ([5ac5a65](https://github.com/lwouis/alt-tab-macos/commit/5ac5a65))
+* keep the trial menu label fully visible ([3345803](https://github.com/lwouis/alt-tab-macos/commit/3345803))
+* memory use and processor load could grow over time (closes [#6051](https://github.com/lwouis/alt-tab-macos/issues/6051)) ([4c49801](https://github.com/lwouis/alt-tab-macos/commit/4c49801))
+* missing or leftover windows when apps open, hide or quit ([#6034](https://github.com/lwouis/alt-tab-macos/issues/6034)) ([c96702a](https://github.com/lwouis/alt-tab-macos/commit/c96702a)), closes [#6023](https://github.com/lwouis/alt-tab-macos/issues/6023)
+* new window thumbnails may jump while loading (closes [#6054](https://github.com/lwouis/alt-tab-macos/issues/6054)) ([331ab26](https://github.com/lwouis/alt-tab-macos/commit/331ab26))
+* selection and hover could jump while windows change (closes [#6032](https://github.com/lwouis/alt-tab-macos/issues/6032)) ([02152d9](https://github.com/lwouis/alt-tab-macos/commit/02152d9))
+* switcher could offer the window you are already in (closes [#6055](https://github.com/lwouis/alt-tab-macos/issues/6055)) ([95fd3e1](https://github.com/lwouis/alt-tab-macos/commit/95fd3e1))
+* window titles could be outdated or show the app name (closes [#6047](https://github.com/lwouis/alt-tab-macos/issues/6047)) ([b47b52f](https://github.com/lwouis/alt-tab-macos/commit/b47b52f))
+* wrong app in front after returning to a Space (closes [#6036](https://github.com/lwouis/alt-tab-macos/issues/6036)) ([db7e21b](https://github.com/lwouis/alt-tab-macos/commit/db7e21b))
+
+
+### Performance Improvements
+
+* faster switcher updates when windows change ([70fa760](https://github.com/lwouis/alt-tab-macos/commit/70fa760))
+* lower CPU and memory use during bursts of window changes ([8c8d283](https://github.com/lwouis/alt-tab-macos/commit/8c8d283))
+
 # [11.7.0](https://github.com/lwouis/alt-tab-macos/compare/v11.6.1...v11.7.0) (2026-09-17)
 
 
