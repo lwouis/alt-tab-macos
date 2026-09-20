@@ -25,6 +25,19 @@ Once the user moves the highlight, the selected window's id is remembered as the
 refresh the resolver tries to keep the highlight on that same window even as the list reorders — this is
 the #5665 fix (before it, a background app finishing launch could yank the highlight away mid-pick).
 
+### Actions before a deferred repaint
+
+`Windows.selectedWindow()` resolves the selected identity before focusing, closing, minimizing, hiding,
+quitting, or displaying Preview. Its cached index is a fast path only while it still names that identity.
+Removing a preceding window, inserting a window, or reordering the list cannot redirect an action to a
+neighbor while the repaint is pending. A missing or no-longer-visible target yields no action. The next
+selection refresh chooses a visible replacement and updates the target even when its index is unchanged.
+
+Regression tests cover removals with both valid and out-of-range stale indices, insertion/reordering,
+missing targets, and invalid indices without a target. `CoalescedWorkTests` also resolves the selection
+while the production `RepaintCoalescer` holds the removal repaint. Live QA `F-10` closes a real background
+window, releases the shortcut before repaint, and checks the window macOS actually focused.
+
 ## Behavior & edge cases (decision priority order)
 
 1. **Search-clear** (`restoreDefaultOnSearchClear`) takes precedence — re-runs the initial pick even with no visible windows.

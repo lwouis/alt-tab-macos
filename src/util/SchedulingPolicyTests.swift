@@ -36,6 +36,39 @@ final class SchedulingPolicyTests: XCTestCase {
         XCTAssertEqual(ThrottleDecision.decide(lastFireNs: 0, nowNs: 30, delayNs: 200, tailScheduled: true), .coalesce)
     }
 
+    // MARK: - A2. RepaintCoalescingPolicy
+
+    func testRepaintLoneRequestWaitsOneFrame() {
+        // nothing painted yet, so no floor: the trailing edge is one frame out, never sooner
+        XCTAssertEqual(RepaintCoalescingPolicy.delayNs(nowNs: 1_000_000_000, notBeforeNs: 0), 16_000_000)
+    }
+
+    func testRepaintWaitsOutAFloorLeftByThePreviousPaint() {
+        // the previous paint's quiet ends 50ms out, which is further than one frame
+        XCTAssertEqual(RepaintCoalescingPolicy.delayNs(nowNs: 1_000_000_000, notBeforeNs: 1_050_000_000), 50_000_000)
+    }
+
+    func testRepaintFloorInsideOneFrameStillWaitsAFullFrame() {
+        // a floor only 5ms out must not pull the paint in ahead of the burst-merging window
+        XCTAssertEqual(RepaintCoalescingPolicy.delayNs(nowNs: 1_000_000_000, notBeforeNs: 1_005_000_000), 16_000_000)
+    }
+
+    func testRepaintQuietIsFourTimesTheMeasuredCost() {
+        // 21ms is a 35-tile paint, measured: it buys 84ms of quiet, i.e. repaints own at most a fifth of main
+        XCTAssertEqual(RepaintCoalescingPolicy.quietAfterNs(paintCostNs: 21_000_000), 84_000_000)
+    }
+
+    func testRepaintQuietFloorsAtOneFrame() {
+        // a 1ms paint would buy 4ms, which is less than a frame and would let the next one land in the same one
+        XCTAssertEqual(RepaintCoalescingPolicy.quietAfterNs(paintCostNs: 1_000_000), 16_000_000)
+        XCTAssertEqual(RepaintCoalescingPolicy.quietAfterNs(paintCostNs: 0), 16_000_000)
+    }
+
+    func testRepaintQuietCapsSoAPathologicalPaintCannotStarveTheSwitcher() {
+        // the 517ms paint seen in a capture would otherwise buy two full seconds of silence
+        XCTAssertEqual(RepaintCoalescingPolicy.quietAfterNs(paintCostNs: 517_000_000), 200_000_000)
+    }
+
     // MARK: - B. RetryPolicy
 
     func testRetryBackoffSequence() {

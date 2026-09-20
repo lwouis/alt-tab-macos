@@ -93,6 +93,11 @@ class CliServer {
             return qaState()
         }
         #if DEBUG
+        if rawValue.hasPrefix("--qa-defer-repaints=") {
+            let ms = Int(rawValue.dropFirst("--qa-defer-repaints=".count)) ?? 0
+            App.deferRepaintsForQa(min(5000, max(0, ms)))
+            return noOutput
+        }
         if rawValue == "--qa-drop-next-discovery", #available(macOS 26.0, *) {
             WindowCaptureScreenshots.dropNextDiscoveryForQa()
             return noOutput

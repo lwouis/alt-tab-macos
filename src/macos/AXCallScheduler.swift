@@ -6,10 +6,9 @@ import Foundation
 ///   2. don't hang on unresponsive apps — a call that times out is retried with backoff on a quarantine
 ///      pool, so one beach-balling app can't starve calls to the responsive ones.
 ///
-/// It does NOT throttle/coalesce. Coalescing self-flooding inputs (resize/move/title) is the job of an
-/// explicit `Throttler` at the call site (e.g. `Applications.windowAttributesThrottler`). The only
-/// dedup here is per-key in-flight: a second call for a key already running is held as `pendingBlock`
-/// and run once the current one finishes — never two concurrent calls for the same key.
+/// It does not delay calls against a guessed interval. Its per-key in-flight backpressure lets one call run
+/// while retaining only the latest pending request, so a slow target naturally admits fewer calls without
+/// making a responsive target wait — never two concurrent calls for the same key.
 ///
 /// **Per-key dedup is not enough to keep one app off a whole lane**, because keys are per-window: an app
 /// with 12 windows has 12 keys, and one wedged app could hold every worker of a 6-wide lane for the full 1s

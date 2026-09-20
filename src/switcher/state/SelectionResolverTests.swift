@@ -213,16 +213,36 @@ final class SelectionResolverTests: XCTestCase {
 
     // MARK: - C. Target removed / no longer visible
 
+    func testActionFollowsTargetAfterRemovalBeforeItsIndex() {
+        XCTAssertEqual(SelectionResolver.selectedWindow(in: ["a", "c", "d"], at: 2, target: "c", id: { $0 }), "c")
+    }
+
+    func testActionFollowsTargetAfterItsIndexFallsOutOfBounds() {
+        XCTAssertEqual(SelectionResolver.selectedWindow(in: ["a", "c"], at: 2, target: "c", id: { $0 }), "c")
+    }
+
+    func testActionFollowsTargetAfterInsertionAndReordering() {
+        XCTAssertEqual(SelectionResolver.selectedWindow(in: ["new", "c", "a", "b"], at: 2, target: "c", id: { $0 }), "c")
+    }
+
+    func testActionDoesNotInheritARemovedTargetsIndex() {
+        XCTAssertNil(SelectionResolver.selectedWindow(in: ["a", "b", "d"], at: 2, target: "c", id: { $0 }))
+        XCTAssertNil(SelectionResolver.selectedWindow(in: [String](), at: 0, target: "c", id: { $0 }))
+    }
+
+    func testActionWithoutATargetUsesOnlyAValidIndex() {
+        XCTAssertEqual(SelectionResolver.selectedWindow(in: ["a", "b"], at: 1, target: nil, id: { $0 }), "b")
+        XCTAssertNil(SelectionResolver.selectedWindow(in: ["a"], at: -1, target: nil, id: { $0 }))
+        XCTAssertNil(SelectionResolver.selectedWindow(in: ["a"], at: 1, target: nil, id: { $0 }))
+    }
+
     /// C1. User's picked window closed externally. The id is no longer in the list. Fall through
     /// to `adapt` and end on the previous `selectedIndex` (target backfill).
     func testTargetRemovedAdaptToClosestBelow() {
         // Originally: [a, b, c, d]; user picked "c" at index 2. Then "c" closed:
         let list = [w("a", focusOrder: 0), w("b", focusOrder: 1), w("d", focusOrder: 3)]
         let i = inputs(list: list, selectedIndex: 2, selectedTarget: "c")
-        // visibleIndexes = [0, 1, 2]. selectedIndex (2) is in range and equals lastVisible,
-        // selectedTarget != nil but lookup fails. Tail branch: ensureTargetSet(2) — list[2] is "d"
-        // and the wrapper backfills the target to "d".
-        XCTAssertEqual(SelectionResolver.decide(i), .ensureTargetSet(2))
+        XCTAssertEqual(SelectionResolver.decide(i), .selectAt(2))
     }
 
     /// C1 variant: original `selectedIndex` is now out of bounds for the smaller list.
@@ -254,9 +274,7 @@ final class SelectionResolverTests: XCTestCase {
         // Originally [other, target]; target closed. Now: [other].
         let list = [w("other")]
         let i = inputs(list: list, selectedIndex: 0, selectedTarget: "target")
-        // visibleIndexes=[0]. selectedIndex=0 in range. selectedTarget != nil but lookup fails.
-        // Tail returns ensureTargetSet(0); wrapper backfills target to "other".
-        XCTAssertEqual(SelectionResolver.decide(i), .ensureTargetSet(0))
+        XCTAssertEqual(SelectionResolver.decide(i), .selectAt(0))
     }
 
     // MARK: - D. Search-mode interactions
@@ -308,9 +326,7 @@ final class SelectionResolverTests: XCTestCase {
     func testEdgeStaleSelectedTarget() {
         let list = [w("a"), w("b"), w("c")]
         let i = inputs(list: list, selectedIndex: 1, selectedTarget: "missing")
-        // target lookup fails → adapt → selectedIndex=1 in [0,1,2], in range, target was non-nil
-        // so the no-target-set branch doesn't trigger; tail returns ensureTargetSet(1).
-        XCTAssertEqual(SelectionResolver.decide(i), .ensureTargetSet(1))
+        XCTAssertEqual(SelectionResolver.decide(i), .selectAt(1))
     }
 
     // MARK: - F. The current window is not in the drawn list (#5941)

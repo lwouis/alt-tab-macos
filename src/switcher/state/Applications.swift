@@ -4,10 +4,14 @@ import ApplicationServices
 class Applications {
     static var list = [Application]()
     static var frontmostPid = NSWorkspace.shared.frontmostApplication?.processIdentifier
-    // Throttlers coalesce redundant work. They are SEPARATE from AXCallScheduler, which is a pure executor
-    // (bounded pools + retry, no throttle). Each one below states what it coalesces and why:
-    // A — suppress redundant inbound events: coalesce resize/move/title bursts to ≤1 attribute read per window
-    static let windowAttributesThrottler = ThrottlerWithKey(delayInMs: 200)
+    // Discovery, attribute reads and WindowServer state deliberately have no clock throttle. Measured over
+    // 12 lifecycle/Space/tab/volume scenarios, the old shared 200ms gate suppressed only 3 of 50 requests,
+    // delayed 12 by 203-210ms, and guarded model writes costing 0.21ms mean / 0.84ms max. AX keeps one call
+    // per key in flight and retains the latest pending request; WindowServer reads keep one active batch
+    // and one pending set.
+    // Throttlers coalesce redundant work. Each one below states what it coalesces and why:
+    // A — cap title pushes chosen by another app to ≤1 model update per window per 200ms
+    static let titleThrottler = ThrottlerWithKey(delayInMs: 200)
     // B — suppress redundant recompute: ≤1 full window-inventory scan per second (on switcher show)
     static let fullRescanThrottler = Throttler(delayInMs: 1000)
     // B — ≤1 Dock-badge fetch per second
@@ -403,56 +407,49 @@ class Applications {
                 } else if tabObservation == .standalone {
                     noteTabRead(wid: wid, pid: app.pid, foundTabGroup: false)
                 }
-                windowAttributesThrottler.throttleOrProceed(key: "\(wid)-generic") {
-                    // The shell's job ends at acquisition + raw-fact ingestion: findOrCreate applies the AX/WS
-                    // attributes (and appends a genuinely-new window). Everything decided AFTER that — the
-                    // pending-removal consume, the MRU promotion, the Space override for background tabs, the
-                    // tab-state update, the reconcile — is the reducer's `.discoveryLanded` branch. A surface
-                    // not admitted yet still dispatches, so the reducer's pending-removal marker stays self-draining.
-                    let findOrCreate = Windows.findOrCreate(element, raw, app, semantic, isFullscreen, isMinimized)
-                    let pending = consumePendingAxCreation(wid: wid, pid: app.pid)
-                    if let pending { findOrCreate.0?.rebindAxElement(pending.element) }
-                    let observedTabs = pending?.tabGroup == .unknown ? tabObservation
-                        : (pending?.tabGroup ?? tabObservation)
-                    // not logged here: the reducer's `.discoveryLanded` line names this window with the facts
-                    // that actually matter (tab titles, group, Spaces, whether it was adopted as a tab)
-                    findOrCreate.0?.isMainWindow = a.isMain ?? false
-                    TrackedWindowStateBridge.dispatch(.discoveryLanded(wid: wid, accepted: findOrCreate.0 != nil,
-                        newlyTracked: findOrCreate.1, adoptedAsInactiveTab: adoptedAsInactiveTab,
-                        spaceMembership: spaceMembership, isOrderedIn: WsWindowState.isVisible(raw),
-                        tabGroup: observedTabs))
-                    // A genuinely new window changes what the startup guess has to rank, so re-make it here
-                    // rather than once on a timer that fires before discovery lands.
-                    if findOrCreate.1 { Windows.reseedZOrderDuringStartup() }
-                }
+                // The shell's job ends at acquisition + raw-fact ingestion: findOrCreate applies the AX/WS
+                // attributes (and appends a genuinely-new window). Everything decided AFTER that — the
+                // pending-removal consume, the MRU promotion, the Space override for background tabs, the
+                // tab-state update, the reconcile — is the reducer's `.discoveryLanded` branch. A surface
+                // not admitted yet still dispatches, so the reducer's pending-removal marker stays self-draining.
+                let findOrCreate = Windows.findOrCreate(element, raw, app, semantic, isFullscreen, isMinimized)
+                let pending = consumePendingAxCreation(wid: wid, pid: app.pid)
+                if let pending { findOrCreate.0?.rebindAxElement(pending.element) }
+                let observedTabs = pending?.tabGroup == .unknown ? tabObservation
+                    : (pending?.tabGroup ?? tabObservation)
+                // not logged here: the reducer's `.discoveryLanded` line names this window with the facts
+                // that actually matter (tab titles, group, Spaces, whether it was adopted as a tab)
+                findOrCreate.0?.isMainWindow = a.isMain ?? false
+                TrackedWindowStateBridge.dispatch(.discoveryLanded(wid: wid, accepted: findOrCreate.0 != nil,
+                    newlyTracked: findOrCreate.1, adoptedAsInactiveTab: adoptedAsInactiveTab,
+                    spaceMembership: spaceMembership, isOrderedIn: WsWindowState.isVisible(raw),
+                    tabGroup: observedTabs))
+                // A genuinely new window changes what the startup guess has to rank, so re-make it here
+                // rather than once on a timer that fires before discovery lands.
+                if findOrCreate.1 { Windows.reseedZOrderDuringStartup() }
             }
         }
     }
 
     /// WindowServer-driven per-window state refresh (geometry + fullscreen), replacing the AX attribute read
     /// on move/resize/visibility events and the Space-change fullscreen re-read. ONE batched WS query for the
-    /// whole wid set (off-main: ~84µs for a full screen vs ~15µs × N serial), decoded by WsWindowState,
-    /// applied on main in a single UI reconcile. Minimized IS read here (`WsWindowState.minimizedTag`) —
-    /// the ordered-out BIT cannot tell minimized from closing/other-Space, but the tag can, and unlike the AX
-    /// read it replaced it cannot be delayed by the window's own app. Callers coalesce upstream where the
-    /// input self-floods: the per-event path
-    /// throttles per-wid (windowAttributesThrottler, ≤1 query/200ms on a resize drag); the Space-change path
-    /// calls this once per transition. `TrackedWindowStateBridge.queueWindowServerStateQuery` batches the
-    /// event-driven callers into one query per runloop turn on top of that.
-    ///
-    /// **Answers are matched to the query that asked for them.** `CGSCallScheduler` is a 4-wide concurrent
-    /// lane with no per-key dedup, so two queries naming the same wid can land in either order and the older
-    /// one would overwrite the newer window state. `wsStateIssuedSeq` records which query each wid is
-    /// currently waiting on; a row whose wid has since been asked about again is dropped, because the newer
-    /// answer is on its way and is the one to believe. Main-thread only (all callers are on main).
-    private static var wsStateIssueCounter: UInt64 = 0
-    private static var wsStateIssuedSeq = [CGWindowID: UInt64]()
+    /// whole wid set, off-main, and applied in one UI reconcile. Minimized comes from WindowServer tags.
+    /// One batch runs at a time; arrivals during it form one follow-up batch. Apply the completed answer
+    /// before starting that follow-up, so sustained resize input cannot supersede every result. A newer
+    /// semantic event fences its window out of the answer before inventory or reducer state can be written.
+    private static let windowStateReads = BatchCoalescer<CGWindowID> { wids, finish in
+        readWindowStatesViaWindowServer(Array(wids), finish)
+    }
 
     static func updateWindowStatesViaWindowServer(_ wids: [CGWindowID]) {
-        guard !wids.isEmpty else { return }
-        wsStateIssueCounter += 1
-        let seq = wsStateIssueCounter
-        for wid in wids { wsStateIssuedSeq[wid] = seq }
+        windowStateReads.request(Set(wids))
+    }
+
+    static func invalidateWindowStateReads(_ wids: Set<CGWindowID>) {
+        windowStateReads.invalidate(wids)
+    }
+
+    private static func readWindowStatesViaWindowServer(_ wids: [CGWindowID], _ finish: @escaping () -> Void) {
         CGSCallScheduler.run {
             let raws = WindowServerQuery.query(wids)
             // decode off-main; the apply (geometry writes, regroup, re-render/re-capture decisions) is the
@@ -463,13 +460,8 @@ class Applications {
                     isMinimized: WsWindowState.isMinimized(raw), alpha: raw.alpha))
             }
             DispatchQueue.main.async {
-                // Still the query this wid is waiting on? A newer one has bumped the seq, so this answer is
-                // superseded and its replacement is already on its way.
-                let fresh = decoded.filter { wsStateIssuedSeq[$0.0.wid] == seq }
-                // Then release the wids this query still owned, INCLUDING any the WindowServer returned no
-                // row for, or their entries would accumulate for the life of the session. A wid a newer query
-                // owns is left alone, so that query can still recognise its own answer.
-                for wid in wids where wsStateIssuedSeq[wid] == seq { wsStateIssuedSeq[wid] = nil }
+                defer { finish() }
+                let fresh = decoded.filter { windowStateReads.accepts($0.0.wid) && Windows.byWindowId[$0.0.wid] != nil }
                 guard !fresh.isEmpty else { return }
                 Windows.reevaluatePhysicalEvidence(fresh.map { $0.0 })
                 TrackedWindowStateBridge.dispatch(.windowServerStateRead(fresh.map { $0.1 }))
@@ -820,48 +812,60 @@ class Applications {
             reconcileTabs: true, changedSoFar: false))
     }
 
-    /// A physical event or exact attention signal named a wid we do not track yet. Discover just that one
-    /// window instead of a full inventory; `Window.init` seeds the app's per-process focus fact after append.
-    static func discoverWindow(_ wid: CGWindowID) {
+    /// Physical events and attention signals name specific windows for discovery. Batch their initial query
+    /// without a full inventory; `Window.init` seeds the app's per-process focus fact after append.
+    private static let discoveryReads = BatchCoalescer<CGWindowID> { wids, finish in
         CGSCallScheduler.run {
-            let chain = WindowParentChain.resolve(wid) { WindowServerQuery.query([$0]).first }
-            guard let raw = chain.rows.last else { return }
-            DispatchQueue.main.async {
-                WindowSurfaceInventory.upsert(chain.rows)
-                for parent in chain.rows.dropFirst() { WindowServerEvents.subscribe(parent.wid) }
-                if chain.stop != .root {
-                    Logger.warning { "stopped WindowServer parent chain for #\(wid) at #\(raw.wid): \(chain.stop)" }
-                }
-                guard WindowAdmissionResolver.shouldAcquireSemantics(PhysicalSurface(raw)) ||
-                        Windows.byWindowId[raw.wid]?.admissionEvidence == .attention else { return }
-                // Opt in HERE, not on the raw 811: the physical acquisition verdict is only known once the
-                // query above answers, and subscribing before it put every menu, tooltip and Dock indicator
-                // on our per-window stream.
-                //
-                // The cost is a gap: this wid's per-window events are unheard between its create and this
-                // line. MEASURED on macOS 26.5, 25 rapid create/destroy cycles with the WindowServer driven
-                // to ~99% CPU by 8 window-list hammers — gap p50 7.2ms, p99 12.7ms, and the WindowServer's
-                // first per-window event for a brand-new window never arrived before 7.1ms. A/B against a
-                // build that subscribed on the 811 instead: same 54 first-events, same 7.0ms floor, same
-                // distribution (p50 34ms), same 49 windows accepted. Nothing measurable is lost in the gap.
-                // Re-run that A/B before assuming it still holds on a new macOS.
-                //
-                // It is also survivable by construction: everything discovery needs is read fresh here, and
-                // exact attention arriving inside the gap waits for this wid to have a model object before it
-                // commits. The per-app discovery seed covers an already-front app at cold start.
-                // Deliberately before the guards below — a window AX rejects must stay subscribed (#5785).
-                WindowServerEvents.subscribe(raw.wid)
-                // A window kept on WindowServer evidence alone must NOT block its own re-acquisition: it is
-                // tracked, so the old "already tracked, nothing to do" guard would leave it unverified and
-                // unshown for good. Proceed whenever there is no AX element yet.
-                guard Windows.byWindowId[raw.wid]?.axUiElement == nil,
-                      let app = findOrCreate(raw.pid) else { return }
-                AXCallScheduler.shared.schedule(key: "wid-\(raw.wid)-acquire", context: app.debugId, pid: raw.pid, scan: true) {
-                    guard let element = WindowElementAcquisition.element(for: raw.wid, pid: raw.pid,
-                        route: .currentSpaceViaApplicationWindows) else { return }
-                    addDiscoveredWindow(element, raw, app)
-                }
+            let roots = Dictionary(uniqueKeysWithValues: WindowServerQuery.query(Array(wids)).map { ($0.wid, $0) })
+            let chains = wids.map { wid in
+                (wid, WindowParentChain.resolve(wid) { wids.contains($0) ? roots[$0] : WindowServerQuery.query([$0]).first })
             }
+            DispatchQueue.main.async {
+                defer { finish() }
+                for (wid, chain) in chains { applyDiscoveredChain(wid, chain) }
+            }
+        }
+    }
+
+    static func discoverWindow(_ wid: CGWindowID) {
+        discoveryReads.request([wid])
+    }
+
+    private static func applyDiscoveredChain(_ wid: CGWindowID, _ chain: WindowParentChain.Resolution) {
+        guard let raw = chain.rows.last else { return }
+        WindowSurfaceInventory.upsert(chain.rows)
+        for parent in chain.rows.dropFirst() { WindowServerEvents.subscribe(parent.wid) }
+        if chain.stop != .root {
+            Logger.warning { "stopped WindowServer parent chain for #\(wid) at #\(raw.wid): \(chain.stop)" }
+        }
+        guard WindowAdmissionResolver.shouldAcquireSemantics(PhysicalSurface(raw)) ||
+                Windows.byWindowId[raw.wid]?.admissionEvidence == .attention else { return }
+        // Opt in HERE, not on the raw 811: the physical acquisition verdict is only known once the
+        // query above answers, and subscribing before it put every menu, tooltip and Dock indicator
+        // on our per-window stream.
+        //
+        // The cost is a gap: this wid's per-window events are unheard between its create and this
+        // line. MEASURED on macOS 26.5, 25 rapid create/destroy cycles with the WindowServer driven
+        // to ~99% CPU by 8 window-list hammers — gap p50 7.2ms, p99 12.7ms, and the WindowServer's
+        // first per-window event for a brand-new window never arrived before 7.1ms. A/B against a
+        // build that subscribed on the 811 instead: same 54 first-events, same 7.0ms floor, same
+        // distribution (p50 34ms), same 49 windows accepted. Nothing measurable is lost in the gap.
+        // Re-run that A/B before assuming it still holds on a new macOS.
+        //
+        // It is also survivable by construction: everything discovery needs is read fresh here, and
+        // exact attention arriving inside the gap waits for this wid to have a model object before it
+        // commits. The per-app discovery seed covers an already-front app at cold start.
+        // Deliberately before the guards below — a window AX rejects must stay subscribed (#5785).
+        WindowServerEvents.subscribe(raw.wid)
+        // A window kept on WindowServer evidence alone must NOT block its own re-acquisition: it is
+        // tracked, so the old "already tracked, nothing to do" guard would leave it unverified and
+        // unshown for good. Proceed whenever there is no AX element yet.
+        guard Windows.byWindowId[raw.wid]?.axUiElement == nil,
+              let app = findOrCreate(raw.pid) else { return }
+        AXCallScheduler.shared.schedule(key: "wid-\(raw.wid)-acquire", context: app.debugId, pid: raw.pid, scan: true) {
+            guard let element = WindowElementAcquisition.element(for: raw.wid, pid: raw.pid,
+                route: .currentSpaceViaApplicationWindows) else { return }
+            addDiscoveredWindow(element, raw, app)
         }
     }
 
@@ -1011,8 +1015,8 @@ class Applications {
     /// Light per-window AX read for already-tracked windows: the facts the WindowServer genuinely cannot
     /// deliver — title (no WS title-change event), the main-window flag, and tab siblings. Minimized is NOT
     /// among them any more: it is `WsWindowState.minimizedTag`, read from the WS query instead.
-    /// Shares the "wid-N-generic" dedup/throttle key so it never double-reads a window the discovery pass
-    /// just refreshed.
+    /// Shares the "wid-N-generic" scheduler key with discovery. One read may run while the scheduler retains
+    /// only the latest pending request, so backpressure follows the actual AX cost instead of a guessed delay.
     static func refreshWindowTitleAndTabs(_ axWindow: AXUIElement, _ wid: CGWindowID, _ app: Application, _ reconcileTabs: Bool = true) {
         // Snapshotted HERE, on main, at issue time. Recording the version the answer lands against instead
         // would mark a window up to date with a window set that changed while its read was in flight.
@@ -1059,9 +1063,7 @@ class Applications {
             }
             let tabObservation: TabGroupObservation = readTabs ? axWindow.tabGroupObservation(pid: app.pid) : .unknown
             DispatchQueue.main.async {
-                // Recorded outside the throttle: this read HAPPENED, and "no tab group" is as much of an
-                // answer as a group. Inside, a coalesced call would leave the window looking never-read and
-                // `TabReadPolicy` would keep re-electing it.
+                // This read HAPPENED, and "no tab group" is as much of an answer as a group.
                 if readTabs, tabObservation != .unknown {
                     if case .group = tabObservation {
                         noteTabRead(wid: wid, pid: app.pid, foundTabGroup: true,
@@ -1071,19 +1073,17 @@ class Applications {
                             appWindowSetVersion: appWindowSetVersionAtRead)
                     }
                 }
-                windowAttributesThrottler.throttleOrProceed(key: "\(wid)-generic") {
-                    guard let window = Windows.byWindowId[wid] else { return }
-                    // raw-fact ingestion stays here (bestEffortTitle needs the CG-title fallback IPC); the
-                    // tab reconcile + re-render decision is the reducer's `.titleAndTabsRead` branch
-                    let newTitle = window.bestEffortTitle(a.title)
-                    let semantic = SemanticSurface(title: newTitle, subrole: a.subrole, role: a.role, isMain: a.isMain)
-                    guard Windows.reevaluateAdmission(window, semantic) else { return }
-                    let changed = window.title != newTitle
-                    if changed { window.title = newTitle; window.lastSearchQuery = nil }
-                    window.isMainWindow = a.isMain ?? false
-                    TrackedWindowStateBridge.dispatch(.titleAndTabsRead(wid: wid, tabGroup: tabObservation,
-                        reconcileTabs: reconcileTabs, changedSoFar: changed))
-                }
+                guard let window = Windows.byWindowId[wid] else { return }
+                // raw-fact ingestion stays here (bestEffortTitle needs the CG-title fallback IPC); the
+                // tab reconcile + re-render decision is the reducer's `.titleAndTabsRead` branch
+                let newTitle = window.bestEffortTitle(a.title)
+                let semantic = SemanticSurface(title: newTitle, subrole: a.subrole, role: a.role, isMain: a.isMain)
+                guard Windows.reevaluateAdmission(window, semantic) else { return }
+                let changed = window.title != newTitle
+                if changed { window.title = newTitle; window.lastSearchQuery = nil }
+                window.isMainWindow = a.isMain ?? false
+                TrackedWindowStateBridge.dispatch(.titleAndTabsRead(wid: wid, tabGroup: tabObservation,
+                    reconcileTabs: reconcileTabs, changedSoFar: changed))
             }
         }
     }
@@ -1092,12 +1092,9 @@ class Applications {
     /// same path a read would take. Before this, `kAXTitleChanged` had no equivalent anywhere in the app and
     /// the title was only as fresh as the last order event or switcher show — the staleness `matchSiblings`
     /// sees when it compares fresh AX tab titles against model window titles.
-    ///
-    /// Throttled per wid on its own key (not the shared "generic" one, or a discovery in flight would
-    /// swallow it): the title is the one fact whose update RATE the observed app chooses, and a window
-    /// tracking a build log or a progress bar renames itself continuously.
+    /// Throttled separately because its rate is chosen by the observed app, not by AltTab's own reads.
     static func applyObservedTitle(wid: CGWindowID, title: String?) {
-        windowAttributesThrottler.throttleOrProceed(key: "\(wid)-title") {
+        titleThrottler.throttleOrProceed(key: "\(wid)-title") {
             guard let window = Windows.byWindowId[wid] else { return }
             let newTitle = window.bestEffortTitle(title)
             guard window.title != newTitle else { return }

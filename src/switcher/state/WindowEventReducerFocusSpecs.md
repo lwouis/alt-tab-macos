@@ -64,8 +64,9 @@ own any more — both were bursts of 815s and 808s, and neither event can reach 
 
 - **testAFocusEventCannotMoveTheOrder** / **testAnOrderInCannotMoveTheOrder** — an 808 and an 815 leave the
   order exactly as they found it.
-- **testCommittedAttentionMovesTheOrder** — a decision from `AttentionModel` is what moves it, and it requests
-  an immediate repaint so an open switcher does not spend the structural-event throttle before showing it.
+- **testCommittedAttentionMovesTheOrder** — a decision from `AttentionModel` moves the order and asks for
+  immediate selection reconciliation and painting. A modifier release can arrive before a trailing repaint;
+  it must not commit the stale default selection. Structural repairs retain the coalesced repaint path.
 - **testCommittedAttentionForAnUnknownWindowIsIgnored** — a decision naming a window nobody tracks is
   dropped, never fabricated into one.
 - **testAStructuralRepairStillWrites** — the other writer: not a claim about the user, so it is never gated.

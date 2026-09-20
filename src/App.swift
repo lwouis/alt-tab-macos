@@ -41,7 +41,7 @@ class App: AppCenterApplication {
     static var updaterController: SPUStandardUpdaterController?
     // don't queue multiple delayed rebuildUi() calls
     private static var delayedDisplayScheduled = 0
-    private static let switcherUiRefreshThrottler = Throttler(delayInMs: 200)
+    private static let switcherUiRepaintCoalescer = RepaintCoalescer()
 
     override init() {
         super.init()
@@ -306,21 +306,23 @@ class App: AppCenterApplication {
         CGWarpMouseCursorPosition(point)
     }
 
-    static func refreshOpenUiAfterExternalEvent(_ windowsToScreenshot: [Window], windowRemoved: Bool = false) {
+    static func refreshOpenUiAfterExternalEvent(_ windowsToScreenshot: [Window], windowRemoved: Bool = false,
+                                              immediately: Bool = false) {
         WindowThumbnails.refreshAsync(windowsToScreenshot, .refreshUiAfterExternalEvent, windowRemoved: windowRemoved)
-        switcherUiRefreshThrottler.throttleOrProceed {
+        let repaint = {
             guard SwitcherSession.isActive else { return }
             if !Windows.updatesBeforeShowing() { hideUi(); return }
             refreshUi(true)
         }
+        if immediately { switcherUiRepaintCoalescer.requestImmediately(repaint) }
+        else { switcherUiRepaintCoalescer.request(repaint) }
     }
 
-    static func refreshOpenUiImmediatelyAfterExternalEvent(_ windowsToScreenshot: [Window]) {
-        WindowThumbnails.refreshAsync(windowsToScreenshot, .refreshUiAfterExternalEvent)
-        guard SwitcherSession.isActive else { return }
-        if !Windows.updatesBeforeShowing() { hideUi(); return }
-        refreshUi(true)
+    #if DEBUG
+    static func deferRepaintsForQa(_ milliseconds: Int) {
+        switcherUiRepaintCoalescer.deferRepaints(milliseconds: milliseconds)
     }
+    #endif
 
     static func refreshUi(_ preserveScrollPosition: Bool = false) {
         MainThreadStall.step()
@@ -405,7 +407,7 @@ class App: AppCenterApplication {
         guard SwitcherSession.isActive else { return }
         // A delayed show renders a list that was filtered at the PRESS. Windows discovered during the delay
         // are appended with `shouldShowTheUser` still at its default `true`, and the repaint that would
-        // filter them is throttled at 200ms — so the first frame can draw a window the filters exclude.
+        // filter them is coalesced onto a trailing edge, so the first frame can draw a window the filters exclude.
         // Measured on a cold start: three tabs of a 4-tab Finder group were adopted 28ms before the grace
         // expired, and the group opened unfolded as 3 tiles, then folded a beat later (measured live).
         if listChangedSincePress, !Windows.updatesBeforeShowing() { hideUi(); return }

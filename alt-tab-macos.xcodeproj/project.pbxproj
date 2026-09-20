@@ -433,6 +433,9 @@
 		5A1100000000000000020017 /* AttentionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1100000000000000010017 /* AttentionModel.swift */; };
 		5A1100000000000000030017 /* AttentionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1100000000000000010017 /* AttentionModel.swift */; };
 		5A1100000000000000040017 /* AttentionModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1100000000000000010018 /* AttentionModelTests.swift */; };
+		5CC018000000000000000101 /* CoalescedWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC018000000000000000100 /* CoalescedWork.swift */; };
+		5CC018000000000000000102 /* CoalescedWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC018000000000000000100 /* CoalescedWork.swift */; };
+		5CC018000000000000000202 /* CoalescedWorkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC018000000000000000200 /* CoalescedWorkTests.swift */; };
 		5CC019000000000000000101 /* CaptureDiscovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC019000000000000000100 /* CaptureDiscovery.swift */; };
 		5CC019000000000000000102 /* CaptureDiscovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC019000000000000000100 /* CaptureDiscovery.swift */; };
 		5CC019000000000000000202 /* CaptureDiscoveryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC019000000000000000200 /* CaptureDiscoveryTests.swift */; };
@@ -881,6 +884,8 @@
 		5A1100000000000000010011 /* AxObserverRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AxObserverRegistry.swift; sourceTree = "<group>"; };
 		5A1100000000000000010017 /* AttentionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttentionModel.swift; sourceTree = "<group>"; };
 		5A1100000000000000010018 /* AttentionModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttentionModelTests.swift; sourceTree = "<group>"; };
+		5CC018000000000000000100 /* CoalescedWork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoalescedWork.swift; sourceTree = "<group>"; };
+		5CC018000000000000000200 /* CoalescedWorkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoalescedWorkTests.swift; sourceTree = "<group>"; };
 		5CC019000000000000000100 /* CaptureDiscovery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureDiscovery.swift; sourceTree = "<group>"; };
 		5CC019000000000000000200 /* CaptureDiscoveryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureDiscoveryTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -952,6 +957,8 @@
 				D04BAB74451B79FE18B8BEDF /* BackgroundWork.swift */,
 				AA0C8B000000000000000010 /* MoveToApplicationsFolder.swift */,
 				BF0C8A1E7D3F94B6E8C52A01 /* Throttler.swift */,
+				5CC018000000000000000200 /* CoalescedWorkTests.swift */,
+				5CC018000000000000000100 /* CoalescedWork.swift */,
 				5EA8E110000000000000F201 /* SchedulingPolicy.swift */,
 				5EA8E110000000000000F211 /* SchedulingPolicyTests.swift */,
 				AA0C8B000000000000000002 /* UsageStats.swift */,
@@ -2120,6 +2127,8 @@
 				5C5A1100000000000000C003 /* WindowAcquisitionPolicy.swift in Sources */,
 				5C5A1100000000000000E203 /* PublishedWindows.swift in Sources */,
 				5C5A1100000000000000E302 /* PublishedWindowsTests.swift in Sources */,
+				5CC018000000000000000102 /* CoalescedWork.swift in Sources */,
+				5CC018000000000000000202 /* CoalescedWorkTests.swift in Sources */,
 				5CC019000000000000000102 /* CaptureDiscovery.swift in Sources */,
 				5CC019000000000000000202 /* CaptureDiscoveryTests.swift in Sources */,
 				5EA8E110000000000000F203 /* SchedulingPolicy.swift in Sources */,
@@ -2432,6 +2441,7 @@
 				5FC5980000000000000C0002 /* CGSSymbolicHotKey.swift in Sources */,
 				BF0C80C69EFEF93C18539925 /* PreferencesMigrations.swift in Sources */,
 				BF0C8A2F6E4C85A7D9B63B12 /* Throttler.swift in Sources */,
+				5CC018000000000000000101 /* CoalescedWork.swift in Sources */,
 				5CC019000000000000000101 /* CaptureDiscovery.swift in Sources */,
 				5EA8E110000000000000F202 /* SchedulingPolicy.swift in Sources */,
 				AA0C8A100000000000000001 /* AXCallScheduler.swift in Sources */,

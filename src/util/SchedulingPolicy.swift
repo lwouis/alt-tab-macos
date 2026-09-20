@@ -20,6 +20,40 @@ enum ThrottleDecision: Equatable {
     }
 }
 
+/// **When the open switcher repaints after an external event** (`App.switcherUiRepaintCoalescer`).
+///
+/// Trailing edge, not leading: a repaint is scheduled one frame out and everything arriving before it
+/// collapses into it. A leading edge paints on the FIRST event of a burst, which is the one moment the
+/// model is least settled, and then has to paint again for the rest — measured over a QA pass (785
+/// requests), the leading edge cost 392 paints where this costs 361, for 200ms of p90 latency instead of
+/// 30ms. Bursts are the normal shape here, not the exception: an app with 34 windows quitting emits all
+/// 34 `windowDestroyed` within 14ms.
+///
+/// The quiet period follows the measured paint cost, targeting a fifth of main-thread time until the
+/// 200ms ceiling is reached. The ceiling favors fresh UI over that target when a paint exceeds 50ms.
+enum RepaintCoalescingPolicy {
+    /// One frame at 60Hz, unless a previous paint left a longer quiet period.
+    static let leadNs: UInt64 = 16_000_000
+    /// Floor and ceiling on the quiet period, whatever the measured cost says.
+    static let minQuietNs: UInt64 = 16_000_000
+    static let maxQuietNs: UInt64 = 200_000_000
+    /// Quiet = 4x the last paint, subject to the floor and ceiling.
+    static let quietMultiplier: UInt64 = 4
+
+    /// How long from `now` until the repaint should run, given the floor a previous paint left behind.
+    /// Never sooner than one frame, so a burst spread over several runloop turns still merges.
+    static func delayNs(nowNs: UInt64, notBeforeNs: UInt64) -> UInt64 {
+        let earliest = nowNs &+ leadNs
+        guard notBeforeNs > earliest else { return leadNs }
+        return notBeforeNs &- nowNs
+    }
+
+    /// The quiet period a paint of this cost buys.
+    static func quietAfterNs(paintCostNs: UInt64) -> UInt64 {
+        min(maxQuietNs, max(minQuietNs, paintCostNs &* quietMultiplier))
+    }
+}
+
 /// Backoff + give-up policy for retrying an AX call against an unresponsive app.
 enum RetryPolicy {
     static let backoffStepsNs: [UInt64] = [200_000_000, 1_000_000_000, 2_000_000_000, 5_000_000_000] // 200ms, 1s, 2s, 5s…

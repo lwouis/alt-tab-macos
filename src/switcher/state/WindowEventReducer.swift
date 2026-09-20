@@ -56,7 +56,7 @@ enum WindowEventReducer {
             // rejected on size and re-discovered from its first move/resize (see `.windowMovedOrResized`). A
             // window created on another Space (discoverWindow's current-Space acquisition can't reach it) is
             // picked up by the next switcher-show full rescan.
-            return [.discoverWindow(wid: wid, throttled: false)]
+            return [.discoverWindow(wid: wid)]
         case .windowDestroyed(let wid):
             state.pendingFocusPromotion.removeValue(forKey: wid)
             state.recentlyCreated.remove(wid)
@@ -116,7 +116,7 @@ enum WindowEventReducer {
             // mid-transition, so a transient empty read would wrongly dissolve the tab
             // group and strand its inactive tabs as phantoms (the fullscreen-tab
             // disappearance). Order-out never changes tab membership anyway.
-            return orderedOutEffects + [.probeWindowLiveness(wid), .queryWindowServerState(wids: [wid], throttled: false),
+            return orderedOutEffects + [.probeWindowLiveness(wid), .queryWindowServerState(wids: [wid]),
                     .readTitleAndTabs(wid: wid, readTabs: false)]
         case .windowFocused(let wid, _):
             return windowFocused(&state, wid: wid)
@@ -216,8 +216,8 @@ enum WindowEventReducer {
     }
 
     /// moved/resized/ordered-in. Tracked → refresh just that window's WindowServer facts (geometry,
-    /// fullscreen) from a WS query, NOT an AX read; coalesced per-wid so a resize drag collapses to ≤1
-    /// query/200ms. An order-in also re-reads kAXMinimized (de-minimize has no dedicated WS event) but does
+    /// fullscreen) from a WS query, NOT an AX read; one active query plus a batched follow-up.
+    /// An order-in also re-reads kAXMinimized (de-minimize has no dedicated WS event) but does
     /// NOT reconcile tabs: an order-in during a fullscreen or Space transition reports the AXTabGroup
     /// inconsistently, and a transient empty read would dissolve the group and strand its inactive tabs as
     /// phantoms (the fullscreen-tab disappearance). Untracked → mutable physical or semantic evidence may
@@ -229,7 +229,7 @@ enum WindowEventReducer {
         // and mirrors the WindowServer's own on-screen bit rather than accumulating our interpretation of it.
         _ = orderedIn && state.carried.offScreen.remove(wid) != nil
         if state.window(wid) != nil {
-            var effects: [ReducerEffect] = [.queryWindowServerState(wids: [wid], throttled: true)]
+            var effects: [ReducerEffect] = [.queryWindowServerState(wids: [wid])]
             // An order-in IS the ordered-in bit turning on, so it is recorded here rather than waiting for the
             // batched query the effect above schedules — tab-grouping runs on this pass. Only on the order-in:
             // this function also serves 806/807 move/resize (`orderedIn: false` there, meaning "not an
@@ -302,7 +302,7 @@ enum WindowEventReducer {
         if state.pendingFocusPromotion[wid] == nil, let frontmostPid = state.frontmostPid {
             state.pendingFocusPromotion[wid] = .circumstantial(at: now, frontmostPid: frontmostPid)
         }
-        return [.discoverWindow(wid: wid, throttled: true)]
+        return [.discoverWindow(wid: wid)]
     }
 
     /// **An 808 is not attention.** Measured across twelve scenarios: the WindowServer never names a window
@@ -321,7 +321,7 @@ enum WindowEventReducer {
     /// just it, rather than a whole inventory.
     // periphery:ignore:parameters state - keeps the reducer's uniform signature
     private static func untrackedWindowFocused(_ state: inout TrackedWindowState, wid: CGWindowID) -> [ReducerEffect] {
-        [.discoverWindow(wid: wid, throttled: false)]
+        [.discoverWindow(wid: wid)]
     }
 
     /// Closing the window that holds MRU slot 0 hands the front to whoever held slot 1 — which can belong to
@@ -429,15 +429,14 @@ enum WindowEventReducer {
     private static func applyFocusAndBump(_ state: inout TrackedWindowState, wid: CGWindowID,
                                           at: TimeInterval? = nil,
                                           _ source: AttentionWriteSource) -> [ReducerEffect] {
-        var effects: [ReducerEffect] = [.applyFocus(wid), .log(state.mruBumpLog(wid))]
+        var effects: [ReducerEffect] = [.applyFocus(wid), .log(state.mruBumpLog(wid, source))]
         // Focusing proves the window is real: clear any stale phantom latch NOW rather than waiting for the
         // next show's CGS pass, and drop the placeholder its app grew while it looked windowless (#5849).
         if state.clearPhantomOnFocus(wid), let pid = state.window(wid)?.pid {
             effects.append(.removeWindowlessPlaceholder(pid: pid))
         }
         let changed = state.noteFocus(wid, at: at ?? state.now)
-        effects.append(source == .attentionReducer
-            ? .refreshUiImmediately(wids: changed)
+        effects.append(source == .attentionReducer ? .refreshUiImmediately(wids: changed)
             : .refreshUi(wids: changed, onlyWhileSwitcherOpen: false))
         return effects
     }
@@ -558,7 +557,7 @@ enum WindowEventReducer {
                     // no-ops if already tracked); skipped mid Space-transition, where joins are animation
                     // noise, not a switch.
                     if !inSpaceTransition {
-                        effects.append(.discoverWindow(wid: wid, throttled: false))
+                        effects.append(.discoverWindow(wid: wid))
                     }
                 }
             }
@@ -758,7 +757,7 @@ enum WindowEventReducer {
                 // gets no geometry events, so the joiner's stored position is stale for a beat after a
                 // switch (~215ms, rec13) and a stale frame reads as a drag-out
                 // (`testDragOutVerdictUndecidedWhileTheIncomingFrameIsStale`).
-                effects.append(.queryWindowServerState(wids: [wid, previousRepWid], throttled: false))
+                effects.append(.queryWindowServerState(wids: [wid, previousRepWid]))
                 effects.append(.scheduleDragOutCheck(wid: wid, previousRepWid: previousRepWid, attempt: 0))
             }
             effects.append(contentsOf: applyFocusAndBump(&state, wid: wid, at: now, .structuralRepair))
@@ -810,13 +809,10 @@ enum WindowEventReducer {
     /// topology is one CGS round-trip (0.1ms p50, measured) and is the only part a summon needs.
     // periphery:ignore:parameters state - keeps the reducer's uniform signature
     private static func spaceTransitionStarted(_ state: inout TrackedWindowState) -> [ReducerEffect] {
-        // Deliberately NO `.refreshUi`. Repainting here looks free and is not: `refreshOpenUiAfterExternalEvent`
-        // is throttled at 200ms with a leading edge, so a repaint fired the instant the Space flips SPENDS that
-        // edge, and the update that actually matters — the semantic focus answer following the Space change
-        // — then waits out the tail. Live capture, switcher open
-        // across the transition: repainting here pushed the MRU correction from ~15ms to 220ms after the
-        // summon. The topology write below is what the leading edge is for; the repaint it feeds is the
-        // settled pass's job, 250ms later, exactly as before.
+        // Deliberately NO `.refreshUi`. A repaint fired the instant the Space flips draws the transition's
+        // window storm mid-churn: the per-window membership and the WS state re-query below have not run, so
+        // the list is filtered and sorted against facts that are about to change. The topology write below is
+        // all this edge is for; the repaint it feeds is the settled pass's job, 250ms later.
         [.refreshSpacesTopology]
     }
 
@@ -827,7 +823,7 @@ enum WindowEventReducer {
     private static func spaceChangeSettled(_ state: inout TrackedWindowState) -> [ReducerEffect] {
         let trackedWids = state.windows.filter { !$0.isWindowlessApp }.compactMap { $0.wid }
         return [.refreshSpacesTopologyAndSync,
-                .queryWindowServerState(wids: trackedWids, throttled: false),
+                .queryWindowServerState(wids: trackedWids),
                 .checkShortcutsForFocusedWindow,
                 .refreshUi(wids: state.windows.compactMap { $0.wid }, onlyWhileSwitcherOpen: false)]
     }
@@ -1083,7 +1079,7 @@ enum WindowEventReducer {
                 // event will ever correct it. A live run caught it: clicking a background window's tab
                 // brought that window to the front, and the minted tab still sat at the other window's
                 // cascade position, which is a frame every geometry rule below then reasons from.
-                effects.append(.queryWindowServerState(wids: [wid] + members, throttled: false))
+                effects.append(.queryWindowServerState(wids: [wid] + members))
                 // ...and give it the standing to KEEP that. A mint arrives with no focus history at all, and
                 // `normalizeGroupVisibility` re-elects by recency on the very next pass — handing the group
                 // straight back to a background tab that does have some, whose missing thumbnail then draws
@@ -1182,7 +1178,7 @@ enum WindowEventReducer {
             effects.append(.log("standalone #\(wid) peer=\(siblingWid.map { "#\($0)" } ?? "none") "
                 + "members=[\(standaloneSplitFacts(state, wid: wid))]"))
             if let siblingWid {
-                effects.append(.queryWindowServerState(wids: [wid, siblingWid], throttled: false))
+                effects.append(.queryWindowServerState(wids: [wid, siblingWid]))
                 effects.append(.scheduleStandaloneTabCheck(wid: wid, siblingWid: siblingWid, attempt: 0))
             }
         }
@@ -1471,7 +1467,7 @@ enum WindowEventReducer {
               let gid = state.groups.groupId(of: wid), state.groups.groupId(of: siblingWid) == gid,
               window.tabGroupObservation == .standalone else { return [] }
         if attempt == 0 {
-            return [.queryWindowServerState(wids: [wid, siblingWid], throttled: false),
+            return [.queryWindowServerState(wids: [wid, siblingWid]),
                     .scheduleStandaloneTabCheck(wid: wid, siblingWid: siblingWid, attempt: 1)]
         }
         guard window.isOrderedIn, sibling.isOrderedIn,

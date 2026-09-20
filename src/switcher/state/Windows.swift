@@ -212,8 +212,9 @@ class Windows {
     }
 
     static func selectedWindow() -> Window? {
-        guard let session = SwitcherSession.current, list.count > session.selectedIndex else { return nil }
-        let window = list[session.selectedIndex]
+        guard let session = SwitcherSession.current,
+              let window = SelectionResolver.selectedWindow(in: list, at: session.selectedIndex,
+                  target: session.selectedTarget, id: { $0.id }) else { return nil }
         return shouldDisplay(window) ? window : nil
     }
 
@@ -327,10 +328,6 @@ class Windows {
             resetForInitialPick(session)
         case .selectAt(let idx):
             updateSelectedAndHoveredWindowIndex(idx)
-        case .ensureTargetSet(let idx):
-            if session.selectedTarget == nil && idx < list.count {
-                session.selectedTarget = list[idx].id
-            }
         }
     }
 
@@ -398,7 +395,7 @@ class Windows {
         guard let session = SwitcherSession.current else { return }
         guard list.contains(where: { shouldDisplay($0) }) else { return }
         // `list` can shrink while the panel is open (a window closed), and the selection fix-up runs behind
-        // `switcherUiRefreshThrottler`, so a dispatched trackpad/key-repeat step can land here with
+        // `switcherUiRepaintCoalescer`, so a dispatched trackpad/key-repeat step can land here with
         // `selectedIndex` past the end. Clamp like `SelectionResolver` will, instead of trapping.
         let selectedIndex = min(session.selectedIndex, list.count - 1)
         session.userPickedSelection = true  // from here the selection is the USER's pick, not the default
@@ -795,6 +792,7 @@ class Windows {
                 w.application.focusedWindow = nil
             }
             if let wid = w.cgWindowId {
+                Applications.invalidateWindowStateReads([wid])
                 AxObserverRegistry.noteTrackedElement(pid: w.application.pid, wid: wid, element: nil)
                 byWindowId.removeValue(forKey: wid)
                 windowsPendingFocusPromotion.removeValue(forKey: wid)
@@ -830,11 +828,7 @@ class Windows {
             bumpAppWindowSetVersion(w.application.pid)
             if let wid = w.cgWindowId {
                 AXCallScheduler.shared.removeEntries(withPrefix: "wid-\(wid)-")
-                // Both key SHAPES this throttler holds for a window: `<wid>-generic` / `<wid>-title` written
-                // by the attribute reads, and `wid-<wid>-discover` / `wid-<wid>-wsstate` written by the
-                // bridge. Pruning only the first shape left the second accumulating for the whole session.
-                Applications.windowAttributesThrottler.removeEntries(withPrefix: "\(wid)-")
-                Applications.windowAttributesThrottler.removeEntries(withPrefix: "wid-\(wid)-")
+                Applications.titleThrottler.removeEntry(withKey: "\(wid)-title")
                 // likewise both capture resolutions: the full-res Preview fetch keys on `preview-`
                 Applications.screenshotThrottler.removeEntry(withKey: "capture-wid-\(wid)")
                 Applications.screenshotThrottler.removeEntry(withKey: "preview-wid-\(wid)")

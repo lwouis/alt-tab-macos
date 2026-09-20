@@ -37,10 +37,9 @@ final class WindowEventReducerSpaceTests: XCTestCase {
     // MARK: - A. The leading edge is the topology read, and nothing else
 
     /// The leading edge exists to make ONE cheap fact current before the summon that follows it. A repaint
-    /// here is the trap: `refreshOpenUiAfterExternalEvent` is throttled at 200ms leading-edge, so repainting
-    /// the instant the Space flips spends that edge and the semantic focus answer that follows then waits
-    /// out the tail (live: 19ms became 220ms). Exact equality, so re-adding any of it
-    /// fails here rather than in a live run weeks later.
+    /// here is the trap: the per-window membership and the WindowServer re-query have not run yet, so it
+    /// draws the transition's window storm mid-churn and the list re-orders under the user. Exact equality,
+    /// so re-adding any of it fails here rather than in a live run weeks later.
     func testSpaceTransitionStartedEmitsTheTopologyReadAlone() {
         var s = state()
         let effects = WindowEventReducer.reduce(&s, .spaceTransitionStarted)
@@ -67,7 +66,7 @@ final class WindowEventReducerSpaceTests: XCTestCase {
         var s = state()
         let effects = WindowEventReducer.reduce(&s, .spaceChangeSettled)
         XCTAssertTrue(effects.contains(.refreshSpacesTopologyAndSync))
-        XCTAssertTrue(effects.contains(.queryWindowServerState(wids: [Self.widA, Self.widB], throttled: false)))
+        XCTAssertTrue(effects.contains(.queryWindowServerState(wids: [Self.widA, Self.widB])))
         XCTAssertTrue(effects.contains(.checkShortcutsForFocusedWindow))
         XCTAssertTrue(effects.contains(.refreshUi(wids: [Self.widA, Self.widB], onlyWhileSwitcherOpen: false)))
         XCTAssertFalse(effects.contains(.refreshSpacesTopology),
@@ -176,7 +175,7 @@ final class WindowEventReducerSpaceTests: XCTestCase {
         _ = WindowEventReducer.reduce(&s, .spaceTransitionStarted)
         let effects = WindowEventReducer.reduce(&s, .spaceChangeSettled)
         XCTAssertTrue(effects.contains(.refreshSpacesTopologyAndSync))
-        XCTAssertTrue(effects.contains(.queryWindowServerState(wids: [Self.widA, Self.widB], throttled: false)))
+        XCTAssertTrue(effects.contains(.queryWindowServerState(wids: [Self.widA, Self.widB])))
     }
 
     /// **Swipes faster than the animation.** Each one starts a transition while the last is still running, so

@@ -98,7 +98,7 @@ the scenario layer drives it, and its per-step invariants police every scenario.
 
 - **Acquisition + admission + attribute ingestion** (`WindowAdmissionResolver`, `findOrCreate`,
   `bestEffortTitle`): AX/CGS IPC and object creation; the reducer takes over at `discoveryLanded`.
-- **Throttling/coalescing** (`windowAttributesThrottler` etc.): IO pacing, carried on effects as flags.
+- **IO scheduling/coalescing**: queue ownership and runloop batching stay in the live shell.
 - **`Windows.removeWindows`**: view/scheduler/subscription cleanup stays live; the reducer decides WHEN
   (`removeWindow` effect) and the harness twins the model part. The MRU-shift semantics exist twice
   (live + harness twin) — the one accepted duplication.

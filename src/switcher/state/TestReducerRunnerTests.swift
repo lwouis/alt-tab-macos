@@ -818,7 +818,7 @@ final class TestReducerRunnerTests: XCTestCase {
         ])
         XCTAssertEqual(harness.state.groups.siblingWids(of: 900)?.sorted(), [100, 101, 900])
         let asked = harness.pendingRequests.contains {
-            if case .queryWindowServerState(let wids, _) = $0 { return wids.contains(900) && wids.contains(100) }
+            if case .queryWindowServerState(let wids) = $0 { return wids.contains(900) && wids.contains(100) }
             return false
         }
         XCTAssertTrue(asked, "the minted tab's frame was never re-read from the WindowServer")

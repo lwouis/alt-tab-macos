@@ -28,18 +28,17 @@ The reaction is therefore split by cost, and the split is what these tests hold 
   transition's window storm is churning, so an early answer is a wrong answer that has to be re-taken. They
   stay on the trailing edge.
 
-**The trap the first test guards.** The leading edge must NOT repaint. `App.refreshOpenUiAfterExternalEvent`
-is throttled at 200ms leading-edge, so a repaint fired the instant the Space flips SPENDS that edge, and the
-update that actually matters — the semantic focus answer following the Space change — then waits out the
-tail. Measured live with the switcher open across a transition: it pushed the MRU
-correction from 19ms to 220ms after the summon. It looks free and it is not.
+**The trap the first test guards.** The leading edge must NOT repaint. Painting the instant the Space flips
+draws the transition's window storm mid-churn: the per-window membership and the WindowServer re-query have
+not run, so the list is filtered and sorted against facts that are about to change, and the user watches it
+re-order under them. It looks free and it is not.
 
 ## Scenarios
 
 ### A. The leading edge is the topology read, and nothing else
 
 - **testSpaceTransitionStartedEmitsTheTopologyReadAlone** — `.spaceTransitionStarted` emits exactly
-  `[.refreshSpacesTopology]`: no repaint (the 200ms-throttle trap above), and none of the settled branch's
+  `[.refreshSpacesTopology]`: no repaint (the mid-churn trap above), and none of the settled branch's
   expensive work.
 - **testSpaceTransitionStartedTouchesNoWindowState** — the leading edge asks the shell to re-read the
   topology and writes nothing on the model itself, so the state it returns is byte-for-byte the one it got.

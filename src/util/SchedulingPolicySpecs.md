@@ -7,6 +7,9 @@ testable without real clocks or queues (same pattern as `SelectionResolver` / `A
 
 - **`ThrottleDecision`** — for one `throttleOrProceed` call: run on the leading edge, or (within the
   window) schedule a single trailing run and coalesce the rest. Used by `Throttler` and `ThrottlerWithKey`.
+- **`RepaintCoalescingPolicy`** — when the open switcher repaints after an external event: a trailing
+  edge one frame out that the whole burst collapses into, then a quiet period derived from what the paint
+  actually cost. Used by `RepaintCoalescer`, which `App.refreshOpenUiAfterExternalEvent` owns.
 - **`RetryPolicy`** — backoff schedule (200ms → 1s → 2s → 5s, then 5s) and the 60s give-up, for retrying
   an AX call against an unresponsive app. Used by `AXCallScheduler`.
 - **`SurfaceAcquisitionPolicy`** — may the inventory sweep spend another brute-force acquisition on a
@@ -28,6 +31,26 @@ Mirrors `SchedulingPolicyTests.swift` 1:1.
 - **testThrottleWithinWindowWithPendingTailCoalesces** — within window, tail already pending → `coalesce`.
 - **testThrottleClockGoingBackwardsRunsNow** — now < last (monotonic-clock guard) → `runNow`.
 - **testThrottleBurstCoalescesAfterOneTail** — a burst yields one leading run, one `scheduleTail`, then `coalesce` for the rest.
+
+### A2. RepaintCoalescingPolicy
+
+A fresh request waits 16ms so a burst can merge before drawing. If the previous paint left a later quiet
+period, the request waits for that deadline instead. Quiet time is four times the measured paint cost,
+floored at 16ms and capped at 200ms. This targets one fifth of main-thread time until paint cost exceeds
+50ms; the ceiling then prioritizes freshness over the duty-cycle target. Main-queue stalls can delay any
+scheduled repaint beyond its deadline. Committed attention bypasses this delay because painting also
+reconciles the default selection that a modifier release commits.
+
+Measured over a QA pass (785 requests), trailing coalescing used 361 paints against 392 for leading-edge
+throttling. An app quitting with 34 windows emitted its destruction burst within 14ms. The scheduling
+behavior under delayed execution and reentrant requests is covered by `CoalescedWorkTests.swift`.
+
+- **testRepaintLoneRequestWaitsOneFrame** — a fresh request has a 16ms delay.
+- **testRepaintWaitsOutAFloorLeftByThePreviousPaint** — a later quiet-period deadline wins.
+- **testRepaintFloorInsideOneFrameStillWaitsAFullFrame** — a nearer deadline does not shorten merging.
+- **testRepaintQuietIsFourTimesTheMeasuredCost** — 21ms of work buys 84ms of quiet.
+- **testRepaintQuietFloorsAtOneFrame** — cheap paints still leave at least 16ms of quiet.
+- **testRepaintQuietCapsSoAPathologicalPaintCannotStarveTheSwitcher** — a 517ms paint buys 200ms of quiet.
 
 ### B. RetryPolicy
 - **testRetryBackoffSequence** — retry 0/1/2/3/4… → 200ms / 1s / 2s / 5s / 5s.
