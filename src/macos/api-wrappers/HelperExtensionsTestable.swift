@@ -56,3 +56,24 @@ extension NSWindow {
         return w >= 0 && h >= 0 && (x + w) <= hi && (y + h) <= hi // w/h non-negative, no overflow
     }
 }
+
+extension pid_t {
+    /// Whether the process still exists, asked of the kernel. `NSRunningApplication.isTerminated` is not an
+    /// answer: it still reads `false` 1-3s after the process is gone (measured on macOS 27), while
+    /// `NSWorkspace.runningApplications` announces the removal immediately. `EPERM` means the process
+    /// exists but isn't ours to signal. A terminated `NSRunningApplication` reports pid `-1`, and
+    /// `kill(-1, 0)` would probe every process the user owns, hence the sign check.
+    /// A zombie still exists to the kernel and answers alive here; `isZombie` is the separate question.
+    func isAlive() -> Bool {
+        guard self > 0 else { return false }
+        return kill(self, 0) == 0 || errno == EPERM
+    }
+
+    func isZombie() -> Bool {
+        var kinfo = kinfo_proc()
+        var size = MemoryLayout<kinfo_proc>.stride
+        var mib: [Int32] = [CTL_KERN, KERN_PROC, KERN_PROC_PID, self]
+        sysctl(&mib, u_int(mib.count), &kinfo, &size, nil, 0)
+        return kinfo.kp_proc.p_stat == SZOMB
+    }
+}

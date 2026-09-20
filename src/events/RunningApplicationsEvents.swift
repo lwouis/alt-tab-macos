@@ -33,9 +33,13 @@ class RunningApplicationsEvents {
     /// `Applications.manuallyRefreshAllWindows` (the WindowServer discovery pass calls `findOrCreate` on
     /// each window's owner pid), and on-demand lookups still go through `findOrCreate` immediately, so
     /// nothing user-visible is missed by the delay.
+    ///
+    /// Liveness is asked of the kernel (`pid_t.isAlive`), not of `isTerminated`: that flag lags the
+    /// removal announcement by seconds, and a process admitted after its removal was already processed
+    /// is never removed again (#6051, `ProcessLivenessTests`).
     private static func debounceThenAddRunningApplications(_ launched: [NSRunningApplication]) {
         DispatchQueue.main.asyncAfter(deadline: .now() + newAppDebounce) {
-            let stillAlive = launched.filter { !$0.isTerminated }
+            let stillAlive = launched.filter { $0.processIdentifier.isAlive() }
             guard !stillAlive.isEmpty else { return }
             Applications.addRunningApplications(stillAlive)
         }

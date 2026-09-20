@@ -246,16 +246,6 @@ extension CVPixelBuffer {
     }
 }
 
-extension pid_t {
-    func isZombie() -> Bool {
-        var kinfo = kinfo_proc()
-        var size = MemoryLayout<kinfo_proc>.stride
-        var mib: [Int32] = [CTL_KERN, KERN_PROC, KERN_PROC_PID, self]
-        sysctl(&mib, u_int(mib.count), &kinfo, &size, nil, 0)
-        return kinfo.kp_proc.p_stat == SZOMB
-    }
-}
-
 extension String {
     // convert a FourCharCode into a String
     init(_ fourCharCode: FourCharCode) { // or `OSType`, or `UInt32`
