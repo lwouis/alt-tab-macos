@@ -452,9 +452,6 @@ final class LicenseManagerTests: XCTestCase {
     }
 
     #if DEBUG
-    // mockProUser() is wrapped in #if DEBUG (it's a QAMenu helper only meant for dev/test builds).
-    // CI runs `xcodebuild test -configuration Release` which strips DEBUG out, so the call site
-    // must be guarded with the matching condition to keep the Release-config test build compiling.
     func testOnBeforeProUnlockFiresOnMockProUser() {
         manager.initialize()
         var hookFired = false
@@ -462,6 +459,37 @@ final class LicenseManagerTests: XCTestCase {
         manager.mockProUser()
         XCTAssertTrue(hookFired)
         XCTAssertEqual(manager.state, .pro)
+    }
+
+    func testMockProUserDoesNotAlterPersistedLicense() {
+        setupActivatedLicense(variantId: "pro_lifetime")
+        defaults.set("real@example.com", forKey: LicenseManager.customerEmailKey)
+        let storedDefaults = defaults.dictionaryRepresentation()
+        manager.mockProUser()
+        manager.refreshState()
+        XCTAssertEqual(manager.state, .pro)
+        XCTAssertEqual(manager.customerEmail, "john@cool-software.com")
+        XCTAssertFalse(manager.isLifetimeVariant)
+        XCTAssertEqual(keychain.value(account: LicenseManager.keychainKeyAccount), "LICENSE-ABC")
+        XCTAssertEqual(keychain.value(account: LicenseManager.keychainInstanceAccount), "instance-1")
+        XCTAssertEqual(keychain.value(account: LicenseManager.keychainVariantAccount), "pro_lifetime")
+        XCTAssertEqual(defaults.dictionaryRepresentation() as NSDictionary, storedDefaults as NSDictionary)
+    }
+
+    func testMockTrialDayDoesNotAlterPersistedLicense() {
+        setupActivatedLicense(variantId: "pro_lifetime")
+        defaults.set("real@example.com", forKey: LicenseManager.customerEmailKey)
+        let storedDefaults = defaults.dictionaryRepresentation()
+        manager.mockTrialDay(4)
+        manager.refreshState()
+        XCTAssertEqual(manager.state, .trial(daysRemaining: 11))
+        XCTAssertEqual(manager.daysSinceTrialStart, 3)
+        XCTAssertNil(manager.customerEmail)
+        XCTAssertFalse(manager.isLifetimeVariant)
+        XCTAssertEqual(keychain.value(account: LicenseManager.keychainKeyAccount), "LICENSE-ABC")
+        XCTAssertEqual(keychain.value(account: LicenseManager.keychainInstanceAccount), "instance-1")
+        XCTAssertEqual(keychain.value(account: LicenseManager.keychainVariantAccount), "pro_lifetime")
+        XCTAssertEqual(defaults.dictionaryRepresentation() as NSDictionary, storedDefaults as NSDictionary)
     }
     #endif
 
@@ -548,4 +576,3 @@ final class MockLicenseAPI: LicenseAPI {
         DispatchQueue.main.async { completion(r) }
     }
 }
-

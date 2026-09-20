@@ -236,6 +236,9 @@ class LabelAndControl: NSObject {
             }
             _ = setupControl(button, rawName, String(i), extraAction: extraAction)
         }
+        if segmentWidth > 0 {
+            button.widthAnchor.constraint(equalToConstant: segmentWidth * CGFloat(macroPreferences.count)).isActive = true
+        }
         return button
     }
 

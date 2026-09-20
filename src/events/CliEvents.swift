@@ -49,6 +49,15 @@ class CliServer {
     }()
     static let error = "error"
     static let noOutput = "noOutput"
+    #if DEBUG
+    private(set) static var qaSelectionCommitCount = 0
+    private(set) static var qaLastSelectionCommitWid: CGWindowID?
+
+    static func recordSelectionCommit(_ wid: CGWindowID?) {
+        qaSelectionCommitCount += 1
+        qaLastSelectionCommitWid = wid
+    }
+    #endif
 
     // main.sync is safe here: the main thread never synchronously waits on the CLI thread
     static func executeCommandAndSendReponse(_ rawValue: String) -> Codable {
@@ -101,6 +110,10 @@ class CliServer {
         if rawValue == "--qa-drop-next-discovery", #available(macOS 26.0, *) {
             WindowCaptureScreenshots.dropNextDiscoveryForQa()
             return noOutput
+        }
+        // The visual non-regression test opening each window, sheet, popover, alert and menu in turn.
+        if let reply = QaSurfaces.command(rawValue) {
+            return reply
         }
         #endif
         // The provider timeline, drained rather than read: each record is reported exactly once, so a test
@@ -236,6 +249,13 @@ class CliServer {
         let groups = TabGroups.membersByGroup.map {
             QaGroup(groupId: $0.key, members: $0.value, representative: TabGroups.representativeByGroup[$0.key])
         }.sorted { $0.groupId < $1.groupId }
+        #if DEBUG
+        let selectionCommitCount: Int? = qaSelectionCommitCount
+        let lastSelectionCommitWid = qaLastSelectionCommitWid
+        #else
+        let selectionCommitCount: Int? = nil
+        let lastSelectionCommitWid: CGWindowID? = nil
+        #endif
         return QaState(
             at: Date().timeIntervalSince1970,
             frontmostPid: frontmostPid,
@@ -248,6 +268,8 @@ class CliServer {
             missionControl: MissionControl.state().rawValue,
             switcherVisible: SwitcherSession.isActive,
             selectedIndex: SwitcherSession.current?.selectedIndex,
+            selectionCommitCount: selectionCommitCount,
+            lastSelectionCommitWid: lastSelectionCommitWid,
             heldWids: Array(Windows.windowsHeldVisibleForTab),
             recentlyCreatedWids: Array(Windows.recentlyCreatedWindows),
             apps: Applications.list.map {
@@ -339,6 +361,10 @@ class CliServer {
         var missionControl: String
         var switcherVisible: Bool
         var selectedIndex: Int?
+        /// DEBUG builds count the selections handed to the focus path. The QA harness snapshots the count
+        /// before injecting input, so it can judge a release after the switcher has correctly closed.
+        var selectionCommitCount: Int?
+        var lastSelectionCommitWid: CGWindowID?
         var heldWids: [CGWindowID]
         var recentlyCreatedWids: [CGWindowID]
         var apps: [QaApp]

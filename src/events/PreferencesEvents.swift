@@ -41,10 +41,21 @@ class PreferencesEvents {
     static func initialize() {
         guard !initialized else { return }
         initialized = true
+        #if DEBUG
+        if !Preferences.qaPristine { UserDefaultsEvents.observe() }
+        #else
         UserDefaultsEvents.observe()
+        #endif
         ControlsTab.initializePreferencesDependentState()
+        #if DEBUG
+        if !Preferences.qaPristine { applyUpdatePolicyPreference() }
+        #else
         applyUpdatePolicyPreference()
+        #endif
         TrackpadEvents.toggle(Preferences.nextWindowGesture != .disabled)
+        #if DEBUG
+        guard !Preferences.qaPristine else { return }
+        #endif
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             LoginItem.applyCurrentPreference()
         }

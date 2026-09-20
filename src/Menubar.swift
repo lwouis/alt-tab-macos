@@ -159,7 +159,7 @@ class Menubar {
     /// Assigning the menu only for the duration of a synthesized click keeps the branch above while
     /// letting AppKit position the menu and highlight the icon. Clearing `menu` on the next line is
     /// safe because `performClick` doesn't return until menu tracking ends.
-    private static func popUpMenu() {
+    static func popUpMenu() {
         statusItem.menu = menu
         statusItem.button!.performClick(nil)
         statusItem.menu = nil

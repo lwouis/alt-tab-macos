@@ -271,7 +271,7 @@ class UpgradeTab {
         NSWorkspace.shared.open(URL(string: Endpoints.accountUrl)!)
     }
 
-    private static func presentActivationSheet(prefilledKey: String = "", autoFailedHint: Bool = false) {
+    static func presentActivationSheet(prefilledKey: String = "", autoFailedHint: Bool = false) {
         let alert = NSAlert()
         alert.alertStyle = autoFailedHint ? .warning : .informational
         alert.messageText = autoFailedHint
@@ -332,7 +332,7 @@ class UpgradeTab {
         }
     }
 
-    private static func presentSeatLimitSheet(key licenseKey: String, instances: [ActiveInstance]) {
+    static func presentSeatLimitSheet(key licenseKey: String, instances: [ActiveInstance]) {
         let alert = NSAlert()
         alert.alertStyle = .warning
         alert.messageText = NSLocalizedString("This license is already activated elsewhere", comment: "")
@@ -398,7 +398,7 @@ class UpgradeTab {
         }
     }
 
-    private static func presentLicenseError(_ title: String, _ error: Error) {
+    static func presentLicenseError(_ title: String, _ error: Error) {
         let alert = NSAlert()
         alert.alertStyle = .warning
         alert.messageText = title

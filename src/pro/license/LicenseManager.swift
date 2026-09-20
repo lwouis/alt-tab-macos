@@ -52,14 +52,37 @@ class LicenseManager {
         didSet { onStateChanged?(state) }
     }
 
-    var customerEmail: String? { defaults.string(forKey: Self.customerEmailKey) }
+    #if DEBUG
+    private var hasMockedLicense = false
+    private var mockedTrialStartDate: Date?
+    private var mockedCustomerEmail: String?
+    private var mockedVariant: String?
+    #endif
+
+    var customerEmail: String? {
+        #if DEBUG
+        if hasMockedLicense { return mockedCustomerEmail }
+        #endif
+        return defaults.string(forKey: Self.customerEmailKey)
+    }
 
     var isLifetimeVariant: Bool {
+        #if DEBUG
+        if hasMockedLicense { return mockedVariant.map(Self.lifetimeVariants.contains) ?? false }
+        #endif
         guard let variant = keychain.value(account: Self.keychainVariantAccount) else { return false }
         return Self.lifetimeVariants.contains(variant)
     }
 
     var isProAvailable: Bool { state.isProAvailable }
+
+    var isMocked: Bool {
+        #if DEBUG
+        return hasMockedLicense
+        #else
+        return false
+        #endif
+    }
 
     /// Pro features are locked out as soon as the license is no longer valid. Degradable Pro
     /// preferences are downgraded to their Free equivalents immediately via
@@ -72,6 +95,9 @@ class LicenseManager {
     }
 
     var trialStartDate: Date? {
+        #if DEBUG
+        if hasMockedLicense { return mockedTrialStartDate }
+        #endif
         guard defaults.object(forKey: "trialStartDate") != nil else { return nil }
         return Date(timeIntervalSince1970: defaults.double(forKey: "trialStartDate"))
     }
@@ -177,6 +203,9 @@ class LicenseManager {
     }
 
     func computeState() -> LicenseState {
+        #if DEBUG
+        if hasMockedLicense { return state }
+        #endif
         if keychain.value(account: Self.keychainKeyAccount) != nil {
             let lastValidationResult = defaults.bool(forKey: "lastValidationResult")
             guard lastValidationResult else { return .trialExpired }
@@ -235,31 +264,21 @@ class LicenseManager {
     }
 
     #if DEBUG
-    /// Wipe every stored license artefact so the next `state` assignment is the only thing deciding the tier.
-    private func clearLicenseStorage() {
-        keychain.remove(account: Self.keychainKeyAccount)
-        keychain.remove(account: Self.keychainInstanceAccount)
-        keychain.remove(account: Self.keychainVariantAccount)
-        defaults.removeObject(forKey: "trialStartDate")
-        defaults.removeObject(forKey: "lastValidation")
-        defaults.removeObject(forKey: "lastValidationResult")
-        defaults.removeObject(forKey: Self.customerEmailKey)
-    }
-
     /// `day` is 1-based: day 1 is the day the trial started.
     func mockTrialDay(_ day: Int) {
-        clearLicenseStorage()
-        defaults.set(clock.now.addingTimeInterval(-Double(day - 1) * 86400).timeIntervalSince1970, forKey: "trialStartDate")
+        hasMockedLicense = true
+        mockedTrialStartDate = clock.now.addingTimeInterval(-Double(day - 1) * 86400)
+        mockedCustomerEmail = nil
+        mockedVariant = nil
         let daysRemaining = Self.trialDuration - (day - 1)
         state = daysRemaining > 0 ? .trial(daysRemaining: daysRemaining) : .trialExpired
     }
 
     func mockProUser() {
-        keychain.setValue("MOCK-PRO-LICENSE-KEY", account: Self.keychainKeyAccount)
-        keychain.setValue("mock-instance-id", account: Self.keychainInstanceAccount)
-        defaults.set(clock.now.timeIntervalSince1970, forKey: "lastValidation")
-        defaults.set(true, forKey: "lastValidationResult")
-        defaults.set("john@cool-software.com", forKey: Self.customerEmailKey)
+        hasMockedLicense = true
+        mockedTrialStartDate = nil
+        mockedCustomerEmail = "john@cool-software.com"
+        mockedVariant = "pro"
         onBeforeProUnlock()
         state = .pro
     }

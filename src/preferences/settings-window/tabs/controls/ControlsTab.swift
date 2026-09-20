@@ -1042,3 +1042,17 @@ class ControlsTab {
         }
     }
 }
+
+#if DEBUG
+extension ControlsTab {
+    /// For `QaSurfaces`: the first shortcut or the gesture, open on one of the editor's three segments.
+    static func qaSelect(gesture: Bool, segment: Int) {
+        editor?.applySelectedSegment(segment)
+        gesture ? selectGesture() : selectShortcut(0)
+    }
+
+    static func qaClearHover() {
+        setHoveredShortcutRow(nil)
+    }
+}
+#endif

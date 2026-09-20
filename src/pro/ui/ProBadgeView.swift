@@ -12,6 +12,9 @@ enum ProGradient {
     static let endPoint = CGPoint(x: 0.5 + 0.5 * 0.809, y: 0.5 + 0.5 * 0.588)
     static let representativeColor = NSColor(red: 0xFF / 255.0, green: 0x44 / 255.0, blue: 0x88 / 255.0, alpha: 1)
     private static let shineAnimationKey = "shine"
+    #if DEBUG
+    static var animationsDisabledForQa = false
+    #endif
 
     static func makeLayer(alpha: CGFloat = 1, flipped: Bool = false) -> CAGradientLayer {
         let g = CAGradientLayer()
@@ -25,6 +28,9 @@ enum ProGradient {
     /// call landing while a sweep is still running is dropped: the running sweep's own sublayer is
     /// the "already shining" flag, so no caller has to keep one.
     static func playShine(over layer: CALayer) {
+        #if DEBUG
+        guard !animationsDisabledForQa else { return }
+        #endif
         guard layer.sublayers?.contains(where: { $0.animation(forKey: shineAnimationKey) != nil }) != true else { return }
         let size = layer.bounds.size
         let shine = CAGradientLayer()

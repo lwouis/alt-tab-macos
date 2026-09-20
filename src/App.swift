@@ -118,6 +118,9 @@ class App: AppCenterApplication {
     static func focusTarget() {
         guard SwitcherSession.isActive else { return } // already hidden
         let selectedWindow = Windows.selectedWindow()
+        #if DEBUG
+        CliServer.recordSelectionCommit(selectedWindow?.cgWindowId)
+        #endif
         Logger.info { selectedWindow?.debugId }
         focusSelectedWindow(selectedWindow)
     }
@@ -516,9 +519,13 @@ class App: AppCenterApplication {
             startingUpdater: false,
             updaterDelegate: App.sparkleDelegate!,
             userDriverDelegate: nil)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 30) {
-            App.updaterController?.startUpdater()
+        #if DEBUG
+        if !Preferences.qaPristine {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 30) { App.updaterController?.startUpdater() }
         }
+        #else
+        DispatchQueue.main.asyncAfter(deadline: .now() + 30) { App.updaterController?.startUpdater() }
+        #endif
         PreferencesEvents.initialize()
         BenchmarkRunner.startIfNeeded()
         showSettingsWindowOnFirstLaunchIfNeeded()
@@ -576,11 +583,15 @@ extension App: NSApplicationDelegate {
         WindowServerEvents.observe()
         AXUIElement.setGlobalTimeout()
         PreferencesPersistenceCheck.runInBackground()
-        LicenseManager.shared.onBeforeProUnlock = { ProTransitionManager.shared.onProUnlocked() }
+        LicenseManager.shared.onBeforeProUnlock = {
+            if !LicenseManager.shared.isMocked { ProTransitionManager.shared.onProUnlocked() }
+        }
         LicenseManager.shared.onStateChanged = { state in
             Menubar.refreshLicenseMenuItems()
-            syncLicenseCookie(state: state)
-            ProTransitionManager.shared.onLicenseStateChanged()
+            if !LicenseManager.shared.isMocked {
+                syncLicenseCookie(state: state)
+                ProTransitionManager.shared.onLicenseStateChanged()
+            }
             UpgradeTab.refreshStatus()
             SettingsWindow.shared?.refreshUpgradeButton()
             App.resetPreferencesDependentComponents()
@@ -589,11 +600,16 @@ extension App: NSApplicationDelegate {
             NotificationCenter.default.post(name: ProTransitionManager.proLockStateDidChangeNotification, object: nil)
         }
         #if DEBUG
-        // test affordance: `--mock-pro` skips the license keychain round-trip (which prompts/hangs for an
-        // ad-hoc build whose signature doesn't match the real app's keychain items). See QAMenu's Pro button.
-        if CommandLine.arguments.contains("--mock-pro") { LicenseManager.shared.mockProUser() }
-        #endif
+        // The QA launch never initializes persisted licensing: its in-memory state must neither read nor
+        // alter the real license, and it must not schedule a revalidation that can later replace the mock.
+        if CommandLine.arguments.contains("--mock-pro") {
+            LicenseManager.shared.mockProUser()
+        } else {
+            LicenseManager.shared.initialize()
+        }
+        #else
         LicenseManager.shared.initialize()
+        #endif
         SystemPermissions.ensurePermissionsAreGranted()
     }
 

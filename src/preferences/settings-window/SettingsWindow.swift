@@ -969,6 +969,11 @@ class SettingsWindow: NSWindow {
     }
 
     func beginSheetWithSearchHighlight(_ sheet: SheetWindow) {
+        #if DEBUG
+        if Preferences.qaPristine { sheet.animationBehavior = .none }
+        QaSheetAnimation.disable(on: sheet)
+        #endif
+        sheet.contentView?.layoutSubtreeIfNeeded()
         beginSheet(sheet) { [weak self] _ in
             self?.clearSheetHighlights(sheet)
         }
@@ -1193,6 +1198,13 @@ class SettingsWindow: NSWindow {
         hideAppIfLastWindowIsClosed()
         super.close()
     }
+
+#if DEBUG
+    func qaCloseWithoutHidingApp() {
+        hasPlayedShine = false
+        super.close()
+    }
+#endif
 }
 
 extension SettingsWindow: NSWindowDelegate {
@@ -1228,7 +1240,8 @@ extension SettingsWindow: NSWindowDelegate {
         // Defer to the next runloop tick: tearing down view trees, removing observers,
         // and dropping the last strong ref to `self` while AppKit is still inside its own
         // close machinery causes objc_release crashes on re-entry.
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            guard let self, SettingsWindow.shared === self else { return }
             AppearanceTab.cleanup()
             ControlsTab.cleanup()
             GeneralTab.cleanup()
@@ -1273,3 +1286,59 @@ extension SettingsWindow: NSTableViewDataSource, NSTableViewDelegate {
         selectSection(section, scroll: true, selectInSidebar: false)
     }
 }
+
+#if DEBUG
+extension SettingsWindow {
+    /// For `QaSurfaces`: the window at its default height rather than the one it was last left at, with nothing
+    /// in the search field, showing the section `id`, or the Upgrade view for nil.
+    func qaShow(_ id: String?) {
+        if !searchField.stringValue.isEmpty {
+            searchField.stringValue = ""
+            applySearch("")
+        }
+        setContentSize(NSSize(width: contentRect(forFrameRect: frame).width, height: Self.defaultWindowHeight))
+        if let id { navigateToSection(id) }
+        else { showUpgradeView() }
+        qaHideScrollers()
+    }
+
+    func qaHideScrollers() {
+        sidebarScrollView.verticalScroller?.alphaValue = 0
+        rightScrollView.verticalScroller?.alphaValue = 0
+    }
+
+    static func qaDiscard() {
+        guard let window = shared else { return }
+        if let sheet = window.attachedSheet {
+            sheet.animationBehavior = .none
+            QaSheetAnimation.disable(on: sheet)
+            window.endSheet(sheet)
+            sheet.orderOut(nil)
+        }
+        window.delegate = nil
+        window.qaCloseWithoutHidingApp()
+        AppearanceTab.cleanup()
+        ControlsTab.cleanup()
+        GeneralTab.cleanup()
+        ExceptionsTab.cleanup()
+        UpgradeTab.cleanup()
+        shared = nil
+    }
+
+    /// The stretch of the scrolling pane the section `id` covers (the whole pane for the Upgrade view): from
+    /// where the sidebar scrolls it to, down to where it scrolls the next one to.
+    func qaPager(_ id: String?) -> QaSurfaces.Pager {
+        sectionsDocumentView.layoutSubtreeIfNeeded()
+        let height = sectionsDocumentView.frame.height
+        guard let id, let i = visibleSections.firstIndex(where: { $0.id == id }) else {
+            return QaSurfaces.Pager(scrollView: rightScrollView, top: 0, bottom: height)
+        }
+        let bottom = i + 1 < visibleSections.count ? qaScrollTarget(visibleSections[i + 1]) : height
+        return QaSurfaces.Pager(scrollView: rightScrollView, top: qaScrollTarget(visibleSections[i]), bottom: bottom)
+    }
+
+    private func qaScrollTarget(_ section: SettingsSection) -> CGFloat {
+        max(section.anchor.convert(section.anchor.bounds, to: sectionsDocumentView).minY - Self.sectionScrollTopPadding, 0)
+    }
+}
+#endif

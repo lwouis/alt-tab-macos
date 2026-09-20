@@ -32,7 +32,7 @@ It is built from three injected collaborators so the logic is testable without r
 - **Revalidation is throttled.** `initialize()` dispatches an async revalidation only if `lastValidation` is older than the interval (~30 days). Within the interval it's skipped (no network call). Network failure preserves state and the old timestamp; a valid result refreshes the timestamp and variant; an invalid result flips to `.trialExpired`.
 - **State is computed synchronously on `initialize()`** from defaults+keychain; async revalidation may then update it on the main queue.
 - **`onStateChanged`** fires on initialize and on every transition; **`onBeforeProUnlock`** fires *before* the state flips to `.pro` (so observers can snapshot pre-Pro state).
-- **`mockProUser()` is `#if DEBUG` only** (a QA-menu helper). CI runs `-configuration Release`, which strips DEBUG, so its test is guarded by `#if DEBUG` too.
+- **QA license states are in-memory overlays.** `mockProUser()` and `mockTrialDay()` are `#if DEBUG` only and never read, clear, or write the user's Keychain and license defaults. Refreshing state keeps the overlay until relaunch.
 
 ---
 
@@ -89,3 +89,5 @@ Mirrors `LicenseManagerTests.swift` 1:1. Each test uses an isolated `UserDefault
 - **testIsProLockedTrueWhenKeychainInvalidated** — keychain license invalidated → `.trialExpired` and locked.
 - **testOnBeforeProUnlockFiresBeforeStateFlipsToPro** — the hook observes a non-`.pro` state, confirming it runs before the flip.
 - **testOnBeforeProUnlockFiresOnMockProUser** *(DEBUG only)* — `mockProUser()` fires the hook and flips to `.pro`.
+- **testMockProUserDoesNotAlterPersistedLicense** *(DEBUG only)* — Pro QA state supplies deterministic email/variant values in memory, survives refresh, and leaves a preloaded real license untouched.
+- **testMockTrialDayDoesNotAlterPersistedLicense** *(DEBUG only)* — trial QA state supplies its synthetic day in memory, survives refresh, and leaves a preloaded real license untouched.
