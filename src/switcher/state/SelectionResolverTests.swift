@@ -126,6 +126,19 @@ final class SelectionResolverTests: XCTestCase {
         XCTAssertEqual(SelectionResolver.decide(i), .selectAt(2))
     }
 
+    func testVerticalNavigationCommitsTheUserPickBeforeMovingSelection() {
+        let session = SwitcherSession()
+        session.performUserSelection {
+            XCTAssertTrue(session.userPickedSelection)
+            session.selectedIndex = 2
+            session.selectedTarget = "other"
+        }
+        let settled = [w("current"), w("prev"), w("other")]
+        let i = inputs(list: settled, selectedIndex: session.selectedIndex,
+            selectedTarget: session.selectedTarget, userPickedSelection: session.userPickedSelection)
+        XCTAssertEqual(SelectionResolver.decide(i), .selectAt(2))
+    }
+
     /// A9. The captured failure end-to-end: the default locked onto a window that then slid down the list as
     /// the model settled, dragging the highlight to a nonsense slot. Re-deriving keeps it on the 2nd visible.
     func testDefaultDoesNotTrailAWindowThatSlidDownTheList() {
@@ -275,6 +288,59 @@ final class SelectionResolverTests: XCTestCase {
         let list = [w("other")]
         let i = inputs(list: list, selectedIndex: 0, selectedTarget: "target")
         XCTAssertEqual(SelectionResolver.decide(i), .selectAt(0))
+    }
+
+    /// C6. Closing the frontmost window A1 makes its app focus A2. Whether that focus bump lands before or
+    /// after the removal, the selection ends on A2, the window after A1 when the user pressed the key.
+    func testActionHeirIsTheSameWhicheverOrderFocusAndRemovalArrive() {
+        let fallback = SelectionResolver.removalFallback([w("A1"), w("A2"), w("B")], target: "A1", tabSiblings: [])
+        var focusFirst = inputs(list: [w("A2"), w("A1"), w("B")], selectedIndex: 0, selectedTarget: "A1")
+        focusFirst.removalFallback = fallback
+        XCTAssertEqual(SelectionResolver.decide(focusFirst), .selectAt(1))
+        var thenRemoval = inputs(list: [w("A2"), w("B")], selectedIndex: 1, selectedTarget: "A1")
+        thenRemoval.removalFallback = fallback
+        XCTAssertEqual(SelectionResolver.decide(thenRemoval), .selectAt(0))
+        var removalFirst = inputs(list: [w("A2"), w("B")], selectedIndex: 0, selectedTarget: "A1")
+        removalFirst.removalFallback = fallback
+        XCTAssertEqual(SelectionResolver.decide(removalFirst), .selectAt(0))
+    }
+
+    /// C7. Closing a native tab leaves its window open, drawn by a tab that was hidden at the press. That tab
+    /// keeps the selection wherever it sorts, ahead of the window that was next.
+    func testActionHeirPrefersTheTabSiblingThatTookTheTile() {
+        let before = [w("X"), w("T1"), w("Y"), w("T2", visible: false)]
+        var i = inputs(list: [w("X"), w("Y"), w("T2")], selectedIndex: 1, selectedTarget: "T1")
+        i.removalFallback = SelectionResolver.removalFallback(before, target: "T1", tabSiblings: ["T1", "T2"])
+        XCTAssertEqual(SelectionResolver.decide(i), .selectAt(2))
+    }
+
+    /// C7b. With tabs shown as separate windows, a sibling is an ordinary tile: the next window inherits.
+    func testActionHeirIgnoresTabSiblingsThatWereAlreadyDrawn() {
+        let before = [w("X"), w("T1"), w("Y"), w("T2")]
+        var i = inputs(list: [w("X"), w("Y"), w("T2")], selectedIndex: 1, selectedTarget: "T1")
+        i.removalFallback = SelectionResolver.removalFallback(before, target: "T1", tabSiblings: ["T1", "T2"])
+        XCTAssertEqual(SelectionResolver.decide(i), .selectAt(1))
+    }
+
+    /// C8. Quitting an app takes its other windows too; the heir is the first neighbor still drawn.
+    func testActionHeirSkipsNeighborsThatLeftToo() {
+        var i = inputs(list: [w("X"), w("A2", visible: false), w("B")], selectedIndex: 1, selectedTarget: "A1")
+        i.removalFallback = SelectionResolver.removalFallback([w("X"), w("A1"), w("A2"), w("B")], target: "A1", tabSiblings: [])
+        XCTAssertEqual(SelectionResolver.decide(i), .selectAt(2))
+    }
+
+    /// C9. Nothing drawn after the target: the heir is the nearest window before it, wherever it moved to.
+    func testActionHeirFallsBackToTheNearestPrecedingWindow() {
+        var i = inputs(list: [w("Y"), w("X")], selectedIndex: 2, selectedTarget: "A1")
+        i.removalFallback = SelectionResolver.removalFallback([w("X"), w("Y"), w("A1")], target: "A1", tabSiblings: [])
+        XCTAssertEqual(SelectionResolver.decide(i), .selectAt(0))
+    }
+
+    /// C10. A fallback recorded for another window is ignored: the plain rule applies.
+    func testActionHeirIgnoredForAnotherTarget() {
+        var i = inputs(list: [w("A2"), w("X"), w("B")], selectedIndex: 2, selectedTarget: "Y")
+        i.removalFallback = SelectionResolver.removalFallback([w("X"), w("A1"), w("A2"), w("B")], target: "A1", tabSiblings: [])
+        XCTAssertEqual(SelectionResolver.decide(i), .selectAt(2))
     }
 
     // MARK: - D. Search-mode interactions

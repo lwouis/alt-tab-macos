@@ -51,6 +51,18 @@ struct SelectionInputs: Equatable {
     ///
     /// Defaults to `true`: the ordinary case, and what every scenario written before #5941 assumes.
     var currentWindowIsDrawn = true
+    var removalFallback: SelectionRemovalFallback? = nil
+}
+
+/// Who inherits the selection if the window a shortcut action was aimed at leaves the list, recorded at the
+/// press. When the frontmost app's window closes, the app focuses another of its windows, and that focus bump
+/// can reach us before or after the removal. Following ids through both orders lands on different windows,
+/// so the heir is decided from the model list as it stood when the user pressed the key.
+struct SelectionRemovalFallback: Equatable {
+    let target: String
+    /// Hidden tab siblings first (after closing one tab, the same window stays, drawn by another tab), then
+    /// the visible windows after the target, then the ones before it, nearest first.
+    let candidates: [String]
 }
 
 /// One window of the frontmost app, seen the way "is the window the user is looking at drawn?" needs it.
@@ -126,7 +138,11 @@ enum SelectionResolver {
         if let targetIndex = findTarget(i.list, i.selectedTarget) {
             return .selectAt(targetIndex)
         }
-        // 6) Target gone — adapt to the closest visible.
+        // 6) Target gone after a shortcut action — hand the selection to the heir recorded at the press.
+        if let heir = removalHeir(i) {
+            return .selectAt(heir)
+        }
+        // 7) Target gone — adapt to the closest visible.
         return adapt(i, visibleIndexes: visibleIndexes, lastVisible: visibleIndexes.last!)
     }
 
@@ -248,6 +264,19 @@ enum SelectionResolver {
         case .application(let windows): return currentWindowIsDrawn(windows)
         case .unknown: return true
         }
+    }
+
+    static func removalFallback(_ list: [SelectionWindow], target: String, tabSiblings: [String]) -> SelectionRemovalFallback? {
+        guard let index = list.firstIndex(where: { $0.id == target }) else { return nil }
+        let after = list[(index + 1)...].filter { $0.visible }.map { $0.id }
+        let before = list[..<index].reversed().filter { $0.visible }.map { $0.id }
+        let hiddenSiblings = tabSiblings.filter { id in list.contains { $0.id == id && !$0.visible } }
+        return SelectionRemovalFallback(target: target, candidates: hiddenSiblings + after + before)
+    }
+
+    private static func removalHeir(_ i: SelectionInputs) -> Int? {
+        guard let fallback = i.removalFallback, fallback.target == i.selectedTarget else { return nil }
+        return fallback.candidates.lazy.compactMap { findTarget(i.list, $0) }.first
     }
 
     /// Find the user's chosen window by id, returning its current index if visible.

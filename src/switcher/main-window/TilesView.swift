@@ -207,9 +207,8 @@ class TilesView {
     }
 
     private static func clearHover() {
-        guard let session = SwitcherSession.current, let oldHoveredWindowIndex = session.hoveredIndex else { return }
-        session.hoveredIndex = nil
-        TilesView.highlight(oldHoveredWindowIndex)
+        guard let session = SwitcherSession.current, session.hoveredIndex != nil else { return }
+        thumbnailOverView.resetHoveredWindow()
         TilesView.highlight(session.selectedIndex)
     }
 
@@ -439,7 +438,9 @@ class TilesView {
             return leadingSide ? NSMinX($0.frame) < originCenter : NSMaxX($0.frame) > originCenter
         }) ?? iterable.last else { return }
         guard let targetIndex = TilesView.recycledViews.firstIndex(of: targetView) else { return }
-        Windows.updateSelectedAndHoveredWindowIndex(targetIndex)
+        SwitcherSession.current?.performUserSelection {
+            Windows.updateSelectedAndHoveredWindowIndex(targetIndex)
+        }
     }
 
     static func updateItemsAndLayout(_ preservedScrollOrigin: CGPoint?) {

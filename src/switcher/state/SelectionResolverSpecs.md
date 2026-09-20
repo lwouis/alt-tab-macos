@@ -4,6 +4,8 @@
 
 ## Where the hover highlight goes when the list changes (`reanchorHover`)
 
+- a list refresh leaves the hover alone; only the user dismisses it (keyboard selection, pointer leaving the tiles),
+  and a dismissed hover stays dismissed until the pointer moves
 - the hover follows the WINDOW it was on, not the position it occupied
 - a window inserted or removed before it moves its index, and the highlight moves with the window
 - a window that left the list takes its highlight with it: hover is cleared, never inherited by whoever
@@ -45,11 +47,17 @@ window, releases the shortcut before repaint, and checks the window macOS actual
 3. **Search best-match** (`bestMatchOnSearchChange`) → jump to the first visible (best-scored) window.
 4. **No target yet** (`selectedTarget == nil`, first refresh) → "from scratch" initial pick.
 5. **Target still present** → follow it to its new index (`selectAt`).
-6. **Target gone** → adapt to the closest visible window.
+6. **Target gone after a shortcut action** (close, minimize, hide, quit, fullscreen) → the heir recorded at the
+   press: after closing a native tab, a sibling tab that was hidden (the same window, now drawn by another
+   tab); then the next drawn window, then the previous ones. Closing the frontmost window `[A1, A2, B]` makes
+   the app focus A2, before or after the removal lands: focus first used to end on B, removal first on A2.
+   Deciding from the list at the press ends on A2 either way. Any selection move by the user drops it.
+7. **Target gone** otherwise → adapt to the closest visible window.
 
 `selectedTarget` means two different things, split by `userPickedSelection`: while the user hasn't moved the
 selection it is merely where the DEFAULT landed, so step 4 re-derives it on every refresh; once the user
-cycles or hovers it is a commitment and step 5 follows THAT window by id however the list reorders (#5665).
+cycles horizontally or vertically, or hovers, it is a commitment and step 5 follows THAT window by id however
+the list reorders (#5665). A successful vertical move records that commitment before updating the selected index.
 Conflating them was a bug: the switcher opens while the window set is still settling (tabs grouping, Spaces
 settling), so the default locked onto whatever occupied the slot mid-churn and then trailed that window across
 the list as things resolved — the highlight ending up on an unrelated tile.
@@ -139,6 +147,14 @@ question from the frontmost app's windows (#5960) · plus direct helper-kernel c
 - **testTargetBecameInvisible** — target filtered out (search or space; same path either way) → closest visible below.
 - **testTargetRemovedAndListEmptied** — nothing left → `clearTargetAndHover`.
 - **testTargetRemovedOnlyOneLeft** — one window remains → select it and backfill the target.
+- **testActionHeirIsTheSameWhicheverOrderFocusAndRemovalArrive** — closing a window whose app focuses the
+  next one lands on that window, whether the focus bump or the removal arrives first.
+- **testActionHeirPrefersTheTabSiblingThatTookTheTile** — closing a native tab selects its window, now drawn by a
+  tab that was hidden, wherever it sorts.
+- **testActionHeirIgnoresTabSiblingsThatWereAlreadyDrawn** — with tabs as separate windows, the next window inherits.
+- **testActionHeirSkipsNeighborsThatLeftToo** — quitting an app skips its other windows.
+- **testActionHeirFallsBackToTheNearestPrecedingWindow** — nothing after the target → nearest window before it.
+- **testActionHeirIgnoredForAnotherTarget** — a fallback recorded for another window is not used.
 
 ### D. Search-mode interactions
 - **testSearchBestMatchOnSearchChange** — new query produces a best match → jump to first visible.
@@ -226,5 +242,7 @@ tab-switch interval where attention still names the outgoing background tab.
 - **testFindTargetSkipsInvisibleMatches** — finds visible id; nil for invisible/missing/nil id.
 - **testDefaultSelectionRetracksModelUntilUserPicks** — an untouched default re-derives as the model settles.
 - **testUserPickedTargetIsFollowedNotRederived** — the same target, once the USER chose it, is followed (#5665).
+- **testVerticalNavigationCommitsTheUserPickBeforeMovingSelection** — a successful up/down move records user
+  intent before changing the selected index, so an immediate model refresh follows the chosen window.
 - **testDefaultDoesNotTrailAWindowThatSlidDownTheList** — the captured failure: the default locked onto a
   window that then slid down the list, dragging the highlight to a nonsense slot.

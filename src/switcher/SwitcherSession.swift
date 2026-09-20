@@ -49,6 +49,15 @@ final class SwitcherSession {
     /// when the switcher opens, and locking the default onto whatever occupied the slot mid-churn made the
     /// selection trail that window to a nonsense position as the list reordered.
     var userPickedSelection = false
+    /// Set by a shortcut action on the selected window; see `SelectionRemovalFallback`. Any selection move
+    /// the user makes afterwards supersedes it.
+    var removalFallback: SelectionRemovalFallback?
+
+    func performUserSelection(_ update: () -> Void) {
+        userPickedSelection = true
+        update()
+    }
+
     /// Every window id the model held when the shortcut was pressed. A window in here is one the user was
     /// already choosing among, so it can never be a "newcomer" the default pick steps over, however its
     /// focus moves afterwards.
