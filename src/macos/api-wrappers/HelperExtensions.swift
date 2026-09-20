@@ -247,6 +247,19 @@ extension CVPixelBuffer {
 }
 
 extension pid_t {
+    /// **Whether the process still exists**, asked of the kernel because `NSRunningApplication.isTerminated`
+    /// is too slow to be an answer: measured on macOS 27, it still reports `false` 1s after the process has
+    /// been reaped and only flips at ~3s, while `NSWorkspace.runningApplications` announces the removal
+    /// immediately. A caller deciding whether to start tracking a process reads the flag inside that gap.
+    ///
+    /// `EPERM` means the process is there and not ours to signal, which is alive for this purpose. A
+    /// terminated `NSRunningApplication` reports `-1`, and `kill(-1, 0)` probes every process the user owns,
+    /// so the sign is checked rather than passed through.
+    func isAlive() -> Bool {
+        guard self > 0 else { return false }
+        return kill(self, 0) == 0 || errno == EPERM
+    }
+
     func isZombie() -> Bool {
         var kinfo = kinfo_proc()
         var size = MemoryLayout<kinfo_proc>.stride
