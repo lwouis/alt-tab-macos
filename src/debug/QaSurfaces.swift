@@ -2,7 +2,7 @@
 import Cocoa
 
 // Every window, sheet, popover, alert and menu AltTab can put on screen, opened by id for the QA suite's
-// visual non-regression test (VR-01 in alt-tab-qa). The suite photographs each one and compares it with the
+// visual non-regression test (VR-01). The suite photographs each one and compares it with the
 // picture the maintainer last accepted, so what matters here is that the same id shows the same pixels on
 // every run, unless AltTab itself changed.
 //

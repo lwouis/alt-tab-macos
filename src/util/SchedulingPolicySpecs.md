@@ -42,6 +42,7 @@ value and dropped its last. A window kept a stale title that way until something
 - **testThrottleSlotTailRestartsTheWindow** — the tail counts as a run: the next call inside 200ms of it schedules a new tail.
 - **testThrottleSlotTailWithNothingPendingRunsNothing** — a tail with no work pending returns nil and leaves the window alone.
 - **testThrottleSlotLateTailCannotLandOlderWorkOverNewer** — a leading-edge run empties the slot, so a tail its queue ran late finds nothing.
+- **testThrottleSlotResetRestoresTheLeadingEdge** — a reset makes the next offer a leading edge again and drops the tail queued for the abandoned window.
 
 ### A2. RepaintCoalescingPolicy
 

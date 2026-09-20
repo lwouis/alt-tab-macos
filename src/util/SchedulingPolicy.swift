@@ -55,6 +55,15 @@ struct ThrottleSlot<Work> {
         lastFireNs = nowNs
         return work
     }
+
+    /// **Back to never having run**, so the next call is a leading edge again, and the tail already queued
+    /// for the old window finds nothing. For a throttle whose window is only meant to span one episode: a
+    /// quiet period carried into the next one delays the first call of that one by up to the whole delay,
+    /// with nothing in between for it to have coalesced.
+    mutating func reset() {
+        lastFireNs = nil
+        pending = nil
+    }
 }
 
 /// **When the open switcher repaints after an external event** (`App.switcherUiRepaintCoalescer`).

@@ -24,6 +24,13 @@ class Throttler {
                 }
         }
     }
+
+    /// See `ThrottleSlot.reset`. For a throttle scoped to one switcher session rather than to AltTab's
+    /// lifetime.
+    func reset() {
+        dispatchPrecondition(condition: .onQueue(.main))
+        slot.reset()
+    }
 }
 
 class ThrottlerWithKey {

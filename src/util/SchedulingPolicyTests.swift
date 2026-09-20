@@ -74,6 +74,17 @@ final class SchedulingPolicyTests: XCTestCase {
         XCTAssertNil(slot.takeTail(nowNs: 510))
     }
 
+    /// A reset leaves the slot as it was built: the next offer is a leading edge however recently the last
+    /// one ran, and the tail queued for the window being abandoned finds nothing to run.
+    func testThrottleSlotResetRestoresTheLeadingEdge() {
+        var slot = ThrottleSlot<String>()
+        _ = slot.offer("A", nowNs: 0, delayNs: 200)
+        XCTAssertEqual(slot.offer("B", nowNs: 30, delayNs: 200), .scheduleTail(remainingNs: 170))
+        slot.reset()
+        XCTAssertEqual(slot.offer("C", nowNs: 60, delayNs: 200), .runNow)
+        XCTAssertNil(slot.takeTail(nowNs: 200))
+    }
+
     // MARK: - A2. RepaintCoalescingPolicy
 
     func testRepaintLoneRequestWaitsOneFrame() {

@@ -83,6 +83,11 @@ class App: AppCenterApplication {
         Logger.debug { "active:\(SwitcherSession.isActive)" }
         guard SwitcherSession.current != nil else { return false } // already hidden
         SwitcherSession.current = nil
+        // The badge read only runs while a session is open, so once this one closes its quiet period has no
+        // next call left to throttle: all it can still do is delay the FIRST read of the next session by up
+        // to a second. An app that cleared its badge in between was drawn with the badge it had cleared for
+        // that whole second (QA DB-02).
+        Applications.dockBadgeThrottler.reset()
         hideTilesPanelWithoutChangingKeyWindow()
         if !keepPreview {
             PreviewPanel.hide()
