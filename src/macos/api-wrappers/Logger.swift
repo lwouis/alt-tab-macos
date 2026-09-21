@@ -66,26 +66,32 @@ class Logger {
 
     static func setTap(_ tap: ((LogLevel, String) -> Void)?) { self.tap = tap }
 
-    static func debug(_ message: @escaping () -> Any?, file: String = #fileID, function: String = #function, line: Int = #line) {
+    static func debug(_ message: () -> Any?, file: String = #fileID, function: String = #function, line: Int = #line) {
         emit(.debug, message, file, function, line)
     }
 
-    static func info(_ message: @escaping () -> Any?, file: String = #fileID, function: String = #function, line: Int = #line) {
+    static func info(_ message: () -> Any?, file: String = #fileID, function: String = #function, line: Int = #line) {
         emit(.info, message, file, function, line)
     }
 
-    static func warning(_ message: @escaping () -> Any?, file: String = #fileID, function: String = #function, line: Int = #line) {
+    static func warning(_ message: () -> Any?, file: String = #fileID, function: String = #function, line: Int = #line) {
         emit(.warning, message, file, function, line)
     }
 
-    static func error(_ message: @escaping () -> Any?, file: String = #fileID, function: String = #function, line: Int = #line) {
+    static func error(_ message: () -> Any?, file: String = #fileID, function: String = #function, line: Int = #line) {
         emit(.error, message, file, function, line)
     }
 
     @inline(__always)
     private static func emit(_ level: LogLevel, _ message: () -> Any?, _ file: String, _ function: String, _ line: Int) {
-        // Compile-cheap gate: skip the closure call entirely when this level is suppressed.
+        // Keep message parameters nonescaping: captured closures can otherwise be allocated before
+        // this inline guard, even when the message is suppressed.
         guard level >= minLevel else { return }
+        emitEnabled(level, message, file, function, line)
+    }
+
+    @inline(never)
+    private static func emitEnabled(_ level: LogLevel, _ message: () -> Any?, _ file: String, _ function: String, _ line: Int) {
         let rendered = "\(message() ?? "nil")"
         let now = Date()
         let thread = threadName()
