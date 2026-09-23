@@ -582,6 +582,8 @@ extension App: NSApplicationDelegate {
         #else
         MoveToApplicationsFolder.promptIfNeeded()
         #endif
+        // after the prompt, which may copy this bundle elsewhere and relaunch from there
+        StapledTicket.parkInBackground()
         // The WindowServer event tap is CGS-only (needs no Accessibility, no Preferences, no model), so
         // install it before licensing / the permission gate. The skeleton is then available immediately and
         // independent of whether the user has granted AX.
@@ -660,6 +662,7 @@ extension App: NSApplicationDelegate {
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
         Logger.info { "" }
         makeSureAllCapturesAreFinished()
+        StapledTicket.restoreBeforeExit()
         return .terminateNow
     }
 }

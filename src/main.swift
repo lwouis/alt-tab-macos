@@ -73,6 +73,7 @@ fileprivate func emergencyExit(_ logs: Any?...) {
     print(logs)
     printStackTrace()
     makeSureAllCapturesAreFinished()
+    StapledTicket.restoreBeforeExit()
     fflush(stdout)
     fflush(stderr)
     _exit(0)
