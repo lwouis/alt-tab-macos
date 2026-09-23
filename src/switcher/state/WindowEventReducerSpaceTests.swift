@@ -68,10 +68,22 @@ final class WindowEventReducerSpaceTests: XCTestCase {
         XCTAssertTrue(effects.contains(.refreshSpacesTopologyAndSync))
         XCTAssertTrue(effects.contains(.queryWindowServerState(wids: [Self.widA, Self.widB])))
         XCTAssertTrue(effects.contains(.checkShortcutsForFocusedWindow))
-        XCTAssertTrue(effects.contains(.refreshUi(wids: [Self.widA, Self.widB], onlyWhileSwitcherOpen: false)))
+        XCTAssertTrue(effects.contains { if case .refreshUi = $0 { return true } else { return false } })
         XCTAssertFalse(effects.contains(.refreshSpacesTopology),
                        "the settled pass owns the full refresh; emitting the leading edge's cheap read too "
                        + "would re-read the topology twice for nothing")
+    }
+
+    /// Every capture costs the OS's permission service three signature validations, and recapturing every
+    /// window on every Space switch was enough to exhaust it on a busy desktop (#6067). Only the arriving
+    /// Space's windows are recaptured; a window on a Space that is not on screen keeps its thumbnail.
+    func testSpaceChangeSettledRecapturesOnlyWindowsOnVisibleSpaces() {
+        var s = state()
+        let effects = WindowEventReducer.reduce(&s, .spaceChangeSettled)
+        XCTAssertTrue(effects.contains(.refreshUi(wids: [Self.widA], onlyWhileSwitcherOpen: false)),
+                      "widA is on the visible Space 1, so the switch should recapture it")
+        XCTAssertFalse(effects.contains(.refreshUi(wids: [Self.widA, Self.widB], onlyWhileSwitcherOpen: false)),
+                       "widB is on Space 2, which is not on screen: recapturing it costs the OS for nothing")
     }
 
     // MARK: - C. The Spaces answer applies only to the windows it was asked about

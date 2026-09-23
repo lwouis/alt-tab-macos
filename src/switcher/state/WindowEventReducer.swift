@@ -821,7 +821,18 @@ enum WindowEventReducer {
         return [.refreshSpacesTopologyAndSync,
                 .queryWindowServerState(wids: trackedWids),
                 .checkShortcutsForFocusedWindow,
-                .refreshUi(wids: state.windows.compactMap { $0.wid }, onlyWhileSwitcherOpen: false)]
+                .refreshUi(wids: widsOnVisibleSpaces(state), onlyWhileSwitcherOpen: false)]
+    }
+
+    /// The windows a Space switch gives a reason to recapture: the ones on a Space now on screen. Every
+    /// capture costs the OS three signature validations in its permission service (~39ms of its CPU per
+    /// capture, measured on macOS 27), and recapturing every window on every switch is enough on a busy
+    /// desktop to exhaust that service and make macOS ask for Screen Recording again (#6025, #6067). Windows
+    /// elsewhere keep their thumbnail until they are focused or the switcher opens, which recaptures them all.
+    /// `visibleSpaces` is already current (the leading edge re-read it); membership is read before this pass's
+    /// own sync lands, which is fine since a Space switch does not move windows between Spaces.
+    private static func widsOnVisibleSpaces(_ state: TrackedWindowState) -> [CGWindowID] {
+        state.windows.filter { $0.spaceIds.contains { state.visibleSpaces.contains($0) } }.compactMap { $0.wid }
     }
 
     /// An app became frontmost (NSWorkspace — no WS equivalent). It names an app and nothing else: the 808s

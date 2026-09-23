@@ -341,8 +341,13 @@ extension CMSampleBuffer {
 /// problem — `CGSHWCaptureWindowList` blocks, so the queue width WAS its bound — and the bound was simply
 /// never carried over when ScreenCaptureKit became the macOS 26 path. `maxInFlight` restores it.
 class ActiveWindowCaptures {
-    /// Parity with the `screenshotsQueue` width, which is the bound the synchronous path always had.
-    private static let maxInFlight = 8
+    /// replayd serves screenshot requests one at a time, each behind its three permission checks, so a
+    /// request beyond the one being served only waits there, where we can no longer drop it. Measured on
+    /// macOS 27 (M5, one summon over 43 windows): all captures landed in 2.1s with 1 in flight and in 1.7s
+    /// with anything from 2 to 16, while each capture's own latency grew with the cap (66ms at 2, 266ms at
+    /// 8, 515ms at 16). 2 keeps replayd busy and leaves the rest of the queue here, where a switcher that
+    /// closes drops what was never sent.
+    private static let maxInFlight = 2
     private static let maxWaiting = 256
     /// A capture the OS never answers must not hold its slot for the life of the session: #5861 has replayd
     /// wedging machine-wide under bursts, which is exactly when a lost callback is likeliest and exactly when

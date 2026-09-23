@@ -40,8 +40,11 @@ Fullscreen windows use `captureSampleBuffer` because the screenshot API fails wh
 - The pending discovery set and the asynchronous capture wait list each cap at 256 entries. A prioritized
   request can evict a non-prioritized pending discovery; excess work is logged and dropped, relying on the
   next ordinary refresh rather than allowing an exotic desktop to grow queues without limit.
-- The capture gate still permits at most 8 requests in flight. A thumbnail-only request is checked again
-  when it reaches that gate, so work queued for a switcher session that has since ended does not reach the OS.
+- The capture gate permits at most 2 requests in flight. The OS serves screenshot requests one at a time, so
+  on macOS 27 a summon over 43 windows finished in the same 1.7s with any cap from 2 to 16 (2.1s with 1),
+  while a higher cap only made each capture wait longer inside the OS. A thumbnail-only request is checked
+  again when it reaches that gate, so work queued for a switcher session that has since ended does not
+  reach the OS.
 
 ## Edge cases
 

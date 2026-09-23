@@ -48,6 +48,11 @@ re-order under them. It looks free and it is not.
 - **testSpaceChangeSettledKeepsMembershipAndTheStateRequery** — `.spaceChangeSettled` still emits the
   per-window Space sync, the WindowServer state re-query for every tracked window, the shortcut re-check and
   the repaint. Collapsing the two branches into one would either run this storm-time work early or lose it.
+- **testSpaceChangeSettledRecapturesOnlyWindowsOnVisibleSpaces** — the repaint asks to recapture only the
+  windows on a Space now on screen. Each capture costs the OS three signature validations in its permission
+  service, and recapturing every window on every switch was enough to exhaust it on a busy desktop and make
+  macOS ask for Screen Recording again (#6067). Windows elsewhere keep their thumbnail until focused or until
+  the switcher opens.
 
 ### C. Scope and completion are separate facts
 
