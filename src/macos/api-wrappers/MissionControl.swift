@@ -36,25 +36,6 @@ class MissionControl {
     /// five windows and has one state.
     private static let settleDelay = 0.15
 
-    /// Not localized, and not the bundle's display name: this is the process name the WindowServer records
-    /// for the surface's owner. macOS 12 has no such process, which is what makes the fallback above matter.
-    private static let windowManagerProcessName = "WindowManager"
-    /// **Stage Manager, measured 2026-09-17 by turning it on.** It puts nothing at these three levels: its
-    /// own surfaces are `App Icon Window` and `Gesture Blocking Overlay` at level 0 and a full-screen
-    /// `Event Shield Window` at the desktop-icon level, at rest and through every hover of the strip. So it
-    /// cannot make this read say a gesture is up when none is, which is the direction that would cost the
-    /// user a focus. Mission Control and App Exposé are still recognised exactly as below.
-    ///
-    /// Show Desktop is the one it hides: with Stage Manager on, macOS draws no `ShowDesktopOverlay` at all
-    /// and reveals the desktop by removing the event shield instead, so `.showDesktop` never fires there.
-    /// Nothing downstream changes, because both readers already treat `.showDesktop` exactly as
-    /// `.inactive`: `Windows.updatesBeforeShowing` skips its refresh only for the other two, and
-    /// `App.focusSelectedWindow` focuses for either. A reader that ever needs to tell them apart has to
-    /// find another signal first.
-    private static let exposeShieldLevel = 19
-    private static let showDesktopOverlayLevel = 18
-    private static let spacesBarLevel = 14
-
     /// No round trip in the ordinary case. The overlay can only have moved if a surface came or went since
     /// the last look, and every such arrival reaches `surfacesChanged`, so a cache with nothing pending is
     /// exact whatever its age. The `CGWindowListCopyWindowInfo` (0.245ms p50, 0.43ms p95 measured, and it
@@ -118,24 +99,24 @@ class MissionControl {
         if changed { Logger.info { "missionControl observed \(state.rawValue)" } }
     }
 
-    /// The window manager's own overlays, recognised by OWNER and LEVEL rather than by name. `kCGWindowName`
-    /// would name them outright (`ExposeShieldWindow`, `Spaces Bar`, `ShowDesktopOverlay`) but it is gated on
-    /// Screen Recording, which a user running without thumbnails may never have granted, and a detector that
-    /// reads "no gesture is ever up" for those users is worse than none. Owner name, level and bounds are not
-    /// gated. Nothing else of that process sits at these three levels: its Stage Manager and highlight
-    /// surfaces are at 0 to 2.
     private static func overlayState() -> MissionControlState {
-        var hasShield = false, hasSpacesBar = false, hasShowDesktop = false
-        for window in CGWindowListCopyWindowInfo([.optionOnScreenOnly], kCGNullWindowID) as? [CGWindow] ?? [] {
-            guard window.ownerName() == windowManagerProcessName else { continue }
-            switch window.layer() {
-            case exposeShieldLevel: hasShield = true
-            case showDesktopOverlayLevel: hasShowDesktop = true
-            case spacesBarLevel: hasSpacesBar = true
-            default: continue
-            }
+        let windows = CGWindowListCopyWindowInfo([.optionOnScreenOnly], kCGNullWindowID) as? [CGWindow] ?? []
+        let surfaces = windows.map { MissionControlOverlay.Surface(ownerName: $0.ownerName(), layer: $0.layer(), bounds: $0.bounds()) }
+        switch MissionControlOverlay.gesture(surfaces, screenSizes: displaySizes()) {
+        case .missionControl: return .showAllWindows
+        case .appExpose: return .showFrontWindows
+        case .showDesktop: return .showDesktop
+        case .none: return .inactive
         }
-        if hasShield { return hasSpacesBar ? .showAllWindows : .showFrontWindows }
-        return hasShowDesktop ? .showDesktop : .inactive
+    }
+
+    /// CoreGraphics rather than `NSScreen`: `look` runs on the WindowServer-read lane, and these are in the
+    /// same point space as `kCGWindowBounds`.
+    private static func displaySizes() -> [CGSize] {
+        var count = UInt32(0)
+        guard CGGetActiveDisplayList(0, nil, &count) == .success, count > 0 else { return [] }
+        var ids = [CGDirectDisplayID](repeating: 0, count: Int(count))
+        guard CGGetActiveDisplayList(count, &ids, &count) == .success else { return [] }
+        return ids.prefix(Int(count)).map { CGDisplayBounds($0).size }
     }
 }
