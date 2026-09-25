@@ -171,11 +171,15 @@ enum WindowAdmissionResolver {
     /// not a switch destination however the focus got there. A role it FAILED to read is not that refusal — a
     /// nil role is the absence of an answer, and reading absence as a verdict is the mistake
     /// `WindowElementAcquisition` exists to prevent.
+    ///
+    /// Attention never refuses what discovery admits. Emacs 29.4 (emacsformacosx.com) reports its frames as
+    /// role `AXTextField`, subrole `AXStandardWindow`, and discovery accepts them on the subrole
+    /// (`testExactAttentionKeepsAStandardWindowWithATextFieldRole`).
     private static func attentionDecision(_ physical: PhysicalSurface,
                                           _ semantic: SemanticSurface?) -> SwitchDestinationDecision {
         guard admissiblePlacement(physical, semantic) else { return .reject(.auxiliarySurface) }
-        guard let semantic else { return .destination(.exactAttention) }
-        guard semantic.role == nil || semantic.isWindowRole else { return .reject(.nonWindowRole) }
-        return .destination(.exactAttention)
+        guard let semantic, semantic.role != nil, !semantic.isWindowRole else { return .destination(.exactAttention) }
+        let discovery = resolve(physical, semantic)
+        return discovery.isDestination ? discovery : .reject(.nonWindowRole)
     }
 }
