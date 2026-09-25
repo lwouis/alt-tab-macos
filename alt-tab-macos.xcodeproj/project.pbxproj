@@ -295,6 +295,9 @@
 		BF0CBBBB0000000000001001 /* OnActionExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0CBBBB0000000000000001 /* OnActionExtensionTests.swift */; };
 		BF0CEEEE0000000000001001 /* PersistedWindowFrameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0CEEEE0000000000000001 /* PersistedWindowFrameTests.swift */; };
 		BF0CDDDD0000000000001001 /* ProcessLivenessTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0CDDDD0000000000000001 /* ProcessLivenessTests.swift */; };
+		BF0CAC000000000000001001 /* MissionControlOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0CAC000000000000000001 /* MissionControlOverlay.swift */; };
+		BF0CAC000000000000001002 /* MissionControlOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0CAC000000000000000001 /* MissionControlOverlay.swift */; };
+		BF0CAC000000000000001003 /* MissionControlOverlayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0CAC000000000000000002 /* MissionControlOverlayTests.swift */; };
 		C79742CA78D3CC74B6920437 /* menubar-0.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 02540420CE27E6C973652426 /* menubar-0.pdf */; };
 		D04BA0000000000000DCFFF2 /* DynamicColorTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA0000000000000DCFFF1 /* DynamicColorTextField.swift */; };
 		D04BAE2100000000ED003003 /* LightLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAE2100000000ED003002 /* LightLabel.swift */; };
@@ -731,6 +734,8 @@
 		BF0CBBBB0000000000000001 /* OnActionExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnActionExtensionTests.swift; sourceTree = "<group>"; };
 		BF0CEEEE0000000000000001 /* PersistedWindowFrameTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistedWindowFrameTests.swift; sourceTree = "<group>"; };
 		BF0CDDDD0000000000000001 /* ProcessLivenessTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessLivenessTests.swift; sourceTree = "<group>"; };
+		BF0CAC000000000000000001 /* MissionControlOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionControlOverlay.swift; sourceTree = "<group>"; };
+		BF0CAC000000000000000002 /* MissionControlOverlayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionControlOverlayTests.swift; sourceTree = "<group>"; };
 		D04BA0000000000000DCFFF1 /* DynamicColorTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynamicColorTextField.swift; sourceTree = "<group>"; };
 		D04BAE2100000000ED003002 /* LightLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LightLabel.swift; sourceTree = "<group>"; };
 		D04BA00000000000C0DE0001 /* SettingsSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsSearch.swift; sourceTree = "<group>"; };
@@ -1573,6 +1578,8 @@
 				D04BA8DB8AA7E5570DAC568A /* Sysctl.swift */,
 				D04BA514F1C4B475B3CA6EB6 /* Bash.swift */,
 				BF0C82E4DE5A28800F1DA6E6 /* MissionControl.swift */,
+				BF0CAC000000000000000001 /* MissionControlOverlay.swift */,
+				BF0CAC000000000000000002 /* MissionControlOverlayTests.swift */,
 				BF0C8B841E890CA0D68FFD86 /* Logger.swift */,
 				BF0C8353097840D7DB1E0E2E /* Markdown.swift */,
 				BF0C810FA0F6BC70E5886E11 /* HelperExtensionsTestable.swift */,
@@ -2150,6 +2157,8 @@
 				BF0CBBBB0000000000001001 /* OnActionExtensionTests.swift in Sources */,
 				BF0CEEEE0000000000001001 /* PersistedWindowFrameTests.swift in Sources */,
 				BF0CDDDD0000000000001001 /* ProcessLivenessTests.swift in Sources */,
+				BF0CAC000000000000001002 /* MissionControlOverlay.swift in Sources */,
+				BF0CAC000000000000001003 /* MissionControlOverlayTests.swift in Sources */,
 				A053BAD6681629878E72B1F7 /* ProBadgeViewSegmentTests.swift in Sources */,
 				DC8CF4F01C999497352736F1 /* OverrideClickResolverTests.swift in Sources */,
 				DC06402457ECCE6C902FEAE4 /* OverrideClickResolver.swift in Sources */,
@@ -2421,6 +2430,7 @@
 				BF0C898511686611E4D7D81E /* Button.swift in Sources */,
 				BF0C8E16F38203AEC71E062B /* TableView.swift in Sources */,
 				BF0C832C5BF4C8E9C95F7767 /* MissionControl.swift in Sources */,
+				BF0CAC000000000000001001 /* MissionControlOverlay.swift in Sources */,
 				1C96108A0CB2565233FE100B /* TableGroupView.swift in Sources */,
 				1C9618872DD3863A8EFE8414 /* Appearance.swift in Sources */,
 				AA0C8B000000000000000001 /* UsageStats.swift in Sources */,
