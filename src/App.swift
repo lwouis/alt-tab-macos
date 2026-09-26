@@ -482,6 +482,9 @@ class App: AppCenterApplication {
         Appearance.update()
         TilesPanel.updateMaxPossibleThumbnailSize()
         TilesPanel.updateMaxPossibleAppIconSize()
+        // Discovery starts as soon as Accessibility is granted, so windows found while the permissions window
+        // still waited on Screen Recording fetched their app icon at size zero, and got none
+        Set(Windows.list.map { $0.application }).forEach { $0.fetchAppIcon() }
         Menubar.initialize()
         MainMenu.create()
         _ = TilesPanel()

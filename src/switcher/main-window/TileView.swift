@@ -281,6 +281,8 @@ class TileView: FlippedView {
 
     private func updateAppIcon(_ element: Window) {
         let appIconSize = TileView.iconSize()
+        // Tiles are pooled: without this, a window whose icon isn't loaded shows the previous window's
+        if element.icon == nil { appIcon.releaseImage() }
         appIcon.updateContents(.cgImage(element.icon), appIconSize)
     }
 
@@ -308,6 +310,7 @@ class TileView: FlippedView {
                 thumbnail.contentsGravity = reservesWindowGeometry ? .resizeAspect : .resize
                 let sourceSize = reservesWindowGeometry ? element.size : element.icon?.size()
                 let thumbnailSize = TileView.thumbnailSize(sourceSize, !reservesWindowGeometry)
+                if element.icon == nil { thumbnail.releaseImage() }
                 thumbnail.updateContents(.cgImage(element.icon), thumbnailSize)
             }
         }
