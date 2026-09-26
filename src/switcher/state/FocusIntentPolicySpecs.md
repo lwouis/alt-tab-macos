@@ -73,6 +73,32 @@ Fronting is what `_SLPSSetFrontProcessWithOptions` does, so a superseded operati
 still run the cross-Space origin repair (#4507). That step is gated on having fronted, never on being
 current — bailing out of it would leak the clobber it exists to undo.
 
+## Verifying the result
+
+The live QA setup holds verification before its snapshot with `--qa-hold-focus-verification`, poses and
+witnesses the covering window, then releases it with `--qa-resume-focus-verification`. These Debug-only
+controls preserve the production snapshot and repair guards; they prevent the test's cover from arriving
+after the one-shot check. The separate execution delay tests a native switch while a repair is queued.
+
+A switch can report success at every step and still leave the previous app's window over the target (#6064).
+In the reporter's captures (macOS 26.6.2, Zoom, Finder, Terminal) the target app was front and the raise had
+returned success, yet another app's window stayed above the target from +30ms to +150ms after the switch, and
+nothing moved it on its own. A second raise brought the target forward every time.
+
+So 150ms after the operation, AltTab reads the on-screen order once. It raises the target again when the same
+intent is still current, the target's app is still front, and a visible normal-level window from another app
+overlaps the target from above. It repeats only the raise: the front-switch has visibly landed, and the
+key-window click is not something to post twice. A correct order, a newer focus request, another app in
+front, a transparent or floating window, a window that does not overlap, or one of the target app's own
+windows leaves the switch alone. Immediately before the delayed raise executes, a bounded read must still
+name the target as the focused window of the frontmost app. Native clicks and Cmd-Tab do not create an
+AltTab generation, so the generation alone is insufficient. An unknown focused window or an execution
+more than one second after verification was scheduled cancels the repair. The freshly read element is
+raised once; there is no stale-element retry that could outlive that check.
+
+`testDeferredRaiseRequiresTheSameNativeFocusAtExecution` covers native app/window changes and unknown
+focus. `testDeferredRaiseStopsAfterTheDeadlineOrANewerAltTab` covers delayed and superseded work.
+
 ## Test scenarios
 
 - **testANewerRequestSupersedesTheOlderOne** — the fast alt-tab, in one line: two requests, and only the
@@ -102,3 +128,12 @@ current — bailing out of it would leak the clobber it exists to undo.
   a read about anyone else leaves the wait standing.
 - **testAnUnansweredSwitchStopsBeingAwaitedAtTheHorizon** — an operation that bailed before its read never
   answers, and the wait expires rather than holding every later activation of that app.
+- **testCurrentTargetCoveredByAnotherAppNeedsARaise** — the captured failure: the target app is front while
+  another app's overlapping window remains above its target.
+- **testCorrectZOrderNeedsNoRaise** — the ordinary successful switch pays no second Accessibility call.
+- **testSupersededOrNoLongerFrontTargetNeedsNoRaise** — a delayed verification cannot undo a newer user
+  action.
+- **testATargetMissingFromTheScreenNeedsNoRaise** — a target the on-screen list does not show (a Space
+  transition still animating) is not evidence of a covered window.
+- **testNonCoveringAndTransparentWindowsNeedNoRaise** — unrelated windows, invisible overlays, floating
+  windows and the target app's own windows are not mistaken for a failed switch.

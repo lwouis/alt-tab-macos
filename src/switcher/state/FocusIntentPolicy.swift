@@ -7,6 +7,35 @@ struct FocusGeneration: RawRepresentable, Hashable, Comparable {
     static func < (lhs: Self, rhs: Self) -> Bool { lhs.rawValue < rhs.rawValue }
 }
 
+/// **Whether a switch that reported success left another app's window over its target** (#6064). See "Verifying
+/// the result" in FocusIntentPolicySpecs.md.
+struct FocusOutcomePolicy {
+    struct Surface {
+        let wid: CGWindowID
+        let pid: pid_t
+        let layer: Int
+        let bounds: CGRect
+        let alpha: Double
+    }
+
+    /// Re-read at the execution boundary: a native click or Cmd-Tab does not create an AltTab generation.
+    /// Unknown focus and work delayed more than a second are not grounds for moving another window.
+    static func mayRaise(_ targetWid: CGWindowID, _ targetPid: pid_t, frontPid: pid_t?, focusedWid: CGWindowID?,
+                         current: Bool, now: TimeInterval, deadline: TimeInterval) -> Bool {
+        current && now <= deadline && frontPid == targetPid && focusedWid == targetWid
+    }
+
+    static func needsRaise(_ targetWid: CGWindowID, _ targetPid: pid_t, _ frontPid: pid_t?, _ current: Bool,
+                           _ surfaces: [Surface]) -> Bool {
+        guard current, frontPid == targetPid,
+              let targetIndex = surfaces.firstIndex(where: { $0.wid == targetWid }) else { return false }
+        let target = surfaces[targetIndex]
+        return surfaces[..<targetIndex].contains {
+            $0.layer == 0 && $0.alpha > 0 && $0.pid != targetPid && $0.bounds.intersects(target.bounds)
+        }
+    }
+}
+
 /// **Which of several in-flight focus operations may still touch the screen.**
 ///
 /// `Window.focus()` puts the whole activate-key-raise sequence on the shared 4-wide
@@ -153,6 +182,50 @@ class FocusIntents {
     }
 
     #if DEBUG
+    private var holdVerificationForQa = false
+    private var heldVerificationForQa: (() -> Void)?
+
+    func holdNextVerificationForQa() {
+        lock.lock()
+        holdVerificationForQa = true
+        lock.unlock()
+    }
+
+    /// Pose the covering window before the snapshot, without racing the production settle delay.
+    func deferVerificationForQa(_ verification: @escaping () -> Void) -> Bool {
+        lock.lock()
+        defer { lock.unlock() }
+        guard holdVerificationForQa else { return false }
+        holdVerificationForQa = false
+        heldVerificationForQa = verification
+        return true
+    }
+
+    func resumeVerificationForQa() {
+        lock.lock()
+        let verification = heldVerificationForQa
+        heldVerificationForQa = nil
+        holdVerificationForQa = false
+        lock.unlock()
+        verification?()
+    }
+
+    private var verificationDelayForQa = 0
+
+    func delayNextVerificationForQa(_ milliseconds: Int) {
+        lock.lock()
+        verificationDelayForQa = min(800, max(0, milliseconds))
+        lock.unlock()
+    }
+
+    func consumeVerificationDelayForQa() -> Int {
+        lock.lock()
+        defer { lock.unlock() }
+        let delay = verificationDelayForQa
+        verificationDelayForQa = 0
+        return delay
+    }
+
     private var refusalArmedForQa = false
 
     /// **Fault injection (`--qa-refuse-next-focus`): the next focus operation makes none of its OS calls**, as

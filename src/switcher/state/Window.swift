@@ -424,6 +424,7 @@ class Window {
         repairIfSuperseded(generation)
         guard FocusIntents.shared.mayProceed(generation) else { return }
         hearWhereFocusLanded()
+        verifyNotCovered(generation)
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) {
             WindowThumbnails.previewSelectedIfNeeded()
         }
@@ -432,6 +433,80 @@ class Window {
     private func hearWhereFocusLanded() {
         let pid = application.pid
         DispatchQueue.main.async { WindowServerEvents.readFocusedWindowAfterFocusing(pid) }
+    }
+
+    /// Steps 1 to 3 can all report success and still leave the previous app's window over the target (#6064).
+    /// In the reporter's captures (macOS 26.6.2) the target app was front, the raise had returned success, and
+    /// another app's window stayed above the target at every sample from +30ms to +150ms after the switch;
+    /// nothing moved it on its own. A second raise brought the target forward every time. So the on-screen
+    /// order is read once the switch has settled, and only the raise is repeated: step 1 has visibly landed
+    /// (the app is front), and step 2's synthetic click is not something to post twice.
+    private func verifyNotCovered(_ generation: FocusGeneration) {
+        #if DEBUG
+        if FocusIntents.shared.deferVerificationForQa({ [weak self] in self?.verifyNotCovered(generation) }) {
+            Logger.info { "QA: holding focus verification before snapshot" }
+            return
+        }
+        #endif
+        let wid = cgWindowId!
+        let pid = application.pid
+        let deadline = ProcessInfo.processInfo.systemUptime + FocusIntentPolicy.repairHorizon
+        DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + .milliseconds(150)) { [weak self] in
+            CGSCallScheduler.run { [weak self] in
+                guard let self, FocusIntents.shared.mayProceed(generation) else { return }
+                let surfaces = Self.onScreenSurfaces()
+                let frontPid = NSWorkspace.shared.frontmostApplication?.processIdentifier
+                let current = FocusIntents.shared.mayProceed(generation)
+                guard FocusOutcomePolicy.needsRaise(wid, pid, frontPid, current, surfaces) else { return }
+                self.enqueueFocusVerification(generation, deadline: deadline)
+            }
+        }
+    }
+
+    private func enqueueFocusVerification(_ generation: FocusGeneration, deadline: TimeInterval) {
+        #if DEBUG
+        let delay = FocusIntents.shared.consumeVerificationDelayForQa()
+        if delay > 0 {
+            Logger.info { "QA: delaying focus verification" }
+            DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + .milliseconds(delay)) { [weak self] in
+                BackgroundWork.accessibilityCommandsQueue.addOperation { [weak self] in
+                    self?.raiseIfStillFocused(generation, deadline: deadline)
+                    Logger.info { "QA: delayed focus verification finished" }
+                }
+            }
+            return
+        }
+        #endif
+        BackgroundWork.accessibilityCommandsQueue.addOperation { [weak self] in
+            self?.raiseIfStillFocused(generation, deadline: deadline)
+        }
+    }
+
+    private func raiseIfStillFocused(_ generation: FocusGeneration, deadline: TimeInterval) {
+        let pid = application.pid
+        guard FocusIntents.shared.mayProceed(generation), ProcessInfo.processInfo.systemUptime <= deadline,
+              NSWorkspace.shared.frontmostApplication?.processIdentifier == pid else { return }
+        let app = AXUIElementCreateApplication(pid)
+        AXUIElementSetMessagingTimeout(app, 0.25)
+        let focused = try? app.attributes([kAXFocusedWindowAttribute], pid: pid).focusedWindow
+        let focusedWid = focused.flatMap { try? $0.cgWindowId(pid: pid) }
+        guard let focused, let wid = cgWindowId,
+              FocusOutcomePolicy.mayRaise(wid, pid,
+                  frontPid: NSWorkspace.shared.frontmostApplication?.processIdentifier, focusedWid: focusedWid,
+                  current: FocusIntents.shared.mayProceed(generation),
+                  now: ProcessInfo.processInfo.systemUptime, deadline: deadline) else { return }
+        let raised = raise(focused, generation)
+        repairIfSuperseded(generation)
+        // The log distinguishes a repaired switch from one that landed on its first raise.
+        if raised { Logger.debug { "focus verification: raised #\(wid) again over another app's window" } }
+    }
+
+    private static func onScreenSurfaces() -> [FocusOutcomePolicy.Surface] {
+        CGWindow.windows(.optionOnScreenOnly).compactMap { window in
+            guard let wid = window.id(), let pid = window.ownerPID(), let layer = window.layer(),
+                  let bounds = window.bounds() else { return nil }
+            return .init(wid: wid, pid: pid, layer: layer, bounds: bounds, alpha: window.alpha() ?? 1)
+        }
     }
 
     #if DEBUG
@@ -444,13 +519,19 @@ class Window {
 
     /// Steps 2 and 3. Step 3 is the only AX-dependent step: 1 and 2 use the wid and psn directly, so a window
     /// with no element still gets fronted and made key — which is the whole point of keeping a hung app's
-    /// window trackable. The guard before the #5586 re-resolve is the one that pays: it follows a call that
-    /// may have blocked for the full 1s timeout, and the re-resolve itself costs up to 1.25s more.
+    /// window trackable.
     private func makeKeyAndRaise(_ generation: FocusGeneration, _ psn: inout ProcessSerialNumber) {
         guard FocusIntents.shared.mayProceed(generation) else { return }
         makeKeyWindow(&psn, cgWindowId!)
         FocusIntents.shared.noteReordered(generation)
         guard FocusIntents.shared.mayProceed(generation) else { return }
+        raiseHealingStaleElement(generation)
+    }
+
+    /// Step 3. The guard before the #5586 re-resolve is the one that pays:
+    /// it follows a call that may have blocked for the full 1s timeout, and the re-resolve itself costs up to
+    /// 1.25s more.
+    private func raiseHealingStaleElement(_ generation: FocusGeneration) {
         if let element = axUiElement, raise(element, generation) { return }
         guard FocusIntents.shared.mayProceed(generation), let fresh = refreshedAxElement() else { return }
         _ = raise(fresh, generation)

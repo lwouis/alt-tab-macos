@@ -111,6 +111,19 @@ class CliServer {
             App.deferRepaintsForQa(min(5000, max(0, ms)))
             return noOutput
         }
+        if rawValue == "--qa-hold-focus-verification" {
+            FocusIntents.shared.holdNextVerificationForQa()
+            return noOutput
+        }
+        if rawValue == "--qa-resume-focus-verification" {
+            FocusIntents.shared.resumeVerificationForQa()
+            return noOutput
+        }
+        if rawValue.hasPrefix("--qa-delay-focus-verification=") {
+            let milliseconds = Int(rawValue.dropFirst("--qa-delay-focus-verification=".count)) ?? 0
+            FocusIntents.shared.delayNextVerificationForQa(milliseconds)
+            return noOutput
+        }
         if rawValue == "--qa-refuse-next-focus" {
             FocusIntents.shared.refuseNextForQa()
             Logger.info { "QA: refusing the next focus" }

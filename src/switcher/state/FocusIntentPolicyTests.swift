@@ -7,6 +7,62 @@ final class FocusIntentPolicyTests: XCTestCase {
     private let terminal: pid_t = 600
     private let finder: pid_t = 700
 
+    func testDeferredRaiseRequiresTheSameNativeFocusAtExecution() {
+        XCTAssertTrue(FocusOutcomePolicy.mayRaise(1, safari, frontPid: safari, focusedWid: 1,
+            current: true, now: 10.2, deadline: 11))
+        XCTAssertFalse(FocusOutcomePolicy.mayRaise(1, safari, frontPid: terminal, focusedWid: 1,
+            current: true, now: 10.2, deadline: 11))
+        XCTAssertFalse(FocusOutcomePolicy.mayRaise(1, safari, frontPid: safari, focusedWid: 2,
+            current: true, now: 10.2, deadline: 11))
+        XCTAssertFalse(FocusOutcomePolicy.mayRaise(1, safari, frontPid: safari, focusedWid: nil,
+            current: true, now: 10.2, deadline: 11))
+    }
+
+    func testDeferredRaiseStopsAfterTheDeadlineOrANewerAltTab() {
+        XCTAssertFalse(FocusOutcomePolicy.mayRaise(1, safari, frontPid: safari, focusedWid: 1,
+            current: true, now: 11.01, deadline: 11))
+        XCTAssertFalse(FocusOutcomePolicy.mayRaise(1, safari, frontPid: safari, focusedWid: 1,
+            current: false, now: 10.2, deadline: 11))
+    }
+
+    private func surface(_ wid: CGWindowID, _ pid: pid_t,
+                         _ frame: CGRect = CGRect(x: 0, y: 0, width: 100, height: 100),
+                         layer: Int = 0, alpha: Double = 1) -> FocusOutcomePolicy.Surface {
+        .init(wid: wid, pid: pid, layer: layer, bounds: frame, alpha: alpha)
+    }
+
+    func testCurrentTargetCoveredByAnotherAppNeedsARaise() {
+        let surfaces = [surface(2, terminal), surface(1, safari)]
+        XCTAssertTrue(FocusOutcomePolicy.needsRaise(1, safari, safari, true, surfaces))
+    }
+
+    func testCorrectZOrderNeedsNoRaise() {
+        let surfaces = [surface(1, safari), surface(2, terminal)]
+        XCTAssertFalse(FocusOutcomePolicy.needsRaise(1, safari, safari, true, surfaces))
+    }
+
+    func testSupersededOrNoLongerFrontTargetNeedsNoRaise() {
+        let surfaces = [surface(2, terminal), surface(1, safari)]
+        XCTAssertFalse(FocusOutcomePolicy.needsRaise(1, safari, safari, false, surfaces))
+        XCTAssertFalse(FocusOutcomePolicy.needsRaise(1, safari, terminal, true, surfaces))
+    }
+
+    func testATargetMissingFromTheScreenNeedsNoRaise() {
+        XCTAssertFalse(FocusOutcomePolicy.needsRaise(1, safari, safari, true, [surface(2, terminal)]))
+    }
+
+    func testNonCoveringAndTransparentWindowsNeedNoRaise() {
+        let away = CGRect(x: 200, y: 200, width: 100, height: 100)
+        XCTAssertFalse(FocusOutcomePolicy.needsRaise(1, safari, safari, true,
+            [surface(2, terminal, away), surface(1, safari)]))
+        XCTAssertFalse(FocusOutcomePolicy.needsRaise(1, safari, safari, true,
+            [surface(2, terminal, alpha: 0), surface(1, safari)]))
+        XCTAssertFalse(FocusOutcomePolicy.needsRaise(1, safari, safari, true,
+            [surface(2, terminal, layer: 3), surface(1, safari)]))
+        XCTAssertFalse(FocusOutcomePolicy.needsRaise(1, safari, safari, true,
+            [surface(2, safari), surface(1, safari)]))
+    }
+
     /// The fast alt-tab, in one line. Both operations are in flight; only the newest may act.
     func testANewerRequestSupersedesTheOlderOne() {
         var policy = FocusIntentPolicy()
