@@ -1,3 +1,25 @@
+# [11.8.0](https://github.com/lwouis/alt-tab-macos/compare/v11.7.1...v11.8.0) (2026-09-26)
+
+
+### Bug Fixes
+
+* first tiles could show red shadows and cut-off titles after launch ([e2016d5](https://github.com/lwouis/alt-tab-macos/commit/e2016d5))
+* one tap could jump the selection to the last window (closes [#6075](https://github.com/lwouis/alt-tab-macos/issues/6075)) ([afce67b](https://github.com/lwouis/alt-tab-macos/commit/afce67b))
+* switcher could fail to appear on macOS 27 (closes [#6076](https://github.com/lwouis/alt-tab-macos/issues/6076)) ([cbd8e91](https://github.com/lwouis/alt-tab-macos/commit/cbd8e91))
+* switching order could put Emacs windows last (closes [#6072](https://github.com/lwouis/alt-tab-macos/issues/6072)) ([9883224](https://github.com/lwouis/alt-tab-macos/commit/9883224))
+
+
+### Features
+
+* help discover window search when many windows are open ([81c719b](https://github.com/lwouis/alt-tab-macos/commit/81c719b))
+
+
+### Performance Improvements
+
+* fewer thumbnail captures when changing Spaces or closing ([#6067](https://github.com/lwouis/alt-tab-macos/issues/6067)) ([27ddedd](https://github.com/lwouis/alt-tab-macos/commit/27ddedd))
+* reduce app size ([3fadbee](https://github.com/lwouis/alt-tab-macos/commit/3fadbee))
+* thumbnails refresh up to twice as fast ([#6067](https://github.com/lwouis/alt-tab-macos/issues/6067)) ([806623a](https://github.com/lwouis/alt-tab-macos/commit/806623a))
+
 ## [11.7.1](https://github.com/lwouis/alt-tab-macos/compare/v11.7.0...v11.7.1) (2026-09-20)
 
 
