@@ -150,8 +150,8 @@ These do IPC and are allowed to block: nothing the user is mid-gesture for waits
 - `MainMenu.create` — `NSApp.servicesMenu` (pbs), `NSFontManager.shared`. Launch only. `MainMenu.toggle` and
   `toggleEditMenu`, which *do* run on the switcher path, only mutate `keyEquivalent` on menu items already
   built: in-process, no pbs.
-- `SystemPermissions` — `AXIsProcessTrustedWithOptions`, `CGPreflightScreenCaptureAccess`,
-  `SCShareableContent` (tccd). All on `permissionsCheckOnTimerQueue`. What the show path reads
+- `SystemPermissions` — `TCCAccessCheckAuditToken`, `CGPreflightScreenCaptureAccess` (tccd),
+  `CGWindowListCopyWindowInfo`, `SCShareableContent` (WindowServer). All on `permissionsCheckQueue`. What the show path reads
   (`ScreenRecordingPermission.status`) is a cached static.
 - `Keychain` — `SecItem*` (securityd). License code only; unreachable during a summon.
 - `ExceptionsTab`, `MoveToApplicationsFolder` — `NSWorkspace.icon(forFile:)`, `urlForApplication`,

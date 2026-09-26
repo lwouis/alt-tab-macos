@@ -389,7 +389,7 @@ enum QaSurfaces {
         return target(FeedbackWindow.shared)
     }
 
-    /// The permission timer repaints the statuses every few seconds, so "missing" is forced rather than set.
+    /// Every permission check repaints the statuses, so "missing" is forced rather than set.
     private static func permissions(granted: Bool) -> Target {
         PermissionsWindow.qaForcedStatus = granted ? nil : .notGranted
         App.showPermissionsWindow()

@@ -459,6 +459,9 @@
 		FBD2F4ADB045F2E8378FF5FD /* SearchDiscoveryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABE31178D84E33B625EB279 /* SearchDiscoveryTests.swift */; };
 		C966F89BC7C0D1E5F7C9B26E /* SearchDiscoveryShortcut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F9B05662295B0481CC17A8 /* SearchDiscoveryShortcut.swift */; };
 		10F5AECE239ADA681CF68695 /* SearchDiscoveryShortcut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F9B05662295B0481CC17A8 /* SearchDiscoveryShortcut.swift */; };
+		AA2026092800000000000002 /* PermissionCheckRetry.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2026092800000000000001 /* PermissionCheckRetry.swift */; };
+		AA2026092800000000000003 /* PermissionCheckRetry.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2026092800000000000001 /* PermissionCheckRetry.swift */; };
+		AA2026092800000000000005 /* PermissionCheckRetryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2026092800000000000004 /* PermissionCheckRetryTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -924,6 +927,8 @@
 		5ABE31178D84E33B625EB279 /* SearchDiscoveryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDiscoveryTests.swift; sourceTree = "<group>"; };
 		4C8B3930635A963ACF1016A9 /* SearchDiscoverySpecs.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = SearchDiscoverySpecs.md; sourceTree = "<group>"; };
 		61F9B05662295B0481CC17A8 /* SearchDiscoveryShortcut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDiscoveryShortcut.swift; sourceTree = "<group>"; };
+		AA2026092800000000000001 /* PermissionCheckRetry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionCheckRetry.swift; sourceTree = "<group>"; };
+		AA2026092800000000000004 /* PermissionCheckRetryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionCheckRetryTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1372,6 +1377,8 @@
 			isa = PBXGroup;
 			children = (
 				D04BA7C6F2519091717F4B4E /* SystemPermissions.swift */,
+				AA2026092800000000000001 /* PermissionCheckRetry.swift */,
+				AA2026092800000000000004 /* PermissionCheckRetryTests.swift */,
 				5F117E40000000000000F201 /* PermissionCalloutResolver.swift */,
 				5F117E40000000000000F211 /* PermissionCalloutResolverTests.swift */,
 				5FA001000000000000000019 /* LoginItem.swift */,
@@ -2259,6 +2266,8 @@
 				5EC0DE00000000000000A102 /* RealWorldScenariosTests.swift in Sources */,
 				5EF0C000000000000000F103 /* FocusIntentPolicy.swift in Sources */,
 				5EF0C000000000000000F202 /* FocusIntentPolicyTests.swift in Sources */,
+				AA2026092800000000000003 /* PermissionCheckRetry.swift in Sources */,
+				AA2026092800000000000005 /* PermissionCheckRetryTests.swift in Sources */,
 				5E2A571E000000000000A003 /* WindowState.swift in Sources */,
 				5E2A571E000000000000A203 /* ApplicationState.swift in Sources */,
 				5EAA25AA000000000000A003 /* TrackedWindowState.swift in Sources */,
@@ -2365,6 +2374,7 @@
 				F00DCAFE0000000000001003 /* SearchTestable.swift in Sources */,
 				D04BAC011A71E0418154F8CD /* Preferences.swift in Sources */,
 				D04BADCDA9F9A6C3D6499877 /* SystemPermissions.swift in Sources */,
+				AA2026092800000000000002 /* PermissionCheckRetry.swift in Sources */,
 				5F117E40000000000000F202 /* PermissionCalloutResolver.swift in Sources */,
 				D04BABEECBC6D922298BC93A /* Spaces.swift in Sources */,
 				D04BA6187A91A847844B6ABB /* Window.swift in Sources */,

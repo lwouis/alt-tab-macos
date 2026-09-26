@@ -120,7 +120,7 @@ class Menubar {
     // The callout is only useful when the user lacks Screen Recording AND has settings that need it
     // (Thumbnails style or window previews). Users who skipped the permission but use neither aren't
     // nagged (see #5623). Its copy names whichever of the two features are actually affected, so we
-    // refresh the text before showing it. Re-evaluated on permission ticks and on each menu open
+    // refresh the text before showing it. Re-evaluated on permission checks and on each menu open
     // (settings can change). Decision logic lives in `PermissionCalloutResolver` (unit-tested).
     static func refreshPermissionCallout() {
         let dependentFeatures = Preferences.screenRecordingDependentFeatures

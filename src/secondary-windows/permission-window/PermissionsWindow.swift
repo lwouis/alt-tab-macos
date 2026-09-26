@@ -16,8 +16,8 @@ class PermissionsWindow: NSWindow {
     }
 
     #if DEBUG
-    /// Set by `QaSurfaces` to photograph the window as someone who has not granted anything sees it. The
-    /// permission timer calls `updatePermissionViews` every few seconds, so setting the views once would not hold.
+    /// Set by `QaSurfaces` to photograph the window as someone who has not granted anything sees it. Every
+    /// permission check calls `updatePermissionViews`, so setting the views once would not hold.
     static var qaForcedStatus: PermissionStatus?
     #endif
 
@@ -41,7 +41,6 @@ class PermissionsWindow: NSWindow {
         Self.shared.center()
         App.shared.activate(ignoringOtherApps: true)
         Self.shared.makeKeyAndOrderFront(nil)
-        SystemPermissions.setFrequentTimer()
     }
 
     private func setupWindow() {
@@ -79,7 +78,7 @@ class PermissionsWindow: NSWindow {
                 NSLocalizedString("This permission is needed to show thumbnails and preview of open windows", comment: ""),
                 NSLocalizedString("Open Screen Recording Settings…", comment: ""),
                 "x-apple.systempreferences:com.apple.preference.security?Privacy_ScreenCapture",
-                StackView(LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Use the app without this permission. Thumbnails won’t show.", comment: ""), "screenRecordingPermissionSkipped", labelPosition: .right))
+                StackView(LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Use the app without this permission. Thumbnails won’t show.", comment: ""), "screenRecordingPermissionSkipped", extraAction: { _ in SystemPermissions.checkPermissionsSoon() }, labelPosition: .right))
             )
             rows.append([Self.screenRecordingView])
         }
