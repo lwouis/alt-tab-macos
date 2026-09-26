@@ -76,6 +76,9 @@
 		5E6010B00000000000000002 /* TileGridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6010B00000000000000001 /* TileGridLayout.swift */; };
 		5E6010B00000000000000003 /* TileGridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6010B00000000000000001 /* TileGridLayout.swift */; };
 		5E6010B00000000000000102 /* TileGridLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6010B00000000000000101 /* TileGridLayoutTests.swift */; };
+		5E7115000000000000000002 /* TilePool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7115000000000000000001 /* TilePool.swift */; };
+		5E7115000000000000000003 /* TilePool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7115000000000000000001 /* TilePool.swift */; };
+		5E7115000000000000000102 /* TilePoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7115000000000000000101 /* TilePoolTests.swift */; };
 		5E5EA12D0000000000000002 /* ShortcutModifierResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E5EA12D0000000000000001 /* ShortcutModifierResolver.swift */; };
 		5E5EA12D0000000000000003 /* ShortcutModifierResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E5EA12D0000000000000001 /* ShortcutModifierResolver.swift */; };
 		5E5EA12D0000000000000102 /* ShortcutModifierResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E5EA12D0000000000000101 /* ShortcutModifierResolverTests.swift */; };
@@ -530,6 +533,9 @@
 		5E6010A00000000000000101 /* WindowTitleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowTitleTests.swift; sourceTree = "<group>"; };
 		5E6010B00000000000000001 /* TileGridLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileGridLayout.swift; sourceTree = "<group>"; };
 		5E6010B00000000000000101 /* TileGridLayoutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileGridLayoutTests.swift; sourceTree = "<group>"; };
+		5E7115000000000000000001 /* TilePool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TilePool.swift; sourceTree = "<group>"; };
+		5E7115000000000000000101 /* TilePoolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TilePoolTests.swift; sourceTree = "<group>"; };
+		5E7115000000000000000201 /* TilePoolSpecs.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = TilePoolSpecs.md; sourceTree = "<group>"; };
 		5E5EA12D0000000000000001 /* ShortcutModifierResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutModifierResolver.swift; sourceTree = "<group>"; };
 		5E5EA12D0000000000000101 /* ShortcutModifierResolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutModifierResolverTests.swift; sourceTree = "<group>"; };
 		5F5849A900000000000000A1 /* BruteForceWindowMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BruteForceWindowMatch.swift; sourceTree = "<group>"; };
@@ -1674,6 +1680,9 @@
 				D04BAA998119CAA8B70A2B67 /* TilesView.swift */,
 				5E6010B00000000000000001 /* TileGridLayout.swift */,
 				5E6010B00000000000000101 /* TileGridLayoutTests.swift */,
+				5E7115000000000000000001 /* TilePool.swift */,
+				5E7115000000000000000201 /* TilePoolSpecs.md */,
+				5E7115000000000000000101 /* TilePoolTests.swift */,
 				D04BAFC0A1B2C3D4E5F60001 /* TileOverView.swift */,
 				D04BAFC2A1B2C3D4E5F60003 /* TileUnderLayer.swift */,
 				5EA8E110000000000000DA01 /* DragAndDropResolver.swift */,
@@ -2183,6 +2192,8 @@
 				5E6010A00000000000000102 /* WindowTitleTests.swift in Sources */,
 				5E6010B00000000000000003 /* TileGridLayout.swift in Sources */,
 				5E6010B00000000000000102 /* TileGridLayoutTests.swift in Sources */,
+				5E7115000000000000000003 /* TilePool.swift in Sources */,
+				5E7115000000000000000102 /* TilePoolTests.swift in Sources */,
 				5E5EA12D0000000000000003 /* ShortcutModifierResolver.swift in Sources */,
 				5E5EA12D0000000000000102 /* ShortcutModifierResolverTests.swift in Sources */,
 				5F5849A900000000000000A3 /* BruteForceWindowMatch.swift in Sources */,
@@ -2294,6 +2305,7 @@
 				5E5EA12F0000000000000002 /* SearchFieldEditing.swift in Sources */,
 				5E6010A00000000000000002 /* WindowTitle.swift in Sources */,
 				5E6010B00000000000000002 /* TileGridLayout.swift in Sources */,
+				5E7115000000000000000002 /* TilePool.swift in Sources */,
 				5E5EA12D0000000000000002 /* ShortcutModifierResolver.swift in Sources */,
 				5F5849A900000000000000A2 /* BruteForceWindowMatch.swift in Sources */,
 				5E5EA12E0000000000000002 /* KeyRepeatTimerTestable.swift in Sources */,

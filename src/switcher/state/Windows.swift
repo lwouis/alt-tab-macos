@@ -729,9 +729,7 @@ class Windows {
             // `recentlyCreatedWindows`) lives in the reducer's `.discoveryLanded` branch now — every tracked
             // append flows through it.
         }
-        if list.count > TilesView.recycledViews.count {
-            TilesView.recycledViews.append(TileView())
-        }
+        TilesView.growPoolToCoverWindows()
     }
 
     /// Capture continuity facts without retaining the old `Window`. A WindowServer destroy can be a shell

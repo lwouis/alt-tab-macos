@@ -32,10 +32,14 @@ class TilesView {
         configureSearchField()
         configureNoWindowLabel()
         updateBackgroundView()
-        // TODO: think about this optimization more
-        (1...20).forEach { _ in TilesView.recycledViews.append(TileView()) }
-        Self.updateCachedSizes()
         initialized = true
+        growPoolToCoverWindows()
+        Self.updateCachedSizes()
+    }
+
+    static func growPoolToCoverWindows() {
+        let count = TilePool.tilesToAdd(poolSize: recycledViews.count, windowCount: Windows.list.count, uiIsBuilt: initialized)
+        (0..<count).forEach { _ in recycledViews.append(TileView()) }
     }
 
     static var isSearchModeOn: Bool { searchMode != .off }
