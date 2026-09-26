@@ -45,7 +45,14 @@ jobs:
       - run: sudo xcode-select -s /Applications/Xcode_26.0.1.app/Contents/Developer
       - run: scripts/print_env.sh
       - run: npm ci
-      - run: npx commitlint --from "$GITHUB_EVENT_BEFORE" --to "$GITHUB_EVENT_AFTER" --verbose
+      # lint what the next release will contain: every commit since the last release commit. The push's own
+      # range breaks after a force-push, since the old head is no longer in the history to lint from. The
+      # checkout is shallow; unshallowing costs nothing extra, since semantic-release does it next anyway
+      - run: |
+          lastRelease() { git log -1 --format=%H --grep='^chore(release): ' "$GITHUB_EVENT_AFTER"; }
+          from=$(lastRelease)
+          if [[ -z "$from" ]]; then git fetch --quiet --unshallow origin; from=$(lastRelease); fi
+          npx commitlint --from "$from" --to "$GITHUB_EVENT_AFTER" --verbose
       - run: scripts/ensure_generated_files_are_up_to_date.sh
       - run: scripts/determine_next_version.sh
       - run: scripts/replace_environment_variables_in_app.sh
