@@ -7,6 +7,8 @@ import Cocoa
 /// share: a fixed-width column of rows inset by `padding`, ending in a button row.
 enum ProPromptPopover {
     static let padding = CGFloat(16)
+    private static let popovers = NSHashTable<NSPopover>.weakObjects()
+    static var isShowing: Bool { popovers.allObjects.contains { $0.isShown } }
 
     /// How a row sits in the column: hugging its own width at the leading edge, stretched to the
     /// full column (what a wrapping label needs), or hugging its own width at the trailing edge.
@@ -27,6 +29,7 @@ enum ProPromptPopover {
     /// size is optional — omit for views that are auto-sized via constraints.
     static func make(contentSize: NSSize? = nil) -> NSPopover {
         let popover = NSPopover()
+        popovers.add(popover)
         popover.behavior = .transient
         if let contentSize { popover.contentSize = contentSize }
         return popover

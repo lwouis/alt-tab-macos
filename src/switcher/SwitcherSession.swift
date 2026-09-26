@@ -14,6 +14,7 @@ final class SwitcherSession {
     static var activeShortcutIndex: Int { current?.shortcutIndex ?? 0 }
 
     var shortcutIndex: Int = 0
+    let searchDiscovery = SearchDiscoveryPolicy.Opportunity()
     var isFirstSummon: Bool = true
     var forceDoNothingOnRelease: Bool = false
 
@@ -54,6 +55,7 @@ final class SwitcherSession {
     var removalFallback: SelectionRemovalFallback?
 
     func performUserSelection(_ update: () -> Void) {
+        searchDiscovery.lastNavigationAt = ProcessInfo.processInfo.systemUptime
         userPickedSelection = true
         update()
     }

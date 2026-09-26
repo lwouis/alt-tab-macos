@@ -93,6 +93,7 @@
 "Disabled" = "מושבת";
 "Do Not Move" = "אל תעביר";
 "Don't hide" = "אל תסתיר";
+"Don't show this search hint again" = "לא להציג שוב את עצת החיפוש הזו";
 "Done" = "בוצע";
 "Don’t check for updates periodically" = "אל תחפש עדכונים מעת לעת";
 "Don’t send" = "אל תשלח";
@@ -177,6 +178,7 @@
 "Pick a machine to deactivate so you can activate here." = "בחר מכשיר לביטול הפעלה כדי שתוכל להפעיל כאן.";
 "Please drag AltTab into the Applications folder manually." = "גרור את AltTab לתיקיית היישומים באופן ידני.";
 "Please fill in the form" = "מלא את הטופס";
+"Press %@ to search your windows." = "יש ללחוץ על %@ כדי לחפש בחלונות.";
 "Preview selected window" = "תצוגה מקדימה של החלון הנבחר";
 "Pro" = "Pro";
 "Pro activated" = "Pro הופעל";
@@ -233,6 +235,7 @@
 "Show one window per app" = "הצג חלון אחד לכל יישום";
 "Show separate window for each tab" = "הצג חלון נפרד עבור כל לשונית";
 "Show single window for all tabs" = "הצג חלון אחד עבור כל הלשוניות";
+"Show the search hint" = "הצגת עצת החיפוש";
 "Show titles" = "הצג כותרות";
 "Show windows from applications" = "הצג חלונות מיישומים";
 "Show windows from screens" = "הצג חלונות ממסכים";

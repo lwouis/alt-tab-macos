@@ -93,6 +93,7 @@
 "Disabled" = "Uitgeschakeld";
 "Do Not Move" = "Niet verplaatsen";
 "Don't hide" = "Niet verbergen";
+"Don't show this search hint again" = "Deze zoektip niet meer tonen";
 "Done" = "Klaar";
 "Don’t check for updates periodically" = "Niet regelmatig op updates controleren";
 "Don’t send" = "Niet versturen";
@@ -177,6 +178,7 @@
 "Pick a machine to deactivate so you can activate here." = "Kies een apparaat om te deactiveren zodat je hier kunt activeren.";
 "Please drag AltTab into the Applications folder manually." = "Sleep AltTab handmatig naar de map Programma's.";
 "Please fill in the form" = "Vul het formulier in";
+"Press %@ to search your windows." = "Druk op %@ om je vensters te doorzoeken.";
 "Preview selected window" = "Voorvertoning van geselecteerd venster";
 "Pro" = "Pro";
 "Pro activated" = "Pro geactiveerd";
@@ -233,6 +235,7 @@
 "Show one window per app" = "Toon één venster per app";
 "Show separate window for each tab" = "Toon apart venster voor elk tabblad";
 "Show single window for all tabs" = "Toon één venster voor alle tabbladen";
+"Show the search hint" = "Zoektip tonen";
 "Show titles" = "Toon titels";
 "Show windows from applications" = "Toon vensters van apps";
 "Show windows from screens" = "Toon vensters van schermen";

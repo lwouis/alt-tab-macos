@@ -93,6 +93,7 @@
 "Disabled" = "已停用";
 "Do Not Move" = "不移动";
 "Don't hide" = "不隐藏";
+"Don't show this search hint again" = "不再显示此搜索提示";
 "Done" = "完成";
 "Don’t check for updates periodically" = "不定期检查更新";
 "Don’t send" = "不发送";
@@ -177,6 +178,7 @@
 "Pick a machine to deactivate so you can activate here." = "请选择一台设备停用，以便在此处激活。";
 "Please drag AltTab into the Applications folder manually." = "请手动将 AltTab 拖动到应用程序文件夹。";
 "Please fill in the form" = "请填写表单";
+"Press %@ to search your windows." = "按 %@ 搜索窗口。";
 "Preview selected window" = "预览所选窗口";
 "Pro" = "Pro";
 "Pro activated" = "Pro 已激活";
@@ -233,6 +235,7 @@
 "Show one window per app" = "每个应用显示一个窗口";
 "Show separate window for each tab" = "每个标签显示单独的窗口";
 "Show single window for all tabs" = "所有标签显示单个窗口";
+"Show the search hint" = "显示搜索提示";
 "Show titles" = "显示标题";
 "Show windows from applications" = "显示来自应用的窗口";
 "Show windows from screens" = "显示来自屏幕的窗口";

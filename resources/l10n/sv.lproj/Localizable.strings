@@ -93,6 +93,7 @@
 "Disabled" = "Inaktiverad";
 "Do Not Move" = "Flytta inte";
 "Don't hide" = "Dölj inte";
+"Don't show this search hint again" = "Visa inte det här söktipset igen";
 "Done" = "Klar";
 "Don’t check for updates periodically" = "Sök inte efter uppdateringar regelbundet";
 "Don’t send" = "Skicka inte";
@@ -177,6 +178,7 @@
 "Pick a machine to deactivate so you can activate here." = "Välj en dator att inaktivera så att du kan aktivera här.";
 "Please drag AltTab into the Applications folder manually." = "Dra AltTab till mappen Program manuellt.";
 "Please fill in the form" = "Fyll i formuläret";
+"Press %@ to search your windows." = "Tryck på %@ för att söka bland dina fönster.";
 "Preview selected window" = "Förhandsvisa valt fönster";
 "Pro" = "Pro";
 "Pro activated" = "Pro aktiverad";
@@ -233,6 +235,7 @@
 "Show one window per app" = "Visa ett fönster per app";
 "Show separate window for each tab" = "Visa separat fönster för varje flik";
 "Show single window for all tabs" = "Visa ett enda fönster för alla flikar";
+"Show the search hint" = "Visa söktipset";
 "Show titles" = "Visa titlar";
 "Show windows from applications" = "Visa fönster från program";
 "Show windows from screens" = "Visa fönster från skärmar";

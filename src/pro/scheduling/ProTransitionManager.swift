@@ -123,6 +123,7 @@ class ProTransitionManager {
     // session-only: action queued during showUi to fire 1s after dismissal. Used by both the free-pass
     // ladder ([C] Full Upgrade) and the Day 4 mid-trial tour ([H] popover).
     private var pendingDismissAction: PendingDismissAction?
+    var hasPendingPrompt: Bool { pendingDismissAction != nil }
 
     /// Session-scoped: true between the moment a free-pass is granted (either via the
     /// post-expiration switcher trigger in `onSwitcherShown` or via an explicit hard-gate

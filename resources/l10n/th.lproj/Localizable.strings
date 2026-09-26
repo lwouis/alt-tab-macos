@@ -93,6 +93,7 @@
 "Disabled" = "ปิดใช้งาน";
 "Do Not Move" = "ไม่ย้าย";
 "Don't hide" = "ไม่ซ่อน";
+"Don't show this search hint again" = "ไม่ต้องแสดงคำแนะนำการค้นหานี้อีก";
 "Done" = "เสร็จแล้ว";
 "Don’t check for updates periodically" = "ไม่ตรวจหาอัปเดตเป็นระยะ";
 "Don’t send" = "ไม่ส่ง";
@@ -177,6 +178,7 @@
 "Pick a machine to deactivate so you can activate here." = "เลือกเครื่องที่จะปิดใช้งานเพื่อให้คุณสามารถเปิดใช้งานที่นี่ได้";
 "Please drag AltTab into the Applications folder manually." = "โปรดลาก AltTab ไปยังโฟลเดอร์ Applications ด้วยตนเอง";
 "Please fill in the form" = "โปรดกรอกแบบฟอร์ม";
+"Press %@ to search your windows." = "กด %@ เพื่อค้นหาหน้าต่างของคุณ";
 "Preview selected window" = "แสดงตัวอย่างหน้าต่างที่เลือก";
 "Pro" = "Pro";
 "Pro activated" = "เปิดใช้งาน Pro แล้ว";
@@ -233,6 +235,7 @@
 "Show one window per app" = "แสดงหน้าต่างเดียวต่อแอป";
 "Show separate window for each tab" = "แสดงหน้าต่างแยกสำหรับแต่ละแท็บ";
 "Show single window for all tabs" = "แสดงหน้าต่างเดียวสำหรับทุกแท็บ";
+"Show the search hint" = "แสดงคำแนะนำการค้นหา";
 "Show titles" = "แสดงชื่อ";
 "Show windows from applications" = "แสดงหน้าต่างจากแอปพลิเคชัน";
 "Show windows from screens" = "แสดงหน้าต่างจากหน้าจอ";

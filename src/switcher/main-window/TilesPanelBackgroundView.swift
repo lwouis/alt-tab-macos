@@ -1,15 +1,19 @@
 protocol EffectView: NSView {
-    func updateAppearance()
+    func updateAppearance(cornerRadius: CGFloat)
     /// Where `TilesView` places its content (scroll view, search field, empty-state label).
     /// For `NSVisualEffectView` that's the view itself; for `NSGlassEffectView` it's `contentView`,
     /// the only place Apple guarantees rendering for embedded views.
     var hostView: NSView { get }
 }
 
+extension EffectView {
+    func updateAppearance() { updateAppearance(cornerRadius: Appearance.windowCornerRadius) }
+}
+
 @available(macOS 26.0, *)
 extension NSGlassEffectView: EffectView {
-    func updateAppearance() {
-        cornerRadius = Appearance.windowCornerRadius
+    func updateAppearance(cornerRadius: CGFloat) {
+        self.cornerRadius = cornerRadius
         // Left rectangular, the clip set in `makeGlassEffectView` draws a straight outline outside the
         // glass shape on macOS 27 (#5757). Set here, not there: cached views are reused across style
         // and size changes.
@@ -30,9 +34,9 @@ class FrostedGlassEffectView: NSVisualEffectView, EffectView {
         updateAppearance()
     }
 
-    func updateAppearance() {
+    func updateAppearance(cornerRadius: CGFloat) {
         material = Appearance.material
-        updateRoundedCorners(Appearance.windowCornerRadius)
+        updateRoundedCorners(cornerRadius)
     }
 
     /// using layer!.cornerRadius works but the corners are aliased; this custom approach gives smooth rounded corners

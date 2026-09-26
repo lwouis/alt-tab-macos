@@ -93,6 +93,7 @@
 "Disabled" = "無効";
 "Do Not Move" = "移動しない";
 "Don't hide" = "非表示にしない";
+"Don't show this search hint again" = "この検索のヒントを今後表示しない";
 "Done" = "完了";
 "Don’t check for updates periodically" = "アップデートを定期的に確認しない";
 "Don’t send" = "送信しない";
@@ -177,6 +178,7 @@
 "Pick a machine to deactivate so you can activate here." = "ここでアクティベートできるよう、非アクティブ化するマシンを選択してください。";
 "Please drag AltTab into the Applications folder manually." = "AltTab を手動でアプリケーションフォルダにドラッグしてください。";
 "Please fill in the form" = "フォームを入力してください";
+"Press %@ to search your windows." = "%@を押すとウインドウを検索できます。";
 "Preview selected window" = "選択したウインドウをプレビュー";
 "Pro" = "Pro";
 "Pro activated" = "Pro がアクティベートされました";
@@ -233,6 +235,7 @@
 "Show one window per app" = "App ごとに 1 つのウインドウを表示";
 "Show separate window for each tab" = "タブごとに別のウインドウを表示";
 "Show single window for all tabs" = "すべてのタブを 1 つのウインドウで表示";
+"Show the search hint" = "検索のヒントを表示";
 "Show titles" = "タイトルを表示";
 "Show windows from applications" = "対象のアプリケーション";
 "Show windows from screens" = "対象の画面";

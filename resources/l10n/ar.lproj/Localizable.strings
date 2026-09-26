@@ -93,6 +93,7 @@
 "Disabled" = "مُعطّل";
 "Do Not Move" = "عدم النقل";
 "Don't hide" = "عدم الإخفاء";
+"Don't show this search hint again" = "عدم إظهار تلميح البحث هذا مرة أخرى";
 "Done" = "تم";
 "Don’t check for updates periodically" = "عدم البحث عن التحديثات بشكل دوري";
 "Don’t send" = "عدم الإرسال";
@@ -177,6 +178,7 @@
 "Pick a machine to deactivate so you can activate here." = "اختر جهازًا لإلغاء تفعيله حتى تتمكن من التفعيل هنا.";
 "Please drag AltTab into the Applications folder manually." = "يرجى سحب AltTab إلى مجلد التطبيقات يدويًا.";
 "Please fill in the form" = "يرجى ملء النموذج";
+"Press %@ to search your windows." = "اضغط على %@ للبحث في نوافذك.";
 "Preview selected window" = "معاينة النافذة المحددة";
 "Pro" = "Pro";
 "Pro activated" = "تم تفعيل Pro";
@@ -233,6 +235,7 @@
 "Show one window per app" = "إظهار نافذة واحدة لكل تطبيق";
 "Show separate window for each tab" = "إظهار نافذة منفصلة لكل علامة تبويب";
 "Show single window for all tabs" = "إظهار نافذة واحدة لجميع علامات التبويب";
+"Show the search hint" = "إظهار تلميح البحث";
 "Show titles" = "إظهار العناوين";
 "Show windows from applications" = "إظهار النوافذ من التطبيقات";
 "Show windows from screens" = "إظهار النوافذ من الشاشات";

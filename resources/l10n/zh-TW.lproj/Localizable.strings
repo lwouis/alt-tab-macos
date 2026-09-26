@@ -93,6 +93,7 @@
 "Disabled" = "已停用";
 "Do Not Move" = "不要移動";
 "Don't hide" = "不要隱藏";
+"Don't show this search hint again" = "不再顯示此搜尋提示";
 "Done" = "完成";
 "Don’t check for updates periodically" = "不要定期檢查更新";
 "Don’t send" = "不要傳送";
@@ -177,6 +178,7 @@
 "Pick a machine to deactivate so you can activate here." = "選擇要停用的裝置，以便在此啟用。";
 "Please drag AltTab into the Applications folder manually." = "請手動將 AltTab 拖移到「應用程式」資料夾。";
 "Please fill in the form" = "請填寫表單";
+"Press %@ to search your windows." = "按下 %@ 來搜尋視窗。";
 "Preview selected window" = "預覽所選視窗";
 "Pro" = "Pro";
 "Pro activated" = "Pro 已啟用";
@@ -233,6 +235,7 @@
 "Show one window per app" = "每個 App 顯示一個視窗";
 "Show separate window for each tab" = "為每個分頁顯示獨立視窗";
 "Show single window for all tabs" = "為所有分頁顯示單一視窗";
+"Show the search hint" = "顯示搜尋提示";
 "Show titles" = "顯示標題";
 "Show windows from applications" = "顯示來自應用程式的視窗";
 "Show windows from screens" = "顯示來自螢幕的視窗";

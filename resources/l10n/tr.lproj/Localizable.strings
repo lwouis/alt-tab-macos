@@ -93,6 +93,7 @@
 "Disabled" = "Devre dışı";
 "Do Not Move" = "Taşıma";
 "Don't hide" = "Gizleme";
+"Don't show this search hint again" = "Bu arama ipucunu bir daha gösterme";
 "Done" = "Tamam";
 "Don’t check for updates periodically" = "Güncellemeleri düzenli olarak denetleme";
 "Don’t send" = "Gönderme";
@@ -177,6 +178,7 @@
 "Pick a machine to deactivate so you can activate here." = "Burada etkinleştirebilmek için devre dışı bırakılacak bir makine seçin.";
 "Please drag AltTab into the Applications folder manually." = "Lütfen AltTab’ı el ile Uygulamalar klasörüne sürükleyin.";
 "Please fill in the form" = "Lütfen formu doldurun";
+"Press %@ to search your windows." = "Pencerelerinizde arama yapmak için %@ tuşuna basın.";
 "Preview selected window" = "Seçili pencereyi önizle";
 "Pro" = "Pro";
 "Pro activated" = "Pro etkinleştirildi";
@@ -233,6 +235,7 @@
 "Show one window per app" = "Uygulama başına tek pencere göster";
 "Show separate window for each tab" = "Her sekme için ayrı pencere göster";
 "Show single window for all tabs" = "Tüm sekmeler için tek pencere göster";
+"Show the search hint" = "Arama ipucunu göster";
 "Show titles" = "Başlıkları göster";
 "Show windows from applications" = "Şu uygulamalardan pencereleri göster";
 "Show windows from screens" = "Şu ekranlardan pencereleri göster";

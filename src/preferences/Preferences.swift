@@ -16,6 +16,7 @@ class Preferences {
             "quitAppShortcut": defaultShortcut("Q"),
             "hideShowAppShortcut": defaultShortcut("H"),
             "searchShortcut": defaultShortcut("S"),
+            "showSearchHint": "true",
             "arrowKeysEnabled": "true",
             "vimKeysEnabled": "false",
             "mouseHoverEnabled": "false",

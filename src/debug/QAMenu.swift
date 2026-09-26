@@ -230,7 +230,10 @@ final class QAMenu: NSPanel {
         showRow3.orientation = .horizontal
         showRow3.spacing = 4
         proSectionContent.addArrangedSubview(showRow3)
-        proSectionContent.setCustomSpacing(Self.sectionSpacing, after: showRow3)
+        let searchHintButton = makeButton("Show search hint") { SearchDiscoveryHint.shared.showForQA() }
+        searchHintButton.toolTip = "Show once on the next Alt-Tab. Hold Alt for one second."
+        proSectionContent.addArrangedSubview(searchHintButton)
+        proSectionContent.setCustomSpacing(Self.sectionSpacing, after: searchHintButton)
 
         proSectionContent.addArrangedSubview(sectionLabel("Reset:"))
         let resetRow1 = NSStackView(views: [

@@ -320,3 +320,7 @@
 "Your settings reset every time AltTab restarts." = "Vos réglages sont réinitialisés à chaque redémarrage d'AltTab.";
 "Your trial includes Pro features" = "Votre essai inclut les fonctionnalités Pro";
 "YOUR USAGE SO FAR" = "VOTRE UTILISATION JUSQU'À PRÉSENT";
+
+"Press %@ to search your windows." = "Appuyez sur %@ pour chercher parmi vos fenêtres.";
+"Don't show this search hint again" = "Ne plus montrer ce conseil de recherche";
+"Show the search hint" = "Afficher le conseil de recherche";

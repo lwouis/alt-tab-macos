@@ -42,7 +42,17 @@ struct UsageStats {
     static func recordSearchIfFirst() {
         guard !searchRecordedThisSession else { return }
         searchRecordedThisSession = true
+        SearchDiscoveryHint.shared.searchWasUsed()
         record("searches")
+    }
+
+    /// Read once off-main; malformed stored data remains unknown instead of advertising unused Search.
+    static func loadPreviousSearch(_ completion: @escaping (Bool?) -> Void) {
+        writeQueue.async {
+            let raw = defaults.object(forKey: "searches")
+            let used = raw == nil ? false : (raw as? [Int]).map { !$0.isEmpty }
+            DispatchQueue.main.async { completion(used) }
+        }
     }
 
     static func resetSession() {

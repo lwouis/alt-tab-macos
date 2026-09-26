@@ -93,6 +93,7 @@
 "Disabled" = "비활성화됨";
 "Do Not Move" = "이동하지 않음";
 "Don't hide" = "숨기지 않기";
+"Don't show this search hint again" = "이 검색 도움말 다시 보지 않기";
 "Done" = "완료";
 "Don’t check for updates periodically" = "주기적으로 업데이트 확인 안 함";
 "Don’t send" = "보내지 않음";
@@ -177,6 +178,7 @@
 "Pick a machine to deactivate so you can activate here." = "여기서 활성화하려면 비활성화할 기기를 선택하세요.";
 "Please drag AltTab into the Applications folder manually." = "AltTab을 응용 프로그램 폴더로 직접 드래그해 주세요.";
 "Please fill in the form" = "양식을 작성해 주세요";
+"Press %@ to search your windows." = "%@ 키를 눌러 윈도우를 검색하십시오.";
 "Preview selected window" = "선택한 윈도우 미리보기";
 "Pro" = "Pro";
 "Pro activated" = "Pro 활성화됨";
@@ -233,6 +235,7 @@
 "Show one window per app" = "앱마다 윈도우 하나씩 보이기";
 "Show separate window for each tab" = "각 탭을 별도의 윈도우로 표시";
 "Show single window for all tabs" = "모든 탭을 하나의 윈도우로 표시";
+"Show the search hint" = "검색 도움말 표시";
 "Show titles" = "제목 보이기";
 "Show windows from applications" = "다음 응용 프로그램의 윈도우 보이기";
 "Show windows from screens" = "다음 화면의 윈도우 보이기";

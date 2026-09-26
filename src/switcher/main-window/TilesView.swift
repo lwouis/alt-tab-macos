@@ -100,6 +100,7 @@ class TilesView {
             case .placeCaretOnly:
                 giveTheFieldTheCaret()
             case .enterEditing:
+                SearchDiscoveryHint.shared.cancel()
                 searchMode = .editing
                 updateSearchFieldEditability()
                 SwitcherSession.current?.forceDoNothingOnRelease = true

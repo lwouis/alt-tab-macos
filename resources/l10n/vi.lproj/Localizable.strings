@@ -93,6 +93,7 @@
 "Disabled" = "Đã tắt";
 "Do Not Move" = "Không di chuyển";
 "Don't hide" = "Không ẩn";
+"Don't show this search hint again" = "Không hiển thị lại gợi ý tìm kiếm này";
 "Done" = "Xong";
 "Don’t check for updates periodically" = "Không kiểm tra cập nhật định kỳ";
 "Don’t send" = "Không gửi";
@@ -177,6 +178,7 @@
 "Pick a machine to deactivate so you can activate here." = "Chọn một máy để hủy kích hoạt để bạn có thể kích hoạt tại đây.";
 "Please drag AltTab into the Applications folder manually." = "Vui lòng kéo AltTab vào thư mục Ứng dụng theo cách thủ công.";
 "Please fill in the form" = "Vui lòng điền vào biểu mẫu";
+"Press %@ to search your windows." = "Nhấn %@ để tìm kiếm cửa sổ.";
 "Preview selected window" = "Xem trước cửa sổ đã chọn";
 "Pro" = "Pro";
 "Pro activated" = "Đã kích hoạt Pro";
@@ -233,6 +235,7 @@
 "Show one window per app" = "Hiển thị một cửa sổ cho mỗi ứng dụng";
 "Show separate window for each tab" = "Hiển thị cửa sổ riêng cho mỗi tab";
 "Show single window for all tabs" = "Hiển thị một cửa sổ cho tất cả tab";
+"Show the search hint" = "Hiển thị gợi ý tìm kiếm";
 "Show titles" = "Hiển thị tiêu đề";
 "Show windows from applications" = "Hiển thị cửa sổ từ các ứng dụng";
 "Show windows from screens" = "Hiển thị cửa sổ từ các màn hình";

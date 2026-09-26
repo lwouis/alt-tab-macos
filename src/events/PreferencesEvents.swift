@@ -73,6 +73,7 @@ class PreferencesEvents {
         if LicenseManager.shared.isProLocked && ProFeature.isStoredValuePro(preferenceKey: key) {
             UpgradeTab.navigateToUpgradeTab()
         }
+        SearchDiscoveryHint.shared.cancel()
         ControlsTab.preferenceChanged(key)
         switch key {
         case "menubarIcon", "menubarIconShown": applyMenubarPreferencesIfReady()

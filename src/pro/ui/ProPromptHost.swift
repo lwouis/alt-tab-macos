@@ -10,6 +10,10 @@ class ProPromptHost {
 
     func dispatch(_ action: ProPromptAction) {
         switch action {
+        case .refreshBadge, .dismissAllProWindows: break
+        default: SearchDiscoveryHint.shared.cancel()
+        }
+        switch action {
         case .showWelcome:
             Day1WelcomeLetterWindow.show()
         case .showDay4Tour:

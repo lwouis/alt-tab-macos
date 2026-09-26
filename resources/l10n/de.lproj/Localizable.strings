@@ -93,6 +93,7 @@
 "Disabled" = "Deaktiviert";
 "Do Not Move" = "Nicht verschieben";
 "Don't hide" = "Nicht ausblenden";
+"Don't show this search hint again" = "Diesen Suchhinweis nicht mehr anzeigen";
 "Done" = "Fertig";
 "Don’t check for updates periodically" = "Nicht regelmäßig nach Updates suchen";
 "Don’t send" = "Nicht senden";
@@ -177,6 +178,7 @@
 "Pick a machine to deactivate so you can activate here." = "Wählen Sie einen Computer zur Deaktivierung, um hier zu aktivieren.";
 "Please drag AltTab into the Applications folder manually." = "Bitte ziehen Sie AltTab manuell in den Programme-Ordner.";
 "Please fill in the form" = "Bitte füllen Sie das Formular aus";
+"Press %@ to search your windows." = "Drücke %@, um deine Fenster zu durchsuchen.";
 "Preview selected window" = "Ausgewähltes Fenster in der Vorschau anzeigen";
 "Pro" = "Pro";
 "Pro activated" = "Pro aktiviert";
@@ -233,6 +235,7 @@
 "Show one window per app" = "Ein Fenster pro App anzeigen";
 "Show separate window for each tab" = "Separates Fenster für jeden Tab anzeigen";
 "Show single window for all tabs" = "Ein Fenster für alle Tabs anzeigen";
+"Show the search hint" = "Suchhinweis anzeigen";
 "Show titles" = "Titel anzeigen";
 "Show windows from applications" = "Fenster von Apps anzeigen";
 "Show windows from screens" = "Fenster von Bildschirmen anzeigen";

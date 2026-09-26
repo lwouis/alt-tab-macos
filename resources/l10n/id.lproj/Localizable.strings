@@ -93,6 +93,7 @@
 "Disabled" = "Dinonaktifkan";
 "Do Not Move" = "Jangan Pindahkan";
 "Don't hide" = "Jangan sembunyikan";
+"Don't show this search hint again" = "Jangan tampilkan petunjuk pencarian ini lagi";
 "Done" = "Selesai";
 "Don’t check for updates periodically" = "Jangan periksa pembaruan secara berkala";
 "Don’t send" = "Jangan kirim";
@@ -177,6 +178,7 @@
 "Pick a machine to deactivate so you can activate here." = "Pilih mesin untuk dinonaktifkan agar Anda dapat mengaktifkan di sini.";
 "Please drag AltTab into the Applications folder manually." = "Seret AltTab ke folder Aplikasi secara manual.";
 "Please fill in the form" = "Isi formulir";
+"Press %@ to search your windows." = "Tekan %@ untuk mencari jendela Anda.";
 "Preview selected window" = "Pratinjau jendela terpilih";
 "Pro" = "Pro";
 "Pro activated" = "Pro diaktifkan";
@@ -233,6 +235,7 @@
 "Show one window per app" = "Tampilkan satu jendela per aplikasi";
 "Show separate window for each tab" = "Tampilkan jendela terpisah untuk setiap tab";
 "Show single window for all tabs" = "Tampilkan satu jendela untuk semua tab";
+"Show the search hint" = "Tampilkan petunjuk pencarian";
 "Show titles" = "Tampilkan judul";
 "Show windows from applications" = "Tampilkan jendela dari aplikasi";
 "Show windows from screens" = "Tampilkan jendela dari layar";

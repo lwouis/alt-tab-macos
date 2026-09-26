@@ -451,6 +451,14 @@
 		5CC019000000000000000101 /* CaptureDiscovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC019000000000000000100 /* CaptureDiscovery.swift */; };
 		5CC019000000000000000102 /* CaptureDiscovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC019000000000000000100 /* CaptureDiscovery.swift */; };
 		5CC019000000000000000202 /* CaptureDiscoveryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC019000000000000000200 /* CaptureDiscoveryTests.swift */; };
+		254094A701BAF49F701F7EFF /* SearchDiscoveryPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D658C9879802E65C83FB7C4 /* SearchDiscoveryPolicy.swift */; };
+		389D13E4E7FFA467D5BC68D8 /* SearchDiscoveryPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D658C9879802E65C83FB7C4 /* SearchDiscoveryPolicy.swift */; };
+		E7DC5BA37EF80DD2802D96BD /* SearchDiscoveryPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B4EAFB2DB4884AB83CC9BA /* SearchDiscoveryPanel.swift */; };
+		31F45195947F044608CC5D8A /* SearchDiscoveryPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B4EAFB2DB4884AB83CC9BA /* SearchDiscoveryPanel.swift */; };
+		BE381C6613FD0F86602948A8 /* SearchDiscoveryHint.swift in Sources */ = {isa = PBXBuildFile; fileRef = C158A0994BBFCB51D55E9FD3 /* SearchDiscoveryHint.swift */; };
+		FBD2F4ADB045F2E8378FF5FD /* SearchDiscoveryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABE31178D84E33B625EB279 /* SearchDiscoveryTests.swift */; };
+		C966F89BC7C0D1E5F7C9B26E /* SearchDiscoveryShortcut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F9B05662295B0481CC17A8 /* SearchDiscoveryShortcut.swift */; };
+		10F5AECE239ADA681CF68695 /* SearchDiscoveryShortcut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F9B05662295B0481CC17A8 /* SearchDiscoveryShortcut.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -910,6 +918,12 @@
 		6A7E5D000000000000000200 /* StapledTicketTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StapledTicketTests.swift; sourceTree = "<group>"; };
 		5CC019000000000000000100 /* CaptureDiscovery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureDiscovery.swift; sourceTree = "<group>"; };
 		5CC019000000000000000200 /* CaptureDiscoveryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureDiscoveryTests.swift; sourceTree = "<group>"; };
+		9D658C9879802E65C83FB7C4 /* SearchDiscoveryPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDiscoveryPolicy.swift; sourceTree = "<group>"; };
+		F9B4EAFB2DB4884AB83CC9BA /* SearchDiscoveryPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDiscoveryPanel.swift; sourceTree = "<group>"; };
+		C158A0994BBFCB51D55E9FD3 /* SearchDiscoveryHint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDiscoveryHint.swift; sourceTree = "<group>"; };
+		5ABE31178D84E33B625EB279 /* SearchDiscoveryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDiscoveryTests.swift; sourceTree = "<group>"; };
+		4C8B3930635A963ACF1016A9 /* SearchDiscoverySpecs.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = SearchDiscoverySpecs.md; sourceTree = "<group>"; };
+		61F9B05662295B0481CC17A8 /* SearchDiscoveryShortcut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDiscoveryShortcut.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1382,6 +1396,7 @@
 				BF0C8D606B53D315F2D9927B /* KeyRepeatTimer.swift */,
 				5E5EA12E0000000000000001 /* KeyRepeatTimerTestable.swift */,
 				5E5EA12E0000000000000101 /* KeyRepeatTimerTests.swift */,
+				6853124817C5591C2802121F /* search-discovery */,
 				D04BA62E30174C336E4080FA /* main-window */,
 				F00DCAFE0000000000000002 /* Search.swift */,
 				F00DCAFE0000000000000003 /* SearchTestable.swift */,
@@ -1920,6 +1935,19 @@
 			path = scheduling;
 			sourceTree = "<group>";
 		};
+		6853124817C5591C2802121F /* search-discovery */ = {
+			isa = PBXGroup;
+			children = (
+				61F9B05662295B0481CC17A8 /* SearchDiscoveryShortcut.swift */,
+				9D658C9879802E65C83FB7C4 /* SearchDiscoveryPolicy.swift */,
+				F9B4EAFB2DB4884AB83CC9BA /* SearchDiscoveryPanel.swift */,
+				C158A0994BBFCB51D55E9FD3 /* SearchDiscoveryHint.swift */,
+				5ABE31178D84E33B625EB279 /* SearchDiscoveryTests.swift */,
+				4C8B3930635A963ACF1016A9 /* SearchDiscoverySpecs.md */,
+			);
+			path = "search-discovery";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2132,6 +2160,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10F5AECE239ADA681CF68695 /* SearchDiscoveryShortcut.swift in Sources */,
+				389D13E4E7FFA467D5BC68D8 /* SearchDiscoveryPolicy.swift in Sources */,
+				31F45195947F044608CC5D8A /* SearchDiscoveryPanel.swift in Sources */,
+				FBD2F4ADB045F2E8378FF5FD /* SearchDiscoveryTests.swift in Sources */,
 				5A1100000000000000030001 /* TrackingTypes.swift in Sources */,
 				5A1100000000000000030017 /* AttentionModel.swift in Sources */,
 				5A1100000000000000030006 /* AxObserverHealth.swift in Sources */,
@@ -2282,6 +2314,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C966F89BC7C0D1E5F7C9B26E /* SearchDiscoveryShortcut.swift in Sources */,
+				254094A701BAF49F701F7EFF /* SearchDiscoveryPolicy.swift in Sources */,
+				E7DC5BA37EF80DD2802D96BD /* SearchDiscoveryPanel.swift in Sources */,
+				BE381C6613FD0F86602948A8 /* SearchDiscoveryHint.swift in Sources */,
 				5A1100000000000000020001 /* TrackingTypes.swift in Sources */,
 				5A1100000000000000020017 /* AttentionModel.swift in Sources */,
 				5A1100000000000000020006 /* AxObserverHealth.swift in Sources */,

@@ -78,6 +78,7 @@ class PreviewPanel: NSPanel {
         // Always use the primary screen as reference since all coordinates are relative to it
         frame.origin.y = NSScreen.screens.first!.frame.maxY - frame.maxY
         Self.shared.setFrame(frame, display: false)
+        SearchDiscoveryHint.shared.refreshAfterVisibleWork()
     }
 }
 

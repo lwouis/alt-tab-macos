@@ -93,6 +93,7 @@
 "Disabled" = "Disabled";
 "Do Not Move" = "Do Not Move";
 "Don't hide" = "Don't hide";
+"Don't show this search hint again" = "Don't show this search hint again";
 "Done" = "Done";
 "Don’t check for updates periodically" = "Don’t check for updates periodically";
 "Don’t send" = "Don’t send";
@@ -177,6 +178,7 @@
 "Pick a machine to deactivate so you can activate here." = "Pick a machine to deactivate so you can activate here.";
 "Please drag AltTab into the Applications folder manually." = "Please drag AltTab into the Applications folder manually.";
 "Please fill in the form" = "Please fill in the form";
+"Press %@ to search your windows." = "Press %@ to search your windows.";
 "Preview selected window" = "Preview selected window";
 "Pro" = "Pro";
 "Pro activated" = "Pro activated";
@@ -233,6 +235,7 @@
 "Show one window per app" = "Show one window per app";
 "Show separate window for each tab" = "Show separate window for each tab";
 "Show single window for all tabs" = "Show single window for all tabs";
+"Show the search hint" = "Show the search hint";
 "Show titles" = "Show titles";
 "Show windows from applications" = "Show windows from applications";
 "Show windows from screens" = "Show windows from screens";
