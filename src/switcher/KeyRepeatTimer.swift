@@ -81,7 +81,9 @@ class KeyRepeatTimer {
     private static func handleEvent(_ atShortcut: ATShortcut, _ block: @escaping () -> Void) {
         let firedAt = ProcessInfo.processInfo.systemUptime
         DispatchQueue.main.async {
-            if atShortcut.state == .up || (atShortcut.scope == .global && holdModifierIsReleased()) {
+            if KeyRepeatTimerTestable.shouldStop(shortcutIsUp: atShortcut.state == .up,
+                keyIsPhysicallyDown: keyIsPhysicallyDown(atShortcut),
+                holdModifierIsReleased: atShortcut.scope == .global && holdModifierIsReleased()) {
                 stopTimerForRepeatingKey(atShortcut.id)
                 return
             }
@@ -107,6 +109,12 @@ class KeyRepeatTimer {
     private static func scheduleNextTick(_ shortcutName: String) {
         guard !timerIsSuspended, currentTimerShortcutName == shortcutName else { return }
         scheduleTick(currentRepeatRate)
+    }
+
+    /// nil for a modifier-only shortcut, which has no key of its own to read.
+    private static func keyIsPhysicallyDown(_ atShortcut: ATShortcut) -> Bool? {
+        guard atShortcut.shortcut.keyCode != .none else { return nil }
+        return CGEventSource.keyState(.hidSystemState, key: CGKeyCode(atShortcut.shortcut.carbonKeyCode))
     }
 
     /// Poll hardware modifier state to detect key release even when the event-based state update is delayed

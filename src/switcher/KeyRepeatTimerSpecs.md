@@ -84,6 +84,14 @@ Inputs are `systemUptime` timestamps. `firedAt` is when the timer fired, `now` w
 The late budget is floored at 20ms because `defaults write -g KeyRepeat 0` is legal, and a zero-length budget
 would refuse every tick.
 
+## When the repeat stops (#6075)
+
+Each tick first asks `KeyRepeatTimerTestable.shouldStop`: the shortcut's state is `.up`, OR its key reads as
+physically up, OR the hold modifier is released. The key read is there because Carbon's hotkey-released
+event can go missing, and while the hold modifier stays down it is the only thing that sets the state to
+`.up`. Without it, one tap kept the timer running: the selection walked to the last tile and stayed there,
+since cycling refuses to wrap while the timer runs. Modifier-only shortcuts have no key to read.
+
 ---
 
 ## Test scenarios
@@ -114,3 +122,10 @@ Mirrors `KeyRepeatTimerTests.swift` 1:1.
 - **testAppliesATickThatReachedMainPromptly** — the ordinary microsecond hop still cycles.
 - **testTheLateBudgetIsOneRepeatInterval** — a slower `KeyRepeat` tolerates a proportionally longer wait.
 - **testAZeroRepeatRateStillAppliesPromptTicks** — the 20ms floor keeps `KeyRepeat 0` working.
+
+### D. When the repeat stops
+- **testStopsWhenTheKeyIsUpThoughItsReleaseWasLost** — #6075: Carbon's release never arrived; the key read
+  as physically up stops the repeat, so one tap no longer walks to the last tile.
+- **testKeepsRepeatingWhileTheKeyIsHeld** — key and hold modifier both down → keeps cycling.
+- **testAModifierOnlyShortcutIgnoresTheKeyRead** — no key of its own to read; its state and the hold
+  modifier decide.

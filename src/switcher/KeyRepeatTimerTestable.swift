@@ -18,6 +18,17 @@ enum KeyRepeatTimerTestable {
         max(repeatRate, minimumLateBudget)
     }
 
+    /// Stop when the shortcut is known released, by its own event or by reading the key itself.
+    ///
+    /// **The key's physical state is read because Carbon's hotkey-released event can go missing** (#6075).
+    /// While the hold modifier stays down, that event is the only thing that sets a key shortcut's state to
+    /// `.up`, so without it the timer kept cycling after a single tap, pinned the selection on the last tile
+    /// (cycling refuses to wrap while the timer runs), and every later tap was refused the same way. The read
+    /// stays true for a held key while Secure Input is on (checked with a synthetic F19 press).
+    static func shouldStop(shortcutIsUp: Bool, keyIsPhysicallyDown: Bool?, holdModifierIsReleased: Bool) -> Bool {
+        shortcutIsUp || keyIsPhysicallyDown == false || holdModifierIsReleased
+    }
+
     /// A slow show (WindowServer busy after a fullscreen/Space transition) can present the panel ~500ms after
     /// the timer was armed. The initial-delay grace must be measured from when the user could actually SEE the
     /// switcher, else repeats queued during the invisible gap fire the instant it appears and jump the

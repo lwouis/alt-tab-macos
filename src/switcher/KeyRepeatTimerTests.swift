@@ -91,4 +91,24 @@ final class KeyRepeatTimerTests: XCTestCase {
         XCTAssertTrue(shouldApply(now: 100, firedAt: 99.995, armedAt: 99.0, panelShownAt: 99.0, repeatRate: 0))
         XCTAssertFalse(shouldApply(now: 100, firedAt: 99.9, armedAt: 99.0, panelShownAt: 99.0, repeatRate: 0))
     }
+
+    // MARK: D. When the repeat stops
+
+    /// **#6075.** Carbon's hotkey-released event never arrived, so the shortcut still read `.down` and one tap
+    /// walked the selection to the last tile. The key read as physically up stops the repeat anyway.
+    func testStopsWhenTheKeyIsUpThoughItsReleaseWasLost() {
+        XCTAssertTrue(KeyRepeatTimerTestable.shouldStop(shortcutIsUp: false, keyIsPhysicallyDown: false, holdModifierIsReleased: false))
+    }
+
+    /// Holding the key and the hold modifier keeps cycling.
+    func testKeepsRepeatingWhileTheKeyIsHeld() {
+        XCTAssertFalse(KeyRepeatTimerTestable.shouldStop(shortcutIsUp: false, keyIsPhysicallyDown: true, holdModifierIsReleased: false))
+    }
+
+    /// A modifier-only shortcut has no key to read, so only its own state and the hold modifier count.
+    func testAModifierOnlyShortcutIgnoresTheKeyRead() {
+        XCTAssertFalse(KeyRepeatTimerTestable.shouldStop(shortcutIsUp: false, keyIsPhysicallyDown: nil, holdModifierIsReleased: false))
+        XCTAssertTrue(KeyRepeatTimerTestable.shouldStop(shortcutIsUp: true, keyIsPhysicallyDown: nil, holdModifierIsReleased: false))
+        XCTAssertTrue(KeyRepeatTimerTestable.shouldStop(shortcutIsUp: false, keyIsPhysicallyDown: nil, holdModifierIsReleased: true))
+    }
 }
