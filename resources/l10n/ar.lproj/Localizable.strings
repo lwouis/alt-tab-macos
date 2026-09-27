@@ -1,5 +1,6 @@
 "%@ now has a Pro tier" = "أصبح لدى %@ مستوى Pro";
 "%@ — last seen %@" = "%1$@ — آخر ظهور %2$@";
+"%d days of AltTab Pro, starting now" = "%d يومًا من AltTab Pro، تبدأ الآن";
 "3-finger Horizontal Swipe" = "تمرير أفقي بثلاثة أصابع";
 "3-finger Vertical Swipe" = "تمرير عمودي بثلاثة أصابع";
 "30-day money-back guarantee" = "ضمان استرداد المال خلال 30 يومًا";
@@ -28,13 +29,16 @@
 "Alphabetical Order" = "ترتيب أبجدي";
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "تعطّل AltTab في آخر مرة استخدمته فيها. إرسال تقرير الأعطال سيساعد في إصلاح المشكلة";
 "AltTab is a free, open-source window switcher for macOS. Pro features are available with a 14-day free trial." = "AltTab هو مُحوّل نوافذ مجاني ومفتوح المصدر لـ macOS. تتوفر ميزات Pro مع فترة تجريبية مجانية لمدة 14 يومًا.";
+"AltTab is ready" = "AltTab جاهز";
 "AltTab is running without Screen Recording permissions. %@ won’t show." = "يعمل AltTab بدون أذونات تسجيل الشاشة. لن تظهر %@.";
-"AltTab needs some permissions" = "يحتاج AltTab إلى بعض الأذونات";
 "AltTab preferences file is a symlink. macOS doesn’t support symlink for preferences. Please use a valid file instead of a symlink here:" = "ملف إعدادات AltTab هو رابط رمزي. لا يدعم macOS الروابط الرمزية للإعدادات. الرجاء استخدام ملف صالح بدلاً من رابط رمزي هنا:";
 "AltTab preferences file isn’t writable by your account. Please fix ownership and permissions of the file here:" = "ملف إعدادات AltTab غير قابل للكتابة بواسطة حسابك. الرجاء تصحيح المالك والأذونات لهذا الملف هنا:";
 "AltTab Pro" = "AltTab Pro";
 "AltTab Pro adds 4 features beyond the free switcher." = "يضيف AltTab Pro 4 ميزات تتجاوز المُحوّل المجاني.";
 "AltTab Pro is still available" = "لا يزال AltTab Pro متاحًا";
+"AltTab requires some permissions" = "يحتاج AltTab إلى بعض الأذونات";
+"AltTab requires this permission to focus windows for you." = "يحتاج AltTab إلى هذا الإذن لإحضار النوافذ إلى المقدمة.";
+"AltTab requires this permission to show you pictures of each window." = "يحتاج AltTab إلى هذا الإذن ليعرض لك صورة لكل نافذة.";
 "AltTab will show if the window is currently minimized or fullscreen with a status icon." = "سيُظهر AltTab ما إذا كانت النافذة مصغّرة أو بملء الشاشة حاليًا برمز حالة.";
 "Always" = "دائمًا";
 "Always send crash reports" = "إرسال تقارير الأعطال دائمًا";
@@ -70,9 +74,12 @@
 "Check for updates periodically" = "البحث عن التحديثات بشكل دوري";
 "Check for updates…" = "البحث عن التحديثات…";
 "Check permissions…" = "التحقق من الأذونات…";
+"Choose a style" = "اختر نمطًا";
+"Close" = "إغلاق";
 "Close window" = "إغلاق النافذة";
 "Conflicting shortcut" = "اختصار متعارض";
 "Continue with Free" = "المتابعة بالإصدار المجاني";
+"Continue without thumbnails" = "المتابعة بدون مصغّرات";
 "Controls" = "عناصر التحكم";
 "Could not move to Applications folder" = "تعذّر النقل إلى مجلد التطبيقات";
 "Couldn't deactivate that machine" = "تعذّر إلغاء تفعيل ذلك الجهاز";
@@ -90,6 +97,7 @@
 "Deactivation failed" = "فشل إلغاء التفعيل";
 "Deactivation was rejected by the server." = "تم رفض إلغاء التفعيل من قبل الخادم.";
 "Debug tools" = "أدوات التصحيح";
+"Device Control" = "التحكم في الأجهزة";
 "Disabled" = "مُعطّل";
 "Do Not Move" = "عدم النقل";
 "Don't hide" = "عدم الإخفاء";
@@ -100,6 +108,7 @@
 "e.g. com.example.app" = "مثال: com.example.app";
 "e.g. Debug" = "مثال: Debug";
 "End" = "النهاية";
+"Everything is unlocked while it runs. After that, the switcher keeps working exactly as it does now, and the Pro extras step back." = "كل شيء مفتوح طوال الفترة التجريبية. بعدها، يستمر المُحوّل في العمل تمامًا كما الآن، وتتراجع إضافات Pro.";
 "Exceptions" = "استثناءات";
 "Export settings…" = "تصدير الإعدادات…";
 "Extra shortcuts" = "اختصارات إضافية";
@@ -129,6 +138,7 @@
 "Hide windows" = "إخفاء النوافذ";
 "Hide/Show app" = "إخفاء/إظهار التطبيق";
 "Hold" = "الاستمرار بالضغط";
+"hold" = "اضغط مطولًا";
 "I already have a license key" = "لديّ مفتاح ترخيص بالفعل";
 "I can move myself to the Applications folder if you'd like." = "يمكنني نقل نفسي إلى مجلد التطبيقات إذا أردت ذلك.";
 "I lost my license key" = "فقدت مفتاح الترخيص الخاص بي";
@@ -158,18 +168,16 @@
 "My Account" = "حسابي";
 "Never" = "أبدًا";
 "Never send crash reports" = "عدم إرسال تقارير الأعطال أبدًا";
+"Next" = "التالي";
 "No response from server." = "لا توجد استجابة من الخادم.";
 "No thanks — don't ask again" = "لا، شكرًا — لا تسأل مرة أخرى";
 "No Window" = "لا توجد نافذة";
 "Non-active apps" = "التطبيقات غير النشطة";
 "Non-visible Spaces" = "المساحات غير المرئية";
-"Not allowed" = "غير مسموح";
 "Not now" = "ليس الآن";
 "OK" = "موافق";
 "On Day 15, Pro features revert to the free version." = "في اليوم 15، تعود ميزات Pro إلى الإصدار المجاني.";
 "Only on different screen" = "فقط على شاشة مختلفة";
-"Open Accessibility Settings…" = "فتح إعدادات إمكانية الوصول…";
-"Open Screen Recording Settings…" = "فتح إعدادات تسجيل الشاشة…";
 "Open Trackpad Settings…" = "فتح إعدادات لوحة التعقب…";
 "Order windows by" = "ترتيب النوافذ حسب";
 "Ordering & Grouping" = "الترتيب والتجميع";
@@ -178,6 +186,8 @@
 "Pick a machine to deactivate so you can activate here." = "اختر جهازًا لإلغاء تفعيله حتى تتمكن من التفعيل هنا.";
 "Please drag AltTab into the Applications folder manually." = "يرجى سحب AltTab إلى مجلد التطبيقات يدويًا.";
 "Please fill in the form" = "يرجى ملء النموذج";
+"press" = "اضغط";
+"Press %@ any time." = "اضغط على %@ في أي وقت.";
 "Press %@ to search your windows." = "اضغط على %@ للبحث في نوافذك.";
 "Preview selected window" = "معاينة النافذة المحددة";
 "Pro" = "Pro";
@@ -256,6 +266,7 @@
 "Sync with global value" = "المزامنة مع القيمة العامة";
 "System" = "النظام";
 "System Default" = "افتراضي النظام";
+"That's it" = "هذا كل شيء";
 "The App Icons style is a Pro feature." = "نمط أيقونات التطبيقات ميزة من ميزات Pro.";
 "The application needs to restart to apply the imported settings." = "يحتاج التطبيق إلى إعادة التشغيل لتطبيق الإعدادات المستوردة.";
 "The application needs to restart to apply the language change." = "يحتاج التطبيق إلى إعادة التشغيل لتطبيق تغيير اللغة.";
@@ -264,8 +275,6 @@
 "Theme" = "السمة";
 "This license is already activated elsewhere" = "هذا الترخيص مفعّل بالفعل في مكان آخر";
 "This license is already activated on the maximum number of machines. Deactivate one to continue." = "هذا الترخيص مفعّل بالفعل على الحد الأقصى من الأجهزة. ألغِ تفعيل أحدها للمتابعة.";
-"This permission is needed to focus windows after you release the shortcut" = "هذا الإذن مطلوب للتركيز على النوافذ بعد تحرير الاختصار";
-"This permission is needed to show thumbnails and preview of open windows" = "هذا الإذن مطلوب لإظهار المصغّرات ومعاينة النوافذ المفتوحة";
 "This will keep your Downloads folder uncluttered." = "سيُبقي ذلك مجلد التنزيلات مرتبًا.";
 "Thumbnails" = "المصغّرات";
 "Thumbnails and window previews" = "المصغّرات ومعاينات النوافذ";
@@ -276,6 +285,7 @@
 "Trial expired" = "انتهت الفترة التجريبية";
 "Trial: %d days remaining" = "الفترة التجريبية: متبقي %d يوم";
 "Trigger" = "المُشغّل";
+"Try it right now" = "جرّبه الآن";
 "Try them in Settings" = "جرّبها في الإعدادات";
 "Unassign existing shortcut and continue" = "إلغاء تعيين الاختصار الحالي والمتابعة";
 "Unexpected response from server." = "استجابة غير متوقعة من الخادم.";
@@ -287,7 +297,6 @@
 "Update now" = "التحديث الآن";
 "Updates policy" = "سياسة التحديثات";
 "Usage" = "الاستخدام";
-"Use the app without this permission. Thumbnails won’t show." = "استخدم التطبيق بدون هذا الإذن. لن تظهر المصغّرات.";
 "Version" = "الإصدار";
 "View existing discussions" = "عرض المناقشات الحالية";
 "Vim keys" = "مفاتيح Vim";
@@ -307,6 +316,7 @@
 "window switches" = "تبديلات النوافذ";
 "Window Title" = "عنوان النافذة";
 "Window title contains" = "عنوان النافذة يحتوي على";
+"Windows will show as app icons" = "ستظهر النوافذ كأيقونات تطبيقات";
 "You can’t undo this action." = "لا يمكنك التراجع عن هذا الإجراء.";
 "You have 14 days to try all Pro features. After that, Pro features will step back and the core window switcher will keep working exactly as before.\n\nAltTab stays free and open-source. Pro is an optional one-time purchase that funds continued development." = "لديك 14 يومًا لتجربة جميع ميزات Pro. بعد ذلك، ستتراجع ميزات Pro وسيستمر مُحوّل النوافذ الأساسي في العمل تمامًا كما كان من قبل.\n\nيظل AltTab مجانيًا ومفتوح المصدر. Pro عبارة عن شراء اختياري لمرة واحدة يموّل التطوير المستمر.";
 "You may need to disable some conflicting system gestures" = "قد تحتاج إلى تعطيل بعض إيماءات النظام المتعارضة";

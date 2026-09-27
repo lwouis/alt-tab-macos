@@ -22,6 +22,7 @@ class ProTransitionScheduler {
 
     /// Fire now if a missed wake-up was persisted, then schedule the next one.
     func onAppLaunchComplete() {
+        guard !state.onboardingInProgress else { cancel(); return }
         let saved = defaults.double(forKey: Self.nextScheduledDateKey)
         if saved > 0 && Date(timeIntervalSince1970: saved) <= Date() {
             onFire()
@@ -57,6 +58,7 @@ class ProTransitionScheduler {
     /// Compute the next date when a time-based prompt should fire.
     func computeNextFireDate() -> Date? {
         if case .pro = licenseManager.state { return nil }
+        if state.onboardingInProgress { return nil }
         if state.userOptedOut && state.hasSeenDay35 { return nil }
         guard let trialStart = licenseManager.trialStartDate else { return nil }
 

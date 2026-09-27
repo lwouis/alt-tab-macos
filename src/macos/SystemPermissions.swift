@@ -74,7 +74,7 @@ class SystemPermissions {
     }
 
     private static func checkPermissionsPreStartup() {
-        if AccessibilityPermission.status != .notGranted && ScreenRecordingPermission.status != .notGranted {
+        if PermissionFlow.isComplete(accessibility: AccessibilityPermission.status, screenRecording: ScreenRecordingPermission.status) {
             DispatchQueue.main.async {
                 guard !preStartupPermissionsPassed else { return }
                 preStartupPermissionsPassed = true
@@ -92,6 +92,22 @@ class SystemPermissions {
         if AccessibilityPermission.status == .notGranted {
             Logger.error { "Accessibility permission revoked while AltTab was running; restarting" }
             DispatchQueue.main.async { App.restart() }
+        }
+    }
+
+    /// macOS shows a permission's prompt only while the app has no entry in that list. Once it has one, switched on or
+    /// off, the request returns without showing anything, so we open the pane instead. `TCCAccessPreflight` answers 2
+    /// while there is no entry, and 0 once there is, either way (measured on macOS 27).
+    static func promptOrOpenPane(_ service: String, _ paneUrl: String, _ prompt: @escaping () -> Void) {
+        BackgroundWork.permissionsCheckQueue.addOperation {
+            let neverAsked = hasNoEntry(service) ?? true
+            DispatchQueue.main.async {
+                if neverAsked {
+                    prompt()
+                } else {
+                    NSWorkspace.shared.open(URL(string: paneUrl)!)
+                }
+            }
         }
     }
 
@@ -133,6 +149,14 @@ class AccessibilityPermission {
             return tccAccessCheckAuditToken("kTCCServiceAccessibility" as CFString, ownAuditToken, nil) ? .granted : .notGranted
         }
         return AXIsProcessTrustedWithOptions([kAXTrustedCheckOptionPrompt.takeRetainedValue(): false] as CFDictionary) ? .granted : .notGranted
+    }
+
+    /// The macOS prompt, whose "Open System Settings" button adds AltTab to the Accessibility list
+    /// (switched off) and opens the pane on it.
+    static func request() {
+        SystemPermissions.promptOrOpenPane("kTCCServiceAccessibility", "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility") {
+            _ = AXIsProcessTrustedWithOptions([kAXTrustedCheckOptionPrompt.takeRetainedValue(): true] as CFDictionary)
+        }
     }
 
     private typealias TCCAccessCheckAuditToken = @convention(c) (CFString, audit_token_t, CFDictionary?) -> Bool
@@ -179,11 +203,33 @@ class ScreenRecordingPermission {
             return CGPreflightScreenCaptureAccess() ? .granted : .skipped
         }
         // No entry means not granted. Asking anyway shows the macOS prompt, which puts AltTab back in the list the moment
-        // the user removes it. Until launch completes, that prompt is how AltTab gets its entry, so it stays
-        if SystemPermissions.preStartupPermissionsPassed && SystemPermissions.hasNoEntry("kTCCServiceScreenCapture") == true {
+        // the user removes it. Prompting is the Grant button's job
+        if SystemPermissions.hasNoEntry("kTCCServiceScreenCapture") == true {
             return .notGranted
         }
         return isGrantedOnSomeDisplay().map { $0 ? .granted : .notGranted }
+    }
+
+    /// Same prompt as `AccessibilityPermission.request()`, for the Screen Recording list.
+    static func request() {
+        SystemPermissions.promptOrOpenPane("kTCCServiceScreenCapture", "x-apple.systempreferences:com.apple.preference.security?Privacy_ScreenCapture") {
+            CGRequestScreenCaptureAccess()
+        }
+    }
+
+    /// The user chose "Continue without thumbnails". Recorded as a preference, which `detect()` then
+    /// reports as `.skipped` — enough for `PermissionFlow` to move past the step, and never enough
+    /// to mask a real grant that arrives later.
+    static func waive() {
+        Preferences.set("screenRecordingPermissionSkipped", "true")
+        SystemPermissions.checkPermissionsSoon()
+    }
+
+    /// The user changed their mind after skipping. The step turns live again, so the window offers to grant
+    /// or to skip once more.
+    static func unwaive() {
+        Preferences.remove("screenRecordingPermissionSkipped")
+        SystemPermissions.checkPermissionsSoon()
     }
 
     // Without the permission, WindowServer blanks the title of every normal window from another process. Some

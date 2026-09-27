@@ -327,9 +327,7 @@ class SidebarListRow: ClickHoverStackView {
             backgroundColor = .clear
         }
         titleLabel.font = NSFont.systemFont(ofSize: 13, weight: isSelectedRow ? .semibold : .regular)
-        effectiveAppearance.performAsCurrentDrawingAppearance {
-            layer?.backgroundColor = backgroundColor.cgColor
-        }
+        withDrawingAppearance { layer?.backgroundColor = backgroundColor.cgColor }
         titleLabel.needsDisplay = true
         summaryLabel.needsDisplay = true
         chevronLabel.needsDisplay = true

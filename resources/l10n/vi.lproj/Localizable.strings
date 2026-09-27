@@ -1,5 +1,6 @@
 "%@ now has a Pro tier" = "%@ hiện đã có gói Pro";
 "%@ — last seen %@" = "%1$@ — lần cuối nhìn thấy %2$@";
+"%d days of AltTab Pro, starting now" = "%d ngày AltTab Pro, bắt đầu từ bây giờ";
 "3-finger Horizontal Swipe" = "Vuốt ngang 3 ngón tay";
 "3-finger Vertical Swipe" = "Vuốt dọc 3 ngón tay";
 "30-day money-back guarantee" = "Đảm bảo hoàn tiền trong 30 ngày";
@@ -28,13 +29,16 @@
 "Alphabetical Order" = "Thứ tự bảng chữ cái";
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab đã gặp sự cố ở lần dùng trước. Gửi báo cáo sự cố sẽ giúp khắc phục vấn đề";
 "AltTab is a free, open-source window switcher for macOS. Pro features are available with a 14-day free trial." = "AltTab là trình chuyển đổi cửa sổ miễn phí, mã nguồn mở cho macOS. Các tính năng Pro có sẵn với bản dùng thử miễn phí 14 ngày.";
+"AltTab is ready" = "AltTab đã sẵn sàng";
 "AltTab is running without Screen Recording permissions. %@ won’t show." = "AltTab đang chạy mà không có quyền Ghi màn hình. %@ sẽ không hiển thị.";
-"AltTab needs some permissions" = "AltTab cần một số quyền";
 "AltTab preferences file is a symlink. macOS doesn’t support symlink for preferences. Please use a valid file instead of a symlink here:" = "Tệp cài đặt của AltTab là một liên kết tượng trưng. macOS không hỗ trợ liên kết tượng trưng cho cài đặt. Vui lòng dùng một tệp hợp lệ thay cho liên kết tượng trưng tại đây:";
 "AltTab preferences file isn’t writable by your account. Please fix ownership and permissions of the file here:" = "Tệp cài đặt của AltTab không thể ghi bằng tài khoản của bạn. Vui lòng sửa chủ sở hữu và quyền của tệp tại đây:";
 "AltTab Pro" = "AltTab Pro";
 "AltTab Pro adds 4 features beyond the free switcher." = "AltTab Pro bổ sung 4 tính năng ngoài trình chuyển đổi miễn phí.";
 "AltTab Pro is still available" = "AltTab Pro vẫn còn khả dụng";
+"AltTab requires some permissions" = "AltTab cần một số quyền";
+"AltTab requires this permission to focus windows for you." = "AltTab cần quyền này để đưa cửa sổ lên phía trước cho bạn.";
+"AltTab requires this permission to show you pictures of each window." = "AltTab cần quyền này để hiển thị hình ảnh của từng cửa sổ.";
 "AltTab will show if the window is currently minimized or fullscreen with a status icon." = "AltTab sẽ hiển thị biểu tượng trạng thái nếu cửa sổ đang được thu nhỏ hoặc ở chế độ toàn màn hình.";
 "Always" = "Luôn luôn";
 "Always send crash reports" = "Luôn gửi báo cáo sự cố";
@@ -70,9 +74,12 @@
 "Check for updates periodically" = "Kiểm tra cập nhật định kỳ";
 "Check for updates…" = "Kiểm tra cập nhật…";
 "Check permissions…" = "Kiểm tra quyền…";
+"Choose a style" = "Chọn kiểu";
+"Close" = "Đóng";
 "Close window" = "Đóng cửa sổ";
 "Conflicting shortcut" = "Phím tắt xung đột";
 "Continue with Free" = "Tiếp tục với bản Miễn phí";
+"Continue without thumbnails" = "Tiếp tục không có hình thu nhỏ";
 "Controls" = "Điều khiển";
 "Could not move to Applications folder" = "Không thể di chuyển vào thư mục Ứng dụng";
 "Couldn't deactivate that machine" = "Không thể hủy kích hoạt máy đó";
@@ -90,6 +97,7 @@
 "Deactivation failed" = "Hủy kích hoạt thất bại";
 "Deactivation was rejected by the server." = "Máy chủ đã từ chối hủy kích hoạt.";
 "Debug tools" = "Công cụ gỡ lỗi";
+"Device Control" = "Điều khiển thiết bị";
 "Disabled" = "Đã tắt";
 "Do Not Move" = "Không di chuyển";
 "Don't hide" = "Không ẩn";
@@ -100,6 +108,7 @@
 "e.g. com.example.app" = "ví dụ: com.example.app";
 "e.g. Debug" = "ví dụ: Debug";
 "End" = "Cuối";
+"Everything is unlocked while it runs. After that, the switcher keeps working exactly as it does now, and the Pro extras step back." = "Mọi thứ đều được mở khóa trong thời gian dùng thử. Sau đó, trình chuyển đổi vẫn hoạt động đúng như bây giờ, và các tính năng Pro bổ sung sẽ tạm dừng.";
 "Exceptions" = "Ngoại lệ";
 "Export settings…" = "Xuất cài đặt…";
 "Extra shortcuts" = "Phím tắt bổ sung";
@@ -129,6 +138,7 @@
 "Hide windows" = "Ẩn cửa sổ";
 "Hide/Show app" = "Ẩn/Hiển thị ứng dụng";
 "Hold" = "Giữ";
+"hold" = "giữ";
 "I already have a license key" = "Tôi đã có khóa giấy phép";
 "I can move myself to the Applications folder if you'd like." = "Nếu bạn muốn, tôi có thể tự di chuyển vào thư mục Ứng dụng.";
 "I lost my license key" = "Tôi đã mất khóa giấy phép";
@@ -158,18 +168,16 @@
 "My Account" = "Tài khoản của tôi";
 "Never" = "Không bao giờ";
 "Never send crash reports" = "Không bao giờ gửi báo cáo sự cố";
+"Next" = "Tiếp theo";
 "No response from server." = "Không có phản hồi từ máy chủ.";
 "No thanks — don't ask again" = "Không, cảm ơn — đừng hỏi lại";
 "No Window" = "Không có cửa sổ";
 "Non-active apps" = "Ứng dụng không hoạt động";
 "Non-visible Spaces" = "Không gian không hiển thị";
-"Not allowed" = "Không cho phép";
 "Not now" = "Không phải bây giờ";
 "OK" = "OK";
 "On Day 15, Pro features revert to the free version." = "Vào Ngày thứ 15, các tính năng Pro sẽ trở về phiên bản miễn phí.";
 "Only on different screen" = "Chỉ trên màn hình khác";
-"Open Accessibility Settings…" = "Mở Cài đặt Trợ năng…";
-"Open Screen Recording Settings…" = "Mở Cài đặt Ghi màn hình…";
 "Open Trackpad Settings…" = "Mở Cài đặt Trackpad…";
 "Order windows by" = "Sắp xếp cửa sổ theo";
 "Ordering & Grouping" = "Sắp xếp & Nhóm";
@@ -178,6 +186,8 @@
 "Pick a machine to deactivate so you can activate here." = "Chọn một máy để hủy kích hoạt để bạn có thể kích hoạt tại đây.";
 "Please drag AltTab into the Applications folder manually." = "Vui lòng kéo AltTab vào thư mục Ứng dụng theo cách thủ công.";
 "Please fill in the form" = "Vui lòng điền vào biểu mẫu";
+"press" = "nhấn";
+"Press %@ any time." = "Nhấn %@ bất cứ lúc nào.";
 "Press %@ to search your windows." = "Nhấn %@ để tìm kiếm cửa sổ.";
 "Preview selected window" = "Xem trước cửa sổ đã chọn";
 "Pro" = "Pro";
@@ -256,6 +266,7 @@
 "Sync with global value" = "Đồng bộ với giá trị chung";
 "System" = "Hệ thống";
 "System Default" = "Mặc định hệ thống";
+"That's it" = "Xong rồi";
 "The App Icons style is a Pro feature." = "Kiểu Biểu tượng ứng dụng là tính năng Pro.";
 "The application needs to restart to apply the imported settings." = "Ứng dụng cần khởi động lại để áp dụng cài đặt đã nhập.";
 "The application needs to restart to apply the language change." = "Ứng dụng cần khởi động lại để áp dụng thay đổi ngôn ngữ.";
@@ -264,8 +275,6 @@
 "Theme" = "Chủ đề";
 "This license is already activated elsewhere" = "Giấy phép này đã được kích hoạt ở nơi khác";
 "This license is already activated on the maximum number of machines. Deactivate one to continue." = "Giấy phép này đã được kích hoạt trên số máy tối đa. Hãy hủy kích hoạt một máy để tiếp tục.";
-"This permission is needed to focus windows after you release the shortcut" = "Quyền này cần thiết để đặt tiêu điểm cửa sổ sau khi bạn nhả phím tắt";
-"This permission is needed to show thumbnails and preview of open windows" = "Quyền này cần thiết để hiển thị hình thu nhỏ và bản xem trước của các cửa sổ đang mở";
 "This will keep your Downloads folder uncluttered." = "Điều này sẽ giúp thư mục Tải về của bạn gọn gàng.";
 "Thumbnails" = "Hình thu nhỏ";
 "Thumbnails and window previews" = "Hình thu nhỏ và bản xem trước cửa sổ";
@@ -276,6 +285,7 @@
 "Trial expired" = "Bản dùng thử đã hết hạn";
 "Trial: %d days remaining" = "Bản dùng thử: còn %d ngày";
 "Trigger" = "Kích hoạt";
+"Try it right now" = "Thử ngay bây giờ";
 "Try them in Settings" = "Hãy thử trong Cài đặt";
 "Unassign existing shortcut and continue" = "Bỏ gán phím tắt hiện có và tiếp tục";
 "Unexpected response from server." = "Phản hồi không mong đợi từ máy chủ.";
@@ -287,7 +297,6 @@
 "Update now" = "Cập nhật ngay";
 "Updates policy" = "Chính sách cập nhật";
 "Usage" = "Sử dụng";
-"Use the app without this permission. Thumbnails won’t show." = "Sử dụng ứng dụng mà không có quyền này. Hình thu nhỏ sẽ không hiển thị.";
 "Version" = "Phiên bản";
 "View existing discussions" = "Xem các thảo luận hiện có";
 "Vim keys" = "Phím Vim";
@@ -307,6 +316,7 @@
 "window switches" = "lượt chuyển cửa sổ";
 "Window Title" = "Tiêu đề cửa sổ";
 "Window title contains" = "Tiêu đề cửa sổ chứa";
+"Windows will show as app icons" = "Cửa sổ sẽ hiển thị dưới dạng biểu tượng ứng dụng";
 "You can’t undo this action." = "Bạn không thể hoàn tác hành động này.";
 "You have 14 days to try all Pro features. After that, Pro features will step back and the core window switcher will keep working exactly as before.\n\nAltTab stays free and open-source. Pro is an optional one-time purchase that funds continued development." = "Bạn có 14 ngày để dùng thử tất cả các tính năng Pro. Sau đó, các tính năng Pro sẽ tạm dừng và trình chuyển đổi cửa sổ cốt lõi sẽ tiếp tục hoạt động đúng như trước.\n\nAltTab vẫn miễn phí và mã nguồn mở. Pro là gói mua một lần tùy chọn để tài trợ cho việc phát triển liên tục.";
 "You may need to disable some conflicting system gestures" = "Bạn có thể cần tắt một số cử chỉ hệ thống xung đột";

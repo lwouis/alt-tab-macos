@@ -355,6 +355,12 @@
 		D04BA7B9421871EDBD58F4E3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BABA255CD25D8724A06CD /* Localizable.strings */; };
 		D04BA7BE7F3DD24D58ACE942 /* AppearanceTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA64F1F344007EA13BA05 /* AppearanceTab.swift */; };
 		D04BA7E39FA539DD8316447A /* PermissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA0726EABD146753B9EF8 /* PermissionView.swift */; };
+		5FEEAA050000000000000003 /* PermissionFlowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FEEAA050000000000000001 /* PermissionFlowTests.swift */; };
+		5FEEAA040000000000000002 /* OnboardingPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FEEAA040000000000000001 /* OnboardingPopover.swift */; };
+		5FEEAA060000000000000002 /* ConfettiBurst.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FEEAA060000000000000001 /* ConfettiBurst.swift */; };
+		5FEEAA020000000000000002 /* PermissionIllustrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FEEAA020000000000000001 /* PermissionIllustrationView.swift */; };
+		5FEEAA010000000000000003 /* PermissionFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FEEAA010000000000000001 /* PermissionFlow.swift */; };
+		5FEEAA010000000000000002 /* PermissionFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FEEAA010000000000000001 /* PermissionFlow.swift */; };
 		D04BA83AF2B1C3C5166C119F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BAD58DF3FA085A45BEB50 /* InfoPlist.strings */; };
 		D04BA8480A8FF466CA89DA5B /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA70746DEEC3D30B43F81 /* main.swift */; };
 		D04BA8757C9F20F25EB50785 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA5BD11C365C19461458C /* TextField.swift */; };
@@ -462,6 +468,9 @@
 		AA2026092800000000000002 /* PermissionCheckRetry.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2026092800000000000001 /* PermissionCheckRetry.swift */; };
 		AA2026092800000000000003 /* PermissionCheckRetry.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2026092800000000000001 /* PermissionCheckRetry.swift */; };
 		AA2026092800000000000005 /* PermissionCheckRetryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2026092800000000000004 /* PermissionCheckRetryTests.swift */; };
+		AA2026092800000000000012 /* AnchoredPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2026092800000000000011 /* AnchoredPopover.swift */; };
+		AA2026092800000000000013 /* AnchoredPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2026092800000000000011 /* AnchoredPopover.swift */; };
+		AA2026092800000000000015 /* AnchoredPopoverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2026092800000000000014 /* AnchoredPopoverTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -766,6 +775,11 @@
 		D04BA015A45DE7AFDC9794FE /* Window.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
 		D04BA03200F5A8FC0CD03607 /* CGWindowID.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGWindowID.swift; sourceTree = "<group>"; };
 		D04BA0726EABD146753B9EF8 /* PermissionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermissionView.swift; sourceTree = "<group>"; };
+		5FEEAA050000000000000001 /* PermissionFlowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionFlowTests.swift; sourceTree = "<group>"; };
+		5FEEAA040000000000000001 /* OnboardingPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPopover.swift; sourceTree = "<group>"; };
+		5FEEAA060000000000000001 /* ConfettiBurst.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfettiBurst.swift; sourceTree = "<group>"; };
+		5FEEAA020000000000000001 /* PermissionIllustrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionIllustrationView.swift; sourceTree = "<group>"; };
+		5FEEAA010000000000000001 /* PermissionFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionFlow.swift; sourceTree = "<group>"; };
 		D04BA075E359F36C27CD5BAE /* package-lock.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "package-lock.json"; sourceTree = "<group>"; };
 		D04BA088B8A550D9367A4AAB /* it */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = it; path = InfoPlist.strings; sourceTree = "<group>"; };
 		D04BA099FA155FB4D517D66B /* SettingsWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsWindow.swift; sourceTree = "<group>"; };
@@ -929,6 +943,8 @@
 		61F9B05662295B0481CC17A8 /* SearchDiscoveryShortcut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDiscoveryShortcut.swift; sourceTree = "<group>"; };
 		AA2026092800000000000001 /* PermissionCheckRetry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionCheckRetry.swift; sourceTree = "<group>"; };
 		AA2026092800000000000004 /* PermissionCheckRetryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionCheckRetryTests.swift; sourceTree = "<group>"; };
+		AA2026092800000000000011 /* AnchoredPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnchoredPopover.swift; sourceTree = "<group>"; };
+		AA2026092800000000000014 /* AnchoredPopoverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnchoredPopoverTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1517,6 +1533,11 @@
 			children = (
 				D04BA9DF10D0CC4CA0C8F814 /* PermissionsWindow.swift */,
 				D04BA0726EABD146753B9EF8 /* PermissionView.swift */,
+				5FEEAA050000000000000001 /* PermissionFlowTests.swift */,
+				5FEEAA040000000000000001 /* OnboardingPopover.swift */,
+				5FEEAA060000000000000001 /* ConfettiBurst.swift */,
+				5FEEAA020000000000000001 /* PermissionIllustrationView.swift */,
+				5FEEAA010000000000000001 /* PermissionFlow.swift */,
 			);
 			path = "permission-window";
 			sourceTree = "<group>";
@@ -1544,6 +1565,8 @@
 		D04BA2CBF267F267225CA671 /* kit */ = {
 			isa = PBXGroup;
 			children = (
+				AA2026092800000000000011 /* AnchoredPopover.swift */,
+				AA2026092800000000000014 /* AnchoredPopoverTests.swift */,
 				D04BA6D57A1456C07318B8EA /* GridView.swift */,
 				D04BAA41B9A74189B065D856 /* text */,
 				D04BAE333F7170E87C5AC0EF /* CustomRecorderControl.swift */,
@@ -2257,6 +2280,8 @@
 				5F5790DE7EC7000000000C02 /* PreferencesPersistenceProbeTests.swift in Sources */,
 				5F117E40000000000000F203 /* PermissionCalloutResolver.swift in Sources */,
 				5F117E40000000000000F212 /* PermissionCalloutResolverTests.swift in Sources */,
+				5FEEAA050000000000000003 /* PermissionFlowTests.swift in Sources */,
+				5FEEAA010000000000000003 /* PermissionFlow.swift in Sources */,
 				5E7C0F70000000000000E003 /* ExceptionMatcher.swift in Sources */,
 				5E7C0F70000000000000E102 /* ExceptionMatcherTests.swift in Sources */,
 				5E0DE2A0000000000000D003 /* WindowOrderResolver.swift in Sources */,
@@ -2267,6 +2292,8 @@
 				5EF0C000000000000000F103 /* FocusIntentPolicy.swift in Sources */,
 				5EF0C000000000000000F202 /* FocusIntentPolicyTests.swift in Sources */,
 				AA2026092800000000000003 /* PermissionCheckRetry.swift in Sources */,
+				AA2026092800000000000013 /* AnchoredPopover.swift in Sources */,
+				AA2026092800000000000015 /* AnchoredPopoverTests.swift in Sources */,
 				AA2026092800000000000005 /* PermissionCheckRetryTests.swift in Sources */,
 				5E2A571E000000000000A003 /* WindowState.swift in Sources */,
 				5E2A571E000000000000A203 /* ApplicationState.swift in Sources */,
@@ -2375,6 +2402,7 @@
 				D04BAC011A71E0418154F8CD /* Preferences.swift in Sources */,
 				D04BADCDA9F9A6C3D6499877 /* SystemPermissions.swift in Sources */,
 				AA2026092800000000000002 /* PermissionCheckRetry.swift in Sources */,
+				AA2026092800000000000012 /* AnchoredPopover.swift in Sources */,
 				5F117E40000000000000F202 /* PermissionCalloutResolver.swift in Sources */,
 				D04BABEECBC6D922298BC93A /* Spaces.swift in Sources */,
 				D04BA6187A91A847844B6ABB /* Window.swift in Sources */,
@@ -2467,6 +2495,10 @@
 				5FBB24E12F389A0400BF7E14 /* MainThreadStall.swift in Sources */,
 				5F21C9E62C6E94920091F72F /* AnimationsSheet.swift in Sources */,
 				D04BAFB90E00AA5D662EAF24 /* PermissionsWindow.swift in Sources */,
+				5FEEAA040000000000000002 /* OnboardingPopover.swift in Sources */,
+				5FEEAA060000000000000002 /* ConfettiBurst.swift in Sources */,
+				5FEEAA020000000000000002 /* PermissionIllustrationView.swift in Sources */,
+				5FEEAA010000000000000002 /* PermissionFlow.swift in Sources */,
 				D04BA7E39FA539DD8316447A /* PermissionView.swift in Sources */,
 				D04BA446D702C5E252AF2319 /* TitleLabel.swift in Sources */,
 				D04BAFF30A98CF287F85DA1E /* ExceptionsTab.swift in Sources */,

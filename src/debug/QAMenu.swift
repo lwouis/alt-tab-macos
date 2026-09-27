@@ -207,6 +207,7 @@ final class QAMenu: NSPanel {
                 Day1WelcomeLetterWindow.shared = nil
                 Day1WelcomeLetterWindow.show(forceFreshInstall: false)
             },
+            makeButton("1 Onboarding") { _ = OnboardingPopover.show(trialDaysToAnnounce: LicenseManager.trialDuration) },
             makeButton("4 Tour") { Day4TourPopover.show() },
             makeButton("12 HeadsUp") { Day12HeadsUpPopover.show() },
         ])

@@ -111,6 +111,7 @@ class App: AppCenterApplication {
         Tooltips.hideAll()
         MainMenu.toggle(true)
         ProTransitionManager.shared.onSwitcherDismissed()
+        OnboardingPopover.switcherWasDismissed()
     }
 
     /// we don't want another window to become key when the TilesPanel is hidden
@@ -220,6 +221,31 @@ class App: AppCenterApplication {
         if PermissionsWindow.shared == nil { _ = PermissionsWindow() }
     }
 
+    /// A new user's unfinished first launch resumes the onboarding popover. The popover leads
+    /// into Settings once the shortcut was used; regranting permissions alone does not replay it.
+    private static func endFirstLaunchWithPopoverOrSettings() {
+        let isNewUsersFirstLaunch = !Preferences.settingsWindowShownOnFirstLaunch && ProTransitionState.isFreshInstall
+        let announcesTrial = willShowDay1WelcomeOnAppLaunch()
+        guard isNewUsersFirstLaunch,
+              OnboardingPopover.show(trialDaysToAnnounce: announcesTrial ? trialDaysRemaining() : nil) else {
+            showSettingsWindowOnFirstLaunchIfNeeded()
+            return
+        }
+        ProTransitionManager.shared.state.onboardingInProgress = true
+    }
+
+    static func finishOnboardingWithoutPopover() {
+        ProTransitionManager.shared.state.onboardingInProgress = false
+        showSettingsWindowOnFirstLaunchIfNeeded()
+        ProTransitionManager.shared.onAppLaunchComplete()
+    }
+
+    private static func trialDaysRemaining() -> Int? {
+        LicenseManager.shared.refreshState()
+        guard case .trial(let daysRemaining) = LicenseManager.shared.state else { return nil }
+        return daysRemaining
+    }
+
     @discardableResult
     private static func showSettingsWindowOnFirstLaunchIfNeeded() -> Bool {
         guard !Preferences.settingsWindowShownOnFirstLaunch else { return false }
@@ -242,6 +268,7 @@ class App: AppCenterApplication {
     }
 
     private static func deferFirstLaunchSettingsUntilDay1WelcomeCloses() {
+        NotificationCenter.default.removeObserver(&firstLaunchSettingsObserver)
         firstLaunchSettingsObserver = NotificationCenter.default.addObserver(
             forName: NSWindow.willCloseNotification, object: nil, queue: .main) { notification in
             guard notification.object is Day1WelcomeLetterWindow else { return }
@@ -250,17 +277,21 @@ class App: AppCenterApplication {
         }
     }
 
+    private static func showAndCenterSettingsWindowOnFirstLaunch() {
+        showAndCenterSettingsWindow()
+        Preferences.markSettingsWindowShownOnFirstLaunch()
+    }
+
     /// `showSettingsWindow()` relies on a saved autosave frame to position the window. On first
     /// launch there's no saved frame, and `showSecondaryWindow`'s fallback centering doesn't always
     /// stick (the window has been observed at the lower-left corner). Force a center pass after
     /// showing so the user sees the window in the middle of the screen.
-    private static func showAndCenterSettingsWindowOnFirstLaunch() {
+    static func showAndCenterSettingsWindow() {
         showSettingsWindow()
         if let window = SettingsWindow.shared {
             NSScreen.preferred.repositionPanel(window)
             window.center()
         }
-        Preferences.markSettingsWindowShownOnFirstLaunch()
     }
 
     static func showPermissionsWindow() {
@@ -351,6 +382,7 @@ class App: AppCenterApplication {
 
     static func showUiOrCycleSelection(_ shortcutIndex: Int, _ forceDoNothingOnRelease_: Bool) {
         MainThreadStall.step()
+        OnboardingPopover.switcherWasSummoned()
         let session = SwitcherSession.current ?? {
             let new = SwitcherSession()
             // The window set as it stood at the press. Only something ABSENT from it can be a newcomer that
@@ -538,7 +570,7 @@ class App: AppCenterApplication {
         #endif
         PreferencesEvents.initialize()
         BenchmarkRunner.startIfNeeded()
-        showSettingsWindowOnFirstLaunchIfNeeded()
+        endFirstLaunchWithPopoverOrSettings()
         if pendingShowSettingsWindow {
             pendingShowSettingsWindow = false
             showSettingsWindow()

@@ -168,10 +168,8 @@ class ImageTextButtonView: NSStackView {
         let isSelected = button.state == .on
         let isKey = window?.isKeyWindow ?? false
         let selectedColor: NSColor = isKey ? NSColor.systemAccentColor : NSColor.unemphasizedSelectedContentBackgroundColor
-        effectiveAppearance.performAsCurrentDrawingAppearance {
-            let borderColor: NSColor = isSelected ? selectedColor : NSColor.lightGray.withAlphaComponent(0.3)
-            button.layer?.borderColor = borderColor.cgColor
-        }
+        let borderColor: NSColor = isSelected ? selectedColor : NSColor.lightGray.withAlphaComponent(0.3)
+        withDrawingAppearance { button.layer?.borderColor = borderColor.cgColor }
         button.layer?.borderWidth = ImageTextButtonView.borderWidth
         label.font = isSelected ? NSFont.boldSystemFont(ofSize: 12) : NSFont.systemFont(ofSize: 12)
         alphaValue = isPressed ? 0.7 : 1.0

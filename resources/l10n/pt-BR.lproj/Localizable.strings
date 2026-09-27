@@ -1,5 +1,6 @@
 "%@ now has a Pro tier" = "%@ agora tem uma versão Pro";
 "%@ — last seen %@" = "%1$@ — visto pela última vez em %2$@";
+"%d days of AltTab Pro, starting now" = "%d dias de AltTab Pro, a partir de agora";
 "3-finger Horizontal Swipe" = "Deslizar horizontal com 3 dedos";
 "3-finger Vertical Swipe" = "Deslizar vertical com 3 dedos";
 "30-day money-back guarantee" = "Garantia de reembolso de 30 dias";
@@ -28,13 +29,16 @@
 "Alphabetical Order" = "Ordem alfabética";
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "O AltTab travou na última vez em que você o usou. Enviar um relatório de falha ajudará a corrigir o problema";
 "AltTab is a free, open-source window switcher for macOS. Pro features are available with a 14-day free trial." = "O AltTab é um seletor de janelas gratuito e de código aberto para o macOS. Os recursos Pro estão disponíveis com uma avaliação gratuita de 14 dias.";
+"AltTab is ready" = "O AltTab está pronto";
 "AltTab is running without Screen Recording permissions. %@ won’t show." = "O AltTab está em execução sem permissão de Gravação de Tela. %@ não serão exibidas.";
-"AltTab needs some permissions" = "O AltTab precisa de algumas permissões";
 "AltTab preferences file is a symlink. macOS doesn’t support symlink for preferences. Please use a valid file instead of a symlink here:" = "O arquivo de preferências do AltTab é um link simbólico. O macOS não oferece suporte a links simbólicos para preferências. Use um arquivo válido em vez de um link simbólico aqui:";
 "AltTab preferences file isn’t writable by your account. Please fix ownership and permissions of the file here:" = "O arquivo de preferências do AltTab não pode ser gravado pela sua conta. Corrija o proprietário e as permissões do arquivo aqui:";
 "AltTab Pro" = "AltTab Pro";
 "AltTab Pro adds 4 features beyond the free switcher." = "O AltTab Pro adiciona 4 recursos além do seletor gratuito.";
 "AltTab Pro is still available" = "O AltTab Pro continua disponível";
+"AltTab requires some permissions" = "O AltTab precisa de algumas permissões";
+"AltTab requires this permission to focus windows for you." = "O AltTab precisa desta permissão para trazer as janelas para a frente.";
+"AltTab requires this permission to show you pictures of each window." = "O AltTab precisa desta permissão para mostrar uma imagem de cada janela.";
 "AltTab will show if the window is currently minimized or fullscreen with a status icon." = "O AltTab mostrará com um ícone de status se a janela está minimizada ou em tela cheia.";
 "Always" = "Sempre";
 "Always send crash reports" = "Sempre enviar relatórios de falha";
@@ -70,9 +74,12 @@
 "Check for updates periodically" = "Buscar atualizações de tempos em tempos";
 "Check for updates…" = "Buscar atualizações…";
 "Check permissions…" = "Verificar permissões…";
+"Choose a style" = "Escolher um estilo";
+"Close" = "Fechar";
 "Close window" = "Fechar janela";
 "Conflicting shortcut" = "Atalho em conflito";
 "Continue with Free" = "Continuar com a versão gratuita";
+"Continue without thumbnails" = "Continuar sem miniaturas";
 "Controls" = "Controles";
 "Could not move to Applications folder" = "Não foi possível mover para a pasta Aplicativos";
 "Couldn't deactivate that machine" = "Não foi possível desativar essa máquina";
@@ -90,6 +97,7 @@
 "Deactivation failed" = "Falha na desativação";
 "Deactivation was rejected by the server." = "A desativação foi rejeitada pelo servidor.";
 "Debug tools" = "Ferramentas de depuração";
+"Device Control" = "Controle do Dispositivo";
 "Disabled" = "Desativado";
 "Do Not Move" = "Não Mover";
 "Don't hide" = "Não ocultar";
@@ -100,6 +108,7 @@
 "e.g. com.example.app" = "ex.: com.example.app";
 "e.g. Debug" = "ex.: Debug";
 "End" = "Fim";
+"Everything is unlocked while it runs. After that, the switcher keeps working exactly as it does now, and the Pro extras step back." = "Tudo fica liberado durante a avaliação. Depois, o seletor continua funcionando exatamente como agora, e os extras Pro recuam.";
 "Exceptions" = "Exceções";
 "Export settings…" = "Exportar ajustes…";
 "Extra shortcuts" = "Atalhos extras";
@@ -129,6 +138,7 @@
 "Hide windows" = "Ocultar janelas";
 "Hide/Show app" = "Ocultar/Mostrar app";
 "Hold" = "Manter pressionado";
+"hold" = "segure";
 "I already have a license key" = "Já tenho uma chave de licença";
 "I can move myself to the Applications folder if you'd like." = "Posso me mover para a pasta Aplicativos, se quiser.";
 "I lost my license key" = "Perdi minha chave de licença";
@@ -158,18 +168,16 @@
 "My Account" = "Minha conta";
 "Never" = "Nunca";
 "Never send crash reports" = "Nunca enviar relatórios de falha";
+"Next" = "A seguir";
 "No response from server." = "Sem resposta do servidor.";
 "No thanks — don't ask again" = "Não, obrigado — não perguntar novamente";
 "No Window" = "Sem janela";
 "Non-active apps" = "Apps inativos";
 "Non-visible Spaces" = "Espaços não visíveis";
-"Not allowed" = "Não permitido";
 "Not now" = "Agora não";
 "OK" = "OK";
 "On Day 15, Pro features revert to the free version." = "No dia 15, os recursos Pro voltam à versão gratuita.";
 "Only on different screen" = "Apenas em outra tela";
-"Open Accessibility Settings…" = "Abrir Ajustes de Acessibilidade…";
-"Open Screen Recording Settings…" = "Abrir Ajustes de Gravação de Tela…";
 "Open Trackpad Settings…" = "Abrir Ajustes do Trackpad…";
 "Order windows by" = "Ordenar janelas por";
 "Ordering & Grouping" = "Ordenação e agrupamento";
@@ -178,6 +186,8 @@
 "Pick a machine to deactivate so you can activate here." = "Escolha uma máquina para desativar e poder ativar aqui.";
 "Please drag AltTab into the Applications folder manually." = "Arraste o AltTab para a pasta Aplicativos manualmente.";
 "Please fill in the form" = "Preencha o formulário";
+"press" = "pressione";
+"Press %@ any time." = "Pressione %@ a qualquer momento.";
 "Press %@ to search your windows." = "Pressione %@ para buscar suas janelas.";
 "Preview selected window" = "Pré-visualizar janela selecionada";
 "Pro" = "Pro";
@@ -256,6 +266,7 @@
 "Sync with global value" = "Sincronizar com o valor global";
 "System" = "Sistema";
 "System Default" = "Padrão do sistema";
+"That's it" = "Pronto";
 "The App Icons style is a Pro feature." = "O estilo Ícones de Apps é um recurso Pro.";
 "The application needs to restart to apply the imported settings." = "O aplicativo precisa ser reiniciado para aplicar os ajustes importados.";
 "The application needs to restart to apply the language change." = "O aplicativo precisa ser reiniciado para aplicar a mudança de idioma.";
@@ -264,8 +275,6 @@
 "Theme" = "Tema";
 "This license is already activated elsewhere" = "Esta licença já está ativada em outro lugar";
 "This license is already activated on the maximum number of machines. Deactivate one to continue." = "Esta licença já está ativada no número máximo de máquinas. Desative uma para continuar.";
-"This permission is needed to focus windows after you release the shortcut" = "Esta permissão é necessária para focar as janelas após você soltar o atalho";
-"This permission is needed to show thumbnails and preview of open windows" = "Esta permissão é necessária para mostrar miniaturas e pré-visualização das janelas abertas";
 "This will keep your Downloads folder uncluttered." = "Isso manterá sua pasta Downloads organizada.";
 "Thumbnails" = "Miniaturas";
 "Thumbnails and window previews" = "Miniaturas e pré-visualizações de janela";
@@ -276,6 +285,7 @@
 "Trial expired" = "Avaliação expirada";
 "Trial: %d days remaining" = "Avaliação: %d dias restantes";
 "Trigger" = "Acionador";
+"Try it right now" = "Experimente agora";
 "Try them in Settings" = "Experimente-os em Ajustes";
 "Unassign existing shortcut and continue" = "Remover atalho existente e continuar";
 "Unexpected response from server." = "Resposta inesperada do servidor.";
@@ -287,7 +297,6 @@
 "Update now" = "Atualizar agora";
 "Updates policy" = "Política de atualizações";
 "Usage" = "Uso";
-"Use the app without this permission. Thumbnails won’t show." = "Usar o app sem esta permissão. As miniaturas não serão exibidas.";
 "Version" = "Versão";
 "View existing discussions" = "Ver discussões existentes";
 "Vim keys" = "Teclas Vim";
@@ -307,6 +316,7 @@
 "window switches" = "alternâncias de janela";
 "Window Title" = "Título da Janela";
 "Window title contains" = "Título da janela contém";
+"Windows will show as app icons" = "As janelas serão exibidas como ícones de apps";
 "You can’t undo this action." = "Você não pode desfazer esta ação.";
 "You have 14 days to try all Pro features. After that, Pro features will step back and the core window switcher will keep working exactly as before.\n\nAltTab stays free and open-source. Pro is an optional one-time purchase that funds continued development." = "Você tem 14 dias para experimentar todos os recursos Pro. Depois disso, os recursos Pro recuam e o seletor de janelas principal continuará funcionando exatamente como antes.\n\nO AltTab continua gratuito e de código aberto. O Pro é uma compra única opcional que financia o desenvolvimento contínuo.";
 "You may need to disable some conflicting system gestures" = "Talvez seja necessário desativar alguns gestos do sistema em conflito";

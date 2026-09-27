@@ -77,3 +77,14 @@ extension pid_t {
         return kinfo.kp_proc.p_stat == SZOMB
     }
 }
+
+extension NSView {
+    /// Run `block` with this view's appearance installed as the current one. `NSColor.cgColor`
+    /// resolves a dynamic color against `NSAppearance.current`, which is NOT the view being drawn
+    /// unless AppKit is inside that view's own `draw` / `updateLayer`. Any layer color assigned
+    /// outside that window (from an update method, a notification handler, a timer) picks the wrong
+    /// appearance and stops following dark mode.
+    func withDrawingAppearance(_ block: () -> Void) {
+        effectiveAppearance.performAsCurrentDrawingAppearance(block)
+    }
+}

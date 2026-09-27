@@ -434,8 +434,7 @@ class PermissionCallout: StackView {
         let location = convert(event.locationInWindow, from: nil)
         guard button.frame.contains(location) else { return }
         enclosingMenuItem?.menu?.cancelTracking()
-        Preferences.remove("screenRecordingPermissionSkipped")
-        App.restart()
+        PermissionsWindow.grantScreenRecording()
     }
 
     // Name only the feature(s) the user actually enabled, so we never promise back a feature they

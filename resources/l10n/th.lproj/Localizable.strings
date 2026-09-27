@@ -1,5 +1,6 @@
 "%@ now has a Pro tier" = "%@ มีระดับ Pro แล้ว";
 "%@ — last seen %@" = "%1$@ — พบครั้งล่าสุดเมื่อ %2$@";
+"%d days of AltTab Pro, starting now" = "AltTab Pro %d วัน เริ่มตั้งแต่ตอนนี้";
 "3-finger Horizontal Swipe" = "ปัด 3 นิ้วในแนวนอน";
 "3-finger Vertical Swipe" = "ปัด 3 นิ้วในแนวตั้ง";
 "30-day money-back guarantee" = "รับประกันคืนเงินภายใน 30 วัน";
@@ -28,13 +29,16 @@
 "Alphabetical Order" = "เรียงตามตัวอักษร";
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab ขัดข้องในการใช้งานครั้งล่าสุด การส่งรายงานการขัดข้องจะช่วยแก้ไขปัญหา";
 "AltTab is a free, open-source window switcher for macOS. Pro features are available with a 14-day free trial." = "AltTab เป็นโปรแกรมสลับหน้าต่างฟรีและโอเพนซอร์สสำหรับ macOS คุณสมบัติ Pro มีให้ทดลองใช้งานฟรี 14 วัน";
+"AltTab is ready" = "AltTab พร้อมแล้ว";
 "AltTab is running without Screen Recording permissions. %@ won’t show." = "AltTab กำลังทำงานโดยไม่มีสิทธิ์การบันทึกหน้าจอ %@จะไม่แสดง";
-"AltTab needs some permissions" = "AltTab ต้องการสิทธิ์บางอย่าง";
 "AltTab preferences file is a symlink. macOS doesn’t support symlink for preferences. Please use a valid file instead of a symlink here:" = "ไฟล์การตั้งค่าของ AltTab เป็นลิงก์สัญลักษณ์ macOS ไม่รองรับลิงก์สัญลักษณ์สำหรับการตั้งค่า โปรดใช้ไฟล์ที่ถูกต้องแทนลิงก์สัญลักษณ์ที่นี่:";
 "AltTab preferences file isn’t writable by your account. Please fix ownership and permissions of the file here:" = "ไฟล์การตั้งค่าของ AltTab ไม่สามารถเขียนได้ด้วยบัญชีของคุณ โปรดแก้ไขเจ้าของและสิทธิ์ของไฟล์ที่นี่:";
 "AltTab Pro" = "AltTab Pro";
 "AltTab Pro adds 4 features beyond the free switcher." = "AltTab Pro เพิ่มคุณสมบัติ 4 อย่างนอกเหนือจากตัวสลับฟรี";
 "AltTab Pro is still available" = "AltTab Pro ยังคงพร้อมใช้งาน";
+"AltTab requires some permissions" = "AltTab ต้องการสิทธิ์บางอย่าง";
+"AltTab requires this permission to focus windows for you." = "AltTab ต้องการสิทธิ์นี้เพื่อนำหน้าต่างขึ้นมาด้านหน้าให้คุณ";
+"AltTab requires this permission to show you pictures of each window." = "AltTab ต้องการสิทธิ์นี้เพื่อแสดงภาพของแต่ละหน้าต่างให้คุณ";
 "AltTab will show if the window is currently minimized or fullscreen with a status icon." = "AltTab จะแสดงไอคอนสถานะหากหน้าต่างถูกย่อหรืออยู่ในโหมดเต็มหน้าจอ";
 "Always" = "เสมอ";
 "Always send crash reports" = "ส่งรายงานการขัดข้องเสมอ";
@@ -70,9 +74,12 @@
 "Check for updates periodically" = "ตรวจหาอัปเดตเป็นระยะ";
 "Check for updates…" = "ตรวจหาอัปเดต…";
 "Check permissions…" = "ตรวจสอบสิทธิ์…";
+"Choose a style" = "เลือกสไตล์";
+"Close" = "ปิด";
 "Close window" = "ปิดหน้าต่าง";
 "Conflicting shortcut" = "ทางลัดที่ขัดแย้งกัน";
 "Continue with Free" = "ใช้งานต่อแบบฟรี";
+"Continue without thumbnails" = "ดำเนินการต่อโดยไม่มีภาพย่อ";
 "Controls" = "การควบคุม";
 "Could not move to Applications folder" = "ไม่สามารถย้ายไปยังโฟลเดอร์ Applications";
 "Couldn't deactivate that machine" = "ไม่สามารถปิดใช้งานเครื่องนั้น";
@@ -90,6 +97,7 @@
 "Deactivation failed" = "การปิดใช้งานล้มเหลว";
 "Deactivation was rejected by the server." = "เซิร์ฟเวอร์ปฏิเสธการปิดใช้งาน";
 "Debug tools" = "เครื่องมือแก้ไขข้อบกพร่อง";
+"Device Control" = "การควบคุมอุปกรณ์";
 "Disabled" = "ปิดใช้งาน";
 "Do Not Move" = "ไม่ย้าย";
 "Don't hide" = "ไม่ซ่อน";
@@ -100,6 +108,7 @@
 "e.g. com.example.app" = "เช่น com.example.app";
 "e.g. Debug" = "เช่น Debug";
 "End" = "สิ้นสุด";
+"Everything is unlocked while it runs. After that, the switcher keeps working exactly as it does now, and the Pro extras step back." = "ระหว่างทดลองใช้ ทุกอย่างถูกปลดล็อก หลังจากนั้น ตัวสลับหน้าต่างจะยังทำงานเหมือนตอนนี้ทุกประการ และส่วนเสริม Pro จะถอยกลับ";
 "Exceptions" = "ข้อยกเว้น";
 "Export settings…" = "ส่งออกการตั้งค่า…";
 "Extra shortcuts" = "ทางลัดพิเศษ";
@@ -129,6 +138,7 @@
 "Hide windows" = "ซ่อนหน้าต่าง";
 "Hide/Show app" = "ซ่อน/แสดงแอป";
 "Hold" = "กดค้าง";
+"hold" = "กดค้าง";
 "I already have a license key" = "ฉันมีคีย์สิทธิ์ใช้งานอยู่แล้ว";
 "I can move myself to the Applications folder if you'd like." = "ฉันสามารถย้ายตัวเองไปยังโฟลเดอร์ Applications ได้หากคุณต้องการ";
 "I lost my license key" = "ฉันทำคีย์สิทธิ์ใช้งานหาย";
@@ -158,18 +168,16 @@
 "My Account" = "บัญชีของฉัน";
 "Never" = "ไม่เคย";
 "Never send crash reports" = "ไม่ส่งรายงานการขัดข้อง";
+"Next" = "ถัดไป";
 "No response from server." = "ไม่มีการตอบกลับจากเซิร์ฟเวอร์";
 "No thanks — don't ask again" = "ไม่ ขอบคุณ — อย่าถามอีก";
 "No Window" = "ไม่มีหน้าต่าง";
 "Non-active apps" = "แอปที่ไม่ได้ทำงานอยู่";
 "Non-visible Spaces" = "พื้นที่ทำงานที่ไม่ได้แสดง";
-"Not allowed" = "ไม่อนุญาต";
 "Not now" = "ไม่ใช่ตอนนี้";
 "OK" = "ตกลง";
 "On Day 15, Pro features revert to the free version." = "ในวันที่ 15 คุณสมบัติ Pro จะกลับไปเป็นเวอร์ชันฟรี";
 "Only on different screen" = "เฉพาะบนหน้าจอที่ต่างกัน";
-"Open Accessibility Settings…" = "เปิดการตั้งค่าการช่วยการเข้าถึง…";
-"Open Screen Recording Settings…" = "เปิดการตั้งค่าการบันทึกหน้าจอ…";
 "Open Trackpad Settings…" = "เปิดการตั้งค่าแทร็คแพด…";
 "Order windows by" = "เรียงหน้าต่างตาม";
 "Ordering & Grouping" = "การเรียงและการจัดกลุ่ม";
@@ -178,6 +186,8 @@
 "Pick a machine to deactivate so you can activate here." = "เลือกเครื่องที่จะปิดใช้งานเพื่อให้คุณสามารถเปิดใช้งานที่นี่ได้";
 "Please drag AltTab into the Applications folder manually." = "โปรดลาก AltTab ไปยังโฟลเดอร์ Applications ด้วยตนเอง";
 "Please fill in the form" = "โปรดกรอกแบบฟอร์ม";
+"press" = "กด";
+"Press %@ any time." = "กด %@ ได้ทุกเมื่อ";
 "Press %@ to search your windows." = "กด %@ เพื่อค้นหาหน้าต่างของคุณ";
 "Preview selected window" = "แสดงตัวอย่างหน้าต่างที่เลือก";
 "Pro" = "Pro";
@@ -256,6 +266,7 @@
 "Sync with global value" = "ซิงค์กับค่าส่วนกลาง";
 "System" = "ระบบ";
 "System Default" = "ค่าเริ่มต้นของระบบ";
+"That's it" = "เท่านี้เอง";
 "The App Icons style is a Pro feature." = "สไตล์ไอคอนแอปเป็นคุณสมบัติ Pro";
 "The application needs to restart to apply the imported settings." = "แอปพลิเคชันต้องรีสตาร์ทเพื่อนำการตั้งค่าที่นำเข้ามาใช้";
 "The application needs to restart to apply the language change." = "แอปพลิเคชันต้องรีสตาร์ทเพื่อนำการเปลี่ยนแปลงภาษามาใช้";
@@ -264,8 +275,6 @@
 "Theme" = "ธีม";
 "This license is already activated elsewhere" = "สิทธิ์ใช้งานนี้ถูกเปิดใช้งานในที่อื่นแล้ว";
 "This license is already activated on the maximum number of machines. Deactivate one to continue." = "สิทธิ์ใช้งานนี้ถูกเปิดใช้งานบนเครื่องในจำนวนสูงสุดแล้ว ปิดใช้งานหนึ่งเครื่องเพื่อดำเนินการต่อ";
-"This permission is needed to focus windows after you release the shortcut" = "ต้องการสิทธิ์นี้เพื่อโฟกัสหน้าต่างหลังจากคุณปล่อยทางลัด";
-"This permission is needed to show thumbnails and preview of open windows" = "ต้องการสิทธิ์นี้เพื่อแสดงภาพย่อและตัวอย่างของหน้าต่างที่เปิดอยู่";
 "This will keep your Downloads folder uncluttered." = "การทำเช่นนี้จะช่วยให้โฟลเดอร์ดาวน์โหลดของคุณไม่รก";
 "Thumbnails" = "ภาพย่อ";
 "Thumbnails and window previews" = "ภาพย่อและตัวอย่างหน้าต่าง";
@@ -276,6 +285,7 @@
 "Trial expired" = "การทดลองหมดอายุ";
 "Trial: %d days remaining" = "การทดลอง: เหลืออีก %d วัน";
 "Trigger" = "ทริกเกอร์";
+"Try it right now" = "ลองเลยตอนนี้";
 "Try them in Settings" = "ลองใช้ในการตั้งค่า";
 "Unassign existing shortcut and continue" = "ยกเลิกการกำหนดทางลัดที่มีอยู่และดำเนินการต่อ";
 "Unexpected response from server." = "การตอบกลับที่ไม่คาดคิดจากเซิร์ฟเวอร์";
@@ -287,7 +297,6 @@
 "Update now" = "อัปเดตทันที";
 "Updates policy" = "นโยบายการอัปเดต";
 "Usage" = "การใช้งาน";
-"Use the app without this permission. Thumbnails won’t show." = "ใช้แอปโดยไม่มีสิทธิ์นี้ ภาพย่อจะไม่แสดง";
 "Version" = "เวอร์ชัน";
 "View existing discussions" = "ดูการสนทนาที่มีอยู่";
 "Vim keys" = "ปุ่ม Vim";
@@ -307,6 +316,7 @@
 "window switches" = "การสลับหน้าต่าง";
 "Window Title" = "ชื่อหน้าต่าง";
 "Window title contains" = "ชื่อหน้าต่างมี";
+"Windows will show as app icons" = "หน้าต่างจะแสดงเป็นไอคอนแอป";
 "You can’t undo this action." = "คุณไม่สามารถเลิกทำการกระทำนี้ได้";
 "You have 14 days to try all Pro features. After that, Pro features will step back and the core window switcher will keep working exactly as before.\n\nAltTab stays free and open-source. Pro is an optional one-time purchase that funds continued development." = "คุณมีเวลา 14 วันในการทดลองใช้คุณสมบัติ Pro ทั้งหมด หลังจากนั้น คุณสมบัติ Pro จะถอยกลับและตัวสลับหน้าต่างหลักจะยังคงทำงานเหมือนเดิมทุกประการ\n\nAltTab ยังคงฟรีและโอเพนซอร์ส Pro เป็นการซื้อแบบครั้งเดียวที่ไม่บังคับซึ่งสนับสนุนการพัฒนาอย่างต่อเนื่อง";
 "You may need to disable some conflicting system gestures" = "คุณอาจต้องปิดท่าทางของระบบบางอย่างที่ขัดแย้งกัน";

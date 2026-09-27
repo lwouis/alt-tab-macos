@@ -1,5 +1,6 @@
 "%@ now has a Pro tier" = "%@ 現已推出 Pro 版本";
 "%@ — last seen %@" = "%1$@ — 上次出現於 %2$@";
+"%d days of AltTab Pro, starting now" = "AltTab Pro %d 天,即時開始";
 "3-finger Horizontal Swipe" = "三指水平滑動";
 "3-finger Vertical Swipe" = "三指垂直滑動";
 "30-day money-back guarantee" = "30 天退款保證";
@@ -28,13 +29,16 @@
 "Alphabetical Order" = "依字母順序";
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab 在您上次使用時當機。傳送當機報告有助於修復此問題";
 "AltTab is a free, open-source window switcher for macOS. Pro features are available with a 14-day free trial." = "AltTab 是一款免費、開放原始碼的 macOS 視窗切換器。Pro 功能提供 14 天免費試用。";
+"AltTab is ready" = "AltTab 已準備就緒";
 "AltTab is running without Screen Recording permissions. %@ won’t show." = "AltTab 正在執行,但未取得螢幕錄製權限。將不會顯示%@。";
-"AltTab needs some permissions" = "AltTab 需要一些權限";
 "AltTab preferences file is a symlink. macOS doesn’t support symlink for preferences. Please use a valid file instead of a symlink here:" = "AltTab 的偏好設定檔案是一個符號連結。macOS 不支援以符號連結儲存偏好設定。請在此處使用正常檔案，而非符號連結：";
 "AltTab preferences file isn’t writable by your account. Please fix ownership and permissions of the file here:" = "AltTab 的偏好設定檔案無法由你的帳戶寫入。請在此處修正該檔案的擁有者和權限：";
 "AltTab Pro" = "AltTab Pro";
 "AltTab Pro adds 4 features beyond the free switcher." = "AltTab Pro 在免費版切換器之上加入 4 項功能。";
 "AltTab Pro is still available" = "AltTab Pro 仍然可用";
+"AltTab requires some permissions" = "AltTab 需要一些權限";
+"AltTab requires this permission to focus windows for you." = "AltTab 需要此權限才能為你將視窗移到前面。";
+"AltTab requires this permission to show you pictures of each window." = "AltTab 需要此權限才能向你顯示每個視窗的畫面。";
 "AltTab will show if the window is currently minimized or fullscreen with a status icon." = "AltTab 會以狀態圖示顯示視窗目前是否縮到最小或全螢幕。";
 "Always" = "永遠";
 "Always send crash reports" = "永遠傳送當機報告";
@@ -70,9 +74,12 @@
 "Check for updates periodically" = "定期檢查更新";
 "Check for updates…" = "檢查更新…";
 "Check permissions…" = "檢查權限…";
+"Choose a style" = "選擇樣式";
+"Close" = "關閉";
 "Close window" = "關閉視窗";
 "Conflicting shortcut" = "快捷鍵衝突";
 "Continue with Free" = "繼續使用免費版";
+"Continue without thumbnails" = "不使用縮圖繼續";
 "Controls" = "控制項";
 "Could not move to Applications folder" = "無法移至「應用程式」檔案夾";
 "Couldn't deactivate that machine" = "無法停用該部機器";
@@ -90,6 +97,7 @@
 "Deactivation failed" = "停用失敗";
 "Deactivation was rejected by the server." = "伺服器拒絕了停用要求。";
 "Debug tools" = "除錯工具";
+"Device Control" = "裝置控制";
 "Disabled" = "已停用";
 "Do Not Move" = "不要移動";
 "Don't hide" = "不要隱藏";
@@ -100,6 +108,7 @@
 "e.g. com.example.app" = "例如:com.example.app";
 "e.g. Debug" = "例如:Debug";
 "End" = "結尾";
+"Everything is unlocked while it runs. After that, the switcher keeps working exactly as it does now, and the Pro extras step back." = "試用期間所有功能均已解鎖。之後,切換器會繼續如現在般運作,而 Pro 額外功能會退回。";
 "Exceptions" = "例外";
 "Export settings…" = "輸出設定…";
 "Extra shortcuts" = "額外快捷鍵";
@@ -129,6 +138,7 @@
 "Hide windows" = "隱藏視窗";
 "Hide/Show app" = "隱藏/顯示 App";
 "Hold" = "按住";
+"hold" = "按住";
 "I already have a license key" = "我已經有授權金鑰";
 "I can move myself to the Applications folder if you'd like." = "如果您希望,我可以將自己移至「應用程式」檔案夾。";
 "I lost my license key" = "我遺失了授權金鑰";
@@ -158,18 +168,16 @@
 "My Account" = "我的帳戶";
 "Never" = "永不";
 "Never send crash reports" = "永不傳送當機報告";
+"Next" = "下一步";
 "No response from server." = "伺服器沒有回應。";
 "No thanks — don't ask again" = "不用了 — 不要再詢問";
 "No Window" = "沒有視窗";
 "Non-active apps" = "非使用中的 App";
 "Non-visible Spaces" = "不可見的空間";
-"Not allowed" = "不允許";
 "Not now" = "暫時不要";
 "OK" = "好";
 "On Day 15, Pro features revert to the free version." = "在第 15 天,Pro 功能會回復為免費版本。";
 "Only on different screen" = "僅在不同螢幕上";
-"Open Accessibility Settings…" = "打開「輔助使用」設定…";
-"Open Screen Recording Settings…" = "打開「螢幕錄製」設定…";
 "Open Trackpad Settings…" = "打開「觸控板」設定…";
 "Order windows by" = "視窗排序方式";
 "Ordering & Grouping" = "排序與群組";
@@ -178,6 +186,8 @@
 "Pick a machine to deactivate so you can activate here." = "請選一部機器停用,以便在此啟用。";
 "Please drag AltTab into the Applications folder manually." = "請手動將 AltTab 拖至「應用程式」檔案夾。";
 "Please fill in the form" = "請填寫表格";
+"press" = "按下";
+"Press %@ any time." = "隨時按 %@。";
 "Press %@ to search your windows." = "按 %@ 搜尋視窗。";
 "Preview selected window" = "預覽選取的視窗";
 "Pro" = "Pro";
@@ -256,6 +266,7 @@
 "Sync with global value" = "與全域值同步";
 "System" = "系統";
 "System Default" = "系統預設";
+"That's it" = "就是這樣";
 "The App Icons style is a Pro feature." = "App 圖示樣式是 Pro 功能。";
 "The application needs to restart to apply the imported settings." = "應用程式需要重新啟動才能套用輸入的設定。";
 "The application needs to restart to apply the language change." = "應用程式需要重新啟動才能套用語言變更。";
@@ -264,8 +275,6 @@
 "Theme" = "主題";
 "This license is already activated elsewhere" = "此授權已在其他地方啟用";
 "This license is already activated on the maximum number of machines. Deactivate one to continue." = "此授權已在最大數目的機器上啟用。請停用一部以繼續。";
-"This permission is needed to focus windows after you release the shortcut" = "釋放快捷鍵後需要此權限才能聚焦視窗";
-"This permission is needed to show thumbnails and preview of open windows" = "需要此權限才能顯示已開啟視窗的縮圖和預覽";
 "This will keep your Downloads folder uncluttered." = "這樣可以讓您的「下載」檔案夾保持整潔。";
 "Thumbnails" = "縮圖";
 "Thumbnails and window previews" = "縮圖和視窗預覽";
@@ -276,6 +285,7 @@
 "Trial expired" = "試用已過期";
 "Trial: %d days remaining" = "試用:剩餘 %d 天";
 "Trigger" = "觸發";
+"Try it right now" = "立即試試";
 "Try them in Settings" = "在「設定」中試用";
 "Unassign existing shortcut and continue" = "取消指派現有快捷鍵並繼續";
 "Unexpected response from server." = "伺服器回應異常。";
@@ -287,7 +297,6 @@
 "Update now" = "立即更新";
 "Updates policy" = "更新政策";
 "Usage" = "使用情況";
-"Use the app without this permission. Thumbnails won’t show." = "在沒有此權限下使用 App。將不會顯示縮圖。";
 "Version" = "版本";
 "View existing discussions" = "查看現有討論";
 "Vim keys" = "Vim 按鍵";
@@ -307,6 +316,7 @@
 "window switches" = "次視窗切換";
 "Window Title" = "視窗標題";
 "Window title contains" = "視窗標題包含";
+"Windows will show as app icons" = "視窗將顯示為 App 圖示";
 "You can’t undo this action." = "您無法復原此動作。";
 "You have 14 days to try all Pro features. After that, Pro features will step back and the core window switcher will keep working exactly as before.\n\nAltTab stays free and open-source. Pro is an optional one-time purchase that funds continued development." = "您有 14 天時間試用所有 Pro 功能。之後,Pro 功能會退回,而核心視窗切換器將會繼續如常運作。\n\nAltTab 保持免費且開放原始碼。Pro 是可選的一次性購買,用於資助持續開發。";
 "You may need to disable some conflicting system gestures" = "您可能需要停用一些有衝突的系統手勢";

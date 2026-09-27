@@ -8,7 +8,7 @@
 
 ```mermaid
 flowchart TD
-    Start([App launched]) --> A["<b>[A] Welcome Letter</b><br/>Day 1<br/>(copy varies by fresh install vs upgrade)"]
+    Start([App launched]) --> A["<b>[A] Welcome Letter</b><br/>Day 1<br/>(updates only; new installs get the trial in the onboarding popover)"]
     A --> Day4Check{"Day 4<br/>first switcher open?"}
     Day4Check -->|Yes| H["<b>[H] Day 4 Pro Tour Popover</b>"]
     Day4Check -->|"No switcher use"| SkipH["Skipped"]
@@ -88,7 +88,7 @@ flowchart TD
 
 | | **[A] Welcome Letter** | **[H] Day 4 Pro Tour** | **[B] Day 12 Heads-Up** | **[C] Full Upgrade** | **[D] Proactive Day 15** | **[E] Hard-Gate Popover** | **[F] Day 21 Reminder** | **[G] Day 35 Final** |
 |---|---|---|---|---|---|---|---|---|
-| **Trigger** | First launch after install or update — copy varies by which (fresh install detected via nil `preferencesVersion` at migration) | First switcher open on Day 4 (after dismissal + 1s) | Day 12, at 10–11:30 or 15:30–17:00 | First hard-gated feature after free pass used; or first hard-gate if [D] was shown but free pass not yet used → free pass fires first, then [C]. Also: first switcher open after Day 15 → free-pass + [C] (after dismissal + 1s), for any user (engaged users see a tailored header from `remembered*`; non-engaged users see the `.nonEngaged` fallback) | Day 15+, at 10–11:30 or 15:30–17:00, if no hard-gated feature triggered yet | Any hard-gated feature attempt after [C] has been shown | Day 21+, at 10–11:30 or 15:30–17:00, if user used AltTab today | Day 35+, at 10–11:30 or 15:30–17:00, if user used AltTab today |
+| **Trigger** | First launch after install or update — copy varies by which (fresh install detected via nil `preferencesVersion` at migration). A launch that ends on the onboarding popover (a new user's unfinished first launch) never shows it: the popover announces the trial instead and sets `hasSeenWelcome`. So in practice only existing users updating see the letter | First switcher open on Day 4 (after dismissal + 1s) | Day 12, at 10–11:30 or 15:30–17:00 | First hard-gated feature after free pass used; or first hard-gate if [D] was shown but free pass not yet used → free pass fires first, then [C]. Also: first switcher open after Day 15 → free-pass + [C] (after dismissal + 1s), for any user (engaged users see a tailored header from `remembered*`; non-engaged users see the `.nonEngaged` fallback) | Day 15+, at 10–11:30 or 15:30–17:00, if no hard-gated feature triggered yet | Any hard-gated feature attempt after [C] has been shown | Day 21+, at 10–11:30 or 15:30–17:00, if user used AltTab today | Day 35+, at 10–11:30 or 15:30–17:00, if user used AltTab today |
 | **If missed** | N/A — always shows | No retry — only fires when switcher is opened on Day 4 | Try 15:30–17:00; then skip entirely | N/A — user-initiated | Try 15:30–17:00; retry next active day until shown or System 2 fires | N/A — user-initiated | Retry daily; skip if Day 35 arrives first | Retry daily; give up at Day 49 |
 | **UI type** | NSWindow, non-modal | NSPopover → menubar icon | NSPopover → menubar icon | NSWindow, non-modal | NSWindow, non-modal | NSPopover → menubar icon | NSPopover → menubar icon | NSWindow, non-modal |
 | **Position** | Centered | Below menubar icon ↑ | Below menubar icon ↑ | Centered | Centered | Below menubar icon ↑ | Below menubar icon ↑ | Centered |

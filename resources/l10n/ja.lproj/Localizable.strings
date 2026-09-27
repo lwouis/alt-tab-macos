@@ -1,5 +1,6 @@
 "%@ now has a Pro tier" = "%@ に Pro 版が追加されました";
 "%@ — last seen %@" = "%1$@ — 最終アクセス %2$@";
+"%d days of AltTab Pro, starting now" = "AltTab Pro を %d 日間、今日から";
 "3-finger Horizontal Swipe" = "3 本指の水平スワイプ";
 "3-finger Vertical Swipe" = "3 本指の垂直スワイプ";
 "30-day money-back guarantee" = "30 日間の返金保証";
@@ -28,13 +29,16 @@
 "Alphabetical Order" = "アルファベット順";
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "前回の使用時に AltTab がクラッシュしました。クラッシュレポートを送信すると問題の修正に役立ちます";
 "AltTab is a free, open-source window switcher for macOS. Pro features are available with a 14-day free trial." = "AltTab は macOS 用の無料・オープンソースのウインドウスイッチャーです。Pro 機能は 14 日間の無料トライアルで利用できます。";
+"AltTab is ready" = "AltTab の準備ができました";
 "AltTab is running without Screen Recording permissions. %@ won’t show." = "AltTab は画面収録の権限なしで動作しています。%@は表示されません。";
-"AltTab needs some permissions" = "AltTab にはいくつかの権限が必要です";
 "AltTab preferences file is a symlink. macOS doesn’t support symlink for preferences. Please use a valid file instead of a symlink here:" = "AltTab の設定ファイルがシンボリックリンクです。macOS は設定にシンボリックリンクをサポートしていません。ここではシンボリックリンクではなく通常のファイルを使用してください:";
 "AltTab preferences file isn’t writable by your account. Please fix ownership and permissions of the file here:" = "AltTab の設定ファイルにあなたのアカウントで書き込みできません。ここでファイルの所有者と権限を修正してください:";
 "AltTab Pro" = "AltTab Pro";
 "AltTab Pro adds 4 features beyond the free switcher." = "AltTab Pro は無料版に加えて 4 つの機能を追加します。";
 "AltTab Pro is still available" = "AltTab Pro は引き続き利用可能です";
+"AltTab requires some permissions" = "AltTab にはいくつかのアクセス権が必要です";
+"AltTab requires this permission to focus windows for you." = "ウインドウを前面に表示するために、AltTab にはこのアクセス権が必要です。";
+"AltTab requires this permission to show you pictures of each window." = "各ウインドウの画像を表示するために、AltTab にはこのアクセス権が必要です。";
 "AltTab will show if the window is currently minimized or fullscreen with a status icon." = "ウインドウが現在最小化またはフルスクリーンの場合、AltTab はステータスアイコンで表示します。";
 "Always" = "常に";
 "Always send crash reports" = "常にクラッシュレポートを送信";
@@ -70,9 +74,12 @@
 "Check for updates periodically" = "アップデートを定期的に確認";
 "Check for updates…" = "アップデートを確認…";
 "Check permissions…" = "権限を確認…";
+"Choose a style" = "スタイルを選択";
+"Close" = "閉じる";
 "Close window" = "ウインドウを閉じる";
 "Conflicting shortcut" = "ショートカットの競合";
 "Continue with Free" = "無料版を続ける";
+"Continue without thumbnails" = "サムネイルなしで続ける";
 "Controls" = "コントロール";
 "Could not move to Applications folder" = "アプリケーションフォルダに移動できませんでした";
 "Couldn't deactivate that machine" = "そのマシンを非アクティブ化できませんでした";
@@ -90,6 +97,7 @@
 "Deactivation failed" = "非アクティブ化に失敗しました";
 "Deactivation was rejected by the server." = "サーバーが非アクティブ化を拒否しました。";
 "Debug tools" = "デバッグツール";
+"Device Control" = "デバイスの制御";
 "Disabled" = "無効";
 "Do Not Move" = "移動しない";
 "Don't hide" = "非表示にしない";
@@ -100,6 +108,7 @@
 "e.g. com.example.app" = "例: com.example.app";
 "e.g. Debug" = "例: Debug";
 "End" = "末尾";
+"Everything is unlocked while it runs. After that, the switcher keeps working exactly as it does now, and the Pro extras step back." = "期間中はすべての機能を利用できます。その後もスイッチャーは今と同じように動作し、Pro の追加機能は無効になります。";
 "Exceptions" = "例外";
 "Export settings…" = "設定を書き出す…";
 "Extra shortcuts" = "追加のショートカット";
@@ -129,6 +138,7 @@
 "Hide windows" = "ウインドウを非表示";
 "Hide/Show app" = "App の表示/非表示";
 "Hold" = "押し続ける";
+"hold" = "押し続ける";
 "I already have a license key" = "ライセンスキーをすでに持っています";
 "I can move myself to the Applications folder if you'd like." = "ご希望であれば、アプリケーションフォルダに自動で移動できます。";
 "I lost my license key" = "ライセンスキーを紛失しました";
@@ -158,18 +168,16 @@
 "My Account" = "アカウント";
 "Never" = "しない";
 "Never send crash reports" = "クラッシュレポートを送信しない";
+"Next" = "次";
 "No response from server." = "サーバーから応答がありません。";
 "No thanks — don't ask again" = "結構です — 今後表示しない";
 "No Window" = "ウインドウなし";
 "Non-active apps" = "非アクティブな App";
 "Non-visible Spaces" = "表示されていない Space";
-"Not allowed" = "許可しない";
 "Not now" = "今はしない";
 "OK" = "OK";
 "On Day 15, Pro features revert to the free version." = "15 日目に Pro 機能は無料版に戻ります。";
 "Only on different screen" = "別の画面のときのみ";
-"Open Accessibility Settings…" = "アクセシビリティ設定を開く…";
-"Open Screen Recording Settings…" = "画面収録設定を開く…";
 "Open Trackpad Settings…" = "トラックパッド設定を開く…";
 "Order windows by" = "ウインドウの並び順";
 "Ordering & Grouping" = "並び順とグループ化";
@@ -178,6 +186,8 @@
 "Pick a machine to deactivate so you can activate here." = "ここでアクティベートできるよう、非アクティブ化するマシンを選択してください。";
 "Please drag AltTab into the Applications folder manually." = "AltTab を手動でアプリケーションフォルダにドラッグしてください。";
 "Please fill in the form" = "フォームを入力してください";
+"press" = "押す";
+"Press %@ any time." = "いつでも %@ を押してください。";
 "Press %@ to search your windows." = "%@を押すとウインドウを検索できます。";
 "Preview selected window" = "選択したウインドウをプレビュー";
 "Pro" = "Pro";
@@ -256,6 +266,7 @@
 "Sync with global value" = "全体の値と同期";
 "System" = "システム";
 "System Default" = "システムのデフォルト";
+"That's it" = "完了です";
 "The App Icons style is a Pro feature." = "App アイコンのスタイルは Pro 機能です。";
 "The application needs to restart to apply the imported settings." = "読み込んだ設定を適用するには App を再起動する必要があります。";
 "The application needs to restart to apply the language change." = "言語の変更を適用するには App を再起動する必要があります。";
@@ -264,8 +275,6 @@
 "Theme" = "テーマ";
 "This license is already activated elsewhere" = "このライセンスは別のマシンですでにアクティベートされています";
 "This license is already activated on the maximum number of machines. Deactivate one to continue." = "このライセンスは最大数のマシンですでにアクティベートされています。続行するには 1 台を非アクティブ化してください。";
-"This permission is needed to focus windows after you release the shortcut" = "ショートカットを離した後にウインドウへフォーカスするために必要な権限です";
-"This permission is needed to show thumbnails and preview of open windows" = "開いているウインドウのサムネイルとプレビューを表示するために必要な権限です";
 "This will keep your Downloads folder uncluttered." = "ダウンロードフォルダを散らからないようにできます。";
 "Thumbnails" = "サムネイル";
 "Thumbnails and window previews" = "サムネイルとウィンドウプレビュー";
@@ -276,6 +285,7 @@
 "Trial expired" = "トライアル終了";
 "Trial: %d days remaining" = "トライアル: 残り %d 日";
 "Trigger" = "トリガー";
+"Try it right now" = "今すぐ試してみましょう";
 "Try them in Settings" = "設定で試してみる";
 "Unassign existing shortcut and continue" = "既存のショートカットを解除して続行";
 "Unexpected response from server." = "サーバーから予期しない応答がありました。";
@@ -287,7 +297,6 @@
 "Update now" = "今すぐアップデート";
 "Updates policy" = "アップデートのポリシー";
 "Usage" = "使用状況";
-"Use the app without this permission. Thumbnails won’t show." = "この権限なしで App を使用します。サムネイルは表示されません。";
 "Version" = "バージョン";
 "View existing discussions" = "既存のディスカッションを表示";
 "Vim keys" = "Vim キー";
@@ -307,6 +316,7 @@
 "window switches" = "ウインドウ切り替え";
 "Window Title" = "ウインドウタイトル";
 "Window title contains" = "ウインドウタイトルに含まれる";
+"Windows will show as app icons" = "ウインドウは App アイコンで表示されます";
 "You can’t undo this action." = "この操作は取り消せません。";
 "You have 14 days to try all Pro features. After that, Pro features will step back and the core window switcher will keep working exactly as before.\n\nAltTab stays free and open-source. Pro is an optional one-time purchase that funds continued development." = "14 日間、すべての Pro 機能をお試しいただけます。その後、Pro 機能は無効になり、コアのウインドウスイッチャーは以前と同じように動作し続けます。\n\nAltTab は無料・オープンソースのままです。Pro は継続的な開発を支える任意の買い切り購入です。";
 "You may need to disable some conflicting system gestures" = "競合するシステムのジェスチャを一部無効にする必要があるかもしれません";

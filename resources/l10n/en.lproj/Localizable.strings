@@ -1,5 +1,6 @@
 "%@ now has a Pro tier" = "%@ now has a Pro tier";
 "%@ — last seen %@" = "%@ — last seen %@";
+"%d days of AltTab Pro, starting now" = "%d days of AltTab Pro, starting now";
 "3-finger Horizontal Swipe" = "3-finger Horizontal Swipe";
 "3-finger Vertical Swipe" = "3-finger Vertical Swipe";
 "30-day money-back guarantee" = "30-day money-back guarantee";
@@ -28,13 +29,16 @@
 "Alphabetical Order" = "Alphabetical Order";
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed";
 "AltTab is a free, open-source window switcher for macOS. Pro features are available with a 14-day free trial." = "AltTab is a free, open-source window switcher for macOS. Pro features are available with a 14-day free trial.";
+"AltTab is ready" = "AltTab is ready";
 "AltTab is running without Screen Recording permissions. %@ won’t show." = "AltTab is running without Screen Recording permissions. %@ won’t show.";
-"AltTab needs some permissions" = "AltTab needs some permissions";
 "AltTab preferences file is a symlink. macOS doesn’t support symlink for preferences. Please use a valid file instead of a symlink here:" = "AltTab preferences file is a symlink. macOS doesn’t support symlink for preferences. Please use a valid file instead of a symlink here:";
 "AltTab preferences file isn’t writable by your account. Please fix ownership and permissions of the file here:" = "AltTab preferences file isn’t writable by your account. Please fix ownership and permissions of the file here:";
 "AltTab Pro" = "AltTab Pro";
 "AltTab Pro adds 4 features beyond the free switcher." = "AltTab Pro adds 4 features beyond the free switcher.";
 "AltTab Pro is still available" = "AltTab Pro is still available";
+"AltTab requires some permissions" = "AltTab requires some permissions";
+"AltTab requires this permission to focus windows for you." = "AltTab requires this permission to focus windows for you.";
+"AltTab requires this permission to show you pictures of each window." = "AltTab requires this permission to show you pictures of each window.";
 "AltTab will show if the window is currently minimized or fullscreen with a status icon." = "AltTab will show if the window is currently minimized or fullscreen with a status icon.";
 "Always" = "Always";
 "Always send crash reports" = "Always send crash reports";
@@ -70,9 +74,12 @@
 "Check for updates periodically" = "Check for updates periodically";
 "Check for updates…" = "Check for updates…";
 "Check permissions…" = "Check permissions…";
+"Choose a style" = "Choose a style";
+"Close" = "Close";
 "Close window" = "Close window";
 "Conflicting shortcut" = "Conflicting shortcut";
 "Continue with Free" = "Continue with Free";
+"Continue without thumbnails" = "Continue without thumbnails";
 "Controls" = "Controls";
 "Could not move to Applications folder" = "Could not move to Applications folder";
 "Couldn't deactivate that machine" = "Couldn't deactivate that machine";
@@ -90,6 +97,7 @@
 "Deactivation failed" = "Deactivation failed";
 "Deactivation was rejected by the server." = "Deactivation was rejected by the server.";
 "Debug tools" = "Debug tools";
+"Device Control" = "Device Control";
 "Disabled" = "Disabled";
 "Do Not Move" = "Do Not Move";
 "Don't hide" = "Don't hide";
@@ -100,6 +108,7 @@
 "e.g. com.example.app" = "e.g. com.example.app";
 "e.g. Debug" = "e.g. Debug";
 "End" = "End";
+"Everything is unlocked while it runs. After that, the switcher keeps working exactly as it does now, and the Pro extras step back." = "Everything is unlocked while it runs. After that, the switcher keeps working exactly as it does now, and the Pro extras step back.";
 "Exceptions" = "Exceptions";
 "Export settings…" = "Export settings…";
 "Extra shortcuts" = "Extra shortcuts";
@@ -129,6 +138,7 @@
 "Hide windows" = "Hide windows";
 "Hide/Show app" = "Hide/Show app";
 "Hold" = "Hold";
+"hold" = "hold";
 "I already have a license key" = "I already have a license key";
 "I can move myself to the Applications folder if you'd like." = "I can move myself to the Applications folder if you'd like.";
 "I lost my license key" = "I lost my license key";
@@ -158,18 +168,16 @@
 "My Account" = "My Account";
 "Never" = "Never";
 "Never send crash reports" = "Never send crash reports";
+"Next" = "Next";
 "No response from server." = "No response from server.";
 "No thanks — don't ask again" = "No thanks — don't ask again";
 "No Window" = "No Window";
 "Non-active apps" = "Non-active apps";
 "Non-visible Spaces" = "Non-visible Spaces";
-"Not allowed" = "Not allowed";
 "Not now" = "Not now";
 "OK" = "OK";
 "On Day 15, Pro features revert to the free version." = "On Day 15, Pro features revert to the free version.";
 "Only on different screen" = "Only on different screen";
-"Open Accessibility Settings…" = "Open Accessibility Settings…";
-"Open Screen Recording Settings…" = "Open Screen Recording Settings…";
 "Open Trackpad Settings…" = "Open Trackpad Settings…";
 "Order windows by" = "Order windows by";
 "Ordering & Grouping" = "Ordering & Grouping";
@@ -178,6 +186,8 @@
 "Pick a machine to deactivate so you can activate here." = "Pick a machine to deactivate so you can activate here.";
 "Please drag AltTab into the Applications folder manually." = "Please drag AltTab into the Applications folder manually.";
 "Please fill in the form" = "Please fill in the form";
+"press" = "press";
+"Press %@ any time." = "Press %@ any time.";
 "Press %@ to search your windows." = "Press %@ to search your windows.";
 "Preview selected window" = "Preview selected window";
 "Pro" = "Pro";
@@ -256,6 +266,7 @@
 "Sync with global value" = "Sync with global value";
 "System" = "System";
 "System Default" = "System Default";
+"That's it" = "That's it";
 "The App Icons style is a Pro feature." = "The App Icons style is a Pro feature.";
 "The application needs to restart to apply the imported settings." = "The application needs to restart to apply the imported settings.";
 "The application needs to restart to apply the language change." = "The application needs to restart to apply the language change.";
@@ -264,8 +275,6 @@
 "Theme" = "Theme";
 "This license is already activated elsewhere" = "This license is already activated elsewhere";
 "This license is already activated on the maximum number of machines. Deactivate one to continue." = "This license is already activated on the maximum number of machines. Deactivate one to continue.";
-"This permission is needed to focus windows after you release the shortcut" = "This permission is needed to focus windows after you release the shortcut";
-"This permission is needed to show thumbnails and preview of open windows" = "This permission is needed to show thumbnails and preview of open windows";
 "This will keep your Downloads folder uncluttered." = "This will keep your Downloads folder uncluttered.";
 "Thumbnails" = "Thumbnails";
 "Thumbnails and window previews" = "Thumbnails and window previews";
@@ -276,6 +285,7 @@
 "Trial expired" = "Trial expired";
 "Trial: %d days remaining" = "Trial: %d days remaining";
 "Trigger" = "Trigger";
+"Try it right now" = "Try it right now";
 "Try them in Settings" = "Try them in Settings";
 "Unassign existing shortcut and continue" = "Unassign existing shortcut and continue";
 "Unexpected response from server." = "Unexpected response from server.";
@@ -287,7 +297,6 @@
 "Update now" = "Update now";
 "Updates policy" = "Updates policy";
 "Usage" = "Usage";
-"Use the app without this permission. Thumbnails won’t show." = "Use the app without this permission. Thumbnails won’t show.";
 "Version" = "Version";
 "View existing discussions" = "View existing discussions";
 "Vim keys" = "Vim keys";
@@ -307,6 +316,7 @@
 "window switches" = "window switches";
 "Window Title" = "Window Title";
 "Window title contains" = "Window title contains";
+"Windows will show as app icons" = "Windows will show as app icons";
 "You can’t undo this action." = "You can’t undo this action.";
 "You have 14 days to try all Pro features. After that, Pro features will step back and the core window switcher will keep working exactly as before.\n\nAltTab stays free and open-source. Pro is an optional one-time purchase that funds continued development." = "You have 14 days to try all Pro features. After that, Pro features will step back and the core window switcher will keep working exactly as before.\n\nAltTab stays free and open-source. Pro is an optional one-time purchase that funds continued development.";
 "You may need to disable some conflicting system gestures" = "You may need to disable some conflicting system gestures";

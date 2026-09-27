@@ -1,5 +1,6 @@
 "%@ now has a Pro tier" = "%@에 Pro 등급이 추가되었습니다";
 "%@ — last seen %@" = "%1$@ — 마지막 접속 %2$@";
+"%d days of AltTab Pro, starting now" = "AltTab Pro %d일, 지금 시작";
 "3-finger Horizontal Swipe" = "세 손가락 가로 스와이프";
 "3-finger Vertical Swipe" = "세 손가락 세로 스와이프";
 "30-day money-back guarantee" = "30일 환불 보장";
@@ -28,13 +29,16 @@
 "Alphabetical Order" = "알파벳 순서";
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab이 마지막 사용 시 충돌했습니다. 충돌 보고서를 보내면 문제 해결에 도움이 됩니다";
 "AltTab is a free, open-source window switcher for macOS. Pro features are available with a 14-day free trial." = "AltTab은 macOS용 무료 오픈 소스 윈도우 전환기입니다. Pro 기능은 14일 무료 체험으로 이용할 수 있습니다.";
+"AltTab is ready" = "AltTab 준비 완료";
 "AltTab is running without Screen Recording permissions. %@ won’t show." = "AltTab이 화면 녹화 권한 없이 실행 중입니다. %@이(가) 표시되지 않습니다.";
-"AltTab needs some permissions" = "AltTab에 몇 가지 권한이 필요합니다";
 "AltTab preferences file is a symlink. macOS doesn’t support symlink for preferences. Please use a valid file instead of a symlink here:" = "AltTab 환경설정 파일이 심볼릭 링크입니다. macOS는 환경설정에 심볼릭 링크를 지원하지 않습니다. 여기에서 심볼릭 링크 대신 올바른 파일을 사용하십시오:";
 "AltTab preferences file isn’t writable by your account. Please fix ownership and permissions of the file here:" = "AltTab 환경설정 파일을 사용자 계정에서 쓸 수 없습니다. 여기에서 파일의 소유자와 권한을 수정하십시오:";
 "AltTab Pro" = "AltTab Pro";
 "AltTab Pro adds 4 features beyond the free switcher." = "AltTab Pro는 무료 전환기에 4가지 기능을 추가합니다.";
 "AltTab Pro is still available" = "AltTab Pro는 계속 이용할 수 있습니다";
+"AltTab requires some permissions" = "AltTab에 몇 가지 권한이 필요합니다";
+"AltTab requires this permission to focus windows for you." = "윈도우를 앞으로 가져오려면 AltTab에 이 권한이 필요합니다.";
+"AltTab requires this permission to show you pictures of each window." = "각 윈도우의 이미지를 보여 주려면 AltTab에 이 권한이 필요합니다.";
 "AltTab will show if the window is currently minimized or fullscreen with a status icon." = "AltTab이 윈도우의 최소화 또는 전체 화면 상태를 상태 아이콘으로 표시합니다.";
 "Always" = "항상";
 "Always send crash reports" = "항상 충돌 보고서 보내기";
@@ -70,9 +74,12 @@
 "Check for updates periodically" = "주기적으로 업데이트 확인";
 "Check for updates…" = "업데이트 확인…";
 "Check permissions…" = "권한 확인…";
+"Choose a style" = "스타일 선택";
+"Close" = "닫기";
 "Close window" = "윈도우 닫기";
 "Conflicting shortcut" = "충돌하는 단축키";
 "Continue with Free" = "무료 버전으로 계속";
+"Continue without thumbnails" = "썸네일 없이 계속";
 "Controls" = "컨트롤";
 "Could not move to Applications folder" = "응용 프로그램 폴더로 이동할 수 없습니다";
 "Couldn't deactivate that machine" = "해당 기기를 비활성화할 수 없습니다";
@@ -90,6 +97,7 @@
 "Deactivation failed" = "비활성화 실패";
 "Deactivation was rejected by the server." = "서버에서 비활성화가 거부되었습니다.";
 "Debug tools" = "디버그 도구";
+"Device Control" = "기기 제어";
 "Disabled" = "비활성화됨";
 "Do Not Move" = "이동하지 않음";
 "Don't hide" = "숨기지 않기";
@@ -100,6 +108,7 @@
 "e.g. com.example.app" = "예: com.example.app";
 "e.g. Debug" = "예: Debug";
 "End" = "끝";
+"Everything is unlocked while it runs. After that, the switcher keeps working exactly as it does now, and the Pro extras step back." = "체험 기간 동안 모든 기능이 잠금 해제됩니다. 이후에도 전환기는 지금과 똑같이 작동하며, Pro 추가 기능은 비활성화됩니다.";
 "Exceptions" = "예외";
 "Export settings…" = "설정 내보내기…";
 "Extra shortcuts" = "추가 단축키";
@@ -129,6 +138,7 @@
 "Hide windows" = "윈도우 숨기기";
 "Hide/Show app" = "앱 숨기기/보이기";
 "Hold" = "유지";
+"hold" = "누른 채로";
 "I already have a license key" = "이미 라이선스 키가 있습니다";
 "I can move myself to the Applications folder if you'd like." = "원하시면 응용 프로그램 폴더로 자동 이동할 수 있습니다.";
 "I lost my license key" = "라이선스 키를 분실했습니다";
@@ -158,18 +168,16 @@
 "My Account" = "내 계정";
 "Never" = "안 함";
 "Never send crash reports" = "충돌 보고서 보내지 않기";
+"Next" = "다음";
 "No response from server." = "서버에서 응답이 없습니다.";
 "No thanks — don't ask again" = "괜찮습니다 — 다시 묻지 않기";
 "No Window" = "윈도우 없음";
 "Non-active apps" = "비활성 앱";
 "Non-visible Spaces" = "보이지 않는 Space";
-"Not allowed" = "허용되지 않음";
 "Not now" = "지금은 안 함";
 "OK" = "확인";
 "On Day 15, Pro features revert to the free version." = "15일째에 Pro 기능은 무료 버전으로 되돌아갑니다.";
 "Only on different screen" = "다른 화면에서만";
-"Open Accessibility Settings…" = "손쉬운 사용 설정 열기…";
-"Open Screen Recording Settings…" = "화면 녹화 설정 열기…";
 "Open Trackpad Settings…" = "트랙패드 설정 열기…";
 "Order windows by" = "윈도우 정렬 기준";
 "Ordering & Grouping" = "정렬 및 그룹화";
@@ -178,6 +186,8 @@
 "Pick a machine to deactivate so you can activate here." = "여기서 활성화하려면 비활성화할 기기를 선택하세요.";
 "Please drag AltTab into the Applications folder manually." = "AltTab을 응용 프로그램 폴더로 직접 드래그해 주세요.";
 "Please fill in the form" = "양식을 작성해 주세요";
+"press" = "누르기";
+"Press %@ any time." = "언제든지 %@ 키를 누르십시오.";
 "Press %@ to search your windows." = "%@ 키를 눌러 윈도우를 검색하십시오.";
 "Preview selected window" = "선택한 윈도우 미리보기";
 "Pro" = "Pro";
@@ -256,6 +266,7 @@
 "Sync with global value" = "전역 값과 동기화";
 "System" = "시스템";
 "System Default" = "시스템 기본값";
+"That's it" = "완료되었습니다";
 "The App Icons style is a Pro feature." = "앱 아이콘 스타일은 Pro 기능입니다.";
 "The application needs to restart to apply the imported settings." = "가져온 설정을 적용하려면 앱을 재시작해야 합니다.";
 "The application needs to restart to apply the language change." = "언어 변경을 적용하려면 앱을 재시작해야 합니다.";
@@ -264,8 +275,6 @@
 "Theme" = "테마";
 "This license is already activated elsewhere" = "이 라이선스는 이미 다른 곳에서 활성화되어 있습니다";
 "This license is already activated on the maximum number of machines. Deactivate one to continue." = "이 라이선스는 이미 최대 기기 수에서 활성화되어 있습니다. 계속하려면 하나를 비활성화하세요.";
-"This permission is needed to focus windows after you release the shortcut" = "단축키를 놓은 후 윈도우에 포커스하려면 이 권한이 필요합니다";
-"This permission is needed to show thumbnails and preview of open windows" = "열린 윈도우의 썸네일 및 미리보기를 표시하려면 이 권한이 필요합니다";
 "This will keep your Downloads folder uncluttered." = "다운로드 폴더를 깔끔하게 유지할 수 있습니다.";
 "Thumbnails" = "썸네일";
 "Thumbnails and window previews" = "썸네일 및 윈도우 미리보기";
@@ -276,6 +285,7 @@
 "Trial expired" = "체험 기간 만료";
 "Trial: %d days remaining" = "체험: %d일 남음";
 "Trigger" = "트리거";
+"Try it right now" = "지금 사용해 보기";
 "Try them in Settings" = "설정에서 사용해 보기";
 "Unassign existing shortcut and continue" = "기존 단축키 할당 해제 후 계속";
 "Unexpected response from server." = "서버에서 예기치 않은 응답이 왔습니다.";
@@ -287,7 +297,6 @@
 "Update now" = "지금 업데이트";
 "Updates policy" = "업데이트 정책";
 "Usage" = "사용량";
-"Use the app without this permission. Thumbnails won’t show." = "이 권한 없이 앱을 사용합니다. 썸네일이 표시되지 않습니다.";
 "Version" = "버전";
 "View existing discussions" = "기존 토론 보기";
 "Vim keys" = "Vim 키";
@@ -307,6 +316,7 @@
 "window switches" = "회 윈도우 전환";
 "Window Title" = "윈도우 제목";
 "Window title contains" = "윈도우 제목 포함";
+"Windows will show as app icons" = "윈도우가 앱 아이콘으로 표시됩니다";
 "You can’t undo this action." = "이 작업은 되돌릴 수 없습니다.";
 "You have 14 days to try all Pro features. After that, Pro features will step back and the core window switcher will keep working exactly as before.\n\nAltTab stays free and open-source. Pro is an optional one-time purchase that funds continued development." = "14일 동안 모든 Pro 기능을 사용해 볼 수 있습니다. 이후에는 Pro 기능이 비활성화되고 핵심 윈도우 전환기는 이전과 똑같이 계속 작동합니다.\n\nAltTab은 무료이며 오픈 소스로 유지됩니다. Pro는 지속적인 개발을 후원하는 선택적 일회성 구매입니다.";
 "You may need to disable some conflicting system gestures" = "충돌하는 일부 시스템 제스처를 비활성화해야 할 수 있습니다";

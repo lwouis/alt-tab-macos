@@ -1,5 +1,6 @@
 "%@ now has a Pro tier" = "ל-%@ יש כעת מסלול Pro";
 "%@ — last seen %@" = "%1$@ — נצפה לאחרונה %2$@";
+"%d days of AltTab Pro, starting now" = "%d ימים של AltTab Pro, החל מעכשיו";
 "3-finger Horizontal Swipe" = "החלקה אופקית ב-3 אצבעות";
 "3-finger Vertical Swipe" = "החלקה אנכית ב-3 אצבעות";
 "30-day money-back guarantee" = "אחריות החזר כספי ל-30 יום";
@@ -28,13 +29,16 @@
 "Alphabetical Order" = "סדר אלפביתי";
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab קרס בפעם האחרונה שהשתמשת בו. שליחת דיווח קריסה תסייע לתקן את הבעיה";
 "AltTab is a free, open-source window switcher for macOS. Pro features are available with a 14-day free trial." = "AltTab הוא מחליף חלונות חינמי בקוד פתוח עבור macOS. תכונות Pro זמינות עם תקופת ניסיון חינמית של 14 יום.";
+"AltTab is ready" = "AltTab מוכן";
 "AltTab is running without Screen Recording permissions. %@ won’t show." = "AltTab פועל ללא הרשאות הקלטת מסך. %@ לא יוצגו.";
-"AltTab needs some permissions" = "AltTab זקוק להרשאות מסוימות";
 "AltTab preferences file is a symlink. macOS doesn’t support symlink for preferences. Please use a valid file instead of a symlink here:" = "קובץ ההגדרות של AltTab הוא קישור סימבולי. macOS אינו תומך בקישורים סימבוליים עבור הגדרות. אנא השתמש בקובץ תקין במקום קישור סימבולי כאן:";
 "AltTab preferences file isn’t writable by your account. Please fix ownership and permissions of the file here:" = "קובץ ההגדרות של AltTab אינו ניתן לכתיבה על ידי החשבון שלך. אנא תקן את הבעלות וההרשאות של הקובץ כאן:";
 "AltTab Pro" = "AltTab Pro";
 "AltTab Pro adds 4 features beyond the free switcher." = "AltTab Pro מוסיף 4 תכונות מעבר למחליף החינמי.";
 "AltTab Pro is still available" = "AltTab Pro עדיין זמין";
+"AltTab requires some permissions" = "AltTab זקוק לכמה הרשאות";
+"AltTab requires this permission to focus windows for you." = "AltTab זקוק להרשאה זו כדי להביא חלונות לחזית עבורך.";
+"AltTab requires this permission to show you pictures of each window." = "AltTab זקוק להרשאה זו כדי להציג לך תמונה של כל חלון.";
 "AltTab will show if the window is currently minimized or fullscreen with a status icon." = "AltTab יציג באמצעות סמל מצב אם החלון ממוזער או במסך מלא.";
 "Always" = "תמיד";
 "Always send crash reports" = "שלח תמיד דיווחי קריסה";
@@ -70,9 +74,12 @@
 "Check for updates periodically" = "חפש עדכונים מעת לעת";
 "Check for updates…" = "חפש עדכונים…";
 "Check permissions…" = "בדוק הרשאות…";
+"Choose a style" = "בחר סגנון";
+"Close" = "סגור";
 "Close window" = "סגור חלון";
 "Conflicting shortcut" = "קיצור דרך מתנגש";
 "Continue with Free" = "המשך עם הגרסה החינמית";
+"Continue without thumbnails" = "המשך ללא תמונות ממוזערות";
 "Controls" = "פקדים";
 "Could not move to Applications folder" = "לא ניתן היה להעביר לתיקיית היישומים";
 "Couldn't deactivate that machine" = "לא ניתן היה לבטל את הפעלת המכשיר הזה";
@@ -90,6 +97,7 @@
 "Deactivation failed" = "ביטול ההפעלה נכשל";
 "Deactivation was rejected by the server." = "ביטול ההפעלה נדחה על ידי השרת.";
 "Debug tools" = "כלי איתור באגים";
+"Device Control" = "שליטה במכשיר";
 "Disabled" = "מושבת";
 "Do Not Move" = "אל תעביר";
 "Don't hide" = "אל תסתיר";
@@ -100,6 +108,7 @@
 "e.g. com.example.app" = "לדוגמה: com.example.app";
 "e.g. Debug" = "לדוגמה: Debug";
 "End" = "סוף";
+"Everything is unlocked while it runs. After that, the switcher keeps working exactly as it does now, and the Pro extras step back." = "הכול פתוח במהלך תקופת הניסיון. לאחר מכן, המחליף ממשיך לפעול בדיוק כמו עכשיו, ותוספות Pro נסוגות.";
 "Exceptions" = "חריגים";
 "Export settings…" = "ייצא הגדרות…";
 "Extra shortcuts" = "קיצורי דרך נוספים";
@@ -129,6 +138,7 @@
 "Hide windows" = "הסתר חלונות";
 "Hide/Show app" = "הסתר/הצג יישום";
 "Hold" = "החזק";
+"hold" = "החזק";
 "I already have a license key" = "כבר יש לי מפתח רישיון";
 "I can move myself to the Applications folder if you'd like." = "אני יכול להעביר את עצמי לתיקיית היישומים אם תרצה.";
 "I lost my license key" = "איבדתי את מפתח הרישיון שלי";
@@ -158,18 +168,16 @@
 "My Account" = "החשבון שלי";
 "Never" = "אף פעם";
 "Never send crash reports" = "אל תשלח דיווחי קריסה אף פעם";
+"Next" = "הבא";
 "No response from server." = "אין תגובה מהשרת.";
 "No thanks — don't ask again" = "לא תודה — אל תשאל שוב";
 "No Window" = "אין חלון";
 "Non-active apps" = "יישומים לא פעילים";
 "Non-visible Spaces" = "מרחבים לא נראים";
-"Not allowed" = "לא מותר";
 "Not now" = "לא עכשיו";
 "OK" = "אישור";
 "On Day 15, Pro features revert to the free version." = "ביום ה-15, תכונות Pro חוזרות לגרסה החינמית.";
 "Only on different screen" = "רק במסך אחר";
-"Open Accessibility Settings…" = "פתח הגדרות נגישות…";
-"Open Screen Recording Settings…" = "פתח הגדרות הקלטת מסך…";
 "Open Trackpad Settings…" = "פתח הגדרות משטח מגע…";
 "Order windows by" = "מיין חלונות לפי";
 "Ordering & Grouping" = "מיון וקיבוץ";
@@ -178,6 +186,8 @@
 "Pick a machine to deactivate so you can activate here." = "בחר מכשיר לביטול הפעלה כדי שתוכל להפעיל כאן.";
 "Please drag AltTab into the Applications folder manually." = "גרור את AltTab לתיקיית היישומים באופן ידני.";
 "Please fill in the form" = "מלא את הטופס";
+"press" = "לחץ";
+"Press %@ any time." = "יש ללחוץ על %@ בכל עת.";
 "Press %@ to search your windows." = "יש ללחוץ על %@ כדי לחפש בחלונות.";
 "Preview selected window" = "תצוגה מקדימה של החלון הנבחר";
 "Pro" = "Pro";
@@ -256,6 +266,7 @@
 "Sync with global value" = "סנכרן עם הערך הגלובלי";
 "System" = "מערכת";
 "System Default" = "ברירת המחדל של המערכת";
+"That's it" = "זהו";
 "The App Icons style is a Pro feature." = "סגנון סמלי היישומים הוא תכונת Pro.";
 "The application needs to restart to apply the imported settings." = "היישום צריך להיפתח מחדש כדי להחיל את ההגדרות שיובאו.";
 "The application needs to restart to apply the language change." = "היישום צריך להיפתח מחדש כדי להחיל את שינוי השפה.";
@@ -264,8 +275,6 @@
 "Theme" = "ערכת נושא";
 "This license is already activated elsewhere" = "רישיון זה כבר מופעל במקום אחר";
 "This license is already activated on the maximum number of machines. Deactivate one to continue." = "רישיון זה כבר מופעל במספר המקסימלי של מכשירים. בטל הפעלת אחד כדי להמשיך.";
-"This permission is needed to focus windows after you release the shortcut" = "הרשאה זו נחוצה כדי למקד חלונות לאחר שחרור קיצור הדרך";
-"This permission is needed to show thumbnails and preview of open windows" = "הרשאה זו נחוצה כדי להציג תמונות ממוזערות ותצוגה מקדימה של חלונות פתוחים";
 "This will keep your Downloads folder uncluttered." = "כך תיקיית ההורדות שלך תישאר מסודרת.";
 "Thumbnails" = "תמונות ממוזערות";
 "Thumbnails and window previews" = "תמונות ממוזערות ותצוגות מקדימות של חלונות";
@@ -276,6 +285,7 @@
 "Trial expired" = "תקופת הניסיון פגה";
 "Trial: %d days remaining" = "ניסיון: נותרו %d ימים";
 "Trigger" = "טריגר";
+"Try it right now" = "נסה עכשיו";
 "Try them in Settings" = "נסה אותם בהגדרות";
 "Unassign existing shortcut and continue" = "בטל שיוך של קיצור דרך קיים והמשך";
 "Unexpected response from server." = "תגובה לא צפויה מהשרת.";
@@ -287,7 +297,6 @@
 "Update now" = "עדכן כעת";
 "Updates policy" = "מדיניות עדכונים";
 "Usage" = "שימוש";
-"Use the app without this permission. Thumbnails won’t show." = "השתמש ביישום ללא הרשאה זו. תמונות ממוזערות לא יוצגו.";
 "Version" = "גרסה";
 "View existing discussions" = "צפה בדיונים קיימים";
 "Vim keys" = "מקשי Vim";
@@ -307,6 +316,7 @@
 "window switches" = "החלפות חלונות";
 "Window Title" = "כותרת חלון";
 "Window title contains" = "כותרת החלון מכילה";
+"Windows will show as app icons" = "חלונות יוצגו כסמלי יישומים";
 "You can’t undo this action." = "לא ניתן לבטל פעולה זו.";
 "You have 14 days to try all Pro features. After that, Pro features will step back and the core window switcher will keep working exactly as before.\n\nAltTab stays free and open-source. Pro is an optional one-time purchase that funds continued development." = "יש לך 14 ימים לנסות את כל תכונות Pro. לאחר מכן, תכונות Pro ייסוגו ומחליף החלונות הבסיסי ימשיך לפעול בדיוק כמו קודם.\n\nAltTab נשאר חינמי ובקוד פתוח. Pro הוא רכישה חד-פעמית אופציונלית המממנת את המשך הפיתוח.";
 "You may need to disable some conflicting system gestures" = "ייתכן שתצטרך להשבית מחוות מערכת מתנגשות מסוימות";

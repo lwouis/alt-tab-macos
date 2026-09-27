@@ -1,5 +1,6 @@
 "%@ now has a Pro tier" = "В %@ появился тариф Pro";
 "%@ — last seen %@" = "%1$@ — последняя активность %2$@";
+"%d days of AltTab Pro, starting now" = "%d дн. AltTab Pro, начиная с сегодня";
 "3-finger Horizontal Swipe" = "Горизонтальный свайп тремя пальцами";
 "3-finger Vertical Swipe" = "Вертикальный свайп тремя пальцами";
 "30-day money-back guarantee" = "Возврат денег в течение 30 дней";
@@ -28,13 +29,16 @@
 "Alphabetical Order" = "По алфавиту";
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "В прошлый раз AltTab завершился со сбоем. Отправка отчёта о сбое поможет устранить проблему";
 "AltTab is a free, open-source window switcher for macOS. Pro features are available with a 14-day free trial." = "AltTab — это бесплатный переключатель окон с открытым исходным кодом для macOS. Функции Pro доступны с бесплатным 14-дневным пробным периодом.";
+"AltTab is ready" = "AltTab готов";
 "AltTab is running without Screen Recording permissions. %@ won’t show." = "AltTab работает без разрешения на запись экрана. %@ не будут отображаться.";
-"AltTab needs some permissions" = "AltTab требуется несколько разрешений";
 "AltTab preferences file is a symlink. macOS doesn’t support symlink for preferences. Please use a valid file instead of a symlink here:" = "Файл настроек AltTab является символической ссылкой. macOS не поддерживает символические ссылки для настроек. Используйте здесь обычный файл вместо символической ссылки:";
 "AltTab preferences file isn’t writable by your account. Please fix ownership and permissions of the file here:" = "Файл настроек AltTab недоступен для записи под вашей учётной записью. Исправьте владельца и права доступа к файлу здесь:";
 "AltTab Pro" = "AltTab Pro";
 "AltTab Pro adds 4 features beyond the free switcher." = "AltTab Pro добавляет 4 функции к бесплатному переключателю.";
 "AltTab Pro is still available" = "AltTab Pro по-прежнему доступен";
+"AltTab requires some permissions" = "AltTab нужны некоторые разрешения";
+"AltTab requires this permission to focus windows for you." = "Это разрешение нужно AltTab, чтобы выводить окна на передний план.";
+"AltTab requires this permission to show you pictures of each window." = "Это разрешение нужно AltTab, чтобы показывать изображение каждого окна.";
 "AltTab will show if the window is currently minimized or fullscreen with a status icon." = "AltTab покажет значком статуса, если окно сейчас свёрнуто или в полноэкранном режиме.";
 "Always" = "Всегда";
 "Always send crash reports" = "Всегда отправлять отчёты о сбоях";
@@ -70,9 +74,12 @@
 "Check for updates periodically" = "Периодически проверять обновления";
 "Check for updates…" = "Проверить обновления…";
 "Check permissions…" = "Проверить разрешения…";
+"Choose a style" = "Выбрать стиль";
+"Close" = "Закрыть";
 "Close window" = "Закрыть окно";
 "Conflicting shortcut" = "Конфликт сочетания клавиш";
 "Continue with Free" = "Продолжить с бесплатной версией";
+"Continue without thumbnails" = "Продолжить без миниатюр";
 "Controls" = "Управление";
 "Could not move to Applications folder" = "Не удалось переместить в папку «Программы»";
 "Couldn't deactivate that machine" = "Не удалось деактивировать этот компьютер";
@@ -90,6 +97,7 @@
 "Deactivation failed" = "Не удалось деактивировать";
 "Deactivation was rejected by the server." = "Сервер отклонил деактивацию.";
 "Debug tools" = "Инструменты отладки";
+"Device Control" = "Управление устройством";
 "Disabled" = "Отключено";
 "Do Not Move" = "Не перемещать";
 "Don't hide" = "Не скрывать";
@@ -100,6 +108,7 @@
 "e.g. com.example.app" = "напр. com.example.app";
 "e.g. Debug" = "напр. Debug";
 "End" = "Конец";
+"Everything is unlocked while it runs. After that, the switcher keeps working exactly as it does now, and the Pro extras step back." = "Пока он идёт, всё разблокировано. После этого переключатель продолжит работать в точности как сейчас, а дополнения Pro отключатся.";
 "Exceptions" = "Исключения";
 "Export settings…" = "Экспорт настроек…";
 "Extra shortcuts" = "Дополнительные сочетания клавиш";
@@ -129,6 +138,7 @@
 "Hide windows" = "Скрывать окна";
 "Hide/Show app" = "Скрыть/показать приложение";
 "Hold" = "Удерживать";
+"hold" = "удерживать";
 "I already have a license key" = "У меня уже есть лицензионный ключ";
 "I can move myself to the Applications folder if you'd like." = "Я могу самостоятельно переместиться в папку «Программы», если хотите.";
 "I lost my license key" = "Я потерял лицензионный ключ";
@@ -158,18 +168,16 @@
 "My Account" = "Мой аккаунт";
 "Never" = "Никогда";
 "Never send crash reports" = "Никогда не отправлять отчёты о сбоях";
+"Next" = "Далее";
 "No response from server." = "Нет ответа от сервера.";
 "No thanks — don't ask again" = "Нет, спасибо — больше не спрашивать";
 "No Window" = "Без окна";
 "Non-active apps" = "Неактивные приложения";
 "Non-visible Spaces" = "Невидимые пространства";
-"Not allowed" = "Не разрешено";
 "Not now" = "Не сейчас";
 "OK" = "OK";
 "On Day 15, Pro features revert to the free version." = "На 15-й день функции Pro вернутся к бесплатной версии.";
 "Only on different screen" = "Только на другом экране";
-"Open Accessibility Settings…" = "Открыть настройки Универсального доступа…";
-"Open Screen Recording Settings…" = "Открыть настройки Записи экрана…";
 "Open Trackpad Settings…" = "Открыть настройки Трекпада…";
 "Order windows by" = "Сортировка окон";
 "Ordering & Grouping" = "Сортировка и группировка";
@@ -178,6 +186,8 @@
 "Pick a machine to deactivate so you can activate here." = "Выберите компьютер для деактивации, чтобы активировать здесь.";
 "Please drag AltTab into the Applications folder manually." = "Перетащите AltTab в папку «Программы» вручную.";
 "Please fill in the form" = "Заполните форму";
+"press" = "нажать";
+"Press %@ any time." = "Нажимайте %@ в любой момент.";
 "Press %@ to search your windows." = "Нажмите %@, чтобы искать среди окон.";
 "Preview selected window" = "Предпросмотр выбранного окна";
 "Pro" = "Pro";
@@ -256,6 +266,7 @@
 "Sync with global value" = "Синхронизировать с общим значением";
 "System" = "Система";
 "System Default" = "По умолчанию";
+"That's it" = "Готово";
 "The App Icons style is a Pro feature." = "Стиль «Значки приложений» — функция Pro.";
 "The application needs to restart to apply the imported settings." = "Чтобы применить импортированные настройки, приложение нужно перезапустить.";
 "The application needs to restart to apply the language change." = "Чтобы применить смену языка, приложение нужно перезапустить.";
@@ -264,8 +275,6 @@
 "Theme" = "Тема";
 "This license is already activated elsewhere" = "Эта лицензия уже активирована в другом месте";
 "This license is already activated on the maximum number of machines. Deactivate one to continue." = "Эта лицензия уже активирована на максимальном числе компьютеров. Деактивируйте один, чтобы продолжить.";
-"This permission is needed to focus windows after you release the shortcut" = "Это разрешение необходимо для фокусировки окон после отпускания сочетания клавиш";
-"This permission is needed to show thumbnails and preview of open windows" = "Это разрешение необходимо для показа миниатюр и предпросмотра открытых окон";
 "This will keep your Downloads folder uncluttered." = "Это позволит не загромождать папку «Загрузки».";
 "Thumbnails" = "Миниатюры";
 "Thumbnails and window previews" = "Миниатюры и превью окон";
@@ -276,6 +285,7 @@
 "Trial expired" = "Пробный период истёк";
 "Trial: %d days remaining" = "Пробный период: осталось %d дн.";
 "Trigger" = "Триггер";
+"Try it right now" = "Попробуйте прямо сейчас";
 "Try them in Settings" = "Попробуйте их в Настройках";
 "Unassign existing shortcut and continue" = "Снять текущее сочетание и продолжить";
 "Unexpected response from server." = "Неожиданный ответ от сервера.";
@@ -287,7 +297,6 @@
 "Update now" = "Обновить сейчас";
 "Updates policy" = "Политика обновлений";
 "Usage" = "Использование";
-"Use the app without this permission. Thumbnails won’t show." = "Использовать приложение без этого разрешения. Миниатюры не будут отображаться.";
 "Version" = "Версия";
 "View existing discussions" = "Просмотр существующих обсуждений";
 "Vim keys" = "Клавиши Vim";
@@ -307,6 +316,7 @@
 "window switches" = "переключений окон";
 "Window Title" = "Заголовок окна";
 "Window title contains" = "Заголовок окна содержит";
+"Windows will show as app icons" = "Окна будут показаны как значки приложений";
 "You can’t undo this action." = "Это действие нельзя отменить.";
 "You have 14 days to try all Pro features. After that, Pro features will step back and the core window switcher will keep working exactly as before.\n\nAltTab stays free and open-source. Pro is an optional one-time purchase that funds continued development." = "У вас есть 14 дней, чтобы попробовать все функции Pro. После этого функции Pro отключатся, а основной переключатель окон продолжит работать в точности как прежде.\n\nAltTab остаётся бесплатным и с открытым исходным кодом. Pro — это необязательная разовая покупка, которая финансирует дальнейшую разработку.";
 "You may need to disable some conflicting system gestures" = "Возможно, потребуется отключить некоторые конфликтующие системные жесты";
