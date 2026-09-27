@@ -13,7 +13,7 @@ class Day4TourPopover {
         showSettingsButton.controlSize = .small
         showSettingsButton.keyEquivalent = "\r"
         showSettingsButton.onAction = { _ in
-            popover.performClose(nil)
+            popover.close()
             App.showSettingsWindow()
         }
         let container = ProPromptPopover.makeContainer(width: width, [

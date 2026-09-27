@@ -234,12 +234,6 @@ class App: AppCenterApplication {
         ProTransitionManager.shared.state.onboardingInProgress = true
     }
 
-    static func finishOnboardingWithoutPopover() {
-        ProTransitionManager.shared.state.onboardingInProgress = false
-        showSettingsWindowOnFirstLaunchIfNeeded()
-        ProTransitionManager.shared.onAppLaunchComplete()
-    }
-
     private static func trialDaysRemaining() -> Int? {
         LicenseManager.shared.refreshState()
         guard case .trial(let daysRemaining) = LicenseManager.shared.state else { return nil }

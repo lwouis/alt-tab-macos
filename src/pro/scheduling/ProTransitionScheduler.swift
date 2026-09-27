@@ -86,7 +86,8 @@ class ProTransitionScheduler {
 
         // Day 21+: Reminder (skip once Day 35 shown)
         if !state.hasSeenDay21 && !state.hasSeenDay35 {
-            if let d = nextTimeWindow(onOrAfterDay: 20, trialStart: trialStart) {
+            if let d = nextTimeWindow(onOrAfterDay: 20, trialStart: trialStart),
+               d < trialStart.addingTimeInterval(34 * 86400) {
                 candidates.append(d)
             }
         }

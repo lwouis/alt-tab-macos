@@ -91,7 +91,7 @@ flowchart TD
 | **Trigger** | First launch after install or update — copy varies by which (fresh install detected via nil `preferencesVersion` at migration). A launch that ends on the onboarding popover (a new user's unfinished first launch) never shows it: the popover announces the trial instead and sets `hasSeenWelcome`. So in practice only existing users updating see the letter | First switcher open on Day 4 (after dismissal + 1s) | Day 12, at 10–11:30 or 15:30–17:00 | First hard-gated feature after free pass used; or first hard-gate if [D] was shown but free pass not yet used → free pass fires first, then [C]. Also: first switcher open after Day 15 → free-pass + [C] (after dismissal + 1s), for any user (engaged users see a tailored header from `remembered*`; non-engaged users see the `.nonEngaged` fallback) | Day 15+, at 10–11:30 or 15:30–17:00, if no hard-gated feature triggered yet | Any hard-gated feature attempt after [C] has been shown | Day 21+, at 10–11:30 or 15:30–17:00, if user used AltTab today | Day 35+, at 10–11:30 or 15:30–17:00, if user used AltTab today |
 | **If missed** | N/A — always shows | No retry — only fires when switcher is opened on Day 4 | Try 15:30–17:00; then skip entirely | N/A — user-initiated | Try 15:30–17:00; retry next active day until shown or System 2 fires | N/A — user-initiated | Retry daily; skip if Day 35 arrives first | Retry daily; give up at Day 49 |
 | **UI type** | NSWindow, non-modal | NSPopover → menubar icon | NSPopover → menubar icon | NSWindow, non-modal | NSWindow, non-modal | NSPopover → menubar icon | NSPopover → menubar icon | NSWindow, non-modal |
-| **Position** | Centered | Below menubar icon ↑ | Below menubar icon ↑ | Centered | Centered | Below menubar icon ↑ | Below menubar icon ↑ | Centered |
+| **Position** | Centered | Below menubar icon ↑ (¹) | Below menubar icon ↑ (¹) | Centered | Centered | Below menubar icon ↑ (¹) | Below menubar icon ↑ (¹) | Centered |
 | **Size** | ~560 × 520pt | ~280 × 110pt | ~280 × 100pt | ~440 × 340pt | ~380 × 280pt | ~280 × 100pt | ~300 × 140pt | ~380 × 280pt |
 | **Video/GIF** | No | No | No | No | No | No | No | No |
 | **Free vs Pro table** | Yes — 3–4 items per column with icons | No | No | No | No | No | No | No |
@@ -103,6 +103,8 @@ flowchart TD
 | **Secondary action** | None | None | **"Not now"** — text link | **"Continue with Free"** — text link | **"Maybe later"** — text link | **"Not now"** — text link | **"Not now"** — text link | **"No thanks — don't ask again"** — text link → permanent opt-out, no confirmation |
 | **Dismiss behavior** | ⨉ = same as "Start my 14-day trial" | Click outside | Click outside | ⨉ = same as "Continue with Free" | ⨉ = same as "Maybe later" | Click outside | Click outside | ⨉ = "Not now" (does NOT opt out; `hasSeenDay35` set, no repeat, but [E] continues) |
 | **Frequency** | Once ever | Once ever | Once ever | Once ever | Once ever | Fires on every post-[C] hard-gate attempt | Once ever | Once ever |
+
+(¹) Without the arrow, centered under the menu bar, when the icon is hidden or macOS never shows it (`AnchoredPopoverSpecs.md`).
 
 ---
 

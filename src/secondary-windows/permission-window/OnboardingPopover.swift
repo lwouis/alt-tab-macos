@@ -21,10 +21,11 @@ enum OnboardingPopover {
     private static weak var nextKey: KeycapView?
     private static weak var tick: SuccessTickView?
 
-    /// Returns false when there is no menubar icon to anchor to, so the caller can fall back.
+    /// Returns false before the menubar exists, so the caller can fall back. A hidden or unplaced icon is not a
+    /// reason to: the popover then shows under the menu bar (`StatusItemAnchor`).
     static func show(trialDaysToAnnounce: Int?) -> Bool {
-        guard hasMenubarIcon else {
-            Logger.debug { "no menubar icon to anchor to" }
+        guard Menubar.statusItem != nil else {
+            Logger.debug { "no menubar yet" }
             return false
         }
         close()
@@ -66,11 +67,6 @@ enum OnboardingPopover {
         let item = DispatchWorkItem {
             guard Self.popover === popover, stage == .switcherOpen else { return }
             stage = .done
-            guard hasMenubarIcon else {
-                close()
-                App.finishOnboardingWithoutPopover()
-                return
-            }
             presentCompletion()
         }
         pendingDone = item
@@ -95,8 +91,8 @@ enum OnboardingPopover {
     }
 
     private static func present(_ content: NSView, onShown: (() -> Void)? = nil) {
-        guard let popover, let button = Menubar.statusItem?.button else { return }
-        popover.present(content, from: button, onShown: onShown)
+        guard let popover, let item = Menubar.statusItem else { return }
+        popover.present(content, from: item, onShown: onShown)
     }
 
     /// The check mark springs in and throws confetti, past the popover's edges.
@@ -121,10 +117,6 @@ enum OnboardingPopover {
         stopKeyFeedback()
         popover?.close()
         popover = nil
-    }
-
-    private static var hasMenubarIcon: Bool {
-        Menubar.statusItem?.button != nil && Menubar.statusItem.isVisible
     }
 
     /// Global monitors see presses while another app is frontmost, local ones while AltTab is.

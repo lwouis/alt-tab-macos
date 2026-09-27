@@ -249,11 +249,6 @@ class Menubar {
         buttonLayer.addSublayer(dot)
         badgeDotLayer = dot
     }
-
-    static func showPopoverFromMenubar(_ popover: NSPopover) {
-        guard let button = statusItem?.button else { return }
-        popover.show(relativeTo: button.bounds, of: button, preferredEdge: .minY)
-    }
 }
 
 class UpgradeMenuItemView: NSView {

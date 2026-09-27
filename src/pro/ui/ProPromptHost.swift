@@ -32,6 +32,7 @@ class ProPromptHost {
         case .showDay35Final:
             Day35FinalWindow.show()
         case .dismissAllProWindows:
+            ProPromptPopover.closeAll()
             Day1WelcomeLetterWindow.shared?.close()
             Day15FullUpgradeWindow.shared?.close()
             Day15ProactiveWindow.shared?.close()

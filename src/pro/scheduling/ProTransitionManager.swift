@@ -123,6 +123,8 @@ class ProTransitionManager {
     // session-only: action queued during showUi to fire 1s after dismissal. Used by both the free-pass
     // ladder ([C] Full Upgrade) and the Day 4 mid-trial tour ([H] popover).
     private var pendingDismissAction: PendingDismissAction?
+    private var deferredPrompt: DispatchWorkItem?
+    private var switcherIsShown = false
     var hasPendingPrompt: Bool { pendingDismissAction != nil }
 
     /// Session-scoped: true between the moment a free-pass is granted (either via the
@@ -171,6 +173,10 @@ class ProTransitionManager {
     func onLicenseStateChanged() {
         if case .pro = LicenseManager.shared.state {
             scheduler.cancel()
+            deferredPrompt?.cancel()
+            deferredPrompt = nil
+            pendingDismissAction = nil
+            isFreePassSessionActive = false
             emit(.dismissAllProWindows)
             emit(.refreshBadge)
         }
@@ -185,24 +191,36 @@ class ProTransitionManager {
 
     /// Called from App.hideUi() when the switcher panel is dismissed.
     func onSwitcherDismissed() {
+        switcherIsShown = false
         // End any active free-pass session — the next switcher open should see the free-tier read.
         isFreePassSessionActive = false
-        guard let action = pendingDismissAction else { return }
+        deferredPrompt?.cancel()
+        guard pendingDismissAction != nil else { return }
+        // Delay so the focused window has time to come to front before our window appears above it.
+        let item = DispatchWorkItem { [weak self] in self?.showDeferredPrompt() }
+        deferredPrompt = item
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: item)
+    }
+
+    private func showDeferredPrompt() {
+        guard !switcherIsShown, let action = pendingDismissAction else { return }
         pendingDismissAction = nil
-        // delay so the focused window has time to come to front before our window appears above it
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            switch action {
-            case .showFullUpgrade(let feature):
-                self.showFullUpgradeWindow(for: feature)
-            case .showDay4Tour:
-                self.emit(.showDay4Tour)
-            }
+        deferredPrompt = nil
+        if case .pro = LicenseManager.shared.state { return }
+        switch action {
+        case .showFullUpgrade(let feature): showFullUpgradeWindow(for: feature)
+        case .showDay4Tour:
+            guard LicenseManager.shared.daysSinceTrialStart == 3 else { return }
+            emit(.showDay4Tour)
         }
     }
 
     /// Called from App.showUiOrCycleSelection() at the start of a fresh switcher session (not on cycle).
     /// Decides whether to queue a Day 4 tour or a post-expiration free-pass + [C] for after dismissal.
     func onSwitcherShown() {
+        switcherIsShown = true
+        deferredPrompt?.cancel()
+        deferredPrompt = nil
         let action = ProTransitionManagerTestable.evaluateSwitcherOpen(currentState())
         switch action {
         case .showDay4Tour:
