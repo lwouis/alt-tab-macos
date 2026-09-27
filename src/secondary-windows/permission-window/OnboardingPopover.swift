@@ -12,6 +12,10 @@ import ShortcutRecorder
 /// out whenever it isn't. For the second beat, that takes focus back from the window the switcher
 /// just focused; the user leaves it with a click on the button anyway.
 enum OnboardingPopover {
+    #if DEBUG
+    static func closeForQa() { close() }
+    static func ownsForQa(_ window: NSWindow) -> Bool { popover?.contentViewController?.view.window === window }
+    #endif
     private static var popover: AnchoredPopover?
     private static var stage = Stage.waitingForShortcut
     private static var trialDaysToAnnounce: Int?

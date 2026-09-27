@@ -1,8 +1,18 @@
 import Foundation
 
 class LicenseManager {
-    static let keychainService = "\(App.bundleIdentifier).license"
-    static let defaultsSuiteName = "\(App.bundleIdentifier).license"
+    static var keychainService: String {
+        #if DEBUG
+        if QaLifecycleEnvironment.enabled { return QaLifecycleEnvironment.namespace }
+        #endif
+        return "\(App.bundleIdentifier).license"
+    }
+    static var defaultsSuiteName: String {
+        #if DEBUG
+        if QaLifecycleEnvironment.enabled { return QaLifecycleEnvironment.namespace }
+        #endif
+        return "\(App.bundleIdentifier).license"
+    }
 
     static let shared: LicenseManager = {
         let keychain = SystemKeychain(service: keychainService)

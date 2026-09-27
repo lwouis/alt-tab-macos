@@ -1,7 +1,10 @@
 class CliEvents {
+    private static var listening = false
     static let portName = "\(App.bundleIdentifier).cli"
 
     static func observe() {
+        guard !listening else { return }
+        listening = true
         var context = CFMessagePortContext(version: 0, info: nil, retain: nil, release: nil, copyDescription: nil)
         if let messagePort = CFMessagePortCreateLocal(nil, portName as CFString, handleEvent, &context, nil),
            let source = CFMessagePortCreateRunLoopSource(nil, messagePort, 0) {
@@ -102,6 +105,7 @@ class CliServer {
             return qaState()
         }
         #if DEBUG
+        if let reply = QaLifecycle.command(rawValue) { return reply }
         if rawValue.hasPrefix("--qa-defer-repaints=") {
             let ms = Int(rawValue.dropFirst("--qa-defer-repaints=".count)) ?? 0
             App.deferRepaintsForQa(min(5000, max(0, ms)))

@@ -48,13 +48,13 @@ class PreferencesEvents {
         #endif
         ControlsTab.initializePreferencesDependentState()
         #if DEBUG
-        if !Preferences.qaPristine { applyUpdatePolicyPreference() }
+        if !Preferences.qaPristine && !QaLifecycle.enabled { applyUpdatePolicyPreference() }
         #else
         applyUpdatePolicyPreference()
         #endif
         TrackpadEvents.toggle(Preferences.nextWindowGesture != .disabled)
         #if DEBUG
-        guard !Preferences.qaPristine else { return }
+        guard !Preferences.qaPristine && !QaLifecycle.enabled else { return }
         #endif
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             LoginItem.applyCurrentPreference()

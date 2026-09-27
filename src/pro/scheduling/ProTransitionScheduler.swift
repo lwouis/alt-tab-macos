@@ -24,7 +24,7 @@ class ProTransitionScheduler {
     func onAppLaunchComplete() {
         guard !state.onboardingInProgress else { cancel(); return }
         let saved = defaults.double(forKey: Self.nextScheduledDateKey)
-        if saved > 0 && Date(timeIntervalSince1970: saved) <= Date() {
+        if saved > 0 && Date(timeIntervalSince1970: saved) <= licenseManager.clock.now {
             onFire()
         }
         scheduleNext()
@@ -45,7 +45,7 @@ class ProTransitionScheduler {
             return
         }
         defaults.set(fireDate.timeIntervalSince1970, forKey: Self.nextScheduledDateKey)
-        let delay = max(0, fireDate.timeIntervalSinceNow)
+        let delay = max(0, fireDate.timeIntervalSince(licenseManager.clock.now))
         let item = DispatchWorkItem { [weak self] in
             guard let self else { return }
             self.onFire()
@@ -64,7 +64,7 @@ class ProTransitionScheduler {
 
         // Day 1: Welcome (immediate)
         if !state.hasSeenWelcome {
-            return Date()
+            return licenseManager.clock.now
         }
 
         var candidates = [Date]()
@@ -108,7 +108,7 @@ class ProTransitionScheduler {
     /// Find the next 10:00 or 15:30 that falls on or after the given trial day.
     private func nextTimeWindow(onOrAfterDay trialDay: Int, trialStart: Date) -> Date? {
         let cal = Calendar.current
-        let now = Date()
+        let now = licenseManager.clock.now
         let targetDate = trialStart.addingTimeInterval(Double(trialDay) * 86400)
         let startDate = max(targetDate, now)
 

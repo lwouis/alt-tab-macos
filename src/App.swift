@@ -66,7 +66,11 @@ class App: AppCenterApplication {
         // we use -n to open a new instance, to avoid calling applicationShouldHandleReopen
         // we use Bundle.main.bundlePath in case of multiple AltTab versions on the machine
         printStackTrace()
-        Process.launchedProcess(launchPath: "/usr/bin/open", arguments: ["-n", Bundle.main.bundlePath])
+        var arguments = ["-n", Bundle.main.bundlePath]
+        #if DEBUG
+        if QaLifecycle.enabled { arguments += ["--args"] + QaLifecycle.restartArguments }
+        #endif
+        Process.launchedProcess(launchPath: "/usr/bin/open", arguments: arguments)
         App.shared.terminate(nil)
     }
 
@@ -223,6 +227,13 @@ class App: AppCenterApplication {
 
     /// A new user's unfinished first launch resumes the onboarding popover. The popover leads
     /// into Settings once the shortcut was used; regranting permissions alone does not replay it.
+    #if DEBUG
+    static func replayFirstLaunchForQa() {
+        endFirstLaunchWithPopoverOrSettings()
+        ProTransitionManager.shared.onAppLaunchComplete()
+    }
+    #endif
+
     private static func endFirstLaunchWithPopoverOrSettings() {
         let isNewUsersFirstLaunch = !Preferences.settingsWindowShownOnFirstLaunch && ProTransitionState.isFreshInstall
         let announcesTrial = willShowDay1WelcomeOnAppLaunch()
@@ -556,7 +567,7 @@ class App: AppCenterApplication {
             updaterDelegate: App.sparkleDelegate!,
             userDriverDelegate: nil)
         #if DEBUG
-        if !Preferences.qaPristine {
+        if !Preferences.qaPristine && !QaLifecycle.enabled {
             DispatchQueue.main.asyncAfter(deadline: .now() + 30) { App.updaterController?.startUpdater() }
         }
         #else
@@ -570,15 +581,20 @@ class App: AppCenterApplication {
             showSettingsWindow()
         }
         #if DEBUG
-        QAMenu.shared = QAMenu()
-        QAMenu.shared?.orderFront(nil)
-        if QAMenu.openSettingsOnLaunch { App.showSettingsWindow() }
-        if QAMenu.graphEnabled { DebugMenu.setEnabled(true) }
+        if !QAMenu.suppressed {
+            QAMenu.shared = QAMenu()
+            QAMenu.shared?.orderFront(nil)
+            if QAMenu.openSettingsOnLaunch { App.showSettingsWindow() }
+            if QAMenu.graphEnabled { DebugMenu.setEnabled(true) }
+        }
         #endif
         SearchDiscoveryHint.shared.initialize()
         UsageStats.prune()
         ProTransitionManager.shared.onAction = { ProPromptHost.shared.dispatch($0) }
         ProTransitionManager.shared.onAppLaunchComplete()
+        #if DEBUG
+        if QaLifecycle.enabled { QaLifecycle.finishedLaunching = true; QaLifecycle.launchCount += 1 }
+        #endif
         Logger.info { "Finished launching AltTab" }
     }
 }
@@ -596,6 +612,12 @@ extension App: NSApplicationDelegate {
         // if a queued discovery block drains re-entrantly before this runs, it traps on the nil queue (#5819).
         // preStart just allocates queues and depends on nothing, so it's safe at the very top.
         BackgroundWork.preStart()
+        #if DEBUG
+        if QaLifecycle.enabled {
+            BackgroundWork.cliEventsThread = BackgroundWork.BackgroundThreadWithRunLoop("cliMessages", .userInteractive)
+            CliEvents.observe()
+        }
+        #endif
         // Same reasoning as the queues above: a preference the user never changed lives only in the
         // registration domain, so reading one before `registerDefaults()` traps on the force-unwrap in
         // `CachedUserDefaults.getThenConvertOrReset`. The "move to /Applications" modal below drains the

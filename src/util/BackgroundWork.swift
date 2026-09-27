@@ -39,7 +39,7 @@ class BackgroundWork {
         // we main Mission Control state on a background thread. We protect reads from main-thread with an NSLock
         missionControlThread = BackgroundThreadWithRunLoop("missionControl", .userInteractive)
         // we listen to CLI commands (CFMessagePort events)
-        cliEventsThread = BackgroundThreadWithRunLoop("cliMessages", .userInteractive)
+        if cliEventsThread == nil { cliEventsThread = BackgroundThreadWithRunLoop("cliMessages", .userInteractive) }
         // ONE runloop for every app's AXObserver, however many apps are running. Per-app runloops would put
         // the thread budget in each user's app count; per-window sources are what leaked in #5612.
         axSemanticsThread = BackgroundThreadWithRunLoop("axSemantics", .userInteractive)

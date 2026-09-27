@@ -144,6 +144,9 @@ class ProTransitionManager {
     }
 
     private func emit(_ action: ProPromptAction) {
+        #if DEBUG
+        if QaLifecycle.enabled { QaLifecycle.actions.append(String(describing: action)) }
+        #endif
         onAction?(action)
     }
 
@@ -329,6 +332,16 @@ class ProTransitionManager {
     // MARK: - QA / Debug
 
     #if DEBUG
+    func clearSessionForQa() {
+        scheduler.cancel()
+        deferredPrompt?.cancel()
+        deferredPrompt = nil
+        pendingDismissAction = nil
+        switcherIsShown = false
+        isFreePassSessionActive = false
+        state.onboardingInProgress = false
+    }
+
     func resetAllState() {
         // Restore any snapshotted Pro selections first so Settings reflects the pre-lock state.
         onProUnlocked()
