@@ -292,6 +292,7 @@ class SettingsWindow: NSWindow {
     private static let minWindowHeight = CGFloat(400)
     private static let defaultWindowHeight = CGFloat(570)
     private static let sidebarTopInset = CGFloat(40)
+    private static let logoIconSize = NSSize(width: 48, height: 48)
     static let sidebarHorizontalPadding = CGFloat(10)
     /// Padding inside the row's cell view between the cell's leading edge and the icon.
     /// `NSTableView.style = .sourceList` already inserts the cell content into its rounded
@@ -406,7 +407,8 @@ class SettingsWindow: NSWindow {
     }
 
     private func setupSidebar() {
-        setupSearchField(sidebarContainer)
+        let logo = setupLogo(sidebarContainer)
+        setupSearchField(sidebarContainer, below: logo)
         setupQuitButton(sidebarContainer)
         setupUpgradeButton(sidebarContainer)
         setupSidebarTable(sidebarContainer)
@@ -466,13 +468,32 @@ class SettingsWindow: NSWindow {
         NotificationCenter.default.addObserver(self, selector: #selector(contentViewBoundsDidChange), name: NSView.boundsDidChangeNotification, object: rightScrollView.contentView)
     }
 
-    private func setupSearchField(_ parent: NSView) {
+    /// The app icon and name atop the sidebar, so the window reads as AltTab's at a glance.
+    private func setupLogo(_ parent: NSView) -> NSView {
+        let icon = NSImageView(image: NSImage(cgImage: App.appIcon(for: Self.logoIconSize), size: Self.logoIconSize))
+        icon.translatesAutoresizingMaskIntoConstraints = false
+        icon.fit(Self.logoIconSize.width, Self.logoIconSize.height)
+        let name = NSTextField(labelWithString: App.name)
+        name.font = .systemFont(ofSize: 15, weight: .semibold)
+        let logo = NSStackView(views: [icon, name])
+        logo.translatesAutoresizingMaskIntoConstraints = false
+        logo.spacing = 8
+        logo.alignment = .centerY
+        parent.addSubview(logo)
+        NSLayoutConstraint.activate([
+            logo.topAnchor.constraint(equalTo: parent.topAnchor, constant: Self.sidebarTopInset),
+            logo.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: Self.sidebarHorizontalPadding + 2),
+        ])
+        return logo
+    }
+
+    private func setupSearchField(_ parent: NSView, below logo: NSView) {
         searchField.delegate = self
         searchField.applySearchStyle()
         searchField.translatesAutoresizingMaskIntoConstraints = false
         parent.addSubview(searchField)
         NSLayoutConstraint.activate([
-            searchField.topAnchor.constraint(equalTo: parent.topAnchor, constant: Self.sidebarTopInset),
+            searchField.topAnchor.constraint(equalTo: logo.bottomAnchor, constant: 12),
             searchField.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: Self.sidebarHorizontalPadding),
             searchField.trailingAnchor.constraint(equalTo: parent.trailingAnchor, constant: -Self.sidebarHorizontalPadding),
         ])
