@@ -52,6 +52,7 @@
 "App Icons appearance" = "ลักษณะไอคอนแอป";
 "App is hidden" = "แอปถูกซ่อน";
 "App is running but has no open window" = "แอปกำลังทำงานแต่ไม่มีหน้าต่างที่เปิดอยู่";
+"App under the cursor" = "แอปใต้เคอร์เซอร์";
 "Apparition delay of Switcher" = "ความล่าช้าในการปรากฏของตัวสลับ";
 "Appearance" = "ลักษณะ";
 "Application Name" = "ชื่อแอปพลิเคชัน";
@@ -316,6 +317,7 @@
 "window switches" = "การสลับหน้าต่าง";
 "Window Title" = "ชื่อหน้าต่าง";
 "Window title contains" = "ชื่อหน้าต่างมี";
+"Windows under the cursor" = "หน้าต่างใต้เคอร์เซอร์";
 "Windows will show as app icons" = "หน้าต่างจะแสดงเป็นไอคอนแอป";
 "You can’t undo this action." = "คุณไม่สามารถเลิกทำการกระทำนี้ได้";
 "You have 14 days to try all Pro features. After that, Pro features will step back and the core window switcher will keep working exactly as before.\n\nAltTab stays free and open-source. Pro is an optional one-time purchase that funds continued development." = "คุณมีเวลา 14 วันในการทดลองใช้คุณสมบัติ Pro ทั้งหมด หลังจากนั้น คุณสมบัติ Pro จะถอยกลับและตัวสลับหน้าต่างหลักจะยังคงทำงานเหมือนเดิมทุกประการ\n\nAltTab ยังคงฟรีและโอเพนซอร์ส Pro เป็นการซื้อแบบครั้งเดียวที่ไม่บังคับซึ่งสนับสนุนการพัฒนาอย่างต่อเนื่อง";

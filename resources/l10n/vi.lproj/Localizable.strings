@@ -52,6 +52,7 @@
 "App Icons appearance" = "Giao diện Biểu tượng ứng dụng";
 "App is hidden" = "Ứng dụng đang ẩn";
 "App is running but has no open window" = "Ứng dụng đang chạy nhưng không có cửa sổ mở";
+"App under the cursor" = "Ứng dụng dưới con trỏ";
 "Apparition delay of Switcher" = "Độ trễ xuất hiện của Trình chuyển đổi";
 "Appearance" = "Giao diện";
 "Application Name" = "Tên ứng dụng";
@@ -316,6 +317,7 @@
 "window switches" = "lượt chuyển cửa sổ";
 "Window Title" = "Tiêu đề cửa sổ";
 "Window title contains" = "Tiêu đề cửa sổ chứa";
+"Windows under the cursor" = "Cửa sổ dưới con trỏ";
 "Windows will show as app icons" = "Cửa sổ sẽ hiển thị dưới dạng biểu tượng ứng dụng";
 "You can’t undo this action." = "Bạn không thể hoàn tác hành động này.";
 "You have 14 days to try all Pro features. After that, Pro features will step back and the core window switcher will keep working exactly as before.\n\nAltTab stays free and open-source. Pro is an optional one-time purchase that funds continued development." = "Bạn có 14 ngày để dùng thử tất cả các tính năng Pro. Sau đó, các tính năng Pro sẽ tạm dừng và trình chuyển đổi cửa sổ cốt lõi sẽ tiếp tục hoạt động đúng như trước.\n\nAltTab vẫn miễn phí và mã nguồn mở. Pro là gói mua một lần tùy chọn để tài trợ cho việc phát triển liên tục.";

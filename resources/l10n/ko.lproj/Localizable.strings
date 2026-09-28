@@ -52,6 +52,7 @@
 "App Icons appearance" = "앱 아이콘 모양";
 "App is hidden" = "앱 숨김";
 "App is running but has no open window" = "앱이 실행 중이지만 열린 윈도우가 없음";
+"App under the cursor" = "커서 아래의 앱";
 "Apparition delay of Switcher" = "전환기 표시 지연 시간";
 "Appearance" = "모양";
 "Application Name" = "응용 프로그램 이름";
@@ -316,6 +317,7 @@
 "window switches" = "회 윈도우 전환";
 "Window Title" = "윈도우 제목";
 "Window title contains" = "윈도우 제목 포함";
+"Windows under the cursor" = "커서 아래의 윈도우";
 "Windows will show as app icons" = "윈도우가 앱 아이콘으로 표시됩니다";
 "You can’t undo this action." = "이 작업은 되돌릴 수 없습니다.";
 "You have 14 days to try all Pro features. After that, Pro features will step back and the core window switcher will keep working exactly as before.\n\nAltTab stays free and open-source. Pro is an optional one-time purchase that funds continued development." = "14일 동안 모든 Pro 기능을 사용해 볼 수 있습니다. 이후에는 Pro 기능이 비활성화되고 핵심 윈도우 전환기는 이전과 똑같이 계속 작동합니다.\n\nAltTab은 무료이며 오픈 소스로 유지됩니다. Pro는 지속적인 개발을 후원하는 선택적 일회성 구매입니다.";

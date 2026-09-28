@@ -52,6 +52,7 @@
 "App Icons appearance" = "Оформление значков приложений";
 "App is hidden" = "Приложение скрыто";
 "App is running but has no open window" = "Приложение запущено, но не имеет открытых окон";
+"App under the cursor" = "Приложение под курсором";
 "Apparition delay of Switcher" = "Задержка появления переключателя";
 "Appearance" = "Оформление";
 "Application Name" = "Название приложения";
@@ -316,6 +317,7 @@
 "window switches" = "переключений окон";
 "Window Title" = "Заголовок окна";
 "Window title contains" = "Заголовок окна содержит";
+"Windows under the cursor" = "Окна под курсором";
 "Windows will show as app icons" = "Окна будут показаны как значки приложений";
 "You can’t undo this action." = "Это действие нельзя отменить.";
 "You have 14 days to try all Pro features. After that, Pro features will step back and the core window switcher will keep working exactly as before.\n\nAltTab stays free and open-source. Pro is an optional one-time purchase that funds continued development." = "У вас есть 14 дней, чтобы попробовать все функции Pro. После этого функции Pro отключатся, а основной переключатель окон продолжит работать в точности как прежде.\n\nAltTab остаётся бесплатным и с открытым исходным кодом. Pro — это необязательная разовая покупка, которая финансирует дальнейшую разработку.";

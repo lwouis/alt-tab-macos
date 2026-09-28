@@ -52,6 +52,7 @@
 "App Icons appearance" = "App アイコンの外観";
 "App is hidden" = "App は非表示";
 "App is running but has no open window" = "App は実行中ですが開いているウインドウはありません";
+"App under the cursor" = "カーソルの下の App";
 "Apparition delay of Switcher" = "スイッチャーの表示遅延";
 "Appearance" = "外観";
 "Application Name" = "アプリケーション名";
@@ -316,6 +317,7 @@
 "window switches" = "ウインドウ切り替え";
 "Window Title" = "ウインドウタイトル";
 "Window title contains" = "ウインドウタイトルに含まれる";
+"Windows under the cursor" = "カーソルの下のウインドウ";
 "Windows will show as app icons" = "ウインドウは App アイコンで表示されます";
 "You can’t undo this action." = "この操作は取り消せません。";
 "You have 14 days to try all Pro features. After that, Pro features will step back and the core window switcher will keep working exactly as before.\n\nAltTab stays free and open-source. Pro is an optional one-time purchase that funds continued development." = "14 日間、すべての Pro 機能をお試しいただけます。その後、Pro 機能は無効になり、コアのウインドウスイッチャーは以前と同じように動作し続けます。\n\nAltTab は無料・オープンソースのままです。Pro は継続的な開発を支える任意の買い切り購入です。";

@@ -15,6 +15,10 @@ extension CGWindow {
         return value(kCGWindowLayer, Int.self)
     }
 
+    func alpha() -> Double? {
+        return value(kCGWindowAlpha, Double.self)
+    }
+
     func bounds() -> NSRect? {
         if let cfDictionary = value(kCGWindowBounds, CFDictionary.self) {
             return NSRect(dictionaryRepresentation: cfDictionary)

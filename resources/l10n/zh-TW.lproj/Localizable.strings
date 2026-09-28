@@ -52,6 +52,7 @@
 "App Icons appearance" = "App 圖像外觀";
 "App is hidden" = "App 已隱藏";
 "App is running but has no open window" = "App 正在執行，但沒有開啟的視窗";
+"App under the cursor" = "游標下方的 App";
 "Apparition delay of Switcher" = "切換器的顯示延遲";
 "Appearance" = "外觀";
 "Application Name" = "應用程式名稱";
@@ -316,6 +317,7 @@
 "window switches" = "次視窗切換";
 "Window Title" = "視窗標題";
 "Window title contains" = "視窗標題包含";
+"Windows under the cursor" = "游標下方的視窗";
 "Windows will show as app icons" = "視窗將顯示為 App 圖像";
 "You can’t undo this action." = "此動作無法復原。";
 "You have 14 days to try all Pro features. After that, Pro features will step back and the core window switcher will keep working exactly as before.\n\nAltTab stays free and open-source. Pro is an optional one-time purchase that funds continued development." = "您有 14 天可以試用所有 Pro 功能。在那之後，Pro 功能會退場，核心視窗切換器將如同以往繼續運作。\n\nAltTab 維持免費且開放原始碼。Pro 是選用的一次性購買，用以資助持續開發。";

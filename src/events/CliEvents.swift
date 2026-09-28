@@ -205,22 +205,7 @@ class CliServer {
         let visibleSpaceIds = Spaces.visibleSpaces
         let windows = Windows.list.enumerated().map { (i, w) -> QaWindow in
             let wid = w.cgWindowId
-            let shown = WindowFilterResolver.shouldShow(
-                w.state, w.application.state,
-                onlyFrontmostApp: filters.appsToShow == .active,
-                excludeFrontmostApp: filters.appsToShow == .nonActive,
-                hideHidden: filters.showHiddenWindows == .hide,
-                hideWindowless: filters.showWindowlessApps == .hide,
-                hideFullscreen: filters.showFullscreenWindows == .hide,
-                hideMinimized: filters.showMinimizedWindows == .hide,
-                onlyVisibleSpaces: filters.spacesToShow == .visible,
-                onlyNonVisibleSpaces: filters.spacesToShow == .nonVisible,
-                onlyPreferredScreen: filters.screensToShow == .showingAltTab,
-                separateTabs: filters.groupTabs == .separateWindows,
-                frontmostPid: frontmostPid,
-                visibleSpaceIds: visibleSpaceIds,
-                exceptions: filters.exceptions,
-                isOnPreferredScreen: w.isOnScreen(NSScreen.preferred))
+            let shown = Windows.shouldShowTheUser(w, filters)
             return QaWindow(
                 index: i,
                 wid: wid,
@@ -269,6 +254,7 @@ class CliServer {
             at: Date().timeIntervalSince1970,
             frontmostPid: frontmostPid,
             frontmostApp: NSWorkspace.shared.frontmostApplication?.localizedName,
+            pidUnderCursor: filters.pidUnderCursor,
             currentSpaceId: Spaces.currentSpaceId,
             currentSpaceIndex: Spaces.currentSpaceIndex,
             visibleSpaceIds: visibleSpaceIds,
@@ -376,6 +362,9 @@ class CliServer {
         var at: TimeInterval
         var frontmostPid: pid_t?
         var frontmostApp: String?
+        /// The app the "App under the cursor" scope resolved, as of the press when the switcher is open. Nil
+        /// under any other scope.
+        var pidUnderCursor: pid_t?
         var currentSpaceId: UInt64
         var currentSpaceIndex: Int
         var visibleSpaceIds: [UInt64]

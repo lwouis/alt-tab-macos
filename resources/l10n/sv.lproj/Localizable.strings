@@ -52,6 +52,7 @@
 "App Icons appearance" = "Utseende för Appikoner";
 "App is hidden" = "App är dold";
 "App is running but has no open window" = "App körs men har inget öppet fönster";
+"App under the cursor" = "App under markören";
 "Apparition delay of Switcher" = "Fördröjning innan växlaren visas";
 "Appearance" = "Utseende";
 "Application Name" = "Programnamn";
@@ -316,6 +317,7 @@
 "window switches" = "fönsterväxlingar";
 "Window Title" = "Fönstertitel";
 "Window title contains" = "Fönstertitel innehåller";
+"Windows under the cursor" = "Fönster under markören";
 "Windows will show as app icons" = "Fönster visas som appikoner";
 "You can’t undo this action." = "Den här åtgärden kan inte ångras.";
 "You have 14 days to try all Pro features. After that, Pro features will step back and the core window switcher will keep working exactly as before.\n\nAltTab stays free and open-source. Pro is an optional one-time purchase that funds continued development." = "Du har 14 dagar på dig att pröva alla Pro-funktioner. Därefter kliver Pro-funktionerna åt sidan och själva fönsterväxlaren fortsätter fungera exakt som tidigare.\n\nAltTab förblir gratis och med öppen källkod. Pro är ett valfritt engångsköp som finansierar fortsatt utveckling.";

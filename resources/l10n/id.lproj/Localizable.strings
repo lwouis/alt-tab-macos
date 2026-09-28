@@ -52,6 +52,7 @@
 "App Icons appearance" = "Tampilan Ikon Aplikasi";
 "App is hidden" = "Aplikasi disembunyikan";
 "App is running but has no open window" = "Aplikasi berjalan tetapi tidak memiliki jendela terbuka";
+"App under the cursor" = "Aplikasi di bawah kursor";
 "Apparition delay of Switcher" = "Penundaan kemunculan Pengalih";
 "Appearance" = "Tampilan";
 "Application Name" = "Nama Aplikasi";
@@ -316,6 +317,7 @@
 "window switches" = "pengalihan jendela";
 "Window Title" = "Judul Jendela";
 "Window title contains" = "Judul jendela mengandung";
+"Windows under the cursor" = "Jendela di bawah kursor";
 "Windows will show as app icons" = "Jendela akan ditampilkan sebagai ikon aplikasi";
 "You can’t undo this action." = "Anda tidak dapat membatalkan tindakan ini.";
 "You have 14 days to try all Pro features. After that, Pro features will step back and the core window switcher will keep working exactly as before.\n\nAltTab stays free and open-source. Pro is an optional one-time purchase that funds continued development." = "Anda memiliki 14 hari untuk mencoba semua fitur Pro. Setelah itu, fitur Pro akan dinonaktifkan dan pengalih jendela inti akan terus berfungsi persis seperti sebelumnya.\n\nAltTab tetap gratis dan sumber terbuka. Pro adalah pembelian satu kali opsional yang mendanai pengembangan berkelanjutan.";

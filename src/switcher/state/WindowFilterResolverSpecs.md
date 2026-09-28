@@ -23,7 +23,9 @@ The predicate, in order:
 
 1. **Phantom** windows are always excluded (unconditional, first).
 2. Windows matching a **hide-exception** (by bundle-id prefix + the exception's hide rule) are excluded.
-3. **App scope** (`appsToShow`): `.active` keeps only the frontmost app's windows; `.nonActive` excludes them.
+3. **App scope** (`appsToShow`): `.active` keeps only the frontmost app's windows; `.nonActive` excludes them;
+   `.underCursor` keeps only the windows whose frame contains the cursor (see 7); `.appUnderCursor` keeps only
+   the windows of the app owning the frontmost window under the cursor (see 8).
 4. **Hidden apps** (⌘H): excluded when the "hide hidden" dropdown is set.
 5. **Windowless apps** (placeholder rows for apps with no open window): shown unless hidden — and they
    **bypass** the window-only filters below (space/screen/fullscreen/minimized/tab), since those only
@@ -31,6 +33,22 @@ The predicate, in order:
 6. For **real windows**: also exclude fullscreen / minimized (when set), windows not in a visible space
    (`.visible`) or in a visible space (`.nonVisible`), windows off the preferred screen
    (`.showingAltTab`), and non-frontmost native **tabs** (unless tabs are shown as separate windows).
+7. **Under the cursor** (`appsToShow == .underCursor`): only windows whose frame contains the cursor, passed
+   as the lazy `isUnderCursor`. The frame must be
+   drawn there, so a minimized window, a hidden app's window, a window on a non-visible Space, and a
+   windowless placeholder are excluded even when their stored frame contains the point. A held tab counts as
+   on the visible Space, as for the Space gates. The other dropdowns still apply on top.
+8. **App under the cursor** (`appsToShow == .appUnderCursor`): like `.active`, but scoped to `pidUnderCursor`
+   instead of the frontmost pid, so every window of that app shows whether or not it is itself under the
+   cursor. `nil` (nothing drawn under the pointer) shows nothing. Pointing at an app also overrides the
+   blanket hide-exceptions, as `.active` does. The pid is resolved by `pidUnderCursor`: the owner of the
+   frontmost window in the WindowServer's on-screen list that contains the point, on the normal window layer
+   and not fully transparent. Focus order cannot stand in for that: activating an app raises all its windows
+   while only one gains focus.
+
+Both cursor scopes use the pointer as it was at the press, kept on `SwitcherSession` for the whole session,
+and resolve the app once. A repaint while the switcher is open must not re-read it: the pointer may be on the
+switcher's own tiles by then.
 
 Precedence matters: `isPhantom` wins over everything (even a would-be-shown windowless row).
 
@@ -91,3 +109,23 @@ Mirrors `WindowFilterResolverTests.swift` 1:1. Each test flips one knob from an 
 ### J. Combinations
 - **testAllFiltersOnAndWindowPassesEachShows** — every filter on, a window that satisfies all of them shows.
 - **testPhantomBeatsWindowlessShow** — `isPhantom` overrides the windowless "show" path.
+
+### K. Under the cursor (`appsToShow == .underCursor`)
+- **testOnlyUnderCursorHidesWindowNotUnderCursor** / **testOnlyUnderCursorShowsWindowUnderCursor** — the frame test decides.
+- **testOnlyUnderCursorHidesMinimizedWindowUnderCursor** / **testOnlyUnderCursorHidesHiddenAppWindowUnderCursor** /
+  **testOnlyUnderCursorHidesWindowOnNonVisibleSpace** — a frame that contains the point but isn't drawn there doesn't count.
+- **testOnlyUnderCursorHidesWindowlessApp** — a placeholder has no frame.
+- **testOnlyUnderCursorShowsHeldTabUnderCursor** — a held tab is on the visible Space.
+- **testOnlyUnderCursorStillHonoursOtherFilters** — the other dropdowns still apply.
+
+### L. App under the cursor (`appsToShow == .appUnderCursor`)
+- **testOnlyAppUnderCursorHidesOtherApps** / **testOnlyAppUnderCursorShowsEveryWindowOfThatApp** — the scope is the app, not the frame.
+- **testOnlyAppUnderCursorHidesEverythingWhenNothingIsUnderCursor** — a nil pid shows nothing.
+- **testOnlyAppUnderCursorOverridesHideException** — pointing at an app beats a blanket hide-exception.
+- **testOnlyAppUnderCursorStillHonoursOtherFilters** — the other dropdowns still apply to that app's windows.
+
+### M. Which app is under the cursor (`pidUnderCursor`)
+- **testPidUnderCursorPicksTheFrontmostWindowAtThePoint** — front-to-back order decides, per point.
+- **testPidUnderCursorSkipsWindowsAboveTheNormalLayer** — the menu bar, the Dock and AltTab's panels don't count.
+- **testPidUnderCursorSkipsFullyTransparentWindows** — an invisible window isn't what the user points at.
+- **testPidUnderCursorIsNilOverTheDesktop** — no window at the point, no app.

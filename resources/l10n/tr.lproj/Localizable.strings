@@ -52,6 +52,7 @@
 "App Icons appearance" = "Uygulama simgeleri görünümü";
 "App is hidden" = "Uygulama gizli";
 "App is running but has no open window" = "Uygulama çalışıyor ancak açık penceresi yok";
+"App under the cursor" = "İmlecin altındaki uygulama";
 "Apparition delay of Switcher" = "Değiştiricinin görünme gecikmesi";
 "Appearance" = "Görünüm";
 "Application Name" = "Uygulama Adı";
@@ -316,6 +317,7 @@
 "window switches" = "pencere değişimi";
 "Window Title" = "Pencere Başlığı";
 "Window title contains" = "Pencere başlığı şunu içeriyor";
+"Windows under the cursor" = "İmlecin altındaki pencereler";
 "Windows will show as app icons" = "Pencereler uygulama simgeleri olarak gösterilecek";
 "You can’t undo this action." = "Bu eylemi geri alamazsınız.";
 "You have 14 days to try all Pro features. After that, Pro features will step back and the core window switcher will keep working exactly as before.\n\nAltTab stays free and open-source. Pro is an optional one-time purchase that funds continued development." = "Tüm Pro özelliklerini denemek için 14 gününüz var. Bundan sonra Pro özellikleri geri çekilecek ve temel pencere değiştirici tam olarak eskisi gibi çalışmaya devam edecek.\n\nAltTab ücretsiz ve açık kaynaklı kalmaya devam ediyor. Pro, sürekli geliştirmeyi finanse eden isteğe bağlı, tek seferlik bir satın alımdır.";

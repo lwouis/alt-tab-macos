@@ -52,6 +52,7 @@
 "App Icons appearance" = "مظهر أيقونات التطبيقات";
 "App is hidden" = "التطبيق مخفي";
 "App is running but has no open window" = "التطبيق قيد التشغيل ولكن ليس لديه نافذة مفتوحة";
+"App under the cursor" = "التطبيق أسفل المؤشر";
 "Apparition delay of Switcher" = "تأخير ظهور المُحوّل";
 "Appearance" = "المظهر";
 "Application Name" = "اسم التطبيق";
@@ -316,6 +317,7 @@
 "window switches" = "تبديلات النوافذ";
 "Window Title" = "عنوان النافذة";
 "Window title contains" = "عنوان النافذة يحتوي على";
+"Windows under the cursor" = "النوافذ أسفل المؤشر";
 "Windows will show as app icons" = "ستظهر النوافذ كأيقونات تطبيقات";
 "You can’t undo this action." = "لا يمكنك التراجع عن هذا الإجراء.";
 "You have 14 days to try all Pro features. After that, Pro features will step back and the core window switcher will keep working exactly as before.\n\nAltTab stays free and open-source. Pro is an optional one-time purchase that funds continued development." = "لديك 14 يومًا لتجربة جميع ميزات Pro. بعد ذلك، ستتراجع ميزات Pro وسيستمر مُحوّل النوافذ الأساسي في العمل تمامًا كما كان من قبل.\n\nيظل AltTab مجانيًا ومفتوح المصدر. Pro عبارة عن شراء اختياري لمرة واحدة يموّل التطوير المستمر.";

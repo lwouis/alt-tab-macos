@@ -52,6 +52,7 @@
 "App Icons appearance" = "Weergave App-symbolen";
 "App is hidden" = "App is verborgen";
 "App is running but has no open window" = "App is actief maar heeft geen open venster";
+"App under the cursor" = "App onder de cursor";
 "Apparition delay of Switcher" = "Verschijningsvertraging van wisselaar";
 "Appearance" = "Weergave";
 "Application Name" = "Naam van app";
@@ -316,6 +317,7 @@
 "window switches" = "vensterwissels";
 "Window Title" = "Venstertitel";
 "Window title contains" = "Venstertitel bevat";
+"Windows under the cursor" = "Vensters onder de cursor";
 "Windows will show as app icons" = "Vensters worden als app-symbolen getoond";
 "You can’t undo this action." = "Je kunt deze actie niet ongedaan maken.";
 "You have 14 days to try all Pro features. After that, Pro features will step back and the core window switcher will keep working exactly as before.\n\nAltTab stays free and open-source. Pro is an optional one-time purchase that funds continued development." = "Je hebt 14 dagen om alle Pro-functies te proberen. Daarna treden Pro-functies terug en blijft de kern-vensterwisselaar precies werken zoals voorheen.\n\nAltTab blijft gratis en open-source. Pro is een optionele eenmalige aankoop die de verdere ontwikkeling financiert.";

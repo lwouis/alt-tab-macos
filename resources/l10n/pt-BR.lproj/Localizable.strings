@@ -52,6 +52,7 @@
 "App Icons appearance" = "Aparência dos Ícones de Apps";
 "App is hidden" = "App oculto";
 "App is running but has no open window" = "App em execução, mas sem janelas abertas";
+"App under the cursor" = "App sob o cursor";
 "Apparition delay of Switcher" = "Atraso de aparição do seletor";
 "Appearance" = "Aparência";
 "Application Name" = "Nome do Aplicativo";
@@ -316,6 +317,7 @@
 "window switches" = "alternâncias de janela";
 "Window Title" = "Título da Janela";
 "Window title contains" = "Título da janela contém";
+"Windows under the cursor" = "Janelas sob o cursor";
 "Windows will show as app icons" = "As janelas serão exibidas como ícones de apps";
 "You can’t undo this action." = "Você não pode desfazer esta ação.";
 "You have 14 days to try all Pro features. After that, Pro features will step back and the core window switcher will keep working exactly as before.\n\nAltTab stays free and open-source. Pro is an optional one-time purchase that funds continued development." = "Você tem 14 dias para experimentar todos os recursos Pro. Depois disso, os recursos Pro recuam e o seletor de janelas principal continuará funcionando exatamente como antes.\n\nO AltTab continua gratuito e de código aberto. O Pro é uma compra única opcional que financia o desenvolvimento contínuo.";

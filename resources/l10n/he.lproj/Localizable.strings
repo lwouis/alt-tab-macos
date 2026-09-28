@@ -52,6 +52,7 @@
 "App Icons appearance" = "מראה סמלי יישומים";
 "App is hidden" = "יישום מוסתר";
 "App is running but has no open window" = "יישום פועל אך אין לו חלון פתוח";
+"App under the cursor" = "היישום מתחת לסמן";
 "Apparition delay of Switcher" = "השהיית הופעת המחליף";
 "Appearance" = "מראה";
 "Application Name" = "שם היישום";
@@ -316,6 +317,7 @@
 "window switches" = "החלפות חלונות";
 "Window Title" = "כותרת חלון";
 "Window title contains" = "כותרת החלון מכילה";
+"Windows under the cursor" = "חלונות מתחת לסמן";
 "Windows will show as app icons" = "חלונות יוצגו כסמלי יישומים";
 "You can’t undo this action." = "לא ניתן לבטל פעולה זו.";
 "You have 14 days to try all Pro features. After that, Pro features will step back and the core window switcher will keep working exactly as before.\n\nAltTab stays free and open-source. Pro is an optional one-time purchase that funds continued development." = "יש לך 14 ימים לנסות את כל תכונות Pro. לאחר מכן, תכונות Pro ייסוגו ומחליף החלונות הבסיסי ימשיך לפעול בדיוק כמו קודם.\n\nAltTab נשאר חינמי ובקוד פתוח. Pro הוא רכישה חד-פעמית אופציונלית המממנת את המשך הפיתוח.";
