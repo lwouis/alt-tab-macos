@@ -305,6 +305,10 @@ Written RED before the change, so "it worked" had a definition that predated it:
 - **testAJoinThatReplacedAnotherWindowsTabIsADragOutFromThisGroup** — a join that replaced SOMEONE ELSE still
   means this tab left the group it is being judged against. The edge is about identity, so it answers both
   directions.
+- **testAJoinThatReplacedAMemberOfItsOwnGroupIsATabSwitch** — "someone else" means someone outside the group.
+  Three Finder tabs titled alike: the group was formed before its visible tab was matched, so the
+  representative at the join was a background tab, and geometry folded the replaced visible tab in before
+  the check. Read as a drag-out, it split the window into two tiles under an open switcher (macOS 15).
 
 The recording itself is pinned separately in `TestReducerRunnerTests` (`testHandoverIsRecorded…`), both
 arrival orders plus the three negatives — cross-app, mid-transition, and outside the pairing window — because

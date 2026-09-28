@@ -174,6 +174,94 @@ final class TestReducerRunnerTests: XCTestCase {
         XCTAssertFalse(harness.state.isPhantom(harness.state.window(5)!))
     }
 
+    /// A new tab opened while AltTab's launch scan is in flight: the scan saw the outgoing tab on screen, and
+    /// its Space removal arrived before discovery. The per-window order-out subscription may not yet exist.
+    /// The stale snapshot must not keep the outgoing tab separate from its group.
+    func testATabBackgroundedBeforeItsDiscoveryLandsJoinsTheGroup() {
+        // The user is in the new tab (101); the outgoing one (100) is behind it.
+        let finderWindow = { (wid: CGWindowID, spaceIds: [UInt64]) in
+            self.window(wid, title: "lwouis", size: CGSize(width: 920, height: 436),
+                        position: CGPoint(x: 391, y: 272), spaceIds: spaceIds, lastFocusOrder: wid == 101 ? 0 : 1)
+        }
+        for sawOrderOut in [false, true] {
+            let harness = TestReducerRunner(initial: state(windows: []))
+            if sawOrderOut { harness.run([.input(.windowOrderedOut(wid: 100, inSpaceTransition: false))]) }
+            harness.run([
+                .input(.spaceMembershipChanged(wid: 101, spaceId: 3, added: true, now: 10.0, inSpaceTransition: false)),
+                .input(.spaceMembershipChanged(wid: 100, spaceId: 3, added: false, now: 10.0, inSpaceTransition: false)),
+                .track(finderWindow(100, [3])),
+                .input(.discoveryLanded(wid: 100, accepted: true, newlyTracked: true, adoptedAsInactiveTab: false,
+                                        queriedSpaceIds: [], isOrderedIn: true, tabTitles: nil, tabGroupToken: nil)),
+                .track(finderWindow(101, [3])),
+                .input(.discoveryLanded(wid: 101, accepted: true, newlyTracked: true, adoptedAsInactiveTab: false,
+                                        queriedSpaceIds: [3], isOrderedIn: true, tabTitles: ["lwouis", "lwouis", "lwouis"],
+                                        tabGroupToken: nil)),
+                .track(finderWindow(99, [])),
+                .input(.discoveryLanded(wid: 99, accepted: true, newlyTracked: true, adoptedAsInactiveTab: true,
+                                        queriedSpaceIds: [], isOrderedIn: false, tabTitles: nil, tabGroupToken: nil)),
+            ])
+            XCTAssertEqual(harness.violations, [])
+            XCTAssertEqual(harness.state.groups.siblingWids(of: 101)?.sorted(), [99, 100, 101])
+            XCTAssertTrue(harness.state.groups.isTabbed(100))
+            XCTAssertEqual(harness.state.window(100)?.isOrderedIn, false)
+        }
+    }
+
+    /// A Cmd+T burst, as logged on macOS 26.6.2: the user's window (100) backgrounds behind the first new tab
+    /// and is held, then that tab (101) backgrounds behind the next one before its own discovery lands.
+    /// Holding 101 too drew two tiles for one window until the group formed.
+    func testASecondTabBackgroundedBeforeDiscoveryIsNotHeldBesideTheFirst() {
+        let finderWindow = { (wid: CGWindowID, spaceIds: [UInt64]) in
+            self.window(wid, title: "Recents", size: CGSize(width: 920, height: 436),
+                        position: CGPoint(x: 162, y: 117), spaceIds: spaceIds, lastFocusOrder: 0)
+        }
+        let harness = TestReducerRunner(initial: state(windows: [finderWindow(100, [3])]))
+        harness.run([
+            .input(.windowCreated(wid: 101, now: 10.0, inSpaceTransition: false)),
+            .input(.spaceMembershipChanged(wid: 101, spaceId: 3, added: true, now: 10.0, inSpaceTransition: false)),
+            .input(.spaceMembershipChanged(wid: 100, spaceId: 3, added: false, now: 10.0, inSpaceTransition: false)),
+            .input(.windowCreated(wid: 102, now: 10.12, inSpaceTransition: false)),
+            .input(.spaceMembershipChanged(wid: 102, spaceId: 3, added: true, now: 10.12, inSpaceTransition: false)),
+            .input(.spaceMembershipChanged(wid: 101, spaceId: 3, added: false, now: 10.12, inSpaceTransition: false)),
+            .track(finderWindow(101, [])),
+            .input(.discoveryLanded(wid: 101, accepted: true, newlyTracked: true, adoptedAsInactiveTab: false,
+                                    queriedSpaceIds: [], isOrderedIn: false, tabTitles: nil, tabGroupToken: nil)),
+        ])
+        XCTAssertEqual(harness.violations, [])
+        XCTAssertEqual(harness.state.held, [100], "trace: \(harness.trace)")
+    }
+
+    /// Two same-size windows of one app, the bottom one's background tabs filed under the top one because
+    /// their frozen origin is where the top one now sits. Switching to one of those tabs in the
+    /// bottom window groups it with the bottom window's outgoing tab, and the union must not follow the
+    /// wrong link into the top window, which is still on screen at its own frame: it would be hidden as a tab.
+    func testALinkToAWindowShownElsewhereIsNotFollowedIntoTheGroup() {
+        let size = CGSize(width: 1000, height: 440)
+        func finderWindow(_ wid: CGWindowID, y: CGFloat, onScreen: Bool, focus: Int) -> TrackedWindow {
+            var w = window(wid, title: "lwouis", size: size, position: CGPoint(x: 80, y: y),
+                           spaceIds: onScreen ? [3] : [], lastFocusOrder: focus)
+            w.isOrderedIn = onScreen
+            return w
+        }
+        var s = state(windows: [finderWindow(20, y: 600, onScreen: true, focus: 0),
+                                finderWindow(10, y: 80, onScreen: true, focus: 1),
+                                finderWindow(11, y: 80, onScreen: false, focus: 2),
+                                finderWindow(12, y: 80, onScreen: false, focus: 3)])
+        s.formGroup([10, 11, 12], representative: 10, reason: "test")
+        let harness = TestReducerRunner(initial: s)
+        harness.run([
+            .input(.spaceMembershipChanged(wid: 11, spaceId: 3, added: true, now: 10.0, inSpaceTransition: false)),
+            .input(.windowOrderedOut(wid: 20, inSpaceTransition: false)),
+            .input(.spaceMembershipChanged(wid: 20, spaceId: 3, added: false, now: 10.0, inSpaceTransition: false)),
+            .input(.windowOrderedIn(wid: 11, now: 10.0, inSpaceTransition: false)),
+            .input(.windowServerStateRead([WsWindowSnapshot(wid: 11, position: CGPoint(x: 80, y: 600), size: size,
+                                                            isFullscreen: false, isVisible: true)])),
+        ])
+        XCTAssertFalse(harness.state.groups.siblingWids(of: 11)?.contains(10) ?? false)
+        XCTAssertFalse(harness.state.isTabbed(harness.state.window(10)!))
+        XCTAssertFalse(harness.state.isPhantom(harness.state.window(10)!))
+    }
+
     /// rec27 (2026-07-18, `tabdiag_rec27_fullscreen_burst_flicker.log` @ 19:36:51): bursting ⌘T inside a
     /// FULLSCREEN Finder window made its tile disappear for ~2.5s. The burst's new tabs churn as UNTRACKED
     /// wids joining and leaving the fullscreen Space, so when the tracked active's own 1326 lands, AltTab

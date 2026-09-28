@@ -188,9 +188,11 @@ class WindowServerEvents {
                 TrackedWindowStateBridge.dispatch(.windowMovedOrResized(wid: w0, inSpaceTransition: inSpaceTransition))
             }
         case .updateSpaceMembership:
+            guard !isOwnWindow(widInSpace) else { return }
             TrackedWindowStateBridge.dispatch(.spaceMembershipChanged(wid: widInSpace, spaceId: space,
                 added: n == .windowAddedToSpace, now: now, inSpaceTransition: inSpaceTransition))
         case .acquireAndDiscriminate:
+            guard !isOwnWindow(w0) else { return }
             TrackedWindowStateBridge.dispatch(.windowCreated(wid: w0, now: now, inSpaceTransition: inSpaceTransition))
         case .spaceTransition:
             // 1329/1401 fire during the transition (manuallyRefreshAllWindows above stays muted ~0.5s to
@@ -200,6 +202,13 @@ class WindowServerEvents {
             Logger.debug { "WS \(n) space=\(space)" }
             scheduleSpaceChangeHandling()
         }
+    }
+
+    /// Our own windows are never tracked, and must not pass for one arriving: a window being created or joining
+    /// the visible Space is what the reducer reads as a new tab on its way (`shouldHoldVisibleThroughDiscovery`),
+    /// and the switcher panel joins every Space the instant it shows.
+    private static func isOwnWindow(_ wid: CGWindowID) -> Bool {
+        NSApp.windows.contains { $0.windowNumber == Int(wid) }
     }
 
     /// Arm the hold-release re-check (the reducer's `scheduleHoldReleaseCheck` effect): the shell owns the
@@ -217,6 +226,12 @@ class WindowServerEvents {
     static func armDragOutCheck(_ wid: CGWindowID, previousRepWid: CGWindowID, attempt: Int) {
         DispatchQueue.main.asyncAfter(deadline: .now() + recheckInterval) {
             TrackedWindowStateBridge.dispatch(.dragOutCheck(wid: wid, previousRepWid: previousRepWid, attempt: attempt))
+        }
+    }
+
+    static func requeryLater(_ wids: [CGWindowID]) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + recheckInterval) {
+            Applications.updateWindowStatesViaWindowServer(wids)
         }
     }
 

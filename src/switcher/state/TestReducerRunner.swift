@@ -146,7 +146,7 @@ final class TestReducerRunner {
             removeWindowTwin(wid)
         case .scheduleHoldReleaseCheck, .scheduleDragOutCheck, .scheduleStandaloneTabCheck:
             pendingTimers.append(effect)
-        case .discoverWindow, .probeWindowLiveness, .readTitleAndTabs, .queryWindowServerState,
+        case .discoverWindow, .probeWindowLiveness, .readTitleAndTabs, .queryWindowServerState, .queryWindowServerStateLater,
              .discoverInactiveTabs, .reconcileAxElementEnd,
              .refreshSpacesTopology, .refreshSpacesTopologyAndSync:
             pendingRequests.append(effect)

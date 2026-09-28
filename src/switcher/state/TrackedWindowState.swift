@@ -440,6 +440,9 @@ struct TrackedWindowState: Equatable {
         /// RE-SHOW of one that had left it (Space switch, fullscreen exit, un-hide). Only the first is a focus
         /// signal — see `movedResizedOrOrderedIn`.
         var offScreen = Set<CGWindowID>()
+        /// How many times a window read on screen but fully transparent has been read again
+        /// (`WindowEventReducer.windowServerStateRead`). Bounded, so a window that stays that way is not polled.
+        var transparentRereads = [CGWindowID: Int]()
         /// uptime of the most recent `windowCreated`
         var lastWindowCreatedAt: TimeInterval = 0
         /// The wid of that most recent `windowCreated` (the pair to `lastWindowCreatedAt`, exactly as
@@ -852,7 +855,8 @@ enum ReducerInput: Equatable {
     /// `isOrderedIn` comes from the same WindowServer row the discovery was discriminated on — the bit has
     /// no other way in at launch, where every window arrives through here and no order event ever fires for
     /// windows that were already open. An adopted inactive tab is forced FALSE for the same reason its Space
-    /// is (`adoptedAsInactiveTab`): we already know it is a background tab, and its row is stale.
+    /// is (`adoptedAsInactiveTab`): we already know it is a background tab, and its row is stale. So is a
+    /// window ordered out while its discovery was in flight.
     /// `tabGroupToken` rides with `tabTitles` because it comes from the SAME AX read: the element the
     /// titles were read out of. Carried as one input rather than two so a replayed decision sees the read
     /// exactly as the live one did.
@@ -975,6 +979,8 @@ enum ReducerEffect: Equatable {
     /// batched WS geometry/fullscreen query; feeds back `windowServerStateRead`
     /// (`Applications.updateWindowStatesViaWindowServer`); one active batch plus a deduplicated pending set
     case queryWindowServerState(wids: [CGWindowID])
+    /// the same query, after the length of an OS animation (`WindowServerEvents.requeryLater`)
+    case queryWindowServerStateLater(wids: [CGWindowID])
     /// brute-force an app for inactive-tab windows (`Applications.discoverInactiveTabs`). `requesterWid` is
     /// the window whose AXTabGroup named the missing titles — the scan needs it to reject a candidate that is
     /// plainly another window's tab (`BruteForceWindowMatch.isPlausibleInactiveTab`).

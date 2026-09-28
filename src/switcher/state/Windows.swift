@@ -678,6 +678,10 @@ class Windows {
         let window = Window(nil, app, raw.wid, raw.title.isEmpty ? nil : raw.title,
             WsWindowState.isFullscreen(raw), WsWindowState.isMinimized(raw),
             raw.bounds.origin, raw.bounds.size, .attentionCandidate, .attention)
+        // `Window.init` assumes the current Space. Attention can name a tab that a later tab already sent to
+        // the background (a Cmd+T burst resolves focus late), and that guess then read as on-screen evidence,
+        // so the tab matcher refused to keep it in its group and it stood as a second tile for good.
+        if !WsWindowState.isVisible(raw) && !WsWindowState.isMinimized(raw) { window.updateSpacesAndScreen([:]) }
         appendWindow(window)
         logAdmission(decision, raw, app)
         return window

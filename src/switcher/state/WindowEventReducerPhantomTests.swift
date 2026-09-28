@@ -249,4 +249,45 @@ final class WindowEventReducerPhantomTests: XCTestCase {
             visible: [Self.slackWid], all: [Self.slackWid], queried: [Self.slackWid]))
         XCTAssertFalse(effects.contains(.addWindowlessPlaceholder(pid: Self.slackPid)))
     }
+
+    // MARK: - A window read on screen and fully transparent is read again
+
+    private func snapshot(alpha: Float, isVisible: Bool = true) -> ReducerInput {
+        .windowServerStateRead([WsWindowSnapshot(wid: Self.slackWid, position: CGPoint(x: 0, y: 40),
+                                                 size: CGSize(width: 2056, height: 1204), isFullscreen: false,
+                                                 isVisible: isVisible, alpha: alpha)])
+    }
+
+    private func rereads(_ effects: [ReducerEffect]) -> Bool {
+        effects.contains(.queryWindowServerStateLater(wids: [Self.slackWid]))
+    }
+
+    /// Finder fades the window a tab is dragged out of. Read mid-fade and never again, the torn-out window
+    /// kept alpha 0 and was hidden as a phantom (macOS 27.0.1).
+    func testAWindowOnScreenAndFullyTransparentIsReadAgain() {
+        var s = state([slackWindow(latchedPhantom: false, isOrderedIn: true)])
+        XCTAssertTrue(rereads(WindowEventReducer.reduce(&s, snapshot(alpha: 0))))
+    }
+
+    /// An invisible reminder window stays transparent: it is not polled for the life of the window.
+    func testTheReReadsOfATransparentWindowAreBounded() {
+        var s = state([slackWindow(latchedPhantom: false, isOrderedIn: true)])
+        for _ in 0..<WindowEventReducer.transparentRereadLimit {
+            XCTAssertTrue(rereads(WindowEventReducer.reduce(&s, snapshot(alpha: 0))))
+        }
+        XCTAssertFalse(rereads(WindowEventReducer.reduce(&s, snapshot(alpha: 0))))
+    }
+
+    func testAnOpaqueReadResetsTheBound() {
+        var s = state([slackWindow(latchedPhantom: false, isOrderedIn: true)])
+        for _ in 0..<WindowEventReducer.transparentRereadLimit { _ = WindowEventReducer.reduce(&s, snapshot(alpha: 0)) }
+        XCTAssertFalse(rereads(WindowEventReducer.reduce(&s, snapshot(alpha: 1))))
+        XCTAssertTrue(rereads(WindowEventReducer.reduce(&s, snapshot(alpha: 0))))
+    }
+
+    /// Off screen, a transparent window is not mid-animation on screen: nothing to re-read.
+    func testATransparentWindowOffScreenIsNotReadAgain() {
+        var s = state([slackWindow(latchedPhantom: false, isOrderedIn: true)])
+        XCTAssertFalse(rereads(WindowEventReducer.reduce(&s, snapshot(alpha: 0, isVisible: false))))
+    }
 }

@@ -12,6 +12,14 @@ invariants checked after EVERY step.
 
 ## The architecture the harness rides on
 
+Cold-start discovery must not restore an outgoing tab's stale ordered-in bit after a confirmed Space
+removal. The removal can arrive before the per-window order-out subscription exists. The regression
+`testATabBackgroundedBeforeItsDiscoveryLandsJoinsTheGroup` replays the startup handover with and without
+that order-out event and requires one group containing every tab.
+`testASecondTabBackgroundedBeforeDiscoveryIsNotHeldBesideTheFirst` replays a Cmd+T burst where a new tab
+backgrounds before its discovery lands while the user's window is already held: only one tab may be held,
+or the window draws two tiles until its group forms.
+
 - **`TrackedWindowState`** (pure, both targets): the whole orchestration state — the window list in `Windows.list`
   order (title/geometry matching is order-sensitive), app facts, the `TabGroupsTable` registry, the
   hold/pending sets, the activation entries, Space topology. Synthetic facts (`held`, `spaceIsBorrowed`,

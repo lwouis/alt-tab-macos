@@ -180,6 +180,8 @@ class TrackedWindowStateBridge {
                 }
             case .queryWindowServerState(let wids):
                 Applications.updateWindowStatesViaWindowServer(wids)
+            case .queryWindowServerStateLater(let wids):
+                WindowServerEvents.requeryLater(wids)
             case .discoverInactiveTabs(let pid, let untrackedTitles, let requesterWid):
                 if let app = Applications.list.first(where: { $0.pid == pid }) {
                     Applications.discoverInactiveTabs(app, untrackedTitles, requesterWid)

@@ -811,6 +811,18 @@ final class TabGroupResolverTests: XCTestCase {
         XCTAssertEqual(TabGroupResolver.dragOutVerdict(joiner: joiner, previousRepresentative: prevRep), true)
     }
 
+    /// Three Finder tabs all titled "Recents": the group was formed from titles before the visible tab was
+    /// matched, so its representative was a background tab. The switch's joiner replaced the visible tab,
+    /// which geometry folded into the group before the check. Read as a drag-out, it split the window into
+    /// two tiles under an open switcher (macOS 15, 2026-10-04).
+    func testAJoinThatReplacedAMemberOfItsOwnGroupIsATabSwitch() {
+        var joiner = tw(wid: 67, spaceIds: [1])
+        joiner.replacedWid = 69
+        let prevRep = tw(wid: 68, size: CGSize(width: 920, height: 436), position: CGPoint(x: 180, y: 101), spaceIds: [])
+        XCTAssertEqual(TabGroupResolver.dragOutVerdict(joiner: joiner, previousRepresentative: prevRep,
+                                                       groupMembers: [67, 68, 69]), false)
+    }
+
     // MARK: - dragOutVerdict
 
     func testJoinerAtThePreviousRepresentativesFrameIsATabSwitch() {
