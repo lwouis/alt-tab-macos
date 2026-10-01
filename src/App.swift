@@ -38,8 +38,7 @@ class App: AppCenterApplication {
     private static var appCenterDelegate: AppCenterCrash?
     static var sparkleDelegate: SparkleDelegate?
     static var updaterController: SPUStandardUpdaterController?
-    // don't queue multiple delayed rebuildUi() calls
-    private static var delayedDisplayScheduled = 0
+    private static var delayedDisplayWork: DispatchWorkItem?
     private static let switcherUiRepaintCoalescer = RepaintCoalescer()
 
     override init() {
@@ -400,6 +399,8 @@ class App: AppCenterApplication {
         Logger.debug { "isFirstSummon:\(session.isFirstSummon) shortcutIndex:\(shortcutIndex)" }
         UsageStats.recordTrigger(shortcutIndex)
         if session.isFirstSummon || shortcutIndex != session.shortcutIndex {
+            delayedDisplayWork?.cancel()
+            delayedDisplayWork = nil
             NSScreen.updatePreferred()
             let isLaunchSummon = isVeryFirstSummon
             if isVeryFirstSummon {
@@ -434,13 +435,13 @@ class App: AppCenterApplication {
             if displayDelay == DispatchTimeInterval.milliseconds(0) {
                 buildUiAndShowPanel()
             } else {
-                delayedDisplayScheduled += 1
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + displayDelay) { () -> () in
-                    if delayedDisplayScheduled == 1 {
-                        buildUiAndShowPanel(true)
-                    }
-                    delayedDisplayScheduled -= 1
+                let work = DispatchWorkItem { [weak session] in
+                    guard let session, SwitcherSession.current === session else { return }
+                    delayedDisplayWork = nil
+                    buildUiAndShowPanel(true)
                 }
+                delayedDisplayWork = work
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + displayDelay, execute: work)
             }
         } else {
             cycleSelection(.leading)
