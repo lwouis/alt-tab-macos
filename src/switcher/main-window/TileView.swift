@@ -15,6 +15,14 @@ class TileView: FlippedView {
     var windowlessAppIndicator = WindowlessAppIndicator(tooltip: TileView.noOpenWindowToolTip)
     private var fullTitle = ""
     private var fullTitleWidth = CGFloat(0)
+    private struct TruncationKey: Hashable {
+        let title: String
+        let font: NSFont
+        let width: CGFloat
+        let mode: UInt
+    }
+    private typealias TruncatedTitle = (text: String, visibleToOriginal: [Int?], ellipsisIndex: Int?)
+    private static var truncationCache = [TruncationKey: TruncatedTitle]()
 
     var mouseUpCallback: (() -> Void)!
     var mouseMovedCallback: (() -> Void)!
@@ -454,7 +462,16 @@ class TileView: FlippedView {
         return ranges
     }
 
-    private func truncatedDisplay(_ title: String, maxWidth: CGFloat, mode: NSLineBreakMode, attributes: [NSAttributedString.Key: Any]) -> (text: String, visibleToOriginal: [Int?], ellipsisIndex: Int?) {
+    private func truncatedDisplay(_ title: String, maxWidth: CGFloat, mode: NSLineBreakMode, attributes: [NSAttributedString.Key: Any]) -> TruncatedTitle {
+        let key = TruncationKey(title: title, font: Appearance.font, width: maxWidth, mode: mode.rawValue)
+        if let cached = Self.truncationCache[key] { return cached }
+        let result = computeTruncatedDisplay(title, maxWidth: maxWidth, mode: mode, attributes: attributes)
+        if Self.truncationCache.count >= 256 { Self.truncationCache.removeAll(keepingCapacity: true) }
+        Self.truncationCache[key] = result
+        return result
+    }
+
+    private func computeTruncatedDisplay(_ title: String, maxWidth: CGFloat, mode: NSLineBreakMode, attributes: [NSAttributedString.Key: Any]) -> TruncatedTitle {
         let chars = Array(title)
         if chars.isEmpty { return ("", [], nil) }
         if maxWidth <= 0 { return ("", [], nil) }
@@ -484,25 +501,22 @@ class TileView: FlippedView {
             return (text, mapping, 0)
         }
         if mode == .byTruncatingMiddle {
-            var leftCount = (chars.count + 1) / 2
-            var rightStart = leftCount
-            var candidate = String(chars.prefix(leftCount)) + ellipsis + String(chars.suffix(chars.count - rightStart))
-            while measuredWidth(candidate, attributes) > maxWidth && (leftCount > 0 || rightStart < chars.count) {
-                if rightStart < chars.count {
-                    rightStart += 1
-                }
-                candidate = String(chars.prefix(leftCount)) + ellipsis + String(chars.suffix(chars.count - rightStart))
+            // Remove from the right before the left, including the extra left character in odd-length titles.
+            func middleLeftCount(_ kept: Int) -> Int { min(kept, (chars.count + 1) / 2 - (chars.count - kept) / 2) }
+            var low = 0
+            var high = chars.count
+            while low < high {
+                let mid = (low + high + 1) / 2
+                let left = middleLeftCount(mid)
+                let candidate = String(chars.prefix(left)) + ellipsis + String(chars.suffix(mid - left))
                 if measuredWidth(candidate, attributes) <= maxWidth {
-                    break
+                    low = mid
+                } else {
+                    high = mid - 1
                 }
-                if leftCount > 0 {
-                    leftCount -= 1
-                }
-                candidate = String(chars.prefix(leftCount)) + ellipsis + String(chars.suffix(chars.count - rightStart))
             }
-            if measuredWidth(candidate, attributes) > maxWidth {
-                return (ellipsis, [nil], 0)
-            }
+            let leftCount = middleLeftCount(low)
+            let rightStart = chars.count - (low - leftCount)
             let text = String(chars.prefix(leftCount)) + ellipsis + String(chars.suffix(chars.count - rightStart))
             let mapping = Array(0..<leftCount).map { Optional($0) } + [nil] + Array(rightStart..<chars.count).map { Optional($0) }
             return (text, mapping, leftCount)
