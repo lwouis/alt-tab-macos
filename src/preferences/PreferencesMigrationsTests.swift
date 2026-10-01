@@ -49,11 +49,10 @@ final class PreferencesMigrationsTests: XCTestCase {
 
     // MARK: - B. Grouping moved global -> per-shortcut
 
-    func testGroupingCopiesGlobalShowAppsOrWindowsToPerShortcutKeysAndRemovesGlobal() {
+    func testGroupingCopiesGlobalShowAppsOrWindowsToPerShortcutKeysAndPreservesBase() {
         defaults.set("1", forKey: "showAppsOrWindows")
         PreferencesMigrations.migrateGroupingToPerShortcut()
-        // index 0's key IS the global key, which is removed at the end — so it ends up nil.
-        XCTAssertNil(defaults.string(forKey: "showAppsOrWindows"))
+        XCTAssertEqual(defaults.string(forKey: "showAppsOrWindows"), "1")
         XCTAssertEqual(defaults.string(forKey: "showAppsOrWindows2"), "1")
         XCTAssertEqual(defaults.string(forKey: "showAppsOrWindows10"), "1")
     }
@@ -68,7 +67,7 @@ final class PreferencesMigrationsTests: XCTestCase {
     func testGroupingConvertsShowTabsAsWindowsBoolGlobalToEnumIndex() {
         defaults.set("false", forKey: "showTabsAsWindows")
         PreferencesMigrations.migrateGroupingToPerShortcut()
-        XCTAssertNil(defaults.string(forKey: "showTabsAsWindows"))
+        XCTAssertEqual(defaults.string(forKey: "showTabsAsWindows"), "0")
         XCTAssertEqual(defaults.string(forKey: "showTabsAsWindows2"), "0")
         XCTAssertEqual(defaults.string(forKey: "showTabsAsWindows10"), "0")
     }

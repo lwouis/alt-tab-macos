@@ -139,8 +139,9 @@ enum MoveToApplicationsFolder {
         let pipe = Pipe()
         task.standardOutput = pipe
         do { try task.run() } catch { return nil }
-        task.waitUntilExit()
         let data = pipe.fileHandleForReading.readDataToEndOfFile()
+        task.waitUntilExit()
+        guard task.terminationStatus == 0 else { return nil }
         guard let info = try? PropertyListSerialization.propertyList(from: data, format: nil) as? [String: Any],
               let images = info["images"] as? [[String: Any]] else { return nil }
         for image in images {

@@ -283,7 +283,7 @@ class ControlsTab {
         sidebar.widthAnchor.constraint(equalToConstant: shortcutSidebarWidth).isActive = true
         let listContainer = NSView()
         listContainer.translatesAutoresizingMaskIntoConstraints = false
-        let shortcutsSection = SidebarListContainer()
+        let shortcutsSection = SidebarListContainer(drawsCard: false)
         let list = makeSidebarRowsList()
         let rows = list.rows
         let rowsScrollView = list.scrollView
@@ -331,11 +331,11 @@ class ControlsTab {
             rowsScrollView.topAnchor.constraint(equalTo: shortcutsSection.topAnchor),
             rowsScrollView.leadingAnchor.constraint(equalTo: shortcutsSection.leadingAnchor),
             rowsScrollView.trailingAnchor.constraint(equalTo: shortcutsSection.trailingAnchor),
-            rowsScrollView.bottomAnchor.constraint(equalTo: gestureSeparator.topAnchor),
-            gestureSeparator.leadingAnchor.constraint(equalTo: shortcutsSection.leadingAnchor),
-            gestureSeparator.trailingAnchor.constraint(equalTo: shortcutsSection.trailingAnchor),
+            rowsScrollView.bottomAnchor.constraint(equalTo: gestureSeparator.topAnchor, constant: -4),
+            gestureSeparator.leadingAnchor.constraint(equalTo: shortcutsSection.leadingAnchor, constant: TableGroupView.padding),
+            gestureSeparator.trailingAnchor.constraint(equalTo: shortcutsSection.trailingAnchor, constant: -TableGroupView.padding),
             gestureSeparator.heightAnchor.constraint(equalToConstant: TableGroupView.borderWidth),
-            gestureSeparator.bottomAnchor.constraint(equalTo: gestureRow.topAnchor),
+            gestureSeparator.bottomAnchor.constraint(equalTo: gestureRow.topAnchor, constant: -4),
             gestureRow.leadingAnchor.constraint(equalTo: shortcutsSection.leadingAnchor),
             gestureRow.trailingAnchor.constraint(equalTo: shortcutsSection.trailingAnchor),
             gestureRow.heightAnchor.constraint(equalToConstant: sidebarRowHeight),
@@ -386,6 +386,7 @@ class ControlsTab {
         ]
         let tabControl = NSSegmentedControl(labels: labels, trackingMode: .selectOne, target: nil, action: nil)
         tabControl.selectedSegment = ShortcutEditor.selectedTabSegment
+        tabControl.styleAsPaneSwitcher()
         tabControl.widthAnchor.constraint(equalToConstant: width).isActive = true
         let segmentWidth = width / CGFloat(labels.count)
         for i in 0..<labels.count { tabControl.setWidth(segmentWidth, forSegment: i) }
@@ -491,13 +492,6 @@ class ControlsTab {
             // removed from the stack by `clearArrangedSubviews`. The row's height constraint is
             // row-internal, set once in `makeShortcutRow`, and survives the remove/re-add cycle.
             row.widthAnchor.constraint(equalTo: rows.widthAnchor).isActive = true
-            if index < count - 1 {
-                let separator = sidebarSeparatorView()
-                rows.addArrangedSubview(separator)
-                separator.leadingAnchor.constraint(equalTo: rows.leadingAnchor, constant: TableGroupView.padding).isActive = true
-                separator.trailingAnchor.constraint(equalTo: rows.trailingAnchor, constant: -TableGroupView.padding).isActive = true
-                separator.heightAnchor.constraint(equalToConstant: TableGroupView.borderWidth).isActive = true
-            }
         }
         syncShortcutSidebarHoverState()
         // The rows were (re)built outside the section's build-time `indexed { }` scope, so their own

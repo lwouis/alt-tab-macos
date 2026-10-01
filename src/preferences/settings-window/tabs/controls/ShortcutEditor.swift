@@ -79,6 +79,7 @@ final class ShortcutEditor {
         ]
         tabControl = NSSegmentedControl(labels: labels, trackingMode: .selectOne, target: nil, action: nil)
         tabControl.selectedSegment = ShortcutEditor.selectedTabSegment
+        tabControl.styleAsPaneSwitcher()
         tabControl.widthAnchor.constraint(equalToConstant: width).isActive = true
         let segmentWidth = width / CGFloat(labels.count)
         for i in 0..<labels.count { tabControl.setWidth(segmentWidth, forSegment: i) }
@@ -601,13 +602,8 @@ final class ShortcutOverrideSegmented: ShortcutOverrideBinding {
         segmented = LabelAndControl.makeSegmentedControl(
             Preferences.indexToName(baseName, 0), cases, segmentWidth: segmentWidth, extraAction: nil)
         badgeOverlay = attachBadge?(segmented)
-        if let overlay = badgeOverlay {
-            overlay.badge.onWindowKeyChanged = { [weak segmented] in
-                guard let segmented, let refreshBadge else { return }
-                refreshBadge(segmented, overlay)
-            }
-        }
         super.init(baseName: baseName, onChange: onChange)
+        badgeOverlay?.badge.onWindowKeyChanged = { [weak self] in self?.didRender() }
         let weakSelf = WeakRef(self)
         segmented.onAction = { control in
             weakSelf.value?.handleClick(control as! NSSegmentedControl)

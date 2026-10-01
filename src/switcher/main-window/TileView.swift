@@ -15,6 +15,14 @@ class TileView: FlippedView {
     var windowlessAppIndicator = WindowlessAppIndicator(tooltip: TileView.noOpenWindowToolTip)
     private var fullTitle = ""
     private var fullTitleWidth = CGFloat(0)
+    private struct TruncationKey: Hashable {
+        let title: String
+        let font: NSFont
+        let width: CGFloat
+        let mode: UInt
+    }
+    private typealias TruncatedTitle = (text: String, visibleToOriginal: [Int?], ellipsisIndex: Int?)
+    private static var truncationCache = [TruncationKey: TruncatedTitle]()
 
     var mouseUpCallback: (() -> Void)!
     var mouseMovedCallback: (() -> Void)!
@@ -292,8 +300,8 @@ class TileView: FlippedView {
             isMinimized: element.isMinimized && !Preferences.hideStatusIcons,
             showSpace: !(element.isWindowlessApp || Spaces.isSingleSpace() || Preferences.hideSpaceNumberLabels || {
                 let shortcutIndex = SwitcherSession.current?.shortcutIndex ?? 0
-                return Preferences.spacesToShow[shortcutIndex] == .visible && (
-                    NSScreen.screens.count < 2 || Preferences.screensToShow[shortcutIndex] == .showingAltTab
+                return Preferences.spacesToShow(shortcutIndex) == .visible && (
+                    NSScreen.screens.count < 2 || Preferences.screensToShow(shortcutIndex) == .showingAltTab
                 )
             }())
         )
@@ -331,7 +339,10 @@ class TileView: FlippedView {
         updateAppIcon(element)
         updateDockLabelIcon(element.dockLabel)
         setAccessibilityHelp(getAccessibilityHelp(element.application.localizedName, element.dockLabel))
-        mouseUpCallback = { () -> Void in App.focusSelectedWindow(element) }
+        mouseUpCallback = { [weak element] in
+            guard let element else { return }
+            App.focusSelectedWindow(element)
+        }
         mouseMovedCallback = { () -> Void in Windows.updateSelectedAndHoveredWindowIndex(index, true) }
     }
 
@@ -364,18 +375,25 @@ class TileView: FlippedView {
         }
         let clippingAttributes = baseTitleAttributes(true)
         let spanRanges = searchSpanRanges()
-        let titleLength = Array(fullTitle).count
-        let highlightedIndexes = highlightedIndexes(spanRanges, titleLength)
+        let titleChars = Array(fullTitle)
+        let highlightedIndexes = highlightedIndexes(spanRanges, titleChars.count)
         let truncation = truncatedDisplay(fullTitle, maxWidth: label.frame.size.width, mode: label.lineBreakMode, attributes: clippingAttributes)
+        // Match spans and truncation mappings count Characters; attributed-string ranges count UTF-16 code units.
+        // Measured per mapped piece, not over `text`: a combining mark kept beside the ellipsis fuses with it into
+        // one Character, which would leave `offsets` shorter than the mapping.
+        let offsets = truncation.visibleToOriginal.reduce(into: [0]) { offsets, originalIndex in
+            let piece = originalIndex.map { String(titleChars[$0]) } ?? "…"
+            offsets.append(offsets.last! + piece.utf16.count)
+        }
         let attributed = NSMutableAttributedString(string: truncation.text, attributes: clippingAttributes)
-        for range in visibleHighlightRanges(truncation.visibleToOriginal, highlightedIndexes) {
+        for range in visibleHighlightRanges(truncation.visibleToOriginal, highlightedIndexes, offsets) {
             attributed.addAttribute(TileTitleView.searchHighlightBackgroundKey, value: Appearance.searchMatchHighlightColor, range: range)
             attributed.addAttribute(.foregroundColor, value: Appearance.searchMatchForegroundColor, range: range)
         }
         let visibleOriginalIndexes = Set(truncation.visibleToOriginal.compactMap { $0 })
         let hasHiddenHighlights = highlightedIndexes.contains { !visibleOriginalIndexes.contains($0) }
         if hasHiddenHighlights, let ellipsisIndex = truncation.ellipsisIndex {
-            let range = NSRange(location: ellipsisIndex, length: 1)
+            let range = NSRange(location: offsets[ellipsisIndex], length: offsets[ellipsisIndex + 1] - offsets[ellipsisIndex])
             attributed.addAttribute(TileTitleView.searchHighlightBackgroundKey, value: Appearance.searchMatchHighlightColor, range: range)
             attributed.addAttribute(.foregroundColor, value: Appearance.searchMatchForegroundColor, range: range)
         }
@@ -424,7 +442,7 @@ class TileView: FlippedView {
         return indexes
     }
 
-    private func visibleHighlightRanges(_ visibleToOriginal: [Int?], _ highlightedIndexes: Set<Int>) -> [NSRange] {
+    private func visibleHighlightRanges(_ visibleToOriginal: [Int?], _ highlightedIndexes: Set<Int>, _ offsets: [Int]) -> [NSRange] {
         var ranges = [NSRange]()
         var runStart: Int?
         for (displayIndex, originalIndex) in visibleToOriginal.enumerated() {
@@ -434,17 +452,26 @@ class TileView: FlippedView {
                     runStart = displayIndex
                 }
             } else if let runStartValue = runStart {
-                ranges.append(NSRange(location: runStartValue, length: displayIndex - runStartValue))
+                ranges.append(NSRange(location: offsets[runStartValue], length: offsets[displayIndex] - offsets[runStartValue]))
                 runStart = nil
             }
         }
         if let runStart {
-            ranges.append(NSRange(location: runStart, length: visibleToOriginal.count - runStart))
+            ranges.append(NSRange(location: offsets[runStart], length: offsets[visibleToOriginal.count] - offsets[runStart]))
         }
         return ranges
     }
 
-    private func truncatedDisplay(_ title: String, maxWidth: CGFloat, mode: NSLineBreakMode, attributes: [NSAttributedString.Key: Any]) -> (text: String, visibleToOriginal: [Int?], ellipsisIndex: Int?) {
+    private func truncatedDisplay(_ title: String, maxWidth: CGFloat, mode: NSLineBreakMode, attributes: [NSAttributedString.Key: Any]) -> TruncatedTitle {
+        let key = TruncationKey(title: title, font: Appearance.font, width: maxWidth, mode: mode.rawValue)
+        if let cached = Self.truncationCache[key] { return cached }
+        let result = computeTruncatedDisplay(title, maxWidth: maxWidth, mode: mode, attributes: attributes)
+        if Self.truncationCache.count >= 256 { Self.truncationCache.removeAll(keepingCapacity: true) }
+        Self.truncationCache[key] = result
+        return result
+    }
+
+    private func computeTruncatedDisplay(_ title: String, maxWidth: CGFloat, mode: NSLineBreakMode, attributes: [NSAttributedString.Key: Any]) -> TruncatedTitle {
         let chars = Array(title)
         if chars.isEmpty { return ("", [], nil) }
         if maxWidth <= 0 { return ("", [], nil) }
@@ -474,25 +501,22 @@ class TileView: FlippedView {
             return (text, mapping, 0)
         }
         if mode == .byTruncatingMiddle {
-            var leftCount = (chars.count + 1) / 2
-            var rightStart = leftCount
-            var candidate = String(chars.prefix(leftCount)) + ellipsis + String(chars.suffix(chars.count - rightStart))
-            while measuredWidth(candidate, attributes) > maxWidth && (leftCount > 0 || rightStart < chars.count) {
-                if rightStart < chars.count {
-                    rightStart += 1
-                }
-                candidate = String(chars.prefix(leftCount)) + ellipsis + String(chars.suffix(chars.count - rightStart))
+            // Remove from the right before the left, including the extra left character in odd-length titles.
+            func middleLeftCount(_ kept: Int) -> Int { min(kept, (chars.count + 1) / 2 - (chars.count - kept) / 2) }
+            var low = 0
+            var high = chars.count
+            while low < high {
+                let mid = (low + high + 1) / 2
+                let left = middleLeftCount(mid)
+                let candidate = String(chars.prefix(left)) + ellipsis + String(chars.suffix(mid - left))
                 if measuredWidth(candidate, attributes) <= maxWidth {
-                    break
+                    low = mid
+                } else {
+                    high = mid - 1
                 }
-                if leftCount > 0 {
-                    leftCount -= 1
-                }
-                candidate = String(chars.prefix(leftCount)) + ellipsis + String(chars.suffix(chars.count - rightStart))
             }
-            if measuredWidth(candidate, attributes) > maxWidth {
-                return (ellipsis, [nil], 0)
-            }
+            let leftCount = middleLeftCount(low)
+            let rightStart = chars.count - (low - leftCount)
             let text = String(chars.prefix(leftCount)) + ellipsis + String(chars.suffix(chars.count - rightStart))
             let mapping = Array(0..<leftCount).map { Optional($0) } + [nil] + Array(rightStart..<chars.count).map { Optional($0) }
             return (text, mapping, leftCount)

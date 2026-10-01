@@ -9,15 +9,15 @@ import Cocoa
 /// Specs/Tests triad (impure — verified at runtime). See README.md.
 enum WindowElementAcquisition {
     /// **"Not found" and "could not ask" are different answers**, and one caller condemns a window on the
-    /// first (`Applications.removeIfClosedAfterOrderOut`). Collapsing them into `nil` meant a busy app that
-    /// failed to answer `kAXWindows` looked exactly like an app reporting the window gone, so a live window
-    /// was removed from the switcher — the same mistake as reading a failed attribute read as "no role".
+    /// first (`Applications.removeIfClosedAfterOrderOut`). So `.absent` requires the app to list its windows
+    /// AND every listed element's window-id read to succeed: a busy app that fails either read must not look
+    /// like an app reporting the window gone.
     enum Outcome: Equatable {
         /// the app listed its windows and this wid is among them
         case found(AXUIElement)
         /// the app answered, and this wid is NOT one of its windows: real evidence the window is gone
         case absent
-        /// the app did not answer at all. No evidence either way; the caller must retry, never condemn.
+        /// enumeration or window-id matching was incomplete. The caller must retry, never condemn.
         case noAnswer
     }
 
@@ -40,7 +40,7 @@ enum WindowElementAcquisition {
             // First wins, like the brute-force merge below. `published` is ordered `kAXWindows` first, so an
             // app that names one wid twice with two different elements keeps its canonical window-list one
             // over the `kAXFocusedWindow` / `kAXMainWindow` ivar read.
-            guard let wid = try? element.cgWindowId(), wids.contains(wid), found[wid] == nil else { continue }
+            guard let wid = try? element.cgWindowId(pid: pid), wids.contains(wid), found[wid] == nil else { continue }
             found[wid] = element
         }
         guard route == .otherSpaceViaBruteForce, pid != AXUIElement.currentProcessPid else { return found }
@@ -64,14 +64,17 @@ enum WindowElementAcquisition {
         let app = AXUIElementCreateApplication(pid)
         // The app's own answer first: one batched read resolves the wid with no brute-force — the common case,
         // since most newly-discovered windows are on the active Space. The own-process read is routed to main
-        // (own-process AX is an in-process AppKit call, not IPC; off-main it races AppKit teardown). It THROWS
-        // when the app did not answer, which is what separates `.absent` from `.noAnswer`.
+        // (own-process AX is an in-process AppKit call, not IPC; off-main it races AppKit teardown).
         var appAnswered = true
         let published = AXUIElement.onCorrectThread(pid: pid) { () -> [AXUIElement]? in
             do { return try app.windowsIncludingKeyAndMain() } catch { appAnswered = false; return nil }
         }
-        if let found = published?.first(where: { (try? $0.cgWindowId()) == wid }) {
-            return .found(found)
+        for element in published ?? [] {
+            do {
+                if try element.cgWindowId(pid: pid) == wid { return .found(element) }
+            } catch {
+                appAnswered = false
+            }
         }
         // Other Space, and not the app's key/main window: the only path left is the targeted remote-token
         // brute-force. Skipped for the current-Space-only route and for our own process (always current-Space,

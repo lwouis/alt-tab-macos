@@ -3,6 +3,7 @@ import Cocoa
 class StackView: NSStackView {
     convenience init(_ views: [NSView], _ orientation: NSUserInterfaceLayoutOrientation = .horizontal, _ shouldFit: Bool = true, top: CGFloat = 0, right: CGFloat = 0, bottom: CGFloat = 0, left: CGFloat = 0) {
         self.init(views: views)
+        self.orientation = orientation
         translatesAutoresizingMaskIntoConstraints = false
         edgeInsets = NSEdgeInsets(top: top, left: left, bottom: bottom, right: right)
         alignment = orientation == .horizontal ? .firstBaseline : .leading

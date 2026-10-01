@@ -12,7 +12,7 @@ func makeSidebarRowsList() -> SidebarRowsList {
     let rows = NSStackView()
     rows.orientation = .vertical
     rows.alignment = .leading
-    rows.spacing = 0
+    rows.spacing = 2
     rows.translatesAutoresizingMaskIntoConstraints = false
     let scrollView = ForwardingVerticalScrollView()
     scrollView.translatesAutoresizingMaskIntoConstraints = false

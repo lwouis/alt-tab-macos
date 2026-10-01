@@ -57,7 +57,7 @@ class ExceptionsTab {
         let listContainer = NSView()
         listContainer.translatesAutoresizingMaskIntoConstraints = false
 
-        let section = SidebarListContainer()
+        let section = SidebarListContainer(drawsCard: false)
         sidebarSection = section
         section.onArrowKey = { direction in
             guard !items.isEmpty else { return }
@@ -243,6 +243,10 @@ class ExceptionsTab {
         Preferences.set("exceptions", items)
     }
 
+    static func registerSidebarRowsSearchContent() {
+        rows.forEach { $0.registerSearchContent() }
+    }
+
     private static func refreshSidebarRows() {
         guard let rowsStack else { return }
         setHoveredRow(nil)
@@ -271,28 +275,21 @@ class ExceptionsTab {
             row.widthAnchor.constraint(equalTo: rowsStack.widthAnchor).isActive = true
             row.heightAnchor.constraint(equalToConstant: rowHeight).isActive = true
             rows.append(row)
-            if index < items.count - 1 {
-                let separator = sidebarSeparatorView()
-                rowsStack.addArrangedSubview(separator)
-                separator.leadingAnchor.constraint(equalTo: rowsStack.leadingAnchor, constant: TableGroupView.padding).isActive = true
-                separator.trailingAnchor.constraint(equalTo: rowsStack.trailingAnchor, constant: -TableGroupView.padding).isActive = true
-                separator.heightAnchor.constraint(equalToConstant: TableGroupView.borderWidth).isActive = true
-            }
         }
         syncHoverState()
+        SettingsWindow.shared?.refreshSectionSearchContent("exceptions")
     }
 
     private static func applyContent(_ row: SidebarListRow, index: Int) {
         let entry = items[index]
         let bundleId = entry.bundleIdentifier
         let summary = summaryString(for: entry)
-        // Already resolved for this bundle ID: just refresh the summary, leave icon/title alone.
-        // Avoids the placeholder-then-resolve flash on edits that don't change app identity.
+        // Reuse resolved app identity to avoid placeholder flashes on summary edits.
         if row.resolvedToken == bundleId {
             row.setSummary(summary)
+            SettingsWindow.shared?.refreshSectionSearchContent("exceptions")
             return
         }
-        // BundleId changed (or first paint): show a synchronous placeholder, then resolve async.
         row.setIcon(AppDisplayInfo.genericIcon, size: iconSize)
         row.setContent(bundleId, summary)
         DispatchQueue.global(qos: .userInitiated).async { [weak row] in
@@ -305,6 +302,7 @@ class ExceptionsTab {
                 row.setIcon(info.icon, size: iconSize)
                 row.setContent(info.name, summaryString(for: items[currentIndex]))
                 row.markResolved(token: bundleId)
+                SettingsWindow.shared?.refreshSectionSearchContent("exceptions")
             }
         }
     }
@@ -374,7 +372,8 @@ struct AppDisplayInfo {
     let name: String
     let icon: NSImage
 
-    static let genericIcon: NSImage = NSWorkspace.shared.icon(for: .application)
+    // `.application` renders as a blank document; `.applicationBundle` is the system generic-app tile
+    static let genericIcon: NSImage = NSWorkspace.shared.icon(for: .applicationBundle)
 
     static func resolve(bundleId: String) -> AppDisplayInfo {
         guard !bundleId.isEmpty else {

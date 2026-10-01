@@ -95,9 +95,9 @@ enum ProPromptPopover {
     /// `Get Pro` also opens checkout.
     static func makeButtonRow(closing popover: NSPopover) -> NSStackView {
         let notNow = NotAdvisedButton(NSLocalizedString("Not now", comment: ""))
-        notNow.onAction = { _ in popover.performClose(nil) }
-        let getPro = ProPromptButtons.makeGetPro(large: false) {
-            popover.performClose(nil)
+        notNow.onAction = { [weak popover] _ in popover?.performClose(nil) }
+        let getPro = ProPromptButtons.makeGetPro(large: false) { [weak popover] in
+            popover?.performClose(nil)
             ProTransitionManager.openCheckout()
         }
         let row = NSStackView(views: [notNow, getPro])

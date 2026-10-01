@@ -44,32 +44,34 @@ extension NSColor {
     /// Dark/Light switch with no event observing and no manual repaint (as long as it's drawn by a
     /// view that re-resolves `NSColor`s, e.g. `NSBox`, rather than baked into `layer.backgroundColor`
     /// via `.cgColor`).
-    private static func dynamicAppearanceColor(light: NSColor, dark: NSColor) -> NSColor {
+    static func dynamicAppearanceColor(light: NSColor, dark: NSColor) -> NSColor {
         NSColor(name: nil) { $0.isDarkMode ? dark : light }
     }
 
+    // Translucent tints rather than opaque grays, so cards read as layered on whatever material sits
+    // behind them (window background, Liquid Glass), like System Settings' grouped forms.
     class var tableBorderColor: NSColor {
-        dynamicAppearanceColor(
-            light: NSColor(srgbRed: 229 / 255, green: 229 / 255, blue: 229 / 255, alpha: 0.8),  // #e5e5e5
-            dark: NSColor(srgbRed: 75 / 255, green: 75 / 255, blue: 75 / 255, alpha: 0.8))       // #4b4b4b
+        dynamicAppearanceColor(light: NSColor(white: 0, alpha: 0.06), dark: NSColor(white: 1, alpha: 0.07))
     }
 
     class var tableBackgroundColor: NSColor {
-        dynamicAppearanceColor(
-            light: NSColor(srgbRed: 242 / 255, green: 242 / 255, blue: 242 / 255, alpha: 0.8),  // #f2f2f2
-            dark: NSColor(srgbRed: 43 / 255, green: 43 / 255, blue: 43 / 255, alpha: 0.8))       // #2b2b2b
+        dynamicAppearanceColor(light: NSColor(white: 0, alpha: 0.035), dark: NSColor(white: 1, alpha: 0.05))
     }
 
     class var tableSeparatorColor: NSColor {
-        dynamicAppearanceColor(
-            light: NSColor(srgbRed: 231 / 255, green: 231 / 255, blue: 231 / 255, alpha: 0.8),  // #e7e7e7
-            dark: NSColor(srgbRed: 53 / 255, green: 53 / 255, blue: 53 / 255, alpha: 0.8))       // #353535
+        dynamicAppearanceColor(light: NSColor(white: 0, alpha: 0.08), dark: NSColor(white: 1, alpha: 0.08))
     }
 
     class var tableHoverColor: NSColor {
-        dynamicAppearanceColor(
-            light: NSColor(srgbRed: 235 / 255, green: 235 / 255, blue: 235 / 255, alpha: 0.8),  // #ebebeb
-            dark: NSColor(srgbRed: 54 / 255, green: 54 / 255, blue: 54 / 255, alpha: 0.8))       // #363636
+        dynamicAppearanceColor(light: NSColor(white: 0, alpha: 0.035), dark: NSColor(white: 1, alpha: 0.04))
+    }
+}
+
+extension NSSegmentedControl {
+    /// Segments that switch between panes, rather than pick a value: a neutral selected segment like
+    /// System Settings' tab bars, so it doesn't compete with the accent-filled value pickers below.
+    func styleAsPaneSwitcher() {
+        selectedSegmentBezelColor = NSColor.dynamicAppearanceColor(light: .white, dark: NSColor(white: 0.4, alpha: 1))
     }
 }
 

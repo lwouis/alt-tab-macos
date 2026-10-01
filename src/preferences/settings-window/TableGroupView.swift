@@ -170,7 +170,7 @@ class TableGroupView: ClickHoverStackView {
     static let spacing = CGFloat(10)
     static let padding = CGFloat(10)
     static let rowIntraSpacing = CGFloat(5)
-    static let cornerRadius = CGFloat(5)
+    static let cornerRadius = CGFloat(10)
     static let borderWidth = CGFloat(1)
 
     var title: String?
@@ -243,7 +243,7 @@ class TableGroupView: ClickHoverStackView {
         titleStackView.spacing = TableGroupView.rowIntraSpacing
         if let title {
             titleLabel.stringValue = title
-            titleLabel.font = NSFont.systemFont(ofSize: 13, weight: .medium)
+            titleLabel.font = NSFont.systemFont(ofSize: 13, weight: .semibold)
             titleLabel.alignment = .natural
             titleLabel.lineBreakMode = .byWordWrapping
             titleLabel.maximumNumberOfLines = 0
@@ -259,8 +259,8 @@ class TableGroupView: ClickHoverStackView {
         }
         if let subTitle {
             subTitleLabel.stringValue = subTitle
-            subTitleLabel.font = NSFont.systemFont(ofSize: 12)
-            subTitleLabel.textColor = .gray
+            subTitleLabel.font = NSFont.systemFont(ofSize: 11)
+            subTitleLabel.textColor = .secondaryLabelColor
             subTitleLabel.alignment = .natural
             subTitleLabel.lineBreakMode = .byWordWrapping
             subTitleLabel.maximumNumberOfLines = 0
@@ -300,19 +300,9 @@ class TableGroupView: ClickHoverStackView {
         tableStackView.orientation = .vertical
         tableStackView.spacing = 0
         tableStackView.translatesAutoresizingMaskIntoConstraints = false
-        // An NSBox painted behind the rows draws the rounded card (fill + border). Its fillColor/
-        // borderColor are dynamic NSColors, so AppKit re-resolves them for Dark/Light on its own —
-        // no draw() override, no manual repaint. The box is a background sibling (not the rows'
-        // container) so the rows stack keeps driving the card's size.
-        let card = NSBox()
-        card.boxType = .custom
-        card.titlePosition = .noTitle
-        card.cornerRadius = TableGroupView.cornerRadius
-        card.borderWidth = TableGroupView.borderWidth
-        card.borderColor = .tableBorderColor
-        card.fillColor = .tableBackgroundColor
-        card.contentViewMargins = .zero
-        card.translatesAutoresizingMaskIntoConstraints = false
+        // The card is a background sibling (not the rows' container) so the rows stack keeps
+        // driving the card's size.
+        let card = SettingsCardView()
         let container = NSView()
         container.translatesAutoresizingMaskIntoConstraints = false
         container.addSubview(card)
@@ -496,8 +486,8 @@ class TableGroupView: ClickHoverStackView {
 
     private func createSubLabel(with text: String) -> NSTextField {
         let subLabel = NSTextField(wrappingLabelWithString: text)
-        subLabel.font = NSFont.systemFont(ofSize: 12)
-        subLabel.textColor = .gray
+        subLabel.font = NSFont.systemFont(ofSize: 11)
+        subLabel.textColor = .secondaryLabelColor
         subLabel.alignment = .left
         subLabel.lineBreakMode = .byWordWrapping
         subLabel.maximumNumberOfLines = 0
@@ -618,6 +608,7 @@ class TableGroupView: ClickHoverStackView {
     private func updateRowCornerRadius() {
         rowInfoTables.forEach { table in
             for (index, rowInfo) in table.enumerated() {
+                rowInfo.view.layer?.cornerCurve = .continuous
                 if table.count == 1 {
                     rowInfo.view.layer?.cornerRadius = TableGroupView.cornerRadius
                     rowInfo.view.layer?.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner, .layerMinXMinYCorner, .layerMaxXMinYCorner]
@@ -633,6 +624,38 @@ class TableGroupView: ClickHoverStackView {
                 }
             }
         }
+    }
+}
+
+/// Rounded background of a group of settings rows, like System Settings' grouped forms. AppKit calls
+/// `updateLayer` on Dark/Light switches with the view's appearance current, so the dynamic colors are
+/// re-resolved there instead of being frozen into the layer's `CGColor`s.
+class SettingsCardView: NSView {
+    var fillColor = NSColor.tableBackgroundColor {
+        didSet { needsDisplay = true }
+    }
+    var borderColor = NSColor.tableBorderColor {
+        didSet { needsDisplay = true }
+    }
+
+    init(cornerRadius: CGFloat = TableGroupView.cornerRadius) {
+        super.init(frame: .zero)
+        translatesAutoresizingMaskIntoConstraints = false
+        wantsLayer = true
+        layer?.cornerRadius = cornerRadius
+        layer?.cornerCurve = .continuous
+        layer?.borderWidth = TableGroupView.borderWidth
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("Class only supports programmatic initialization")
+    }
+
+    override var wantsUpdateLayer: Bool { true }
+
+    override func updateLayer() {
+        layer?.backgroundColor = fillColor.cgColor
+        layer?.borderColor = borderColor.cgColor
     }
 }
 

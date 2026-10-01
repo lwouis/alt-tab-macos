@@ -14,7 +14,7 @@ enum FeedbackKind: Hashable {
     }
 }
 
-private struct Draft {
+private struct Draft: Equatable {
     var title: String = ""
     var body: String = ""
 }
@@ -31,7 +31,7 @@ class FeedbackWindow: NSWindow {
     var body: TextArea!
     var sendButton: NSButton!
     /// Per-kind in-memory drafts. Survive close/reopen so a half-written report isn't lost when
-    /// the user steps away. Only cleared when the matching kind submits successfully (server 201).
+    /// the user steps away. A successful POST clears only the matching submitted text.
     private var drafts: [FeedbackKind: Draft] = [:]
     /// Tracks whether the visible content is the form (true) or the kind picker (false). Used to
     /// know whether issueTitle / body reflect the current user-visible input.
@@ -380,10 +380,10 @@ class FeedbackWindow: NSWindow {
         cancelButton.keyEquivalent = "\u{1b}" // Escape
         if alert.runModal() != .alertFirstButtonReturn { return }
         beginSubmitting()
-        // Capture the kind that owns this submission. If the user navigates to the other kind
-        // form while the POST is in flight, completion still clears the right draft slot.
         let submittedKind = kind
-        URLSession.shared.dataTask(with: prepareRequest()) { [weak self] data, response, error in
+        let submittedDraft = Draft(title: issueTitle.stringValue, body: body.stringValue)
+        drafts[submittedKind] = submittedDraft
+        URLSession.shared.dataTask(with: prepareRequest(submittedKind, submittedDraft)) { [weak self] data, response, error in
             let status = (response as? HTTPURLResponse)?.statusCode ?? 0
             let succeeded = status == 201 && error == nil
             if !succeeded {
@@ -393,19 +393,25 @@ class FeedbackWindow: NSWindow {
                 guard let self = self else { return }
                 self.endSubmitting()
                 if succeeded {
-                    self.drafts[submittedKind] = nil
-                    // If the user is still on the form they submitted, also clear the on-screen
-                    // textareas so the visible state matches the now-empty draft.
-                    if self.formIsVisible && self.kind == submittedKind {
-                        self.issueTitle.stringValue = ""
-                        self.body.stringValue = ""
-                    }
-                    self.close()
+                    self.clearSubmittedDraft(submittedKind, submittedDraft)
                 } else {
                     self.showSubmitFailureAlert()
                 }
             }
         }.resume()
+    }
+
+    private func clearSubmittedDraft(_ submittedKind: FeedbackKind, _ submittedDraft: Draft) {
+        captureCurrentDraft()
+        guard drafts[submittedKind] == submittedDraft else { return }
+        if !formIsVisible || kind == submittedKind {
+            if formIsVisible {
+                issueTitle.stringValue = ""
+                body.stringValue = ""
+            }
+            close()
+        }
+        drafts[submittedKind] = nil
     }
 
     private func beginSubmitting() {
@@ -437,15 +443,15 @@ class FeedbackWindow: NSWindow {
     /// pieces. Splitting `body` from `debugProfile` means the markdown layout (quoting,
     /// `<details>` wrapping, disclaimer) can change server-side without forcing every
     /// installed AltTab to update.
-    private func prepareRequest() -> URLRequest {
+    private func prepareRequest(_ submittedKind: FeedbackKind, _ submittedDraft: Draft) -> URLRequest {
         var request = URLRequest(url: URL(string: Endpoints.feedbackUrl)!)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.httpBody = try! JSONSerialization.data(withJSONObject: [
-            "title": issueTitle.stringValue,
-            "body": body.stringValue,
-            "kind": kind.apiValue,
+            "title": submittedDraft.title,
+            "body": submittedDraft.body,
+            "kind": submittedKind.apiValue,
             "debugProfile": DebugProfile.make(),
         ])
         return request

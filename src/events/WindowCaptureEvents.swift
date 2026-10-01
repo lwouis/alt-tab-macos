@@ -185,13 +185,16 @@ class WindowCaptureScreenshots {
         let keyPrefix = request.fullRes ? "preview" : "capture"
         // [weak window] avoids keeping a closed Window alive while the capture is queued or in-flight with the OS
         Applications.screenshotThrottler.throttleOrProceed(key: "\(keyPrefix)-wid-\(scWindow.windowID)", queue: BackgroundWork.screenshotsQueue, priority: isPrioritized ? .high : .normal) { [weak window = request.window] in
-            guard !App.isTerminating, !ScreenLockEvents.isScreenLocked, let window else { return }
+            guard !ActiveWindowCaptures.isTerminating, !ScreenLockEvents.isScreenLocked, let window else { return }
             let config = SCStreamConfiguration.forWindow(size, scaleFactor, request.fullRes)
             let filter = SCContentFilter(desktopIndependentWindow: scWindow)
-            // Through the gate, not merely counted: these APIs are ASYNCHRONOUS, so the `screenshotsQueue`
-            // slot frees the moment the request is handed to the OS, and a show of 60 windows fired 60
-            // simultaneous requests — the burst #5861 blames for wedging replayd machine-wide.
+            // These APIs return before the OS answers, so `screenshotsQueue` cannot bound their concurrency.
+            // The gate limits bursts that can wedge replayd machine-wide (#5861).
             ActiveWindowCaptures.run { finish in
+                guard !ActiveWindowCaptures.isTerminating, !ScreenLockEvents.isScreenLocked else {
+                    finish()
+                    return
+                }
                 guard source != .refreshOnlyThumbnailsAfterShowUi || SwitcherSession.isActive else {
                     finish()
                     return
@@ -286,13 +289,14 @@ class WindowCaptureScreenshotsPrivateApi {
     }
 
     private static func oneTimeCapture(_ wid: CGWindowID) -> CGImage? {
-        guard !App.isTerminating, !ScreenLockEvents.isScreenLocked else { return nil }
+        guard !ActiveWindowCaptures.isTerminating, !ScreenLockEvents.isScreenLocked else { return nil }
         // we use CGSHWCaptureWindowList because it can screenshot minimized windows, which CGWindowListCreateImage can't
         var windowId_ = wid
         // Synchronous, so it was already bounded by the 8-wide `screenshotsQueue`; through the same gate
         // anyway, so in-flight captures have ONE accounting whichever path took them.
         var list = [CGImage]()
         ActiveWindowCaptures.runSync {
+            guard !ActiveWindowCaptures.isTerminating, !ScreenLockEvents.isScreenLocked else { return }
             list = CGSHWCaptureWindowList(CGS_CONNECTION, &windowId_, 1, [.ignoreGlobalClipShape, .bestResolution, .fullSize]).takeRetainedValue() as! [CGImage]
         }
         return list.first
@@ -335,11 +339,9 @@ extension CMSampleBuffer {
 /// **The gate on in-flight window captures**, and the counter `main.swift` drains at quit (macOS pops
 /// permission dialogs for a capture still outstanding when the process dies, #5106).
 ///
-/// It became a gate because the ScreenCaptureKit path is ASYNCHRONOUS: `SCScreenshotManager` hands the
-/// request to the OS and returns, freeing its `screenshotsQueue` slot at once, so the 8-wide queue bounded
-/// nothing and a show of 60 windows fired 60 simultaneous requests. The private-API path never had that
-/// problem — `CGSHWCaptureWindowList` blocks, so the queue width WAS its bound — and the bound was simply
-/// never carried over when ScreenCaptureKit became the macOS 26 path. `maxInFlight` restores it.
+/// ScreenCaptureKit requests return before the OS answers, freeing their `screenshotsQueue` slots at once;
+/// only this gate bounds their concurrency. Shutdown and capture admission share the counter's lock so
+/// a zero count after shutdown begins cannot be followed by a newly admitted capture.
 class ActiveWindowCaptures {
     /// replayd serves screenshot requests one at a time, each behind its three permission checks, so a
     /// request beyond the one being served only waits there, where we can no longer drop it. Measured on
@@ -356,13 +358,32 @@ class ActiveWindowCaptures {
     private static let watchdogSeconds = 5.0
 
     private static let lock = NSLock()
+    private static var terminating = false
     private static var inFlight = 0
     private static var waiting = [(@escaping () -> Void) -> Void]()
+
+    static var isTerminating: Bool {
+        lock.lock()
+        defer { lock.unlock() }
+        return terminating
+    }
+
+    static func beginTermination() {
+        lock.lock()
+        defer { lock.unlock() }
+        terminating = true
+        App.isTerminating = true
+        waiting.removeAll()
+    }
 
     /// Run `capture` once a slot is free. `capture` receives a `finish` closure it MUST call when the OS
     /// answers; calling it more than once is safe and calling it late (after the watchdog fired) is a no-op.
     static func run(_ capture: @escaping (@escaping () -> Void) -> Void) {
         lock.lock()
+        guard !terminating else {
+            lock.unlock()
+            return
+        }
         guard inFlight < maxInFlight else {
             guard waiting.count < maxWaiting else {
                 lock.unlock()
@@ -383,6 +404,10 @@ class ActiveWindowCaptures {
     /// already the bound. Here only so both paths report through one counter at quit.
     static func runSync(_ capture: () -> Void) {
         lock.lock()
+        guard !terminating else {
+            lock.unlock()
+            return
+        }
         inFlight += 1
         lock.unlock()
         capture()
@@ -392,10 +417,8 @@ class ActiveWindowCaptures {
     private static func start(_ capture: @escaping (@escaping () -> Void) -> Void) {
         // one-shot: whoever gets there first (the OS callback or the watchdog) releases the slot exactly once
         let done = FinishOnce()
-        // CANCELLED on the normal path, not just neutered by `done`. An `asyncAfter` block that has lost the
-        // race still exists and still wakes the process at its deadline, so a 60-window show used to leave 60
-        // wakeups behind it, all firing seconds after the switcher was gone. `done` still guards the race;
-        // `cancel` is what keeps an idle AltTab idle.
+        // Cancelling the watchdog after completion prevents its scheduled deadline from waking an idle
+        // process. `done` also guards a callback racing a watchdog that has already started.
         let watchdog = DispatchWorkItem {
             guard done.claim() else { return }
             Logger.warning { "a window capture never answered after \(Int(watchdogSeconds))s; releasing its slot" }
@@ -415,7 +438,7 @@ class ActiveWindowCaptures {
         var next: ((@escaping () -> Void) -> Void)?
         // Nothing queued may still be started once we are shutting down: the whole reason quit drains this
         // counter is that macOS pops permission dialogs for a capture outstanding when the process dies.
-        if App.isTerminating {
+        if terminating {
             waiting.removeAll()
         } else if !waiting.isEmpty {
             next = waiting.removeFirst()

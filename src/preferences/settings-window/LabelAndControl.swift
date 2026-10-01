@@ -108,7 +108,7 @@ class LabelAndControl: NSObject {
 
     static func makeLabelWithRecorder(_ labelText: String, _ rawName: String, _ shortcut: Shortcut?, _ clearable: Bool = true, labelPosition: LabelPosition = .leftWithSeparator) -> [NSView] {
         let input = CustomRecorderControl(shortcut, clearable, rawName)
-        let views = makeLabelWithProvidedControl(labelText, rawName, input, labelPosition: labelPosition, extraAction: { _ in ControlsTab.shortcutChangedCallback(input) })
+        let views = makeLabelWithProvidedControl(labelText, rawName, input, labelPosition: labelPosition, extraAction: { sender in ControlsTab.shortcutChangedCallback(sender) })
         ControlsTab.shortcutChangedCallback(input)
         ControlsTab.shortcutControls[rawName] = (input, labelText)
         return views

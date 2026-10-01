@@ -10,8 +10,17 @@ class TilesPanel: NSPanel {
     static var maxPossibleThumbnailSize = NSSize.zero
     static var maxPossibleAppIconSize = NSSize.zero
     static var shared: TilesPanel!
+    private static let windowIdLock = NSLock()
+    private static var windowId: CGWindowID = 0
+    // NSWindow.windowNumber is main-thread-only; AX workers read this synchronized snapshot instead.
+    static var windowIdSnapshot: CGWindowID {
+        windowIdLock.lock()
+        defer { windowIdLock.unlock() }
+        return windowId
+    }
     private var frozenTopCenter: NSPoint?
     private var highWaterHeight: CGFloat = 0
+    private var showGeneration: UInt = 0
 
     convenience init() {
         self.init(contentRect: .zero, styleMask: .nonactivatingPanel, backing: .buffered, defer: false)
@@ -26,6 +35,10 @@ class TilesPanel: NSPanel {
         setAccessibilityLabel(App.name)
         updateAppearance()
         Self.shared = self
+        let wid = CGWindowID(windowNumber)
+        Self.windowIdLock.lock()
+        Self.windowId = wid
+        Self.windowIdLock.unlock()
     }
 
     func updateAppearance() {
@@ -74,9 +87,14 @@ class TilesPanel: NSPanel {
         SearchDiscoveryHint.shared.cancel()
         TilesView.clearNeedsLayout()
         if Preferences.fadeOutAnimation {
+            let generation = showGeneration
             NSAnimationContext.runAnimationGroup(
                 { _ in animator().alphaValue = 0 },
-                completionHandler: { super.orderOut(sender) }
+                completionHandler: {
+                    // A re-summon during the fade must not have its fresh panel ordered out by the stale fade.
+                    guard self.showGeneration == generation else { return }
+                    super.orderOut(sender)
+                }
             )
         } else {
             // Not a hedge against a slow `orderOut`: both land in the same CoreAnimation transaction, which
@@ -90,6 +108,7 @@ class TilesPanel: NSPanel {
 
     func show() {
         MainThreadStall.step()
+        showGeneration &+= 1
         updateAppearance()
         // The panel may have been hidden (alpha=0) by `App.showUiOrCycleSelection` on a
         // cross-shortcut summon to mask the rebuild. Reveal it atomically now that contents

@@ -6,6 +6,21 @@ class SystemPermissions {
     static var preStartupPermissionsPassed = false
     private static var timer: DispatchSourceTimer!
     private static var timerIsFrequent = false
+    private static let windowVisibilityLock = NSLock()
+    private static var windowIsVisible = false
+    // The permission worker must not read NSWindow; visibility is mirrored by main-thread show/close.
+    static var isPermissionsWindowVisible: Bool {
+        get {
+            windowVisibilityLock.lock()
+            defer { windowVisibilityLock.unlock() }
+            return windowIsVisible
+        }
+        set {
+            windowVisibilityLock.lock()
+            defer { windowVisibilityLock.unlock() }
+            windowIsVisible = newValue
+        }
+    }
     // After permissions are granted at startup, we listen for `com.apple.accessibility.api`
     // on the distributed notification center to learn about revocation, instead of polling
     // every 5s. The notification name is undocumented by Apple and its firing behaviour across
@@ -44,7 +59,7 @@ class SystemPermissions {
 
     private static func checkPermissionsOnTimer() {
         AccessibilityPermission.update()
-        let isPermissionsWindowVisible = PermissionsWindow.shared?.isVisible ?? false
+        let isPermissionsWindowVisible = Self.isPermissionsWindowVisible
         if !preStartupPermissionsPassed || isPermissionsWindowVisible {
             ScreenRecordingPermission.update()
         }

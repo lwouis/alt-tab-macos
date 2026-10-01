@@ -48,10 +48,7 @@ class GeneralTab {
         table.addRow(language)
         table.addNewTable()
         table.addRow(leftViews: [TableGroupView.makeText(NSLocalizedString("Updates policy", comment: ""))],
-            rightViews: [updatesPolicyDropdown!],
-            secondaryViews: [checkForUpdates],
-            secondaryViewsAlignment: .right,
-            secondaryViewsTopGap: 8)
+            rightViews: [checkForUpdates, updatesPolicyDropdown!])
         table.addRow(crashPolicy)
         let exportButton = NSButton(title: NSLocalizedString("Export settings…", comment: ""), target: nil, action: nil)
         exportButton.onAction = { _ in exportSettings() }
@@ -61,7 +58,11 @@ class GeneralTab {
         resetButton.bezelStyle = .rounded
         resetButton.hasDestructiveAction = true
         resetButton.onAction = { _ in resetPreferences() }
-        let tools = StackView([exportButton, importButton, resetButton], .horizontal)
+        let tools = NSStackView()
+        tools.translatesAutoresizingMaskIntoConstraints = false
+        tools.setViews([exportButton, importButton], in: .leading)
+        tools.setViews([resetButton], in: .trailing)
+        tools.widthAnchor.constraint(equalToConstant: SettingsWindow.contentWidth).isActive = true
         let view = TableGroupSetView(originalViews: [table, tools], padding: 0, bottomPadding: 0)
         return view
     }

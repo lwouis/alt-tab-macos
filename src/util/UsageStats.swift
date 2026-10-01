@@ -31,12 +31,13 @@ struct UsageStats {
     #endif
 
     static func recordTrigger(_ shortcutIndex: Int) {
-        record("triggers")
-        if shortcutIndex > 0 && shortcutIndex < Preferences.maxShortcutCount { record("triggersExtraShortcuts") }
+        let timestamp = Int(Date().timeIntervalSince1970)
+        record("triggers", at: timestamp)
+        if shortcutIndex > 0 && shortcutIndex < Preferences.maxShortcutCount { record("triggersExtraShortcuts", at: timestamp) }
         let style = Preferences.effectiveAppearanceStyle(shortcutIndex)
-        if style == .appIcons { record("triggersAppIcons") }
-        if style == .titles { record("triggersTitles") }
-        if Preferences.effectiveAppearanceSize(shortcutIndex) == .auto { record("triggersAutoSize") }
+        if style == .appIcons { record("triggersAppIcons", at: timestamp) }
+        if style == .titles { record("triggersTitles", at: timestamp) }
+        if Preferences.effectiveAppearanceSize(shortcutIndex) == .auto { record("triggersAutoSize", at: timestamp) }
     }
 
     static func recordSearchIfFirst() {
@@ -103,13 +104,12 @@ struct UsageStats {
         writeQueue.sync { flushOnQueue() }
     }
 
-    private static func record(_ key: String) {
-        let now = Int(Date().timeIntervalSince1970)
+    private static func record(_ key: String, at timestamp: Int = Int(Date().timeIntervalSince1970)) {
         writeQueue.async {
             ensureLoadedOnQueue(key)
-            // `subscript(_:default:)` mutates in place; `cache[key] = cache[key]! + [now]` would copy the
+            // `subscript(_:default:)` mutates in place; appending with array concatenation would copy the
             // whole year of timestamps on every summon.
-            cache[key, default: []].append(now)
+            cache[key, default: []].append(timestamp)
             dirty.insert(key)
             scheduleFlushOnQueue()
         }

@@ -63,21 +63,21 @@ func sidebarListRowAtCursor(_ scrollView: NSScrollView) -> SidebarListRow? {
     return nil
 }
 
-class SidebarListContainer: NSView {
+class SidebarListContainer: SettingsCardView {
     enum ArrowDirection { case up, down }
 
     /// Optional keyboard navigation hook. When set, the container accepts first responder
     /// status and forwards up/down arrow key events to this callback.
     var onArrowKey: ((ArrowDirection) -> Void)?
 
-    override init(frame frameRect: NSRect) {
-        super.init(frame: frameRect)
-        translatesAutoresizingMaskIntoConstraints = false
-        wantsLayer = true
-        layer?.cornerRadius = TableGroupView.cornerRadius
-        layer?.borderWidth = TableGroupView.borderWidth
+    /// `drawsCard: false` is for a list that already sits inside a card, so cards don't nest.
+    init(drawsCard: Bool = true) {
+        super.init()
         layer?.masksToBounds = true
-        refreshColors()
+        if !drawsCard {
+            fillColor = .clear
+            borderColor = .clear
+        }
     }
 
     required init?(coder: NSCoder) {
@@ -97,31 +97,23 @@ class SidebarListContainer: NSView {
         default: super.keyDown(with: event)
         }
     }
-
-    override func draw(_ dirtyRect: NSRect) {
-        super.draw(dirtyRect)
-        refreshColors()
-    }
-
-    private func refreshColors() {
-        layer?.backgroundColor = NSColor.tableBackgroundColor.cgColor
-        layer?.borderColor = NSColor.tableBorderColor.cgColor
-    }
 }
 
 class SidebarListRow: ClickHoverStackView {
+    private static let selectionCornerRadius = CGFloat(7)
+    private static let chevronImage = NSImage(systemSymbolName: "chevron.right", accessibilityDescription: nil)?
+        .withSymbolConfiguration(NSImage.SymbolConfiguration(pointSize: 11, weight: .semibold))
     private let iconView = NSImageView()
     private var iconWidthConstraint: NSLayoutConstraint?
     private var iconHeightConstraint: NSLayoutConstraint?
-    private let titleLabel = DynamicColorTextField(labelWithString: "")
+    private let titleLabel = NSTextField(labelWithString: "")
     private let titleRow = NSStackView()
-    private let summaryLabel = DynamicColorTextField(labelWithString: "")
-    private let chevronLabel = DynamicColorTextField(labelWithString: "›")
+    private let summaryLabel = NSTextField(labelWithString: "")
+    private let chevronView = NSImageView()
     private let textColumn = NSStackView()
     private var proBadge: ProBadgeView?
     private var isSelectedRow = false
     private var isHoveredRow = false
-    private var windowObservers = [NSObjectProtocol]()
 
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
@@ -130,7 +122,8 @@ class SidebarListRow: ClickHoverStackView {
         spacing = 8
         translatesAutoresizingMaskIntoConstraints = false
         wantsLayer = true
-        layer?.cornerRadius = TableGroupView.cornerRadius
+        layer?.cornerRadius = SidebarListRow.selectionCornerRadius
+        layer?.cornerCurve = .continuous
         iconView.translatesAutoresizingMaskIntoConstraints = false
         iconView.imageScaling = .scaleProportionallyUpOrDown
         iconView.isHidden = true
@@ -146,14 +139,13 @@ class SidebarListRow: ClickHoverStackView {
         summaryLabel.font = NSFont.systemFont(ofSize: 11)
         summaryLabel.lineBreakMode = .byTruncatingTail
         summaryLabel.cell?.usesSingleLineMode = true
-        chevronLabel.font = NSFont.systemFont(ofSize: 22)
-        chevronLabel.setContentHuggingPriority(.required, for: .horizontal)
-        chevronLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
+        chevronView.image = SidebarListRow.chevronImage
+        chevronView.setContentHuggingPriority(.required, for: .horizontal)
+        chevronView.setContentCompressionResistancePriority(.required, for: .horizontal)
         titleLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         summaryLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-        titleLabel.colorProvider = { [weak self] in self?.textColor(for: .title) ?? .labelColor }
-        summaryLabel.colorProvider = { [weak self] in self?.textColor(for: .summary) ?? .secondaryLabelColor }
-        chevronLabel.colorProvider = { [weak self] in self?.textColor(for: .chevron) ?? .secondaryLabelColor }
+        titleLabel.textColor = .labelColor
+        summaryLabel.textColor = .secondaryLabelColor
         titleRow.orientation = .horizontal
         titleRow.alignment = .centerY
         titleRow.spacing = 6
@@ -164,11 +156,11 @@ class SidebarListRow: ClickHoverStackView {
         addArrangedSubview(iconView)
         addArrangedSubview(textColumn)
         addArrangedSubview(spacer)
-        addArrangedSubview(chevronLabel)
+        addArrangedSubview(chevronView)
         iconView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: TableGroupView.padding).isActive = true
         textColumn.leadingAnchor.constraint(greaterThanOrEqualTo: iconView.trailingAnchor, constant: 8).isActive = true
-        textColumn.trailingAnchor.constraint(lessThanOrEqualTo: chevronLabel.leadingAnchor, constant: -8).isActive = true
-        chevronLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -TableGroupView.padding).isActive = true
+        textColumn.trailingAnchor.constraint(lessThanOrEqualTo: chevronView.leadingAnchor, constant: -8).isActive = true
+        chevronView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -TableGroupView.padding).isActive = true
         updateStyle()
     }
 
@@ -186,9 +178,8 @@ class SidebarListRow: ClickHoverStackView {
         super.hitTest(point) != nil ? self : nil
     }
 
-    override func viewDidMoveToWindow() {
-        super.viewDidMoveToWindow()
-        windowObservers = observeWindowKeyChanges(replacing: windowObservers) { [weak self] in self?.updateStyle() }
+    override func viewDidChangeEffectiveAppearance() {
+        super.viewDidChangeEffectiveAppearance()
         updateStyle()
     }
 
@@ -287,42 +278,15 @@ class SidebarListRow: ClickHoverStackView {
         }
     }
 
-    private var isWindowKey: Bool { window?.isKeyWindow ?? false }
-
-    private enum LabelRole { case title, summary, chevron }
-
-    /// We have to branch on `isWindowKey` ourselves because `layer.backgroundColor` takes a
-    /// `CGColor`, which freezes the semantic NSColor at the moment of assignment — it doesn't
-    /// auto-resolve to its inactive variant later. The window key-state observer in
-    /// `viewDidMoveToWindow` calls `updateStyle()` whenever the window gains or loses key,
-    /// re-running this branch with the now-current state. Same pattern AppKit uses for table
-    /// cells in source-list style.
-    private func textColor(for role: LabelRole) -> NSColor {
-        if isSelectedRow {
-            // Key: white text on the accent-colored row. Non-key: revert to label color so the
-            // text stays readable against the gray unemphasized selection background.
-            return isWindowKey ? .alternateSelectedControlTextColor : .labelColor
-        }
-        switch role {
-            case .title: return .labelColor
-            case .summary, .chevron: return .secondaryLabelColor
-        }
-    }
-
+    /// Neutral pill, like the window's own sidebar: accent fills are kept for controls that pick a
+    /// value, so navigation doesn't compete with them. `layer.backgroundColor` freezes the dynamic
+    /// color, hence the re-run on appearance changes.
     private func updateStyle() {
-        let isKey = isWindowKey
-        let selectedBackground: NSColor
-        // `controlAccentColor` matches the blue NSSegmentedControl uses for its selected
-        // segment, so the shortcut sidebar selection visually lines up with the
-        // Filtering / Appearance tabs and the segmented buttons above.
-        // `unemphasizedSelectedContentBackgroundColor` is what AppKit table cells fall back
-        // to when the window isn't key.
-        selectedBackground = isKey ? .controlAccentColor : .unemphasizedSelectedContentBackgroundColor
         let backgroundColor: NSColor
         if isSelectedRow {
-            backgroundColor = selectedBackground
+            backgroundColor = .unemphasizedSelectedContentBackgroundColor
         } else if isHoveredRow {
-            backgroundColor = selectedBackground.withAlphaComponent(0.14)
+            backgroundColor = .tableHoverColor
         } else {
             backgroundColor = .clear
         }
@@ -330,9 +294,6 @@ class SidebarListRow: ClickHoverStackView {
         effectiveAppearance.performAsCurrentDrawingAppearance {
             layer?.backgroundColor = backgroundColor.cgColor
         }
-        titleLabel.needsDisplay = true
-        summaryLabel.needsDisplay = true
-        chevronLabel.needsDisplay = true
-        proBadge?.setSelected(isSelectedRow && isKey)
+        chevronView.contentTintColor = isSelectedRow ? .secondaryLabelColor : .tertiaryLabelColor
     }
 }

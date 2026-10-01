@@ -111,6 +111,10 @@ class WindowAttentionEvents {
     }
 
     private static let handler: CGEventTapCallBack = { _, type, event, _ in
+        if type == .tapDisabledByTimeout || type == .tapDisabledByUserInput {
+            reEnableTapIfNeeded()
+            return Unmanaged.passUnretained(event)
+        }
         guard type.rawValue == UInt32(appKitDefinedType) else { return Unmanaged.passUnretained(event) }
         decode(event)
         return Unmanaged.passUnretained(event)

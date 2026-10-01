@@ -41,6 +41,7 @@ class PermissionsWindow: NSWindow {
         Self.shared.center()
         App.shared.activate(ignoringOtherApps: true)
         Self.shared.makeKeyAndOrderFront(nil)
+        SystemPermissions.isPermissionsWindowVisible = Self.shared.isVisible
         SystemPermissions.setFrequentTimer()
     }
 
@@ -94,6 +95,7 @@ class PermissionsWindow: NSWindow {
     override func close() {
         hideAppIfLastWindowIsClosed()
         super.close()
+        SystemPermissions.isPermissionsWindowVisible = false
     }
 }
 

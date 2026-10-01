@@ -10,7 +10,7 @@ private struct SettingsSectionDefinition {
     /// exactly once, in `addSection`.
     let builder: () -> NSView
     /// Optional hook for sections whose searchable content includes sidebar rows that are rebuilt
-    /// *after* the initial build (ControlsTab's shortcut rows). When set, `addSection` skips
+    /// *after* the initial build. When set, `addSection` skips
     /// `SidebarListRow`s in the build-time walk — they'd otherwise be captured as base targets that
     /// go stale on the next rebuild — and this closure re-registers the current rows into the
     /// section's *dynamic* search content (at build time, and again after each rebuild via
@@ -550,7 +550,7 @@ class SettingsWindow: NSWindow {
             SettingsSectionDefinition(id: "appearance", title: NSLocalizedString("Appearance", comment: ""), symbol: .paintpalette, builder: AppearanceTab.initTab, registerDynamicSearchContent: nil),
             SettingsSectionDefinition(id: "controls", title: NSLocalizedString("Controls", comment: ""), symbol: .command, builder: ControlsTab.initTab, registerDynamicSearchContent: ControlsTab.registerSidebarRowsSearchContent),
             SettingsSectionDefinition(id: "general", title: NSLocalizedString("General", comment: ""), symbol: .gearshape, builder: GeneralTab.initTab, registerDynamicSearchContent: nil),
-            SettingsSectionDefinition(id: "exceptions", title: NSLocalizedString("Exceptions", comment: ""), symbol: .handRaised, builder: ExceptionsTab.initTab, registerDynamicSearchContent: nil),
+            SettingsSectionDefinition(id: "exceptions", title: NSLocalizedString("Exceptions", comment: ""), symbol: .handRaised, builder: ExceptionsTab.initTab, registerDynamicSearchContent: ExceptionsTab.registerSidebarRowsSearchContent),
         ]
     }
 
@@ -568,7 +568,7 @@ class SettingsWindow: NSWindow {
         let sectionTitleBox: (title: LightLabel, view: NSView)
         let (built, builder) = SettingsSearchIndex.indexed { () -> (title: LightLabel, view: NSView) in
             let sectionTitle = TableGroupView.makeText(definition.title, bold: true)
-            sectionTitle.font = NSFont.systemFont(ofSize: 15, weight: .medium)
+            sectionTitle.font = NSFont.systemFont(ofSize: 22, weight: .bold)
             sectionTitle.lineBreakMode = .byWordWrapping
             sectionTitle.maximumNumberOfLines = 0
             // `makeText` hardcodes `.left`, which parks this full-width title under the LTR traffic

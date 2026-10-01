@@ -68,12 +68,8 @@ class PreferencesMigrations {
         versionInPlist.compare(versionThreshold, options: .numeric) != .orderedDescending
     }
 
-    // showAppsOrWindows + showTabsAsWindows moved from global to per-shortcut. Copy the previous
-    // global value into every indexed key so the user's chosen grouping behaviour survives the
-    // upgrade. `showTabsAsWindows` also changed type from `Bool` to `GroupTabsPreference` so we
-    // map "true" → "1" (separateWindows) and "false" → "0" (singleWindow) — for both the old
-    // global key being copied and any pre-existing per-shortcut keys that landed as Bool strings
-    // before this migration was wired up.
+    // Shortcut 1 reads the base keys. Keep them while filling unset indexed keys, and convert
+    // Bool strings to GroupTabsPreference indexes: "true" → "1", "false" → "0".
     static func migrateGroupingToPerShortcut() {
         if let old = Self.defaults.string(forKey: "showAppsOrWindows") {
             for i in 0...Preferences.maxShortcutCount {
@@ -82,10 +78,9 @@ class PreferencesMigrations {
                     Self.defaults.set(old, forKey: key)
                 }
             }
-            Self.defaults.removeObject(forKey: "showAppsOrWindows")
         }
         let oldGlobal = Self.defaults.string(forKey: "showTabsAsWindows")
-        let convertedGlobal = oldGlobal.map { ($0 == "true") ? "1" : "0" }
+        let convertedGlobal = oldGlobal.map { $0 == "true" ? "1" : ($0 == "false" ? "0" : $0) }
         for i in 0...Preferences.maxShortcutCount {
             let key = Preferences.indexToName("showTabsAsWindows", i)
             if let existing = Self.defaults.string(forKey: key) {
@@ -95,9 +90,6 @@ class PreferencesMigrations {
             } else if let convertedGlobal {
                 Self.defaults.set(convertedGlobal, forKey: key)
             }
-        }
-        if oldGlobal != nil {
-            Self.defaults.removeObject(forKey: "showTabsAsWindows")
         }
     }
 

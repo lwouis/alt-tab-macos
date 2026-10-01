@@ -67,9 +67,12 @@ class TilesView {
     /// returned only by timing out after 3.0s, and the whole dismissal sat behind it (#5981). Callers run it
     /// last, behind whatever the user is actually waiting for: the panel hiding, or the re-layout that puts
     /// the unfiltered list back.
-    private static func takeTheCaretFromTheField() {
+    /// `focusingSelectedTile` moves the tile focus into the same deferred turn: handing first responder to the
+    /// tile resigns the field just the same.
+    private static func takeTheCaretFromTheField(focusingSelectedTile: Bool = false) {
         DispatchQueue.main.async {
             guard searchMode == .off else { return } // search restarted meanwhile and owns the field now
+            if focusingSelectedTile && SwitcherSession.current != nil { focusSelectedTileIfPossible() }
             searchField.stringValue = ""
             updateSearchFieldEditability()
         }
@@ -90,8 +93,7 @@ class TilesView {
         clearHover()
         Windows.updateSearchQuery("")
         App.refreshUi(true)
-        focusSelectedTileIfPossible()
-        takeTheCaretFromTheField()
+        takeTheCaretFromTheField(focusingSelectedTile: true)
     }
 
     static func enableSearchEditing() {
