@@ -260,7 +260,11 @@ class TrackpadEvents {
         }
         if activeTouches.count > 1 {
             ScrollwheelEvents.toggle(true)
-            CursorEvents.deadZoneInitialPosition = nil
+            let session = SwitcherSession.current
+            DispatchQueue.main.async { [weak session] in
+                guard let session, SwitcherSession.current === session else { return }
+                CursorEvents.deadZoneInitialPosition = nil
+            }
             NavigationSwipeDetector.hasDetected(activeTouches, touchesDownIds)
         }
         // if activeTouches.count == 1, ignore (finger is in pointer-mode)

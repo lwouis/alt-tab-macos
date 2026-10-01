@@ -109,24 +109,16 @@ class Applications {
         }
     }
 
-    /// Discard "zombie" windows so they can't accumulate. Window removal is normally driven by the per-window
-    /// destroy event (804), which is reliable for windows we're subscribed to. But our discovery is async — a
-    /// window seen in the SLS snapshot can die in the gap before we subscribe to it, so its 804 fires before
-    /// we're listening and never removes it; it lingers flagged phantom (empty spaceIds) and would otherwise
-    /// pile up forever, holding a Window + a stale subscription each. So on each refresh, reconcile ONLY the
-    /// windows currently flagged phantom (the accumulation candidates — usually none) against authoritative
-    /// OS existence, and drop the ones the OS confirms gone. Alive-but-phantom windows (a real window briefly
-    /// between Spaces, or Slack's empty-spaceIds case #5791) still exist, so they're kept and stay correctly
-    /// hidden. Bails on query failure — never discard on incomplete data. (yabai sidesteps this race by
-    /// observing a window synchronously at create; our discovery is async, so this is the cheap, scoped
-    /// backstop — it checks the suspicious few, not the whole list.)
+    /// A window can die before discovery subscribes to its destroy event (804), leaving a phantom behind.
+    /// Only queried windows that are still phantom when the answer lands may be discarded. A query failure
+    /// cannot establish absence; live windows with empty Space membership (e.g. Slack, #5791) must be kept.
     static func discardDeadPhantomWindows() {
         let phantomWids = Windows.list.compactMap { $0.isPhantom ? $0.cgWindowId : nil }
         guard !phantomWids.isEmpty else { return }
+        let queriedWids = Set(phantomWids)
         CGSCallScheduler.existingWindowIds(among: phantomWids) { alive in
-            // Never discard on incomplete data.
             guard let alive else { return }
-            let dead = Windows.list.filter { $0.isPhantom && ($0.cgWindowId.map { !alive.contains($0) } ?? false) }
+            let dead = Windows.list.filter { $0.isPhantom && ($0.cgWindowId.map { queriedWids.contains($0) && !alive.contains($0) } ?? false) }
             guard !dead.isEmpty else { return }
             Logger.debug { "remove phantomSweep count=\(dead.count) \(dead.map { $0.debugId })" }
             Windows.removeWindows(dead, true)
@@ -372,10 +364,7 @@ class Applications {
         AXCallScheduler.shared.schedule(key: "wid-\(wid)-generic", context: app.debugId, pid: app.pid, scan: true) { [weak app] in
             guard let app else { return }
             guard wid != 0 else { return }
-            // TilesPanel.shared is nil until the switcher is first built; discovery can now run before that
-            // (a window created right at launch), so don't force-unwrap it. If the panel exists and this is
-            // its own window, skip it; otherwise it can't be ours, so proceed.
-            if let panel = TilesPanel.shared, wid == panel.windowNumber { return }
+            guard wid != TilesPanel.windowIdSnapshot else { return }
             let isSelf = app.pid == AXUIElement.currentProcessPid
             // The WS minimized tag is distinct from the ordered-out bit, which is also cleared for closing,
             // app-hidden and other-Space windows.
@@ -1035,10 +1024,7 @@ class Applications {
         AXCallScheduler.shared.schedule(key: "wid-\(wid)-generic", context: app.debugId, pid: app.pid, scan: true) { [weak app] in
             guard let app else { return }
             guard wid != 0 else { return }
-            // TilesPanel.shared is nil until the switcher is first built; discovery can now run before that
-            // (a window created right at launch), so don't force-unwrap it. If the panel exists and this is
-            // its own window, skip it; otherwise it can't be ours, so proceed.
-            if let panel = TilesPanel.shared, wid == panel.windowNumber { return }
+            guard wid != TilesPanel.windowIdSnapshot else { return }
             let isSelf = app.pid == AXUIElement.currentProcessPid
             // Skip the tab-group read when the caller says not to reconcile tabs (an order-out): an
             // ordered-out window reports its AXTabGroup inconsistently mid-transition, and order-out never

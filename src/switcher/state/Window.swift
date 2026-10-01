@@ -5,6 +5,7 @@ import Cocoa
 /// `WindowSurfaceInventory`; native tabs are grouped into logical destinations by `TabGroups`.
 class Window {
     private static var globalCreationCounter = Int.zero
+    private typealias FocusTarget = (wid: CGWindowID, pid: pid_t, element: AXUIElement?, isMinimized: Bool)
 
     /// **The single backing record for every fact the reducer owns** (`TrackedWindow`), held as ONE value so
     /// the bridge moves it whole: `TrackedWindowStateBridge.modelWindow` reads it and `adopt(_:)` takes the
@@ -223,11 +224,10 @@ class Window {
         AxObserverRegistry.noteTrackedElement(pid: application.pid, wid: wid, element: axUiElement)
     }
 
-    /// Re-resolve this window's current AXUIElement by matching its wid against the app's live windows, to
+    /// Re-resolve a window's current AXUIElement by matching its wid against the app's live windows, to
     /// recover when the cached ref went stale. Makes AX IPC calls — invoke off the main thread.
-    func refreshedAxElement() -> AXUIElement? {
-        guard let wid = cgWindowId else { return nil }
-        return WindowElementAcquisition.element(for: wid, pid: application.pid, route: .otherSpaceViaBruteForce)
+    private static func refreshedAxElement(_ wid: CGWindowID, _ pid: pid_t) -> AXUIElement? {
+        WindowElementAcquisition.element(for: wid, pid: pid, route: .otherSpaceViaBruteForce)
     }
 
     func refreshThumbnail(_ screenshot: CALayerContents) {
@@ -302,7 +302,7 @@ class Window {
     }
 
     func minDemin() {
-        if !canBeMinDeminOrFullscreened() {
+        guard canBeMinDeminOrFullscreened() else {
             NSSound.beep()
             return
         }
@@ -310,23 +310,26 @@ class Window {
             self.isMinimized ? altTabWindow.deminiaturize(nil) : altTabWindow.miniaturize(nil)
             return
         }
+        guard let element = axUiElement else { return }
+        let wasFullscreen = self.isFullscreen
+        let wasMinimized = self.isMinimized
         BackgroundWork.accessibilityCommandsQueue.addOperation { [weak self] in
-            guard let self, let element = self.axUiElement else { return }
-            if self.isFullscreen {
+            guard let self else { return }
+            if wasFullscreen {
                 try? element.setAttribute(kAXFullscreenAttribute, false)
-                // minimizing is ignored if sent immediatly; we wait for the de-fullscreen animation to be over
+                // AX ignores minimizing during the fullscreen exit animation.
                 BackgroundWork.accessibilityCommandsQueue.addOperationAfter(deadline: .now() + .seconds(1)) { [weak self] in
-                    guard let self, let element = self.axUiElement else { return }
+                    guard self != nil else { return }
                     try? element.setAttribute(kAXMinimizedAttribute, true)
                 }
             } else {
-                try? element.setAttribute(kAXMinimizedAttribute, !self.isMinimized)
+                try? element.setAttribute(kAXMinimizedAttribute, !wasMinimized)
             }
         }
     }
 
     func toggleFullscreen() {
-        if !canBeMinDeminOrFullscreened() {
+        guard canBeMinDeminOrFullscreened() else {
             NSSound.beep()
             return
         }
@@ -334,9 +337,11 @@ class Window {
             altTabWindow.toggleFullScreen(nil)
             return
         }
+        guard let element = axUiElement else { return }
+        let wasFullscreen = self.isFullscreen
         BackgroundWork.accessibilityCommandsQueue.addOperation { [weak self] in
-            guard let self, let element = self.axUiElement else { return }
-            try? element.setAttribute(kAXFullscreenAttribute, !self.isFullscreen)
+            guard self != nil else { return }
+            try? element.setAttribute(kAXFullscreenAttribute, !wasFullscreen)
         }
     }
 
@@ -376,8 +381,9 @@ class Window {
             let targetMaybeCrossSpace = !self.spaceIds.isEmpty && !self.spaceIds.contains(originSpaceId)
             let originFrontPid = targetMaybeCrossSpace
                 ? NSWorkspace.shared.frontmostApplication.flatMap(Applications.knownPid) : nil
+            let target: FocusTarget = (cgWindowId!, application.pid, axUiElement, self.isMinimized)
             BackgroundWork.accessibilityCommandsQueue.addOperation { [weak self] in
-                self?.applyFocus(generation, originSpaceId, originFrontPid)
+                self?.applyFocus(target, generation, originSpaceId, originFrontPid)
             }
         }
     }
@@ -401,37 +407,35 @@ class Window {
     /// timeout, so a second alt-tab starts a second operation while this one is still inside a step. Each step
     /// is therefore skipped once a newer focus exists, and a superseded operation that already moved the
     /// z-order re-asserts the newer intent on its way out — see FocusIntentPolicySpecs.md.
-    private func applyFocus(_ generation: FocusGeneration, _ originSpaceId: CGSSpaceID, _ originFrontPid: pid_t?) {
+    /// The target is captured on main; AX work cannot read state that the main-thread reducer adopts.
+    private func applyFocus(_ target: FocusTarget, _ generation: FocusGeneration, _ originSpaceId: CGSSpaceID, _ originFrontPid: pid_t?) {
         guard FocusIntents.shared.mayProceed(generation) else { return }
         #if DEBUG
-        if FocusIntents.shared.consumeRefusalForQa() { return refusedForQa() }
+        if FocusIntents.shared.consumeRefusalForQa() { return refusedForQa(target.wid, target.pid) }
         #endif
-        if self.isMinimized, let element = axUiElement {
+        if target.isMinimized, let element = target.element {
             try? element.setAttribute(kAXMinimizedAttribute, false)
         }
         // Step 0 is the only step that blocks BEFORE this operation has touched the screen, so a supersede
-        // caught here owes nothing. Counting the restore as a z-order move and repairing on this exit was
-        // tried and measured useless (2026-09-09): the re-front lands while macOS is still animating
-        // the window out of the Dock, and the restore draws over it afterwards. Nothing this operation can do
-        // on its way out recalls a restore already in flight.
+        // caught here owes nothing. Repairing on this exit was measured useless (2026-09-09): the re-front lands
+        // while macOS is still animating the window out of the Dock, and the restore draws over it afterwards.
         guard FocusIntents.shared.mayProceed(generation) else { return }
         var psn = ProcessSerialNumber()
-        GetProcessForPID(application.pid, &psn)
-        _SLPSSetFrontProcessWithOptions(&psn, cgWindowId!, SLPSMode.userGenerated.rawValue)
+        GetProcessForPID(target.pid, &psn)
+        _SLPSSetFrontProcessWithOptions(&psn, target.wid, SLPSMode.userGenerated.rawValue)
         FocusIntents.shared.noteReordered(generation)
-        makeKeyAndRaise(generation, &psn)
-        restoreOriginSpaceFront(originSpaceId, originFrontPid)
-        repairIfSuperseded(generation)
+        makeKeyAndRaise(target, generation, &psn)
+        restoreOriginSpaceFront(originSpaceId, originFrontPid, target.pid)
+        repairIfSuperseded(generation, target.wid)
         guard FocusIntents.shared.mayProceed(generation) else { return }
-        hearWhereFocusLanded()
-        verifyNotCovered(generation)
+        hearWhereFocusLanded(target.pid)
+        verifyNotCovered(target, generation)
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) {
             WindowThumbnails.previewSelectedIfNeeded()
         }
     }
 
-    private func hearWhereFocusLanded() {
-        let pid = application.pid
+    private func hearWhereFocusLanded(_ pid: pid_t) {
         DispatchQueue.main.async { WindowServerEvents.readFocusedWindowAfterFocusing(pid) }
     }
 
@@ -441,15 +445,13 @@ class Window {
     /// nothing moved it on its own. A second raise brought the target forward every time. So the on-screen
     /// order is read once the switch has settled, and only the raise is repeated: step 1 has visibly landed
     /// (the app is front), and step 2's synthetic click is not something to post twice.
-    private func verifyNotCovered(_ generation: FocusGeneration) {
+    private func verifyNotCovered(_ target: FocusTarget, _ generation: FocusGeneration) {
         #if DEBUG
-        if FocusIntents.shared.deferVerificationForQa({ [weak self] in self?.verifyNotCovered(generation) }) {
+        if FocusIntents.shared.deferVerificationForQa({ [weak self] in self?.verifyNotCovered(target, generation) }) {
             Logger.info { "QA: holding focus verification before snapshot" }
             return
         }
         #endif
-        let wid = cgWindowId!
-        let pid = application.pid
         let deadline = ProcessInfo.processInfo.systemUptime + FocusIntentPolicy.repairHorizon
         DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + .milliseconds(150)) { [weak self] in
             CGSCallScheduler.run { [weak self] in
@@ -457,20 +459,20 @@ class Window {
                 let surfaces = Self.onScreenSurfaces()
                 let frontPid = NSWorkspace.shared.frontmostApplication?.processIdentifier
                 let current = FocusIntents.shared.mayProceed(generation)
-                guard FocusOutcomePolicy.needsRaise(wid, pid, frontPid, current, surfaces) else { return }
-                self.enqueueFocusVerification(generation, deadline: deadline)
+                guard FocusOutcomePolicy.needsRaise(target.wid, target.pid, frontPid, current, surfaces) else { return }
+                self.enqueueFocusVerification(target, generation, deadline: deadline)
             }
         }
     }
 
-    private func enqueueFocusVerification(_ generation: FocusGeneration, deadline: TimeInterval) {
+    private func enqueueFocusVerification(_ target: FocusTarget, _ generation: FocusGeneration, deadline: TimeInterval) {
         #if DEBUG
         let delay = FocusIntents.shared.consumeVerificationDelayForQa()
         if delay > 0 {
             Logger.info { "QA: delaying focus verification" }
             DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + .milliseconds(delay)) { [weak self] in
                 BackgroundWork.accessibilityCommandsQueue.addOperation { [weak self] in
-                    self?.raiseIfStillFocused(generation, deadline: deadline)
+                    self?.raiseIfStillFocused(target, generation, deadline: deadline)
                     Logger.info { "QA: delayed focus verification finished" }
                 }
             }
@@ -478,25 +480,26 @@ class Window {
         }
         #endif
         BackgroundWork.accessibilityCommandsQueue.addOperation { [weak self] in
-            self?.raiseIfStillFocused(generation, deadline: deadline)
+            self?.raiseIfStillFocused(target, generation, deadline: deadline)
         }
     }
 
-    private func raiseIfStillFocused(_ generation: FocusGeneration, deadline: TimeInterval) {
-        let pid = application.pid
+    private func raiseIfStillFocused(_ target: FocusTarget, _ generation: FocusGeneration, deadline: TimeInterval) {
+        let pid = target.pid
         guard FocusIntents.shared.mayProceed(generation), ProcessInfo.processInfo.systemUptime <= deadline,
               NSWorkspace.shared.frontmostApplication?.processIdentifier == pid else { return }
         let app = AXUIElementCreateApplication(pid)
         AXUIElementSetMessagingTimeout(app, 0.25)
         let focused = try? app.attributes([kAXFocusedWindowAttribute], pid: pid).focusedWindow
         let focusedWid = focused.flatMap { try? $0.cgWindowId(pid: pid) }
-        guard let focused, let wid = cgWindowId,
+        let wid = target.wid
+        guard let focused,
               FocusOutcomePolicy.mayRaise(wid, pid,
                   frontPid: NSWorkspace.shared.frontmostApplication?.processIdentifier, focusedWid: focusedWid,
                   current: FocusIntents.shared.mayProceed(generation),
                   now: ProcessInfo.processInfo.systemUptime, deadline: deadline) else { return }
         let raised = raise(focused, generation)
-        repairIfSuperseded(generation)
+        repairIfSuperseded(generation, wid)
         // The log distinguishes a repaired switch from one that landed on its first raise.
         if raised { Logger.debug { "focus verification: raised #\(wid) again over another app's window" } }
     }
@@ -511,29 +514,29 @@ class Window {
 
     #if DEBUG
     /// The operation still asks where focus landed, as a real one the OS ignored would.
-    private func refusedForQa() {
-        Logger.info { "QA: refused the focus of #\(self.cgWindowId ?? 0)" }
-        hearWhereFocusLanded()
+    private func refusedForQa(_ wid: CGWindowID, _ pid: pid_t) {
+        Logger.info { "QA: refused the focus of #\(wid)" }
+        hearWhereFocusLanded(pid)
     }
     #endif
 
     /// Steps 2 and 3. Step 3 is the only AX-dependent step: 1 and 2 use the wid and psn directly, so a window
     /// with no element still gets fronted and made key — which is the whole point of keeping a hung app's
     /// window trackable.
-    private func makeKeyAndRaise(_ generation: FocusGeneration, _ psn: inout ProcessSerialNumber) {
+    private func makeKeyAndRaise(_ target: FocusTarget, _ generation: FocusGeneration, _ psn: inout ProcessSerialNumber) {
         guard FocusIntents.shared.mayProceed(generation) else { return }
-        makeKeyWindow(&psn, cgWindowId!)
+        makeKeyWindow(&psn, target.wid)
         FocusIntents.shared.noteReordered(generation)
         guard FocusIntents.shared.mayProceed(generation) else { return }
-        raiseHealingStaleElement(generation)
+        raiseHealingStaleElement(target, generation)
     }
 
     /// Step 3. The guard before the #5586 re-resolve is the one that pays:
     /// it follows a call that may have blocked for the full 1s timeout, and the re-resolve itself costs up to
     /// 1.25s more.
-    private func raiseHealingStaleElement(_ generation: FocusGeneration) {
-        if let element = axUiElement, raise(element, generation) { return }
-        guard FocusIntents.shared.mayProceed(generation), let fresh = refreshedAxElement() else { return }
+    private func raiseHealingStaleElement(_ target: FocusTarget, _ generation: FocusGeneration) {
+        if let element = target.element, raise(element, generation) { return }
+        guard FocusIntents.shared.mayProceed(generation), let fresh = Self.refreshedAxElement(target.wid, target.pid) else { return }
         _ = raise(fresh, generation)
         DispatchQueue.main.async { [weak self] in
             guard let self, self.axUiElement != fresh else { return }
@@ -554,8 +557,8 @@ class Window {
     /// our app as its front; restore the app that was there before so returning shows it, not our window.
     /// Cross-Space only (originFrontPid is nil otherwise), and skipped when the origin's front was already
     /// this app. Owed by whoever ran step 1, so it is never skipped for being superseded.
-    private func restoreOriginSpaceFront(_ originSpaceId: CGSSpaceID, _ originFrontPid: pid_t?) {
-        guard let originFrontPid, originFrontPid != application.pid else { return }
+    private func restoreOriginSpaceFront(_ originSpaceId: CGSSpaceID, _ originFrontPid: pid_t?, _ targetPid: pid_t) {
+        guard let originFrontPid, originFrontPid != targetPid else { return }
         var originPsn = ProcessSerialNumber()
         GetProcessForPID(originFrontPid, &originPsn)
         SLSSpaceSetFrontPSN(CGS_CONNECTION, originSpaceId, originPsn)
@@ -567,16 +570,13 @@ class Window {
     /// the newer one, whose late raise puts exactly the right window on top and owes nothing.
     /// Steps 1 and 2 only: step 3 would need that window's AX element, and `Windows` is main-thread state,
     /// while the wid and psn are enough to front it and make it key again.
-    private func repairIfSuperseded(_ generation: FocusGeneration) {
-        guard let intent = FocusIntents.shared.finish(generation, wid: cgWindowId ?? 0) else { return }
+    private func repairIfSuperseded(_ generation: FocusGeneration, _ wid: CGWindowID) {
+        guard let intent = FocusIntents.shared.finish(generation, wid: wid) else { return }
         var psn = ProcessSerialNumber()
         GetProcessForPID(intent.pid, &psn)
         _SLPSSetFrontProcessWithOptions(&psn, intent.wid, SLPSMode.userGenerated.rawValue)
         makeKeyWindow(&psn, intent.wid)
-        // The one path that fronts a window nobody just asked for, so it says so: without this a repair is
-        // indistinguishable in the log from an ordinary switch, and reading one back out of a run took an
-        // elimination over every other emitter of that naming (F-01, 2026-09-17).
-        Logger.debug { "focus repair: re-asserting #\(intent.wid) over the late \(self.cgWindowId ?? 0)" }
+        Logger.debug { "focus repair: re-asserting #\(intent.wid) over the late \(wid)" }
         DispatchQueue.main.async { WindowServerEvents.readFocusedWindowAfterFocusing(intent.pid) }
     }
 

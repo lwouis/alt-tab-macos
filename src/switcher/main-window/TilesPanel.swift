@@ -10,6 +10,14 @@ class TilesPanel: NSPanel {
     static var maxPossibleThumbnailSize = NSSize.zero
     static var maxPossibleAppIconSize = NSSize.zero
     static var shared: TilesPanel!
+    private static let windowIdLock = NSLock()
+    private static var windowId: CGWindowID = 0
+    // NSWindow.windowNumber is main-thread-only; AX workers read this synchronized snapshot instead.
+    static var windowIdSnapshot: CGWindowID {
+        windowIdLock.lock()
+        defer { windowIdLock.unlock() }
+        return windowId
+    }
     private var frozenTopCenter: NSPoint?
     private var highWaterHeight: CGFloat = 0
     private var showGeneration: UInt = 0
@@ -27,6 +35,10 @@ class TilesPanel: NSPanel {
         setAccessibilityLabel(App.name)
         updateAppearance()
         Self.shared = self
+        let wid = CGWindowID(windowNumber)
+        Self.windowIdLock.lock()
+        Self.windowId = wid
+        Self.windowIdLock.unlock()
     }
 
     func updateAppearance() {
