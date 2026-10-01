@@ -219,19 +219,6 @@ extension NSImage {
 }
 
 extension CGImage {
-    static func allNamed(_ imageName: String) -> [CGImage] {
-        let imageURL = Bundle.main.url(forResource: imageName, withExtension: nil)!
-        let imageSource = CGImageSourceCreateWithURL(imageURL as CFURL, nil)!
-        let count = CGImageSourceGetCount(imageSource)
-        return (0..<count).compactMap { CGImageSourceCreateImageAtIndex(imageSource, $0, nil) }
-    }
-
-    static func bestMatch(_ images: [CGImage], for size: NSSize) -> CGImage {
-        let targetPx = Int(size.width.rounded())
-        return images.filter { $0.width >= targetPx }.min(by: { $0.width < $1.width })
-            ?? images.max(by: { $0.width < $1.width })!
-    }
-
     func size() -> NSSize {
         return NSSize(width: width, height: height)
     }

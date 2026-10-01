@@ -101,7 +101,7 @@ class PermissionsWindow: NSWindow {
         let iconSize = NSSize(width: 50, height: 50)
         let icon = LightImageView()
         icon.translatesAutoresizingMaskIntoConstraints = false
-        icon.updateContents(.cgImage(App.appIcon(for: iconSize)), iconSize)
+        icon.updateContents(.cgImage(App.appIcon), iconSize)
         icon.fit(iconSize.width, iconSize.height)
         let text = NSTextField(wrappingLabelWithString: title)
         text.translatesAutoresizingMaskIntoConstraints = false

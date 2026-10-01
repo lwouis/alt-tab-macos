@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
 Regenerate docs/readme/main.svg, the consolidated SVG that drives README.md.
+Requires Pillow and scripts/assets/requirements.txt (pyoxipng).
 
 The README is a single dark, on-brand image (hero + stats + CTAs + screenshot)
 that hands GitHub visitors off to https://alt-tab.app/. To stay seamless across
@@ -9,7 +10,7 @@ including the hero screenshot, embedded as a base64 JPG.
 
 What this script does:
   1. Reads a source screenshot (default: docs/readme/screenshot-source.webp).
-  2. Re-encodes it to a 1800-wide quality-86 JPG via ImageMagick.
+  2. Re-encodes it to a 1800-wide quality-86 JPG via Pillow.
   3. Embeds it as base64 in the SVG template defined below.
   4. Writes the result to docs/readme/main.svg.
 
@@ -23,16 +24,19 @@ Usage:
   scripts/build_readme_svg.py [PATH_TO_SCREENSHOT]
 
   Without an argument, reads docs/readme/screenshot-source.webp.
-  Pass a path to override (any format ImageMagick can read: webp, png, jpg).
+  Pass a path to override (any format Pillow can read: webp, png, jpg).
 
-Requires: python3, ImageMagick (`magick`).
+Requires: python3 and Pillow with WebP support.
 """
 
 import base64
 import os
-import subprocess
+import re
 import sys
-import tempfile
+from io import BytesIO
+
+from PIL import Image
+from assets.optimize_brand_pngs import optimize
 
 REPO_ROOT = os.path.normpath(os.path.join(os.path.dirname(os.path.realpath(__file__)), '..'))
 DEFAULT_SOURCE = os.path.join(REPO_ROOT, 'docs', 'readme', 'screenshot-source.webp')
@@ -40,18 +44,23 @@ OUTPUT_PATH = os.path.join(REPO_ROOT, 'docs', 'readme', 'main.svg')
 
 
 def encode_screenshot(input_path: str) -> str:
-    """Re-encode the source image to 1800-wide quality-86 JPG, return base64."""
-    with tempfile.NamedTemporaryFile(suffix='.jpg', delete=False) as tmp:
-        tmp_path = tmp.name
-    try:
-        subprocess.run(
-            ['magick', input_path, '-resize', '1800x>', '-quality', '86', tmp_path],
-            check=True,
-        )
-        with open(tmp_path, 'rb') as f:
-            return base64.b64encode(f.read()).decode('ascii')
-    finally:
-        os.unlink(tmp_path)
+    """Re-encode the source image to at most 1800px, as an optimized JPEG."""
+    with Image.open(input_path) as source:
+        image = source.convert('RGB')
+    image.thumbnail((1800, 1800), Image.Resampling.LANCZOS)
+    output = BytesIO()
+    image.save(output, format='JPEG', quality=86, optimize=True, progressive=True)
+    return base64.b64encode(output.getvalue()).decode('ascii')
+
+
+def encode_app_icon() -> str:
+    """Embed the original app artwork at 3x the 144px display size."""
+    master = os.path.join(REPO_ROOT, 'resources/icons/app/app.png')
+    with Image.open(master) as source:
+        image = source.convert('RGBA').resize((432, 432), Image.Resampling.LANCZOS)
+    output = BytesIO()
+    image.save(output, format='PNG', optimize=True)
+    return base64.b64encode(optimize(output.getvalue())).decode('ascii')
 
 
 def build_svg(screenshot_b64: str) -> str:
@@ -122,18 +131,6 @@ def build_svg(screenshot_b64: str) -> str:
       <feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="#000000" flood-opacity="0.25"/>
     </filter>
 
-    <linearGradient id="iconCardA" x1="50%" x2="50%" y1="0%" y2="100%">
-      <stop stop-color="#d619ac"/>
-      <stop offset="1" stop-color="#d0224c"/>
-    </linearGradient>
-    <linearGradient id="iconCardB" x1="50%" x2="50%" y1="0%" y2="100%">
-      <stop stop-color="#1ddfdf"/>
-      <stop offset="1" stop-color="#1d8cdc"/>
-    </linearGradient>
-    <linearGradient id="iconCardC" x1="50%" x2="50%" y1="0%" y2="100%">
-      <stop stop-color="#161386"/>
-      <stop offset="1" stop-color="#0a093d"/>
-    </linearGradient>
     <clipPath id="screenshotClip">
       <rect x="40" y="455" width="820" height="461" rx="14"/>
     </clipPath>
@@ -174,11 +171,7 @@ def build_svg(screenshot_b64: str) -> str:
     <circle cx="860" cy="940" r="0.5" opacity="0.3"/>
   </g>
 
-  <g transform="translate(166 50)">
-    <svg width="144" height="144" viewBox="0 0 55 55">
-      <g><rect width="43.171" height="36.695" x="1.843" y="15.476" fill="url(#iconCardA)" rx="1.125" transform="rotate(-9 1.843 15.476)"/><rect width="43.171" height="36.695" x="5.771" y="9.315" fill="url(#iconCardB)" rx="1.125" transform="rotate(-9 5.771 9.315)"/><path fill="url(#iconCardC)" d="M6.481 13.787 43.49 7.926a1.125 1.125 0 0 1 1.287.935l4.856 30.658-37.009 5.862a1.125 1.125 0 0 1-1.287-.935z"/><path fill="#fff" fill-rule="evenodd" d="m43.728 21.934-9.955 8.01-.639-4.033-6.662 1.055-.714-4.51L32.42 21.4l-.635-4.009z" clip-rule="evenodd"/><path fill="#fff" fill-rule="evenodd" d="m12.892 34.939 11.943 4.542-.639-4.033 6.663-1.055-.714-4.51-6.663 1.055-.635-4.01z" clip-rule="evenodd"/><circle cx="12.121" cy="18.181" r="1.923" fill="#fff" transform="rotate(-9 12.121 18.18)"/><circle cx="17.55" cy="17.322" r="1.923" fill="#fff" transform="rotate(-9 17.55 17.322)"/><circle cx="23.036" cy="16.452" r="1.923" fill="#fff" transform="rotate(-9 23.036 16.452)"/></g>
-    </svg>
-  </g>
+  <image href="data:image/png;base64,{encode_app_icon()}" x="166" y="50" width="144" height="144"/>
 
   <text x="330" y="120" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="700" font-size="56" fill="#ffffff" letter-spacing="-1.5">AltTab <tspan fill="url(#proGrad)">Pro</tspan></text>
 
@@ -265,6 +258,10 @@ def main() -> None:
     print(f'reading screenshot: {src}')
     b64 = encode_screenshot(src)
     svg = build_svg(b64)
+    if os.path.exists(OUTPUT_PATH):
+        with open(OUTPUT_PATH) as current:
+            for marker, value in re.findall(r'(<!--(?:downloads|stars)-->)([^<]+)', current.read()):
+                svg = re.sub(re.escape(marker) + r'[^<]+', lambda _: marker + value, svg)
 
     with open(OUTPUT_PATH, 'w') as f:
         f.write(svg)

@@ -1,14 +1,23 @@
 enum MenubarIconPreference: CaseIterable, MacroPreference {
+    // Persisted indices and menubar-N.pdf assets share this order; preserve it across icon redesigns.
     case outlined
     case filled
     case colored
+    case legacyOutlined
+    case legacyFilled
+    case legacyColored
+
+    var isTemplate: Bool { self != .colored && self != .legacyColored }
 
     var localizedString: LocalizedString {
         switch self {
-            // these spaces are different from each other; they have to be unique
+            // NSPopUpButton requires unique titles, including the image-only choices.
             case .outlined: return " "
             case .filled: return " "
             case .colored: return " "
+            case .legacyOutlined: return "  "
+            case .legacyFilled: return "  "
+            case .legacyColored: return "  "
         }
     }
 }

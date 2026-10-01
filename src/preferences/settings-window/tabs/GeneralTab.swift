@@ -29,14 +29,14 @@ class GeneralTab {
             rightViews: [crashPolicyDropdown!])
         for i in 0..<MenubarIconPreference.allCases.count {
             let image = NSImage.initCopy("menubar-\(i)")
-            image.isTemplate = i < 2
+            image.isTemplate = MenubarIconPreference.allCases[i].isTemplate
             image.size = NSSize(width: 22, height: 22)
             menubarIconDropdown!.item(at: i)!.image = image
         }
         let cell = menubarIconDropdown!.cell! as! NSPopUpButtonCell
         cell.bezelStyle = .regularSquare
         cell.arrowPosition = .arrowAtBottom
-        cell.imagePosition = .imageOverlaps
+        cell.imagePosition = .imageOnly
         let captureWindowsInBackground = TableGroupView.Row(leftTitle: NSLocalizedString("Capture windows in the background", comment: ""),
             subTitle: NSLocalizedString("When disabled, avoids the macOS purple screen-recording indicator, and avoids flickers when playing DRM video. Thumbnails will be less up-to-date.", comment: ""),
             rightViews: [LabelAndControl.makeSwitch("captureWindowsInBackground")])

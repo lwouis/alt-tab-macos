@@ -187,8 +187,8 @@ class PreferencesMigrations {
         }
     }
 
-    /// we added the new menubarIconShown toggle. It replaces menubarIcon having value "3" which would hide the icon
-    /// there are now 2 preferences : menubarIconShown is a boolean, and menubarIcon has values 0, 1, 2
+    /// Before 7.8.0, index 3 hid the icon. The version gate keeps this migration
+    /// from interpreting the current legacy icon at index 3 as hidden.
     static func migrateMenubarIconWithNewShownToggle() {
         if let old = Self.defaults.string(forKey: "menubarIcon") {
             if old == "3" {

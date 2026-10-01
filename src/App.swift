@@ -15,13 +15,12 @@ class App: AppCenterApplication {
     static let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String
     static let licence = Bundle.main.object(forInfoDictionaryKey: "NSHumanReadableCopyright") as! String
     static let repository = "https://github.com/lwouis/alt-tab-macos"
-    static let appIconReps = CGImage.allNamed("app.icns")
+    static let appIcon: CGImage = {
+        let url = Bundle.main.url(forResource: "app", withExtension: "png")!
+        let source = CGImageSourceCreateWithURL(url as CFURL, nil)!
+        return CGImageSourceCreateImageAtIndex(source, 0, nil)!
+    }()
 
-    static func appIcon(for size: NSSize) -> CGImage {
-        let scale = NSScreen.main?.backingScaleFactor ?? 2.0
-        let scaled = NSSize(width: size.width * scale, height: size.height * scale)
-        return CGImage.bestMatch(appIconReps, for: scaled)
-    }
     override class var shared: App { super.shared as! App }
     static var supportProjectAction: Selector { #selector(App.supportProject) }
     static var upgradeToProAction: Selector { #selector(App.upgradeToPro) }

@@ -470,7 +470,7 @@ class SettingsWindow: NSWindow {
 
     /// The app icon and name atop the sidebar, so the window reads as AltTab's at a glance.
     private func setupLogo(_ parent: NSView) -> NSView {
-        let icon = NSImageView(image: NSImage(cgImage: App.appIcon(for: Self.logoIconSize), size: Self.logoIconSize))
+        let icon = NSImageView(image: NSImage(cgImage: App.appIcon, size: Self.logoIconSize))
         icon.translatesAutoresizingMaskIntoConstraints = false
         icon.fit(Self.logoIconSize.width, Self.logoIconSize.height)
         let name = NSTextField(labelWithString: App.name)

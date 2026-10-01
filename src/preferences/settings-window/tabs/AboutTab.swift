@@ -5,7 +5,7 @@ class AboutTab {
         let appIcon = LightImageView()
         appIcon.translatesAutoresizingMaskIntoConstraints = false
         let appIconSize = NSSize(width: 128, height: 128)
-        appIcon.updateContents(.cgImage(App.appIcon(for: appIconSize)), appIconSize)
+        appIcon.updateContents(.cgImage(App.appIcon), appIconSize)
         appIcon.fit(128, 128)
         let appText = StackView([
             BoldLabel(App.name),

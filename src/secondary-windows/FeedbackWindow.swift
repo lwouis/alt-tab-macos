@@ -89,7 +89,7 @@ class FeedbackWindow: NSWindow {
         let appIcon = LightImageView()
         appIcon.translatesAutoresizingMaskIntoConstraints = false
         let appIconSize = NSSize(width: 64, height: 64)
-        appIcon.updateContents(.cgImage(App.appIcon(for: appIconSize)), appIconSize)
+        appIcon.updateContents(.cgImage(App.appIcon), appIconSize)
         appIcon.fit(64, 64)
 
         let subtitle = NSTextField(labelWithString: NSLocalizedString("Help improve AltTab", comment: ""))
@@ -256,7 +256,7 @@ class FeedbackWindow: NSWindow {
         let appIcon = LightImageView()
         appIcon.translatesAutoresizingMaskIntoConstraints = false
         let appIconSize = NSSize(width: 64, height: 64)
-        appIcon.updateContents(.cgImage(App.appIcon(for: appIconSize)), appIconSize)
+        appIcon.updateContents(.cgImage(App.appIcon), appIconSize)
         appIcon.fit(64, 64)
         let headerLeft = NSStackView(views: [appIcon, BoldLabel(formTitle())])
         headerLeft.translatesAutoresizingMaskIntoConstraints = false
