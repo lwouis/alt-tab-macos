@@ -20,6 +20,7 @@ class ExceptionsTab {
     private static var sidebarSection: SidebarListContainer?
     private static var editorView: ExceptionEditorView!
     private static var countButtons: NSSegmentedControl?
+    private static var searchContentRefreshScheduled = false
 
     static func initTab() -> NSView {
         items = Preferences.exceptions
@@ -243,6 +244,21 @@ class ExceptionsTab {
         Preferences.set("exceptions", items)
     }
 
+    static func registerSidebarRowsSearchContent() {
+        rows.forEach { $0.registerSearchContent() }
+    }
+
+    /// Rows resolve their app name one by one, off-main. Each would re-index the section, and re-run an active
+    /// search, so the requests of one main-loop turn share a single refresh.
+    private static func scheduleSearchContentRefresh() {
+        guard !searchContentRefreshScheduled else { return }
+        searchContentRefreshScheduled = true
+        DispatchQueue.main.async {
+            searchContentRefreshScheduled = false
+            SettingsWindow.shared?.refreshSectionSearchContent("exceptions")
+        }
+    }
+
     private static func refreshSidebarRows() {
         guard let rowsStack else { return }
         setHoveredRow(nil)
@@ -280,6 +296,7 @@ class ExceptionsTab {
             }
         }
         syncHoverState()
+        scheduleSearchContentRefresh()
     }
 
     private static func applyContent(_ row: SidebarListRow, index: Int) {
@@ -290,6 +307,7 @@ class ExceptionsTab {
         // Avoids the placeholder-then-resolve flash on edits that don't change app identity.
         if row.resolvedToken == bundleId {
             row.setSummary(summary)
+            scheduleSearchContentRefresh()
             return
         }
         // BundleId changed (or first paint): show a synchronous placeholder, then resolve async.
@@ -305,6 +323,7 @@ class ExceptionsTab {
                 row.setIcon(info.icon, size: iconSize)
                 row.setContent(info.name, summaryString(for: items[currentIndex]))
                 row.markResolved(token: bundleId)
+                scheduleSearchContentRefresh()
             }
         }
     }
