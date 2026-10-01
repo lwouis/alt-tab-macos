@@ -143,6 +143,13 @@ final class WindowOrderResolverTests: XCTestCase {
                                                            sortType: .space))
     }
 
+    func testSpaceWindowWithoutSpaceIndexSortsLast() {
+        let indexed = w(spaceIndexes: [3], appName: "Bbb")
+        let unindexed = w(spaceIndexes: [], appName: "Aaa")
+        XCTAssertTrue(WindowOrderResolver.isOrderedBefore(indexed, unindexed, sortType: .space))
+        XCTAssertFalse(WindowOrderResolver.isOrderedBefore(unindexed, indexed, sortType: .space))
+    }
+
     // MARK: - G. Tiebreak / symmetry
 
     func testEqualWindowsAreNotOrderedBeforeEachOther() {

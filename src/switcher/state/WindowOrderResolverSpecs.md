@@ -19,7 +19,8 @@ Decision order:
    minimized) sink below the rest.
 3. **Sort type** → `recentlyFocused` (lowest `lastFocusOrder`), `recentlyCreated` (highest
    `creationOrder`), `alphabetical` (app name, then title; `localizedStandardCompare`), or `space`
-   (all-spaces windows first, then lowest space index, then alphabetical).
+   (all-spaces windows first, then lowest space index, then windows with no space index, then
+   alphabetical).
 4. **Tiebreak** → `lastFocusOrder` (for the alphabetical/space paths).
 
 ## Behavior & edge cases
@@ -28,8 +29,8 @@ Decision order:
   differ on that trait; otherwise ordering falls through to the sort type.
 - `recentlyFocused`/`recentlyCreated` return directly (no alphabetical tiebreak); the `lastFocusOrder`
   tiebreak applies to the alphabetical/space paths.
-- `space`: windows on all spaces sort ahead of space-bound ones; ties within a space fall back to
-  alphabetical, then `lastFocusOrder`.
+- `space`: windows on all spaces sort ahead of space-bound ones; windows with no space index sort after
+  indexed ones; ties within a space fall back to alphabetical, then `lastFocusOrder`.
 - Equal facts → not ordered before each other (strict weak ordering, required by `Array.sort`).
 
 ## One window per app
@@ -73,6 +74,7 @@ Mirrors `WindowOrderResolverTests.swift` 1:1.
 - **testSpaceTiebreaksByAppName** — same space → alphabetical.
 - **testSpaceBothOnAllSpacesTiebreaksByAppName** — both on all spaces → no space-index ordering; fall through to alphabetical.
 - **testSpaceOnlyBOnAllSpacesSortsBFirst** — mirror of `testSpaceAllSpacesWindowsFirst`: only b on all spaces → b sorts first (pins comparator symmetry).
+- **testSpaceWindowWithoutSpaceIndexSortsLast** — a window with no space index sorts after an indexed one, whatever their names (comparing it alphabetically against indexed windows was not transitive).
 
 ### G. Tiebreak / symmetry
 - **testEqualWindowsAreNotOrderedBeforeEachOther** — equal facts are not ordered before each other.
