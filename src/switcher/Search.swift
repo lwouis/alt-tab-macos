@@ -20,7 +20,7 @@ final class Search {
     }
 
     private static func ensureCache(for window: Window, normalizedQuery normalized: String, originalQuery: String) {
-        let cacheKey = normalized + "|3"
+        let cacheKey = normalized + "|3|" + originalQuery
         if window.lastSearchQuery == cacheKey { return }
         let appName = window.application.localizedName ?? ""
         let title = window.title

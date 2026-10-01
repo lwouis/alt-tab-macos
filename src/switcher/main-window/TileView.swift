@@ -367,18 +367,25 @@ class TileView: FlippedView {
         }
         let clippingAttributes = baseTitleAttributes(true)
         let spanRanges = searchSpanRanges()
-        let titleLength = Array(fullTitle).count
-        let highlightedIndexes = highlightedIndexes(spanRanges, titleLength)
+        let titleChars = Array(fullTitle)
+        let highlightedIndexes = highlightedIndexes(spanRanges, titleChars.count)
         let truncation = truncatedDisplay(fullTitle, maxWidth: label.frame.size.width, mode: label.lineBreakMode, attributes: clippingAttributes)
+        // Match spans and truncation mappings count Characters; attributed-string ranges count UTF-16 code units.
+        // Measured per mapped piece, not over `text`: a combining mark kept beside the ellipsis fuses with it into
+        // one Character, which would leave `offsets` shorter than the mapping.
+        let offsets = truncation.visibleToOriginal.reduce(into: [0]) { offsets, originalIndex in
+            let piece = originalIndex.map { String(titleChars[$0]) } ?? "…"
+            offsets.append(offsets.last! + piece.utf16.count)
+        }
         let attributed = NSMutableAttributedString(string: truncation.text, attributes: clippingAttributes)
-        for range in visibleHighlightRanges(truncation.visibleToOriginal, highlightedIndexes) {
+        for range in visibleHighlightRanges(truncation.visibleToOriginal, highlightedIndexes, offsets) {
             attributed.addAttribute(TileTitleView.searchHighlightBackgroundKey, value: Appearance.searchMatchHighlightColor, range: range)
             attributed.addAttribute(.foregroundColor, value: Appearance.searchMatchForegroundColor, range: range)
         }
         let visibleOriginalIndexes = Set(truncation.visibleToOriginal.compactMap { $0 })
         let hasHiddenHighlights = highlightedIndexes.contains { !visibleOriginalIndexes.contains($0) }
         if hasHiddenHighlights, let ellipsisIndex = truncation.ellipsisIndex {
-            let range = NSRange(location: ellipsisIndex, length: 1)
+            let range = NSRange(location: offsets[ellipsisIndex], length: offsets[ellipsisIndex + 1] - offsets[ellipsisIndex])
             attributed.addAttribute(TileTitleView.searchHighlightBackgroundKey, value: Appearance.searchMatchHighlightColor, range: range)
             attributed.addAttribute(.foregroundColor, value: Appearance.searchMatchForegroundColor, range: range)
         }
@@ -427,7 +434,7 @@ class TileView: FlippedView {
         return indexes
     }
 
-    private func visibleHighlightRanges(_ visibleToOriginal: [Int?], _ highlightedIndexes: Set<Int>) -> [NSRange] {
+    private func visibleHighlightRanges(_ visibleToOriginal: [Int?], _ highlightedIndexes: Set<Int>, _ offsets: [Int]) -> [NSRange] {
         var ranges = [NSRange]()
         var runStart: Int?
         for (displayIndex, originalIndex) in visibleToOriginal.enumerated() {
@@ -437,12 +444,12 @@ class TileView: FlippedView {
                     runStart = displayIndex
                 }
             } else if let runStartValue = runStart {
-                ranges.append(NSRange(location: runStartValue, length: displayIndex - runStartValue))
+                ranges.append(NSRange(location: offsets[runStartValue], length: offsets[displayIndex] - offsets[runStartValue]))
                 runStart = nil
             }
         }
         if let runStart {
-            ranges.append(NSRange(location: runStart, length: visibleToOriginal.count - runStart))
+            ranges.append(NSRange(location: offsets[runStart], length: offsets[visibleToOriginal.count] - offsets[runStart]))
         }
         return ranges
     }

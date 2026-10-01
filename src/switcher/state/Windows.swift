@@ -533,19 +533,20 @@ class Windows {
         }
     }
 
-    /// reordered list based on preferences, keeping the original index
     private static func sort() {
-        let trimmedQuery = Search.normalizedQuery((SwitcherSession.current?.searchQuery ?? ""))
+        // Raw, as `shouldDisplay` passes it: smart-case reads its uppercase letters, and `Search` caches per raw query.
+        let query = SwitcherSession.current?.searchQuery ?? ""
+        let normalizedQuery = Search.normalizedQuery(query)
         let shortcutIndex = (SwitcherSession.current?.shortcutIndex ?? 0)
         // Hoisted once per sort: locals are captured by the comparator closure so each of the
         // O(n log n) comparisons reads them directly.
-        let searchActive = !trimmedQuery.isEmpty
+        let searchActive = !normalizedQuery.isEmpty
         let windowlessAtEnd = Preferences.showWindowlessApps(shortcutIndex) == .showAtTheEnd
         let hiddenAtEnd = Preferences.showHiddenWindows(shortcutIndex) == .showAtTheEnd
         let minimizedAtEnd = Preferences.showMinimizedWindows(shortcutIndex) == .showAtTheEnd
         let sortType = orderSortType(Preferences.windowOrder(shortcutIndex))
         // Precompute each window's ordering facts once (O(n) Search calls), then sort on the snapshots.
-        let facts = Dictionary(uniqueKeysWithValues: list.map { (ObjectIdentifier($0), orderWindow($0, trimmedQuery)) })
+        let facts = Dictionary(uniqueKeysWithValues: list.map { (ObjectIdentifier($0), orderWindow($0, query, searchActive)) })
         list.sort {
             WindowOrderResolver.isOrderedBefore(
                 facts[ObjectIdentifier($0)]!, facts[ObjectIdentifier($1)]!,
@@ -557,12 +558,12 @@ class Windows {
         }
     }
 
-    private static func orderWindow(_ window: Window, _ query: String) -> OrderWindow {
+    private static func orderWindow(_ window: Window, _ query: String, _ searchActive: Bool) -> OrderWindow {
         OrderWindow(
             state: window.state,
             app: window.application.state,
-            searchMatches: query.isEmpty ? false : Search.matches(window, query: query),
-            searchRelevance: query.isEmpty ? 0 : Search.relevance(for: window, query: query))
+            searchMatches: searchActive ? Search.matches(window, query: query) : false,
+            searchRelevance: searchActive ? Search.relevance(for: window, query: query) : 0)
     }
 
     private static func orderSortType(_ p: WindowOrderPreference) -> OrderSortType {
