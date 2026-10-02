@@ -104,8 +104,6 @@ func caTransaction(_ body: () -> Void) {
 // compile. The tests never inspect these values, only that they resolve.
 extension NSColor {
     class var systemAccentColor: NSColor { .controlAccentColor }
-    class var tableBorderColor: NSColor { .gridColor }
-    class var tableBackgroundColor: NSColor { .windowBackgroundColor }
     class var tableSeparatorColor: NSColor { .gridColor }
     class var tableHoverColor: NSColor { .selectedControlColor }
 }

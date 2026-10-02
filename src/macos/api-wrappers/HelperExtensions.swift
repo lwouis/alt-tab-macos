@@ -48,18 +48,6 @@ extension NSColor {
         NSColor(name: nil) { $0.isDarkMode ? dark : light }
     }
 
-    class var tableBorderColor: NSColor {
-        dynamicAppearanceColor(
-            light: NSColor(srgbRed: 229 / 255, green: 229 / 255, blue: 229 / 255, alpha: 0.8),  // #e5e5e5
-            dark: NSColor(srgbRed: 75 / 255, green: 75 / 255, blue: 75 / 255, alpha: 0.8))       // #4b4b4b
-    }
-
-    class var tableBackgroundColor: NSColor {
-        dynamicAppearanceColor(
-            light: NSColor(srgbRed: 242 / 255, green: 242 / 255, blue: 242 / 255, alpha: 0.8),  // #f2f2f2
-            dark: NSColor(srgbRed: 43 / 255, green: 43 / 255, blue: 43 / 255, alpha: 0.8))       // #2b2b2b
-    }
-
     class var tableSeparatorColor: NSColor {
         dynamicAppearanceColor(
             light: NSColor(srgbRed: 231 / 255, green: 231 / 255, blue: 231 / 255, alpha: 0.8),  // #e7e7e7

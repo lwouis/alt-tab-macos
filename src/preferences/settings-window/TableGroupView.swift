@@ -172,6 +172,23 @@ class TableGroupView: ClickHoverStackView {
     static let rowIntraSpacing = CGFloat(5)
     static let cornerRadius = CGFloat(5)
     static let borderWidth = CGFloat(1)
+    /// Corner of the native `.primary` NSBox card, so row hovers and masked containers clip to it.
+    /// Measured on macOS 27 (12pt continuous, like System Settings); older releases draw a tighter group box.
+    static let cardCornerRadius: CGFloat = {
+        if #available(macOS 26.0, *) { return 12 }
+        return cornerRadius
+    }()
+
+    /// The native group box AppKit draws behind System Settings-style forms. It adapts to Dark/Light
+    /// and to the OS release on its own.
+    static func makeCard() -> NSBox {
+        let card = NSBox()
+        card.boxType = .primary
+        card.titlePosition = .noTitle
+        card.contentViewMargins = .zero
+        card.translatesAutoresizingMaskIntoConstraints = false
+        return card
+    }
 
     var title: String?
     var subTitle: String?
@@ -300,19 +317,8 @@ class TableGroupView: ClickHoverStackView {
         tableStackView.orientation = .vertical
         tableStackView.spacing = 0
         tableStackView.translatesAutoresizingMaskIntoConstraints = false
-        // An NSBox painted behind the rows draws the rounded card (fill + border). Its fillColor/
-        // borderColor are dynamic NSColors, so AppKit re-resolves them for Dark/Light on its own —
-        // no draw() override, no manual repaint. The box is a background sibling (not the rows'
-        // container) so the rows stack keeps driving the card's size.
-        let card = NSBox()
-        card.boxType = .custom
-        card.titlePosition = .noTitle
-        card.cornerRadius = TableGroupView.cornerRadius
-        card.borderWidth = TableGroupView.borderWidth
-        card.borderColor = .tableBorderColor
-        card.fillColor = .tableBackgroundColor
-        card.contentViewMargins = .zero
-        card.translatesAutoresizingMaskIntoConstraints = false
+        // The card is a background sibling (not the rows' container) so the rows stack keeps driving its size.
+        let card = TableGroupView.makeCard()
         let container = NSView()
         container.translatesAutoresizingMaskIntoConstraints = false
         container.addSubview(card)
@@ -419,6 +425,7 @@ class TableGroupView: ClickHoverStackView {
         // per appearance on its own; we only toggle its visibility on enter/exit. The row layer
         // clips it to the table's rounded corners (see updateRowCornerRadius).
         rowView.layer?.masksToBounds = true
+        rowView.layer?.cornerCurve = .continuous
         let hover = NSBox()
         hover.boxType = .custom
         hover.titlePosition = .noTitle
@@ -543,14 +550,21 @@ class TableGroupView: ClickHoverStackView {
     private func addSeparatorIfNeeded(isAddSeparator: Bool = true) -> NSView? {
         guard !rowInfoTables[rowInfoTables.count - 1].isEmpty else { return nil }
         guard isAddSeparator, let tableStackView = tableStackViews.last else { return nil }
-        // NSBox with a dynamic fillColor, so AppKit re-resolves the separator color per appearance.
-        let separator = NSBox()
-        separator.boxType = .custom
-        separator.titlePosition = .noTitle
-        separator.borderWidth = 0
-        separator.fillColor = .tableSeparatorColor
-        separator.contentViewMargins = .zero
+        let line = NSBox()
+        line.boxType = .separator
+        line.translatesAutoresizingMaskIntoConstraints = false
+        // System Settings draws its row separators at half the strength of the stock separator. The fade
+        // goes on a wrapper: an NSBox given an alphaValue below 1 before it's laid out never draws its line.
+        let separator = NSView()
+        separator.alphaValue = 0.5
         separator.translatesAutoresizingMaskIntoConstraints = false
+        separator.addSubview(line)
+        NSLayoutConstraint.activate([
+            line.topAnchor.constraint(equalTo: separator.topAnchor),
+            line.bottomAnchor.constraint(equalTo: separator.bottomAnchor),
+            line.leadingAnchor.constraint(equalTo: separator.leadingAnchor),
+            line.trailingAnchor.constraint(equalTo: separator.trailingAnchor),
+        ])
         tableStackView.addArrangedSubview(separator)
         separator.heightAnchor.constraint(equalToConstant: TableGroupView.borderWidth).isActive = true
         separator.centerXAnchor.constraint(equalTo: tableStackView.centerXAnchor).isActive = true
@@ -616,16 +630,17 @@ class TableGroupView: ClickHoverStackView {
     }
 
     private func updateRowCornerRadius() {
+        let cornerRadius = TableGroupView.cardCornerRadius
         rowInfoTables.forEach { table in
             for (index, rowInfo) in table.enumerated() {
                 if table.count == 1 {
-                    rowInfo.view.layer?.cornerRadius = TableGroupView.cornerRadius
+                    rowInfo.view.layer?.cornerRadius = cornerRadius
                     rowInfo.view.layer?.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner, .layerMinXMinYCorner, .layerMaxXMinYCorner]
                 } else if index == 0 {
-                    rowInfo.view.layer?.cornerRadius = TableGroupView.cornerRadius
+                    rowInfo.view.layer?.cornerRadius = cornerRadius
                     rowInfo.view.layer?.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
                 } else if index == table.count - 1 {
-                    rowInfo.view.layer?.cornerRadius = TableGroupView.cornerRadius
+                    rowInfo.view.layer?.cornerRadius = cornerRadius
                     rowInfo.view.layer?.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
                 } else {
                     rowInfo.view.layer?.cornerRadius = 0
