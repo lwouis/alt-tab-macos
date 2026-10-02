@@ -49,7 +49,7 @@ If an asset is in the wrong format, flag it. If it's in the right format but uno
 
 ## Step 2: Vector PDFs — Figma exports
 
-Figma's "Export → PDF" output is bloated. For each menubar/illustration/icon vector PDF that came from Figma, you can strip ~50–75% of the bytes without losing a single rendered pixel.
+Figma's "Export → PDF" output is bloated. For each menubar/illustration/icon vector PDF that came from Figma, you can strip ~50–75% of the bytes without losing a single rendered pixel. The script then rounds path coordinates to 3 decimals and shrinks sampled gradients to 13x13, which halves the menubar icons again for at most 4/255 of difference at @1x-@3x (see the constants atop the script).
 
 What Figma adds that AppKit doesn't need:
 

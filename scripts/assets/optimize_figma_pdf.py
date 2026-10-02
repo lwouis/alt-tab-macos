@@ -17,6 +17,16 @@ Drops the following without affecting how AppKit renders the PDF:
   pattern even when several patterns share the same ramp. Identical ones are
   collapsed onto a single object.
 
+Also shrinks the drawing itself, which is lossy but not visibly so at icon sizes:
+- Path coordinates are rounded to PATH_DECIMALS. Figma writes 9 decimals, a
+  millionth of a pixel on a 22pt icon. Zero-length segments left by the rounding
+  are dropped (only in fill-only content, where they can't draw a cap).
+- Sampled gradients (Figma's mesh-like fills) are resampled to at most
+  SHADING_GRID x SHADING_GRID. Figma emits 25x25 even when the gradient covers
+  ~16x10 device pixels.
+At 3 decimals and a 13 grid, the menubar icons render within 3/255 of the
+originals at @2x/@3x. Check with a before/after render when changing either.
+
 Usage:
     python3 scripts/assets/optimize_figma_pdf.py path1.pdf path2.pdf ...
 
@@ -29,6 +39,7 @@ final 1-2% squeeze, follow with:
 Requires: pip3 install --user --break-system-packages pikepdf
 """
 import sys
+from decimal import Decimal
 
 try:
     import pikepdf
@@ -36,6 +47,12 @@ try:
 except ImportError:
     sys.stderr.write("pikepdf not installed. Run: pip3 install --user --break-system-packages pikepdf\n")
     sys.exit(1)
+
+PATH_DECIMALS = 3
+SHADING_GRID = 13
+
+PATH_OPS = {'m', 'l', 'c', 'v', 'y', 're'}
+STROKE_OPS = {'S', 's', 'B', 'B*', 'b', 'b*'}
 
 
 def swap_icc_in_cs_dict(cs_dict):
@@ -110,6 +127,101 @@ def dedupe_functions(pdf):
 
     for page in pdf.pages:
         visit(page.obj)
+
+
+def round_number(x):
+    d = Decimal(str(x)).quantize(Decimal(1).scaleb(-PATH_DECIMALS)).normalize()
+    return Decimal(0) if d.is_zero() else d
+
+
+def round_paths(stream):
+    """Round path operands; drop segments that collapse onto the current point.
+
+    Only path-construction operators are touched: `cm` scales, colors and alphas
+    keep full precision (a 1% error on a gradient's `cm` moves it visibly).
+    """
+    ops = pikepdf.parse_content_stream(stream)
+    can_drop = not any(str(op) in STROKE_OPS for _, op in ops)
+    out = []
+    cur = start = None
+    for operands, op in ops:
+        name = str(op)
+        if name not in PATH_OPS:
+            if name == 'h':
+                cur = start
+            out.append((operands, op))
+            continue
+        nums = [round_number(v) for v in operands]
+        pts = [(nums[i], nums[i + 1]) for i in range(0, len(nums), 2)]
+        if name in ('l', 'c', 'v', 'y') and can_drop and all(p == cur for p in pts):
+            continue
+        if name in ('m', 're'):
+            cur = start = pts[0]
+        else:
+            cur = pts[-1]
+        out.append((nums, op))
+    stream.write(pikepdf.unparse_content_stream(out))
+
+
+def resample_shading(fn):
+    """Shrink a 2-input, 8-bit sampled function (/FunctionType 0) to SHADING_GRID per side.
+
+    New samples are taken on the old lattice with bilinear interpolation, so the
+    corners and edges stay exact. Anything else (1-input ramps, 16-bit, custom
+    /Encode) is left alone.
+    """
+    try:
+        size = [int(s) for s in fn.Size]
+        if int(fn.FunctionType) != 0 or len(size) != 2 or int(fn.BitsPerSample) != 8:
+            return
+        if max(size) <= SHADING_GRID:
+            return
+        if Name('/Encode') in fn and [float(e) for e in fn.Encode] != [0, size[0] - 1, 0, size[1] - 1]:
+            return
+        w, h = size
+        channels = len(fn.Range) // 2
+        data = fn.read_bytes()
+        if len(data) < w * h * channels:
+            return
+    except Exception:
+        return
+    nw, nh = min(w, SHADING_GRID), min(h, SHADING_GRID)
+
+    def sample(x, y, c):
+        return data[(y * w + x) * channels + c]
+
+    out = bytearray()
+    for j in range(nh):
+        fy = j * (h - 1) / (nh - 1)
+        y0 = int(fy); y1 = min(y0 + 1, h - 1); ty = fy - y0
+        for i in range(nw):
+            fx = i * (w - 1) / (nw - 1)
+            x0 = int(fx); x1 = min(x0 + 1, w - 1); tx = fx - x0
+            for c in range(channels):
+                top = sample(x0, y0, c) * (1 - tx) + sample(x1, y0, c) * tx
+                bot = sample(x0, y1, c) * (1 - tx) + sample(x1, y1, c) * tx
+                out.append(round(top * (1 - ty) + bot * ty))
+    fn.write(bytes(out))
+    fn.Size = [nw, nh]
+    fn.Encode = [0, nw - 1, 0, nh - 1]
+
+
+def shrink_drawing(pdf):
+    for page in pdf.pages:
+        contents = page.obj.get(Name('/Contents'))
+        streams = list(contents) if isinstance(contents, pikepdf.Array) else [contents]
+        if len(streams) > 1:
+            # Merge first: a path can span stream boundaries.
+            page.contents_coalesce()
+            streams = [page.obj.Contents]
+        for s in streams:
+            if s is not None:
+                round_paths(s)
+    for obj in pdf.objects:
+        if isinstance(obj, pikepdf.Stream) and obj.get(Name('/Subtype')) == Name('/Form'):
+            round_paths(obj)
+        if isinstance(obj, pikepdf.Stream) and Name('/FunctionType') in obj:
+            resample_shading(obj)
 
 
 def optimize(path):
@@ -196,6 +308,7 @@ def optimize(path):
         except Exception:
             pass
 
+    shrink_drawing(pdf)
     dedupe_functions(pdf)
     pdf.remove_unreferenced_resources()
     pdf.save(path,
