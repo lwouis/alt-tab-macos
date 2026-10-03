@@ -48,11 +48,11 @@ enum WindowFilterResolver {
                 // exempts it, but these Space/screen gates are SEPARATE and would still hide it — the exact
                 // vanish that defeated the hold on the FIRST tab of a window, where no group exists yet to
                 // borrow it a Space (live capture 2026-07-24: `(h)…sp[]` dumped with a `-` prefix). Treat
-                // held as "on the visible Space and preferred screen": shows under `.visible`, hidden under
-                // `.nonVisible`, and never dropped by the preferred-screen gate.
-                !(onlyVisibleSpaces && !s.isHeldVisibleForTab && !inAnyVisibleSpace(s, visibleSpaceIds)) &&
-                !(onlyNonVisibleSpaces && (s.isHeldVisibleForTab || inAnyVisibleSpace(s, visibleSpaceIds))) &&
-                !(onlyPreferredScreen && !s.isHeldVisibleForTab && !isOnPreferredScreen()) &&
+                // it as "on the visible Space and preferred screen": shows under `.visible`, hidden under
+                // `.nonVisible`, and never dropped by the preferred-screen gate. See `isSpacelessHold`.
+                !(onlyVisibleSpaces && !isSpacelessHold(s) && !inAnyVisibleSpace(s, visibleSpaceIds)) &&
+                !(onlyNonVisibleSpaces && (isSpacelessHold(s) || inAnyVisibleSpace(s, visibleSpaceIds))) &&
+                !(onlyPreferredScreen && !isSpacelessHold(s) && !isOnPreferredScreen()) &&
                 (separateTabs || !s.isTabbed) &&
                 !(onlyUnderCursor && (!canBeUnderCursor(s, app, visibleSpaceIds) || !isUnderCursor())))
     }
@@ -71,9 +71,17 @@ enum WindowFilterResolver {
         frontToBack.first { $0.layer == 0 && $0.alpha > 0 && $0.bounds.contains(point) }?.pid
     }
 
-    /// A held tab counts as on the visible Space (see the Space gates above).
+    /// A Space-less held tab counts as on the visible Space (see the Space gates above).
     private static func isOnVisibleSpace(_ s: WindowState, _ visibleSpaceIds: [UInt64]) -> Bool {
-        s.isHeldVisibleForTab || inAnyVisibleSpace(s, visibleSpaceIds)
+        isSpacelessHold(s) || inAnyVisibleSpace(s, visibleSpaceIds)
+    }
+
+    /// The hold stands in for a Space only while the window has none. A window entering fullscreen can be
+    /// held too (it leaves its Space before joining the new one, while the transition creates windows), and
+    /// that hold can run to its 20s cap; it holds a real Space by then, on whichever screen it went
+    /// fullscreen, so the gates must judge it by that Space (#6087).
+    private static func isSpacelessHold(_ s: WindowState) -> Bool {
+        s.isHeldVisibleForTab && s.spaceIds.isEmpty
     }
 
     private static func inAnyVisibleSpace(_ s: WindowState, _ visibleSpaceIds: [UInt64]) -> Bool {

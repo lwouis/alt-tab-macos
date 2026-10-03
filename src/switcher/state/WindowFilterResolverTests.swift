@@ -176,6 +176,20 @@ final class WindowFilterResolverTests: XCTestCase {
                                                       onlyPreferredScreen: true, isOnPreferredScreen: false))
     }
 
+    /// A window entering fullscreen on another screen can be held through the transition (#6087). Once it
+    /// joined its fullscreen Space, that Space decides the screen, so the gate drops it.
+    func testOnlyPreferredScreenHidesHeldWindowOnAnotherScreensSpace() {
+        XCTAssertFalse(WindowFilterResolver.shouldShow(ws(isHeldVisibleForTab: true, spaceIds: [2]), appState(),
+                                                       onlyPreferredScreen: true, isOnPreferredScreen: false))
+    }
+
+    /// Same for the Space gate: a held window that holds a Space is judged by it.
+    func testOnlyVisibleSpacesHidesHeldWindowOnNonVisibleSpace() {
+        XCTAssertFalse(WindowFilterResolver.shouldShow(ws(isHeldVisibleForTab: true, spaceIds: [2]), appState(),
+                                                       onlyVisibleSpaces: true, visibleSpaceIds: [1],
+                                                       isOnPreferredScreen: true))
+    }
+
     // MARK: - I. Tabs (macOS native tabs)
 
     func testNonFrontmostTabHiddenWhenGrouping() {

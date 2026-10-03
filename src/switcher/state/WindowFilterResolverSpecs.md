@@ -61,6 +61,12 @@ to meet. It is fixed HERE, at the display layer, and deliberately not by lending
 tried and broke reducer idempotence. So: shown under `.visible`, hidden under `.nonVisible` (it IS on the
 visible Space, so the mirror must agree), and never dropped by the preferred-screen gate.
 
+**...but only while it has no Space.** A window entering fullscreen can be held as well: it leaves its Space
+before joining the new one, while the transition creates windows, and that hold can run to its 20s cap. It
+joins its fullscreen Space meanwhile, on whichever screen it went fullscreen, so a held window that holds a
+Space is judged by that Space like any other. Treating every held window as on the preferred screen showed a
+window that had just gone fullscreen on another screen for about 20s (#6087).
+
 ## Test scenarios
 
 Mirrors `WindowFilterResolverTests.swift` 1:1. Each test flips one knob from an all-permissive baseline.
@@ -96,11 +102,15 @@ Mirrors `WindowFilterResolverTests.swift` 1:1. Each test flips one knob from an 
   backgrounded on the current Space, so `.visible` must still show it.
 - **testOnlyNonVisibleSpacesHidesHeldTab** — the mirror, so the exemption can't show the same tab under both
   settings.
+- **testOnlyVisibleSpacesHidesHeldWindowOnNonVisibleSpace** — the exemption is for a Space-less hold only; a
+  held window holding a Space is judged by it.
 
 ### H. Screens
 - **testOnlyPreferredScreenHidesOffScreenWindow** / **testOnlyPreferredScreenShowsOnScreenWindow** — `.showingAltTab` keeps only windows on the preferred screen.
 - **testOnlyPreferredScreenShowsHeldTab** — a held tab is never dropped by the screen gate either (same
   fix, third gate: the Space-less tab has no Space to resolve a screen from).
+- **testOnlyPreferredScreenHidesHeldWindowOnAnotherScreensSpace** — a held window that already joined a
+  Space on another screen (fullscreen entered there) is dropped by the screen gate (#6087).
 
 ### I. Tabs (macOS native tabs)
 - **testNonFrontmostTabHiddenWhenGrouping** — a non-frontmost tab is hidden when tabs are grouped.
