@@ -139,13 +139,16 @@ enum QaSurfaces {
             UInt32(exactly: window.windowNumber).map { ($0, window) }
         }
         let byNumber = Dictionary(numbered, uniquingKeysWith: { first, _ in first })
+        // An alert running modally is the window that has to be key, whatever the screen order of the new
+        // windows (the feedback confirmation also brings its form window forward).
+        let modal = NSApp.modalWindow.flatMap { m in wids.contains { $0 == UInt32(exactly: m.windowNumber) } ? m : nil }
         let generation = renderGeneration
         guard !wids.isEmpty else { return Shown(wids: [], pages: pages) }
         if readyGeneration != generation {
             if settlingGeneration != generation {
                 let renderedWindows = windows.isEmpty ? wids.compactMap { byNumber[$0] } : windows
                 renderedWindows.forEach { prepareForRendering($0, generation) }
-                if currentId != "switcher", let front = wids.first.flatMap({ byNumber[$0] }) {
+                if currentId != "switcher", let front = modal ?? wids.first.flatMap({ byNumber[$0] }) {
                     App.shared.activate(ignoringOtherApps: true)
                     front.makeKey()
                     front.makeFirstResponder(nil)
@@ -157,8 +160,16 @@ enum QaSurfaces {
             }
             return Shown(wids: [], pages: pages)
         }
-        if currentId != "switcher", let front = wids.first.flatMap({ byNumber[$0] }) {
-            guard NSApp.isActive, front.isKeyWindow else { return Shown(wids: [], pages: pages) }
+        if currentId != "switcher", let front = modal ?? wids.first.flatMap({ byNumber[$0] }) {
+            guard NSApp.isActive, front.isKeyWindow else {
+                // The first pass can make the alert key before its modal session has started, and the window
+                // behind it keeps the key: every later answer was then empty for as long as the caller asked.
+                if front === modal {
+                    front.makeKey()
+                    front.makeFirstResponder(nil)
+                }
+                return Shown(wids: [], pages: pages)
+            }
         }
         return Shown(wids: wids, pages: pages)
     }
