@@ -135,9 +135,9 @@ enum WindowThumbnails {
     /// frame, so that one is dropped and another capture asked for a beat later. Bounded by
     /// `maxPartialFrameRetries`, then the frame is taken as-is unless Stage Manager protection is active.
     /// Protected thumbnails retain the previous frame even after retry exhaustion.
-    static func acceptCapture(_ window: Window, _ contents: CALayerContents) -> Bool {
+    static func acceptCapture(_ window: Window, partial: Bool) -> Bool {
         guard let wid = window.cgWindowId else { return true }
-        guard isPartialFrame(window, contents, fullRes: false) else {
+        guard partial else {
             partialFrameRetries[wid] = nil
             return true
         }

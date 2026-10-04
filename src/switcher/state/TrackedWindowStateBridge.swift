@@ -187,7 +187,8 @@ class TrackedWindowStateBridge {
                 }
             case .applyFocus(let wid):
                 if let w = Windows.byWindowId[wid] {
-                    StageManagerCaptureGuard.focusChanged()
+                    // Background tab repairs update per-app focus without changing the user's foreground focus.
+                    if w.application.pid == Applications.frontmostPid { StageManagerCaptureGuard.focusChanged() }
                     w.application.focusedWindow = w
                     App.checkIfShortcutsShouldBeDisabled(w, nil)
                     WindowThumbnails.captureFocusedInBackground(w)

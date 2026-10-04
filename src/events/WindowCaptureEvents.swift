@@ -342,12 +342,7 @@ class WindowCaptureScreenshots {
                     PreviewPanel.updateIfShowing(request.wid, contents, position, size)
                 }
             } else {
-                let isTrusted = approved && !WindowThumbnails.isPartialFrame(window, contents, fullRes: false)
-                window.refreshThumbnail(contents)
-                if isTrusted, window.thumbnail != nil {
-                    window.stageManagerThumbnailIsTrusted = true
-                    StageManagerCaptureGuard.captureAccepted(request.wid)
-                }
+                window.refreshThumbnail(contents, captureApproved: approved)
             }
         }
         // Capture callbacks may run on an OS thread; keep the extra IPC and pixel sampling off-main.

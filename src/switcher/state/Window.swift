@@ -236,11 +236,13 @@ class Window {
         return WindowElementAcquisition.element(for: wid, pid: application.pid, route: .otherSpaceViaBruteForce)
     }
 
-    func refreshThumbnail(_ screenshot: CALayerContents) {
-        // a frame the OS drew mid-animation is much smaller than this window: keep the previous thumbnail,
-        // stale but correct, while another capture is asked for (`WindowThumbnails.acceptCapture`)
-        guard WindowThumbnails.acceptCapture(self, screenshot) else { return }
+    func refreshThumbnail(_ screenshot: CALayerContents, captureApproved: Bool = false) {
+        let partial = WindowThumbnails.isPartialFrame(self, screenshot, fullRes: false)
+        guard WindowThumbnails.acceptCapture(self, partial: partial) else { return }
         thumbnail = screenshot
+        // Ordinary mode may display a partial frame after retries, but it must not become a protected fallback.
+        stageManagerThumbnailIsTrusted = captureApproved && !partial && thumbnail != nil
+        if stageManagerThumbnailIsTrusted, let wid = cgWindowId { StageManagerCaptureGuard.captureAccepted(wid) }
         if !SwitcherSession.isActive || !shouldShowTheUser { return }
         if let position = self.position, let size = self.size,
            let view = (TilesView.recycledViews.first { $0.window_?.cgWindowId == cgWindowId }) {
