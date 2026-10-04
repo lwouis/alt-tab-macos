@@ -24,12 +24,12 @@ enum StageManagerCaptureGuard {
         mode.update(enabled)
         if wasEnabled != enabled { retries.removeAll() }
         if enabled && !wasEnabled {
-            // Frames obtained without protection may already contain the sidebar transform (#4242).
+            // Unverified frames may contain the sidebar transform; verified ordinary captures survive.
             for window in Windows.list where !window.stageManagerThumbnailIsTrusted {
                 window.thumbnail = nil
             }
-            SwitcherSession.current?.removeAllPreviewFrames()
-            PreviewPanel.hide()
+            SwitcherSession.current?.removeUntrustedPreviewFrames()
+            PreviewPanel.refreshAfterProtectionChange()
             DispatchQueue.main.async { App.refreshOpenUiAfterExternalEvent([]) }
         }
         return mode

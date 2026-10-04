@@ -33,6 +33,8 @@ class WindowCaptureScreenshots {
         let mode: StageManagerCaptureMode
         let focusGeneration: UInt64
         weak var session: SwitcherSession?
+        var referenceSize: CGSize?
+        var geometryApprovedBeforeCapture = false
     }
 
     private struct PendingCapture {
@@ -49,7 +51,7 @@ class WindowCaptureScreenshots {
         // and mutable properties touched only on main; reading them from screenshotsQueue (8-way concurrent)
         // races with main-thread mutation and can corrupt the heap.
         // A resize after this snapshot can produce a frame at the old size; the next refresh corrects it.
-        // Protected requests replace the model size with an off-main AX read before they are enqueued.
+        // AX size validates ordinary captures too, so they can survive later protection activation.
         let mode = StageManagerCaptureGuard.currentMode()
         var requests = [CGWindowID: CaptureRequest]()
         for window in windowsToScreenshot {
@@ -59,25 +61,27 @@ class WindowCaptureScreenshots {
             let request = CaptureRequest(window: window, wid: wid, pid: window.application.pid, size: size, scaleFactor: scaleFactor,
                 isFullscreen: window.isFullscreen, fullRes: fullRes, mode: mode,
                 focusGeneration: StageManagerCaptureGuard.focusGeneration, session: SwitcherSession.current)
-            if mode.enabled {
-                guard let element = window.axUiElement else { continue }
-                snapshotProtectedSize(request, element, source, prioritizedIds)
-            } else {
+            if let element = window.axUiElement {
+                snapshotCaptureSize(request, element, source, prioritizedIds)
+            } else if !mode.enabled {
                 requests[wid] = request
             }
         }
         enqueue(requests, source, prioritizedIds)
     }
 
-    private static func snapshotProtectedSize(_ request: CaptureRequest, _ element: AXUIElement,
-                                              _ source: RefreshCausedBy, _ prioritizedIds: Set<CGWindowID>?) {
+    private static func snapshotCaptureSize(_ request: CaptureRequest, _ element: AXUIElement,
+                                            _ source: RefreshCausedBy, _ prioritizedIds: Set<CGWindowID>?) {
         // Window.size is refreshed by WindowServer and may itself be scaled. AX keeps the document size.
         AXCallScheduler.shared.schedule(key: "pid-\(request.pid)-stage-manager-capture-\(request.wid)-\(request.fullRes)", pid: request.pid) {
-            guard request.window != nil,
-                  let size = try? element.attributes([kAXSizeAttribute], pid: request.pid).size,
-                  size.width > 0, size.height > 0 else { return }
+            guard request.window != nil else { return }
             var verified = request
-            verified.size = size
+            if let size = try? element.attributes([kAXSizeAttribute], pid: request.pid).size,
+               size.width.isFinite, size.height.isFinite, size.width > 0, size.height > 0 {
+                verified.referenceSize = size
+                if request.mode.enabled { verified.size = size }
+            }
+            guard !request.mode.enabled || verified.referenceSize != nil else { return }
             DispatchQueue.main.async {
                 guard let window = verified.window,
                       StageManagerCaptureGuard.allowsPublication(window, verified.mode, verified.focusGeneration) else { return }
@@ -230,7 +234,9 @@ class WindowCaptureScreenshots {
                     finish()
                     return
                 }
-                guard !request.mode.enabled || hasNormalGeometry(request) else {
+                var verified = request
+                verified.geometryApprovedBeforeCapture = hasNormalGeometry(request)
+                guard !request.mode.enabled || verified.geometryApprovedBeforeCapture else {
                     finish()
                     reject(request)
                     return
@@ -244,9 +250,9 @@ class WindowCaptureScreenshots {
                 // that one case stays on captureSampleBuffer. Its CGImage copy (vs a shared IOSurface) is acceptable
                 // even at full resolution now that Preview frames are fetched lazily, a few per session (#5861).
                 if #available(macOS 26.0, *), !request.isFullscreen {
-                    captureScreenshot(filter, config, window, source, request, finish)
+                    captureScreenshot(filter, config, window, source, verified, finish)
                 } else {
-                    captureSampleBuffer(filter, config, window, source, request, finish)
+                    captureSampleBuffer(filter, config, window, source, verified, finish)
                 }
             }
         }
@@ -282,9 +288,10 @@ class WindowCaptureScreenshots {
 
     // Query fresh Core Graphics bounds off-main; cached SCWindow.frame can describe an earlier stage.
     private static func hasNormalGeometry(_ request: CaptureRequest) -> Bool {
+        guard let size = request.referenceSize else { return false }
         let entries = CGWindowListCopyWindowInfo(.optionIncludingWindow, request.wid) as? [CGWindow]
         let bounds = entries?.first(where: { $0.id() == request.wid && $0.ownerPID() == request.pid })?.bounds()
-        return StageManagerCapturePolicy.hasNormalGeometry(bounds, request.size)
+        return StageManagerCapturePolicy.hasNormalGeometry(bounds, size)
     }
 
     private static func reject(_ request: CaptureRequest) {
@@ -322,7 +329,7 @@ class WindowCaptureScreenshots {
 
     private static func deliver(_ window: Window, _ source: RefreshCausedBy, _ contents: CALayerContents, _ request: CaptureRequest) {
         guard source != .refreshOnlyThumbnailsAfterShowUi || SwitcherSession.isActive else { return }
-        let publish = { [weak window] in
+        let publish: (Bool) -> Void = { [weak window] approved in
             guard let window, source != .refreshOnlyThumbnailsAfterShowUi || SwitcherSession.isActive,
                   window.cgWindowId == request.wid, window.application.pid == request.pid,
                   StageManagerCaptureGuard.allowsPublication(window, request.mode, request.focusGeneration) else { return }
@@ -330,12 +337,12 @@ class WindowCaptureScreenshots {
                 // Session-scoped full-res frames must never land in a subsequent switcher invocation.
                 guard let session = request.session, session === SwitcherSession.current else { return }
                 guard !WindowThumbnails.isPartialFrame(window, contents, fullRes: true) else { return }
-                session.storePreviewFrame(request.wid, contents)
+                session.storePreviewFrame(request.wid, contents, trusted: approved)
                 if let position = window.position, let size = window.size {
                     PreviewPanel.updateIfShowing(request.wid, contents, position, size)
                 }
             } else {
-                let isTrusted = request.mode.enabled && !WindowThumbnails.isPartialFrame(window, contents, fullRes: false)
+                let isTrusted = approved && !WindowThumbnails.isPartialFrame(window, contents, fullRes: false)
                 window.refreshThumbnail(contents)
                 if isTrusted, window.thumbnail != nil {
                     window.stageManagerThumbnailIsTrusted = true
@@ -343,17 +350,14 @@ class WindowCaptureScreenshots {
                 }
             }
         }
-        guard request.mode.enabled else {
-            DispatchQueue.main.async(execute: publish)
-            return
-        }
         // Capture callbacks may run on an OS thread; keep the extra IPC and pixel sampling off-main.
         BackgroundWork.screenshotsQueue.addOperation {
-            guard hasNormalGeometry(request) && hasUsablePixels(contents) else {
+            let approved = request.geometryApprovedBeforeCapture && hasNormalGeometry(request) && hasUsablePixels(contents)
+            guard !request.mode.enabled || approved else {
                 reject(request)
                 return
             }
-            DispatchQueue.main.async(execute: publish)
+            DispatchQueue.main.async { publish(approved) }
         }
     }
 }

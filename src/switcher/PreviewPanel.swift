@@ -52,6 +52,16 @@ class PreviewPanel: NSPanel {
         }
     }
 
+    static func refreshAfterProtectionChange() {
+        guard let id = currentId else { return }
+        guard let window = Windows.byWindowId[id], let position = window.position, let size = window.size,
+              let contents = SwitcherSession.current?.previewFrame(id) ?? window.thumbnail else {
+            hide()
+            return
+        }
+        updateIfShowing(id, contents, position, size)
+    }
+
     /// Order out AND release the displayed frame: the layer would otherwise pin a full-resolution
     /// frame in this static view for the rest of the app's lifetime, defeating the session-scoped
     /// Preview-frame cache's release-on-hide (#5861).
