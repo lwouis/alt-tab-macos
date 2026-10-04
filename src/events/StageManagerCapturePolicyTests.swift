@@ -8,10 +8,16 @@ final class StageManagerCapturePolicyTests: XCTestCase {
         XCTAssertTrue(StageManagerCapturePolicy.hasNormalGeometry(CGRect(origin: .zero, size: size), size))
     }
 
-    func testBothDimensionsMustBeScaledToIdentifySidebarGeometry() {
-        XCTAssertTrue(StageManagerCapturePolicy.hasNormalGeometry(CGRect(x: 0, y: 0, width: 699, height: 800), size))
-        XCTAssertTrue(StageManagerCapturePolicy.hasNormalGeometry(CGRect(x: 0, y: 0, width: 700, height: 560), size))
-        XCTAssertFalse(StageManagerCapturePolicy.hasNormalGeometry(CGRect(x: 0, y: 0, width: 699, height: 559), size))
+    func testEitherCompressedAxisIsRejectedAndExactNinetyPercentIsAccepted() {
+        for bounds in [CGRect(x: 0, y: 0, width: 850, height: 800),
+                       CGRect(x: 0, y: 0, width: 1000, height: 680),
+                       CGRect(x: 0, y: 0, width: 899, height: 800),
+                       CGRect(x: 0, y: 0, width: 1000, height: 719)] {
+            XCTAssertFalse(StageManagerCapturePolicy.hasNormalGeometry(bounds, size))
+        }
+        XCTAssertTrue(StageManagerCapturePolicy.hasNormalGeometry(CGRect(x: 0, y: 0, width: 900, height: 720), size))
+        XCTAssertTrue(StageManagerCapturePolicy.hasNormalGeometry(CGRect(origin: .zero, size: size), size))
+        XCTAssertFalse(StageManagerCapturePolicy.hasNormalGeometry(CGRect(x: 0, y: 0, width: 66, height: 98), CGSize(width: 80, height: 92)))
     }
 
     func testUnknownGeometryDoesNotOverwriteLastGoodFrame() {
