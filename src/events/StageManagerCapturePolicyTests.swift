@@ -20,6 +20,16 @@ final class StageManagerCapturePolicyTests: XCTestCase {
         XCTAssertFalse(StageManagerCapturePolicy.hasNormalGeometry(CGRect(origin: .zero, size: size), .zero))
     }
 
+    func testNonFiniteGeometryDoesNotOverwriteLastGoodFrame() {
+        let normal = CGRect(origin: .zero, size: size)
+        for invalid in [CGFloat.nan, .infinity, -.infinity] {
+            for invalidSize in [CGSize(width: invalid, height: size.height), CGSize(width: size.width, height: invalid)] {
+                XCTAssertFalse(StageManagerCapturePolicy.hasNormalGeometry(CGRect(origin: .zero, size: invalidSize), size))
+                XCTAssertFalse(StageManagerCapturePolicy.hasNormalGeometry(normal, invalidSize))
+            }
+        }
+    }
+
     func testTransparentOrTinyFramesDoNotBecomeCachedPreviews() {
         XCTAssertFalse(StageManagerCapturePolicy.hasUsablePixels(size, visibleSamples: 12, totalSamples: 256))
         XCTAssertTrue(StageManagerCapturePolicy.hasUsablePixels(size, visibleSamples: 13, totalSamples: 256))

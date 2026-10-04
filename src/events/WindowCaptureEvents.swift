@@ -222,8 +222,6 @@ class WindowCaptureScreenshots {
         // [weak window] avoids keeping a closed Window alive while the capture is queued or in-flight with the OS
         Applications.screenshotThrottler.throttleOrProceed(key: "\(keyPrefix)-wid-\(scWindow.windowID)", queue: BackgroundWork.screenshotsQueue, priority: isPrioritized ? .high : .normal) { [weak window = request.window] in
             guard !App.isTerminating, !ScreenLockEvents.isScreenLocked, let window else { return }
-            let config = SCStreamConfiguration.forWindow(size, scaleFactor, request.fullRes)
-            let filter = SCContentFilter(desktopIndependentWindow: scWindow)
             // Through the gate, not merely counted: these APIs are ASYNCHRONOUS, so the `screenshotsQueue`
             // slot frees the moment the request is handed to the OS, and a show of 60 windows fired 60
             // simultaneous requests — the burst #5861 blames for wedging replayd machine-wide.
@@ -237,6 +235,8 @@ class WindowCaptureScreenshots {
                     reject(request)
                     return
                 }
+                let config = SCStreamConfiguration.forWindow(size, scaleFactor, request.fullRes)
+                let filter = SCContentFilter(desktopIndependentWindow: scWindow)
                 // captureSampleBuffer spins up a short-lived capture stream per call; on some macOS 26 machines that
                 // churn leaks WindowServer memory until the session is force-logged-out (#5786), and the per-call
                 // replayd attribution work can wedge screenshots machine-wide under bursts (#5861). captureScreenshot
