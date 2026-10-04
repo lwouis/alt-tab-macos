@@ -206,6 +206,37 @@ final class FocusIntentPolicyTests: XCTestCase {
         XCTAssertNil(policy.awaitedAnswer(now: 0.07))
     }
 
+    /// The read can beat the app to its own key change, and then names the window being left.
+    func testAnAnswerNamingAnotherWindowOfTheAwaitedAppIsAskedAgain() {
+        var policy = FocusIntentPolicy()
+        _ = policy.request(wid: 1, pid: safari, now: 0)
+        XCTAssertTrue(policy.answeredTooEarly(pid: safari, wid: 2, attempt: 0, now: 0.01))
+        XCTAssertFalse(policy.answeredTooEarly(pid: safari, wid: 1, attempt: 0, now: 0.01))
+    }
+
+    /// #6055: a switch that did not take keeps naming the window that kept focus, and that is the truth.
+    func testAnAnswerThatPersistsThroughTheRereadsIsBelieved() {
+        var policy = FocusIntentPolicy()
+        _ = policy.request(wid: 1, pid: safari, now: 0)
+        XCTAssertTrue(policy.answeredTooEarly(pid: safari, wid: 2, attempt: FocusIntentPolicy.earlyAnswerRereads - 1,
+                                              now: 0.3))
+        XCTAssertFalse(policy.answeredTooEarly(pid: safari, wid: 2, attempt: FocusIntentPolicy.earlyAnswerRereads,
+                                               now: 0.4))
+    }
+
+    /// Only an answer about the awaited switch can be early: another app, no window, or nothing awaited.
+    func testOnlyAnAnswerAboutTheAwaitedSwitchIsAskedAgain() {
+        var policy = FocusIntentPolicy()
+        XCTAssertFalse(policy.answeredTooEarly(pid: safari, wid: 2, attempt: 0, now: 0))
+        _ = policy.request(wid: 1, pid: safari, now: 0)
+        XCTAssertFalse(policy.answeredTooEarly(pid: terminal, wid: 2, attempt: 0, now: 0.01))
+        XCTAssertFalse(policy.answeredTooEarly(pid: safari, wid: nil, attempt: 0, now: 0.01))
+        XCTAssertFalse(policy.answeredTooEarly(pid: safari, wid: 2, attempt: 0,
+                                               now: FocusIntentPolicy.repairHorizon + 0.01))
+        policy.heardBack(pid: safari)
+        XCTAssertFalse(policy.answeredTooEarly(pid: safari, wid: 2, attempt: 0, now: 0.02))
+    }
+
     /// An operation that bailed before its read never answers, so the wait expires on the same horizon a
     /// repair does rather than leaving every later activation of that app waiting on it.
     func testAnUnansweredSwitchStopsBeingAwaitedAtTheHorizon() {

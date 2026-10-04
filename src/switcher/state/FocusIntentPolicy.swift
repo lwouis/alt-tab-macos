@@ -103,6 +103,22 @@ struct FocusIntentPolicy {
         return awaited
     }
 
+    /// **Is the read after a switch too early to believe?** The focus calls return before the app has moved its
+    /// key window, so a read that lands first names the window being LEFT, and believing it walks that window
+    /// up the order the way the activation's cached answer would. Measured in a macOS 27 VM (2026-10-04): the
+    /// read 7ms after the switch named Finder's previous window, Finder's own answer naming the target was
+    /// committed 240ms later, and the stale window was left second in the order, above the one the user came
+    /// from.
+    /// An answer naming another window of the awaited app is asked again; one that still names it after
+    /// `earlyAnswerRereads` is the truth, a switch that did not take (#6055).
+    func answeredTooEarly(pid: pid_t, wid: CGWindowID?, attempt: Int, now: TimeInterval) -> Bool {
+        guard let wid, attempt < Self.earlyAnswerRereads, let awaited = awaitedAnswer(now: now) else { return false }
+        return awaited.pid == pid && awaited.wid != wid
+    }
+
+    static let earlyAnswerRereads = 3
+    static let earlyAnswerRereadDelay: TimeInterval = 0.1
+
     /// A focus that this policy cannot re-assert took over: `Window.focus()` also lands on AltTab's own
     /// window and on a windowless app, and neither is a wid this can front. Pending operations still have to
     /// stop, so they are superseded with nothing to repair to.
@@ -173,6 +189,10 @@ class FocusIntents {
 
     func heardBack(pid: pid_t) {
         withPolicy { $0.heardBack(pid: pid) }
+    }
+
+    func answeredTooEarly(pid: pid_t, wid: CGWindowID?, attempt: Int) -> Bool {
+        withPolicy { $0.answeredTooEarly(pid: pid, wid: wid, attempt: attempt, now: ProcessInfo.processInfo.systemUptime) }
     }
 
     /// Is AltTab still waiting to hear where its own switch into this app landed? See

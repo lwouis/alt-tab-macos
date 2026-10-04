@@ -58,6 +58,12 @@ LEFT, so fronting it walks that window to the top of the order until the real an
 181ms at the 75th percentile, measured over a full pass) and then leaves it sitting one tile from the next
 summon's default pick.
 
+The read itself can be too early. The focus calls return before the app has moved its key window, so a read
+that lands first names the window being left, exactly like the cached answer. An answer naming another window
+of the awaited app is therefore asked again, up to three times 100ms apart, and believed only if it persists:
+then it is a switch that did not take (#6055). Measured in a macOS 27 VM (2026-10-04): the read 7ms after the
+switch named Finder's previous window and left it second in the order, above the window the user came from.
+
 Nothing else in AltTab may act on a switch it has not heard back about. A second alt-tab that beats the
 answer finds the order unmoved and picks the same window again, which is what the user sees on screen
 anyway: two switches into the same window rather than a toggle AltTab cannot yet know it owes.
@@ -126,6 +132,12 @@ focus. `testDeferredRaiseStopsAfterTheDeadlineOrANewerAltTab` covers delayed and
   everything pending stops, and no wid is re-asserted because none was named.
 - **testASwitchIsAwaitedUntilItsOwnAppAnswers** — only the app the switch aimed at can say where it landed, so
   a read about anyone else leaves the wait standing.
+- **testAnAnswerNamingAnotherWindowOfTheAwaitedAppIsAskedAgain** — the read beat the app to its own key
+  change and names the window being left; the target itself is believed at once.
+- **testAnAnswerThatPersistsThroughTheRereadsIsBelieved** — #6055: a switch that did not take keeps naming the
+  window that kept focus, and after the rereads that is what the order shows.
+- **testOnlyAnAnswerAboutTheAwaitedSwitchIsAskedAgain** — another app, an app with no answer, nothing awaited,
+  or a wait past the horizon: the answer is taken as it is.
 - **testAnUnansweredSwitchStopsBeingAwaitedAtTheHorizon** — an operation that bailed before its read never
   answers, and the wait expires rather than holding every later activation of that app.
 - **testCurrentTargetCoveredByAnotherAppNeedsARaise** — the captured failure: the target app is front while
