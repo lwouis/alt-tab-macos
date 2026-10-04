@@ -179,11 +179,16 @@ class TileView: FlippedView {
     /// be reconfigured in place. Unlike the other subviews it owns no tooltip, so it's safe to
     /// recreate. `applyShadows()` (called right after, by both setup and reapplyAppearance) gives the
     /// fresh instance its shadow.
+    /// A fresh badge is visible and reads "0". A screen change while the switcher is open rebuilds every
+    /// tile, and the refresh that follows lands a few frames later, so the fresh badge takes the tile's
+    /// current one (or hides) right away.
     private func rebuildDockLabelIcon() {
         dockLabelIcon.removeFromSuperview()
         dockLabelIcon = TileFontIconView(badgeSize: TileFontIconView.badgeBaseSize(forIconSize: TileView.iconSize().width))
         addSubview(dockLabelIcon)
         TileView.disableImplicitLayerAnimations(on: dockLabelIcon)
+        updateDockLabelIcon(window_?.dockLabel)
+        updateDockLabelIconPosition()
     }
 
     /// Set `wantsLayer = true` and null out the implicit-animation entries in the layer's actions
