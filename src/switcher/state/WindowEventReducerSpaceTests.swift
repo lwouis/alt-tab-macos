@@ -203,4 +203,26 @@ final class WindowEventReducerSpaceTests: XCTestCase {
         XCTAssertEqual(s.windows, snapshot)
         XCTAssertEqual(s.currentSpaceId, 1)
     }
+
+    // MARK: - G. A window admitted on attention learns its Space when its discovery lands
+
+    private func discoveryLanded(_ wid: CGWindowID, spaceIds: [UInt64]) -> ReducerInput {
+        .discoveryLanded(wid: wid, accepted: true, newlyTracked: false, adoptedAsInactiveTab: false,
+                         spaceMembership: .known(spaceIds), isOrderedIn: true, tabGroup: .standalone)
+    }
+
+    /// Without the membership, the app confirming the close is read as out of scope and the window is kept.
+    func testAWindowAdmittedOnAttentionLearnsItsSpaceWhenDiscoveryLands() {
+        var s = state()
+        _ = WindowEventReducer.reduce(&s, discoveryLanded(Self.widA, spaceIds: [1]))
+        XCTAssertEqual(s.window(Self.widA)?.spaceMembershipObservation, .known([1]))
+    }
+
+    func testALaterDiscoveryDoesNotOverwriteAnObservedMembership() {
+        var s = state()
+        s.windows[1].spaceMembershipObservation = .known([2])
+        _ = WindowEventReducer.reduce(&s, discoveryLanded(Self.widB, spaceIds: [1]))
+        XCTAssertEqual(s.window(Self.widB)?.spaceMembershipObservation, .known([2]))
+        XCTAssertEqual(s.window(Self.widB)?.spaceIds, [2])
+    }
 }

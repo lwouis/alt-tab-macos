@@ -872,6 +872,23 @@ enum WindowEventReducer {
 
     // MARK: - async read results landing
 
+    /// **A window admitted before its discovery landed has never had its Space observed.** Exact attention
+    /// (`Windows.findOrCreateCandidate`) tracks a window from its WindowServer row alone, so this landing is
+    /// not `newlyTracked` and the newly-tracked branch never records the membership it just read. Left
+    /// `.unavailable`, a close the app confirms is read as out of the query's scope and the window is kept
+    /// until the WindowServer retires its surface, which a macOS 26 Finder delays past 30s
+    /// (`testAWindowAdmittedOnAttentionLearnsItsSpaceWhenDiscoveryLands`).
+    private static func recordFirstSpaceMembership(_ state: inout TrackedWindowState, wid: CGWindowID, pid: pid_t,
+                                                   spaceMembership: SpaceMembershipObservation,
+                                                   isOrderedIn: Bool) -> [ReducerEffect] {
+        guard let i = state.windowIndex(wid), state.windows[i].spaceMembershipObservation == .unavailable,
+              let queried = spaceMembership.spaceIds else { return [] }
+        state.windows[i].spaceMembershipObservation = spaceMembership
+        guard !queried.isEmpty || !isOrderedIn else { return [] }
+        let r = state.applyWindowSpaces(wid, spaceIds: queried)
+        return [.updateScreenId(wid)] + (r.unphantomedRealWindow ? [.removeWindowlessPlaceholder(pid: pid)] : [])
+    }
+
     /// The apply-side of `Applications.addDiscoveredWindow`, after the shell acquired/discriminated the
     /// window and applied its raw AX/WS attributes. Decisions owned here: the pending-removal consume, the
     /// MRU promotion (was `Windows.appendWindow`'s), the Space override for background tabs, the tab-state
@@ -1023,6 +1040,9 @@ enum WindowEventReducer {
                 effects.append(.updateScreenId(wid))
                 if r.unphantomedRealWindow { effects.append(.removeWindowlessPlaceholder(pid: window.pid)) }
             }
+        } else if !adoptedAsInactiveTab {
+            effects.append(contentsOf: recordFirstSpaceMembership(&state, wid: wid, pid: window.pid,
+                spaceMembership: spaceMembership, isOrderedIn: isOrderedIn))
         }
         var tabStateChanged = false
         if tabTitles != nil || state.groups.siblingWids(of: wid) != nil {
