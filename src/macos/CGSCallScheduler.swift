@@ -22,6 +22,8 @@ class CGSCallScheduler {
     static var debugQueue: LabeledOperationQueue { queue }
     #endif
 
+    static var pendingCallCount: Int { queue.operations.count }
+
     /// Run an arbitrary blocking WindowServer/SkyLight read off-main on this lane (isolated from the AX
     /// pools). For the multi-call reads — the bulk discovery snapshot + Space topology + per-window state
     /// query — that dispatch their own result back to main. Fire-and-forget; callers may be on any thread.

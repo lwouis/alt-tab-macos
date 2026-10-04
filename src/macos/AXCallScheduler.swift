@@ -95,6 +95,14 @@ class AXCallScheduler {
         lock.unlock()
     }
 
+    /// Calls queued, parked for a slot, or running. A key backing off on an unresponsive app is left out: it can
+    /// keep retrying for `RetryPolicy.giveUpAfterNs`, and a caller waiting for AltTab to go idle would wait that out.
+    var pendingCallCount: Int {
+        lock.lock()
+        defer { lock.unlock() }
+        return keyStates.values.filter { $0.phase == .executing }.count
+    }
+
     func removeEntry(key: String) {
         lock.lock()
         keyStates[key] = nil

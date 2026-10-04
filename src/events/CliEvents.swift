@@ -289,7 +289,8 @@ class CliServer {
             windows: windows,
             tiles: renderedTiles(),
             layout: renderedLayout(),
-            tracking: TrackingTelemetryRecorder.state.summary())
+            tracking: TrackingTelemetryRecorder.state.summary(),
+            pendingWork: AXCallScheduler.shared.pendingCallCount + CGSCallScheduler.pendingCallCount)
     }
 
     private static func windowControlsWid() -> CGWindowID? {
@@ -409,6 +410,10 @@ class CliServer {
         var layout: QaLayout?
         /// provider health and the last committed attention decision (`TrackingTelemetryState`)
         var tracking: TrackingTelemetrySummary
+        /// AX and CGS calls not answered yet. A launch scan finds a window before it has read what kind of
+        /// window it is, so a window list that stopped changing is not yet a complete model; the reads still
+        /// out are counted here. Their answers are applied on main after the count drops.
+        var pendingWork: Int
     }
 
     private struct QaTelemetryDrain: Codable {
