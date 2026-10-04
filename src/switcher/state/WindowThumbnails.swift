@@ -4,6 +4,7 @@ import Cocoa
 /// "preview the selected window" overlay shown next to the switcher panel.
 enum WindowThumbnails {
     static func previewSelectedIfNeeded() {
+        _ = StageManagerCaptureGuard.currentMode()
         if let session = SwitcherSession.current, ScreenRecordingPermission.status == .granted
                && Preferences.effectivePreviewSelectedWindow(session.shortcutIndex)
                && TilesPanel.shared.isKeyWindow,
@@ -31,8 +32,17 @@ enum WindowThumbnails {
     /// switcher is open (the normal refresh captures then); throttled per wid; obeys the screenshot guards below.
     static func captureFocusedInBackground(_ window: Window) {
         guard !SwitcherSession.isActive, let wid = window.cgWindowId, wid != CGWindowID(bitPattern: -1) else { return }
-        focusedCaptureThrottler.throttleOrProceed(key: "\(wid)") {
-            refreshAsync([window], .refreshUiAfterExternalEvent, force: true)
+        let delay = StageManagerCaptureGuard.currentMode().enabled ? 0.25 : 0
+        focusedCaptureThrottler.throttleOrProceed(key: "\(wid)") { [weak window] in
+            guard let window else { return }
+            if delay == 0 {
+                refreshAsync([window], .refreshUiAfterExternalEvent, force: true)
+            } else {
+                DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak window] in
+                    guard let window else { return }
+                    refreshAsync([window], .refreshUiAfterExternalEvent, force: true)
+                }
+            }
         }
     }
 
@@ -123,8 +133,8 @@ enum WindowThumbnails {
 
     /// Whether a freshly captured thumbnail is worth showing. A stale-but-correct thumbnail beats a partial
     /// frame, so that one is dropped and another capture asked for a beat later. Bounded by
-    /// `maxPartialFrameRetries`, then the frame is taken as-is: "smaller than expected" is a heuristic, and a
-    /// tile stuck forever on a stale thumbnail would be worse than one that is briefly off.
+    /// `maxPartialFrameRetries`, then the frame is taken as-is unless Stage Manager protection is active.
+    /// Protected thumbnails retain the previous frame even after retry exhaustion.
     static func acceptCapture(_ window: Window, _ contents: CALayerContents) -> Bool {
         guard let wid = window.cgWindowId else { return true }
         guard isPartialFrame(window, contents, fullRes: false) else {
@@ -135,14 +145,14 @@ enum WindowThumbnails {
         guard retries < maxPartialFrameRetries else {
             Logger.debug { "\(window.debugId) giving up on partial frames after \(retries) retries" }
             partialFrameRetries[wid] = nil
-            return true
+            return !StageManagerCaptureGuard.currentMode().enabled
         }
         partialFrameRetries[wid] = retries + 1
-        // no `force`: this re-capture obeys the same conditions the original one did, so a switcher that
-        // closed in the meantime (with background captures off) simply drops it
+        // Protected focus captures also warm the cache with background captures disabled; their retries
+        // must do the same. The protected request filter still requires the focused window.
         DispatchQueue.main.asyncAfter(deadline: .now() + partialFrameRetryDelay) { [weak window] in
             guard let window else { return }
-            refreshAsync([window], .refreshUiAfterExternalEvent)
+            refreshAsync([window], .refreshUiAfterExternalEvent, force: StageManagerCaptureGuard.currentMode().enabled)
         }
         return false
     }

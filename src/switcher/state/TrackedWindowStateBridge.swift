@@ -144,6 +144,7 @@ class TrackedWindowStateBridge {
         Windows.windowsPendingSpaceRemoval = state.pendingSpaceRemoval
         Windows.windowsPendingFocusPromotion = state.pendingFocusPromotion
         carried = state.carried
+        if Applications.frontmostPid != state.frontmostPid { StageManagerCaptureGuard.focusChanged() }
         Applications.frontmostPid = state.frontmostPid
         // `Windows.byWindowId` is already maintained, so the common row (a tracked window) is an O(1) hit and
         // no per-dispatch map is built. The id check keeps this EXACTLY as strict as matching on `id` was:
@@ -186,6 +187,7 @@ class TrackedWindowStateBridge {
                 }
             case .applyFocus(let wid):
                 if let w = Windows.byWindowId[wid] {
+                    StageManagerCaptureGuard.focusChanged()
                     w.application.focusedWindow = w
                     App.checkIfShortcutsShouldBeDisabled(w, nil)
                     WindowThumbnails.captureFocusedInBackground(w)

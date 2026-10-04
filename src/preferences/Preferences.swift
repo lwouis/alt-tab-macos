@@ -43,6 +43,7 @@ class Preferences {
             "hideStatusIcons": "false",
             "previewFocusedWindow": "false",
             "captureWindowsInBackground": "true",
+            "preventDistortedStageManagerPreviews": "false",
             "screenRecordingPermissionSkipped": "false",
             "trackpadHapticFeedbackEnabled": "true",
             "settingsWindowShownOnFirstLaunch": "false",
@@ -116,6 +117,7 @@ class Preferences {
     static var exceptions: [ExceptionEntry] { CachedUserDefaults.json("exceptions", [ExceptionEntry].self) }
     static var previewSelectedWindow: Bool { CachedUserDefaults.bool("previewFocusedWindow") }
     static var captureWindowsInBackground: Bool { CachedUserDefaults.bool("captureWindowsInBackground") }
+    static var preventDistortedStageManagerPreviews: Bool { CachedUserDefaults.bool("preventDistortedStageManagerPreviews") }
     static var screenRecordingPermissionSkipped: Bool { CachedUserDefaults.bool("screenRecordingPermissionSkipped") }
     static var settingsWindowShownOnFirstLaunch: Bool { CachedUserDefaults.bool("settingsWindowShownOnFirstLaunch") }
 

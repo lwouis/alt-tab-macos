@@ -23,11 +23,16 @@ class WindowCaptureScreenshots {
     #endif
 
     struct CaptureRequest {
-        let window: Window
-        let size: CGSize
+        weak var window: Window?
+        let wid: CGWindowID
+        let pid: pid_t
+        var size: CGSize
         let scaleFactor: CGFloat
         let isFullscreen: Bool
         let fullRes: Bool
+        let mode: StageManagerCaptureMode
+        let focusGeneration: UInt64
+        weak var session: SwitcherSession?
     }
 
     private struct PendingCapture {
@@ -43,15 +48,46 @@ class WindowCaptureScreenshots {
         // Window.size, Window.screenId, Screens.all, and NSScreen.preferred are plain (lock-free) dictionaries
         // and mutable properties touched only on main; reading them from screenshotsQueue (8-way concurrent)
         // races with main-thread mutation and can corrupt the heap.
-        // Trade-off: size is fixed at call time, so a window resized between snapshot and capture will be captured
-        // at the old size. Acceptable because the next refresh will re-snapshot.
+        // A resize after this snapshot can produce a frame at the old size; the next refresh corrects it.
+        // Protected requests replace the model size with an off-main AX read before they are enqueued.
+        let mode = StageManagerCaptureGuard.currentMode()
         var requests = [CGWindowID: CaptureRequest]()
         for window in windowsToScreenshot {
-            guard let wid = window.cgWindowId, let size = window.size else { continue }
+            guard let wid = window.cgWindowId, let size = window.size,
+                  !mode.enabled || StageManagerCaptureGuard.isFocused(window) else { continue }
             let scaleFactor = WindowThumbnails.captureScaleFactor(window)
-            requests[wid] = CaptureRequest(window: window, size: size, scaleFactor: scaleFactor,
-                isFullscreen: window.isFullscreen, fullRes: fullRes)
+            let request = CaptureRequest(window: window, wid: wid, pid: window.application.pid, size: size, scaleFactor: scaleFactor,
+                isFullscreen: window.isFullscreen, fullRes: fullRes, mode: mode,
+                focusGeneration: StageManagerCaptureGuard.focusGeneration, session: SwitcherSession.current)
+            if mode.enabled {
+                guard let element = window.axUiElement else { continue }
+                snapshotProtectedSize(request, element, source, prioritizedIds)
+            } else {
+                requests[wid] = request
+            }
         }
+        enqueue(requests, source, prioritizedIds)
+    }
+
+    private static func snapshotProtectedSize(_ request: CaptureRequest, _ element: AXUIElement,
+                                              _ source: RefreshCausedBy, _ prioritizedIds: Set<CGWindowID>?) {
+        // Window.size is refreshed by WindowServer and may itself be scaled. AX keeps the document size.
+        AXCallScheduler.shared.schedule(key: "pid-\(request.pid)-stage-manager-capture-\(request.wid)-\(request.fullRes)", pid: request.pid) {
+            guard request.window != nil,
+                  let size = try? element.attributes([kAXSizeAttribute], pid: request.pid).size,
+                  size.width > 0, size.height > 0 else { return }
+            var verified = request
+            verified.size = size
+            DispatchQueue.main.async {
+                guard let window = verified.window,
+                      StageManagerCaptureGuard.allowsPublication(window, verified.mode, verified.focusGeneration) else { return }
+                enqueue([verified.wid: verified], source, prioritizedIds)
+            }
+        }
+    }
+
+    private static func enqueue(_ requests: [CGWindowID: CaptureRequest], _ source: RefreshCausedBy,
+                                _ prioritizedIds: Set<CGWindowID>?) {
         guard !requests.isEmpty else { return }
         let prioritized = prioritizedIds ?? []
         BackgroundWork.screenshotsQueue.addOperation {
@@ -196,6 +232,11 @@ class WindowCaptureScreenshots {
                     finish()
                     return
                 }
+                guard !request.mode.enabled || hasNormalGeometry(request) else {
+                    finish()
+                    reject(request)
+                    return
+                }
                 // captureSampleBuffer spins up a short-lived capture stream per call; on some macOS 26 machines that
                 // churn leaks WindowServer memory until the session is force-logged-out (#5786), and the per-call
                 // replayd attribution work can wedge screenshots machine-wide under bursts (#5861). captureScreenshot
@@ -203,16 +244,16 @@ class WindowCaptureScreenshots {
                 // that one case stays on captureSampleBuffer. Its CGImage copy (vs a shared IOSurface) is acceptable
                 // even at full resolution now that Preview frames are fetched lazily, a few per session (#5861).
                 if #available(macOS 26.0, *), !request.isFullscreen {
-                    captureScreenshot(filter, config, window, source, request.fullRes, finish)
+                    captureScreenshot(filter, config, window, source, request, finish)
                 } else {
-                    captureSampleBuffer(filter, config, window, source, request.fullRes, finish)
+                    captureSampleBuffer(filter, config, window, source, request, finish)
                 }
             }
         }
     }
 
     @available(macOS 26.0, *)
-    private static func captureScreenshot(_ filter: SCContentFilter, _ streamConfig: SCStreamConfiguration, _ window: Window, _ source: RefreshCausedBy, _ fullRes: Bool, _ finish: @escaping () -> Void) {
+    private static func captureScreenshot(_ filter: SCContentFilter, _ streamConfig: SCStreamConfiguration, _ window: Window, _ source: RefreshCausedBy, _ request: CaptureRequest, _ finish: @escaping () -> Void) {
         let config = SCScreenshotConfiguration()
         config.width = streamConfig.width
         config.height = streamConfig.height
@@ -225,38 +266,94 @@ class WindowCaptureScreenshots {
             // fullscreen transition, and the next refresh re-routes it. Retrying here would silently reintroduce
             // the stream churn this path exists to avoid, and would hide new failure modes from the logs.
             guard let cgImage = output?.sdrImage, error == nil else { Logger.error { "\(window.debugId) \(output == nil) \(error)" }; return }
-            deliver(window, source, .cgImage(cgImage), fullRes)
+            deliver(window, source, .cgImage(cgImage), request)
         }
     }
 
-    private static func captureSampleBuffer(_ filter: SCContentFilter, _ config: SCStreamConfiguration, _ window: Window, _ source: RefreshCausedBy, _ fullRes: Bool, _ finish: @escaping () -> Void) {
+    private static func captureSampleBuffer(_ filter: SCContentFilter, _ config: SCStreamConfiguration, _ window: Window, _ source: RefreshCausedBy, _ request: CaptureRequest, _ finish: @escaping () -> Void) {
         SCScreenshotManager.captureSampleBuffer(contentFilter: filter, configuration: config) { [weak window] sampleBuffer, error in
             finish()
             guard let window else { return }
             guard let sampleBuffer, error == nil else { Logger.error { "\(window.debugId) \(sampleBuffer == nil) \(error)" }; return }
             guard let pixelBuffer = sampleBuffer.pixelBuffer() ?? sampleBuffer.imageBuffer else { Logger.error { "\(window.debugId) no pixelBuffer" }; return }
-            deliver(window, source, .pixelBuffer(pixelBuffer), fullRes)
+            deliver(window, source, .pixelBuffer(pixelBuffer), request)
         }
     }
 
-    private static func deliver(_ window: Window, _ source: RefreshCausedBy, _ contents: CALayerContents, _ fullRes: Bool) {
+    // Query fresh Core Graphics bounds off-main; cached SCWindow.frame can describe an earlier stage.
+    private static func hasNormalGeometry(_ request: CaptureRequest) -> Bool {
+        let entries = CGWindowListCopyWindowInfo(.optionIncludingWindow, request.wid) as? [CGWindow]
+        let bounds = entries?.first(where: { $0.id() == request.wid && $0.ownerPID() == request.pid })?.bounds()
+        return StageManagerCapturePolicy.hasNormalGeometry(bounds, request.size)
+    }
+
+    private static func reject(_ request: CaptureRequest) {
+        DispatchQueue.main.async {
+            guard let window = request.window else { return }
+            StageManagerCaptureGuard.retryCapture(window, request.mode, request.focusGeneration)
+        }
+    }
+
+    private static func hasUsablePixels(_ contents: CALayerContents) -> Bool {
+        switch contents {
+        case .cgImage(let image):
+            return image.map(StageManagerCapturePolicy.hasUsableImage) ?? false
+        case .pixelBuffer(let buffer):
+            guard let buffer, CVPixelBufferGetPixelFormatType(buffer) == kCVPixelFormatType_32BGRA,
+                  CVPixelBufferLockBaseAddress(buffer, .readOnly) == kCVReturnSuccess else { return false }
+            defer { CVPixelBufferUnlockBaseAddress(buffer, .readOnly) }
+            guard let base = CVPixelBufferGetBaseAddress(buffer) else { return false }
+            let width = CVPixelBufferGetWidth(buffer)
+            let height = CVPixelBufferGetHeight(buffer)
+            guard width >= 16, height >= 16 else { return false }
+            let rowBytes = CVPixelBufferGetBytesPerRow(buffer)
+            let bytes = base.assumingMemoryBound(to: UInt8.self)
+            var visibleSamples = 0
+            for y in 0..<16 {
+                for x in 0..<16 {
+                    if bytes[((y * 2 + 1) * height / 32) * rowBytes + ((x * 2 + 1) * width / 32) * 4 + 3] > 16 {
+                        visibleSamples += 1
+                    }
+                }
+            }
+            return StageManagerCapturePolicy.hasUsablePixels(buffer.size(), visibleSamples: visibleSamples, totalSamples: 256)
+        }
+    }
+
+    private static func deliver(_ window: Window, _ source: RefreshCausedBy, _ contents: CALayerContents, _ request: CaptureRequest) {
         guard source != .refreshOnlyThumbnailsAfterShowUi || SwitcherSession.isActive else { return }
-        DispatchQueue.main.async { [weak window] in
-            guard let window, source != .refreshOnlyThumbnailsAfterShowUi || SwitcherSession.isActive else { return }
-            if fullRes {
-                // full-res Preview frames go to the session's capped cache, not Window.thumbnail, so they
-                // are released when the session ends; swap the sharp frame in if it's the one being previewed
-                guard let session = SwitcherSession.current, let wid = window.cgWindowId else { return }
-                // a mid-animation frame is refused here too; leaving the cache empty makes the next selection
-                // move re-fetch it, and the thumbnail stands in as the Preview's placeholder meanwhile
+        let publish = { [weak window] in
+            guard let window, source != .refreshOnlyThumbnailsAfterShowUi || SwitcherSession.isActive,
+                  window.cgWindowId == request.wid, window.application.pid == request.pid,
+                  StageManagerCaptureGuard.allowsPublication(window, request.mode, request.focusGeneration) else { return }
+            if request.fullRes {
+                // Session-scoped full-res frames must never land in a subsequent switcher invocation.
+                guard let session = request.session, session === SwitcherSession.current else { return }
                 guard !WindowThumbnails.isPartialFrame(window, contents, fullRes: true) else { return }
-                session.storePreviewFrame(wid, contents)
+                session.storePreviewFrame(request.wid, contents)
                 if let position = window.position, let size = window.size {
-                    PreviewPanel.updateIfShowing(wid, contents, position, size)
+                    PreviewPanel.updateIfShowing(request.wid, contents, position, size)
                 }
             } else {
+                let isTrusted = request.mode.enabled && !WindowThumbnails.isPartialFrame(window, contents, fullRes: false)
                 window.refreshThumbnail(contents)
+                if isTrusted, window.thumbnail != nil {
+                    window.stageManagerThumbnailIsTrusted = true
+                    StageManagerCaptureGuard.captureAccepted(request.wid)
+                }
             }
+        }
+        guard request.mode.enabled else {
+            DispatchQueue.main.async(execute: publish)
+            return
+        }
+        // Capture callbacks may run on an OS thread; keep the extra IPC and pixel sampling off-main.
+        BackgroundWork.screenshotsQueue.addOperation {
+            guard hasNormalGeometry(request) && hasUsablePixels(contents) else {
+                reject(request)
+                return
+            }
+            DispatchQueue.main.async(execute: publish)
         }
     }
 }
@@ -301,7 +398,7 @@ class WindowCaptureScreenshotsPrivateApi {
 
 @available(macOS 12.3, *)
 extension SCStreamConfiguration {
-    // size/scaleFactor are snapshotted on the main thread by the caller; we do not touch Window state here
+    // size/scaleFactor are prepared before configuration; we do not touch Window state here
     // (Window properties are mutated on main and would race with this background work).
     static func forWindow(_ size: CGSize, _ scaleFactor: CGFloat, _ fullRes: Bool) -> SCStreamConfiguration {
         let config = SCStreamConfiguration()

@@ -459,6 +459,10 @@
 		FBD2F4ADB045F2E8378FF5FD /* SearchDiscoveryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABE31178D84E33B625EB279 /* SearchDiscoveryTests.swift */; };
 		C966F89BC7C0D1E5F7C9B26E /* SearchDiscoveryShortcut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F9B05662295B0481CC17A8 /* SearchDiscoveryShortcut.swift */; };
 		10F5AECE239ADA681CF68695 /* SearchDiscoveryShortcut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F9B05662295B0481CC17A8 /* SearchDiscoveryShortcut.swift */; };
+		5D4242000000000000000002 /* StageManagerCapturePolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4242000000000000000001 /* StageManagerCapturePolicy.swift */; };
+		5D4242000000000000000003 /* StageManagerCapturePolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4242000000000000000001 /* StageManagerCapturePolicy.swift */; };
+		5D4242000000000000000005 /* StageManagerCaptureGuard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4242000000000000000004 /* StageManagerCaptureGuard.swift */; };
+		5D4242000000000000000007 /* StageManagerCapturePolicyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4242000000000000000006 /* StageManagerCapturePolicyTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -924,6 +928,9 @@
 		5ABE31178D84E33B625EB279 /* SearchDiscoveryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDiscoveryTests.swift; sourceTree = "<group>"; };
 		4C8B3930635A963ACF1016A9 /* SearchDiscoverySpecs.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = SearchDiscoverySpecs.md; sourceTree = "<group>"; };
 		61F9B05662295B0481CC17A8 /* SearchDiscoveryShortcut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDiscoveryShortcut.swift; sourceTree = "<group>"; };
+		5D4242000000000000000001 /* StageManagerCapturePolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StageManagerCapturePolicy.swift; sourceTree = "<group>"; };
+		5D4242000000000000000004 /* StageManagerCaptureGuard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StageManagerCaptureGuard.swift; sourceTree = "<group>"; };
+		5D4242000000000000000006 /* StageManagerCapturePolicyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StageManagerCapturePolicyTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1044,6 +1051,9 @@
 		5230A54090E2067083AB1CD6 /* events */ = {
 			isa = PBXGroup;
 			children = (
+				5D4242000000000000000006 /* StageManagerCapturePolicyTests.swift */,
+				5D4242000000000000000004 /* StageManagerCaptureGuard.swift */,
+				5D4242000000000000000001 /* StageManagerCapturePolicy.swift */,
 				BF0C870C14C20C936BA4AF40 /* DockEvents.swift */,
 				BF0C8B2C6D4E8FA012345678 /* SleepWakeEvents.swift */,
 				BF0C8D4E8F60A1B234567890 /* ScreenLockEvents.swift */,
@@ -2196,7 +2206,9 @@
 				6A7E5D000000000000000102 /* StapledTicket.swift in Sources */,
 				6A7E5D000000000000000202 /* StapledTicketTests.swift in Sources */,
 				5CC019000000000000000102 /* CaptureDiscovery.swift in Sources */,
+				5D4242000000000000000002 /* StageManagerCapturePolicy.swift in Sources */,
 				5CC019000000000000000202 /* CaptureDiscoveryTests.swift in Sources */,
+				5D4242000000000000000007 /* StageManagerCapturePolicyTests.swift in Sources */,
 				5EA8E110000000000000F203 /* SchedulingPolicy.swift in Sources */,
 				5EA8E110000000000000F212 /* SchedulingPolicyTests.swift in Sources */,
 				5EA8E110000000000000DA03 /* DragAndDropResolver.swift in Sources */,
@@ -2482,6 +2494,7 @@
 				D04BA00000000000C0DE0012 /* ShortcutAction.swift in Sources */,
 				D04BA00000000000C0DE0021 /* SwitcherSession.swift in Sources */,
 				D04BA00000000000C0DE0031 /* WindowThumbnails.swift in Sources */,
+				5D4242000000000000000005 /* StageManagerCaptureGuard.swift in Sources */,
 				D04BA00000000000C0DE0041 /* Tooltips.swift in Sources */,
 				BF0C8C7E96DB48120462DA00 /* TrafficLightButton.swift in Sources */,
 				BF0C898511686611E4D7D81E /* Button.swift in Sources */,
@@ -2521,6 +2534,7 @@
 				5CC018000000000000000101 /* CoalescedWork.swift in Sources */,
 				6A7E5D000000000000000101 /* StapledTicket.swift in Sources */,
 				5CC019000000000000000101 /* CaptureDiscovery.swift in Sources */,
+				5D4242000000000000000003 /* StageManagerCapturePolicy.swift in Sources */,
 				5EA8E110000000000000F202 /* SchedulingPolicy.swift in Sources */,
 				AA0C8A100000000000000001 /* AXCallScheduler.swift in Sources */,
 				AA0C8A1000000000000000B1 /* CGSCallScheduler.swift in Sources */,

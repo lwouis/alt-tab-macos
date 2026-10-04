@@ -336,6 +336,7 @@ class App: AppCenterApplication {
     static func refreshUi(_ preserveScrollPosition: Bool = false) {
         MainThreadStall.step()
         guard SwitcherSession.isActive else { return }
+        _ = StageManagerCaptureGuard.currentMode()
         let preservedScrollOrigin = preserveScrollPosition ? TilesView.currentScrollOrigin() : nil
         Windows.updateSelectedWindow()
         Windows.logTileDump("refreshUi")

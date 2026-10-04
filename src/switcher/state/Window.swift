@@ -36,8 +36,14 @@ class Window {
     /// Shell-owned, so deliberately NOT in `tracked`: it records how this destination was acquired (AX vs
     /// attention), which no reducer rule or kernel decides on. Patched into `state` for the kernels.
     var axStatus = AxSemanticStatus.axVerified
+    var stageManagerThumbnailIsTrusted = false
     /// The pixels are shell-owned; `tracked.hasThumbnail` is the reducer's view of them, so it mirrors this.
-    var thumbnail: CALayerContents? { didSet { tracked.hasThumbnail = thumbnail != nil } }
+    var thumbnail: CALayerContents? {
+        didSet {
+            tracked.hasThumbnail = thumbnail != nil
+            stageManagerThumbnailIsTrusted = false
+        }
+    }
     var icon: CGImage? { get { application.icon } }
     var shouldShowTheUser = true
     /// DERIVED from the `TabGroups` registry (the single owner of group membership): the ordered members of

@@ -87,6 +87,11 @@ final class SwitcherSession {
     private var previewFrames = [CGWindowID: CALayerContents]()
     private var previewFramesLru = [CGWindowID]() // most recently used last
 
+    func removeAllPreviewFrames() {
+        previewFrames.removeAll()
+        previewFramesLru.removeAll()
+    }
+
     func hasPreviewFrame(_ wid: CGWindowID) -> Bool { previewFrames[wid] != nil }
 
     func previewFrame(_ wid: CGWindowID) -> CALayerContents? {

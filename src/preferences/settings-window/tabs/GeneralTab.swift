@@ -40,10 +40,15 @@ class GeneralTab {
         let captureWindowsInBackground = TableGroupView.Row(leftTitle: NSLocalizedString("Capture windows in the background", comment: ""),
             subTitle: NSLocalizedString("When disabled, avoids the macOS purple screen-recording indicator, and avoids flickers when playing DRM video. Thumbnails will be less up-to-date.", comment: ""),
             rightViews: [LabelAndControl.makeSwitch("captureWindowsInBackground")])
+        let preventDistortedStageManagerPreviews = TableGroupView.Row(
+            leftTitle: NSLocalizedString("Prevent distorted previews for Stage Manager", comment: ""),
+            subTitle: NSLocalizedString("Keeps the last normal preview for windows in the Stage Manager sidebar. Bring each window to the front once to capture a normal preview.", comment: ""),
+            rightViews: [LabelAndControl.makeSwitch("preventDistortedStageManagerPreviews")])
         let table = TableGroupView(width: SettingsWindow.contentWidth)
         table.addRow(startAtLogin)
         table.addRow(menubarIcon)
         table.addRow(captureWindowsInBackground)
+        table.addRow(preventDistortedStageManagerPreviews)
         table.addNewTable()
         table.addRow(language)
         table.addNewTable()

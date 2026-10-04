@@ -77,6 +77,8 @@ class PreferencesEvents {
         ControlsTab.preferenceChanged(key)
         switch key {
         case "menubarIcon", "menubarIconShown": applyMenubarPreferencesIfReady()
+        case "preventDistortedStageManagerPreviews":
+            StageManagerCaptureGuard.preferenceChanged()
         case "nextWindowGesture": TrackpadEvents.toggle(Preferences.nextWindowGesture != .disabled)
         case "startAtLogin": LoginItem.applyCurrentPreference()
         case "updatePolicy": applyUpdatePolicyPreference()
