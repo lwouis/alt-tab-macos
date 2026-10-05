@@ -1,11 +1,11 @@
 import XCTest
 
 final class WindowAdmissionResolverTests: XCTestCase {
-    private func physical(wid: CGWindowID = 1, width: CGFloat = 800, height: CGFloat = 600,
-                          level: CGWindowLevel = 0, parentWid: CGWindowID = 0,
+    private func physical(wid: CGWindowID = 1, y: CGFloat = 0, width: CGFloat = 800, height: CGFloat = 600,
+                          level: CGWindowLevel = 0, parentWid: CGWindowID = 0, isVisible: Bool = true,
                           isFullscreen: Bool = false) -> PhysicalSurface {
-        PhysicalSurface(wid: wid, pid: 7, bounds: CGRect(x: 0, y: 0, width: width, height: height),
-            level: level, parentWid: parentWid, isFullscreen: isFullscreen)
+        PhysicalSurface(wid: wid, pid: 7, bounds: CGRect(x: 0, y: y, width: width, height: height),
+            level: level, parentWid: parentWid, isVisible: isVisible, isFullscreen: isFullscreen)
     }
 
     private func semantic(title: String? = "Document", subrole: String? = kAXStandardWindowSubrole,
@@ -38,6 +38,63 @@ final class WindowAdmissionResolverTests: XCTestCase {
     func testExactAttentionAdmitsAnUndescribedFullscreenSurface() {
         XCTAssertEqual(WindowAdmissionResolver.resolve(physical(level: 101, isFullscreen: true), nil,
             evidence: .attention), .destination(.exactAttention))
+    }
+
+    /// Chrome's fullscreen toolbar strip and its content window, as logged in #6094.
+    private func chromeToolbar(isVisible: Bool = true) -> PhysicalSurface {
+        physical(wid: 192, width: 2560, height: 158, isVisible: isVisible, isFullscreen: true)
+    }
+
+    private func chromeContent(isVisible: Bool = true) -> PhysicalSurface {
+        physical(wid: 160, y: 122, width: 2560, height: 1318, isVisible: isVisible, isFullscreen: true)
+    }
+
+    /// Accessibility cannot describe the strip, and clicking into it named it on attention: it showed as a
+    /// second, short-lived Chrome tile, preselected.
+    func testExactAttentionTakesAnUndescribedFullscreenToolbarForItsWindow() {
+        XCTAssertEqual(WindowAdmissionResolver.resolve(chromeToolbar(), nil, evidence: .attention,
+            describedSiblings: [chromeContent()]), .represent(parentWid: 160, .fullscreenChrome))
+    }
+
+    /// A window AppKit lets onto a fullscreen Space reads Space mask 0x40 there, so the strip may not carry
+    /// the fullscreen bit its window does.
+    func testExactAttentionTakesAnUndescribedFullscreenToolbarForItsWindowWhateverItsSpaceType() {
+        let strip = physical(wid: 78, y: 30, width: 1280, height: 150)
+        let content = physical(wid: 62, width: 1280, height: 832, isFullscreen: true)
+        XCTAssertEqual(WindowAdmissionResolver.resolve(strip, nil, evidence: .attention,
+            describedSiblings: [content]), .represent(parentWid: 62, .fullscreenChrome))
+    }
+
+    /// The content window ordered out means it is on a Space the display is not showing, so the strip is not
+    /// its toolbar.
+    func testExactAttentionAdmitsAnUndescribedFullscreenSurfaceBesideAnOrderedOutWindow() {
+        XCTAssertEqual(WindowAdmissionResolver.resolve(chromeToolbar(), nil, evidence: .attention,
+            describedSiblings: [chromeContent(isVisible: false)]), .destination(.exactAttention))
+    }
+
+    /// A native tab of a fullscreen window shares its frame exactly, and the tab the user just switched to
+    /// is named on attention before accessibility describes it.
+    func testExactAttentionAdmitsAnUndescribedFullscreenTabOfADescribedWindow() {
+        let tab = physical(wid: 2, width: 2560, height: 1440, isFullscreen: true)
+        let active = physical(wid: 1, width: 2560, height: 1440, isFullscreen: true)
+        XCTAssertEqual(WindowAdmissionResolver.resolve(tab, nil, evidence: .attention,
+            describedSiblings: [active]), .destination(.exactAttention))
+    }
+
+    /// Two windows of one app side by side in Split View share a fullscreen Space without overlapping.
+    func testExactAttentionAdmitsAnUndescribedSplitViewNeighbour() {
+        let left = PhysicalSurface(wid: 1, pid: 7, bounds: CGRect(x: 0, y: 0, width: 1276, height: 1440),
+            level: 0, isFullscreen: true)
+        let right = PhysicalSurface(wid: 2, pid: 7, bounds: CGRect(x: 1284, y: 0, width: 1276, height: 1440),
+            level: 0, isFullscreen: true)
+        XCTAssertEqual(WindowAdmissionResolver.resolve(right, nil, evidence: .attention,
+            describedSiblings: [left]), .destination(.exactAttention))
+    }
+
+    /// Once described, the surface is judged on what accessibility says about it, like any other.
+    func testFullscreenToolbarRuleOnlyAppliesToAnUndescribedSurface() {
+        XCTAssertEqual(WindowAdmissionResolver.resolve(chromeToolbar(), semantic(), evidence: .attention,
+            describedSiblings: [chromeContent()]), .destination(.exactAttention))
     }
 
     /// The gate binds attention too. ChatGPT's dictation strip takes the app's key focus the moment it

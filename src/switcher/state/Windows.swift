@@ -671,7 +671,8 @@ class Windows {
             existing.admissionEvidence = .attention
             return existing
         }
-        let decision = WindowAdmissionResolver.resolve(PhysicalSurface(raw), nil, evidence: .attention)
+        let decision = WindowAdmissionResolver.resolve(PhysicalSurface(raw), nil, evidence: .attention,
+            describedSiblings: describedSurfaces(pid: raw.pid))
         guard decision.isDestination else {
             logAdmission(decision, raw, app)
             return nil
@@ -686,6 +687,22 @@ class Windows {
         appendWindow(window)
         logAdmission(decision, raw, app)
         return window
+    }
+
+    /// The app's described windows as the model holds them: the model follows each window's moves and Space
+    /// changes as they arrive, where the inventory only refreshes a row on a full scan or a targeted query.
+    private static func describedSurfaces(pid: pid_t) -> [PhysicalSurface] {
+        list.compactMap { window in
+            guard window.application.pid == pid, window.axUiElement != nil, let wid = window.cgWindowId,
+                  let position = window.position, let size = window.size else { return nil }
+            return PhysicalSurface(wid: wid, pid: pid, bounds: CGRect(origin: position, size: size),
+                level: WindowAdmissionResolver.normalLevel, isVisible: isShowing(window),
+                isMinimized: window.isMinimized, isFullscreen: window.isFullscreen && !window.isFullscreenMirrored)
+        }
+    }
+
+    private static func isShowing(_ window: Window) -> Bool {
+        !window.isMinimized && !window.isHidden && window.spaceIds.contains { Spaces.visibleSpaces.contains($0) }
     }
 
     /// **Attention buys time for accessibility to catch up. This is where the loan is called in.**

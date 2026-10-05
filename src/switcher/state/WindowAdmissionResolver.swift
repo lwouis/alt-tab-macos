@@ -9,7 +9,6 @@ struct PhysicalSurface: Equatable {
     let bounds: CGRect
     let level: CGWindowLevel
     let parentWid: CGWindowID
-    // periphery:ignore - read by the synthesized Equatable
     let isVisible: Bool
     // periphery:ignore - read by the synthesized Equatable
     let isMinimized: Bool
@@ -63,6 +62,7 @@ enum WindowAdmissionEvidence: Equatable {
 enum WindowAdmissionReason: String, Equatable {
     case invalidWindowId
     case attachedSurface
+    case fullscreenChrome
     case exactAttention
     case awaitingAccessibility
     case conventionalWindow
@@ -113,11 +113,12 @@ enum WindowAdmissionResolver {
     }
 
     static func resolve(_ physical: PhysicalSurface, _ semantic: SemanticSurface?,
-                        evidence: WindowAdmissionEvidence = .discovery) -> SwitchDestinationDecision {
+                        evidence: WindowAdmissionEvidence = .discovery,
+                        describedSiblings: [PhysicalSurface] = []) -> SwitchDestinationDecision {
         guard physical.wid != 0 else { return .reject(.invalidWindowId) }
         guard physical.parentWid == 0 else { return .represent(parentWid: physical.parentWid, .attachedSurface) }
         if let semantic, isAuxiliary(semantic.subrole) { return .reject(.auxiliarySurface) }
-        if evidence == .attention { return attentionDecision(physical, semantic) }
+        if evidence == .attention { return attentionDecision(physical, semantic, describedSiblings) }
         guard let semantic else { return .latent(.awaitingAccessibility) }
         guard admissiblePlacement(physical, semantic) else { return .reject(.auxiliarySurface) }
         if semantic.isWindowRole && semantic.isMain == true { return .destination(.mainWindow) }
@@ -175,11 +176,37 @@ enum WindowAdmissionResolver {
     /// Attention never refuses what discovery admits. Emacs 29.4 (emacsformacosx.com) reports its frames as
     /// role `AXTextField`, subrole `AXStandardWindow`, and discovery accepts them on the subrole
     /// (`testExactAttentionKeepsAStandardWindowWithATextFieldRole`).
-    private static func attentionDecision(_ physical: PhysicalSurface,
-                                          _ semantic: SemanticSurface?) -> SwitchDestinationDecision {
+    private static func attentionDecision(_ physical: PhysicalSurface, _ semantic: SemanticSurface?,
+                                          _ describedSiblings: [PhysicalSurface]) -> SwitchDestinationDecision {
         guard admissiblePlacement(physical, semantic) else { return .reject(.auxiliarySurface) }
+        if semantic == nil, let owner = fullscreenChromeOwner(physical, describedSiblings) {
+            return .represent(parentWid: owner, .fullscreenChrome)
+        }
         guard let semantic, semantic.role != nil, !semantic.isWindowRole else { return .destination(.exactAttention) }
         let discovery = resolve(physical, semantic)
         return discovery.isDestination ? discovery : .reject(.nonWindowRole)
+    }
+
+    /// **A fullscreen window's toolbar is a window of its own, and accessibility does not list it.** AppKit
+    /// hosts the toolbar of a fullscreen window in a separate `NSToolbarFullScreenWindow` at the top of the
+    /// screen, overlapping the content window, absent from `kAXWindows` (measured on Terminal and TextEdit).
+    /// Chrome's fullscreen toolbar has the same shape: a level-0, parentless 2560x158 strip at y=0 over its
+    /// 2560x1318 content window at y=122, which accessibility could not describe, and which attention named
+    /// (#6094). Admitted on attention, it showed as a second Chrome tile until the acquisition sweep gave up
+    /// on it.
+    ///
+    /// It is recognized by where it sits: ordered in, overlapping a described fullscreen window of the same
+    /// app that is on a Space a display is showing. Its own Space type is not asked for: a surface ordered in
+    /// over a shown fullscreen window can only be on that Space, and a window AppKit lets onto a fullscreen
+    /// Space reads mask 0x40 there, not the 0x20 its fullscreen window does (measured on the QA rig's strip,
+    /// macOS 27). A native tab of that window shares its frame exactly, and a window beside it in Split View
+    /// does not overlap it, so neither is taken for its toolbar.
+    private static func fullscreenChromeOwner(_ physical: PhysicalSurface,
+                                              _ describedSiblings: [PhysicalSurface]) -> CGWindowID? {
+        guard physical.isVisible else { return nil }
+        return describedSiblings.first {
+            $0.wid != physical.wid && $0.isFullscreen && $0.isVisible && $0.bounds != physical.bounds &&
+                !$0.bounds.intersection(physical.bounds).isEmpty
+        }?.wid
     }
 }
