@@ -234,6 +234,8 @@ class CliServer {
                 tabCount: w.tabCount,
                 phantom: w.isPhantom,
                 phantomLatch: w.cgsPhantomLatch,
+                orderedIn: w.isOrderedIn,
+                alpha: w.alpha,
                 held: wid.map { Windows.windowsHeldVisibleForTab.contains($0) } ?? false,
                 fullscreen: w.isFullscreen,
                 fullscreenMirrored: w.isFullscreenMirrored,
@@ -500,6 +502,9 @@ class CliServer {
         var tabCount: Int
         var phantom: Bool
         var phantomLatch: Bool
+        /// The two WindowServer facts the phantom verdict reads, as last recorded.
+        var orderedIn: Bool
+        var alpha: Float
         var held: Bool
         var fullscreen: Bool
         var fullscreenMirrored: Bool
