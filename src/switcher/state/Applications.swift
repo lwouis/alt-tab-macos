@@ -251,10 +251,10 @@ class Applications {
                             Windows.byWindowId[raw.wid]?.admissionEvidence == .attention else { continue }
                     WindowServerEvents.subscribe(raw.wid)
                     guard let app = findOrCreate(raw.pid) else { continue }
-                    // tracked windows with a live element stay fresh via the WS event stream
+                    // tracked windows AX has described stay fresh via the WS event stream
                     // (geometry/min/fullscreen) + reviewExistingWindows (title/tabs); discovery only ACQUIRES
-                    // genuinely-new windows.
-                    guard Windows.byWindowId[raw.wid]?.axUiElement == nil else { continue }
+                    // genuinely-new windows, and ones only attention vouched for (`applyDiscoveredChain`).
+                    guard Windows.byWindowId[raw.wid]?.semanticSurface == nil else { continue }
                     guard !widsConfirmedClosed.contains(raw.wid) else { continue }
                     guard !screenIsDark else { continue }
                     // A surface that has failed to acquire three times at this app's current window set is
@@ -848,8 +848,10 @@ class Applications {
         WindowServerEvents.subscribe(raw.wid)
         // A window kept on WindowServer evidence alone must NOT block its own re-acquisition: it is
         // tracked, so the old "already tracked, nothing to do" guard would leave it unverified and
-        // unshown for good. Proceed whenever there is no AX element yet.
-        guard Windows.byWindowId[raw.wid]?.axUiElement == nil,
+        // unshown for good. Proceed until AX has described it, not merely until it has an element: an
+        // element adopted from a notification (`applyObservedElement`) only had its role read, and skipping
+        // here then kept a surface admission rejects on its subrole, e.g. Little Arc's `AXSystemDialog` (#6092).
+        guard Windows.byWindowId[raw.wid]?.semanticSurface == nil,
               let app = findOrCreate(raw.pid) else { return }
         AXCallScheduler.shared.schedule(key: "wid-\(raw.wid)-acquire", context: app.debugId, pid: raw.pid, scan: true) {
             guard let element = WindowElementAcquisition.element(for: raw.wid, pid: raw.pid,
