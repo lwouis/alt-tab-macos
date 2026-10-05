@@ -202,6 +202,19 @@ final class AttentionModelTests: XCTestCase {
         XCTAssertEqual(name(&state, .app, wid(p1, 1), 3), .recorded(wid(p1, 1)))
     }
 
+    /// #6093: a tab moved to its own window (5) is named while its old group still lists it, so the fact
+    /// lands on the group's tile (1). The user then switches to that group, and the app names 1 itself: a
+    /// different window behind the same tile is a move, or the moved window stays first in the order.
+    func testANewWindowNamedBehindTheTileThatHoldsTheFrontMovesTheFront() {
+        var state = state()
+        _ = AttentionModel.reduce(&state, .frontProcessChanged(p1))
+        XCTAssertEqual(AttentionModel.reduce(&state, .named(.app, observed: wid(p1, 5),
+                                                            representative: wid(p1, 1), seq(2))),
+                       .front(wid(p1, 1)))
+        XCTAssertEqual(name(&state, .app, wid(p1, 1), 3), .front(wid(p1, 1)))
+        XCTAssertEqual(state.focusedWindow[p1]?.observed, wid(p1, 1))
+    }
+
     /// The measured stale-answer race: the app changed its key window, wedged
     /// with that notification queued, and the user clicked a different window. At the unwedge the stale
     /// answer comes out FIRST and the app's report of the click's own outcome comes out LAST, all inside

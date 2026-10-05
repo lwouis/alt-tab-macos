@@ -64,7 +64,7 @@ may erase a cached answer when its window ceases to exist; it never names or mov
 
 - `front` — the visible front moved to this window
 - `recorded` — a fact landed and nothing visible moved: the process is not in front, or it named the window
-  that already held the front
+  that already held the front, on the same tile
 - `readFocusedWindow` — activation with no fact; fire one `kAXFocusedWindow` read, off-main, 250 ms timeout
 - `ignored` — stale generation, stale sequence, or an ineligible target
 
@@ -88,6 +88,8 @@ may erase a cached answer when its window ceases to exist; it never names or mov
 - `testProcessExitForgetsItsFactAndReleasesTheFront` — an exit releases rather than hands over.
 - `testARaiseBurstEndsWhereItStarted` — #5974's shape needs no guess made in advance and taken back later.
 - `testNamingTheWindowThatAlreadyHoldsTheFrontMovesNothing` — a repeat is a fact, not a move.
+- `testANewWindowNamedBehindTheTileThatHoldsTheFrontMovesTheFront` — a repeat is the same window on the same
+  tile; a tab moved out of a group is named on the group's tile before the group lets go of it (#6093).
 - `testAStaleAnswerFlushedByAnUnwedgeLosesToTheClicksOutcome` — the measured race resolves on arrival order.
 - `testAnActivationAwaitingAnAnswerNeitherFrontsNorReads` — the app's cached answer predates the switch that
   provoked this activation, and the read that will settle it is already out.

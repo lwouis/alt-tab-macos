@@ -67,7 +67,7 @@ enum AttentionModel {
             if let existing = state.focusedWindow[process], sequence < existing.sequence {
                 return .ignored(.staleSequence)
             }
-            let before = state.visibleFront
+            let before = state.visibleFrontFact
             // The activation this answers went by without moving the front, so the move is owed here even
             // when the answer names the window the app had already stored: unmoved, the order still has the
             // app the user LEFT on top.
@@ -77,7 +77,9 @@ enum AttentionModel {
             if namer.carriesTheFrontProcess { state.frontProcess = process }
             // R2, every namer writes a fact, never a command. A late answer from an app the user has already
             // left updates that app's entry and moves nothing.
-            guard state.frontProcess == process, owesFront || target != before else { return .recorded(target) }
+            guard state.frontProcess == process, owesFront || !repeats(before, observed, target) else {
+                return .recorded(target)
+            }
             return .front(target)
         case let .focusedWindowUnknown(process):
             // R5, unknown is a value: do not move the front for this process. A read that came back empty is
@@ -85,6 +87,17 @@ enum AttentionModel {
             guard isLive(state, process) else { return .ignored(.staleGeneration) }
             return .none
         }
+    }
+
+    /// A repeat names the same window AND lands on the same tile. The tile alone is not enough: the order is
+    /// written to the window the app named (the reducer's `semanticTab` rule), so a different window behind
+    /// the same tile is a move. A tab just moved to a window of its own is named while its old group still
+    /// lists it, so the fact records the old group's tile; the user's switch to that group then names the
+    /// tile the fact already holds, and comparing tiles alone left the moved window first in the order
+    /// (`testANewWindowNamedBehindTheTileThatHoldsTheFrontMovesTheFront`).
+    private static func repeats(_ before: FocusedWindowFact?, _ observed: WindowIdentity,
+                                _ target: WindowIdentity) -> Bool {
+        before?.target == target && before?.observed == observed
     }
 
     private static func forget(_ state: inout AttentionModelState, _ process: ProcessGeneration) {
@@ -118,7 +131,9 @@ struct AttentionModelState: Equatable {
     /// moves the order when it is handed `.front`, and does nothing otherwise. Writing this value through
     /// would clear the front every time an app is activated before it has answered, which is exactly the
     /// guess the design refuses to make.
-    var visibleFront: WindowIdentity? { frontProcess.flatMap { focusedWindow[$0]?.target } }
+    var visibleFront: WindowIdentity? { visibleFrontFact?.target }
+
+    var visibleFrontFact: FocusedWindowFact? { frontProcess.flatMap { focusedWindow[$0] } }
 
     var currentUserContext: CurrentUserContext {
         guard let frontProcess else { return .unknown }
