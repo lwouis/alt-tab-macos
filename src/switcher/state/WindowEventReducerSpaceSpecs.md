@@ -133,3 +133,13 @@ window opened and closed within a few seconds kept its surface for more than 30s
   for a window whose membership was never observed.
 - **testALaterDiscoveryDoesNotOverwriteAnObservedMembership** — a window whose membership is already known
   keeps it: live Space events are newer than the discovery's read.
+
+### H. A window discovered with no frame asks the WindowServer for one
+
+An app can create a window at 0x0 and size it a millisecond later. The resize then reaches AltTab while
+the window is still untracked, and nothing re-reads the frame afterwards: the window kept 0x0, and its
+capture never matched it (macOS 26, 2026-10-05).
+
+- **testADiscoveryWithNoFrameAsksTheWindowServerForOne** — a landing with a zero-size frame queries the
+  WindowServer for that window.
+- **testADiscoveryWithAFrameAsksNothingMore** — a landing with a real frame adds no query.

@@ -225,4 +225,21 @@ final class WindowEventReducerSpaceTests: XCTestCase {
         XCTAssertEqual(s.window(Self.widB)?.spaceMembershipObservation, .known([2]))
         XCTAssertEqual(s.window(Self.widB)?.spaceIds, [2])
     }
+
+    // MARK: - H. A window discovered with no frame asks the WindowServer for one
+
+    /// A window created at 0x0 and sized a millisecond later: the resize arrived while it was untracked,
+    /// nothing re-read the frame, and the tile kept a 0x0 window whose capture never matched it.
+    func testADiscoveryWithNoFrameAsksTheWindowServerForOne() {
+        var s = state()
+        s.windows[0].size = CGSize(width: 0, height: 0)
+        let effects = WindowEventReducer.reduce(&s, discoveryLanded(Self.widA, spaceIds: [1]))
+        XCTAssertTrue(effects.contains(.queryWindowServerState(wids: [Self.widA])))
+    }
+
+    func testADiscoveryWithAFrameAsksNothingMore() {
+        var s = state()
+        let effects = WindowEventReducer.reduce(&s, discoveryLanded(Self.widA, spaceIds: [1]))
+        XCTAssertFalse(effects.contains(.queryWindowServerState(wids: [Self.widA])))
+    }
 }

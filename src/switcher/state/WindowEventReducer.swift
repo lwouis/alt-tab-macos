@@ -1044,6 +1044,12 @@ enum WindowEventReducer {
             effects.append(contentsOf: recordFirstSpaceMembership(&state, wid: wid, pid: window.pid,
                 spaceMembership: spaceMembership, isOrderedIn: isOrderedIn))
         }
+        // A window created at 0x0 and sized a millisecond later: the resize reached us while the wid was still
+        // untracked, and no later event re-reads the frame, so the window kept 0x0 and its capture never
+        // matched (`testADiscoveryWithNoFrameAsksTheWindowServerForOne`).
+        if let i = state.windowIndex(wid), !(state.windows[i].size.map { $0.width > 0 && $0.height > 0 } ?? false) {
+            effects.append(.queryWindowServerState(wids: [wid]))
+        }
         var tabStateChanged = false
         if tabTitles != nil || state.groups.siblingWids(of: wid) != nil {
             // A window the user JUST CREATED which carries an AXTabGroup is a new tab that took over its
