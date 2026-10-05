@@ -301,32 +301,6 @@ class WindowCaptureScreenshots {
         }
     }
 
-    private static func hasUsablePixels(_ contents: CALayerContents) -> Bool {
-        switch contents {
-        case .cgImage(let image):
-            return image.map(StageManagerCapturePolicy.hasUsableImage) ?? false
-        case .pixelBuffer(let buffer):
-            guard let buffer, CVPixelBufferGetPixelFormatType(buffer) == kCVPixelFormatType_32BGRA,
-                  CVPixelBufferLockBaseAddress(buffer, .readOnly) == kCVReturnSuccess else { return false }
-            defer { CVPixelBufferUnlockBaseAddress(buffer, .readOnly) }
-            guard let base = CVPixelBufferGetBaseAddress(buffer) else { return false }
-            let width = CVPixelBufferGetWidth(buffer)
-            let height = CVPixelBufferGetHeight(buffer)
-            guard width >= 16, height >= 16 else { return false }
-            let rowBytes = CVPixelBufferGetBytesPerRow(buffer)
-            let bytes = base.assumingMemoryBound(to: UInt8.self)
-            var visibleSamples = 0
-            for y in 0..<16 {
-                for x in 0..<16 {
-                    if bytes[((y * 2 + 1) * height / 32) * rowBytes + ((x * 2 + 1) * width / 32) * 4 + 3] > 16 {
-                        visibleSamples += 1
-                    }
-                }
-            }
-            return StageManagerCapturePolicy.hasUsablePixels(buffer.size(), visibleSamples: visibleSamples, totalSamples: 256)
-        }
-    }
-
     private static func deliver(_ window: Window, _ source: RefreshCausedBy, _ contents: CALayerContents, _ request: CaptureRequest) {
         guard source != .refreshOnlyThumbnailsAfterShowUi || SwitcherSession.isActive else { return }
         let publish: (Bool) -> Void = { [weak window] approved in
@@ -345,9 +319,9 @@ class WindowCaptureScreenshots {
                 window.refreshThumbnail(contents, captureApproved: approved)
             }
         }
-        // Capture callbacks may run on an OS thread; keep the extra IPC and pixel sampling off-main.
+        // Capture callbacks may run on an OS thread; keep the extra IPC off-main.
         BackgroundWork.screenshotsQueue.addOperation {
-            let approved = request.geometryApprovedBeforeCapture && hasNormalGeometry(request) && hasUsablePixels(contents)
+            let approved = request.geometryApprovedBeforeCapture && hasNormalGeometry(request)
             guard !request.mode.enabled || approved else {
                 reject(request)
                 return

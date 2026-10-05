@@ -36,23 +36,6 @@ final class StageManagerCapturePolicyTests: XCTestCase {
         }
     }
 
-    func testTransparentOrTinyFramesDoNotBecomeCachedPreviews() {
-        XCTAssertFalse(StageManagerCapturePolicy.hasUsablePixels(size, visibleSamples: 12, totalSamples: 256))
-        XCTAssertTrue(StageManagerCapturePolicy.hasUsablePixels(size, visibleSamples: 13, totalSamples: 256))
-        XCTAssertFalse(StageManagerCapturePolicy.hasUsablePixels(CGSize(width: 15, height: 800), visibleSamples: 256, totalSamples: 256))
-        XCTAssertFalse(StageManagerCapturePolicy.hasUsablePixels(size, visibleSamples: 0, totalSamples: 0))
-    }
-
-    func testImageSamplingDistinguishesEmptyCaptureFromNormalPreview() {
-        let context = CGContext(data: nil, width: 32, height: 32, bitsPerComponent: 8,
-            bytesPerRow: 128, space: CGColorSpaceCreateDeviceRGB(),
-            bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue)!
-        XCTAssertFalse(StageManagerCapturePolicy.hasUsableImage(context.makeImage()!))
-        context.setFillColor(CGColor(gray: 1, alpha: 1))
-        context.fill(CGRect(x: 0, y: 0, width: 32, height: 32))
-        XCTAssertTrue(StageManagerCapturePolicy.hasUsableImage(context.makeImage()!))
-    }
-
     func testCaptureFromBeforeOffOnToggleCannotPublishInNewMode() {
         var mode = StageManagerCaptureMode()
         mode.update(true)
