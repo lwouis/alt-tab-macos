@@ -71,6 +71,7 @@ the shortcut straight away, and the switcher is built while the stale verdict st
 was just focused. A committed attention decision is proof the window is real, so the verdict is cleared at
 that moment instead of waiting for a pass (`TrackedWindowState.clearPhantomOnFocus`).
 
+- **testAttentionRefreshesAlphaWithoutAssumingTheWindowIsOpaque** — attention on a window cached at alpha zero requests a fresh WindowServer read. It preserves the cached value until that read answers, so a genuinely transparent window stays phantom.
 - **testAttentionClearsAStalePhantomLatch** — a latched-phantom window attention lands on is real
   immediately.
 - **testAttentionUnphantomingEmitsRemoveWindowlessPlaceholder** — that un-phantoming also drops the app's

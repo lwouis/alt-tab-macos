@@ -767,11 +767,13 @@ enum TabGroupResolver {
         // group, and `form` is exact-set, so naming the one sibling the token happened to reach would EJECT
         // its other members — a real window's tile split off from the group it never left (generator seed 18,
         // where composed titles name nobody and only the two most recent tabs had ever been read as active).
-        // Nothing here re-decides their membership: they are grouped already, and a member that genuinely
-        // left is taken out by its own signal, never by this one's silence.
+        // An on-screen representative is protected on this indirect claim too: it may be a detached window
+        // whose old background tabs still carry the group's token. A new-tab creation keeps the outgoing
+        // representative through the handover, as on the direct token claim above.
         let tokenGroupWids = sameAppWindows.filter { s in
             s.wid != active.wid && !matchedWids.contains(s.wid)
                 && s.tabbedSiblingWids?.contains(where: { tokenWids.contains($0) }) == true
+                && (activeIsNewlyDiscovered || s.isTabbed || !s.isOrderedIn)
         }.map { $0.wid }
         matchedWids.append(contentsOf: tokenGroupWids)
         let keptWids = sameAppWindows.filter { s in

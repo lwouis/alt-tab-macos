@@ -176,6 +176,17 @@ final class WindowEventReducerPhantomTests: XCTestCase {
         XCTAssertFalse(s.isPhantom(s.windows[0]))
     }
 
+    func testAttentionRefreshesAlphaWithoutAssumingTheWindowIsOpaque() {
+        var window = slackWindow(latchedPhantom: false, isOrderedIn: true)
+        window.alpha = 0
+        var s = state([window], appIsActive: true)
+        let effects = WindowEventReducer.reduce(&s, .attentionCommitted(wid: Self.slackWid,
+            observed: Self.slackWid, at: 10))
+        XCTAssertTrue(effects.contains(.queryWindowServerState(wids: [Self.slackWid])))
+        XCTAssertEqual(s.window(Self.slackWid)?.alpha, 0, "focus cannot invent a compositing alpha")
+        XCTAssertTrue(s.isPhantom(s.window(Self.slackWid)!))
+    }
+
     /// Un-phantoming must also drop the placeholder its app grew while it looked windowless — otherwise the
     /// fast path trades the wrong-window bug for the duplicate-tile one.
     func testAttentionUnphantomingEmitsRemoveWindowlessPlaceholder() {

@@ -408,6 +408,43 @@ final class TestReducerRunnerTests: XCTestCase {
         XCTAssertEqual(harness.state.window(20)?.tabCount, 0)
     }
 
+    func testParentTabReadKeepsTheDetachedWindowAsTheNextSwitchTarget() {
+        var parent = window(20, title: "parent", spaceIds: [3], lastFocusOrder: 0)
+        let background = window(21, title: "window title", lastFocusOrder: 3)
+        var detached = window(22, title: "detached", size: CGSize(width: 757, height: 552),
+                              position: CGPoint(x: 683, y: 132), spaceIds: [3], lastFocusOrder: 1)
+        let browser = window(23, pid: 600, spaceIds: [3], lastFocusOrder: 2)
+        parent.isOrderedIn = true
+        detached.isOrderedIn = true
+        detached.alpha = 0
+        detached.tabGroupObservation = .standalone
+        var s = state(windows: [parent, detached, browser, background])
+        s.apps[600] = TrackedApp(state: ApplicationState(pid: 600, bundleIdentifier: "com.brave.Browser",
+            localizedName: "Brave Browser", isHidden: false))
+        s.formGroup([21, 22], representative: 22, reason: "fixture")
+        s.groups.recordToken(42, for: 21)
+        s.groups.recordToken(42, for: 22)
+        let focusEffects = WindowEventReducer.reduce(&s, .attentionCommitted(wid: 22, observed: 22, at: 1))
+        let refresh = ReducerEffect.queryWindowServerState(wids: [22])
+        XCTAssertTrue(focusEffects.contains(refresh), "the detached window's animation-time alpha needs a fresh read")
+        if focusEffects.contains(refresh) {
+            _ = WindowEventReducer.reduce(&s, .windowServerStateRead([
+                WsWindowSnapshot(wid: 22, position: detached.position!, size: detached.size!,
+                    isFullscreen: false, isVisible: true, isMinimized: false, alpha: 1),
+            ]))
+        }
+        _ = WindowEventReducer.reduce(&s, .attentionCommitted(wid: 20, observed: 20, at: 2))
+        _ = WindowEventReducer.reduce(&s, .titleAndTabsRead(wid: 20,
+            tabGroup: .group(titles: ["parent", "tab title"], token: 42),
+            reconcileTabs: true, changedSoFar: false))
+        XCTAssertEqual(s.groups.siblingWids(of: 20)?.sorted(), [20, 21])
+        XCTAssertNil(s.groups.groupId(of: 22))
+        let switchable = s.windows.filter { !s.isTabbed($0) && !s.isPhantom($0) }
+            .sorted { $0.lastFocusOrder < $1.lastFocusOrder }
+        XCTAssertEqual(switchable.compactMap { $0.wid }, [20, 22, 23])
+        XCTAssertEqual(TestReducerRunner(initial: s).violations, [])
+    }
+
     private func activeTabTornIntoWindowState() -> TrackedWindowState {
         let size = CGSize(width: 920, height: 436)
         var escaped = window(20, title: "Escaped", size: size, position: CGPoint(x: 550, y: 520),

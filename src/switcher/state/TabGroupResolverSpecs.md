@@ -459,6 +459,8 @@ and silence is not a verdict.
   been read as active, so only they carry a token; `form` is exact-set, so claiming just the one the token
   reached would EJECT the third tab from the group it never left. The claim takes the whole of the group it
   is joining, and un-tabs nobody.
+- **testTokenClaimDoesNotAbsorbTheSiblingsOnScreenRepresentative** — an indirect token claim must preserve the same on-screen protection as a direct claim. After a Ghostty tab detaches, its old background tabs can retain the parent's token while their recorded representative is the detached window. Importing that representative hides the window and makes the next switch select another app. `testParentTabReadKeepsTheDetachedWindowAsTheNextSwitchTarget` pins the resulting switch order in the reducer, including the focus-triggered refresh of an alpha-zero value cached during the detach animation.
+- **testNewTokenClaimIncludesTheOutgoingGroupsOnScreenRepresentative** — a newly discovered tab retains the outgoing group's representative while its order-out event is still in flight, including when only another member supplied the matching token.
 - **testTokenDoesNotClaimAnOnScreenWindow** — a token outlives the read that recorded it, so it can name a
   window since torn out. Outside a creation the on-screen protection stands: hiding a real window is worse
   than failing to group a tab.

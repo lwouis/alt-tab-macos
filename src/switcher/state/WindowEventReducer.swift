@@ -356,6 +356,11 @@ enum WindowEventReducer {
         effects += inheritHeldGroupAtAttention(&state, target: target)
         effects += applyFocusAndBump(&state, wid: target, at: at, .attentionReducer)
         normalizeGroupVisibility(&state, into: &effects)
+        // A detach animation can leave alpha zero cached after the window becomes key. Attention invalidates
+        // the in-flight visibility read, so request its replacement without inventing an opaque alpha.
+        if state.window(target)?.alpha == 0 {
+            effects.append(.queryWindowServerState(wids: [target]))
+        }
         return effects
     }
 
