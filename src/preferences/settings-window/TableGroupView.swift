@@ -469,7 +469,9 @@ class TableGroupView: ClickHoverStackView {
         let spacer = NSView() // Spacer to fill the middle space
         let leftStackView = NSStackView()
         leftStackView.orientation = .horizontal
-        leftStackView.alignment = .leading
+        // Centered, not left to chance: the stack can come out as tall as the row's controls, and then a label
+        // with no vertical alignment sat at its top, a few points above the control beside it.
+        leftStackView.alignment = .centerY
         leftStackView.spacing = TableGroupView.spacing
         if let leftViews {
             leftStackView.setViews(leftViews, in: .leading)
