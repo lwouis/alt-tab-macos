@@ -348,6 +348,9 @@ class Window {
     func focus() {
         MainThreadStall.step()
         if let altTabWindow = altTabWindow() {
+            // Our windows are only ordered out when closed, and stay listed until the phantom verdict lands.
+            // Ordering one front would reopen what the user just dismissed.
+            guard altTabWindow.isVisible || altTabWindow.isMiniaturized || App.shared.isHidden else { return }
             FocusIntents.shared.supersede()
             App.shared.activate(ignoringOtherApps: true)
             altTabWindow.makeKeyAndOrderFront(nil)

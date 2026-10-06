@@ -671,6 +671,7 @@ class Windows {
             existing.admissionEvidence = .attention
             return existing
         }
+        guard !isOwnUntitledSurface(raw) else { return nil }
         let decision = WindowAdmissionResolver.resolve(PhysicalSurface(raw), nil, evidence: .attention,
             describedSiblings: describedSurfaces(pid: raw.pid))
         guard decision.isDestination else {
@@ -687,6 +688,15 @@ class Windows {
         appendWindow(window)
         logAdmission(decision, raw, app)
         return window
+    }
+
+    /// AltTab's own popovers read level 0 for the first frames of their show, before AppKit raises them to the
+    /// status bar level, and attention can name them in that gap. Admitted then, a closed popover stayed in the
+    /// list for seconds. AppKit answers for our own surfaces directly: only a titled one is a window.
+    private static func isOwnUntitledSurface(_ raw: WsRawWindow) -> Bool {
+        guard raw.pid == ProcessInfo.processInfo.processIdentifier,
+              let window = NSApp.window(withWindowNumber: Int(raw.wid)) else { return false }
+        return !window.styleMask.contains(.titled)
     }
 
     /// The app's described windows as the model holds them: the model follows each window's moves and Space
