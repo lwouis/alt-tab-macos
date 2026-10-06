@@ -1,3 +1,45 @@
+# [11.9.0](https://github.com/lwouis/alt-tab-macos/compare/v11.8.0...v11.9.0) (2026-10-06)
+
+
+### Bug Fixes
+
+* a closed AltTab reminder could reopen after switching ([d2ab584](https://github.com/lwouis/alt-tab-macos/commit/d2ab584))
+* a tab moved to its own window could be skipped (closes [#6093](https://github.com/lwouis/alt-tab-macos/issues/6093)) ([ec8fc80](https://github.com/lwouis/alt-tab-macos/commit/ec8fc80))
+* a window closed right after it opened could stay in the switcher ([008670a](https://github.com/lwouis/alt-tab-macos/commit/008670a))
+* a window opened right as its app launched could be missing ([df4f8af](https://github.com/lwouis/alt-tab-macos/commit/df4f8af))
+* app icons could be missing or wrong after the first launch ([4195853](https://github.com/lwouis/alt-tab-macos/commit/4195853))
+* cancelling a shortcut conflict still showed the new shortcut ([bf54c3a](https://github.com/lwouis/alt-tab-macos/commit/bf54c3a))
+* fullscreen Chrome could show a smaller duplicate (closes [#6094](https://github.com/lwouis/alt-tab-macos/issues/6094)) ([fd4d952](https://github.com/lwouis/alt-tab-macos/commit/fd4d952))
+* fullscreen window from another screen showed for 20s (closes [#6087](https://github.com/lwouis/alt-tab-macos/issues/6087)) ([4d0ac28](https://github.com/lwouis/alt-tab-macos/commit/4d0ac28))
+* permission changes could be missed until restart ([#5739](https://github.com/lwouis/alt-tab-macos/issues/5739)) ([d630d87](https://github.com/lwouis/alt-tab-macos/commit/d630d87))
+* rare hangs, memory leaks and timing glitches ([ce67fd1](https://github.com/lwouis/alt-tab-macos/commit/ce67fd1)), closes [#6086](https://github.com/lwouis/alt-tab-macos/issues/6086)
+* search could highlight the wrong letters or ignore uppercase ([8c391c4](https://github.com/lwouis/alt-tab-macos/commit/8c391c4))
+* selected window could stay behind the previous one (closes [#6064](https://github.com/lwouis/alt-tab-macos/issues/6064)) ([14b9d7f](https://github.com/lwouis/alt-tab-macos/commit/14b9d7f))
+* settings search did not find apps in the exceptions list ([fef7463](https://github.com/lwouis/alt-tab-macos/commit/fef7463))
+* shortcut 1 could lose its grouping settings after an upgrade ([90b8b33](https://github.com/lwouis/alt-tab-macos/commit/90b8b33))
+* some new windows could keep an empty thumbnail ([db5c570](https://github.com/lwouis/alt-tab-macos/commit/db5c570))
+* some Settings labels could sit a little above their control ([dc8df22](https://github.com/lwouis/alt-tab-macos/commit/dc8df22))
+* switcher could stay invisible when reopened quickly ([5c2a6b0](https://github.com/lwouis/alt-tab-macos/commit/5c2a6b0))
+* switching back could land on the wrong window on a busy Mac ([146ae60](https://github.com/lwouis/alt-tab-macos/commit/146ae60))
+* the Little Arc window could show up in the switcher (closes [#6092](https://github.com/lwouis/alt-tab-macos/issues/6092)) ([9d8e2d2](https://github.com/lwouis/alt-tab-macos/commit/9d8e2d2))
+* tiles could flash a red "0" badge when the screens changed ([501d47f](https://github.com/lwouis/alt-tab-macos/commit/501d47f))
+* trial reminders could linger or appear at the wrong time or place ([fd968dc](https://github.com/lwouis/alt-tab-macos/commit/fd968dc))
+* windows with tabs could be duplicated, missing or wrongly selected ([e39ae05](https://github.com/lwouis/alt-tab-macos/commit/e39ae05))
+* with Space Order, some windows could land anywhere in the list ([9cf5414](https://github.com/lwouis/alt-tab-macos/commit/9cf5414))
+
+
+### Features
+
+* align the settings UI more with macOS 27 ([a451baf](https://github.com/lwouis/alt-tab-macos/commit/a451baf))
+* guided setup and shortcut tutorial on first launch ([#5306](https://github.com/lwouis/alt-tab-macos/issues/5306)) ([47a1034](https://github.com/lwouis/alt-tab-macos/commit/47a1034))
+* new app icon and menu bar icons ([18a14fb](https://github.com/lwouis/alt-tab-macos/commit/18a14fb))
+* show only windows or app under the cursor ([#6005](https://github.com/lwouis/alt-tab-macos/issues/6005), closes [#6013](https://github.com/lwouis/alt-tab-macos/issues/6013)) ([5a04450](https://github.com/lwouis/alt-tab-macos/commit/5a04450))
+
+
+### Performance Improvements
+
+* faster display of long titles and faster exit from search ([8454a2b](https://github.com/lwouis/alt-tab-macos/commit/8454a2b))
+
 # [11.8.0](https://github.com/lwouis/alt-tab-macos/compare/v11.7.1...v11.8.0) (2026-09-26)
 
 
