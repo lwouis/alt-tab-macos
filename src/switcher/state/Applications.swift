@@ -30,6 +30,10 @@ class Applications {
     /// the wid being re-created, on window removal, on app quit, and whenever the WindowServer stops listing
     /// the wid at all.
     static var failedAcquisitions = [CGWindowID: (pid: pid_t, situation: UInt64, attempts: Int)]()
+    /// Re-asks made by `retryAcquisition`, per wid. Dropped on success, at the limit, and whenever the
+    /// WindowServer stops listing the wid.
+    private static var acquisitionRetries = [CGWindowID: Int]()
+    private static let acquisitionRetryLimit = 3
     private struct PendingAxCreation {
         let pid: pid_t
         let element: AXUIElement
@@ -271,6 +275,7 @@ class Applications {
                 // Bound the failure table by the same enumeration that gates everything else here: a wid the
                 // WindowServer no longer lists can never be swept again, so its record is dead weight.
                 failedAcquisitions = failedAcquisitions.filter { allWids.contains($0.key) }
+                acquisitionRetries = acquisitionRetries.filter { allWids.contains($0.key) }
                 // regular apps with no windows show as an icon placeholder. It's dropped when a real window
                 // arrives (Window.init) or when an existing window un-phantoms (Window.updateSpaces), so a
                 // window that recovers its Space after a fullscreen transition clears the stale placeholder
@@ -855,9 +860,24 @@ class Applications {
               let app = findOrCreate(raw.pid) else { return }
         AXCallScheduler.shared.schedule(key: "wid-\(raw.wid)-acquire", context: app.debugId, pid: raw.pid, scan: true) {
             guard let element = WindowElementAcquisition.element(for: raw.wid, pid: raw.pid,
-                route: .currentSpaceViaApplicationWindows) else { return }
+                route: .currentSpaceViaApplicationWindows) else { return DispatchQueue.main.async { retryAcquisition(raw.wid) } }
+            DispatchQueue.main.async { acquisitionRetries[raw.wid] = nil }
             addDiscoveredWindow(element, raw, app)
         }
+    }
+
+    /// An app describes a window it created a moment ago only once it has set it up. A window opened 7ms
+    /// after its app launched read as unavailable 300ms later, and with no later event naming it, it stayed
+    /// out of the switcher until the next summon. So the event-driven acquisition is asked again, a bounded
+    /// number of times, for as long as the WindowServer lists the wid (`applyDiscoveredChain` stops there).
+    private static func retryAcquisition(_ wid: CGWindowID) {
+        let attempt = (acquisitionRetries[wid] ?? 0) + 1
+        guard attempt <= acquisitionRetryLimit else {
+            acquisitionRetries[wid] = nil
+            return
+        }
+        acquisitionRetries[wid] = attempt
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25 * Double(attempt)) { discoverWindow(wid) }
     }
 
     // ≤1 inactive-tab brute-force scan per app per 3s, a frequency cap on top of the per-situation budget below.
