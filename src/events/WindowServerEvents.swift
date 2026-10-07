@@ -318,6 +318,8 @@ class WindowServerEvents {
     /// Replaces AX's kAXApplicationHidden/Shown: "hidden" is an AppKit state the WindowServer doesn't own.
     private static func applicationVisibilityChanged(_ pid: pid_t, hidden: Bool) {
         guard let app = Applications.list.first(where: { $0.pid == pid }) else { return }
+        // Timestamped so a capture can place the hide/unhide against the per-window AX end it races (#6020).
+        Logger.debug { "appVisibility \(app.runningApplication.bundleIdentifier ?? "?") hidden=\(hidden)" }
         app.isHidden = hidden
         App.refreshOpenUiAfterExternalEvent(Windows.list.filter { $0.application.pid == pid })
     }

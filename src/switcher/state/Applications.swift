@@ -628,9 +628,11 @@ class Applications {
     private static func finishAxElementEnd(wid: CGWindowID, token: UInt64) {
         guard let pending = pendingAxEnds[wid], pending.token == token, let ax = pending.ax,
               let surfacePresent = pending.surfacePresent else { return }
+        // Read at decision time: the AX destroy can lead the app-hide notification.
+        let appHidden = Windows.byWindowId[wid]?.application.isHidden ?? false
         let verdict = AxElementEndPolicy.decide(ax: ax, surfacePresent: surfacePresent,
             isTabbed: pending.isTabbed, groupShrank: pending.groupShrank, groupGone: pending.groupGone,
-            axQueryCoversWindow: pending.axQueryCoversWindow)
+            axQueryCoversWindow: pending.axQueryCoversWindow, appHidden: appHidden)
         commitAxElementEnd(wid: wid, pending: pending, verdict: verdict)
     }
 
@@ -646,7 +648,8 @@ class Applications {
         // The evidence behind the verdict, so a capture says WHICH fact condemned or kept the window
         Logger.debug { "axEnd #\(wid) verdict=\(verdict) ax=\(pending.ax.map { "\($0)" } ?? "pending") "
             + "surface=\(pending.surfacePresent.map { "\($0)" } ?? "pending") tabbed=\(pending.isTabbed) "
-            + "shrank=\(pending.groupShrank) gone=\(pending.groupGone)" }
+            + "shrank=\(pending.groupShrank) gone=\(pending.groupGone) "
+            + "hidden=\(Windows.byWindowId[wid]?.application.isHidden ?? false)" }
         pendingAxEnds[wid] = nil
         if let fresh = pending.freshElement { Windows.byWindowId[wid]?.rebindAxElement(fresh) }
         if verdict == .confirmedClosed { widsConfirmedClosed.insert(wid) }
@@ -696,9 +699,11 @@ class Applications {
                 // The route reaches the current Space plus the app's key/main window, so it does not cover
                 // an arbitrary other-Space window. It may condemn only when a completed membership
                 // observation puts the window inside that scope; a display value borrowed from a tab or
-                // guessed at initialization is not evidence that the query covered it.
+                // guessed at initialization is not evidence that the query covered it. Nor does a hidden
+                // app's list cover its windows (`AxElementEndPolicy`).
                 let axQueryCoversWindow = Windows.byWindowId[wid].map { window -> Bool in
-                    guard case let .known(ids) = window.spaceMembershipObservation else { return false }
+                    guard !window.application.isHidden,
+                          case let .known(ids) = window.spaceMembershipObservation else { return false }
                     return ids.isEmpty || ids.contains { Spaces.visibleSpaces.contains($0) }
                 } ?? false
                 if !axQueryCoversWindow {

@@ -168,12 +168,16 @@ enum AxElementEndVerdict: Equatable {
 /// evidence a retained surface needs; an inactive tab is absent from the app's window list while alive, so
 /// absence alone never condemns a tab. Finder retains the closed group's last surface and sends no destroy
 /// for it, so without `groupGone` a whole-group close left that window pending forever (QA T-09).
+/// `appHidden`: WeChat ends its window's element and stops publishing the window on ⌘H while the WindowServer
+/// keeps the surface, so a hidden app's AX absence says "hidden", not "closed" (#6020). The element comes back
+/// with the window on unhide (`applyObservedWindowCreated` rebinds it).
 enum AxElementEndPolicy {
     static func decide(ax: AxElementEndAvailability, surfacePresent: Bool, isTabbed: Bool,
-                       groupShrank: Bool, groupGone: Bool, axQueryCoversWindow: Bool) -> AxElementEndVerdict {
+                       groupShrank: Bool, groupGone: Bool, axQueryCoversWindow: Bool,
+                       appHidden: Bool) -> AxElementEndVerdict {
         if ax == .foundReplacement { return .replacementFound }
         if !surfacePresent { return .confirmedClosed }
-        if ax == .noAnswer { return .inconclusive }
+        if ax == .noAnswer || appHidden { return .inconclusive }
         if isTabbed { return groupShrank || groupGone ? .confirmedClosed : .inconclusive }
         if !axQueryCoversWindow { return .inconclusive }
         return .confirmedClosed

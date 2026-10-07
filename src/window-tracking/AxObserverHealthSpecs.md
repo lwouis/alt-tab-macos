@@ -73,6 +73,8 @@ window. The reducer moves the window through `axElementEnded` and joins two sepa
   on a Space the group was on carrying the group's `AXTabGroup` identity any more (a whole-group close, where
   Finder retains the last surface and never destroys it). Other-Space or unknown-Space windows remain
   `replacementPending` because the AX query did not cover them.
+- a hidden app's AX absence is never a close: WeChat ends its window's element and stops publishing it on ⌘H
+  while the surface stays (#6020). Only WindowServer absence can condemn it until the app is shown again.
 
 The join has a timeout. A found replacement or physical absence can still decide from partial evidence;
 every other partial result stays inconclusive rather than turning silence into closure.
