@@ -348,7 +348,8 @@ class Window {
         }
     }
 
-    func focus() {
+    /// `onFronted` runs on main once step 1 has fronted the target (see `TilesPanel.orderOutOnceFronted`).
+    func focus(_ onFronted: @escaping () -> Void = {}) {
         MainThreadStall.step()
         if let altTabWindow = altTabWindow() {
             // Our windows are only ordered out when closed, and stay listed until the phantom verdict lands.
@@ -389,7 +390,7 @@ class Window {
                 ? NSWorkspace.shared.frontmostApplication.flatMap(Applications.knownPid) : nil
             let target: FocusTarget = (cgWindowId!, application.pid, axUiElement, self.isMinimized)
             BackgroundWork.accessibilityCommandsQueue.addOperation { [weak self] in
-                self?.applyFocus(target, generation, originSpaceId, originFrontPid)
+                self?.applyFocus(target, generation, originSpaceId, originFrontPid, onFronted)
             }
         }
     }
@@ -414,7 +415,7 @@ class Window {
     /// is therefore skipped once a newer focus exists, and a superseded operation that already moved the
     /// z-order re-asserts the newer intent on its way out — see FocusIntentPolicySpecs.md.
     /// The target is captured on main; AX work cannot read state that the main-thread reducer adopts.
-    private func applyFocus(_ target: FocusTarget, _ generation: FocusGeneration, _ originSpaceId: CGSSpaceID, _ originFrontPid: pid_t?) {
+    private func applyFocus(_ target: FocusTarget, _ generation: FocusGeneration, _ originSpaceId: CGSSpaceID, _ originFrontPid: pid_t?, _ onFronted: @escaping () -> Void) {
         guard FocusIntents.shared.mayProceed(generation) else { return }
         #if DEBUG
         if FocusIntents.shared.consumeRefusalForQa() { return refusedForQa(target.wid, target.pid) }
@@ -430,6 +431,7 @@ class Window {
         GetProcessForPID(target.pid, &psn)
         _SLPSSetFrontProcessWithOptions(&psn, target.wid, SLPSMode.userGenerated.rawValue)
         FocusIntents.shared.noteReordered(generation)
+        DispatchQueue.main.async(execute: onFronted)
         makeKeyAndRaise(target, generation, &psn)
         restoreOriginSpaceFront(originSpaceId, originFrontPid, target.pid)
         repairIfSuperseded(generation, target.wid)

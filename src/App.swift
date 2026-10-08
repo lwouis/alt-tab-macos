@@ -77,10 +77,9 @@ class App: AppCenterApplication {
         endHideUi()
     }
 
-    /// The part of the dismissal the user can see. `focusSelectedWindow` runs it before asking for the
-    /// focus, so the two things the user is waiting for are both out before any bookkeeping.
-    /// Returns false when the switcher was already hidden.
-    private static func beginHideUi(_ keepPreview: Bool) -> Bool {
+    /// The part of the dismissal the user can see, with the focus the user is waiting for, so both are out
+    /// before any bookkeeping. Returns false when the switcher was already hidden.
+    private static func beginHideUi(_ keepPreview: Bool, focusing window: Window? = nil) -> Bool {
         MainThreadStall.step()
         Logger.debug { "active:\(SwitcherSession.isActive)" }
         guard SwitcherSession.current != nil else { return false } // already hidden
@@ -90,7 +89,11 @@ class App: AppCenterApplication {
         // to a second. An app that cleared its badge in between was drawn with the badge it had cleared for
         // that whole second (QA DB-02).
         Applications.dockBadgeThrottler.reset()
-        hideTilesPanelWithoutChangingKeyWindow()
+        if let window {
+            window.focus(TilesPanel.shared.orderOutOnceFronted())
+        } else {
+            hideTilesPanelWithoutChangingKeyWindow()
+        }
         if !keepPreview {
             PreviewPanel.hide()
         }
@@ -328,16 +331,12 @@ class App: AppCenterApplication {
 
     static func focusSelectedWindow(_ selectedWindow: Window?) {
         MainThreadStall.step()
-        guard beginHideUi(true) else { return } // already hidden
         let missionControl = MissionControl.state()
-        if let window = selectedWindow, missionControl == .inactive || missionControl == .showDesktop {
-            window.focus()
-            if Preferences.cursorFollowFocus == .always || (
-                Preferences.cursorFollowFocus == .differentScreen && (Spaces.screenSpacesMap.first { $0.value.contains { space in window.spaceIds.contains(space) } })?.key != NSScreen.active()?.cachedUuid()) {
-                moveCursorToSelectedWindow(window)
-            }
-        } else {
-            PreviewPanel.hide()
+        let window = missionControl == .inactive || missionControl == .showDesktop ? selectedWindow : nil
+        guard beginHideUi(window != nil, focusing: window) else { return } // already hidden
+        if let window, Preferences.cursorFollowFocus == .always || (
+            Preferences.cursorFollowFocus == .differentScreen && (Spaces.screenSpacesMap.first { $0.value.contains { space in window.spaceIds.contains(space) } })?.key != NSScreen.active()?.cachedUuid()) {
+            moveCursorToSelectedWindow(window)
         }
         endHideUi()
     }

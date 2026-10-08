@@ -83,9 +83,7 @@ class TilesPanel: NSPanel {
     }
 
     override func orderOut(_ sender: Any?) {
-        MainThreadStall.step()
-        SearchDiscoveryHint.shared.cancel()
-        TilesView.clearNeedsLayout()
+        beginOrderOut()
         if Preferences.fadeOutAnimation {
             let generation = showGeneration
             NSAnimationContext.runAnimationGroup(
@@ -104,6 +102,35 @@ class TilesPanel: NSPanel {
             alphaValue = 0
             super.orderOut(sender)
         }
+    }
+
+    /// Hides the panel now, but orders it out only once the returned release runs, or after `keyHoldLimit`.
+    /// Ordering it out gives the keyboard back to the app being left, and CapCut answers that by making itself
+    /// front again, over the front switch the focus requests a moment later (#6097). So the focus releases the
+    /// panel once it has fronted the target; the limit covers a focus that never does (refused, superseded,
+    /// queued behind older ones). The fade-out already keeps the panel ordered in longer than that.
+    func orderOutOnceFronted() -> () -> Void {
+        guard !Preferences.fadeOutAnimation else {
+            App.hideTilesPanelWithoutChangingKeyWindow()
+            return {}
+        }
+        beginOrderOut()
+        alphaValue = 0
+        let generation = showGeneration
+        let release = { [weak self] in
+            guard let self, self.showGeneration == generation, self.isVisible else { return }
+            App.hideTilesPanelWithoutChangingKeyWindow()
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + Self.keyHoldLimit, execute: release)
+        return release
+    }
+
+    private static let keyHoldLimit = DispatchTimeInterval.milliseconds(100)
+
+    private func beginOrderOut() {
+        MainThreadStall.step()
+        SearchDiscoveryHint.shared.cancel()
+        TilesView.clearNeedsLayout()
     }
 
     func show() {
