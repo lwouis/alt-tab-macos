@@ -470,7 +470,8 @@ class AxObserverRegistry {
         AXCallScheduler.shared.schedule(key: Self.perElementKey("axobs-title", process.pid, element),
                                         context: "axSemantics", pid: process.pid) {
             if let wid = trackedWid {
-                guard let title = try? element.attributes([kAXTitleAttribute], pid: process.pid).title else { return }
+                guard let axTitle = try? element.attributes([kAXTitleAttribute], pid: process.pid).title else { return }
+                let title = Window.axOrLiveWindowServerTitle(axTitle, wid)
                 DispatchQueue.main.async { Applications.applyObservedTitle(wid: wid, title: title) }
                 return
             }
@@ -481,9 +482,10 @@ class AxObserverRegistry {
                     Self.noteNonWindow(element, pid: process.pid)
                     Logger.debug { "axTitle pid=\(process.pid) named role=\(attributes.role ?? "nil"); ignored" }
                 case .ignoreNoTitle: break
-                case .apply(let title):
+                case .apply(let axTitle):
                     guard let wid = try? element.cgWindowId(pid: process.pid), wid != 0 else { return }
                     Self.offerElement(process, wid, element, source: "axTitle")
+                    let title = Window.axOrLiveWindowServerTitle(axTitle, wid)
                     DispatchQueue.main.async { Applications.applyObservedTitle(wid: wid, title: title) }
             }
         }

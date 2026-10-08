@@ -52,4 +52,22 @@ class AxTitleNotificationPolicyTests: XCTestCase {
     func testUnknownRoleIsIgnored() {
         XCTAssertEqual(AxTitleNotificationPolicy.verdict(role: nil, title: "Untitled"), .ignoreNotTheWindow)
     }
+
+    // MARK: - C. Whether a push replaces the per-show title read
+
+    /// the app pushes and the window has an AX title: its renames arrive on their own
+    func testPushCoversAWindowWithAnAxTitle() {
+        XCTAssertTrue(AxTitleNotificationPolicy.pushCoversTitle(appDeliversTitles: true, axTitleIsEmpty: false))
+    }
+
+    /// the #6089 shape: a Chrome web app subscribes fine, but its window's AX title is empty, so nothing is
+    /// ever pushed for it and only the read keeps its WindowServer title current
+    func testPushDoesNotCoverAWindowWithoutAnAxTitle() {
+        XCTAssertFalse(AxTitleNotificationPolicy.pushCoversTitle(appDeliversTitles: true, axTitleIsEmpty: true))
+    }
+
+    /// an app that does not push leaves every title to the read
+    func testNoPushCoversNothing() {
+        XCTAssertFalse(AxTitleNotificationPolicy.pushCoversTitle(appDeliversTitles: false, axTitleIsEmpty: false))
+    }
 }

@@ -9,7 +9,7 @@ enum WindowServerQuery {
     /// query returned, so the cost is one IPC for the batch, not one per field.
     static func query(_ wids: [CGWindowID]) -> [WsRawWindow] {
         guard !wids.isEmpty else { return [] }
-        let result = SLSWindowQueryWindows(CGS_CONNECTION, wids as CFArray, Int32(wids.count)).takeRetainedValue()
+        let result = SLSWindowQueryWindows(CGS_CONNECTION, wids as CFArray, SLSWindowQueryOptions.titles).takeRetainedValue()
         let iterator = SLSWindowQueryResultCopyWindows(result).takeRetainedValue()
         var out: [WsRawWindow] = []
         var guardrail = WindowQueryGuard(wids)

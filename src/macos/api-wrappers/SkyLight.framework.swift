@@ -234,8 +234,16 @@ func SLSRequestNotificationsForWindows(_ cid: CGSConnectionID, _ windowList: Uns
 // then read that local snapshot (no per-field IPC). `Advance` returns Bool (true = positioned on a window).
 // All since ≥10.10. These back the WindowServer-native model in `windowserver/`.
 
+/// The last argument is a set of options, not the window count. Bit 0 asks for titles: without it
+/// `SLSWindowIteratorCopyTitle` answers nil for every row, and a window whose app gives accessibility an
+/// empty title (Chrome web apps) falls back to its app name (#6089). Measured on macOS 15.7 and 27.0.1:
+/// every other field, and the rows returned, are the same whatever is passed.
 @_silgen_name("SLSWindowQueryWindows")
-func SLSWindowQueryWindows(_ cid: CGSConnectionID, _ windows: CFArray, _ count: Int32) -> Unmanaged<CFTypeRef>
+func SLSWindowQueryWindows(_ cid: CGSConnectionID, _ windows: CFArray, _ options: Int32) -> Unmanaged<CFTypeRef>
+
+enum SLSWindowQueryOptions {
+    static let titles: Int32 = 1 << 0
+}
 
 @_silgen_name("SLSWindowQueryResultCopyWindows")
 func SLSWindowQueryResultCopyWindows(_ query: CFTypeRef) -> Unmanaged<CFTypeRef>

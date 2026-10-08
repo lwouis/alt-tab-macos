@@ -1047,7 +1047,10 @@ class Applications {
         // re-read too, and the rest ride on the push. Narrow on purpose — the gaps a push leaves are an
         // observer rebuild and an element adopted after the fact, both rare, both corrected within a few
         // summons, against a read that would otherwise cost one round trip per window per summon.
-        guard reconcileTabs || !AxObserverRegistry.deliversTitles(app.pid) else { return }
+        // A window whose AX title is empty gets no push to ride on, so it is read every time.
+        guard reconcileTabs || !AxTitleNotificationPolicy.pushCoversTitle(
+            appDeliversTitles: AxObserverRegistry.deliversTitles(app.pid),
+            axTitleIsEmpty: Windows.byWindowId[wid]?.axTitleIsEmpty ?? false) else { return }
         AXCallScheduler.shared.schedule(key: "wid-\(wid)-generic", context: app.debugId, pid: app.pid, scan: true) { [weak app] in
             guard let app else { return }
             guard wid != 0 else { return }
@@ -1075,6 +1078,7 @@ class Applications {
                 return
             }
             let tabObservation: TabGroupObservation = readTabs ? axWindow.tabGroupObservation(pid: app.pid) : .unknown
+            let title = Window.axOrLiveWindowServerTitle(a.title, wid)
             DispatchQueue.main.async {
                 // This read HAPPENED, and "no tab group" is as much of an answer as a group.
                 if readTabs, tabObservation != .unknown {
@@ -1089,11 +1093,12 @@ class Applications {
                 guard let window = Windows.byWindowId[wid] else { return }
                 // raw-fact ingestion stays here (bestEffortTitle needs the CG-title fallback IPC); the
                 // tab reconcile + re-render decision is the reducer's `.titleAndTabsRead` branch
-                let newTitle = window.bestEffortTitle(a.title)
+                let newTitle = window.bestEffortTitle(title)
                 let semantic = SemanticSurface(title: newTitle, subrole: a.subrole, role: a.role, isMain: a.isMain)
                 guard Windows.reevaluateAdmission(window, semantic) else { return }
                 let changed = window.title != newTitle
                 if changed { window.title = newTitle; window.lastSearchQuery = nil }
+                window.axTitleIsEmpty = a.title?.isEmpty ?? true
                 window.isMainWindow = a.isMain ?? false
                 TrackedWindowStateBridge.dispatch(.titleAndTabsRead(wid: wid, tabGroup: tabObservation,
                     reconcileTabs: reconcileTabs, changedSoFar: changed))

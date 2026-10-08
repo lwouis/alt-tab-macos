@@ -34,4 +34,11 @@ enum AxTitleNotificationPolicy {
         guard let title else { return .ignoreNoTitle }
         return .apply(title)
     }
+
+    /// Whether the app's pushes make a title-only read of this window redundant. A window whose AX title is
+    /// empty is titled by the WindowServer alone, so a push has nothing to carry for it: Chrome web apps
+    /// subscribe fine and never announce a rename (#6089).
+    static func pushCoversTitle(appDeliversTitles: Bool, axTitleIsEmpty: Bool) -> Bool {
+        appDeliversTitles && !axTitleIsEmpty
+    }
 }

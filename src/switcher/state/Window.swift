@@ -62,6 +62,9 @@ class Window {
     var rowIndex: Int?
     var debugId: String!
     var lastSearchQuery: String?
+    /// AX answered this window's last title read, or its discovery, with an empty title
+    /// (`AxTitleNotificationPolicy.pushCoversTitle`).
+    var axTitleIsEmpty = false
     var swAppMatchSpan: Range<Int>?
     var swTitleMatchSpan: Range<Int>?
     var swBestSimilarity = 0.0
@@ -581,6 +584,15 @@ class Window {
         makeKeyWindow(&psn, intent.wid)
         Logger.debug { "focus repair: re-asserting #\(intent.wid) over the late \(wid)" }
         DispatchQueue.main.async { WindowServerEvents.readFocusedWindowAfterFocusing(intent.pid) }
+    }
+
+    /// The AX title, or the WindowServer's read live when AX has none. Called OFF-main, next to the AX read
+    /// it completes, since it is a WindowServer round trip. Chrome web apps answer AX with an empty title on
+    /// every window, so without it their title is the inventory snapshot's, which is only as fresh as the
+    /// last sweep and lags every rename in between (#6089).
+    static func axOrLiveWindowServerTitle(_ axTitle: String?, _ wid: CGWindowID) -> String? {
+        guard let axTitle, !axTitle.isEmpty else { return wid.title() ?? axTitle }
+        return axTitle
     }
 
     /// For some windows (e.g. Slack) the AX API returns no title, so we fall back to the WindowServer's, and

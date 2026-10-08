@@ -599,6 +599,7 @@ class Windows {
             // AX answered for a window that had been kept on WindowServer evidence alone.
             promoteVerified(wid)
             window.semanticSurface = semantic
+            window.axTitleIsEmpty = !semantic.hasTitle
             // on any window event, we take the opportunity to refresh all window attributes
             window.updateFromAxAttributes(semantic.title, raw.bounds.size, raw.bounds.origin, isFullscreen, isMinimized)
             logAdmission(decision, raw, app)
@@ -607,6 +608,7 @@ class Windows {
         let window = Window(windowAxUiElement, app, wid, semantic.title, isFullscreen, isMinimized,
             raw.bounds.origin, raw.bounds.size, .axVerified, evidence)
         window.semanticSurface = semantic
+        window.axTitleIsEmpty = !semantic.hasTitle
         appendWindow(window)
         restoreSurfaceContinuity(window, element: windowAxUiElement)
         logAdmission(decision, raw, app)

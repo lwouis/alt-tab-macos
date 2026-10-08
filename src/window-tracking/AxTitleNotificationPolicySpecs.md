@@ -64,3 +64,12 @@ lean on `TabReadPolicy`'s rolling cursor, and the `axTitle … ignored` debug li
   perfectly good title is still not the window.
 - **testGroupDescendantIsIgnored** — the same for the `AXGroup` shape Slack and Electron shells present.
 - **testUnknownRoleIsIgnored** — an element that would not say what it is proves nothing, so it is refused.
+
+### C. Whether a push replaces the per-show title read
+`Applications.refreshWindowTitleAndTabs` skips a title-only read for an app that pushes titles. Only a window
+with an AX title has anything to push: Chrome web apps answer AX with an empty title on every window and take
+the subscription without ever announcing a rename, so their titles froze until the rolling cursor came round
+(#6089).
+- **testPushCoversAWindowWithAnAxTitle** — the app pushes and the window has an AX title: the read is skipped.
+- **testPushDoesNotCoverAWindowWithoutAnAxTitle** — the app pushes but the window's AX title is empty: read it.
+- **testNoPushCoversNothing** — the app does not push: read it.
