@@ -4,7 +4,7 @@ typealias CGWindow = [CFString: Any]
 
 extension CGWindow {
     static func windows(_ option: CGWindowListOption) -> [CGWindow] {
-        return CGWindowListCopyWindowInfo([.excludeDesktopElements, option], kCGNullWindowID) as! [CGWindow]
+        return CGWindowListCopyWindowInfo([.excludeDesktopElements, option], kCGNullWindowID) as? [CGWindow] ?? []
     }
 
     func id() -> CGWindowID? {
