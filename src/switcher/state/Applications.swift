@@ -363,9 +363,9 @@ class Applications {
     /// made a cold-start adoption flood arrive as visible "on-screen" windows that the tab matcher was then
     /// forbidden to claim — a switcher full of ghost tiles that only the NEXT show's re-query healed (rec15).
     /// Forced Space-less, it arrives hidden like any unclaimed background tab, and the group converges below.
-    static func addDiscoveredWindow(_ element: AXUIElement, _ raw: WsRawWindow, _ app: Application,
+    static func addDiscoveredWindow(_ element: AXUIElement, _ discoveredRaw: WsRawWindow, _ app: Application,
                                     adoptedAsInactiveTab: Bool = false) {
-        let wid = raw.wid
+        let wid = discoveredRaw.wid
         AXCallScheduler.shared.schedule(key: "wid-\(wid)-generic", context: app.debugId, pid: app.pid, scan: true) { [weak app] in
             guard let app else { return }
             guard wid != 0 else { return }
@@ -376,6 +376,7 @@ class Applications {
             let keys = [kAXTitleAttribute, kAXSubroleAttribute, kAXRoleAttribute, kAXMainAttribute]
             let a = try element.attributes(keys, pid: app.pid)
             let semantic = SemanticSurface(title: a.title, subrole: a.subrole, role: a.role, isMain: a.isMain)
+            let raw = currentRaw(discoveredRaw)
             let tabObservation: TabGroupObservation = isSelf ? .unknown : element.tabGroupObservation(pid: app.pid)
             let isFullscreen = WsWindowState.isFullscreen(raw)
             // Both from the SAME WindowServer snapshot this discovery already holds. Minimized used to be an
@@ -423,6 +424,15 @@ class Applications {
                 if findOrCreate.1 { Windows.reseedZOrderDuringStartup() }
             }
         }
+    }
+
+    /// **The surface is judged as it is when accessibility describes it, not as it was when the sweep listed
+    /// it.** Chrome keeps its find bar alive while it is closed: ordered out, parentless, and absent from
+    /// accessibility, so the sweep keeps asking for it. Reopened, it is a child of its browser window and
+    /// accessibility answers for it (`AXWindow` titled "Find in page …"), and the row from the sweep still
+    /// read parentless, so it was admitted as a second Chrome window and put in front (#6096).
+    private static func currentRaw(_ raw: WsRawWindow) -> WsRawWindow {
+        WindowServerQuery.query([raw.wid]).first ?? raw
     }
 
     /// WindowServer-driven per-window state refresh (geometry + fullscreen), replacing the AX attribute read
