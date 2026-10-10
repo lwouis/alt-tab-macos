@@ -665,4 +665,18 @@ final class ProTransitionTests: XCTestCase {
         s.isInTimeWindow = true
         XCTAssertNotEqual(ProTransitionManagerTestable.evaluateTimedAction(s), .showDay15Proactive)
     }
+
+    // MARK: - Checkout origin
+
+    func testCheckoutUrl_carriesOriginAndTrialDayAsVia() {
+        let via = { (day: Int?) in Endpoints.checkoutUrl(from: .day35Final, trialDay: day, website: "https://alt-tab.app").absoluteString }
+        XCTAssertEqual(via(1), "https://alt-tab.app/pricing?via=1-a6")
+        XCTAssertEqual(via(35), "https://alt-tab.app/pricing?via=35-a6")
+        XCTAssertEqual(via(100), "https://alt-tab.app/pricing?via=100-a6")
+        XCTAssertEqual(via(nil), "https://alt-tab.app/pricing?via=a6")
+    }
+
+    func testCheckoutOrigin_codesMatchTheWebsiteList() {
+        XCTAssertEqual(CheckoutOrigin.allCases.map(\.rawValue), ["a1", "a2", "a3", "a4", "a5", "a6", "a7", "a8"])
+    }
 }

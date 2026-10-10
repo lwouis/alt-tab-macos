@@ -9,7 +9,7 @@ class Day15HardGatePopover {
         let container = ProPromptPopover.makeContainer(width: 280, [
             .init(view: ProPromptPopover.makeTitle((reason?.resolved ?? .nonEngaged).unlockHeader),
                 gapAbove: 0, width: .hugLeading),
-            .init(view: ProPromptPopover.makeButtonRow(closing: popover), gapAbove: 14, width: .hugTrailing),
+            .init(view: ProPromptPopover.makeButtonRow(closing: popover, origin: .hardGate), gapAbove: 14, width: .hugTrailing),
         ])
         ProPromptPopover.present(popover, content: container)
         self.popover = popover

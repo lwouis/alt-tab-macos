@@ -6,8 +6,31 @@ enum Endpoints {
     static let website = "https://\(domain)"
     static let appcastUrl = "\(website)/appcast.xml"
     static let supportUrl = "\(website)/support"
-    static let checkoutUrl = "\(website)/pricing"
     static let accountUrl = "\(website)/my-account"
     static let licenseApiBaseUrl = "https://\(apiDomain)/v1/license"
     static let feedbackUrl = "https://\(apiDomain)/v1/feedback"
+
+    /// `?via=` is the trial day, a dash, then the origin's code (day 35 from the Day 35 window → `35-a6`), so the day
+    /// reads as-is in raw logs. Without a trial day it's the origin code alone. The website splits the two apart.
+    static func checkoutUrl(from origin: CheckoutOrigin, trialDay: Int?, website: String = website) -> URL {
+        var components = URLComponents(string: "\(website)/pricing")!
+        let day = trialDay.map { "\($0)-" } ?? ""
+        components.queryItems = [URLQueryItem(name: "via", value: day + origin.rawValue)]
+        return components.url!
+    }
+}
+
+/// Which "Get Pro" entry point opened the pricing page. The website copies `?via=` into the Paddle checkout, so a
+/// sale can be traced back to the prompt that led to it. Codes are deliberately opaque: the URL the user sees says
+/// nothing about the prompt schedule. The website accepts only these values, so keep its list in sync, and never reuse
+/// a retired code.
+enum CheckoutOrigin: String, CaseIterable {
+    case day12HeadsUp = "a1"
+    case fullUpgrade = "a2"
+    case proactiveDay15 = "a3"
+    case hardGate = "a4"
+    case day21Reminder = "a5"
+    case day35Final = "a6"
+    case settingsUpgradeTab = "a7"
+    case menubar = "a8"
 }

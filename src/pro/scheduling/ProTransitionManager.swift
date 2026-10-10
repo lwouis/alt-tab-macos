@@ -325,8 +325,8 @@ class ProTransitionManager {
 
     // MARK: - Checkout helper
 
-    static func openCheckout() {
-        NSWorkspace.shared.open(URL(string: Endpoints.checkoutUrl)!)
+    static func openCheckout(from origin: CheckoutOrigin) {
+        NSWorkspace.shared.open(Endpoints.checkoutUrl(from: origin, trialDay: LicenseManager.shared.trialDay))
     }
 
     // MARK: - QA / Debug

@@ -12,7 +12,7 @@ class Day12HeadsUpPopover {
                 gapAbove: 0, width: .hugLeading),
             .init(view: ProPromptPopover.makeBody(ProConversionCopy.day12Subtitle(), width: width),
                 gapAbove: 6, width: .full),
-            .init(view: ProPromptPopover.makeButtonRow(closing: popover), gapAbove: 14, width: .hugTrailing),
+            .init(view: ProPromptPopover.makeButtonRow(closing: popover, origin: .day12HeadsUp), gapAbove: 14, width: .hugTrailing),
         ])
         ProPromptPopover.present(popover, content: container)
         self.popover = popover

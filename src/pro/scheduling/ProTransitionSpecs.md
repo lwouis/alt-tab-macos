@@ -99,7 +99,7 @@ flowchart TD
 | **Usage stat** | No | No | No | Yes — "Your usage so far" lead-in + two-stat hero (window switches + Pro feature uses), single-column fallback if proCount = 0 | Yes — "Your usage so far" lead-in + two-stat hero (window switches + Pro feature uses), single-column fallback if proCount = 0 | No | Yes — two-line body with switch count and Pro feature uses count | Yes — "Your usage so far" lead-in + two-stat hero (window switches + Pro feature uses), single-column fallback if proCount = 0 |
 | **Feature highlighting** | Yes — comparison table | No | No | No — replaced by hero usage stat | No | No | No | No |
 | **Text content** | App icon; comparison table; "Start my 14-day trial" button. Two variants — **upgrade** (existing prefs file): "AltTab now has a Pro tier" + 14-day framing + open-source/one-time-purchase reassurance. **New install** (no prior prefs): "Welcome to AltTab" + short "free, open-source switcher with 14-day Pro trial" intro. No "See Pro in action" link in either. | "Your trial includes Pro features."; "Try these in the next 10 days:"; bulleted list (App Icons / Titles styles, Additional shortcuts, Search) | "Your Pro trial ends in 2 days"; subtitle from ProConversionCopy.day12Subtitle(); two-button: "Not now" + "Get Pro". | Header resolved by priority: extra shortcut → "Unlock extra shortcuts with Pro"; search / search-on-release → "Unlock Search with Pro"; App Icons or Titles → "Unlock App Icons and Titles with Pro"; fallback → "Get more from AltTab with Pro". "Your usage so far" lead-in + two-stat hero (window switches + Pro feature uses). Supporting line for engaged users: "Some Pro features have reverted to free defaults." plus a feature-specific sentence ("Extra shortcuts are a Pro feature." / "Search is a Pro feature." / no second line for App Icons / Titles). Non-engaged users see only the aspirational line: "AltTab Pro adds 4 features beyond the free switcher." | "Your 14-day Pro trial just ended"; two-stat hero (window switches + Pro feature uses); "Some Pro features have reverted to free defaults." | Title resolved by the same priority as [C]. Optional body for .feature triggers: "Free pass used. Upgrade to keep using it." | "AltTab Pro — a quick reminder"; two-line body: "{N} window switches with AltTab — {M} used Pro features." / "They're still here whenever you're ready." | "Still interested in Pro?"; two-stat hero (window switches + Pro feature uses); "Pro is still here whenever you're ready." |
-| **Primary action** | **"Start my 14-day trial"** — prominent, closes window | None (informational) | **"Get Pro"** — small → LemonSqueezy | **"Get Pro"** — accent color → LemonSqueezy | **"Get Pro"** → LemonSqueezy | **"Get Pro"** — small → LemonSqueezy | **"Get Pro"** — small → LemonSqueezy | **"Get Pro"** → LemonSqueezy |
+| **Primary action** | **"Start my 14-day trial"** — prominent, closes window | None (informational) | **"Get Pro"** — small → /pricing | **"Get Pro"** — accent color → /pricing | **"Get Pro"** → /pricing | **"Get Pro"** — small → /pricing | **"Get Pro"** — small → /pricing | **"Get Pro"** → /pricing |
 | **Secondary action** | None | None | **"Not now"** — text link | **"Continue with Free"** — text link | **"Maybe later"** — text link | **"Not now"** — text link | **"Not now"** — text link | **"No thanks — don't ask again"** — text link → permanent opt-out, no confirmation |
 | **Dismiss behavior** | ⨉ = same as "Start my 14-day trial" | Click outside | Click outside | ⨉ = same as "Continue with Free" | ⨉ = same as "Maybe later" | Click outside | Click outside | ⨉ = "Not now" (does NOT opt out; `hasSeenDay35` set, no repeat, but [E] continues) |
 | **Frequency** | Once ever | Once ever | Once ever | Once ever | Once ever | Fires on every post-[C] hard-gate attempt | Once ever | Once ever |
@@ -152,6 +152,28 @@ The first post-expiration switcher open always triggers free-pass + `[C]` (one-s
 | User clicks ⨉ on [G] (not "don't ask again") | `hasSeenDay35 = true`. Not opted out. [E] popovers continue. No more proactive prompts. |
 | User opted out | No proactive prompts ever. [E] still fires on hard-gate attempts (user-initiated). Max 1/session. Purchase in Preferences. |
 | User purchases at any point | All prompts stop. All gates removed. All indicators cleared. |
+
+---
+
+## Checkout origin
+
+Every "Get Pro" opens `/pricing?via=<day>-<code>`: `LicenseManager.trialDay` in plain digits, then the entry point's
+code below (Day 35 window clicked on day 35 → `35-a6`). Without a trial start it's `<code>` alone. The website splits
+the two and copies them into the Paddle checkout's custom data, so each sale records which entry point led to it and
+on which day of the trial, including clicks the user made unprompted (menubar, Settings). The update check sends the
+same day as `day`. Codes are opaque so the URL doesn't expose the prompt schedule. The website accepts only this
+list; a retired code is never reused.
+
+| Code | Entry point |
+|---|---|
+| `a1` | [B] Day 12 Heads-Up |
+| `a2` | [C] Full Upgrade |
+| `a3` | [D] Proactive Day 15 |
+| `a4` | [E] Hard-Gate Popover |
+| `a5` | [F] Day 21 Reminder |
+| `a6` | [G] Day 35 Final |
+| `a7` | Settings, Upgrade tab |
+| `a8` | Menubar "Get Pro" item |
 
 ---
 
@@ -240,3 +262,7 @@ deterministically without AppKit, windows, or real time.
 
 ### Day 15 Proactive — direct coverage
 - **testDay15_proactiveNotShownIfAlreadySeen** · **testDay15_proactiveShowsOnLaterDayIfStillNotShown**
+
+### Checkout origin
+- **testCheckoutUrl_carriesOriginAndTrialDayAsVia** — "Get Pro" opens `/pricing?via=<day>-<code>`; day 1, 35, 100, and no day.
+- **testCheckoutOrigin_codesMatchTheWebsiteList** — pins the codes the website accepts.

@@ -55,7 +55,7 @@ class Day15FullUpgradeWindow: ProPromptWindow {
         setHeroContentView(
             header: header,
             hero: hero,
-            purchase: ProPromptButtons.makeGetPro(large: true) { ProTransitionManager.openCheckout() },
+            purchase: ProPromptButtons.makeGetPro(large: true) { ProTransitionManager.openCheckout(from: .fullUpgrade) },
             dismiss: continueLink,
             sidePadding: 30, gap: 24, dismissGap: 12)
     }

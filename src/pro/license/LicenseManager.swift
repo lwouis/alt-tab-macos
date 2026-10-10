@@ -117,6 +117,13 @@ class LicenseManager {
         return Int(clock.now.timeIntervalSince(start) / 86400)
     }
 
+    /// 1-indexed, like the "Day N" of `ProTransitionSpecs.md`. Nil when no trial ever started, or when the clock
+    /// is set before the trial start, rather than a made-up day.
+    var trialDay: Int? {
+        guard let start = trialStartDate, clock.now >= start else { return nil }
+        return daysSinceTrialStart + 1
+    }
+
     init(clock: Clock, keychain: Keychain, api: LicenseAPI, defaults: UserDefaults) {
         self.clock = clock
         self.keychain = keychain

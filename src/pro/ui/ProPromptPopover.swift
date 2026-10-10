@@ -94,12 +94,12 @@ enum ProPromptPopover {
 
     /// The [Not now] [Get Pro] pair every popover but Day 4 ends with. Both dismiss the popover;
     /// `Get Pro` also opens checkout.
-    static func makeButtonRow(closing popover: NSPopover) -> NSStackView {
+    static func makeButtonRow(closing popover: NSPopover, origin: CheckoutOrigin) -> NSStackView {
         let notNow = NotAdvisedButton(NSLocalizedString("Not now", comment: ""))
         notNow.onAction = { [weak popover] _ in popover?.close() }
         let getPro = ProPromptButtons.makeGetPro(large: false) { [weak popover] in
             popover?.close()
-            ProTransitionManager.openCheckout()
+            ProTransitionManager.openCheckout(from: origin)
         }
         let row = NSStackView(views: [notNow, getPro])
         row.translatesAutoresizingMaskIntoConstraints = false

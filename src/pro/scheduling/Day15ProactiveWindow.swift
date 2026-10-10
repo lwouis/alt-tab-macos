@@ -34,7 +34,7 @@ class Day15ProactiveWindow: ProPromptWindow {
         setHeroContentView(
             header: ProPromptHeader(title: NSLocalizedString("Your 14-day Pro trial just ended", comment: ""), size: .compact),
             hero: hero,
-            purchase: ProPromptButtons.makeGetPro(large: true) { ProTransitionManager.openCheckout() },
+            purchase: ProPromptButtons.makeGetPro(large: true) { ProTransitionManager.openCheckout(from: .proactiveDay15) },
             dismiss: continueLink,
             sidePadding: 24, gap: 18, dismissGap: 10)
     }

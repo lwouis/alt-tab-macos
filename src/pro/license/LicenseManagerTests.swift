@@ -493,6 +493,26 @@ final class LicenseManagerTests: XCTestCase {
     }
     #endif
 
+    // MARK: - Trial day
+
+    func testTrialDay_isNilWithoutTrial() {
+        XCTAssertNil(manager.trialDay)
+    }
+
+    func testTrialDay_isOneIndexed() {
+        setupTrial(daysAgo: 0)
+        XCTAssertEqual(manager.trialDay, 1)
+        setupTrial(daysAgo: 34)
+        XCTAssertEqual(manager.trialDay, 35)
+        setupTrial(daysAgo: 99)
+        XCTAssertEqual(manager.trialDay, 100)
+    }
+
+    func testTrialDay_isNilWhenClockIsBeforeTrialStart() {
+        setupTrial(daysAgo: -2)
+        XCTAssertNil(manager.trialDay)
+    }
+
     // MARK: - Helpers
 
     private func setupTrial(daysAgo: Int) {

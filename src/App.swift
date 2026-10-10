@@ -150,7 +150,7 @@ class App: AppCenterApplication {
     }
 
     @objc static func upgradeToPro() {
-        ProTransitionManager.openCheckout()
+        ProTransitionManager.openCheckout(from: .menubar)
     }
 
     @objc static func openAccount() {

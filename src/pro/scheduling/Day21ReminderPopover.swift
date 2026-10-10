@@ -12,7 +12,7 @@ class Day21ReminderPopover {
                 gapAbove: 0, width: .full),
             .init(view: ProPromptPopover.makeBody(ProConversionCopy.day21Body(), width: width),
                 gapAbove: 8, width: .full),
-            .init(view: ProPromptPopover.makeButtonRow(closing: popover), gapAbove: 12, width: .hugTrailing),
+            .init(view: ProPromptPopover.makeButtonRow(closing: popover, origin: .day21Reminder), gapAbove: 12, width: .hugTrailing),
         ])
         ProPromptPopover.present(popover, content: container)
         self.popover = popover

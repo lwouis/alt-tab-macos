@@ -26,7 +26,7 @@ class Day35FinalWindow: ProPromptWindow {
         setHeroContentView(
             header: ProPromptHeader(title: NSLocalizedString("Still interested in Pro?", comment: ""), size: .compact),
             hero: hero,
-            purchase: ProPromptButtons.makeGetPro(large: true) { ProTransitionManager.openCheckout() },
+            purchase: ProPromptButtons.makeGetPro(large: true) { ProTransitionManager.openCheckout(from: .day35Final) },
             dismiss: optOutLink,
             sidePadding: 20, gap: 18, dismissGap: 12)
     }

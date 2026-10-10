@@ -157,7 +157,7 @@ class UpgradeTab {
 
     private static func makeHeroButton() -> ProHeroButton {
         let button = ProHeroButton()
-        button.onAction = { _ in ProTransitionManager.openCheckout() }
+        button.onAction = { _ in ProTransitionManager.openCheckout(from: .settingsUpgradeTab) }
         button.heightAnchor.constraint(equalToConstant: 40).isActive = true
         button.widthAnchor.constraint(equalToConstant: 220).isActive = true
         return button

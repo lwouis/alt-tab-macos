@@ -91,3 +91,8 @@ Mirrors `LicenseManagerTests.swift` 1:1. Each test uses an isolated `UserDefault
 - **testOnBeforeProUnlockFiresOnMockProUser** *(DEBUG only)* — `mockProUser()` fires the hook and flips to `.pro`.
 - **testMockProUserDoesNotAlterPersistedLicense** *(DEBUG only)* — Pro QA state supplies deterministic email/variant values in memory, survives refresh, and leaves a preloaded real license untouched.
 - **testMockTrialDayDoesNotAlterPersistedLicense** *(DEBUG only)* — trial QA state supplies its synthetic day in memory, survives refresh, and leaves a preloaded real license untouched.
+
+### I. Trial day
+- **testTrialDay_isNilWithoutTrial** — no `trialStartDate` → `trialDay` is nil, never a guessed day.
+- **testTrialDay_isOneIndexed** — the start day is day 1, 34 days later is day 35, 99 days later is day 100.
+- **testTrialDay_isNilWhenClockIsBeforeTrialStart** — a clock set before the trial start → nil.
