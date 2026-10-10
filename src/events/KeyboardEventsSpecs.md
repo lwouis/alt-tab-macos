@@ -39,6 +39,8 @@ Mirrors `KeyboardEventsTests.swift` 1:1.
 - **testInputLogDoesNotClaimAKeyDownFromBeforeRegistrationChanged** — input observed while a shortcut was unregistered cannot commit a later gesture.
 - **testInputLogDoesNotLetALateKeyDownPoisonTheNextGesture** — a passive-tap key-down that arrives after Carbon claimed it is consumed instead of shifting every later pairing.
 - **testInputLogIgnoresAutoRepeatsSoAHeldTabDoesNotShiftLaterPairs** — a held Tab's OS auto-repeats are not logged (Carbon never reports them), so two pairs delayed after the hold still each pair with their own release.
+- **testInputLogForgetsAKeyDownCarbonNeverReportedSoLaterPairsStayAligned** — a press the passive tap saw but Carbon never reported (another app swallowed it, the front app had hotkeys off, it stopped the screensaver) is forgotten, so the next alt-tab does not pair with its release and close on its own (#6091).
+- **testInputLogOldExpiryCannotForgetAPressAfterRegistrationChanged** — a delayed expiry from the previous registration cannot remove a new press after the log is reset.
 - **testInputLogDropsAnUnmatchedClaimAtTheGestureRelease** — if the passive tap never supplies a key-down, its unmatched Carbon claim expires with that physical gesture.
 - **testInputLogRecordsOnlySwitchingChordsSoTypingCannotEvictADelayedHotkey** — key-downs that are not a registered switching chord are never recorded, so shifted typing during a stall neither fills the log nor evicts the hotkey's own key-down.
 - **testInputLogMatchesTheChordWithCapsLockLit** — Caps Lock in the tap's flags does not stop a hotkey pairing with its physical key-down.

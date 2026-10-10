@@ -188,6 +188,43 @@ final class KeyboardEventsUtilsTests: XCTestCase {
         XCTAssertTrue(ModifierReleaseLog.claimRelease(after: tab, holdModifiers: option))
     }
 
+    func testInputLogForgetsAKeyDownCarbonNeverReportedSoLaterPairsStayAligned() throws {
+        let option = CarbonModifierFlags(1 << 11)
+        let tab = ModifierReleaseLog.Chord(keyCode: 48, modifiers: option)
+        ModifierReleaseLog.setSwitchingChords([tab])
+        // another app swallowed this ⌥⇥ after our tap saw it: Carbon never reports it
+        ModifierReleaseLog.record([.option])
+        let dead = try XCTUnwrap(ModifierReleaseLog.recordKeyDown(48, [.option]))
+        ModifierReleaseLog.record([])
+        ModifierReleaseLog.forgetUnreported(dead)
+        // the next ⌥⇥ is still held: its claim must not find the dead press's release
+        ModifierReleaseLog.record([.option])
+        ModifierReleaseLog.recordKeyDown(48, [.option])
+        XCTAssertFalse(ModifierReleaseLog.claimRelease(after: tab, holdModifiers: option))
+        ModifierReleaseLog.record([])
+        ModifierReleaseLog.record([.option])
+        let claimed = try XCTUnwrap(ModifierReleaseLog.recordKeyDown(48, [.option]))
+        ModifierReleaseLog.record([])
+        XCTAssertTrue(ModifierReleaseLog.claimRelease(after: tab, holdModifiers: option))
+        // forgetting a key-down Carbon did claim changes nothing
+        ModifierReleaseLog.forgetUnreported(claimed)
+        ModifierReleaseLog.record([.option])
+        ModifierReleaseLog.recordKeyDown(48, [.option])
+        XCTAssertFalse(ModifierReleaseLog.claimRelease(after: tab, holdModifiers: option))
+    }
+
+    func testInputLogOldExpiryCannotForgetAPressAfterRegistrationChanged() throws {
+        let option = CarbonModifierFlags(1 << 11)
+        let tab = ModifierReleaseLog.Chord(keyCode: 48, modifiers: option)
+        ModifierReleaseLog.setSwitchingChords([tab])
+        let old = try XCTUnwrap(ModifierReleaseLog.recordKeyDown(48, [.option]))
+        ModifierReleaseLog.setSwitchingChords([tab])
+        ModifierReleaseLog.recordKeyDown(48, [.option])
+        ModifierReleaseLog.record([])
+        ModifierReleaseLog.forgetUnreported(old)
+        XCTAssertTrue(ModifierReleaseLog.claimRelease(after: tab, holdModifiers: option))
+    }
+
     func testInputLogDropsAnUnmatchedClaimAtTheGestureRelease() throws {
         let option = CarbonModifierFlags(1 << 11)
         let tab = ModifierReleaseLog.Chord(keyCode: 48, modifiers: option)

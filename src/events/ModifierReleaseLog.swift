@@ -24,6 +24,9 @@ import ShortcutRecorder
 ///   hold posted 30 repeat key-downs and fired one hotkey; `KeyRepeatTimer` exists because of that).
 /// - Registration changes reset the log, so a key-down Carbon could not report is never claimed after
 ///   re-registration.
+/// - A key-down Carbon has still not reported once main has had time to receive it is forgotten
+///   (`forgetUnreported`). The tap sees presses Carbon never gets: another app's tap after ours swallowed it,
+///   the front app had hotkeys off, or the press stopped the screensaver (QA F-11, F-12, DS-04).
 /// Carbon can also overtake the tap's key-down callback. A claim made while its modifiers are physically
 /// held consumes that late callback instead of leaving it available to poison the next gesture.
 enum ModifierReleaseLog {
@@ -52,6 +55,7 @@ enum ModifierReleaseLog {
 
     private static let capacity = 64
     private static var inputs = [Input]()
+    // Expiry callbacks outlive registration changes, so sequence identities must not be reused.
     private static var sequence: UInt64 = 0
     private static var claimsAwaitingKeyDown = [Chord: Int]()
     private static var latestModifiers: CarbonModifierFlags = 0
@@ -77,17 +81,32 @@ enum ModifierReleaseLog {
         if modifiers == 0 { claimsAwaitingKeyDown.removeAll(keepingCapacity: true) }
     }
 
-    static func recordKeyDown(_ keyCode: UInt32, _ flags: NSEvent.ModifierFlags, isARepeat: Bool = false) {
-        guard !isARepeat else { return }
+    /// Returns the sequence of the recorded key-down, nil when nothing was recorded.
+    @discardableResult
+    static func recordKeyDown(_ keyCode: UInt32, _ flags: NSEvent.ModifierFlags, isARepeat: Bool = false) -> UInt64? {
+        guard !isARepeat else { return nil }
         let chord = Chord(keyCode: keyCode, modifiers: cocoaToCarbonFlags(flags))
         lock.lock()
         defer { lock.unlock() }
-        guard switchingChords.contains(chord) else { return }
+        guard switchingChords.contains(chord) else { return nil }
         if let count = claimsAwaitingKeyDown[chord], count > 0 {
             claimsAwaitingKeyDown[chord] = count == 1 ? nil : count - 1
-            return
+            return nil
         }
-        appendLocked(.keyDown(sequence: nextSequence(), chord: chord, claimed: false))
+        let keySequence = nextSequence()
+        appendLocked(.keyDown(sequence: keySequence, chord: chord, claimed: false))
+        return keySequence
+    }
+
+    /// Drops this key-down if Carbon never claimed it. Its position is not kept as a boundary either: as far
+    /// as AltTab's sessions go, that press never happened.
+    static func forgetUnreported(_ keySequence: UInt64) {
+        lock.lock()
+        defer { lock.unlock() }
+        inputs.removeAll { input in
+            if case let .keyDown(sequence, _, claimed) = input { return !claimed && sequence == keySequence }
+            return false
+        }
     }
 
     /// Claims the oldest physical key-down matching this Carbon hotkey. A release after a later switch key
@@ -146,7 +165,6 @@ enum ModifierReleaseLog {
     private static func resetLocked() {
         inputs.removeAll(keepingCapacity: true)
         claimsAwaitingKeyDown.removeAll(keepingCapacity: true)
-        sequence = 0
         latestModifiers = 0
     }
 }
