@@ -12,6 +12,11 @@ surface, a positive tab-count shrink, or a tab group no published window hosts a
 Unknown, other-Space, and incomplete answers remain `replacementPending`. The join is time-bounded and late
 results cannot revive a completed verdict.
 
+While the join runs, a window whose surface was also ordered out is left out of the switcher: to the user it
+is closed already, and an alt-tab right after closing an Electron window must not draw it. One still on screen
+stays. A hidden app also keeps its window: WeChat ends its accessibility element on hide without closing
+the window (#6020). An inconclusive reconciliation restores ordinary filtering.
+
 ## WindowServer surface end
 
 An 804 definitively retires that surface and removes its live `Window`, but keeps a two-second semantic
@@ -31,5 +36,7 @@ priority or extra same-subsystem query can manufacture that fact.
 
 - **testWindowServerDestroyRetiresTheSurfaceBeforeRemovingIt**
 - **testAxElementEndWaitsForCrossSourceReconciliation**
+- **testAxElementEndHidesTheWindowOnlyOnceItLeftTheScreen**
+- **testHiddenAppElementEndKeepsItsOffScreenWindow**
 - **testAxReplacementHealsWhileConfirmedCloseRemoves**
 - AX reconciliation policy cases live in `AxObserverHealthTests`.

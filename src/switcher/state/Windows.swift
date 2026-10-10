@@ -161,10 +161,11 @@ class Windows {
     }
 
     static func shouldShowTheUser(_ window: Window, _ f: WindowFilters) -> Bool {
+        guard !window.tracked.isClosingOffScreen(appHidden: window.application.isHidden) else { return false }
         // `isOnPreferredScreen` is the one irreducibly OS-coupled fact (touches `Spaces.screenSpacesMap` +
         // multi-screen quartz math); passed as `@autoclosure` so it's only evaluated if the cheaper
         // filters above don't already exclude the window.
-        WindowFilterResolver.shouldShow(
+        return WindowFilterResolver.shouldShow(
             window.state, window.application.state,
             onlyFrontmostApp: f.appsToShow == .active,
             excludeFrontmostApp: f.appsToShow == .nonActive,

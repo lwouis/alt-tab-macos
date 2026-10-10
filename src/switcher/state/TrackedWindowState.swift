@@ -128,6 +128,14 @@ struct TrackedWindow: Equatable {
     /// in the shell — `ReducerEffect.copyThumbnail`)
     var hasThumbnail = false
     var lifecycle = WindowLifecycleState.alive
+    /// The app ended the window's AX element and the WindowServer ordered its surface out: to the user it
+    /// is closed, though the cross-source verdict is still 150ms+ away. Apps that retain the surface on
+    /// close (Electron: Slack, Joplin) need that verdict to remove it, and an alt-tab in between drew the
+    /// closed window (QA P-01, P-03). An AX end on a window still on screen proves nothing and keeps it.
+    /// A hidden app can end its element without closing the window (WeChat, #6020).
+    func isClosingOffScreen(appHidden: Bool) -> Bool {
+        lifecycle == .axElementEnded && !isOrderedIn && !appHidden
+    }
 
     /// The STORED kernel record: `isPhantom` carries the CGS latch and `isTabbed` the dead stored value,
     /// because both live facts are derived by whoever holds the tab registry — `TrackedWindowState` for the

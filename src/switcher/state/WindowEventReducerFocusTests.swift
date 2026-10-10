@@ -94,6 +94,31 @@ final class WindowEventReducerFocusTests: XCTestCase {
         XCTAssertEqual(s.window(Self.reaperMainWid)?.lifecycle, .replacementPending)
     }
 
+    func testAxElementEndHidesTheWindowOnlyOnceItLeftTheScreen() {
+        var s = state([window(Self.reaperMainWid, Self.reaperPid, "Main", order: 0)],
+            frontmost: Self.reaperPid)
+        s.windows[0].isOrderedIn = true
+        _ = WindowEventReducer.reduce(&s, .axElementEnded(wid: Self.reaperMainWid))
+        XCTAssertEqual(s.window(Self.reaperMainWid)?.isClosingOffScreen(appHidden: false), false)
+        _ = WindowEventReducer.reduce(&s, .windowOrderedOut(wid: Self.reaperMainWid, inSpaceTransition: false))
+        XCTAssertEqual(s.window(Self.reaperMainWid)?.isClosingOffScreen(appHidden: false), true)
+        _ = WindowEventReducer.reduce(&s, .axElementReconciled(
+            wid: Self.reaperMainWid, verdict: .replacementFound))
+        XCTAssertEqual(s.window(Self.reaperMainWid)?.isClosingOffScreen(appHidden: false), false)
+    }
+
+    func testHiddenAppElementEndKeepsItsOffScreenWindow() {
+        var s = state([window(Self.reaperMainWid, Self.reaperPid, "Main", order: 0)],
+            frontmost: Self.reaperPid)
+        _ = WindowEventReducer.reduce(&s, .windowOrderedOut(wid: Self.reaperMainWid, inSpaceTransition: false))
+        _ = WindowEventReducer.reduce(&s, .axElementEnded(wid: Self.reaperMainWid))
+        XCTAssertEqual(s.window(Self.reaperMainWid)?.isClosingOffScreen(appHidden: true), false)
+        XCTAssertEqual(s.window(Self.reaperMainWid)?.isClosingOffScreen(appHidden: false), true)
+        _ = WindowEventReducer.reduce(&s, .axElementReconciled(
+            wid: Self.reaperMainWid, verdict: .inconclusive))
+        XCTAssertEqual(s.window(Self.reaperMainWid)?.isClosingOffScreen(appHidden: false), false)
+    }
+
     func testAxReplacementHealsWhileConfirmedCloseRemoves() {
         var s = state([window(Self.reaperMainWid, Self.reaperPid, "Main", order: 0)],
             frontmost: Self.reaperPid)
