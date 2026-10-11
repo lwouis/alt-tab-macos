@@ -1,3 +1,16 @@
+## [11.9.1](https://github.com/lwouis/alt-tab-macos/compare/v11.9.0...v11.9.1) (2026-10-11)
+
+
+### Bug Fixes
+
+* a hidden WeChat window might disappear from AltTab (closes [#6020](https://github.com/lwouis/alt-tab-macos/issues/6020)) ([736b606](https://github.com/lwouis/alt-tab-macos/commit/736b606))
+* a possible crash after switching windows ([5d7bd7b](https://github.com/lwouis/alt-tab-macos/commit/5d7bd7b))
+* just-closed Slack or Joplin windows might briefly remain listed ([d106daf](https://github.com/lwouis/alt-tab-macos/commit/d106daf))
+* switching away from CapCut might leave it in front (closes [#6097](https://github.com/lwouis/alt-tab-macos/issues/6097)) ([9253c2b](https://github.com/lwouis/alt-tab-macos/commit/9253c2b))
+* the Chrome find bar might appear as a window (closes [#6096](https://github.com/lwouis/alt-tab-macos/issues/6096)) ([9106426](https://github.com/lwouis/alt-tab-macos/commit/9106426))
+* the switcher might close while the shortcut is held (closes [#6091](https://github.com/lwouis/alt-tab-macos/issues/6091)) ([e42befa](https://github.com/lwouis/alt-tab-macos/commit/e42befa))
+* web app titles might be stale or show the app name (closes [#6089](https://github.com/lwouis/alt-tab-macos/issues/6089)) ([2a4c803](https://github.com/lwouis/alt-tab-macos/commit/2a4c803))
+
 # [11.9.0](https://github.com/lwouis/alt-tab-macos/compare/v11.8.0...v11.9.0) (2026-10-06)
 
 
