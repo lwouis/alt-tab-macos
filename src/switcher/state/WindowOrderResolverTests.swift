@@ -193,6 +193,47 @@ final class WindowOrderResolverTests: XCTestCase {
     }
 }
 
+/// Pins the folding of the other screens' windows into one stack tile: `ScreenFoldResolver`.
+final class ScreenFoldResolverTests: XCTestCase {
+    func testTheFirstOtherScreenWindowBecomesTheStack() {
+        XCTAssertEqual(ScreenFoldResolver.fold([false, false, true, true, true], enabled: true),
+            ScreenFoldResolver.Fold(stack: 2, foldedAway: [3, 4]))
+    }
+
+    func testWindowsFilteredOutAreNotFolded() {
+        XCTAssertEqual(ScreenFoldResolver.fold([false, true, false, true], enabled: true),
+            ScreenFoldResolver.Fold(stack: 1, foldedAway: [3]))
+    }
+
+    func testASingleOtherScreenWindowIsNotFolded() {
+        XCTAssertNil(ScreenFoldResolver.fold([false, false, true], enabled: true))
+    }
+
+    func testNothingFoldsWhenDisabled() {
+        XCTAssertNil(ScreenFoldResolver.fold([false, true, true], enabled: false))
+    }
+
+    func testTheStackOpensWhenTheUserCyclesOntoIt() {
+        XCTAssertTrue(ScreenFoldResolver.opensOnArrival(isStack: true, userPickedSelection: true, fromMouse: false, fromRefresh: false))
+    }
+
+    func testTheDefaultPickDoesNotOpenTheStack() {
+        XCTAssertFalse(ScreenFoldResolver.opensOnArrival(isStack: true, userPickedSelection: false, fromMouse: false, fromRefresh: false))
+    }
+
+    func testHoverDoesNotOpenTheStack() {
+        XCTAssertFalse(ScreenFoldResolver.opensOnArrival(isStack: true, userPickedSelection: true, fromMouse: true, fromRefresh: false))
+    }
+
+    func testARefreshDoesNotOpenTheStack() {
+        XCTAssertFalse(ScreenFoldResolver.opensOnArrival(isStack: true, userPickedSelection: true, fromMouse: false, fromRefresh: true))
+    }
+
+    func testAnOrdinaryWindowOpensNothing() {
+        XCTAssertFalse(ScreenFoldResolver.opensOnArrival(isStack: false, userPickedSelection: true, fromMouse: false, fromRefresh: false))
+    }
+}
+
 final class ApplicationRepresentativeResolverTests: XCTestCase {
     private func c(_ id: String, current: Bool = false, attended: Bool = false,
                    main: Bool = false, focus: Int = 0, creation: Int = 0)

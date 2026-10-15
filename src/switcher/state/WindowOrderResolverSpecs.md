@@ -94,3 +94,30 @@ Mirrors `WindowOrderResolverTests.swift` 1:1.
 - **testGroupByScreenSinksBucketsWithinTheirGroup** — a minimized window on the screen showing AltTab stays
   ahead of the other screens' windows with `minimizedAtEnd`.
 - **testGroupByScreenGivesWayToSearch** — a match on another screen sorts before a non-match on this one.
+
+## Folding the other screens (`ScreenFoldResolver`)
+
+While grouping by screen, the other screens' windows fold into one stack tile so the switcher shows the
+current screen in full and the rest as one entry. The stack is a real window: the other screens' first shown
+window in display order, which with `Recently focused` is the one used last. `Windows.applyFold` marks it
+with the number of windows it stands for (it draws as a stack titled "Laptop · 8 windows", or the screen's
+name for an external display) and hides the others; selecting it and releasing focuses that window.
+
+- **Nothing to fold** → one shown window on the other screens stays an ordinary tile; with folding off
+  (`Screens to show` is not grouped, there is one screen, search is active, or the stack was opened this
+  summon) nothing is folded.
+- **Opening** → the stack opens, for the rest of the summon, when the user moves the selection onto it with
+  the keyboard (cycling or arrows). The default pick landing on it opens nothing, so a quick Cmd-Tab back to
+  the other screen's last window works as before; mouse hover and refreshes open nothing either. Opening
+  leaves the selection on the same window, now the first tile of the opened group.
+
+### I. Folding (`ScreenFoldResolverTests`)
+- **testTheFirstOtherScreenWindowBecomesTheStack** — the first other-screen window is the stack, the rest fold.
+- **testWindowsFilteredOutAreNotFolded** — only shown windows count.
+- **testASingleOtherScreenWindowIsNotFolded** — one window stands for itself.
+- **testNothingFoldsWhenDisabled** — folding off.
+- **testTheStackOpensWhenTheUserCyclesOntoIt** — keyboard arrival opens it.
+- **testTheDefaultPickDoesNotOpenTheStack** — the default pick does not.
+- **testHoverDoesNotOpenTheStack** — mouse hover does not.
+- **testARefreshDoesNotOpenTheStack** — a list refresh re-selecting it does not.
+- **testAnOrdinaryWindowOpensNothing** — arriving on any other tile changes nothing.

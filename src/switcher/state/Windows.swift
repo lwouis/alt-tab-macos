@@ -49,7 +49,7 @@ class Windows {
     private static var shouldRestoreDefaultSelectionOnSearchClear = false
 
     static func shouldDisplay(_ window: Window) -> Bool {
-        window.shouldShowTheUser && Search.matches(window, query: (SwitcherSession.current?.searchQuery ?? ""))
+        window.shouldShowTheUser && !window.isFoldedAway && Search.matches(window, query: (SwitcherSession.current?.searchQuery ?? ""))
     }
 
     static func updateSearchQuery(_ query: String) {
@@ -416,6 +416,7 @@ class Windows {
             WindowThumbnails.fetchPreviewFrames()
             index = session.selectedIndex
             lastWindowActivityType = .focus
+            unfoldIfUserArrivedOnStack(newWindow, session, fromMouse: fromMouse, fromRefresh: fromRefresh)
         }
         guard let index else { return }
         TilesView.highlight(index)
@@ -564,6 +565,26 @@ class Windows {
                 groupByScreen: groupByScreen,
                 sortType: sortType)
         }
+        applyFold(groupByScreen && !(SwitcherSession.current?.otherScreensUnfolded ?? false))
+    }
+
+    /// The stack is a real window, the other screens' first in display order (the most recent, by default):
+    /// selecting it and releasing focuses that window, and opening the stack leaves the selection on it.
+    private static func applyFold(_ enabled: Bool) {
+        for window in list {
+            window.foldedCount = 0
+            window.isFoldedAway = false
+        }
+        guard let fold = ScreenFoldResolver.fold(list.map { $0.isInOtherScreenGroup && $0.shouldShowTheUser }, enabled: enabled) else { return }
+        list[fold.stack].foldedCount = fold.foldedAway.count + 1
+        for index in fold.foldedAway { list[index].isFoldedAway = true }
+    }
+
+    private static func unfoldIfUserArrivedOnStack(_ window: Window, _ session: SwitcherSession, fromMouse: Bool, fromRefresh: Bool) {
+        guard ScreenFoldResolver.opensOnArrival(isStack: window.foldedCount > 0, userPickedSelection: session.userPickedSelection,
+            fromMouse: fromMouse, fromRefresh: fromRefresh) else { return }
+        session.otherScreensUnfolded = true
+        App.refreshOpenUiAfterExternalEvent([], immediately: true)
     }
 
     private static func orderWindow(_ window: Window, _ query: String, _ searchActive: Bool, _ groupByScreen: Bool) -> OrderWindow {

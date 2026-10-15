@@ -52,6 +52,31 @@ enum ApplicationRepresentativeResolver {
     }
 }
 
+/// Folds the other screens' windows into one stack tile while grouping by screen. Pure kernel behind
+/// `Windows.applyFold` and `Windows.unfoldIfUserArrivedOnStack`.
+enum ScreenFoldResolver {
+    struct Fold: Equatable {
+        /// The window drawn as the stack: the other screens' first shown window in display order.
+        let stack: Int
+        /// The other shown windows of those screens, hidden inside the stack.
+        let foldedAway: [Int]
+    }
+
+    /// `otherScreenShown[i]`: the window at display position `i` is in the other screens' group and passes
+    /// the filters. Nil when there is nothing to fold: folding is off, or one window alone stands for itself.
+    static func fold(_ otherScreenShown: [Bool], enabled: Bool) -> Fold? {
+        let others = otherScreenShown.indices.filter { otherScreenShown[$0] }
+        guard enabled, others.count > 1 else { return nil }
+        return Fold(stack: others[0], foldedAway: Array(others.dropFirst()))
+    }
+
+    /// The stack opens when the user moves the selection onto it with the keyboard — not when the default pick
+    /// lands on it (a quick Cmd-Tab back to the other screen must not unfold it), and not on mouse hover.
+    static func opensOnArrival(isStack: Bool, userPickedSelection: Bool, fromMouse: Bool, fromRefresh: Bool) -> Bool {
+        isStack && userPickedSelection && !fromMouse && !fromRefresh
+    }
+}
+
 enum WindowOrderResolver {
     /// Strict-weak-ordering "should `a` sort before `b`?"
     static func isOrderedBefore(_ a: OrderWindow, _ b: OrderWindow,
