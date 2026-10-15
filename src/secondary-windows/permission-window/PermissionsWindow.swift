@@ -106,6 +106,7 @@ class PermissionsWindow: NSWindow {
         let text = NSTextField(wrappingLabelWithString: title)
         text.translatesAutoresizingMaskIntoConstraints = false
         text.font = .systemFont(ofSize: 19.5, weight: .semibold)
+        text.isSelectable = false
         let header = NSStackView(views: [icon, text])
         header.translatesAutoresizingMaskIntoConstraints = false
         header.spacing = 14

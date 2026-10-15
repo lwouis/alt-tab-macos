@@ -20,8 +20,8 @@ class DebugWindow: NSPanel {
     private var inspectAppField: NSTextField!
     private var inspectCgField: NSTextField!
     private var inspectAxField: NSTextField!
-    private var inspectTimer: Timer?
-    private var inspectClickMonitor: Any?
+    private var inspectMonitors = [Any]()
+    private let inspectThrottler = Throttler(delayInMs: 100)
     private var isInspecting = false
     private static let logFont = NSFont.userFixedPitchFont(ofSize: 11)!
     private static let levels: [LogLevel] = [.debug, .info, .warning, .error]
@@ -318,24 +318,28 @@ class DebugWindow: NSPanel {
     private func startInspecting() {
         isInspecting = true
         inspectButton.title = "Stop inspecting"
-        inspectTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] _ in
-            self?.updateInspectData()
+        updateInspectData()
+        // Mouse moves, not a timer: nothing runs while the pointer rests. Global monitors see moves over other
+        // apps, the local one over AltTab's own windows.
+        let moved: (NSEvent) -> Void = { [weak self] _ in
+            self?.inspectThrottler.throttleOrProceed { [weak self] in
+                guard let self, isInspecting else { return }
+                updateInspectData()
+            }
         }
-        inspectClickMonitor = NSEvent.addGlobalMonitorForEvents(matching: .leftMouseDown) { [weak self] _ in
-            self?.stopInspecting()
-        }
+        inspectMonitors = [
+            NSEvent.addGlobalMonitorForEvents(matching: .mouseMoved, handler: moved),
+            NSEvent.addLocalMonitorForEvents(matching: .mouseMoved) { moved($0); return $0 },
+            NSEvent.addGlobalMonitorForEvents(matching: .leftMouseDown) { [weak self] _ in self?.stopInspecting() },
+        ].compactMap { $0 }
     }
 
     private func stopInspecting() {
         guard isInspecting else { return }
         isInspecting = false
         inspectButton.title = "Inspect window"
-        inspectTimer?.invalidate()
-        inspectTimer = nil
-        if let monitor = inspectClickMonitor {
-            NSEvent.removeMonitor(monitor)
-            inspectClickMonitor = nil
-        }
+        inspectMonitors.forEach(NSEvent.removeMonitor)
+        inspectMonitors.removeAll()
     }
 
     private func updateInspectData() {

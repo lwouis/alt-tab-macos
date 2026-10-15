@@ -57,6 +57,7 @@ enum QaLifecycle {
         var key: String?
         var value: String?
         var hour: Int?
+        var seconds: Double?
         var seen: [String]?
         var accessibility: Bool?
         var screenRecording: Bool?
@@ -91,6 +92,7 @@ enum QaLifecycle {
         let pending: Bool
         let freePass: Bool
         let badge: Bool
+        let badgeDrawn: Bool
         let switcher: Bool
         let actions: [String]
         let surfaces: [Surface]
@@ -111,12 +113,19 @@ enum QaLifecycle {
         switch r.action {
         case "state": break
         case "seed": try seed(r)
-        case "advance":
+        case "advance", "travel":
             guard let start = LicenseManager.shared.trialStartDate, let day = r.day, day > 0 else { throw QaError("A trial and positive day are required") }
-            now = start.addingTimeInterval(Double(day - 1) * 86400)
-            LicenseManager.shared.refreshState()
+            let date = start.addingTimeInterval(Double(day - 1) * 86400 + (r.seconds ?? 0))
+            guard r.action == "travel" else { now = date; LicenseManager.shared.refreshState(); break }
+            // `travel` moves only the clock, like a Mac left running overnight; the app must notice by itself. The
+            // clock keeps ticking from there, so timers armed against it fire.
+            now = nil
+            QaLifecycleEnvironment.menuClockOffset = date.timeIntervalSinceNow
         case "startup": App.replayFirstLaunchForQa()
-        case "schedule": ProTransitionManager.shared.onAppLaunchComplete()
+        case "schedule":
+            // A launch draws the menu bar icon before it arms the scheduler.
+            Menubar.menubarIconCallback(nil)
+            ProTransitionManager.shared.onAppLaunchComplete()
         case "permissions":
             permissionLock.lock()
             if let value = r.accessibility { permissionValues[0] = value }
@@ -124,6 +133,7 @@ enum QaLifecycle {
             permissionLock.unlock()
             SystemPermissions.checkPermissionsSoon()
         case "open-permissions": App.showPermissionsWindow()
+        case "open-settings": App.showSettingsWindow()
         case "request-accessibility": AccessibilityPermission.request()
         case "request-screen": ScreenRecordingPermission.request()
         case "skip-screen": ScreenRecordingPermission.waive()
@@ -131,6 +141,7 @@ enum QaLifecycle {
         case "click": try click(r.text ?? "")
         case "purchase": try purchase()
         case "search": _ = ProFeature.searchInSwitcher.attemptUse()
+        case "extra-shortcut": _ = ProFeature.extraShortcut(index: 1).attemptUse()
         case "preference":
             guard let key = r.key, let value = r.value, ["appearanceStyle", "appearanceSize", "shortcutStyle", "screenRecordingPermissionSkipped"].contains(key) else { throw QaError("Unsupported preference") }
             Preferences.set(key, value)
@@ -160,7 +171,8 @@ enum QaLifecycle {
         ProTransitionState.markFreshInstallIfUnknown(r.fresh ?? true)
         manager.hasSeenWelcome = r.welcome ?? true
         for key in r.seen ?? [] {
-            guard ["hasSeenDay4Tour", "hasSeenDay12", "hasSeenFullUpgrade", "hasSeenProactiveDay15", "hasSeenDay21", "hasSeenDay35", "userOptedOut"].contains(key) else { throw QaError("Unsupported transition flag") }
+            guard ["hasSeenDay4Tour", "freePassUsed", "hasTriggeredPostExpirationSwitcher", "hasSeenFullUpgrade",
+                   "hasSeenProactiveDay15", "hasSeenDay35", "userOptedOut"].contains(key) else { throw QaError("Unsupported transition flag") }
             store.set(true, forKey: "proTransition.\(key)")
         }
         Preferences.set("settingsWindowShownOnFirstLaunch", r.completed == false ? "false" : "true", false)
@@ -196,7 +208,9 @@ enum QaLifecycle {
     }
 
     static func closeSurfaces() {
+        ProPromptHost.windowPresentation.cancel()
         ProPromptPopover.closeAll()
+        ProActivationPopover.close()
         for window in NSApp.windows where window is ProPromptWindow || window is SettingsWindow { window.close() }
     }
 
@@ -254,7 +268,7 @@ enum QaLifecycle {
                 axEntryAbsent: SystemPermissions.hasNoEntry("kTCCServiceAccessibility"), screenEntryAbsent: SystemPermissions.hasNoEntry("kTCCServiceScreenCapture"),
                 permissionsMocked: true,
                 license: "notInitialized", trialStart: nil, day: 0, welcomeSeen: false, completed: false,
-                pending: false, freePass: false, badge: false, switcher: false, actions: actions, surfaces: surfaces, error: error)
+                pending: false, freePass: false, badge: false, badgeDrawn: false, switcher: false, actions: actions, surfaces: surfaces, error: error)
         }
         let manager = ProTransitionManager.shared
         let license = LicenseManager.shared
@@ -265,7 +279,7 @@ enum QaLifecycle {
             license: String(describing: license.state), trialStart: license.trialStartDate?.timeIntervalSince1970,
             day: license.daysSinceTrialStart + 1, welcomeSeen: manager.hasSeenWelcome,
             completed: Preferences.settingsWindowShownOnFirstLaunch, pending: manager.hasPendingPrompt,
-            freePass: manager.isFreePassSessionActive, badge: manager.shouldShowBadgeDot, switcher: TilesPanel.shared?.isVisible == true,
+            freePass: manager.isFreePassSessionActive, badge: manager.shouldShowBadgeDot, badgeDrawn: Menubar.badgeDotLayer != nil, switcher: TilesPanel.shared?.isVisible == true,
             actions: actions, surfaces: surfaces, error: error)
     }
 

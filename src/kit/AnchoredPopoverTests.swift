@@ -1,5 +1,5 @@
-import XCTest
 import Cocoa
+import XCTest
 
 final class AnchoredPopoverTests: XCTestCase {
     private let rect = NSRect(x: 0, y: 0, width: 24, height: 24)
@@ -49,7 +49,8 @@ final class AnchoredPopoverTests: XCTestCase {
 
     func testAnItemOnAnotherScreensMenuBarIsAnAnchor() {
         let second = StatusItemAnchor.Screen(frame: CGRect(x: 1470, y: 0, width: 1920, height: 1080))
-        XCTAssertEqual(readiness(windowFrame: CGRect(x: 3000, y: 1048, width: 38, height: 32), screens: [screen, second]), .ready)
+        XCTAssertEqual(readiness(windowFrame: CGRect(x: 3000, y: 1048, width: 38, height: 32), screens: [screen, second,
+            ]), .ready)
     }
 
     /// Hidden by the user through AltTab's own setting: nothing to wait for.
@@ -69,7 +70,8 @@ final class AnchoredPopoverTests: XCTestCase {
         popover.close()
     }
 
-    /// No layout event arrives for an item macOS never places: the deadline alone has to trigger the fallback.
+    /// No layout event arrives for an item macOS never places: the deadline alone has to trigger the
+    /// fallback.
     func testTheSettleDeadlineFallsBackWithoutAnotherEvent() {
         let popover = TestPopover()
         let anchor = NSView()
@@ -130,6 +132,37 @@ final class AnchoredPopoverTests: XCTestCase {
         popover.close()
     }
 
+    func testAReadyAnchorThatRejectsPresentationFallsBackAtTheDeadline() {
+        let popover = TestPopover()
+        let anchor = NSView()
+        popover.readiness = .ready
+        popover.acceptsShow = false
+        popover.acceptsUnanchoredShow = true
+        popover.settleTimeout = 0
+        popover.present(NSView(), from: anchor)
+        drainMainQueue()
+        XCTAssertEqual(popover.unanchoredShowCount, 1)
+        XCTAssertFalse(popover.isWaitingForAnchor)
+        popover.close()
+    }
+
+    func testRejectedFallbackReleasesThePromptSlotWithoutAcknowledgingOrRetrying() {
+        let popover = TestPopover()
+        let anchor = NSView()
+        popover.readiness = .unavailable
+        popover.acceptsShow = false
+        var announcements = 0
+        popover.present(NSView(), from: anchor, onShown: { announcements += 1 })
+        drainMainQueue()
+        XCTAssertFalse(popover.isWaitingForAnchor)
+        XCTAssertNil(popover.contentViewController)
+        NotificationCenter.default.post(name: NSApplication.didUpdateNotification, object: nil)
+        drainMainQueue()
+        XCTAssertEqual(popover.unanchoredShowCount, 1)
+        XCTAssertEqual(announcements, 0)
+        popover.close()
+    }
+
     func testSummoningTheSwitcherCancelsAQueuedLessonBeforeItCanTakeFocus() {
         let popover = TestPopover()
         let anchor = NSView()
@@ -170,6 +203,22 @@ final class AnchoredPopoverTests: XCTestCase {
         popover.close()
     }
 
+    func testAButtonActionBeforeTheAppearanceAnimationFinishesAcknowledgesOnlyOnce() {
+        let popover = TestPopover()
+        let anchor = NSView()
+        var announcements = 0
+        popover.readiness = .ready
+        popover.present(NSView(), from: anchor, onShown: { announcements += 1 })
+        popover.acknowledgePresentation()
+        XCTAssertEqual(announcements, 0, "A queued presentation has not appeared yet")
+        drainMainQueue()
+        popover.acknowledgePresentation()
+        NotificationCenter.default.post(name: NSPopover.didShowNotification, object: popover)
+        popover.acknowledgePresentation()
+        XCTAssertEqual(announcements, 1)
+        popover.close()
+    }
+
     func testClosingAQueuedReminderPreventsItFromAppearingAfterPurchase() {
         let popover = TestPopover()
         let anchor = NSView()
@@ -201,6 +250,33 @@ final class AnchoredPopoverTests: XCTestCase {
         XCTAssertNil(released, "Closing must break the button-content-popover retention cycle")
     }
 
+    func testMissingStatusItemStillProvidesVisibleFeedback() {
+        let popover = TestPopover()
+        popover.present(NSView(), from: nil as NSStatusItem?)
+        drainMainQueue()
+        XCTAssertEqual(popover.unanchoredShowCount, 1)
+        XCTAssertFalse(popover.isWaitingForAnchor)
+        XCTAssertNotNil(popover.contentViewController)
+        popover.close()
+    }
+
+    func testDeferredEligibilityCanCancelBeforeTheAnchorSettles() {
+        let popover = TestPopover()
+        let anchor = NSView()
+        popover.readiness = .settling
+        var eligible = true
+        var shown = false
+        popover.present(NSView(), from: anchor, canPresent: { eligible }, onShown: { shown = true })
+        drainMainQueue()
+        eligible = false
+        popover.readiness = .ready
+        popover.retryPresentation()
+        drainMainQueue()
+        XCTAssertFalse(popover.isWaitingForAnchor)
+        XCTAssertFalse(shown)
+        XCTAssertNil(popover.contentViewController)
+    }
+
     func testTransientDismissalAlsoReleasesTheContent() {
         let popover = TestPopover()
         let anchor = NSView()
@@ -225,18 +301,19 @@ final class AnchoredPopoverTests: XCTestCase {
 private final class TestPopover: AnchoredPopover {
     var readiness = StatusItemAnchor.Readiness.settling
     var acceptsShow = true
+    var acceptsUnanchoredShow: Bool?
     var showCount = 0
     var unanchoredShowCount = 0
-    override func readiness(of anchor: NSView, isHidden: Bool, deadlinePassed: Bool) -> StatusItemAnchor.Readiness {
+    override func readiness(of _: NSView, isHidden _: Bool, deadlinePassed: Bool) -> StatusItemAnchor.Readiness {
         readiness == .settling && deadlinePassed ? .unavailable : readiness
     }
-    override func showImmediately(from anchor: NSView) -> Bool {
+    override func showImmediately(from _: NSView) -> Bool {
         showCount += 1
         return acceptsShow
     }
     override func showUnanchored() -> Bool {
         unanchoredShowCount += 1
-        return acceptsShow
+        return acceptsUnanchoredShow ?? acceptsShow
     }
 }
 

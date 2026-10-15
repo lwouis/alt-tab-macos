@@ -1,11 +1,38 @@
 import Cocoa
-import XCTest
 import ShortcutRecorder
+import XCTest
 
 final class SearchDiscoveryTests: XCTestCase {
     private let now = Date(timeIntervalSince1970: 1_800_000_000)
     private var context: SearchDiscoveryPolicy.Context {
-        .init(access: .pro, windowCount: 8, hasShortcut: true)
+        .init(access: .trial(day: 5), windowCount: 8, hasShortcut: true)
+    }
+
+    func testMascotFillsItsSlotWithoutClippingTheArtwork() throws {
+        _ = NSApplication.shared
+        let file = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent()
+            .deletingLastPathComponent().deletingLastPathComponent().appendingPathComponent("resources/pro-rabbit.png")
+        let source = try XCTUnwrap(NSImage(contentsOf: file))
+        func visibleBounds(_ image: NSImage) throws -> CGRect {
+            let view = NSImageView(frame: NSRect(x: 0, y: 0, width: 76, height: 76))
+            view.image = image
+            view.imageScaling = .scaleProportionallyUpOrDown
+            let bitmap = try XCTUnwrap(view.bitmapImageRepForCachingDisplay(in: view.bounds))
+            view.cacheDisplay(in: view.bounds, to: bitmap)
+            var bounds = CGRect.null
+            for y in 0..<bitmap.pixelsHigh {
+                for x in 0..<bitmap.pixelsWide where (bitmap.colorAt(x: x, y: y)?.alphaComponent ?? 0) > 0.01 {
+                    bounds = bounds.union(CGRect(x: x, y: y, width: 1, height: 1))
+                }
+            }
+            let scale = CGFloat(bitmap.pixelsWide) / 76
+            return CGRect(x: bounds.minX / scale, y: bounds.minY / scale,
+                          width: bounds.width / scale, height: bounds.height / scale)
+        }
+        let bounds = try visibleBounds(source)
+        XCTAssertGreaterThan(bounds.width, 70)
+        XCTAssertGreaterThan(bounds.height, 64)
+        XCTAssertTrue(CGRect(x: 0, y: 0, width: 76, height: 76).contains(bounds))
     }
 
     func testThresholdUsesEligibleTargets() {
@@ -26,9 +53,11 @@ final class SearchDiscoveryTests: XCTestCase {
         }
     }
 
-    func testProCanDiscoverSearchButLockedUsersCannot() {
+    func testPurchaseAndExpirationStopDiscovery() {
         var c = context
         XCTAssertTrue(c.isEligible(history: .init(hasSearched: false)))
+        c.access = .pro
+        XCTAssertFalse(c.isEligible(history: .init(hasSearched: false)))
         c.access = .locked
         XCTAssertFalse(c.isEligible(history: .init(hasSearched: false)))
     }
@@ -147,34 +176,46 @@ final class SearchDiscoveryTests: XCTestCase {
         XCTAssertTrue(opportunity.isReady(current: opportunity, now: 100.5))
     }
 
-    func testPlacementAboveAndBelowWithoutMovingSwitcher() {
-        let screen = CGRect(x: 0, y: 0, width: 1200, height: 800)
-        let size = CGSize(width: 470, height: 44)
-        let switcher = CGRect(x: 100, y: 200, width: 1000, height: 400)
-        let above = SearchDiscoveryPolicy.frame(size: size, switcher: switcher, visibleScreen: screen, obstruction: nil)!
-        XCTAssertEqual(above, CGRect(x: 365, y: 608, width: 470, height: 44))
-        let below = SearchDiscoveryPolicy.frame(size: size, switcher: switcher, visibleScreen: screen, obstruction: above)!
-        XCTAssertEqual(below, CGRect(x: 365, y: 148, width: 470, height: 44))
+    func testPlacementAboveSwitcherWhenItFits() throws {
+        let size = CGSize(width: 470, height: 88)
+        let screen = CGRect(x: 0, y: 0, width: 1200, height: 900)
+        let switcher = CGRect(x: 100, y: 200, width: 800, height: 400)
+        let above = try XCTUnwrap(SearchDiscoveryPolicy.frame(size: size, switcher: switcher, visibleScreen: screen))
+        XCTAssertEqual(above.minY, switcher.maxY + 8)
+        XCTAssertEqual(above.midX, switcher.midX)
     }
 
-    func testPlacementUsesActualScreenOriginAndClampsHorizontally() {
+    func testPlacementOverBottomOfSwitcherWhenAboveDoesNotFit() throws {
+        let size = CGSize(width: 470, height: 88)
+        let screen = CGRect(x: 0, y: 0, width: 1200, height: 900)
+        let switcher = CGRect(x: 100, y: 100, width: 1000, height: 720)
+        let bottom = try XCTUnwrap(SearchDiscoveryPolicy.frame(size: size, switcher: switcher, visibleScreen: screen))
+        XCTAssertEqual(bottom.minY, switcher.minY + 16)
+        XCTAssertEqual(bottom.midX, switcher.midX)
+        XCTAssertTrue(switcher.contains(bottom))
+    }
+
+    func testPlacementOverBottomStaysOnScreenWhenSwitcherExtendsBelowIt() throws {
+        let screen = CGRect(x: 0, y: 100, width: 800, height: 600)
+        let result = try XCTUnwrap(SearchDiscoveryPolicy.frame(size: CGSize(width: 470, height: 88),
+            switcher: CGRect(x: 0, y: 0, width: 800, height: 800), visibleScreen: screen))
+        XCTAssertEqual(result.minY, screen.minY + 8)
+        XCTAssertTrue(screen.contains(result))
+    }
+
+    func testPlacementUsesActualScreenOriginAndClampsHorizontally() throws {
         let screen = CGRect(x: -1600, y: 300, width: 1600, height: 900)
-        let result = SearchDiscoveryPolicy.frame(size: CGSize(width: 470, height: 44),
-            switcher: CGRect(x: -1600, y: 700, width: 300, height: 200), visibleScreen: screen, obstruction: nil)!
+        let result = try XCTUnwrap(SearchDiscoveryPolicy.frame(size: CGSize(width: 470, height: 44),
+            switcher: CGRect(x: -1600, y: 700, width: 300, height: 200), visibleScreen: screen))
         XCTAssertEqual(result.minX, -1592)
         XCTAssertEqual(result.minY, 908)
         XCTAssertTrue(screen.contains(result))
     }
 
-    func testNoHintWhenNeitherSideFitsOrPreviewCoversBoth() {
+    func testNoHintWhenWiderOrTallerThanScreen() {
         let screen = CGRect(x: 0, y: 0, width: 800, height: 600)
-        let size = CGSize(width: 470, height: 44)
-        XCTAssertNil(SearchDiscoveryPolicy.frame(size: size,
-            switcher: screen.insetBy(dx: 20, dy: 20), visibleScreen: screen, obstruction: nil))
-        XCTAssertNil(SearchDiscoveryPolicy.frame(size: size,
-            switcher: CGRect(x: 100, y: 200, width: 600, height: 200), visibleScreen: screen, obstruction: screen))
-        XCTAssertNil(SearchDiscoveryPolicy.frame(size: CGSize(width: 900, height: 44),
-            switcher: .zero, visibleScreen: screen, obstruction: nil))
+        XCTAssertNil(SearchDiscoveryPolicy.frame(size: CGSize(width: 900, height: 44), switcher: .zero, visibleScreen: screen))
+        XCTAssertNil(SearchDiscoveryPolicy.frame(size: CGSize(width: 470, height: 700), switcher: .zero, visibleScreen: screen))
     }
 
     func testPanelDoesNotTakeFocusAndCloseButtonIsAccessible() {
@@ -220,16 +261,109 @@ final class SearchDiscoveryTests: XCTestCase {
             XCTAssertFalse(cell.wantsToTrackMouse())
             XCTAssertFalse(panel.hintLabel.isEditable)
             XCTAssertFalse(panel.hintLabel.isSelectable)
-            XCTAssertTrue(panel.hintLabel.accessibilityLabel()!.contains("Command Shift F"))
+            XCTAssertTrue(try XCTUnwrap(panel.hintLabel.accessibilityLabel()?.contains("Command Shift F")))
             XCTAssertFalse(panel.hintLabel.stringValue.contains("Pro"))
             XCTAssertFalse(panel.hintLabel.frame.intersects(panel.dismissButton.frame))
             XCTAssertTrue(NSRect(origin: .zero, size: size).contains(panel.hintLabel.frame))
-            XCTAssertEqual(panel.contentView?.layer?.borderWidth, 2)
+            XCTAssertEqual(panel.background.layer?.borderWidth, 0)
+            XCTAssertTrue((panel.background as? SpeechBubbleView)?.highContrast == true)
             XCTAssertEqual(panel.dismissButton.frame.size, NSSize(width: 24, height: 24))
         }
     }
 
-    func testPanelTakesSwitcherBackgroundAndCloseButtonHovers() throws {
+    func testTipInsetsKeepCloseControlInsideBodyAndClearOfText() {
+        let panel = SearchDiscoveryPanel()
+        for width: CGFloat in [250, 560] {
+            _ = panel.prepare(shortcut: "S", spokenShortcut: "S", dark: false,
+                highContrast: false, maxWidth: width, title: "Find a window by typing")
+            XCTAssertEqual(panel.hintLabel.frame.minX, 22)
+            XCTAssertEqual(panel.hintLabel.frame.minY, 12)
+            XCTAssertEqual(panel.titleLabel.frame.minY - panel.hintLabel.frame.maxY, 4)
+            XCTAssertEqual(panel.background.bounds.maxX - panel.dismissButton.frame.maxX, 8)
+            XCTAssertEqual(panel.background.bounds.maxY - panel.dismissButton.frame.maxY, 8)
+            XCTAssertFalse(panel.hintLabel.frame.intersects(panel.dismissButton.frame))
+            XCTAssertFalse(panel.dismissButton.acceptsFirstResponder)
+        }
+    }
+
+    func testBubbleHugsShortContentAndCapsLongContent() {
+        _ = NSApplication.shared
+        let panel = SearchDiscoveryPanel()
+        let short = panel.prepare(shortcut: "S", spokenShortcut: "S", dark: false,
+            highContrast: false, maxWidth: 900, title: "Find", instruction: "Press %@.")
+        XCTAssertLessThan(short.width, 350)
+        let long = panel.prepare(shortcut: "⌘⇧F", spokenShortcut: "Command Shift F", dark: false,
+            highContrast: false, maxWidth: 900, title: String(repeating: "Window title ", count: 15))
+        XCTAssertEqual(long.width, 560)
+        XCTAssertEqual(long.height, short.height)
+        XCTAssertEqual(panel.titleLabel.maximumNumberOfLines, 1)
+        XCTAssertEqual(panel.hintLabel.maximumNumberOfLines, 1)
+        XCTAssertEqual(panel.titleLabel.lineBreakMode, .byTruncatingTail)
+        XCTAssertEqual(panel.hintLabel.lineBreakMode, .byTruncatingTail)
+        XCTAssertFalse(panel.hintLabel.frame.intersects(panel.dismissButton.frame))
+    }
+
+    func testLongTipKeepsTwoSingleLinesAndFullAccessibleInstructions() {
+        let panel = SearchDiscoveryPanel()
+        let title = "Show only A very long application name windows (active app)"
+        let instruction = String(repeating: "Hold ", count: 20) + "%@ then press %@"
+        for width: CGFloat in [250, 560] {
+            let size = panel.prepare(shortcut: "`", spokenShortcut: "Grave", dark: false, highContrast: false,
+                maxWidth: width, title: title, instruction: instruction, holdKey: (label: "⌥", spoken: "Option"))
+            XCTAssertEqual(size.height, 76)
+            XCTAssertLessThanOrEqual(size.width, width)
+            XCTAssertEqual(panel.titleLabel.stringValue, title)
+            XCTAssertEqual(panel.hintLabel.accessibilityLabel(), String(format: instruction, "Option", "Grave"))
+            XCTAssertEqual(panel.titleLabel.frame.height, 24)
+            XCTAssertEqual(panel.hintLabel.frame.height, 24)
+            XCTAssertFalse(panel.titleLabel.frame.intersects(panel.dismissButton.frame))
+            XCTAssertFalse(panel.hintLabel.frame.intersects(panel.dismissButton.frame))
+        }
+    }
+
+    /// Translations may reorder the two placeholders; each keycap and its spoken name follow its argument.
+    func testExtraShortcutInstructionShowsHoldAndKeyAsKeycaps() {
+        _ = NSApplication.shared
+        let panel = SearchDiscoveryPanel()
+        for (instruction, spoken) in [("Keep holding %@ then press %@", "Keep holding Option then press `"),
+                                      ("Press %2$@ while holding %1$@.", "Press ` while holding Option.")] {
+            _ = panel.prepare(shortcut: "`", spokenShortcut: "`", dark: false, highContrast: false, maxWidth: 560,
+                              title: "Show only Safari windows (active app)", instruction: instruction,
+                              holdKey: (label: "⌥", spoken: "Option"))
+            let text = panel.hintLabel.attributedStringValue
+            var attachments = 0
+            text.enumerateAttribute(.attachment, in: NSRange(location: 0, length: text.length)) { value, _, _ in
+                if value is NSTextAttachment { attachments += 1 }
+            }
+            XCTAssertEqual(attachments, 2)
+            XCTAssertFalse(text.string.contains("%"))
+            XCTAssertEqual(panel.hintLabel.accessibilityLabel(), spoken)
+        }
+    }
+
+    func testShortcutCardsCombineConfiguredHoldAndNextKeys() throws {
+        let hold = Shortcut(code: .none, modifierFlags: [.option], characters: nil, charactersIgnoringModifiers: nil)
+        let next = try XCTUnwrap(Shortcut(keyEquivalent: "⇥"))
+        XCTAssertEqual(SearchDiscoveryShortcut.combinedLabel(hold: hold, next: next), "⌥⇥")
+        XCTAssertNil(SearchDiscoveryShortcut.combinedLabel(hold: hold, next: nil))
+        XCTAssertNil(SearchDiscoveryShortcut.combinedLabel(hold: hold, next: hold))
+    }
+
+    func testBubbleTailHasOneClosedOutlineInBothDirections() {
+        let bubble = SpeechBubbleView(frame: NSRect(x: 0, y: 0, width: 300, height: 90))
+        for rtl in [false, true] {
+            bubble.pointsRight = rtl
+            let path = bubble.bubblePath()
+            var points = [NSPoint](repeating: .zero, count: 3)
+            let elements = (0..<path.elementCount).map { path.element(at: $0, associatedPoints: &points) }
+            XCTAssertEqual(elements.prefix(while: { $0 != .closePath }).filter { $0 == .moveTo }.count, 1)
+            XCTAssertEqual(elements.filter { $0 == .closePath }.count, 1)
+            XCTAssertTrue(path.contains(NSPoint(x: rtl ? 296 : 4, y: 45)))
+            XCTAssertFalse(path.contains(NSPoint(x: rtl ? 296 : 4, y: 20)))
+        }
+    }
+
+    func testPanelTakesSwitcherBackgroundAndCloseButtonHovers() {
         _ = NSApplication.shared
         let panel = SearchDiscoveryPanel()
         let background = NSView()
@@ -238,11 +372,11 @@ final class SearchDiscoveryTests: XCTestCase {
         panel.setBackground(background, host: host)
         let size = panel.prepare(shortcut: "S", spokenShortcut: "S", dark: true, highContrast: false, maxWidth: 470,
                                  maxCornerRadius: 50)
-        XCTAssertTrue(panel.contentView === background)
+        XCTAssertTrue(background.superview === panel.contentView)
         XCTAssertTrue(panel.hintLabel.superview === host)
         XCTAssertTrue(panel.dismissButton.superview === host)
-        XCTAssertEqual(host.frame.size, size)
-        XCTAssertEqual(panel.cornerRadius, size.height / 2)
+        XCTAssertEqual(host.frame.size, NSSize(width: size.width - 88, height: size.height))
+        XCTAssertEqual(panel.cornerRadius, 24)
         XCTAssertEqual(background.layer?.borderWidth, 0)
         XCTAssertNil(panel.dismissButton.layer?.backgroundColor)
         panel.dismissButton.isHovered = true
@@ -251,13 +385,47 @@ final class SearchDiscoveryTests: XCTestCase {
         XCTAssertNil(panel.dismissButton.layer?.backgroundColor)
     }
 
-    func testShortcutLabelReflectsBindingWithoutInventingHoldModifiers() {
-        let bare = Shortcut(keyEquivalent: "S")!
+    func testShortcutLabelReflectsBindingWithoutInventingHoldModifiers() throws {
+        let bare = try XCTUnwrap(Shortcut(keyEquivalent: "S"))
         let modified = Shortcut(code: bare.keyCode, modifierFlags: [.command, .shift], characters: nil, charactersIgnoringModifiers: nil)
         XCTAssertEqual(SearchDiscoveryShortcut.label(bare),
                        SymbolicKeyCodeTransformer.shared.transformedValue(NSNumber(value: bare.carbonKeyCode))?.uppercased())
         XCTAssertEqual(SearchDiscoveryShortcut.label(modified), "⇧⌘" + SearchDiscoveryShortcut.label(bare)!)
         XCTAssertNil(SearchDiscoveryShortcut.label(Shortcut(code: .none, modifierFlags: [], characters: nil, charactersIgnoringModifiers: nil)))
+    }
+
+    func testActiveAppTipRequiresBothAUsefulGroupAndOtherAppsToExclude() {
+        XCTAssertFalse(SearchDiscoveryPolicy.canDemonstrateActiveApp(activeWindows: 0, totalWindows: 8))
+        XCTAssertFalse(SearchDiscoveryPolicy.canDemonstrateActiveApp(activeWindows: 1, totalWindows: 8))
+        XCTAssertFalse(SearchDiscoveryPolicy.canDemonstrateActiveApp(activeWindows: 3, totalWindows: 3))
+        XCTAssertTrue(SearchDiscoveryPolicy.canDemonstrateActiveApp(activeWindows: 2, totalWindows: 3))
+    }
+
+    func testSearchAndExtraShortcutShareExposureBudgetAndCooldown() {
+        var history = SearchDiscoveryPolicy.History(hasSearched: false)
+        history.hasUsedExtraShortcut = false
+        var context = SearchDiscoveryPolicy.Context(
+            access: .trial(day: 5),
+            windowCount: 3,
+            hasShortcut: true,
+            extraShortcut: true
+        )
+        XCTAssertTrue(context.isEligible(history: history))
+        let now = Date(timeIntervalSince1970: 10000)
+        history.recordExposure(at: now)
+        context.extraShortcut = false
+        context.windowCount = 8
+        XCTAssertTrue(context.isEligible(history: history))
+        XCTAssertFalse(history.canPresent(at: now.addingTimeInterval(60)))
+        history.recordExposure(at: now.addingTimeInterval(SearchDiscoveryPolicy.cooldown))
+        history.recordExposure(at: now.addingTimeInterval(2 * SearchDiscoveryPolicy.cooldown))
+        XCTAssertFalse(history.canPresent(at: now.addingTimeInterval(3 * SearchDiscoveryPolicy.cooldown)))
+        history.recordSearch()
+        XCTAssertFalse(context.isEligible(history: history))
+        context.extraShortcut = true
+        XCTAssertTrue(context.isEligible(history: history))
+        history.hasUsedExtraShortcut = true
+        XCTAssertFalse(context.isEligible(history: history))
     }
 
     func testNativeHintRendering() throws {
@@ -275,12 +443,13 @@ final class SearchDiscoveryTests: XCTestCase {
             view.layoutSubtreeIfNeeded()
             let bitmap = try XCTUnwrap(view.bitmapImageRepForCachingDisplay(in: view.bounds))
             view.cacheDisplay(in: view.bounds, to: bitmap)
-            let snapshot = XCTAttachment(data: try XCTUnwrap(bitmap.representation(using: .png, properties: [:])),
+            let snapshot = try XCTAttachment(
+                data: XCTUnwrap(bitmap.representation(using: .png, properties: [:])),
                                            uniformTypeIdentifier: "public.png")
             snapshot.name = dark ? "Search hint - dark" : "Search hint - light"
             snapshot.lifetime = .keepAlways
             add(snapshot)
-            XCTAssertEqual(size.height, 44)
+            XCTAssertEqual(size.height, 76)
         }
     }
 }

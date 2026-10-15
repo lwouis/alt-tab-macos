@@ -4,7 +4,7 @@ import Foundation
 /// indices plus the preference snapshot/restore logic those indices drive. Snapshots itself into
 /// `ProTransitionManagerTestable.State` for the pure decision logic to consume.
 ///
-/// Storage: `LicenseManager.defaultsSuiteName` suite, keys prefixed `proTransition.`.
+/// Storage: `LicenseManager.defaultsSuiteName`, with `proTransition.` flags and local `proJourney.` evidence.
 class ProTransitionState {
     var onboardingInProgress = false
     static let defaults = UserDefaults(suiteName: LicenseManager.defaultsSuiteName)!
@@ -13,23 +13,22 @@ class ProTransitionState {
 
     var hasSeenWelcome: Bool { get { Self.bool("hasSeenWelcome") } set { Self.set("hasSeenWelcome", newValue) } }
     var hasSeenDay4Tour: Bool { get { Self.bool("hasSeenDay4Tour") } set { Self.set("hasSeenDay4Tour", newValue) } }
-    var hasSeenDay12: Bool { get { Self.bool("hasSeenDay12") } set { Self.set("hasSeenDay12", newValue) } }
+    var day4TourDeferred: Bool { get { Self.bool("day4TourDeferred") } set { Self.set("day4TourDeferred", newValue) } }
     var freePassUsed: Bool { get { Self.bool("freePassUsed") } set { Self.set("freePassUsed", newValue) } }
     var hasSeenFullUpgrade: Bool { get { Self.bool("hasSeenFullUpgrade") } set { Self.set("hasSeenFullUpgrade", newValue) } }
     var hasSeenProactiveDay15: Bool { get { Self.bool("hasSeenProactiveDay15") } set { Self.set("hasSeenProactiveDay15", newValue) } }
-    var hasSeenDay21: Bool { get { Self.bool("hasSeenDay21") } set { Self.set("hasSeenDay21", newValue) } }
     var hasSeenDay35: Bool { get { Self.bool("hasSeenDay35") } set { Self.set("hasSeenDay35", newValue) } }
     var userOptedOut: Bool { get { Self.bool("userOptedOut") } set { Self.set("userOptedOut", newValue) } }
     var hasTriggeredPostExpirationSwitcher: Bool { get { Self.bool("hasTriggeredPostExpirationSwitcher") } set { Self.set("hasTriggeredPostExpirationSwitcher", newValue) } }
 
-    static var isFreshInstall: Bool { Self.bool("isFreshInstall") }
+    static var isFreshInstall: Bool { bool("isFreshInstall") }
 
     /// Persists the fresh-install signal from `PreferencesMigrations.migratePreferences()` (which is
     /// the only place that can still observe nil `preferencesVersion`). Idempotent: only writes the
     /// first time, so re-running migration on subsequent launches doesn't reclassify the user.
     static func markFreshInstallIfUnknown(_ value: Bool) {
-        guard Self.defaults.object(forKey: "proTransition.isFreshInstall") == nil else { return }
-        Self.defaults.set(value, forKey: "proTransition.isFreshInstall")
+        guard defaults.object(forKey: "proTransition.isFreshInstall") == nil else { return }
+        defaults.set(value, forKey: "proTransition.isFreshInstall")
     }
 
     // MARK: - Remembered Pro indices (for ghost UI + restoration on unlock)
@@ -45,14 +44,10 @@ class ProTransitionState {
 
     // MARK: - Snapshot / restore Pro preferences
 
-    /// Snapshot the user's Pro-selected preferences and switch them to Free equivalents so the
-    /// switcher and Settings UI render the locked experience immediately. Snapshots the Pro index
-    /// into `remembered*` for two purposes: (1) drives the ghost outline in Settings, (2) is read
-    /// back by `PreferenceDefinition.read()` during an active free-pass session so the user gets
-    /// one last Pro switcher session before [C]. Called exactly once per user — the first time
-    /// either [C] Day15 FullUpgrade or [D] Day15 Proactive is shown. Idempotent: re-entry is a
-    /// no-op since stored values no longer match the Pro set after the first pass.
+    /// Capture adoption before downgrade. Remembered values drive the locked Settings outlines,
+    /// the final free-pass session and restoration after activation. Re-entry is idempotent.
     func onProLockEngaged() {
+        captureJourneyPreferences()
         for pref in ProGatedPreferences.all {
             if let storedIndex = pref.snapshotAndDowngrade() {
                 Self.setInt(pref.rememberedKey, storedIndex)
@@ -78,25 +73,71 @@ class ProTransitionState {
     /// Assemble a `ProTransitionManagerTestable.State` for the pure decision logic.
     func snapshot(licenseState: LicenseState, daysSinceTrialStart: Int, clock: Clock) -> ProTransitionManagerTestable.State {
         let now = clock.now
-        let cal = Calendar.current
-        let hour = cal.component(.hour, from: now)
-        let minute = cal.component(.minute, from: now)
         return ProTransitionManagerTestable.State(
+            isAwaitingTrial: licenseState == .trialNotStarted,
             isPro: { if case .pro = licenseState { return true }; return false }(),
             isTrialActive: licenseState.isProAvailable,
             daysSinceTrialStart: daysSinceTrialStart,
-            isInTimeWindow: ProTransitionManagerTestable.isInTimeWindow(hour: hour, minute: minute),
             hasSeenWelcome: hasSeenWelcome,
             hasSeenDay4Tour: hasSeenDay4Tour,
-            hasSeenDay12: hasSeenDay12,
+            day4TourDeferred: day4TourDeferred,
             freePassUsed: freePassUsed,
             hasSeenFullUpgrade: hasSeenFullUpgrade,
             hasSeenProactiveDay15: hasSeenProactiveDay15,
-            hasSeenDay21: hasSeenDay21,
             hasSeenDay35: hasSeenDay35,
             userOptedOut: userOptedOut,
-            hasTriggeredPostExpirationSwitcher: hasTriggeredPostExpirationSwitcher
+            hasTriggeredPostExpirationSwitcher: hasTriggeredPostExpirationSwitcher,
+            usesThumbnails: Preferences.effectiveAppearanceStyle(0) == .thumbnails,
+            recentIntent: ProJourneyEvidence.hasRecentIntent(
+                at: Self.defaults.object(forKey: "proJourney.lastIntentAt") as? Date,
+                now: now
+            ),
+            messageShownToday: messageShownToday(now)
         )
+    }
+
+    func messageShownToday(_ now: Date) -> Bool {
+        ProJourneyEvidence.isMessageToday(Self.defaults.object(forKey: "proJourney.lastMessageAt") as? Date,
+                                          now: now, calendar: .current)
+    }
+
+    func recordMessage() {
+        Self.defaults.set(LicenseManager.shared.clock.now, forKey: "proJourney.lastMessageAt")
+    }
+
+    var lastIntent: ProJourneyFeature? {
+        Self.defaults.string(forKey: "proJourney.lastIntent").flatMap(ProJourneyFeature.init(rawValue:))
+    }
+
+    func recordIntent(_ feature: ProJourneyFeature) {
+        Self.defaults.set(feature.rawValue, forKey: "proJourney.lastIntent")
+        Self.defaults.set(LicenseManager.shared.clock.now, forKey: "proJourney.lastIntentAt")
+    }
+
+    private func captureJourneyPreferences() {
+        guard LicenseManager.shared.state == .trialExpired else { return }
+        guard Self.defaults.object(forKey: "proJourney.preferencesCaptured") == nil else { return }
+        let index = ProJourneyEvidence.captureShortcutIndex(Self.defaults.integer(forKey: "proJourney.lastTrialShortcut"),
+                                                            shortcutCount: Preferences.shortcutCount)
+        let styleKey = Preferences.hasOverride("appearanceStyleOverride", index)
+            ? Preferences.indexToName("appearanceStyleOverride", index)
+            : "appearanceStyle"
+        let sizeKey = Preferences.hasOverride("appearanceSizeOverride", index)
+            ? Preferences.indexToName("appearanceSizeOverride", index)
+            : "appearanceSize"
+        let style: AppearanceStylePreference = CachedUserDefaults.macroPref(
+            styleKey,
+            AppearanceStylePreference.allCases
+        )
+        let size: AppearanceSizePreference = CachedUserDefaults.macroPref(
+            sizeKey,
+            AppearanceSizePreference.allCases
+        )
+        let captured = ProJourneyEvidence.capture(styleIndex: style.index, autoSize: size == .auto,
+            previouslyDowngraded: hasSeenFullUpgrade || hasSeenProactiveDay15 || rememberedAppearanceStyle != nil)
+        if let adopted = captured.adoptedStyle { Self.defaults.set(adopted, forKey: "proJourney.adoptedStyle") }
+        if let auto = captured.usedAuto { Self.defaults.set(auto, forKey: "proJourney.usedAuto") }
+        Self.defaults.set(true, forKey: "proJourney.preferencesCaptured")
     }
 
     // MARK: - QA / Debug
@@ -105,11 +146,13 @@ class ProTransitionState {
     /// Remove all persisted Pro-transition flags and remembered indices. Caller is responsible
     /// for running `onProUnlocked()` first if the user had snapshotted Pro selections.
     func resetAll() {
-        let flagKeys = ["hasSeenWelcome", "hasSeenDay4Tour", "hasSeenDay12", "freePassUsed", "hasSeenFullUpgrade",
-                        "hasSeenProactiveDay15", "hasSeenDay21", "hasSeenDay35", "userOptedOut",
+        let flagKeys = ["hasSeenWelcome", "hasSeenDay4Tour", "day4TourDeferred", "freePassUsed", "hasSeenFullUpgrade",
+                        "hasSeenProactiveDay15", "hasSeenDay35", "userOptedOut",
                         "hasTriggeredPostExpirationSwitcher", "isFreshInstall", "nextScheduledDate"]
-        let rememberedKeys = ProGatedPreferences.all.map { $0.rememberedKey }
+        let rememberedKeys = ProGatedPreferences.all.map(\.rememberedKey)
         (flagKeys + rememberedKeys).forEach { Self.defaults.removeObject(forKey: "proTransition.\($0)") }
+        Self.defaults.dictionaryRepresentation().keys.filter { $0.hasPrefix("proJourney.") }
+            .forEach { Self.defaults.removeObject(forKey: $0) }
     }
     #endif
 

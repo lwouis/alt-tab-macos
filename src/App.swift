@@ -116,6 +116,7 @@ class App: AppCenterApplication {
         Tooltips.hideAll()
         MainMenu.toggle(true)
         ProTransitionManager.shared.onSwitcherDismissed()
+        ProTransitionManager.shared.refreshAfterSwitcherDismissal()
         OnboardingPopover.switcherWasDismissed()
     }
 
@@ -191,6 +192,8 @@ class App: AppCenterApplication {
     }
 
     static func showSecondaryWindow(_ window: NSWindow) {
+        ProPromptHost.windowPresentation.cancel()
+        ProPromptPopover.cancelPendingPresentations()
         NSScreen.updatePreferred()
         App.shared.activate(ignoringOtherApps: true)
         window.makeKeyAndOrderFront(nil)
@@ -239,17 +242,11 @@ class App: AppCenterApplication {
         let isNewUsersFirstLaunch = !Preferences.settingsWindowShownOnFirstLaunch && ProTransitionState.isFreshInstall
         let announcesTrial = willShowDay1WelcomeOnAppLaunch()
         guard isNewUsersFirstLaunch,
-              OnboardingPopover.show(trialDaysToAnnounce: announcesTrial ? trialDaysRemaining() : nil) else {
+              OnboardingPopover.show(announcesTrial: announcesTrial) else {
             showSettingsWindowOnFirstLaunchIfNeeded()
             return
         }
         ProTransitionManager.shared.state.onboardingInProgress = true
-    }
-
-    private static func trialDaysRemaining() -> Int? {
-        LicenseManager.shared.refreshState()
-        guard case .trial(let daysRemaining) = LicenseManager.shared.state else { return nil }
-        return daysRemaining
     }
 
     @discardableResult
@@ -269,15 +266,15 @@ class App: AppCenterApplication {
     /// "now" for the Welcome prompt. Kept narrow on purpose: the other Day-X prompts are gated by
     /// trial age and don't fire on the very first launch.
     private static func willShowDay1WelcomeOnAppLaunch() -> Bool {
-        if case .pro = LicenseManager.shared.state { return false }
+        guard case .trial = LicenseManager.shared.state else { return false }
         return !ProTransitionManager.shared.hasSeenWelcome
     }
 
     private static func deferFirstLaunchSettingsUntilDay1WelcomeCloses() {
         NotificationCenter.default.removeObserver(&firstLaunchSettingsObserver)
         firstLaunchSettingsObserver = NotificationCenter.default.addObserver(
-            forName: NSWindow.willCloseNotification, object: nil, queue: .main) { notification in
-            guard notification.object is Day1WelcomeLetterWindow else { return }
+            forName: NSPopover.didCloseNotification, object: nil, queue: .main) { notification in
+            guard Day1WelcomeLetterPopover.owns(notification.object) else { return }
             NotificationCenter.default.removeObserver(&firstLaunchSettingsObserver)
             DispatchQueue.main.async { showAndCenterSettingsWindowOnFirstLaunch() }
         }
@@ -574,6 +571,8 @@ class App: AppCenterApplication {
         #endif
         PreferencesEvents.initialize()
         BenchmarkRunner.startIfNeeded()
+        LicenseManager.shared.onAppBecameUsable(accessibility: AccessibilityPermission.status,
+                                               screenRecording: ScreenRecordingPermission.status)
         endFirstLaunchWithPopoverOrSettings()
         if pendingShowSettingsWindow {
             pendingShowSettingsWindow = false
@@ -589,7 +588,9 @@ class App: AppCenterApplication {
         #endif
         SearchDiscoveryHint.shared.initialize()
         UsageStats.prune()
-        ProTransitionManager.shared.onAction = { ProPromptHost.shared.dispatch($0) }
+        // Created now rather than on the first prompt: its observers cancel prompts queued before that.
+        let promptHost = ProPromptHost.shared
+        ProTransitionManager.shared.onAction = { promptHost.dispatch($0) }
         ProTransitionManager.shared.onAppLaunchComplete()
         #if DEBUG
         if QaLifecycle.enabled { QaLifecycle.finishedLaunching = true; QaLifecycle.launchCount += 1 }
@@ -643,6 +644,9 @@ extension App: NSApplicationDelegate {
         WindowServerEvents.observe()
         AXUIElement.setGlobalTimeout()
         PreferencesPersistenceCheck.runInBackground()
+        LicenseManager.shared.onActivationSucceeded = {
+            DispatchQueue.main.async { ProActivationPopover.show() }
+        }
         LicenseManager.shared.onBeforeProUnlock = {
             if !LicenseManager.shared.isMocked { ProTransitionManager.shared.onProUnlocked() }
         }

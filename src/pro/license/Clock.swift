@@ -8,8 +8,10 @@ struct SystemClock: Clock {
     var now: Date {
         #if DEBUG
         if QaLifecycleEnvironment.enabled, let now = QaLifecycleEnvironment.now { return now }
-        #endif
+        return Date(timeIntervalSinceNow: QaLifecycleEnvironment.menuClockOffset)
+        #else
         return Date()
+        #endif
     }
 }
 
@@ -20,6 +22,8 @@ enum QaLifecycleEnvironment {
         .flatMap { UUID(uuidString: String($0.dropFirst("--qa-lifecycle-session=".count)))?.uuidString }
     static var enabled: Bool { session != nil }
     static var now: Date?
+    /// Set by the QA menu's day and time controls. Unlike `now`, the clock keeps ticking, so timers fire.
+    static var menuClockOffset: TimeInterval = 0
     static var namespace: String { "\(App.bundleIdentifier).qa.lifecycle.\(session!)" }
 }
 #endif

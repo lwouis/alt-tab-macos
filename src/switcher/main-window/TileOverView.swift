@@ -44,7 +44,7 @@ class TileOverView: FlippedView {
         guard let scrollView, !scrollView.isCurrentlyScrolling, !TilesView.hasMarkedText(), !ContextMenuEvents.isMenuOpen else { return }
         let location = convert(TilesPanel.shared.mouseLocationOutsideOfEventStream, from: nil)
         updateButtonHover(location)
-        let newTarget = findTarget(location)
+        let newTarget = SearchDiscoveryHint.shared.containsMouseLocation ? nil : findTarget(location)
         if let target = newTarget ?? previousTarget {
             let statusFrame = target.convert(target.statusIcons.frame, to: superview)
             if statusFrame.contains(location) {

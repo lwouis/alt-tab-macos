@@ -16,6 +16,7 @@ It is built from three injected collaborators so the logic is testable without r
 ## State model
 
 ```
+.trialNotStarted       →  .trial(14)      (first usable launch, no existing license)
 .trial(daysRemaining)  →  .pro            (user activates a key)
 .trial(daysRemaining)  →  .trialExpired   (14 days elapse)
 .pro                   →  .trialExpired    (revalidation fails / license invalidated, still in/after trial window)
@@ -24,7 +25,11 @@ It is built from three injected collaborators so the logic is testable without r
 
 ### Behavior & edge cases (the load-bearing rules)
 
-- **Trial length is 14 days, 0-indexed internally.** Day 0 = first launch → `.trial(14)`; day 13 → `.trial(1)`; day 14 → `.trialExpired`. The trial start is persisted on first launch and **never reset** on relaunch.
+- **Trial length is 14 days, 0-indexed internally.** Day 0 = first usable launch → `.trial(14)`; day 13 → `.trial(1)`; day 14 → `.trialExpired`. Days remain elapsed 24-hour periods, not calendar boundaries.
+- **First usable milestone.** `App.continueAppLaunchAfterPermissionsAreGranted()` calls `onAppBecameUsable` after the switcher panels, keyboard handlers, input observers and preference observers exist, immediately before first-launch onboarding/Settings. Accessibility must still be granted, and Screen Recording must be granted or explicitly waived. The asynchronous window inventory may still be arriving; it does not block switching or this milestone. Merely opening the permission window, granting Accessibility alone, or reading license state cannot start the clock. The first shortcut demonstration and welcome dismissal are not trial-start events.
+- **Pre-trial is explicit.** With neither a saved start nor a license, initialization and refresh return `.trialNotStarted`. It grants no runtime Pro actions and is not an expiry: no preference downgrade, free pass, welcome, discovery, badge or purchase prompt. It has no end date or trial day. Settings can still activate an existing key. An unresolved setup can remain pending across arbitrary time and relaunches.
+- **Migration never extends a saved trial.** Every stored `trialStartDate` is preserved verbatim, including starts from versions that began at initialization, expired dates and dates in the future after clock rollback. Resumed onboarding shows that same end date while the trial remains active; it never promises “starting now”. Revocation/regrant, skipping/unskipping Recording and relaunch never reset or pause a started trial. Existing elapsed-time and rollback behavior is unchanged.
+- **License precedence is unchanged.** A stored valid, version-expired or invalidated license cannot start a fresh trial at readiness. Activation during setup remains valid and suppresses the trial. Deactivation resumes an existing trial on its original dates; without any saved trial it starts one only if this launch has reached usability, otherwise waits for that milestone. QA overlays never persist a trial start.
 - **No grace period.** `isProLocked` is true the instant the trial expires — degradable Pro prefs downgrade immediately (this pairs with `ProTransitionManager.onProLockEngaged()`).
 - **Keychain writes are all-or-nothing.** Activation writes key + instance + variant; if **any** write fails, every prior write is rolled back, validation timestamps are *not* written, and the state stays `.trial` — never a half-activated `.pro`. This is the most important invariant in the file.
 - **A failed keychain write leaves the previous value intact.** `SystemKeychain.setValue` updates in place and never deletes first, so a machine that stops accepting writes (locked or password-drifted login keychain) keeps the license it already had instead of losing it. `MockKeychain` models the same contract, so the rollback above can only ever remove values *this* activation wrote.
@@ -32,7 +37,8 @@ It is built from three injected collaborators so the logic is testable without r
 - **Revalidation is throttled.** `initialize()` dispatches an async revalidation only if `lastValidation` is older than the interval (~30 days). Within the interval it's skipped (no network call). Network failure preserves state and the old timestamp; a valid result refreshes the timestamp and variant; an invalid result flips to `.trialExpired`.
 - **State is computed synchronously on `initialize()`** from defaults+keychain; async revalidation may then update it on the main queue.
 - **`onStateChanged`** fires on initialize and on every transition; **`onBeforeProUnlock`** fires *before* the state flips to `.pro` (so observers can snapshot pre-Pro state).
-- **QA license states are in-memory overlays.** `mockProUser()` and `mockTrialDay()` are `#if DEBUG` only and never read, clear, or write the user's Keychain and license defaults. Refreshing state keeps the overlay until relaunch.
+- **QA license states are in-memory overlays.** `mockProUser()` and `mockTrialDay()` are `#if DEBUG` only and never read, clear, or write the user's Keychain and license defaults. Refreshing state keeps the overlay until relaunch; a mocked trial still follows the clock, so it expires like a real one.
+- **A running app notices the end of the trial.** `state` follows the clock only on `refreshState()`. `trialEndedSinceLastRefresh` tells the Pro-transition coordinator that a `.trial` state has outlived `trialEndDate`, so it can refresh at a quiet moment (`ProTransitionSpecs.md`).
 
 ---
 
@@ -41,7 +47,12 @@ It is built from three injected collaborators so the logic is testable without r
 Mirrors `LicenseManagerTests.swift` 1:1. Each test uses an isolated `UserDefaults(suiteName:)` (fresh per test, torn down after) so runs don't leak into each other.
 
 ### A. Launch / initialize
-- **testFirstLaunchStartsTrial** — first launch with no stored data → `.trial(14)`, `trialStartDate` set to now.
+- **testFirstUsableLaunchStartsTrial** — 30 days spent in setup consume none of the 14 days; readiness persists the current clock.
+- **testSetupReadsAndRelaunchNeverStartOrExpireATrial** — reads/refresh/relaunch after 100 days retain pre-trial, without dates, entitlement or downgrade.
+- **testFirstUsableMilestoneRequiresAccessibilityAndResolvedRecording** — all permission combinations; only granted Accessibility plus granted/waived Recording start the trial.
+- **testExistingTrialDatesSurviveReadinessRevocationExpiryAndClockRollback** — prior active, expired and future starts remain identical.
+- **testExistingLicenseNeverStartsATrialEvenWhenInvalidated** — license precedence at readiness.
+- **testDeactivationBeforeUsableDoesNotStartTrial** / **testDeactivationAfterUsableStartsOnlyPreviouslyUnstartedTrial** — deactivation respects the usability milestone.
 - **testSecondLaunchPreservesTrialStart** — relaunch 3 days later reuses the original `trialStartDate` → `.trial(11)`, not a fresh trial.
 - **testTrialMidway** — trial started 7 days ago → `.trial(7)`.
 - **testTrialLastDay** — trial started 13 days ago → `.trial(1)`.
@@ -91,6 +102,9 @@ Mirrors `LicenseManagerTests.swift` 1:1. Each test uses an isolated `UserDefault
 - **testOnBeforeProUnlockFiresOnMockProUser** *(DEBUG only)* — `mockProUser()` fires the hook and flips to `.pro`.
 - **testMockProUserDoesNotAlterPersistedLicense** *(DEBUG only)* — Pro QA state supplies deterministic email/variant values in memory, survives refresh, and leaves a preloaded real license untouched.
 - **testMockTrialDayDoesNotAlterPersistedLicense** *(DEBUG only)* — trial QA state supplies its synthetic day in memory, survives refresh, and leaves a preloaded real license untouched.
+- **testMockedTrialExpiresWhenTheClockPassesItsEnd** *(DEBUG only)* — a mocked day-14 trial becomes `.trialExpired` on refresh once the clock reaches day 15.
+- **testRunningAppKnowsWhenTheTrialHasOutlivedItsState** — `trialEndedSinceLastRefresh` turns true exactly at `trialEndDate` while `state` is still `.trial`, and false again after `refreshState()` expires it.
+- **testLicensedStateNeverReportsAnOutlivedTrial** — a `.pro` license is never reported as an outlived trial, however old its trial start.
 
 ### I. Trial day
 - **testTrialDay_isNilWithoutTrial** — no `trialStartDate` → `trialDay` is nil, never a guessed day.

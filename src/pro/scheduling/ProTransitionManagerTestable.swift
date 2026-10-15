@@ -1,33 +1,37 @@
+import Foundation
+
 /// Pure decision logic for the Pro transition state machine.
 /// No singletons, no Date(), no UI, no side effects — just inputs → outputs.
 /// This makes the complex state machine fully unit-testable.
-struct ProTransitionManagerTestable {
+enum ProTransitionManagerTestable {
 
     // MARK: - State snapshot (all inputs the decisions depend on)
 
     struct State {
+        var isAwaitingTrial = false
         var isPro: Bool
         var isTrialActive: Bool // true for .trial, false for .trialExpired
-        var daysSinceTrialStart: Int // 0-indexed: Day 1 = 0, Day 12 = 11, Day 15 = 14
-        var isInTimeWindow: Bool
+        var daysSinceTrialStart: Int // 0-indexed: Day 1 = 0, Day 15 = 14
         var hasSeenWelcome: Bool
         var hasSeenDay4Tour: Bool
-        var hasSeenDay12: Bool
+        /// The Day 4 tour was queued and has not yet acknowledged visible presentation.
+        var day4TourDeferred = false
         var freePassUsed: Bool
         var hasSeenFullUpgrade: Bool
         var hasSeenProactiveDay15: Bool
-        var hasSeenDay21: Bool
         var hasSeenDay35: Bool
-        // periphery:ignore - mirrored for completeness; opt-out is enforced in `ProTransitionScheduler`
         var userOptedOut: Bool
         var hasTriggeredPostExpirationSwitcher: Bool
+        var usesThumbnails = true
+        var recentIntent = false
+        var messageShownToday = false
 
         // periphery:ignore - the factory every ProTransitionTests case starts from
         static func fresh() -> State {
-            State(isPro: false, isTrialActive: true, daysSinceTrialStart: 0, isInTimeWindow: false,
-                  hasSeenWelcome: false, hasSeenDay4Tour: false, hasSeenDay12: false, freePassUsed: false,
+            State(isPro: false, isTrialActive: true, daysSinceTrialStart: 0,
+                  hasSeenWelcome: false, hasSeenDay4Tour: false, freePassUsed: false,
                   hasSeenFullUpgrade: false, hasSeenProactiveDay15: false,
-                  hasSeenDay21: false, hasSeenDay35: false,
+                  hasSeenDay35: false,
                   userOptedOut: false,
                   hasTriggeredPostExpirationSwitcher: false)
         }
@@ -37,15 +41,12 @@ struct ProTransitionManagerTestable {
 
     enum TimedAction: Equatable {
         case showWelcome          // [A]
-        case showDay12HeadsUp     // [B]
-        case showDay15Proactive   // [D]
-        case showDay21Reminder    // [F]
         case showDay35Final       // [G]
-        case refreshBadgeDot
         case none
     }
 
     enum HardGateAction: Equatable {
+        case unavailable          // setup is unresolved; no free pass or purchase prompt
         case allow                // pro or trial active
         case freePass             // first hard-gate after expiry — allow once, then show [C]
         case showFullUpgrade      // [C]
@@ -55,6 +56,8 @@ struct ProTransitionManagerTestable {
     /// What should happen when the switcher is opened (a fresh summon, not a cycle)?
     enum SwitcherOpenAction: Equatable {
         case showDay4Tour          // [H] — fires once on Day 4
+        case showDay35Final
+        case showExpiration
         case triggerFreePass       // post-expiration first summon when a Pro style or shortcut was configured
         case noop
     }
@@ -63,60 +66,44 @@ struct ProTransitionManagerTestable {
 
     /// What should happen on a timed evaluation (scheduler fire or app launch)?
     static func evaluateTimedAction(_ s: State) -> TimedAction {
-        if s.isPro { return .none }
+        if s.isAwaitingTrial || s.isPro || !s.isTrialActive || s.userOptedOut { return .none }
 
         // Day 1: Welcome letter
         if !s.hasSeenWelcome {
             return .showWelcome
         }
 
-        // Day 12 only (daysSinceTrialStart == 11): Heads-up popover. Spec: "If missed, try 15:30–17:00, then skip entirely" — do not retry on Day 13+.
-        if s.daysSinceTrialStart == 11 && !s.hasSeenDay12 && s.isInTimeWindow {
-            return .showDay12HeadsUp
-        }
-
-        // Day 15+ (daysSinceTrialStart >= 14): Proactive window (only if no hard-gate fired yet)
-        if s.daysSinceTrialStart >= 14 && !s.hasSeenProactiveDay15 && !s.hasSeenFullUpgrade && s.isInTimeWindow {
-            return .showDay15Proactive
-        }
-
-        // Day 35+ (daysSinceTrialStart >= 34): Final window (give up at Day 49 / daysSinceTrialStart 48).
-        // Checked before Day 21 so a user inactive through Day 35 sees [G] instead of [F] (spec: "If Day 35 arrives first, skip Day 21").
-        if s.daysSinceTrialStart >= 34 && s.daysSinceTrialStart < 48 && !s.hasSeenDay35 && s.isInTimeWindow {
-            return .showDay35Final
-        }
-
-        // Day 21–34 (daysSinceTrialStart 20..<34): Reminder popover. Upper bound prevents [F] firing on/after Day 35 or past Day 49.
-        if s.daysSinceTrialStart >= 20 && s.daysSinceTrialStart < 34 && !s.hasSeenDay21 && s.isInTimeWindow {
-            return .showDay21Reminder
-        }
-
-        // Day 15+: refresh badge dot (removal) even if no prompt shown
-        if s.daysSinceTrialStart >= 14 {
-            return .refreshBadgeDot
-        }
-
         return .none
+    }
+
+    /// The scheduler's next trial deadline: the start of the badge days, then the trial's end. Days are 24-hour
+    /// steps from the trial start; the extra second lands each deadline inside its day.
+    static func nextTrialDeadline(after now: Date, trialStart: Date) -> Date? {
+        [badgeDotDays.lowerBound, LicenseManager.trialDuration]
+            .map { trialStart.addingTimeInterval(Double($0) * 86400 + 1) }
+            .first { $0 > now }
     }
 
     /// What should happen when a hard-gated feature is attempted?
     static func evaluateHardGate(_ s: State) -> HardGateAction {
+        if s.isAwaitingTrial { return .unavailable }
         if s.isPro || s.isTrialActive { return .allow }
         if !s.freePassUsed { return .freePass }
-        if !s.hasSeenFullUpgrade { return .showFullUpgrade }
+        if !s.hasSeenFullUpgrade && !s.hasSeenProactiveDay15 { return .showFullUpgrade }
         return .showHardGatePopover
     }
 
-    /// What should happen on a fresh switcher open (not a cycle of an existing session)?
-    /// Two distinct triggers, both deferred until `hideUi()` so the popover/window appears after dismissal:
-    /// 1. Day 4 mid-trial Pro tour — once-ever, only on Day 4 exactly.
-    /// 2. Post-expiration switcher trigger — once-ever, fires for every user (engaged or not). The
-    ///    `HardGateReason` carries the remembered Pro selections when present so [C] can render a
-    ///    tailored header; otherwise it resolves to `.nonEngaged`.
+    /// Fresh-session opportunities are presented only after dismissal. An interrupted expiration
+    /// announcement remains eligible; an interrupted Day 35 reminder retries only on that day. Day 4 consumes
+    /// its first session unless the tour could not be presented: it then waits for a later session, on Day 4 or 5.
+    /// A user absent on Day 4 gets no Day 5 catch-up.
     static func evaluateSwitcherOpen(_ s: State) -> SwitcherOpenAction {
-        if s.isPro { return .noop }
+        if s.isAwaitingTrial || s.isPro { return .noop }
         if s.isTrialActive {
-            if s.daysSinceTrialStart == 3 && !s.hasSeenDay4Tour { return .showDay4Tour }
+            let firstDay4Session = s.daysSinceTrialStart == 3 && !s.hasSeenDay4Tour
+            let blockedEarlier = s.day4TourDeferred && day4TourDays.contains(s.daysSinceTrialStart)
+            if (firstDay4Session || blockedEarlier) && s.usesThumbnails && !s.userOptedOut &&
+                !s.messageShownToday { return .showDay4Tour }
             return .noop
         }
         // Trial expired: trigger free-pass + [C] on first summon, regardless of which Pro features were
@@ -125,19 +112,105 @@ struct ProTransitionManagerTestable {
         if !s.hasTriggeredPostExpirationSwitcher && !s.freePassUsed {
             return .triggerFreePass
         }
+        if !s.hasSeenFullUpgrade && !s.hasSeenProactiveDay15 && !s.userOptedOut {
+            return .showExpiration
+        }
+        if s.daysSinceTrialStart == 34 && !s.hasSeenDay35 && !s.userOptedOut && s.recentIntent &&
+            !s.messageShownToday {
+            return .showDay35Final
+        }
         return .noop
     }
+
+    /// Focusing a window on another Space changes the active Space during the delay between dismissal and a
+    /// queued prompt. That move is the switch the user asked for, so the prompt follows them to that Space.
+    /// While the switcher is open, or with nothing armed, a Space change still cancels.
+    static func spaceChangeCancelsPendingPrompt(switcherIsShown: Bool, awaitingDismissalDelay: Bool) -> Bool {
+        switcherIsShown || !awaitingDismissalDelay
+    }
+
+    /// Days 4 and 5, zero-based.
+    static let day4TourDays = 3 ... 4
+
+    /// Days 13 and 14, zero-based.
+    static let badgeDotDays = 12 ... 13
 
     /// Should the menubar icon show a badge dot?
     /// Pro users never see the badge — spec: "Purchase at any point → all indicators cleared."
     static func shouldShowBadgeDot(_ s: State) -> Bool {
-        !s.isPro && s.isTrialActive && s.daysSinceTrialStart >= 12 && s.daysSinceTrialStart <= 13
+        !s.isAwaitingTrial && !s.isPro && s.isTrialActive && badgeDotDays.contains(s.daysSinceTrialStart)
+    }
+}
+
+/// Local evidence only. Missing or pruned history cannot be interpreted as zero usage.
+enum ProJourneyFeature: String, CaseIterable {
+    case search, styles, shortcuts, autoSize
+}
+
+struct ProJourneyEvidence {
+    var searches: Int?
+    var extraShortcuts: Int?
+    var adoptedStyle: Int?
+    var usedAuto: Bool?
+
+    /// Unknown history and a count of zero both read as unused: no tab claims use that did not happen.
+    func used(_ feature: ProJourneyFeature) -> Bool {
+        switch feature {
+        case .search: return (searches ?? 0) > 0
+        case .styles: return adoptedStyle != nil
+        case .shortcuts: return (extraShortcuts ?? 0) > 0
+        case .autoSize: return usedAuto == true
+        }
     }
 
-    /// Check if a given hour:minute falls within the allowed time windows (10:00-11:30 or 15:30-17:00)
-    static func isInTimeWindow(hour: Int, minute: Int) -> Bool {
-        let totalMinutes = hour * 60 + minute
-        return (totalMinutes >= 600 && totalMinutes <= 690) || // 10:00-11:30
-               (totalMinutes >= 930 && totalMinutes <= 1020)   // 15:30-17:00
+    /// Adopted style, then repeated actions by count (Search breaks ties), then Auto, then single use.
+    /// Counts measure actions, not success or value. Explicit requests always override this fallback.
+    func openingFeature(requested: ProJourneyFeature?) -> ProJourneyFeature {
+        requested ?? preferredFeature
+    }
+
+    var preferredFeature: ProJourneyFeature {
+        if adoptedStyle != nil { return .styles }
+        let searchCount = searches ?? 0
+        let shortcutCount = extraShortcuts ?? 0
+        if max(searchCount, shortcutCount) >= 2 {
+            return shortcutCount > searchCount ? .shortcuts : .search
+        }
+        if usedAuto == true { return .autoSize }
+        return ProJourneyFeature.allCases.first(where: used) ?? .autoSize
+    }
+
+    static func count(_ timestamps: [Int]?, start: Date?, end: Date?, now: Date) -> Int? {
+        guard let timestamps, let start, let end, end >= start,
+              start >= now.addingTimeInterval(-365 * 86400),
+              timestamps.allSatisfy({ $0 >= 0 }) else { return nil }
+        return timestamps.filter {
+            $0 >= Int(start.timeIntervalSince1970) && $0 < Int(end.timeIntervalSince1970) &&
+                $0 <= Int(now.timeIntervalSince1970)
+        }.count
+    }
+
+    /// The style and size the trial last used, captured once before the downgrade. Thumbnails (index 0) is
+    /// the free style, so it adopts nothing. An install an earlier version already downgraded has lost its
+    /// overrides, so it claims nothing at all and the journey shows generic examples.
+    static func capture(styleIndex: Int, autoSize: Bool, previouslyDowngraded: Bool) -> (adoptedStyle: Int?, usedAuto: Bool?) {
+        guard !previouslyDowngraded else { return (nil, nil) }
+        return (styleIndex == 0 ? nil : styleIndex, autoSize)
+    }
+
+    /// A shortcut removed since the trial falls back to the first one.
+    static func captureShortcutIndex(_ lastUsed: Int, shortcutCount: Int) -> Int {
+        (0 ..< shortcutCount).contains(lastUsed) ? lastUsed : 0
+    }
+
+    /// A message dated in the future (the clock was set back) also counts, rather than allowing a second one.
+    static func isMessageToday(_ last: Date?, now: Date, calendar: Calendar) -> Bool {
+        guard let last else { return false }
+        return calendar.isDate(last, inSameDayAs: now) || last > now
+    }
+
+    static func hasRecentIntent(at date: Date?, now: Date) -> Bool {
+        guard let date else { return false }
+        return (0 ... 7 * 86400).contains(now.timeIntervalSince(date))
     }
 }

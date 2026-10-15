@@ -78,7 +78,7 @@ class LabelAndControl: NSObject {
                     // Snap the radio group back to the stored value and bounce to the upgrade tab.
                     let storedIndex = CachedUserDefaults.intFromMacroPref(rawName, macroPreferences)
                     siblings.enumerated().forEach { (i, b) in b.state = (i == storedIndex) ? .on : .off }
-                    UpgradeTab.navigateToUpgradeTab()
+                    UpgradeTab.navigateToUpgradeTab(for: .styles)
                     return
                 }
                 siblings.enumerated().forEach { (i, otherButtonView) in

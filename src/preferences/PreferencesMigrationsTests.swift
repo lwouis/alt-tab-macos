@@ -347,7 +347,7 @@ extension App {
     static let version = "99.99.99"
 }
 
-enum ProTransitionState {
+extension ProTransitionState {
     static func markFreshInstallIfUnknown(_ value: Bool) {}
 }
 

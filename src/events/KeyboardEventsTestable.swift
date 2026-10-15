@@ -1,4 +1,5 @@
 import ShortcutRecorder
+import Carbon.HIToolbox.Events
 
 class KeyboardEventsTestable {
     static var globalShortcutsIds: [String: Int] {
@@ -13,6 +14,8 @@ class KeyboardEventsTestable {
 func handleKeyboardEvent(_ globalId: Int?, _ shortcutState: ShortcutState?, _ keyCode: UInt32?,
                          _ modifiers: NSEvent.ModifierFlags?, _ isARepeat: Bool, _ event: NSEvent? = nil,
                          _ recordedHoldRelease: Bool = false) -> Bool {
+    // The Escape absorption tap can consume the key before NSEvent dismissal monitors see it.
+    if keyCode == UInt32(kVK_Escape) { Day15HardGatePopover.dismissOnEscape() }
     if let event, shouldAbsorbSearchEditingKeyDown(event) {
         switch TilesView.handleSearchEditingKeyDown(event) {
         case .handled: return true

@@ -582,7 +582,7 @@ class AppearanceTab: NSObject {
                 let stored: ShortcutStylePreference = CachedUserDefaults.macroPref("shortcutStyle", ShortcutStylePreference.allCases)
                 segmented.selectedSegment = stored.index
                 refreshShortcutStyleSegmentAppearance(segmented)
-                UpgradeTab.navigateToUpgradeTab()
+                UpgradeTab.navigateToUpgradeTab(for: .search)
                 return
             }
             original?(c)
@@ -663,7 +663,7 @@ class AppearanceTab: NSObject {
                 // normally runs in the `extraAction`) never executes. Trigger it manually so the
                 // badge and label colors track the reset selection.
                 refreshAutoSegmentAppearance(segmented)
-                UpgradeTab.navigateToUpgradeTab()
+                UpgradeTab.navigateToUpgradeTab(for: .autoSize)
                 return
             }
             original?(control)

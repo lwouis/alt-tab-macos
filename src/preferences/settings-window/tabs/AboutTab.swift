@@ -9,8 +9,8 @@ class AboutTab {
         appIcon.fit(128, 128)
         let appText = StackView([
             BoldLabel(App.name),
-            NSTextField(wrappingLabelWithString: NSLocalizedString("Version", comment: "") + " " + App.version),
-            NSTextField(wrappingLabelWithString: App.licence),
+            NSTextField(labelWithString: NSLocalizedString("Version", comment: "") + " " + App.version),
+            NSTextField(labelWithString: App.licence),
             HyperlinkLabel(NSLocalizedString("Website", comment: ""), Endpoints.website),
             HyperlinkLabel(NSLocalizedString("Source code", comment: ""), App.repository),
         ], .vertical)

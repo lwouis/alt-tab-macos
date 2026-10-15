@@ -1,18 +1,13 @@
 import Cocoa
 
-/// Why a hard-gate fired — used by Day 15 Full Upgrade / Hard Gate Popover to render a contextual
-/// header. Two sources: a specific `ProFeature` the user attempted, or the aggregated
-/// "pro-preferences were configured" signal from the post-expiration first switcher summon.
+/// Separates a user-requested feature from the automatic post-expiration announcement.
 enum HardGateReason {
     case feature(ProFeature)
-    /// Triggered by the first post-expiration switcher summon when the user had a Pro appearance
-    /// style or shortcut style configured. The actual `appearanceStyle` (when non-nil, always
-    /// `.appIcons` or `.titles`) and the `shortcut` flag let [C] render a tailored header.
+    /// Remembered settings remain available for the final free-pass session.
     case proPreferences(appearanceStyle: AppearanceStylePreference?, shortcut: Bool)
 }
 
-/// Single bucket every `HardGateReason` collapses to via `HardGateReason.resolved`. Lets [C] and
-/// [E] render copy from one switch instead of re-implementing precedence rules on the raw enum.
+/// Contextual copy for blocked feature feedback.
 enum ResolvedReason {
     case extraShortcut
     case search
@@ -20,7 +15,6 @@ enum ResolvedReason {
     case titlesStyle
     case nonEngaged
 
-    /// Header copy shared by [C] Day 15 Full Upgrade and [E] Day 15 Hard Gate Popover.
     var unlockHeader: String {
         switch self {
         case .extraShortcut:
@@ -58,7 +52,7 @@ extension HardGateReason {
             case .titles: return .titlesStyle
             case .thumbnails: return .nonEngaged
             }
-        case .proPreferences(let appearanceStyle, let shortcut):
+        case let .proPreferences(appearanceStyle, shortcut):
             if shortcut { return .search }
             switch appearanceStyle {
             case .appIcons: return .appIconsStyle
@@ -71,26 +65,19 @@ extension HardGateReason {
     }
 }
 
-/// Action queued during `showUi` and dispatched 1s after `hideUi` so it appears once the focused
-/// window has come back to front. Both Day 4 tour and the post-expiration free-pass share this
-/// dismissal-deferred mechanism.
+/// Dispatch after dismissal and focus restoration, away from the switcher's keyboard interaction.
 enum PendingDismissAction {
     case showFullUpgrade(HardGateReason?)
     case showDay4Tour
+    case showDay35Final
 }
 
-/// Side-effect requests emitted by `ProTransitionManager`. A UI-side host (see `ProPromptHost`) owns
-/// the concrete window/popover classes and dispatches on this enum. Keeps the coordinator free of
-/// direct references to Day-X UI types, so its state-transition logic can be reasoned about without
-/// dragging AppKit into the scope.
+/// Presentation requests handled by `ProPromptHost`.
 enum ProPromptAction {
     case showWelcome                                      // [A] Day 1
     case showDay4Tour                                     // [H] Day 4
-    case showDay12HeadsUp                                 // [B] Day 12 (also refreshes badge)
-    case showDay15Proactive                               // [D] Day 15 proactive
     case showDay15FullUpgrade(HardGateReason?)            // [C] Day 15 full upgrade
     case showDay15HardGatePopover(HardGateReason?)        // [E] post-[C] hard-gate popover
-    case showDay21Reminder                                // [F] Day 21
     case showDay35Final                                   // [G] Day 35
     case dismissAllProWindows                             // on upgrade-to-pro
     case refreshBadge                                     // menubar badge dot
@@ -112,35 +99,50 @@ class ProTransitionManager {
     /// the coordinator never references Day-X UI classes directly.
     var onAction: ((ProPromptAction) -> Void)?
 
+    private let makeLicenseManager: () -> LicenseManager
+    private lazy var licenseManager = makeLicenseManager()
     let state = ProTransitionState()
-    private lazy var scheduler: ProTransitionScheduler = ProTransitionScheduler(
+
+    init(licenseManager: @escaping () -> LicenseManager = { LicenseManager.shared }) {
+        makeLicenseManager = licenseManager
+    }
+    private lazy var scheduler: ProTransitionScheduler = .init(
         defaults: ProTransitionState.defaults,
-        licenseManager: LicenseManager.shared,
+        licenseManager: licenseManager,
         state: state,
         onFire: { [weak self] in self?.evaluateAndShow() }
     )
 
-    // session-only: action queued during showUi to fire 1s after dismissal. Used by both the free-pass
-    // ladder ([C] Full Upgrade) and the Day 4 mid-trial tour ([H] popover).
     private var pendingDismissAction: PendingDismissAction?
     private var deferredPrompt: DispatchWorkItem?
     private var switcherIsShown = false
-    var hasPendingPrompt: Bool { pendingDismissAction != nil }
+    var hasPendingPrompt: Bool {
+        pendingDismissAction != nil || deferredPrompt != nil || ProPromptHost.windowPresentation.isPending
+    }
+    #if DEBUG
+    var pendingPromptForQa: PendingDismissAction? { pendingDismissAction }
+    #endif
+
+    private var freePassPreferencesNeedRefresh = false
 
     /// Session-scoped: true between the moment a free-pass is granted (either via the
     /// post-expiration switcher trigger in `onSwitcherShown` or via an explicit hard-gate
     /// attempt in `attemptHardGatedFeature`) and the moment the switcher is dismissed.
     /// Read by `PreferenceDefinition.read()` to swap stored free values for the remembered Pro
-    /// values so the switcher renders the user's Pro selection one last time. Each transition
-    /// triggers `App.resetPreferencesDependentComponents()` so `TilesView` re-renders against
-    /// the new read() result before the panel is shown.
+    /// values so the switcher renders the user's Pro selection one last time. A closing session changes
+    /// the reads immediately, but defers AppKit refresh until keyboard release or the next summon.
     private(set) var isFreePassSessionActive: Bool = false {
         didSet {
             guard oldValue != isFreePassSessionActive else { return }
-            if TilesPanel.shared != nil {
-                App.resetPreferencesDependentComponents()
-            }
+            freePassPreferencesNeedRefresh = true
+            if SwitcherSession.current != nil { refreshFreePassPreferencesIfNeeded() }
         }
+    }
+
+    func refreshFreePassPreferencesIfNeeded() {
+        guard freePassPreferencesNeedRefresh else { return }
+        freePassPreferencesNeedRefresh = false
+        App.resetPreferencesDependentComponents()
     }
 
     private func emit(_ action: ProPromptAction) {
@@ -150,16 +152,23 @@ class ProTransitionManager {
         onAction?(action)
     }
 
-    // Pass-through accessors. The setters are what `QAMenu`'s Reset row writes, so they only look
-    // unused to a scan of the Release scheme, where `QAMenu.swift` is compiled out by its `#if DEBUG`.
+    /// Pass-through accessors. The setters are what `QAMenu`'s Reset row writes, so they only look
+    /// unused to a scan of the Release scheme, where `QAMenu.swift` is compiled out by its `#if DEBUG`.
     var hasSeenWelcome: Bool { get { state.hasSeenWelcome } set { state.hasSeenWelcome = newValue } }
     // periphery:ignore - written by QAMenu, which the Release scheme compiles out
     var hasSeenDay4Tour: Bool { get { state.hasSeenDay4Tour } set { state.hasSeenDay4Tour = newValue } }
     // periphery:ignore - written by QAMenu, which the Release scheme compiles out
-    var hasSeenDay12: Bool { get { state.hasSeenDay12 } set { state.hasSeenDay12 = newValue } }
-    // periphery:ignore - written by QAMenu, which the Release scheme compiles out
     var freePassUsed: Bool { get { state.freePassUsed } set { state.freePassUsed = newValue } }
-    var userOptedOut: Bool { get { state.userOptedOut } set { state.userOptedOut = newValue } }
+    var userOptedOut: Bool {
+        get { state.userOptedOut }
+        set {
+            state.userOptedOut = newValue
+            scheduler.scheduleNext()
+            guard newValue else { return }
+            cancelPendingPrompts()
+            SearchDiscoveryHint.shared.cancel()
+        }
+    }
     // periphery:ignore - written by QAMenu, which the Release scheme compiles out
     var hasTriggeredPostExpirationSwitcher: Bool { get { state.hasTriggeredPostExpirationSwitcher } set { state.hasTriggeredPostExpirationSwitcher = newValue } }
 
@@ -167,14 +176,31 @@ class ProTransitionManager {
         ProTransitionManagerTestable.shouldShowBadgeDot(currentState())
     }
 
+    func cancelPendingPrompts() {
+        ProPromptHost.windowPresentation.cancel()
+        if case .showDay4Tour = pendingDismissAction { state.day4TourDeferred = true }
+        deferredPrompt?.cancel()
+        deferredPrompt = nil
+        pendingDismissAction = nil
+    }
+
+    func activeSpaceDidChange() {
+        guard ProTransitionManagerTestable.spaceChangeCancelsPendingPrompt(
+            switcherIsShown: switcherIsShown, awaitingDismissalDelay: deferredPrompt != nil) else { return }
+        cancelPendingPrompts()
+    }
+
     // MARK: - Lifecycle
 
+    private var launchCompleted = false
+
     func onAppLaunchComplete() {
+        launchCompleted = true
         scheduler.onAppLaunchComplete()
     }
 
     func onLicenseStateChanged() {
-        if case .pro = LicenseManager.shared.state {
+        if case .pro = licenseManager.state {
             scheduler.cancel()
             deferredPrompt?.cancel()
             deferredPrompt = nil
@@ -185,9 +211,10 @@ class ProTransitionManager {
         }
         // Snapshot + downgrade any degradable Pro selections as soon as the license locks. Idempotent:
         // second entry is a no-op because stored is already the Free equivalent.
-        if LicenseManager.shared.isProLocked {
+        if licenseManager.isProLocked {
             onProLockEngaged()
         }
+        if launchCompleted { scheduler.scheduleNext() }
     }
 
     // MARK: - Hard-gate flow
@@ -205,29 +232,66 @@ class ProTransitionManager {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: item)
     }
 
+    func refreshAfterSwitcherDismissal() {
+        refreshFreePassPreferencesIfNeeded()
+        refreshOutlivedTrialAfterVisibleWork()
+    }
+
+    /// The expiry downgrades preferences and rebuilds the switcher's views, so it never runs while the
+    /// switcher is open, nor ahead of the dismissal's focus. The next session then starts the free pass.
+    private func refreshOutlivedTrialAfterVisibleWork() {
+        guard licenseManager.trialEndedSinceLastRefresh else { return }
+        DispatchQueue.main.async { [weak self] in
+            guard let self, !switcherIsShown else { return }
+            licenseManager.refreshState()
+        }
+    }
+
     private func showDeferredPrompt() {
         guard !switcherIsShown, let action = pendingDismissAction else { return }
         pendingDismissAction = nil
         deferredPrompt = nil
-        if case .pro = LicenseManager.shared.state { return }
+        let userInitiated: Bool
         switch action {
-        case .showFullUpgrade(let feature): showFullUpgradeWindow(for: feature)
+        case .showFullUpgrade(.some(.feature)): userInitiated = true
+        default: userInitiated = false
+        }
+        guard userInitiated ? ProPromptHost.sessionIsAvailable : ProPromptHost.canPresentProactively else {
+            if case .showDay4Tour = action { state.day4TourDeferred = true }
+            return
+        }
+        if case .pro = licenseManager.state { return }
+        switch action {
+        case let .showFullUpgrade(feature): showFullUpgradeWindow(for: feature)
         case .showDay4Tour:
-            guard LicenseManager.shared.daysSinceTrialStart == 3 else { return }
+            guard ProTransitionManagerTestable.day4TourDays.contains(licenseManager.daysSinceTrialStart), !userOptedOut,
+                  Preferences.effectiveAppearanceStyle(0) == .thumbnails else { return }
             emit(.showDay4Tour)
+        case .showDay35Final:
+            guard ProTransitionManagerTestable.evaluateSwitcherOpen(currentState()) == .showDay35Final else { return }
+            emit(.showDay35Final)
         }
     }
 
     /// Called from App.showUiOrCycleSelection() at the start of a fresh switcher session (not on cycle).
     /// Decides whether to queue a Day 4 tour or a post-expiration free-pass + [C] for after dismissal.
     func onSwitcherShown() {
+        guard !switcherIsShown else { return }
+        refreshFreePassPreferencesIfNeeded()
         switcherIsShown = true
+        ProPromptHost.windowPresentation.cancel()
+        ProPromptPopover.cancelPendingPresentations()
         deferredPrompt?.cancel()
         deferredPrompt = nil
-        let action = ProTransitionManagerTestable.evaluateSwitcherOpen(currentState())
+        let snapshot = currentState()
+        let action = ProTransitionManagerTestable.evaluateSwitcherOpen(snapshot)
+        if snapshot.daysSinceTrialStart == 3 && !snapshot.hasSeenDay4Tour {
+            state.hasSeenDay4Tour = true
+        }
         switch action {
         case .showDay4Tour:
             state.hasSeenDay4Tour = true
+            state.day4TourDeferred = true
             pendingDismissAction = .showDay4Tour
         case .triggerFreePass:
             state.freePassUsed = true
@@ -237,7 +301,13 @@ class ProTransitionManager {
             let reason = HardGateReason.proPreferences(
                 appearanceStyle: style,
                 shortcut: state.rememberedShortcutStyle != nil)
-            pendingDismissAction = .showFullUpgrade(reason)
+            if !snapshot.userOptedOut && !snapshot.hasSeenFullUpgrade && !snapshot.hasSeenProactiveDay15 {
+                pendingDismissAction = .showFullUpgrade(reason)
+            }
+        case .showExpiration:
+            if pendingDismissAction == nil { pendingDismissAction = .showFullUpgrade(nil) }
+        case .showDay35Final:
+            pendingDismissAction = .showDay35Final
         case .noop:
             break
         }
@@ -246,7 +316,11 @@ class ProTransitionManager {
     /// Returns true if the feature should be allowed to execute
     func attemptHardGatedFeature(_ feature: ProFeature) -> Bool {
         let action = ProTransitionManagerTestable.evaluateHardGate(currentState())
+        if action != .allow && action != .unavailable {
+            state.recordIntent(feature.journeyFeature)
+        }
         switch action {
+        case .unavailable: return false
         case .allow: return true
         case .freePass:
             state.freePassUsed = true
@@ -254,27 +328,27 @@ class ProTransitionManager {
             pendingDismissAction = .showFullUpgrade(.feature(feature))
             return true
         case .showFullUpgrade:
-            showFullUpgradeWindow(for: .feature(feature))
+            presentBlockedAnnouncement(.feature(feature))
             return false
         case .showHardGatePopover:
+            cancelPendingPrompts()
             emit(.showDay15HardGatePopover(.feature(feature)))
             return false
         }
     }
 
-    func showFullUpgradeWindow(for reason: HardGateReason? = nil) {
-        // Flip the flag *before* `onProLockEngaged()` so the notification it posts reflects
-        // the locked state; otherwise observers re-render with `isProLocked = false` and miss
-        // the ghost UI until the next refresh.
-        state.hasSeenFullUpgrade = true
-        onProLockEngaged()
-        emit(.showDay15FullUpgrade(reason))
+    private func presentBlockedAnnouncement(_ reason: HardGateReason) {
+        pendingDismissAction = .showFullUpgrade(reason)
+        if SwitcherSession.isActive {
+            App.hideUi()
+        } else {
+            onSwitcherDismissed()
+        }
     }
 
-    func showProactiveDay15Window() {
-        state.hasSeenProactiveDay15 = true
-        onProLockEngaged()
-        emit(.showDay15Proactive)
+    func showFullUpgradeWindow(for reason: HardGateReason? = nil) {
+        pendingDismissAction = nil
+        emit(.showDay15FullUpgrade(reason))
     }
 
     func onProLockEngaged() {
@@ -290,24 +364,18 @@ class ProTransitionManager {
     // MARK: - Timed fire dispatch
 
     private func evaluateAndShow() {
+        // Days 13 and 14 have a badge and no prompt, so the icon is redrawn even when nothing may be shown now.
+        emit(.refreshBadge)
+        guard !switcherIsShown else { return }
+        if licenseManager.trialEndedSinceLastRefresh { licenseManager.refreshState() }
+        guard !hasPendingPrompt, ProPromptHost.canPresentProactively else { return }
         let action = ProTransitionManagerTestable.evaluateTimedAction(currentState())
         switch action {
         case .showWelcome:
             state.hasSeenWelcome = true
             emit(.showWelcome)
-        case .showDay12HeadsUp:
-            state.hasSeenDay12 = true
-            emit(.showDay12HeadsUp)
-        case .showDay15Proactive:
-            showProactiveDay15Window()
-        case .showDay21Reminder:
-            state.hasSeenDay21 = true
-            emit(.showDay21Reminder)
         case .showDay35Final:
-            state.hasSeenDay35 = true
             emit(.showDay35Final)
-        case .refreshBadgeDot:
-            emit(.refreshBadge)
         case .none:
             break
         }
@@ -317,9 +385,9 @@ class ProTransitionManager {
 
     func currentState() -> ProTransitionManagerTestable.State {
         state.snapshot(
-            licenseState: LicenseManager.shared.state,
-            daysSinceTrialStart: LicenseManager.shared.daysSinceTrialStart,
-            clock: LicenseManager.shared.clock
+            licenseState: licenseManager.state,
+            daysSinceTrialStart: licenseManager.daysSinceTrialStart,
+            clock: licenseManager.clock
         )
     }
 
@@ -333,7 +401,9 @@ class ProTransitionManager {
 
     #if DEBUG
     func clearSessionForQa() {
+        ProPromptHost.windowPresentation.cancel()
         scheduler.cancel()
+        scheduler.resetForQa()
         deferredPrompt?.cancel()
         deferredPrompt = nil
         pendingDismissAction = nil
@@ -343,13 +413,31 @@ class ProTransitionManager {
     }
 
     func resetAllState() {
+        clearSessionForQa()
         // Restore any snapshotted Pro selections first so Settings reflects the pre-lock state.
         onProUnlocked()
         state.resetAll()
-        // onProUnlocked posted while the hasSeen* flags were still set (so `isProLocked` read stale).
-        // Now that the flags are cleared, post again so observers re-render with the fresh state.
         NotificationCenter.default.post(name: Self.proLockStateDidChangeNotification, object: nil)
         scheduler.scheduleNext()
     }
     #endif
+}
+
+extension HardGateReason {
+    /// The automatic announcement has no attempt behind it, so it follows the trial's history instead.
+    var attemptedFeature: ProJourneyFeature? {
+        guard case let .feature(feature) = self else { return nil }
+        return feature.journeyFeature
+    }
+}
+
+extension ProFeature {
+    var journeyFeature: ProJourneyFeature {
+        switch self {
+        case .searchInSwitcher, .searchOnReleaseShortcut: return .search
+        case .appIconsAndTitlesStyle: return .styles
+        case .extraShortcut: return .shortcuts
+        case .autoSize: return .autoSize
+        }
+    }
 }

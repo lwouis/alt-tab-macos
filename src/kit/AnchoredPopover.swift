@@ -1,4 +1,5 @@
 import Cocoa
+import Carbon.HIToolbox.Events
 
 /// A status item can have a frame before its window and visible rect are ready. NSPopover.show
 /// silently does nothing in that state. Keep the request until layout makes it usable, or cancel it.
@@ -6,31 +7,35 @@ import Cocoa
 /// (`StatusItemAnchor`).
 class AnchoredPopover: NSPopover {
     var isWaitingForAnchor: Bool { pending != nil }
+    var takesKeyboardFocus = true
+    var dismissesOnEscapeAndOutsideClick = false
     var settleTimeout = StatusItemAnchor.settleTimeout
     private var generation = UInt64(0)
     private var pending: (() -> Bool)?
     private var scheduled = false
     private var showingGeneration: UInt64?
+    private var onShown: (() -> Void)?
     private var viewObservations = [NSKeyValueObservation]()
     private var windowObservations = [NSKeyValueObservation]()
     private var updateObserver: NSObjectProtocol?
     private var shownObserver: NSObjectProtocol?
     private var closedObserver: NSObjectProtocol?
     private var floatingAnchor: NSWindow?
+    private var dismissalMonitors = [Any]()
 
-    func present(_ content: NSView, from item: NSStatusItem, onShown: (() -> Void)? = nil) {
-        present(content, from: item.button!, anchorIsHidden: { [weak item] in !(item?.isVisible ?? false) }, onShown: onShown)
+    func present(_ content: NSView, from item: NSStatusItem?, canPresent: @escaping () -> Bool = { true }, onShown: (() -> Void)? = nil) {
+        present(content, from: item?.button, anchorIsHidden: { [weak item] in !(item?.isVisible ?? false) }, canPresent: canPresent, onShown: onShown)
     }
 
-    func present(_ content: NSView, from anchor: NSView, anchorIsHidden: @escaping () -> Bool = { false }, onShown: (() -> Void)? = nil) {
+    func present(_ content: NSView, from anchor: NSView?, anchorIsHidden: @escaping () -> Bool = { false }, canPresent: @escaping () -> Bool = { true }, onShown: (() -> Void)? = nil) {
         cancelPresentation()
+        self.onShown = onShown
         let request = generation
         let requestedAt = ProcessInfo.processInfo.systemUptime
-        observe(anchor)
+        if let anchor { observe(anchor) }
         shownObserver = NotificationCenter.default.addObserver(forName: NSPopover.didShowNotification, object: self, queue: nil) { [weak self] _ in
             guard let self, self.generation == request, self.showingGeneration == request else { return }
-            self.removeObserver(&self.shownObserver)
-            onShown?()
+            self.acknowledgePresentation()
         }
         closedObserver = NotificationCenter.default.addObserver(forName: NSPopover.didCloseNotification, object: self, queue: nil) { [weak self] _ in
             guard let self, self.generation == request else { return }
@@ -38,18 +43,38 @@ class AnchoredPopover: NSPopover {
             self.contentViewController = nil
         }
         pending = { [weak self, weak anchor] in
-            guard let self, let anchor else { return false }
-            let readiness = self.readiness(of: anchor, isHidden: anchorIsHidden(),
-                deadlinePassed: ProcessInfo.processInfo.systemUptime - requestedAt >= self.settleTimeout)
+            guard let self else { return false }
+            guard canPresent() else { self.cancelPresentation(); return false }
+            let deadlinePassed = ProcessInfo.processInfo.systemUptime - requestedAt >= self.settleTimeout
+            let readiness = anchor.map { self.readiness(of: $0, isHidden: anchorIsHidden(),
+                deadlinePassed: deadlinePassed) } ?? .unavailable
             guard readiness != .settling else { return false }
             let controller = NSViewController()
             controller.view = content
             self.contentViewController = controller
             self.showingGeneration = request
-            return readiness == .ready ? self.showImmediately(from: anchor) : self.showUnanchored()
+            if readiness == .ready, let anchor {
+                if self.showImmediately(from: anchor) { return true }
+                guard deadlinePassed else { return false }
+            }
+            guard self.showUnanchored() else {
+                self.close()
+                return false
+            }
+            return true
         }
         retryAtSettleDeadline(request)
         retryPresentation()
+    }
+
+    /// A button action can arrive before the appearance animation's didShow notification.
+    /// Both acknowledge the same presentation once; cancellation before showing acknowledges nothing.
+    func acknowledgePresentation() {
+        guard showingGeneration == generation else { return }
+        let callback = onShown
+        onShown = nil
+        removeObserver(&shownObserver)
+        callback?()
     }
 
     func cancelPresentation() {
@@ -57,6 +82,9 @@ class AnchoredPopover: NSPopover {
         pending = nil
         scheduled = false
         showingGeneration = nil
+        onShown = nil
+        dismissalMonitors.forEach { NSEvent.removeMonitor($0) }
+        dismissalMonitors = []
         stopObservingAnchor()
         removeObserver(&shownObserver)
         removeObserver(&closedObserver)
@@ -75,8 +103,36 @@ class AnchoredPopover: NSPopover {
             if shown {
                 self.pending = nil
                 self.stopObservingAnchor()
+                self.monitorDismissalEvents()
             }
         }
+    }
+
+    private func monitorDismissalEvents() {
+        guard dismissesOnEscapeAndOutsideClick else { return }
+        let events: NSEvent.EventTypeMask = [.keyDown, .leftMouseDown, .rightMouseDown, .otherMouseDown]
+        // The gate does not take focus, so dismissal must also work while another app is active.
+        dismissalMonitors = [
+            NSEvent.addGlobalMonitorForEvents(matching: events) { [weak self] in
+                self?.handleDismissalEvent($0, isGlobal: true)
+            },
+            NSEvent.addLocalMonitorForEvents(matching: events) { [weak self] in
+                self?.handleDismissalEvent($0)
+                return $0
+            },
+        ].compactMap { $0 }
+    }
+
+    func handleDismissalEvent(_ event: NSEvent, isGlobal: Bool = false) {
+        guard dismissesOnEscapeAndOutsideClick, isShown else { return }
+        switch event.type {
+        case .keyDown:
+            guard event.keyCode == kVK_Escape else { return }
+        case .leftMouseDown, .rightMouseDown, .otherMouseDown:
+            if !isGlobal, let window = contentViewController?.view.window, event.window === window { return }
+        default: return
+        }
+        close()
     }
 
     /// An icon macOS never places produces no layout event to retry on (measured on macOS 27 with the item switched
@@ -114,9 +170,12 @@ class AnchoredPopover: NSPopover {
 
     private func display(relativeTo view: NSView, hidingArrow: Bool) -> Bool {
         if responds(to: NSSelectorFromString("setShouldHideAnchor:")) { setValue(hidingArrow, forKey: "shouldHideAnchor") }
-        NSApp.activate(ignoringOtherApps: true)
+        if takesKeyboardFocus { NSApp.activate(ignoringOtherApps: true) }
         show(relativeTo: view.bounds, of: view, preferredEdge: .minY)
-        if isShown { contentViewController?.view.window?.makeKey() }
+        if isShown, let window = contentViewController?.view.window {
+            if behavior == .applicationDefined { window.hidesOnDeactivate = false }
+            if takesKeyboardFocus { window.makeKey() }
+        }
         return isShown
     }
 
@@ -179,6 +238,7 @@ class AnchoredPopover: NSPopover {
     }
 
     deinit {
+        dismissalMonitors.forEach { NSEvent.removeMonitor($0) }
         for observer in [updateObserver, shownObserver, closedObserver].compactMap({ $0 }) {
             NotificationCenter.default.removeObserver(observer)
         }

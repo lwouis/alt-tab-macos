@@ -138,7 +138,7 @@ class CursorEvents {
 
     private static func handleOtherMouseUp(_ cgEvent: CGEvent) -> Unmanaged<CGEvent>? {
         if ContextMenuEvents.isMenuOpen { return Unmanaged.passUnretained(cgEvent) }
-        if isPointerInsideUi(),
+        if isPointerInsideUi(), !SearchDiscoveryHint.shared.containsMouseLocation,
            cgEvent.getIntegerValueField(.mouseEventButtonNumber) == 2,
            let target = findTileViewUnderPointer(),
            let window = target.window_ {

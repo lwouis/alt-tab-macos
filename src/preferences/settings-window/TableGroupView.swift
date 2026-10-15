@@ -507,6 +507,7 @@ class TableGroupView: ClickHoverStackView {
         let subLabel = NSTextField(wrappingLabelWithString: text)
         subLabel.font = NSFont.systemFont(ofSize: 12)
         subLabel.textColor = .gray
+        subLabel.isSelectable = false
         subLabel.alignment = .left
         subLabel.lineBreakMode = .byWordWrapping
         subLabel.maximumNumberOfLines = 0

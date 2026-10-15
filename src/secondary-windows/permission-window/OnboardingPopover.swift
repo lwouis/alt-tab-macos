@@ -15,10 +15,23 @@ enum OnboardingPopover {
     #if DEBUG
     static func closeForQa() { close() }
     static func ownsForQa(_ window: NSWindow) -> Bool { popover?.contentViewController?.view.window === window }
+
+    /// Either beat on demand: `show` skips the first one once the shortcut has been used.
+    static func showForQa(completion: Bool) {
+        guard Menubar.statusItem != nil else { return }
+        close()
+        announcesTrial = true
+        if completion {
+            stage = .done
+            presentCompletion()
+        } else {
+            presentFirstBeat()
+        }
+    }
     #endif
     private static var popover: AnchoredPopover?
     private static var stage = Stage.waitingForShortcut
-    private static var trialDaysToAnnounce: Int?
+    private static var announcesTrial = false
     private static var keyMonitors = [Any]()
     private static var pendingDone: DispatchWorkItem?
     private static weak var holdKey: KeycapView?
@@ -27,23 +40,27 @@ enum OnboardingPopover {
 
     /// Returns false before the menubar exists, so the caller can fall back. A hidden or unplaced icon is not a
     /// reason to: the popover then shows under the menu bar (`StatusItemAnchor`).
-    static func show(trialDaysToAnnounce: Int?) -> Bool {
+    static func show(announcesTrial: Bool) -> Bool {
         guard Menubar.statusItem != nil else {
             Logger.debug { "no menubar yet" }
             return false
         }
         close()
-        Self.trialDaysToAnnounce = trialDaysToAnnounce
+        Self.announcesTrial = announcesTrial
         if UserDefaults.standard.bool(forKey: "onboardingShortcutUsed") {
             stage = .done
             presentCompletion()
         } else {
-            Self.popover = makePopover()
-            stage = .waitingForShortcut
-            present(makeTryItView())
-            startKeyFeedback()
+            presentFirstBeat()
         }
         return true
+    }
+
+    private static func presentFirstBeat() {
+        popover = makePopover()
+        stage = .waitingForShortcut
+        present(makeTryItView())
+        startKeyFeedback()
     }
 
     /// Called at every summon and every cycling keystroke, where the checks are the whole cost on
@@ -81,10 +98,17 @@ enum OnboardingPopover {
         popover?.close()
         popover = makePopover()
         Preferences.set("onboardingShortcutUsed", "true", false)
-        present(makeDoneView(trialDaysToAnnounce)) {
-            if trialDaysToAnnounce != nil { ProTransitionManager.shared.hasSeenWelcome = true }
+        LicenseManager.shared.refreshState()
+        let trialEnd = completionTrialEnd()
+        present(makeDoneView(trialEnd)) {
+            if trialEnd != nil { ProTransitionManager.shared.hasSeenWelcome = true }
             celebrate()
         }
+    }
+
+    private static func completionTrialEnd() -> Date? {
+        guard announcesTrial, case .trial = LicenseManager.shared.state else { return nil }
+        return LicenseManager.shared.trialEndDate
     }
 
     private static func makePopover() -> AnchoredPopover {
@@ -166,13 +190,13 @@ enum OnboardingPopover {
     }
 
     /// Second beat: confirms the keypress landed, announces the trial, and leads into Settings.
-    private static func makeDoneView(_ trialDays: Int?) -> NSView {
+    private static func makeDoneView(_ trialEnd: Date?) -> NSView {
         let title = OnboardingLayout.title(NSLocalizedString("That's it", comment: "Onboarding popover, once the shortcut was used"))
         let reminder = pressAnyTime()
         let button = AccentButton(NSLocalizedString("Choose a style", comment: "Onboarding popover; opens Settings on Appearance")) {
             chooseStyle()
         }
-        let trial = trialDays.map { TrialCard($0) }
+        let trial = trialEnd.map { TrialCard($0) }
         let tick = SuccessTickView()
         Self.tick = tick
         let stack = NSStackView(views: [tick, title, reminder, trial, button].compactMap { $0 })
@@ -299,20 +323,22 @@ private enum OnboardingLayout {
 private class TrialCard: NSView {
     private let gradient = ProGradient.makeLayer(alpha: 0.12)
 
-    init(_ days: Int) {
+    init(_ trialEnd: Date) {
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
         wantsLayer = true
         layer!.cornerRadius = 8
         layer!.masksToBounds = true
         layer!.addSublayer(gradient)
-        let title = NSTextField(wrappingLabelWithString: String(format: NSLocalizedString("%d days of AltTab Pro, starting now", comment: "Onboarding popover; %d is the trial length in days"), days))
+        let title = NSTextField(wrappingLabelWithString: ProFeatureCopy.includedUntil(trialEnd))
         title.translatesAutoresizingMaskIntoConstraints = false
         title.font = .systemFont(ofSize: 12, weight: .semibold)
-        let body = NSTextField(wrappingLabelWithString: NSLocalizedString("Everything is unlocked while it runs. After that, the switcher keeps working exactly as it does now, and the Pro extras step back.", comment: "Onboarding popover, under the trial announcement"))
+        title.isSelectable = false
+        let body = NSTextField(wrappingLabelWithString: ProFeatureCopy.trialPromise)
         body.translatesAutoresizingMaskIntoConstraints = false
         body.font = .systemFont(ofSize: 11)
         body.textColor = .secondaryLabelColor
+        body.isSelectable = false
         let stack = NSStackView(views: [title, body])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.orientation = .vertical
@@ -520,7 +546,7 @@ private class DotView: NSView {
 }
 
 /// The green circle with the checkmark.
-private class SuccessTickView: NSView {
+class SuccessTickView: NSView {
     private static let diameter = CGFloat(50)
 
     init() {

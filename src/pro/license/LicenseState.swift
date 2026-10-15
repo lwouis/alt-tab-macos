@@ -1,4 +1,5 @@
 enum LicenseState: Equatable {
+    case trialNotStarted
     case trial(daysRemaining: Int)
     case pro
     case proExpired
@@ -7,24 +8,24 @@ enum LicenseState: Equatable {
     var isProAvailable: Bool {
         switch self {
         case .trial, .pro: return true
-        case .proExpired, .trialExpired: return false
+        case .trialNotStarted, .proExpired, .trialExpired: return false
         }
     }
 
     var debugProfileLabel: String {
         switch self {
+        case .trialNotStarted: return "Setup"
         case .trial: return "Trial"
         case .pro: return "Pro"
         case .proExpired, .trialExpired: return "Free"
         }
     }
 
-    /// Raw tier tag sent as the `tier` appcast feed parameter for install-base
-    /// analytics. Kept as the four distinct states (not the three-bucket
-    /// `debugProfileLabel`) so the backend can split churned-pro from never-paid;
-    /// the analytics view collapses proExpired+trialExpired into "free".
+    /// Setup has no tier yet. The appcast tag distinguishes expired Pro from expired trials;
+    /// `debugProfileLabel` and the analytics view group both as Free.
     var appcastTier: String {
         switch self {
+        case .trialNotStarted: return ""
         case .trial: return "trial"
         case .pro: return "pro"
         case .proExpired: return "proExpired"

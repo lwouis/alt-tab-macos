@@ -1,268 +1,82 @@
-# Pro Transition — Complete UI Specification
+# Pro trial journey
 
-> **Line coverage:** `ProTransitionManagerTestable.swift` 100% · _refreshed 2026-05-27 by `/coverage-explore`_
+The 14-day trial introduces useful features without adding an independent reminder budget for each feature. All dates below are one-based product days; `daysSinceTrialStart` is zero-based. New trial starts follow the first-usable milestone in `LicenseManagerSpecs.md`; saved dates, elapsed-day semantics, license precedence, signature, Keychain accounts, checkout URLs and attribution codes remain unchanged.
 
----
+## Inventory and ownership
 
-## State Diagram
+- `ProTransitionManager` coordinates license transitions, one last Pro session, dismissal and prompt actions. `ProTransitionState` persists eligibility, opt-out and the pre-downgrade preferences. `ProTransitionScheduler` owns the single timed work item: one wall-clock GCD deadline for the Welcome letter, the start of day 13 or the trial's end, never a repeating timer. The target date is persisted, so a relaunch fires an overdue one and arms the next. Opt-out suppresses promotional deadlines while preserving trial expiration.
+- `SearchDiscoveryHint` owns the nonactivating switcher child panel and the shared Search/extra-shortcut history. `SearchDiscoveryPolicy` decides eligibility, cooldown and placement.
+- `AnchoredPopover` waits for a usable menu icon and falls back below the menu bar if it is hidden or unavailable. It acknowledges actual presentation with `didShow`, cancels stale work and releases content on close.
+- History loading and anchor layout recheck the current session, competing UI, fullscreen, license, opt-out and daily message budget before showing proactive content. A pending popover excludes itself from the competing-UI check. User-requested gate feedback bypasses marketing limits, but still requires an available session without onboarding. The small blocked-feature popover is allowed during switching; full windows still wait until the switcher is inactive. Lock, sleep, a Space change, a new switcher session or opening another window cancels outstanding history loads; returning to an eligible context does not revive them.
+- Onboarding continues to explain permissions and the configured shortcut, then opens the complete Settings window. Its pending completion occupies the prompt slot. No first-launch style chooser is added.
+- `LicenseManager` remains the entitlement authority. Purchase cancels deferred marketing, timed work, and existing Pro prompts. After launch, license changes re-arm the same single deadline, including a previously unstarted trial begun by deactivation. Before launch completes, scheduling waits for onboarding to claim its slot. Successful new activation has a separate callback from revalidation.
 
-```mermaid
-flowchart TD
-    Start([App launched]) --> A["<b>[A] Welcome Letter</b><br/>Day 1<br/>(updates only; new installs get the trial in the onboarding popover)"]
-    A --> Day4Check{"Day 4<br/>first switcher open?"}
-    Day4Check -->|Yes| H["<b>[H] Day 4 Pro Tour Popover</b>"]
-    Day4Check -->|"No switcher use"| SkipH["Skipped"]
-    H --> Silent["Silent trial<br/>Days 5-11"]
-    SkipH --> Silent
+## Welcome and setup
 
-    Silent --> D12{"Day 12<br/>Active at 10-11:30 or 15:30-17?"}
-    D12 -->|Yes| B["<b>[B] Heads-Up Popover</b>"]
-    D12 -->|No| SkipB["Skipped"]
-    B --> Badge["Badge dot on icon<br/>Days 13-14"]
-    SkipB --> Badge
+Unresolved first setup has no trial clock and no promotional scheduling. Once usable, fresh installs announce the trial in the existing onboarding completion card; the fallback/existing-install route uses the welcome letter, a popover under the menu bar icon like the other prompts. Both say “Pro is included until [localized date]. After that, window switching and thumbnails stay free. Search, extra styles, Auto Size, and additional shortcuts require Pro.” The letter's Continue button, Escape or a click outside only dismisses it; on a first launch, Settings opens once it has closed. Neither route restarts the clock. Resuming shortcut onboarding recomputes the card from the current license state/end date; an expired or activated trial gets no new-trial card or letter. Existing onboarding navigation and prompt occupancy are unchanged.
 
-    Badge --> Exp["<b>Day 15: Trial expired</b><br/>Remove badge dot<br/>Degradable feature (Auto size) downgrades immediately;<br/>style/shortcutStyle also downgrade. First switcher use<br/>post-expiry triggers free-pass + [C] for any user;<br/>engaged users also get one last Pro switcher session<br/>(read() returns remembered values during free-pass)"]
+## Proactive surfaces
 
-    Exp --> Fork{"First event<br/>after expiration?"}
-    Fork -->|"Hard-gated feature triggered<br/>(search, shortcut ≥ 2)"| FP["Free pass<br/>Execute action once"]
-    Fork -->|"First switcher open"| FP
-    Fork -->|"10-11:30 or 15:30-17 arrives<br/>no trigger fired"| D["<b>[D] Proactive Day 15</b>"]
-    Fork -->|"No activity"| RetryD["Retry next day"]
-    RetryD --> Fork
-
-    FP --> C["<b>[C] Full Upgrade Window</b>"]
-    C --> PostC["Hard-gate now active"]
-
-    D --> Fork2{"Hard-gated feature<br/>triggered later?"}
-    Fork2 -->|Yes| FP2["Free pass<br/>Execute action once"]
-    Fork2 -->|"Never — only<br/>degradable features used"| ToD21["To Day 21"]
-    FP2 --> C
-
-    PostC --> D21{"Day 21+<br/>Active at 10-11:30 or 15:30-17?"}
-    ToD21 --> D21
-    D21 -->|Yes| F["<b>[F] Day 21 Popover</b>"]
-    D21 -->|"Inactive until Day 35"| SkipF["Skip Day 21"]
-
-    F --> D35{"Day 35+<br/>Active at 10-11:30 or 15:30-17?"}
-    SkipF --> D35
-    D35 -->|Yes| G["<b>[G] Day 35 Final Window</b>"]
-    D35 -->|"Inactive until Day 49"| GiveUp["Give up"]
-
-    G -->|"Get Pro"| P(["✓ Purchased<br/>All prompts stop, all gates removed"])
-    G -->|"Don't ask again"| OO(["Opted out"])
-    G -->|"Close ×"| SS
-
-    GiveUp --> SS(["<b>Steady State</b><br/>E popover on every hard-gate attempt<br/>Degradable: silent fallback<br/>Purchase in Preferences"])
-    OO --> SS
-```
-
-**Note:** Purchase at any point in the flow → all prompts stop, all gates removed, all indicators cleared. This exit applies from every state.
-
-**Note:** [E] Hard-Gate Popover runs in parallel from the moment hard-gate is active. Any hard-gated feature attempt → [E]. This continues in Steady State, even after opt-out.
-
----
-
-## State Variables
-
-| Variable | Default | Description |
+| Surface | Trigger | Missed opportunity |
 |---|---|---|
-| `hasSeenWelcome` | false | [A] shown |
-| `hasSeenDay4Tour` | false | [H] Day 4 Pro tour popover shown |
-| `hasSeenDay12` | false | [B] shown |
-| `freePassUsed` | false | One-time post-trial free pass consumed |
-| `hasSeenFullUpgrade` | false | [C] shown |
-| `hasSeenProactiveDay15` | false | [D] shown |
-| `hasSeenDay21` | false | [F] shown |
-| `hasSeenDay35` | false | [G] shown |
-| `userOptedOut` | false | "Don't ask again" clicked |
-| `hasTriggeredPostExpirationSwitcher` | false | First post-expiration switcher summon consumed the free-pass via the appearance/shortcut hard-gate trigger (one-shot) |
-| `rememberedAppearanceStyle` | nil | Snapshot of Pro `appearanceStyle` at `onProLockEngaged()`. Drives the ghost outline in Settings; also passed into the [C] header reason so engaged users see a tailored title |
-| `rememberedAppearanceSize` | nil | Snapshot of `.auto` size at `onProLockEngaged()` — drives the gray overlay on the `.auto` segment |
-| `rememberedShortcutStyle` | nil | Snapshot of `.searchOnRelease` at `onProLockEngaged()`. Drives the gray background on the dropdown item; also passed into the [C] header reason so search-engaged users see a tailored title |
+| Day 4 styles | First switcher session on day 4, Thumbnails still effective on shortcut 1; one second after dismissal | Consumed on that day's first session. If that presentation is blocked (fullscreen, other UI, display sleep, a cancelling Space change), a later session on day 4 or 5 retries it. No day 5 catch-up for a user absent on day 4, no retry after an adopted style, opt-out or another message |
+| Discovery | Existing days 2–11, excluding day 4; useful window inventory and usable keyboard binding | Maximum three exposures shared across Search and extra shortcuts, at least 72 hours apart; failed placement consumes nothing |
+| Badge | Days 13 and 14 of an active trial: a dot on the menu bar icon, no popup | The timer wakes at the start of day 13 and every wake redraws the icon, so an app left running gains the dot without a relaunch. It leaves on day 15 or at purchase, regardless of opt-out |
+| Expiration | First switcher use after expiration, or an explicit gated request | One announcement after the last free-pass session; retry after a later dismissal if presentation was blocked, no independent timed announcement |
+| Day 35 | Eligible switcher session on day 35, local Pro attempt in the last seven days | Once after dismissal +1 second, acknowledged only after the window is visible. Interrupted presentations retry at the next eligible session on day 35. Suppressed by another message that day or unknown intent. Recheck eligibility after loading history. No day 36–48 catch-up |
 
-**Implementation note:** `hasPurchased` is not stored — it is derived from `LicenseManager.shared.state == .pro`. All day references in the spec are 1-indexed (Day 1 = first day); in code, `daysSinceTrialStart` is 0-indexed (Day 1 = 0, Day 12 = 11, Day 15 = 14).
+The seven-day intent window is a product policy, not a measured conversion result. Only the last attempted feature and its date are stored locally. Trial counters never establish recent intent. Settings gates and runtime gates both count as attempts; they never increment successful use statistics.
 
----
+A repeated summon within the dismissal delay cancels the timer until the switcher is dismissed. Rebuilding the same session for another shortcut does not create a second opportunity. Display sleep or leaving the login session cancel pending presentations. A Space change cancels them too, except during the delay after dismissal: focusing a window on another Space is the switch the user asked for, and the prompt follows them there. These observers exist from launch, not from the first prompt. Locked/inactive sessions, fullscreen, onboarding, modal UI, an open menu, another Pro window/popover, and the active switcher block proactive presentation. Anchor readiness is checked again before presenting, including when the status item is absent. Welcome attempts are bounded to one per scheduler lifetime, preventing an immediate reschedule loop if presentation is blocked.
 
-## UI Components
+Discovery is limited to the trial; purchase stops both discovery and commercial solicitations. A feature's first actual use permanently stops that feature's discovery. Closing a discovery tip disables both tips through the existing preference. Existing Search exposures, cooldown and refusal migrate without a fresh budget. No Auto tip is scheduled.
 
-| | **[A] Welcome Letter** | **[H] Day 4 Pro Tour** | **[B] Day 12 Heads-Up** | **[C] Full Upgrade** | **[D] Proactive Day 15** | **[E] Hard-Gate Popover** | **[F] Day 21 Reminder** | **[G] Day 35 Final** |
-|---|---|---|---|---|---|---|---|---|
-| **Trigger** | First launch after install or update — copy varies by which (fresh install detected via nil `preferencesVersion` at migration). A launch that ends on the onboarding popover (a new user's unfinished first launch) never shows it: the popover announces the trial instead and sets `hasSeenWelcome`. So in practice only existing users updating see the letter | First switcher open on Day 4 (after dismissal + 1s) | Day 12, at 10–11:30 or 15:30–17:00 | First hard-gated feature after free pass used; or first hard-gate if [D] was shown but free pass not yet used → free pass fires first, then [C]. Also: first switcher open after Day 15 → free-pass + [C] (after dismissal + 1s), for any user (engaged users see a tailored header from `remembered*`; non-engaged users see the `.nonEngaged` fallback) | Day 15+, at 10–11:30 or 15:30–17:00, if no hard-gated feature triggered yet | Any hard-gated feature attempt after [C] has been shown | Day 21+, at 10–11:30 or 15:30–17:00, if user used AltTab today | Day 35+, at 10–11:30 or 15:30–17:00, if user used AltTab today |
-| **If missed** | N/A — always shows | No retry — only fires when switcher is opened on Day 4 | Try 15:30–17:00; then skip entirely | N/A — user-initiated | Try 15:30–17:00; retry next active day until shown or System 2 fires | N/A — user-initiated | Retry daily; skip if Day 35 arrives first | Retry daily; give up at Day 49 |
-| **UI type** | NSWindow, non-modal | NSPopover → menubar icon | NSPopover → menubar icon | NSWindow, non-modal | NSWindow, non-modal | NSPopover → menubar icon | NSPopover → menubar icon | NSWindow, non-modal |
-| **Position** | Centered | Below menubar icon ↑ (¹) | Below menubar icon ↑ (¹) | Centered | Centered | Below menubar icon ↑ (¹) | Below menubar icon ↑ (¹) | Centered |
-| **Size** | ~560 × 520pt | ~280 × 110pt | ~280 × 100pt | ~440 × 340pt | ~380 × 280pt | ~280 × 100pt | ~300 × 140pt | ~380 × 280pt |
-| **Video/GIF** | No | No | No | No | No | No | No | No |
-| **Free vs Pro table** | Yes — 3–4 items per column with icons | No | No | No | No | No | No | No |
-| **Pricing** | No | No | No | No — shown only on /pricing | No — shown only on /pricing | No — shown only on /pricing | No — shown only on /pricing | No — shown only on /pricing |
-| **Usage stat** | No | No | No | Yes — "Your usage so far" lead-in + two-stat hero (window switches + Pro feature uses), single-column fallback if proCount = 0 | Yes — "Your usage so far" lead-in + two-stat hero (window switches + Pro feature uses), single-column fallback if proCount = 0 | No | Yes — two-line body with switch count and Pro feature uses count | Yes — "Your usage so far" lead-in + two-stat hero (window switches + Pro feature uses), single-column fallback if proCount = 0 |
-| **Feature highlighting** | Yes — comparison table | No | No | No — replaced by hero usage stat | No | No | No | No |
-| **Text content** | App icon; comparison table; "Start my 14-day trial" button. Two variants — **upgrade** (existing prefs file): "AltTab now has a Pro tier" + 14-day framing + open-source/one-time-purchase reassurance. **New install** (no prior prefs): "Welcome to AltTab" + short "free, open-source switcher with 14-day Pro trial" intro. No "See Pro in action" link in either. | "Your trial includes Pro features."; "Try these in the next 10 days:"; bulleted list (App Icons / Titles styles, Additional shortcuts, Search) | "Your Pro trial ends in 2 days"; subtitle from ProConversionCopy.day12Subtitle(); two-button: "Not now" + "Get Pro". | Header resolved by priority: extra shortcut → "Unlock extra shortcuts with Pro"; search / search-on-release → "Unlock Search with Pro"; App Icons or Titles → "Unlock App Icons and Titles with Pro"; fallback → "Get more from AltTab with Pro". "Your usage so far" lead-in + two-stat hero (window switches + Pro feature uses). Supporting line for engaged users: "Some Pro features have reverted to free defaults." plus a feature-specific sentence ("Extra shortcuts are a Pro feature." / "Search is a Pro feature." / no second line for App Icons / Titles). Non-engaged users see only the aspirational line: "AltTab Pro adds 4 features beyond the free switcher." | "Your 14-day Pro trial just ended"; two-stat hero (window switches + Pro feature uses); "Some Pro features have reverted to free defaults." | Title resolved by the same priority as [C]. Optional body for .feature triggers: "Free pass used. Upgrade to keep using it." | "AltTab Pro — a quick reminder"; two-line body: "{N} window switches with AltTab — {M} used Pro features." / "They're still here whenever you're ready." | "Still interested in Pro?"; two-stat hero (window switches + Pro feature uses); "Pro is still here whenever you're ready." |
-| **Primary action** | **"Start my 14-day trial"** — prominent, closes window | None (informational) | **"Get Pro"** — small → /pricing | **"Get Pro"** — accent color → /pricing | **"Get Pro"** → /pricing | **"Get Pro"** — small → /pricing | **"Get Pro"** — small → /pricing | **"Get Pro"** → /pricing |
-| **Secondary action** | None | None | **"Not now"** — text link | **"Continue with Free"** — text link | **"Maybe later"** — text link | **"Not now"** — text link | **"Not now"** — text link | **"No thanks — don't ask again"** — text link → permanent opt-out, no confirmation |
-| **Dismiss behavior** | ⨉ = same as "Start my 14-day trial" | Click outside | Click outside | ⨉ = same as "Continue with Free" | ⨉ = same as "Maybe later" | Click outside | Click outside | ⨉ = "Not now" (does NOT opt out; `hasSeenDay35` set, no repeat, but [E] continues) |
-| **Frequency** | Once ever | Once ever | Once ever | Once ever | Once ever | Fires on every post-[C] hard-gate attempt | Once ever | Once ever |
+## Day 4 interaction
 
-(¹) Without the arrow, centered under the menu bar, when the icon is hidden or macOS never shows it (`AnchoredPopoverSpecs.md`).
+Three existing native style illustrations and three blue buttons. The question uses the macOS emphasized Title 3 metrics (15 pt, semibold), independently of button emphasis. Blue styling is independent of default-button behavior. No Return key equivalent. Escape dismisses without changing preferences. A click selects and closes; Keep Thumbnails writes nothing. The first shortcut's explicit style override is updated together with the global style so the demonstrated choice is visible on the next summon.
 
----
+## Expiration and blocked gestures
 
-## Feature Gating Reference
+The license state follows the clock only when refreshed, so an app left running past the end of the trial expires it itself: the single timer also wakes at the trial's end, and a switcher dismissal refreshes an outlived trial state once the focus is done. Neither runs while the switcher is open. Timers use wall time, so a Mac asleep at the scheduled moment fires on wake instead of hours later.
 
-All Pro prefs (style, size, shortcut style) downgrade to their Free equivalent **immediately on trial expiry**. `ProTransitionManager.onProLockEngaged()` fires on the state transition into `.trialExpired` / `.proExpired`, snapshotting the user's Pro selection into `remembered*` fields and writing the Free equivalent to stored. The user visually notices the degradation (e.g. Titles → Thumbnails) — this is the passive signal that something changed. Settings renders a gray "ghost" outline/background on the remembered option so the user sees what they used to have alongside the new Free selection. Any click on a Pro UI element while locked jumps to the Upgrade tab. On purchase, `onProUnlocked()` restores remembered → stored.
+Preference downgrade and the existing one-session free pass are retained. The old proactive-expiration flag is treated as an already delivered announcement for migration. Both flags are set when the unified announcement appears, leaving an interrupted history load eligible for a later dismissal. The Day 4 retry stays armed through anchor layout and clears only on acknowledged presentation. Every subsequent newly blocked attempt receives feedback, including after opt-out. Anchored Pro popovers, an open gate included, are closed before a new gate is presented, so the gate always names the latest blocked feature.
 
-During an active **free-pass session** (`ProTransitionManager.isFreePassSessionActive`), `PreferenceDefinition.read()` reads the `remembered*` index back instead of stored — so the switcher renders the user's Pro selection for one last summon before [C]. Stored values stay at the Free equivalent throughout, so the Settings UI continues to show the locked experience even if it happens to read mid-session.
+After the one-time expiry announcement, a blocked gesture immediately requests the independent menu-bar popover, with the attempted feature's title and Maybe later / Get Pro. It does not dismiss the switcher, change its selected window, cancel the held shortcut, or queue a response for one second after dismissal. The anchor's existing main-queue layout pass presents it; no synchronous native show is added to the gesture handler. The full first announcement retains its dismissal delay.
 
-The difference between **degradable** and **hard-gated** prefs is what the user sees on the locked switcher:
-- Pure degradable (Auto size only): silent fallback. No tailored header — `[C]` still fires on first switcher open with the `.nonEngaged` aspirational copy.
-- Degradable + hard-gated (style, shortcut style): silent fallback PLUS the first switcher open reads back the remembered Pro selection for one last Pro session, then `[C]` shows with a tailored header.
+The gate remains a native menu-bar popover, never a switcher child or inline message. Its application-defined lifetime keeps it available through cycling, modifier release, focusing the chosen app, and later summons. It does not explicitly activate AltTab or make its window key: a delayed anchor must not steal focus back from the window just selected. Escape or a click outside dismisses it, including while another app is active; clicks inside keep its buttons usable. Escape still reaches the switcher's shortcut handling, including when its absorption tap intercepts the key. Dismissal monitors exist only while the gate is shown. It has no automatic timeout. Maybe later dismisses only this response; another blocked attempt can show a fresh one. Get Pro closes it and opens the existing attributed checkout. Purchase buttons reject Return and keypad Enter, including when the button has keyboard focus.
 
-The first post-expiration switcher open always triggers free-pass + `[C]` (one-shot, gated by `hasTriggeredPostExpirationSwitcher`). `[D]` Proactive Day 15 only fires if `[C]` hasn't fired yet (i.e. the user never opened AltTab after expiry). `[C]` Full Upgrade also fires on the first explicit hard-gate attempt (search, shortcut ≥ 2) via the free-pass ladder if the switcher wasn't opened first.
+Only an already visible gate survives a new summon. A pending anchor request is cancelled on re-summon, opening another secondary window, lock, sleep, leaving the login session, or Space change. Visible gates close on lock, sleep, leaving the login session, Space change, purchase, replacement by a newer gate, or their explicit actions. Space changes retain the current safety policy even when switching to a window on another Space. A gate replaces both visible and pending popovers and cancels older window-history requests, so only the newest attempted feature can appear. An already visible expiry or final-reminder window prevents an additional gate. Proactive Day 4 / Day 35 rules, the one-session free pass, entitlement and the one-time expiry announcement remain unchanged.
 
-| Pro Feature | Gate type | Post-lock behavior | Triggers upgrade UI? |
-|---|---|---|---|
-| App Icons / Titles appearance | Degradable + hard-gated (first post-expiration switcher use) | Stored ← `.thumbnails`; remembered = original; Settings shows ghost outline on remembered. First switcher open after lock → free-pass → [C] (one-shot, gated by `hasTriggeredPostExpirationSwitcher`); during that session `read()` returns the remembered Pro style so the switcher renders it one last time | Click on Pro style → UpgradeTab. First switcher open → [C] |
-| Auto size | Degradable | Stored ← `.medium`; remembered = `.auto`; Settings shows gray overlay on `.auto` segment; during a free-pass session triggered by the post-expiration switcher trigger, `read()` returns `.auto` so the size also renders Pro for that one session | Click on `.auto` segment → UpgradeTab. First switcher open → [C] (with `.nonEngaged` header if no other Pro pref) |
-| Keep open and search | Degradable + hard-gated (first post-expiration switcher use) | Stored ← `.doNothingOnRelease`; remembered = `.searchOnRelease`; dropdown shows gray background on `.searchOnRelease` when opened. First switcher open after lock → free-pass → [C] (one-shot, gated by `hasTriggeredPostExpirationSwitcher`); during that session `read()` returns `.searchOnRelease` so the switcher starts in search mode one last time | Pick `.searchOnRelease` → UpgradeTab. First switcher open → [C] |
-| Shortcut 2, 3, etc. | Hard-gated (use-time) | All shortcuts remain configured; Settings shows gray background on rows beyond 1; pressing triggers free-pass → [C], then [E] | Yes |
-| Search shortcut | Hard-gated | Blocked; free-pass → [C], then [E] | Yes |
+## Shared feature presentation
 
-### `isProAvailable` vs `isProLocked`
+Expiration, Day 35 and Settings use `ProJourneyView`. Its four tabs remain explorable. An expiration announcement brought by a blocked attempt opens on that feature's tab; Day 35 opens on the feature of the recent attempt that made it eligible. Otherwise the deterministic priority is: an adopted Pro style; repeated Search or extra-shortcut actions (at least two, higher count wins, Search breaks ties); Auto configured as active; a single Search or extra-shortcut action (Search breaks ties); generic Auto. An adopted style is a deliberate configuration; Auto can be the default, so repeated actions outrank it. Two actions is a compact ranking threshold, not evidence of successful searches or time saved. A single exploratory Search cannot displace an adopted style, repeated shortcuts, or active Auto. Expiration and Day 35 are windows that ask for a choice: no close or minimize button or shortcut, and Escape or a click elsewhere leaves them open. Maybe later (and Day 35's opt-out) closes them; Get Pro opens checkout and leaves them open. Away from the menu bar icon, their status line names AltTab (“Your AltTab Pro trial has ended”). Both read the history before they appear, so they open on their final tab and height. Settings only changes its automatic selection while hidden; late history cannot move a visible tab, and an explicit tab selection always survives refresh. Day 35 reuses the expiration window's layout, rabbit included; after a trial, its bubble says it saw the user reach for AltTab Pro this week (naming the app, as the window is away from its menu bar icon) and that Pro is still there when needed.
 
-- `isProAvailable` — true for `.trial` and `.pro`. Used by hard-gate entry points (search, `+` shortcut beyond 1) to decide whether to execute directly or consult the free-pass ladder.
-- `isProLocked` — true for `.proExpired` and `.trialExpired` (unconditionally — no grace period). Used by preference getters (`appearanceStyle`, `appearanceSize`, `shortcutStyle`) to downgrade to Free equivalents and by the Settings UI to show ghost affordances and intercept Pro clicks. Also gates the `onSwitcherShown()` post-expiration trigger. During an active free-pass session (`ProTransitionManager.isFreePassSessionActive`) the getters read from `remembered*` instead of stored so the user's Pro selection is honored for that one session — Settings continues to read free because the stored value never changes mid-session.
+- A nonempty Search query is one started search per switcher session. It is never described as a found window or time saved.
+- Extra shortcut use is aggregated across extra slots. Blocked attempts are excluded.
+- Counts include timestamps in `[trialStart, trialStart + 14 days)`. Missing, malformed and aged-out history are unknown; unknown counts are hidden. Known expiration counts are archived locally so pruning does not gradually lower them.
+- A tried and abandoned style is not adopted. The pre-lock effective style of the last-used trial shortcut, including its explicit override, drives the comparison. Existing downgraded installs without reliable evidence get a generic feature example.
+- Styles show the adopted view on the left, Thumbnails on the right, with headings above both images. No duplicate adoption caption appears below them.
+- Auto uses the same three illustrative windows at two sizes, without scrolling. “During your trial” appears only when Auto was captured as active. A generic example otherwise says “With Auto Size”. The drawing is illustrative, not a simulation of the user's screen dimensions.
+- Search, style and Auto artwork reuse the website's English SVG scenes (translation deferred until English review approval), extracted without their desktop/menu context. `scripts/assets/build_pro_illustrations.py` reproduces the bundled assets. Native cards share borders, padding and illustration space; the comparison labels remain native localized text.
+- Shortcut cards show two configured scopes and their combined hold/next keys, read from preferences even before the Settings controls exist. Unconfigured keys are never presented as usable shortcuts.
+- Beneath the illustration, real usage and the feature explanation share the leading alignment and readable system body text. Only the measured count is emphasized; missing usage leaves no placeholder.
+- Shared localized “One-time purchase” copy appears under Get Pro in Settings, and before the buttons in the hard-gate popover. The expiration and Day 35 windows don't show it. It doesn't mention subscriptions. It wraps in content columns. The direct-checkout menubar item doesn't show it. No prices or checkout destinations change. The Settings sidebar opens Settings, so it does not duplicate these terms.
+- In the expiration and Day 35 windows, Maybe later then blue Get Pro sit at the trailing edge. Day 35's persistent opt-out, Don't mention again, sits alone at the leading edge, level with them. Settings has no dismiss button, and keeps license entry and the existing recovery portal.
 
----
+## Activation and feedback
 
-## Edge Cases
+Only a successful activation transitioning into Pro celebrates. Revalidation, app restart, failed activation and repeated activation while already licensed do not. The confirmation is a popover under the menu bar icon, with the existing green check and confetti, with Reduce Motion respected. A centered heading and unlimited-access subtitle precede one grouped list of four features, each with a green check, benefit and separator. Its single button reads “Enjoy!” and closes it. It never claims all preferences were changed. Feedback uses the same isolated rabbit and speech bubble as discovery. Submission behavior and drafts are unchanged.
 
-| Scenario | Behavior |
-|---|---|
-| User opens switcher on Day 4 | [H] Day 4 Pro tour popover appears 1s after switcher dismissal. Once-ever; `hasSeenDay4Tour = true`. |
-| User skips Day 4 entirely (no switcher open) | [H] never fires; `hasSeenDay4Tour` stays false; no retry on Day 5+. |
-| User never uses app on Day 15 | System 1 tries daily at 10–11:30, fallback 15:30–17:00, until [D] shown or System 2 fires first |
-| User hits hard-gated feature before 10am on Day 15 | System 2 fires: free pass → [C]. System 1 canceled. |
-| User had `.titles`/`.appIcons` or `.searchOnRelease` configured pre-trial-end | First switcher open after lock → free-pass + [C] (one-shot). Sets `hasTriggeredPostExpirationSwitcher = true`. |
-| User had only `.auto` size or no Pro feature configured | First switcher open after lock → free-pass + [C] with `.nonEngaged` header ("Get more from AltTab with Pro"). [D] suppressed because `hasSeenFullUpgrade = true`. |
-| User sees [D], then later hits hard-gated feature | Free pass still available (`freePassUsed == false`). Execute once → show [C]. |
-| User only uses degradable Pro features, never hard-gated | Sees [C] on first post-expiration switcher open, then [F] on ~Day 21, [G] on ~Day 35. Never sees [E] (no hard-gate attempt). |
-| Day 21 can't be shown (user inactive) | Retry daily. If Day 35 arrives first, skip Day 21. |
-| Day 35 can't be shown (user inactive) | Retry daily until Day 49, then give up. |
-| User clicks ⨉ on [G] (not "don't ask again") | `hasSeenDay35 = true`. Not opted out. [E] popovers continue. No more proactive prompts. |
-| User opted out | No proactive prompts ever. [E] still fires on hard-gate attempts (user-initiated). Max 1/session. Purchase in Preferences. |
-| User purchases at any point | All prompts stop. All gates removed. All indicators cleared. |
+## QA menu
 
----
+The Debug build's QA menu replays this journey without touching the Keychain or the real trial start: a mocked license that follows a ticking QA clock, so the real scheduler, deferred prompts and expiry run. Scenarios seed one situation each and say what to do next; Go and Next day walk the journey day by day, keeping flags on Next day. History controls replace the trial history the four-tab window reads, and choose the attempted feature it opens on. A status line shows the day, time, what the next Alt-Tab will bring, the armed timer and the seen flags. Pro-transition flags live in the real license defaults suite, and an expiry can downgrade the style preferences; Reset restores both.
 
-## Checkout origin
+## Validation
 
-Every "Get Pro" opens `/pricing?via=<day>-<code>`: `LicenseManager.trialDay` in plain digits, then the entry point's
-code below (Day 35 window clicked on day 35 → `35-a6`). Without a trial start it's `<code>` alone. The website splits
-the two and copies them into the Paddle checkout's custom data, so each sale records which entry point led to it and
-on which day of the trial, including clicks the user made unprompted (menubar, Settings). The update check sends the
-same day as `day`. Codes are opaque so the URL doesn't expose the prompt schedule. The website accepts only this
-list; a retired code is never reused.
+`ProPromptFlowTests` runs the production `ProTransitionManager` → `ProPromptHost` → `Day15HardGatePopover` → `ProPromptPopover` → `AnchoredPopover` flow. In-memory transition storage and unrelated desktop services replace persistence and other windows; a native-display substitute retains the real anchor scheduling, eligibility, cancellation, content and button callbacks. Tests cover an active session and unchanged selection, keyboard matcher cycling/release, checkout clicks after dismissal, Return suppression, pending and visible replacement, re-summons, delayed anchor completion, session/entitlement/onboarding checks, explicit dismissal, stale history cancellation and the free-pass route. The keyboard matcher uses test shortcut actions: these tests do not verify macOS focus, event delivery, animation, window ordering or click delivery. Those boundaries require separately authorized interactive QA.
 
-| Code | Entry point |
-|---|---|
-| `a1` | [B] Day 12 Heads-Up |
-| `a2` | [C] Full Upgrade |
-| `a3` | [D] Proactive Day 15 |
-| `a4` | [E] Hard-Gate Popover |
-| `a5` | [F] Day 21 Reminder |
-| `a6` | [G] Day 35 Final |
-| `a7` | Settings, Upgrade tab |
-| `a8` | Menubar "Get Pro" item |
+`ProPromptPresentationTests` holds history completions to exercise cancellation, replacement, late eligibility changes and user-requested feedback independently of disk timing.
 
----
+History loading has a single two-second GCD deadline. If local storage has not answered, the explanation opens with generic examples and no usage claims, after the same eligibility checks. A late answer cannot replace the visible content or create another window. Cancellation also cancels the deadline; there is no repeating check.
 
-## Test scenarios
-
-Mirrors `ProTransitionTests.swift` 1:1. The tests drive `ProTransitionManagerTestable` — a pure state
-struct + decision functions (`evaluateTimedAction`, `evaluateHardGate`, `evaluateSwitcherOpen`,
-`shouldShowBadgeDot`, `isInTimeWindow`) — so the entire flow above is verified
-deterministically without AppKit, windows, or real time.
-
-### Timed action: Day 1 Welcome
-- **testDay1_welcomeShows** — [A] shows on first launch.
-- **testDay1_welcomeBlocksAllOtherActions** — [A] is exclusive that day.
-
-### Timed action: Day 12 Heads-Up
-- **testDay12_headsUpShowsInTimeWindow** — [B] shows on Day 12 inside the time window.
-- **testDay12_headsUpSkippedOutsideTimeWindow** — skipped outside the window.
-- **testDay12_headsUpNotShownTwice** — once-ever.
-- **testDay12_tooEarly** — not before Day 12.
-
-### Timed action: Day 15 Proactive
-- **testDay15_proactiveShowsIfNoHardGate** — [D] shows if no hard-gate fired yet.
-- **testDay15_proactiveSkippedIfFullUpgradeAlreadyShown** — skipped once [C] has shown.
-- **testDay15_proactiveSkippedOutsideTimeWindow** — window-gated.
-
-### Timed action: Day 21 Reminder
-- **testDay21_reminderShows** — [F] shows ~Day 21.
-- **testDay21_reminderNotShownTwice** — once-ever.
-
-### Timed action: Day 35 Final
-- **testDay35_finalShows** — [G] shows ~Day 35.
-- **testDay49_givesUp** — gives up after Day 49.
-
-### Timed action: Pro user
-- **testProUser_noTimedActions** — purchasers get no prompts.
-- **testProUser_noTimedActionsEvenOnDay35** — still none at Day 35.
-
-### Hard-gate: trial active
-- **testHardGate_allowedDuringTrial** — gated features run during the trial.
-- **testHardGate_allowedForProUser** — and for Pro users.
-
-### Hard-gate: free pass
-- **testHardGate_freePassOnFirstAttempt** — first post-expiry attempt gets a one-time free pass.
-- **testHardGate_fullUpgradeAfterFreePass** — then [C] shows.
-
-### Hard-gate: post-[C] popover
-- **testHardGate_popoverAfterFullUpgrade** — [E] fires on every hard-gate attempt after [C].
-
-### Hard-gate: [D]-shown-but-free-pass-unused edge
-- **testHardGate_freePassStillAvailableAfterProactiveDay15** — free pass survives a prior [D].
-
-### Hard-gate: opted out
-- **testHardGate_popoverStillFiresAfterOptOut** — [E] still fires after opt-out (user-initiated).
-
-### Badge dot
-- **testBadgeDot_showsOnDays13and14** · **testBadgeDot_notShownBeforeDay13** · **testBadgeDot_removedOnDay15** · **testBadgeDot_notShownForProUser**
-
-### Time window (10:00–11:30 / 15:30–17:00)
-- **testTimeWindow_10am** · **testTimeWindow_1130am** · **testTimeWindow_330pm** · **testTimeWindow_4pm** · **testTimeWindow_5pm** — inside.
-- **testTimeWindow_9am_outside** · **testTimeWindow_1131am_outside** · **testTimeWindow_1pm_gap** · **testTimeWindow_2pm_outside** · **testTimeWindow_230pm_outside** · **testTimeWindow_329pm_outside** · **testTimeWindow_501pm_outside** · **testTimeWindow_midnight** — outside.
-
-### Switcher open: Day 4 Pro tour
-- **testSwitcherOpen_day4TourFiresFirstTime** · **testSwitcherOpen_day4TourNotShownTwice** · **testSwitcherOpen_day4TourSkippedOnDay3** · **testSwitcherOpen_day4TourSkippedOnDay5** · **testSwitcherOpen_day4TourSkippedForProUser**
-
-### Switcher open: post-expiration trigger
-- **testSwitcherOpen_postExpirationFires** · **testSwitcherOpen_postExpirationNoopAfterTriggered** · **testSwitcherOpen_postExpirationNoopAfterFreePassConsumed** · **testSwitcherOpen_postExpirationNoopDuringTrial** · **testSwitcherOpen_proUserNoop**
-
-### Full flows
-- **testFullFlow_degradableOnly** — user who never trips a hard gate.
-- **testFullFlow_hardGateUser** — user who does.
-- **testPurchase_stopsEverything** — purchase halts all prompts/gates.
-- **testFullFlow_postExpirationSwitcherTrigger** — engaged user: Day-15 open → free-pass + [C].
-- **testFullFlow_nonEngagedUser** — non-engaged: Day-15 open → free-pass + [C] (`.nonEngaged`); [D] suppressed.
-
-### Edge case: Day 35 close ⨉ vs opt-out
-- **testDay35_closeDoesNotOptOut** · **testDay35_optOutStopsTimedButNotHardGate**
-
-### Cross-event ordering (Day 21 vs Day 35)
-- **testDay35_skipsDay21WhenDueSimultaneously** · **testDay21_notShownOnOrAfterDay35** · **testDay21_notShownPastDay49**
-
-### Day 35 retry window
-- **testDay35_retriesOnDay36** · **testDay35_retriesOnDay48**
-
-### Day 12 skip-entirely
-- **testDay12_skipsEntirelyOnDay13** · **testDay12_skipsEntirelyOnDay14**
-
-### Day 15 Proactive — direct coverage
-- **testDay15_proactiveNotShownIfAlreadySeen** · **testDay15_proactiveShowsOnLaterDayIfStillNotShown**
-
-### Checkout origin
-- **testCheckoutUrl_carriesOriginAndTrialDayAsVia** — "Get Pro" opens `/pricing?via=<day>-<code>`; day 1, 35, 100, and no day.
-- **testCheckoutOrigin_codesMatchTheWebsiteList** — pins the codes the website accepts.
+`ProTransitionTests` and `ProJourneyTests` cover scheduling, including the badge-day wake (`testNextTrialDeadline_wakesForTheBadgeDaysThenForTheTrialsEnd`), the blocked Day 4 retry (`testDay4TourBlockedAtPresentationRetriesLaterOnDay4Or5`), migration, opt-out, repeated blocked requests, evidence precedence, trial bounds, unknown history and recent-intent boundaries, Space changes (`testSpaceChangeFromTheSwitchersOwnFocusKeepsTheQueuedPrompt`), the pre-downgrade capture (`testCaptureClaimsNothingForAnInstallDowngradedBefore`) and the daily message budget. `LicenseManagerTests.testRunningAppKnowsWhenTheTrialHasOutlivedItsState` pins expiry detection while running. `SearchDiscoveryTests` covers shared exposure/cooldown, per-feature adoption, nonactivation, geometry, configured keys, increased contrast and native rendering. `KeyboardEventsUtilsTests.testConfiguredIndexedShortcutChangesScopeWithoutReleasingOption` exercises the production matcher with real indexed, combined bindings in one session. `LicenseManagerTests` separates activation from validation and failures. `AnchoredPopoverTests` covers anchoring, cancellation and deferred eligibility.

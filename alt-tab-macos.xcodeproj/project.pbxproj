@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A02020261020000000000001 /* ProFeatureCopy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA001000000000000000010 /* ProFeatureCopy.swift */; };
+		A01920261019000000020001 /* ProPromptTestSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01920261019000000010001 /* ProPromptTestSupport.swift */; };
+		A01920261019000000020000 /* ProPromptFlowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01920261019000000010000 /* ProPromptFlowTests.swift */; };
+		A01920261019000000000006 /* Day15HardGatePopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA001000000000000000006 /* Day15HardGatePopover.swift */; };
+		A01920261019000000000005 /* ProPromptWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA001000000000000000012 /* ProPromptWindow.swift */; };
+		A01920261019000000000004 /* ProPromptPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA001000000000000000013 /* ProPromptPopover.swift */; };
+		A01920261019000000000003 /* ProPromptHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA001000000000000000017 /* ProPromptHost.swift */; };
+		A01920261019000000000002 /* ProFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA001000000000000000011 /* ProFeature.swift */; };
+		A01920261019000000000001 /* ProTransitionScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA001000000000000000016 /* ProTransitionScheduler.swift */; };
+		A01920261019000000000000 /* ProTransitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA001000000000000000001 /* ProTransitionManager.swift */; };
+		C07200000000000000000002 /* pro-illustrations in Resources */ = {isa = PBXBuildFile; fileRef = C07200000000000000000001 /* pro-illustrations */; };
 		1C96101BC5817A7F85FA1F8D /* titles_show_running_applications_light@2x.heic in Resources */ = {isa = PBXBuildFile; fileRef = 1C961F57248D4E2377A9038E /* titles_show_running_applications_light@2x.heic */; };
 		1C96108A0CB2565233FE100B /* TableGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C961FB3DCF4906FEEF4A23D /* TableGroupView.swift */; };
 		1C9610F8AF7AD8CA53B62913 /* titles_hide_status_icons_light@2x.heic in Resources */ = {isa = PBXBuildFile; fileRef = 1C961E64CF8FB6E3FDAA3DAA /* titles_hide_status_icons_light@2x.heic */; };
@@ -178,26 +189,21 @@
 		5F882F382EC3C63400110A9F /* CustomRecorderControlTestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C8DC2A355E29516DD2FAF /* CustomRecorderControlTestable.swift */; };
 		5F906A342F16A18500B99924 /* Screens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F906A332F16A18000B99924 /* Screens.swift */; };
 		5FA002000000000000000001 /* ProTransitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA001000000000000000001 /* ProTransitionManager.swift */; };
-		5FA002000000000000000002 /* Day1WelcomeLetterWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA001000000000000000002 /* Day1WelcomeLetterWindow.swift */; };
-		5FA002000000000000000003 /* Day12HeadsUpPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA001000000000000000003 /* Day12HeadsUpPopover.swift */; };
+		5FA002000000000000000002 /* Day1WelcomeLetterPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA001000000000000000002 /* Day1WelcomeLetterPopover.swift */; };
 		5FA002000000000000000004 /* Day15FullUpgradeWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA001000000000000000004 /* Day15FullUpgradeWindow.swift */; };
-		5FA002000000000000000005 /* Day15ProactiveWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA001000000000000000005 /* Day15ProactiveWindow.swift */; };
 		5FA002000000000000000006 /* Day15HardGatePopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA001000000000000000006 /* Day15HardGatePopover.swift */; };
-		5FA002000000000000000007 /* Day21ReminderPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA001000000000000000007 /* Day21ReminderPopover.swift */; };
 		5FA002000000000000000008 /* Day35FinalWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA001000000000000000008 /* Day35FinalWindow.swift */; };
 		5FA002000000000000000009 /* Day4TourPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA001000000000000000009 /* Day4TourPopover.swift */; };
 		5FA002000000000000000010 /* ProFeatureCopy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA001000000000000000010 /* ProFeatureCopy.swift */; };
 		5FA002000000000000000011 /* ProFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA001000000000000000011 /* ProFeature.swift */; };
 		5FA002000000000000000012 /* ProPromptWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA001000000000000000012 /* ProPromptWindow.swift */; };
 		5FA002000000000000000013 /* ProPromptPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA001000000000000000013 /* ProPromptPopover.swift */; };
-		5FA002000000000000000014 /* ProConversionCopy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA001000000000000000014 /* ProConversionCopy.swift */; };
 		5FA002000000000000000015 /* ProTransitionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA001000000000000000015 /* ProTransitionState.swift */; };
 		5FA002000000000000000016 /* ProTransitionScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA001000000000000000016 /* ProTransitionScheduler.swift */; };
 		5FA002000000000000000017 /* ProPromptHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA001000000000000000017 /* ProPromptHost.swift */; };
 		5FA002000000000000000018 /* PreferenceDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA001000000000000000018 /* PreferenceDefinition.swift */; };
 		5FA002000000000000000019 /* LoginItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA001000000000000000019 /* LoginItem.swift */; };
 		5FA002000000000000000022 /* ProPromptHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA001000000000000000021 /* ProPromptHeader.swift */; };
-		5FA002000000000000000023 /* UsageStatHeroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA001000000000000000023 /* UsageStatHeroView.swift */; };
 		5FA002000000000000000024 /* ProGradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA001000000000000000024 /* ProGradientButton.swift */; };
 		5FA004000000000000000003 /* ProTransitionManagerTestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA004000000000000000001 /* ProTransitionManagerTestable.swift */; };
 		5FA004000000000000000004 /* ProTransitionManagerTestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA004000000000000000001 /* ProTransitionManagerTestable.swift */; };
@@ -293,6 +299,7 @@
 		BF0C8F9B8014AD21E68B1349 /* HelperExtensionsTestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C810FA0F6BC70E5886E11 /* HelperExtensionsTestable.swift */; };
 		BF0CA0001111222233334444 /* QAMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0CA0005555666677778888 /* QAMenu.swift */; };
 		BF0CA0019999AAAABBBB0001 /* QaSurfaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0CA0019999AAAABBBB0002 /* QaSurfaces.swift */; };
+		BF0CA0019999AAAABBBB0003 /* QaTrial.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0CA0019999AAAABBBB0004 /* QaTrial.swift */; };
 		AB19CA019999AAAABBBB0001 /* QaLifecycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB19CA019999AAAABBBB0002 /* QaLifecycle.swift */; };
 		BF0CA0029999AAAABBBB0001 /* QaSheetAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0CA0029999AAAABBBB0002 /* QaSheetAnimation.swift */; };
 		BF0CAAAA0000000000001001 /* SearchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0CAAAA0000000000000001 /* SearchTests.swift */; };
@@ -475,6 +482,11 @@
 		AD0500000000000000000103 /* menubar-3.pdf in Resources */ = {isa = PBXBuildFile; fileRef = AD0500000000000000000003 /* menubar-3.pdf */; };
 		AD0500000000000000000104 /* menubar-4.pdf in Resources */ = {isa = PBXBuildFile; fileRef = AD0500000000000000000004 /* menubar-4.pdf */; };
 		AD0500000000000000000105 /* menubar-5.pdf in Resources */ = {isa = PBXBuildFile; fileRef = AD0500000000000000000005 /* menubar-5.pdf */; };
+		C07100000000000000000002 /* ProJourneyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07100000000000000000001 /* ProJourneyView.swift */; };
+		C07100000000000000000004 /* pro-rabbit.png in Resources */ = {isa = PBXBuildFile; fileRef = C07100000000000000000003 /* pro-rabbit.png */; };
+		A01720261017000000000003 /* ProPromptPresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01720261017000000000001 /* ProPromptPresentation.swift */; };
+		A01720261017000000000004 /* ProPromptPresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01720261017000000000001 /* ProPromptPresentation.swift */; };
+		A01720261017000000000005 /* ProPromptPresentationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01720261017000000000002 /* ProPromptPresentationTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -492,6 +504,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A01920261019000000010001 /* ProPromptTestSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = src/_test-support/ProPromptTestSupport.swift; sourceTree = SOURCE_ROOT; };
+		A01920261019000000010000 /* ProPromptFlowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = src/pro/ui/ProPromptFlowTests.swift; sourceTree = SOURCE_ROOT; };
+		C07200000000000000000001 /* pro-illustrations */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "resources/pro-illustrations"; sourceTree = SOURCE_ROOT; };
 		02540420CE27E6C973652426 /* menubar-0.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "menubar-0.pdf"; sourceTree = "<group>"; };
 		126D5AA615CEE89F73C22DA7 /* menubar-1.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "menubar-1.pdf"; sourceTree = "<group>"; };
 		1C961003A0D16B9AE3932B3F /* thumbnails_show_colored_circles_light@2x.heic */ = {isa = PBXFileReference; lastKnownFileType = image.heic; path = "thumbnails_show_colored_circles_light@2x.heic"; sourceTree = "<group>"; };
@@ -631,26 +646,21 @@
 		5F7B6AFB2F3BAB98003E25E8 /* StatusIconsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusIconsView.swift; sourceTree = "<group>"; };
 		5F906A332F16A18000B99924 /* Screens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screens.swift; sourceTree = "<group>"; };
 		5FA001000000000000000001 /* ProTransitionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProTransitionManager.swift; sourceTree = "<group>"; };
-		5FA001000000000000000002 /* Day1WelcomeLetterWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day1WelcomeLetterWindow.swift; sourceTree = "<group>"; };
-		5FA001000000000000000003 /* Day12HeadsUpPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day12HeadsUpPopover.swift; sourceTree = "<group>"; };
+		5FA001000000000000000002 /* Day1WelcomeLetterPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day1WelcomeLetterPopover.swift; sourceTree = "<group>"; };
 		5FA001000000000000000004 /* Day15FullUpgradeWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day15FullUpgradeWindow.swift; sourceTree = "<group>"; };
-		5FA001000000000000000005 /* Day15ProactiveWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day15ProactiveWindow.swift; sourceTree = "<group>"; };
 		5FA001000000000000000006 /* Day15HardGatePopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day15HardGatePopover.swift; sourceTree = "<group>"; };
-		5FA001000000000000000007 /* Day21ReminderPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day21ReminderPopover.swift; sourceTree = "<group>"; };
 		5FA001000000000000000008 /* Day35FinalWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day35FinalWindow.swift; sourceTree = "<group>"; };
 		5FA001000000000000000009 /* Day4TourPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day4TourPopover.swift; sourceTree = "<group>"; };
 		5FA001000000000000000010 /* ProFeatureCopy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProFeatureCopy.swift; sourceTree = "<group>"; };
 		5FA001000000000000000011 /* ProFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProFeature.swift; sourceTree = "<group>"; };
 		5FA001000000000000000012 /* ProPromptWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProPromptWindow.swift; sourceTree = "<group>"; };
 		5FA001000000000000000013 /* ProPromptPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProPromptPopover.swift; sourceTree = "<group>"; };
-		5FA001000000000000000014 /* ProConversionCopy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProConversionCopy.swift; sourceTree = "<group>"; };
 		5FA001000000000000000015 /* ProTransitionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProTransitionState.swift; sourceTree = "<group>"; };
 		5FA001000000000000000016 /* ProTransitionScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProTransitionScheduler.swift; sourceTree = "<group>"; };
 		5FA001000000000000000017 /* ProPromptHost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProPromptHost.swift; sourceTree = "<group>"; };
 		5FA001000000000000000018 /* PreferenceDefinition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceDefinition.swift; sourceTree = "<group>"; };
 		5FA001000000000000000019 /* LoginItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginItem.swift; sourceTree = "<group>"; };
 		5FA001000000000000000021 /* ProPromptHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProPromptHeader.swift; sourceTree = "<group>"; };
-		5FA001000000000000000023 /* UsageStatHeroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageStatHeroView.swift; sourceTree = "<group>"; };
 		5FA001000000000000000024 /* ProGradientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProGradientButton.swift; sourceTree = "<group>"; };
 		5FA004000000000000000001 /* ProTransitionManagerTestable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProTransitionManagerTestable.swift; sourceTree = "<group>"; };
 		5FA004000000000000000002 /* ProTransitionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProTransitionTests.swift; sourceTree = "<group>"; };
@@ -757,6 +767,7 @@
 		BF0C8FB9777EE9BE74EF542B /* zh-HK */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = "zh-HK"; path = Localizable.strings; sourceTree = "<group>"; };
 		BF0CA0005555666677778888 /* QAMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QAMenu.swift; sourceTree = "<group>"; };
 		BF0CA0019999AAAABBBB0002 /* QaSurfaces.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QaSurfaces.swift; sourceTree = "<group>"; };
+		BF0CA0019999AAAABBBB0004 /* QaTrial.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QaTrial.swift; sourceTree = "<group>"; };
 		AB19CA019999AAAABBBB0002 /* QaLifecycle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QaLifecycle.swift; sourceTree = "<group>"; };
 		BF0CA0029999AAAABBBB0002 /* QaSheetAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QaSheetAnimation.swift; sourceTree = "<group>"; };
 		BF0CAAAA0000000000000001 /* SearchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTests.swift; sourceTree = "<group>"; };
@@ -948,6 +959,10 @@
 		AD0500000000000000000003 /* menubar-3.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "menubar-3.pdf"; sourceTree = "<group>"; };
 		AD0500000000000000000004 /* menubar-4.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "menubar-4.pdf"; sourceTree = "<group>"; };
 		AD0500000000000000000005 /* menubar-5.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "menubar-5.pdf"; sourceTree = "<group>"; };
+		C07100000000000000000001 /* ProJourneyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "src/pro/ui/ProJourneyView.swift"; sourceTree = SOURCE_ROOT; };
+		C07100000000000000000003 /* pro-rabbit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "resources/pro-rabbit.png"; sourceTree = SOURCE_ROOT; };
+		A01720261017000000000001 /* ProPromptPresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProPromptPresentation.swift; sourceTree = "<group>"; };
+		A01720261017000000000002 /* ProPromptPresentationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProPromptPresentationTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1033,14 +1048,16 @@
 		276A49324F1740F1B507EEC5 /* ui */ = {
 			isa = PBXGroup;
 			children = (
+				C07100000000000000000001 /* ProJourneyView.swift */,
 				5FA001000000000000000012 /* ProPromptWindow.swift */,
 				5FA001000000000000000013 /* ProPromptPopover.swift */,
 				5F0A63072F82D97C00AE4C3A /* ProBadgeView.swift */,
 				25966EE691FC6871588D796B /* ProBadgeViewSegmentTests.swift */,
 				5FA001000000000000000024 /* ProGradientButton.swift */,
 				5FA001000000000000000017 /* ProPromptHost.swift */,
+				A01720261017000000000001 /* ProPromptPresentation.swift */,
+				A01720261017000000000002 /* ProPromptPresentationTests.swift */,
 				5FA001000000000000000021 /* ProPromptHeader.swift */,
-				5FA001000000000000000023 /* UsageStatHeroView.swift */,
 			);
 			path = ui;
 			sourceTree = "<group>";
@@ -1374,7 +1391,6 @@
 			children = (
 				5FA001000000000000000011 /* ProFeature.swift */,
 				5FA001000000000000000010 /* ProFeatureCopy.swift */,
-				5FA001000000000000000014 /* ProConversionCopy.swift */,
 				5B4341A610A084615576D930 /* license */,
 				276A49324F1740F1B507EEC5 /* ui */,
 				D0B1167FE5CECB486C55B924 /* scheduling */,
@@ -1454,6 +1470,7 @@
 				5FBB24E02F389A0400BF7E14 /* MainThreadStall.swift */,
 				BF0CA0005555666677778888 /* QAMenu.swift */,
 				BF0CA0019999AAAABBBB0002 /* QaSurfaces.swift */,
+				BF0CA0019999AAAABBBB0004 /* QaTrial.swift */,
 				AB19CA019999AAAABBBB0002 /* QaLifecycle.swift */,
 				BF0CA0029999AAAABBBB0002 /* QaSheetAnimation.swift */,
 			);
@@ -1805,6 +1822,8 @@
 		D04BA9CA03317B315B267E21 /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				C07100000000000000000003 /* pro-rabbit.png */,
+				C07200000000000000000001 /* pro-illustrations */,
 				D04BAC2B70BC798C57B0B492 /* l10n */,
 				D04BA7568B7165A7726306A7 /* icons */,
 				D04BA60A6D08C041F5BF8CC9 /* SF-Pro-Text-Regular.otf */,
@@ -1945,15 +1964,14 @@
 				5FA001000000000000000001 /* ProTransitionManager.swift */,
 				5FA004000000000000000001 /* ProTransitionManagerTestable.swift */,
 				5FA004000000000000000002 /* ProTransitionTests.swift */,
+				A01920261019000000010001 /* ProPromptTestSupport.swift */,
+				A01920261019000000010000 /* ProPromptFlowTests.swift */,
 				5FA001000000000000000015 /* ProTransitionState.swift */,
 				5FA001000000000000000016 /* ProTransitionScheduler.swift */,
-				5FA001000000000000000002 /* Day1WelcomeLetterWindow.swift */,
+				5FA001000000000000000002 /* Day1WelcomeLetterPopover.swift */,
 				5FA001000000000000000009 /* Day4TourPopover.swift */,
-				5FA001000000000000000003 /* Day12HeadsUpPopover.swift */,
 				5FA001000000000000000004 /* Day15FullUpgradeWindow.swift */,
-				5FA001000000000000000005 /* Day15ProactiveWindow.swift */,
 				5FA001000000000000000006 /* Day15HardGatePopover.swift */,
-				5FA001000000000000000007 /* Day21ReminderPopover.swift */,
 				5FA001000000000000000008 /* Day35FinalWindow.swift */,
 			);
 			path = scheduling;
@@ -2068,6 +2086,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C07100000000000000000004 /* pro-rabbit.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2075,6 +2094,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C07100000000000000000004 /* pro-rabbit.png in Resources */,
+				C07200000000000000000002 /* pro-illustrations in Resources */,
 				48F3E16224EC0D8800A1C64B /* Localizable.strings in Resources */,
 				D04BA276B3241D440F65B149 /* InfoPlist.strings in Resources */,
 				D04BA084CD1236EC78D90A01 /* Localizable.strings in Resources */,
@@ -2291,6 +2312,18 @@
 				AA2026092800000000000003 /* PermissionCheckRetry.swift in Sources */,
 				AA2026092800000000000013 /* AnchoredPopover.swift in Sources */,
 				AA2026092800000000000015 /* AnchoredPopoverTests.swift in Sources */,
+				A01720261017000000000004 /* ProPromptPresentation.swift in Sources */,
+				A01720261017000000000005 /* ProPromptPresentationTests.swift in Sources */,
+				A01920261019000000020001 /* ProPromptTestSupport.swift in Sources */,
+				A02020261020000000000001 /* ProFeatureCopy.swift in Sources */,
+				A01920261019000000020000 /* ProPromptFlowTests.swift in Sources */,
+				A01920261019000000000006 /* Day15HardGatePopover.swift in Sources */,
+				A01920261019000000000005 /* ProPromptWindow.swift in Sources */,
+				A01920261019000000000004 /* ProPromptPopover.swift in Sources */,
+				A01920261019000000000003 /* ProPromptHost.swift in Sources */,
+				A01920261019000000000002 /* ProFeature.swift in Sources */,
+				A01920261019000000000001 /* ProTransitionScheduler.swift in Sources */,
+				A01920261019000000000000 /* ProTransitionManager.swift in Sources */,
 				AA2026092800000000000005 /* PermissionCheckRetryTests.swift in Sources */,
 				5E2A571E000000000000A003 /* WindowState.swift in Sources */,
 				5E2A571E000000000000A203 /* ApplicationState.swift in Sources */,
@@ -2447,23 +2480,20 @@
 				5FA002000000000000000001 /* ProTransitionManager.swift in Sources */,
 				5FA004000000000000000003 /* ProTransitionManagerTestable.swift in Sources */,
 				5FA002000000000000000011 /* ProFeature.swift in Sources */,
+				C07100000000000000000002 /* ProJourneyView.swift in Sources */,
 				5FA002000000000000000012 /* ProPromptWindow.swift in Sources */,
 				5FA002000000000000000013 /* ProPromptPopover.swift in Sources */,
-				5FA002000000000000000014 /* ProConversionCopy.swift in Sources */,
 				5FA002000000000000000015 /* ProTransitionState.swift in Sources */,
 				5FA002000000000000000016 /* ProTransitionScheduler.swift in Sources */,
 				5FA002000000000000000017 /* ProPromptHost.swift in Sources */,
+				A01720261017000000000003 /* ProPromptPresentation.swift in Sources */,
 				5FA002000000000000000022 /* ProPromptHeader.swift in Sources */,
-				5FA002000000000000000023 /* UsageStatHeroView.swift in Sources */,
 				5FA002000000000000000018 /* PreferenceDefinition.swift in Sources */,
 				5FA002000000000000000019 /* LoginItem.swift in Sources */,
-				5FA002000000000000000002 /* Day1WelcomeLetterWindow.swift in Sources */,
+				5FA002000000000000000002 /* Day1WelcomeLetterPopover.swift in Sources */,
 				5FA002000000000000000009 /* Day4TourPopover.swift in Sources */,
-				5FA002000000000000000003 /* Day12HeadsUpPopover.swift in Sources */,
 				5FA002000000000000000004 /* Day15FullUpgradeWindow.swift in Sources */,
-				5FA002000000000000000005 /* Day15ProactiveWindow.swift in Sources */,
 				5FA002000000000000000006 /* Day15HardGatePopover.swift in Sources */,
-				5FA002000000000000000007 /* Day21ReminderPopover.swift in Sources */,
 				5FA002000000000000000008 /* Day35FinalWindow.swift in Sources */,
 				5FA002000000000000000010 /* ProFeatureCopy.swift in Sources */,
 				D04BA1637E125D38546C26E2 /* StackView.swift in Sources */,
@@ -2574,6 +2604,7 @@
 				BF0C826C7F8C5F68732FD75B /* DebugMenu.swift in Sources */,
 				BF0CA0001111222233334444 /* QAMenu.swift in Sources */,
 				BF0CA0019999AAAABBBB0001 /* QaSurfaces.swift in Sources */,
+				BF0CA0019999AAAABBBB0003 /* QaTrial.swift in Sources */,
 				AB19CA019999AAAABBBB0001 /* QaLifecycle.swift in Sources */,
 				BF0CA0029999AAAABBBB0001 /* QaSheetAnimation.swift in Sources */,
 				BF0C8E5F4E4D5F7DAEE07C20 /* TilesPanelBackgroundView.swift in Sources */,

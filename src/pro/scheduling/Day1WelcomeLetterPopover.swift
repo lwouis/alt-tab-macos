@@ -1,18 +1,32 @@
 import Cocoa
 
-class Day1WelcomeLetterWindow: ProPromptWindow {
-    static var shared: Day1WelcomeLetterWindow?
+enum Day1WelcomeLetterPopover {
+    private static var popover: AnchoredPopover?
+    private static let padding = CGFloat(30)
+    private static let comparisonWidth = CGFloat(500)
 
-    static func show(forceFreshInstall: Bool? = nil) {
-        if shared == nil { shared = Day1WelcomeLetterWindow(forceFreshInstall: forceFreshInstall) }
-        App.showSecondaryWindow(shared!)
+    static func owns(_ object: Any?) -> Bool {
+        guard let popover else { return false }
+        return (object as AnyObject?) === popover
     }
 
-    convenience init(forceFreshInstall: Bool? = nil) {
-        self.init(size: NSSize(width: 560, height: 520), miniaturizable: false, movableByBackground: true)
+    /// Not rechecked against the prompt rules at anchor time: the scheduler already did, and marked the
+    /// letter as seen before asking for it.
+    static func show(forceFreshInstall: Bool? = nil) {
+        LicenseManager.shared.refreshState()
+        guard case .trial = LicenseManager.shared.state else { return }
+        close()
+        let popover = ProPromptPopover.make()
+        self.popover = popover
+        popover.present(makeContent(isFresh: forceFreshInstall ?? ProTransitionState.isFreshInstall, closing: popover),
+            from: Menubar.statusItem)
+    }
 
-        let isFresh = forceFreshInstall ?? ProTransitionState.isFreshInstall
+    static func close() {
+        popover?.close()
+    }
 
+    private static func makeContent(isFresh: Bool, closing popover: AnchoredPopover) -> NSView {
         let container = NSView()
         container.translatesAutoresizingMaskIntoConstraints = false
 
@@ -21,24 +35,24 @@ class Day1WelcomeLetterWindow: ProPromptWindow {
             : NSLocalizedString("%@ now has a Pro tier", comment: "")
         let header = ProPromptHeader(title: String(format: titleFormat, App.name), size: .large)
 
-        let messageText = isFresh
-            ? NSLocalizedString("AltTab is a free, open-source window switcher for macOS. Pro features are available with a 14-day free trial.", comment: "")
-            : NSLocalizedString("You have 14 days to try all Pro features. After that, Pro features will step back and the core window switcher will keep working exactly as before.\n\nAltTab stays free and open-source. Pro is an optional one-time purchase that funds continued development.", comment: "")
+        let messageText = [LicenseManager.shared.trialEndDate.map(ProFeatureCopy.includedUntil)
+            ?? ProFeatureCopy.trialSetup, ProFeatureCopy.trialPromise].joined(separator: "\n\n")
         let message = NSTextField(wrappingLabelWithString: messageText)
         message.font = .systemFont(ofSize: 14)
         message.isSelectable = false
         message.translatesAutoresizingMaskIntoConstraints = false
+        message.preferredMaxLayoutWidth = comparisonWidth
         message.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
 
         let comparisonView = makeComparisonView()
         comparisonView.translatesAutoresizingMaskIntoConstraints = false
 
-        let button = NSButton(title: NSLocalizedString("Start my 14-day trial", comment: ""), target: nil, action: nil)
+        let button = NSButton(title: NSLocalizedString("Continue", comment: ""), target: nil, action: nil)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.bezelStyle = .rounded
         button.keyEquivalent = "\r"
         button.controlSize = .large
-        button.onAction = { [weak self] _ in self?.close() }
+        button.onAction = { [weak popover] _ in popover?.close() }
 
         container.addSubview(header)
         container.addSubview(message)
@@ -46,29 +60,29 @@ class Day1WelcomeLetterWindow: ProPromptWindow {
         container.addSubview(button)
 
         NSLayoutConstraint.activate([
+            container.widthAnchor.constraint(equalToConstant: comparisonWidth + 2 * padding),
+
             header.topAnchor.constraint(equalTo: container.topAnchor, constant: 24),
             header.centerXAnchor.constraint(equalTo: container.centerXAnchor),
-            header.leadingAnchor.constraint(greaterThanOrEqualTo: container.leadingAnchor, constant: 30),
-            header.trailingAnchor.constraint(lessThanOrEqualTo: container.trailingAnchor, constant: -30),
+            header.leadingAnchor.constraint(greaterThanOrEqualTo: container.leadingAnchor, constant: padding),
+            header.trailingAnchor.constraint(lessThanOrEqualTo: container.trailingAnchor, constant: -padding),
 
             message.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 18),
-            message.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 30),
-            message.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -30),
+            message.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: padding),
+            message.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -padding),
 
             comparisonView.topAnchor.constraint(equalTo: message.bottomAnchor, constant: 20),
-            comparisonView.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 30),
-            comparisonView.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -30),
+            comparisonView.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: padding),
+            comparisonView.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -padding),
 
             button.topAnchor.constraint(equalTo: comparisonView.bottomAnchor, constant: 28),
             button.centerXAnchor.constraint(equalTo: container.centerXAnchor),
             button.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -24),
         ])
-
-        contentView = container
-        fitContentHeight()
+        return container
     }
 
-    private func makeComparisonView() -> NSView {
+    private static func makeComparisonView() -> NSView {
         let data: [(String, Bool, Bool)] = [
             (NSLocalizedString("Reliable, fast window switching with high-quality thumbnails", comment: ""), true, true),
             (NSLocalizedString("Dark Mode, live preview, window controls, trackpad gestures, and more", comment: ""), true, true),
@@ -99,7 +113,7 @@ class Day1WelcomeLetterWindow: ProPromptWindow {
         return stack
     }
 
-    private func makeRow(featureView: NSView, freeView: NSView, proView: NSView) -> NSView {
+    private static func makeRow(featureView: NSView, freeView: NSView, proView: NSView) -> NSView {
         let row = NSView()
         row.translatesAutoresizingMaskIntoConstraints = false
         featureView.translatesAutoresizingMaskIntoConstraints = false
@@ -124,7 +138,7 @@ class Day1WelcomeLetterWindow: ProPromptWindow {
         return row
     }
 
-    private func makeHeaderCell(_ text: String, _ color: NSColor, alignment: NSTextAlignment) -> NSTextField {
+    private static func makeHeaderCell(_ text: String, _ color: NSColor, alignment: NSTextAlignment) -> NSTextField {
         let label = NSTextField(labelWithString: text)
         label.font = .systemFont(ofSize: 12, weight: .semibold)
         label.textColor = color
@@ -132,7 +146,7 @@ class Day1WelcomeLetterWindow: ProPromptWindow {
         return label
     }
 
-    private func makeGradientProHeaderCell(alignment: NSTextAlignment) -> NSTextField {
+    private static func makeGradientProHeaderCell(alignment: NSTextAlignment) -> NSTextField {
         let font = NSFont.systemFont(ofSize: 12, weight: .bold)
         let para = NSMutableParagraphStyle()
         para.alignment = alignment
@@ -143,7 +157,7 @@ class Day1WelcomeLetterWindow: ProPromptWindow {
         return label
     }
 
-    private func makeMarkCell(_ on: Bool, isPro: Bool) -> NSView {
+    private static func makeMarkCell(_ on: Bool, isPro: Bool) -> NSView {
         if on && isPro {
             let image = ProGradient.makeGradientTextImage("✓", font: .systemFont(ofSize: 14, weight: .bold))
             let imageView = NSImageView()

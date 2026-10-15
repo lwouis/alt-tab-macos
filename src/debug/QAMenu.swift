@@ -6,13 +6,12 @@ final class QAMenu: NSPanel {
     private let stack = NSStackView()
     private let proSectionContent = NSStackView()
     private var proDisclosure: NSButton!
-    private let corruptedSectionContent = NSStackView()
-    private var corruptedDisclosure: NSButton!
+    private let status = NSTextField(wrappingLabelWithString: "")
+    private var observers = [NSObjectProtocol]()
 
     private static let autosaveName = "QAMenu"
     private static let openSettingsOnLaunchKey = "debug.openSettingsOnLaunch"
     private static let proSectionExpandedKey = "debug.proSectionExpanded"
-    private static let corruptedSectionExpandedKey = "debug.corruptedSectionExpanded"
     private static let graphEnabledKey = "debug.graphEnabled"
     private static let sectionSpacing: CGFloat = 16
 
@@ -104,60 +103,29 @@ final class QAMenu: NSPanel {
         topRow.addView(quitButton, in: .trailing)
         stack.addArrangedSubview(topRow)
         topRow.trailingAnchor.constraint(equalTo: stack.trailingAnchor, constant: -stack.edgeInsets.right).isActive = true
-        stack.addArrangedSubview(graphCheckbox)
-        stack.addArrangedSubview(langDropdown)
-        addProTransitionButtons()
-        addCorruptedSettingsButtons()
-    }
-
-    private func addCorruptedSettingsButtons() {
-        let isExpanded = UserDefaults.standard.object(forKey: Self.corruptedSectionExpandedKey) as? Bool ?? false
-        corruptedDisclosure = NSButton(title: "", target: nil, action: nil)
-        corruptedDisclosure.bezelStyle = .disclosure
-        corruptedDisclosure.setButtonType(.pushOnPushOff)
-        corruptedDisclosure.state = isExpanded ? .on : .off
-        corruptedDisclosure.onAction = { [weak self] _ in
-            guard let self else { return }
-            let expanded = self.corruptedDisclosure.state == .on
-            UserDefaults.standard.set(expanded, forKey: Self.corruptedSectionExpandedKey)
-            self.corruptedSectionContent.isHidden = !expanded
-            self.sizeToFitContent()
-        }
-        if let prior = stack.arrangedSubviews.last {
-            stack.setCustomSpacing(Self.sectionSpacing, after: prior)
-        }
-        let header = NSStackView(views: [corruptedDisclosure, sectionLabel("Corrupted settings file")])
-        header.orientation = .horizontal
-        header.spacing = 4
-        stack.addArrangedSubview(header)
-        stack.setCustomSpacing(Self.sectionSpacing, after: header)
-
-        corruptedSectionContent.orientation = .vertical
-        corruptedSectionContent.alignment = .leading
-        corruptedSectionContent.spacing = 8
-        corruptedSectionContent.isHidden = !isExpanded
-        stack.addArrangedSubview(corruptedSectionContent)
-
-        corruptedSectionContent.addArrangedSubview(sectionLabel("Show “can’t save settings” dialog:"))
-        let dialogRow = NSStackView(views: [
-            makeButton("Symlink") { PreferencesPersistenceCheck.debugShowDialog(symlinked: true) },
-            makeButton("Unwritable") { PreferencesPersistenceCheck.debugShowDialog(symlinked: false) },
-        ])
-        dialogRow.orientation = .horizontal
-        dialogRow.spacing = 4
-        corruptedSectionContent.addArrangedSubview(dialogRow)
+        stack.addArrangedSubview(row([langDropdown, graphCheckbox]))
+        addTrialSection()
     }
 
     /// Wipe every UserDefaults suite the app uses plus every keychain entry under the license service,
     /// so the next launch behaves exactly like a brand-new install.
     private static func mockFreshInstall() {
+        let alert = NSAlert()
+        alert.alertStyle = .critical
+        alert.messageText = "Wipe AltTab's settings, trial, usage history and license?"
+        alert.informativeText = "Removes everything stored for \(App.bundleIdentifier) on this Mac, including a real license key, which would then need activating again. Relaunch afterwards to start as a new install."
+        alert.addButton(withTitle: "Wipe")
+        alert.addButton(withTitle: "Cancel")
+        guard alert.runModal() == .alertFirstButtonReturn else { return }
         UserDefaults.standard.removePersistentDomain(forName: App.bundleIdentifier)
         UserDefaults.standard.removePersistentDomain(forName: LicenseManager.defaultsSuiteName)
         UserDefaults.standard.removePersistentDomain(forName: "\(App.bundleIdentifier).usage")
         SystemKeychain(service: LicenseManager.keychainService).removeAll()
     }
 
-    private func addProTransitionButtons() {
+    // MARK: - Trial journey
+
+    private func addTrialSection() {
         let isExpanded = UserDefaults.standard.object(forKey: Self.proSectionExpandedKey) as? Bool ?? false
         proDisclosure = NSButton(title: "", target: nil, action: nil)
         proDisclosure.bezelStyle = .disclosure
@@ -165,127 +133,165 @@ final class QAMenu: NSPanel {
         proDisclosure.state = isExpanded ? .on : .off
         proDisclosure.onAction = { [weak self] _ in
             guard let self else { return }
-            let expanded = self.proDisclosure.state == .on
+            let expanded = proDisclosure.state == .on
             UserDefaults.standard.set(expanded, forKey: Self.proSectionExpandedKey)
-            self.proSectionContent.isHidden = !expanded
-            self.sizeToFitContent()
+            proSectionContent.isHidden = !expanded
+            refreshStatus()
+            sizeToFitContent()
         }
         if let prior = stack.arrangedSubviews.last {
             stack.setCustomSpacing(Self.sectionSpacing, after: prior)
         }
-        let proHeader = NSStackView(views: [proDisclosure, sectionLabel("Pro Transition")])
-        proHeader.orientation = .horizontal
-        proHeader.spacing = 4
-        stack.addArrangedSubview(proHeader)
-        stack.setCustomSpacing(Self.sectionSpacing, after: proHeader)
-
+        let header = row([proDisclosure, sectionLabel("Trial journey")])
+        stack.addArrangedSubview(header)
         proSectionContent.orientation = .vertical
         proSectionContent.alignment = .leading
-        proSectionContent.spacing = 8
+        proSectionContent.spacing = 6
         proSectionContent.isHidden = !isExpanded
         stack.addArrangedSubview(proSectionContent)
-
-        proSectionContent.addArrangedSubview(sectionLabel("Mock Day:"))
-        let mockDayRow = NSStackView(views: [
-            makeButton("1") { Self.mockDay(1) },
-            makeButton("13") { Self.mockDay(13) },
-            makeButton("15 (expired)") { Self.mockDay(15) },
-            makeButton("21") { Self.mockDay(21) },
-            makeButton("35") { Self.mockDay(35) },
-            makeButton("Pro") { LicenseManager.shared.mockProUser() },
-        ])
-        mockDayRow.orientation = .horizontal
-        mockDayRow.spacing = 4
-        proSectionContent.addArrangedSubview(mockDayRow)
-        proSectionContent.setCustomSpacing(Self.sectionSpacing, after: mockDayRow)
-
-        proSectionContent.addArrangedSubview(sectionLabel("Show window/popover for Day:"))
-
-        let showRow1 = NSStackView(views: [
-            makeButton("1 Welcome (new)") {
-                Day1WelcomeLetterWindow.shared?.close()
-                Day1WelcomeLetterWindow.shared = nil
-                Day1WelcomeLetterWindow.show(forceFreshInstall: true)
-            },
-            makeButton("1 Welcome (upgrade)") {
-                Day1WelcomeLetterWindow.shared?.close()
-                Day1WelcomeLetterWindow.shared = nil
-                Day1WelcomeLetterWindow.show(forceFreshInstall: false)
-            },
-            makeButton("1 Onboarding") { _ = OnboardingPopover.show(trialDaysToAnnounce: LicenseManager.trialDuration) },
-            makeButton("4 Tour") { Day4TourPopover.show() },
-            makeButton("12 HeadsUp") { Day12HeadsUpPopover.show() },
-        ])
-        showRow1.orientation = .horizontal
-        showRow1.spacing = 4
-        proSectionContent.addArrangedSubview(showRow1)
-
-        let showRow2 = NSStackView(views: [
-            makeButton("15 FullUpgrade") { ProTransitionManager.shared.showFullUpgradeWindow() },
-            makeButton("15 Proactive") { ProTransitionManager.shared.showProactiveDay15Window() },
-            makeButton("15 HardGate") { Day15HardGatePopover.show() },
-        ])
-        showRow2.orientation = .horizontal
-        showRow2.spacing = 4
-        proSectionContent.addArrangedSubview(showRow2)
-
-        let showRow3 = NSStackView(views: [
-            makeButton("21 Reminder") { Day21ReminderPopover.show() },
-            makeButton("35 Final") { Day35FinalWindow.show() },
-        ])
-        showRow3.orientation = .horizontal
-        showRow3.spacing = 4
-        proSectionContent.addArrangedSubview(showRow3)
-        let searchHintButton = makeButton("Show search hint") { SearchDiscoveryHint.shared.showForQA() }
-        searchHintButton.toolTip = "Show once on the next Alt-Tab. Hold Alt for one second."
-        proSectionContent.addArrangedSubview(searchHintButton)
-        proSectionContent.setCustomSpacing(Self.sectionSpacing, after: searchHintButton)
-
-        proSectionContent.addArrangedSubview(sectionLabel("Reset:"))
-        let resetRow1 = NSStackView(views: [
-            makeButton("Free Pass") {
-                ProTransitionManager.shared.freePassUsed = false
-                Logger.debug { "freePassUsed reset to false" }
-            },
-            makeButton("Day4 Tour") {
-                ProTransitionManager.shared.hasSeenDay4Tour = false
-                Logger.debug { "hasSeenDay4Tour reset to false" }
-            },
-            makeButton("Switcher Trigger") {
-                ProTransitionManager.shared.hasTriggeredPostExpirationSwitcher = false
-                Logger.debug { "hasTriggeredPostExpirationSwitcher reset to false" }
-            },
-        ])
-        resetRow1.orientation = .horizontal
-        resetRow1.spacing = 4
-        proSectionContent.addArrangedSubview(resetRow1)
-
-        let resetRow2 = NSStackView(views: [
-            makeButton("Toggle Opt-Out") {
-                let mgr = ProTransitionManager.shared
-                mgr.userOptedOut = !mgr.userOptedOut
-                Logger.debug { "userOptedOut = \(mgr.userOptedOut)" }
-            },
-            makeButton("Revalidate") { LicenseManager.shared.revalidateWithServer() },
-            makeButton("Mock fresh install") { Self.mockFreshInstall() },
-        ])
-        resetRow2.orientation = .horizontal
-        resetRow2.spacing = 4
-        proSectionContent.addArrangedSubview(resetRow2)
+        status.font = .systemFont(ofSize: 10)
+        status.textColor = .secondaryLabelColor
+        status.preferredMaxLayoutWidth = 340
+        status.isSelectable = true
+        proSectionContent.addArrangedSubview(status)
+        proSectionContent.addArrangedSubview(row([scenarioMenu(), surfaceMenu(), toolsMenu()]))
+        proSectionContent.addArrangedSubview(row(clockControls()))
+        proSectionContent.addArrangedSubview(sectionLabel("History, for the trial-ended window and Settings:"))
+        proSectionContent.addArrangedSubview(row(historyControls()))
+        proSectionContent.addArrangedSubview(row([
+            attemptedPopup(),
+            makeButton("Trial ended") { QaTrial.showTrialEnded() },
+            makeButton("Day 35") { QaTrial.showDay35() },
+            makeButton("Settings") { QaTrial.showSettings() },
+        ]))
+        observeJourney()
+        refreshStatus()
     }
 
-    /// Mock passage of time to a specific day. Resets transition state and marks earlier prompts
-    /// as already seen so they don't re-fire. Mock Day 15 lands on the post-trial *grace* period
-    /// (trial expired, no Day15 window shown yet) so a tester can click `Day15 Proactive` or
-    /// `Day15 FullUpgrade` to exercise each path, then observe the locked state after.
-    private static func mockDay(_ day: Int) {
-        let mgr = ProTransitionManager.shared
-        mgr.resetAllState()
-        if day > 1 { mgr.hasSeenWelcome = true }
-        if day > 4 { mgr.hasSeenDay4Tour = true }
-        if day > 12 { mgr.hasSeenDay12 = true }
-        LicenseManager.shared.mockTrialDay(day)
-        Menubar.menubarIconCallback(nil)
+    private func scenarioMenu() -> NSPopUpButton {
+        pullDown("Play scenario", QaTrial.scenarioSections.map { section in
+            (section.0, section.1.map { scenario in (scenario.title, { QaTrial.play(scenario) }) })
+        })
+    }
+
+    private func surfaceMenu() -> NSPopUpButton {
+        pullDown("Show", QaTrial.surfaceSections)
+    }
+
+    private func toolsMenu() -> NSPopUpButton {
+        pullDown("More", [(nil, [
+            ("Reset trial state and clock", { QaTrial.reset() }),
+            ("Toggle reminder opt-out", { ProTransitionManager.shared.userOptedOut.toggle() }),
+            ("Revalidate license", { LicenseManager.shared.revalidateWithServer() }),
+            ("Mock fresh install…", { Self.mockFreshInstall() }),
+        ])])
+    }
+
+    private func clockControls() -> [NSView] {
+        let day = popup(QaTrial.days.map { "Day \($0)" }, selected: QaTrial.days.firstIndex(of: 15)!)
+        let time = popup(QaTrial.times.map { String(format: "%02d:%02d", $0.0, $0.1) }, selected: 1)
+        let go = makeButton("Go") {
+            QaTrial.start(day: QaTrial.days[day.indexOfSelectedItem], at: QaTrial.times[time.indexOfSelectedItem])
+            QaTrial.nextStep = ""
+        }
+        go.toolTip = "Start that day at that time, with earlier prompts already seen"
+        let next = makeButton("Next day") { QaTrial.nextDay() }
+        next.toolTip = "Same user, one day later: flags are kept and due timers fire"
+        return [day, time, go, next]
+    }
+
+    private func historyControls() -> [NSView] {
+        let counts: [Int?] = [nil, 0, 37]
+        let label: (Int?) -> String = { $0.map(String.init) ?? "unknown" }
+        let searches = popup(counts.map { "Search: " + label($0) }, selected: 2) { QaTrial.history.searches = counts[$0] }
+        let styles = AppearanceStylePreference.allCases
+        let style = popup(["Style: none", "Style: App Icons", "Style: Titles"], selected: 1) { QaTrial.history.style = styles[$0] }
+        let extraCounts: [Int?] = [nil, 0, 12]
+        let shortcuts = popup(extraCounts.map { "Shortcuts: " + label($0) }, selected: 2) { QaTrial.history.extraShortcuts = extraCounts[$0] }
+        let auto = popup(["Auto Size: off", "Auto Size: on"], selected: 1) { QaTrial.history.autoSize = $0 == 1 }
+        return [searches, style, shortcuts, auto]
+    }
+
+    private func attemptedPopup() -> NSPopUpButton {
+        let features: [ProJourneyFeature?] = [nil] + ProJourneyFeature.allCases
+        let titles = ["Opens on: history", "Opens on: tried Search", "Opens on: tried Styles", "Opens on: tried Shortcuts", "Opens on: tried Auto Size"]
+        let button = popup(titles, selected: 0) { QaTrial.history.attempted = features[$0] }
+        button.toolTip = "The feature of the last blocked attempt. Day 35 falls back to Search."
+        return button
+    }
+
+    /// Event-driven, no tick: prompts open and close as windows and popovers, and a refresh follows every
+    /// action. The clock line can lag between events.
+    private func observeJourney() {
+        let names: [Notification.Name] = [NSWindow.didBecomeKeyNotification, NSWindow.willCloseNotification,
+                                          NSPopover.didShowNotification, NSPopover.didCloseNotification,
+                                          ProTransitionManager.proLockStateDidChangeNotification]
+        for name in names {
+            observers.append(NotificationCenter.default.addObserver(forName: name, object: nil, queue: .main) { [weak self] _ in
+                self?.refreshStatusSoon()
+            })
+        }
+    }
+
+    private func refreshStatusSoon() {
+        DispatchQueue.main.async { [weak self] in self?.refreshStatus() }
+    }
+
+    private func refreshStatus() {
+        guard !proSectionContent.isHidden else { return }
+        let text = QaTrial.status
+        guard status.stringValue != text else { return }
+        status.stringValue = text
+        sizeToFitContent()
+    }
+
+    // MARK: - Controls
+
+    private func row(_ views: [NSView]) -> NSStackView {
+        let row = NSStackView(views: views)
+        row.orientation = .horizontal
+        row.spacing = 4
+        return row
+    }
+
+    /// The first item of a pull-down is its title. Section headers are disabled items.
+    private func pullDown(_ title: String, _ sections: [(String?, [(String, () -> Void)])]) -> NSPopUpButton {
+        let button = NSPopUpButton(frame: .zero, pullsDown: true)
+        button.controlSize = .small
+        button.font = .systemFont(ofSize: 10)
+        button.autoenablesItems = false
+        button.addItem(withTitle: title)
+        var actions = [() -> Void]()
+        for (index, section) in sections.enumerated() {
+            if index > 0 { button.menu?.addItem(.separator()) }
+            if let header = section.0 {
+                let item = NSMenuItem(title: header, action: nil, keyEquivalent: "")
+                item.isEnabled = false
+                button.menu?.addItem(item)
+            }
+            for (title, action) in section.1 {
+                button.addItem(withTitle: title)
+                button.lastItem?.tag = actions.count
+                button.lastItem?.indentationLevel = section.0 == nil ? 0 : 1
+                actions.append(action)
+            }
+        }
+        button.onAction = { [weak self] sender in
+            guard let item = (sender as? NSPopUpButton)?.selectedItem, item.isEnabled, actions.indices.contains(item.tag) else { return }
+            actions[item.tag]()
+            self?.refreshStatusSoon()
+        }
+        return button
+    }
+
+    private func popup(_ titles: [String], selected: Int, _ onSelect: ((Int) -> Void)? = nil) -> NSPopUpButton {
+        let button = NSPopUpButton(frame: .zero, pullsDown: false)
+        button.controlSize = .small
+        button.font = .systemFont(ofSize: 10)
+        button.addItems(withTitles: titles)
+        button.selectItem(at: selected)
+        button.onAction = { sender in onSelect?((sender as! NSPopUpButton).indexOfSelectedItem) }
+        return button
     }
 
     private func sectionLabel(_ text: String) -> NSTextField {

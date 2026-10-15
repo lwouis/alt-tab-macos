@@ -19,6 +19,7 @@ class ScreenLockEvents {
     @objc private static func handleLocked() {
         Logger.info { "" }
         isScreenLocked = true
+        ProPromptHost.cancelTransientPrompts()
     }
 
     @objc private static func handleUnlocked() {

@@ -85,7 +85,7 @@ class CustomRecorderControl: RecorderControl {
         // clears its "and press" part (the hold itself is never the thing unassigned).
         let informativeText = String(format: NSLocalizedString("Shortcut already assigned to: %@", comment: ""),
                                      ControlsTab.nonBreaking(label))
-        guard ControlsTab.confirmUnassigningConflict(informativeText) else { return false }
+        guard ControlsTab.confirmUnassigningConflict(informativeText, in: window) else { return false }
         switch conflict {
         case .arrow:
             if let cb = ControlsTab.arrowKeysCheckbox {
@@ -122,7 +122,7 @@ class CustomRecorderControl: RecorderControl {
         let cancelButton = alert.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))
         cancelButton.keyEquivalent = "\u{1b}"
         cancelButton.setAccessibilityFocused(true)
-        let userChoice = alert.runModal()
+        let userChoice = alert.runAttached(to: window)
         guard userChoice == .alertFirstButtonReturn, id != shortcutReservedByMacos else { return false }
         ControlsTab.unassignShortcut(shortcutReservedByMacos)
         updateShortcut(self, candidateShortcut, self, id)

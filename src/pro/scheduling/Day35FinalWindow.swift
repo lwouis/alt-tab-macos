@@ -3,31 +3,24 @@ import Cocoa
 class Day35FinalWindow: ProPromptWindow {
     static var shared: Day35FinalWindow?
 
-    private var hero: UsageStatHeroView!
-
+    /// Opens on the feature of the recent attempt that made the user eligible.
     static func show() {
-        if shared == nil { shared = Day35FinalWindow() }
-        // The singleton is reused across re-shows; refresh so the cumulative trigger /
-        // Pro-use numbers track usage growth instead of staying frozen at first-render.
-        shared!.hero.refresh()
-        shared!.fitContentHeight()
-        App.showSecondaryWindow(shared!)
+        guard shared?.isVisible != true else { return }
+        showWithTrialEvidence { evidence in
+            guard shared?.isVisible != true,
+                  ProTransitionManagerTestable.evaluateSwitcherOpen(ProTransitionManager.shared.currentState()) == .showDay35Final else { return }
+            let window = Day35FinalWindow(evidence: evidence, preferred: ProTransitionManager.shared.state.lastIntent)
+            shared = window
+            App.showSecondaryWindow(window)
+            guard window.isVisible else { return }
+            let state = ProTransitionManager.shared.state
+            state.hasSeenDay35 = true
+            state.recordMessage()
+        }
     }
 
-    convenience init() {
-        self.init(size: NSSize(width: 380, height: 280))
-        let hero = UsageStatHeroView()
-        self.hero = hero
-        let optOutLink = NotAdvisedButton(NSLocalizedString("No thanks — don't ask again", comment: ""))
-        optOutLink.onAction = { [weak self] _ in
-            ProTransitionManager.shared.userOptedOut = true
-            self?.close()
-        }
-        setHeroContentView(
-            header: ProPromptHeader(title: NSLocalizedString("Still interested in Pro?", comment: ""), size: .compact),
-            hero: hero,
-            purchase: ProPromptButtons.makeGetPro(large: true) { ProTransitionManager.openCheckout(from: .day35Final) },
-            dismiss: optOutLink,
-            sidePadding: 20, gap: 18, dismissGap: 12)
+    convenience init(evidence: ProJourneyEvidence, preferred: ProJourneyFeature?) {
+        self.init(size: NSSize(width: 600, height: 460))
+        setJourneyContent(origin: .day35Final, finalReminder: true, evidence: evidence, preferred: preferred)
     }
 }

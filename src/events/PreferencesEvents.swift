@@ -71,7 +71,8 @@ class PreferencesEvents {
             return
         }
         if LicenseManager.shared.isProLocked && ProFeature.isStoredValuePro(preferenceKey: key) {
-            UpgradeTab.navigateToUpgradeTab()
+            let feature: ProJourneyFeature = key.hasPrefix("appearanceStyle") ? .styles : key.hasPrefix("appearanceSize") ? .autoSize : .search
+            UpgradeTab.navigateToUpgradeTab(for: feature)
         }
         SearchDiscoveryHint.shared.cancel()
         ControlsTab.preferenceChanged(key)

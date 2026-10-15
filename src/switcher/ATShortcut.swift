@@ -62,7 +62,7 @@ class ATShortcut {
     func shouldTrigger() -> Bool {
         let session = SwitcherSession.current
         if scope == .global {
-            if triggerPhase == .down, session == nil || index == nil || index == session?.shortcutIndex {
+            if triggerPhase == .down, session == nil || index == nil || index == session?.shortcutIndex || id.hasPrefix("nextWindowShortcut") {
                 return true
             }
             if triggerPhase == .up, let session, index == nil || index == session.shortcutIndex,

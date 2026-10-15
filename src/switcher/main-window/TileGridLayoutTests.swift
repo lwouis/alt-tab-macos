@@ -80,6 +80,26 @@ final class TileGridLayoutTests: XCTestCase {
         XCTAssertEqual(result.origins, [CGPoint(x: 5, y: 5)])
     }
 
+    func testShortRtlRowRemainsInsideTheShrunkenViewport() {
+        let widths: [CGFloat] = [200, 200, 200]
+        let result = layout(widths, widthMax: 1280, isLeftToRight: false)
+        let crop = TileGridLayout.rightToLeftCropOffset(layoutWidth: 1280, viewportWidth: result.maxX)
+        let frames = zip(result.origins, widths).map { CGRect(x: $0.x - crop, y: $0.y, width: $1, height: tileHeight) }
+        XCTAssertEqual(frames.map(\.minX), [415, 210, 5])
+        XCTAssertTrue(frames.allSatisfy { $0.minX >= 0 && $0.maxX <= result.maxX })
+    }
+
+    func testRtlSearchMinimumWidthKeepsTheShortRowCenteredAndVisible() {
+        let result = layout([40, 40], widthMax: 1280, isLeftToRight: false)
+        let viewportWidth = CGFloat(320)
+        let crop = TileGridLayout.rightToLeftCropOffset(layoutWidth: 1280, viewportWidth: viewportWidth)
+        let centering = TileGridLayout.centeringOffsets(rowWidths: [[40, 40]], padding: padding, within: viewportWidth)[0]
+        let frames = result.origins.map { CGRect(x: $0.x - crop - centering, y: $0.y, width: 40, height: tileHeight) }
+        XCTAssertEqual(frames.map(\.minX), [162, 117])
+        XCTAssertTrue(frames.allSatisfy { $0.minX >= 0 && $0.maxX <= viewportWidth })
+        XCTAssertEqual(frames[0].maxX, viewportWidth - frames[1].minX, accuracy: 1)
+    }
+
     // MARK: - D. Tile size (the shape of #6010)
 
     /// A three-line title added two line heights (38pt at the medium appearance) to `labelHeight`, and

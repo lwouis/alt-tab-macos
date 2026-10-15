@@ -79,6 +79,11 @@ enum TileGridLayout {
         }
     }
 
+    /// RTL origins start at the maximum layout width, before the panel shrinks to its content.
+    static func rightToLeftCropOffset(layoutWidth: CGFloat, viewportWidth: CGFloat) -> CGFloat {
+        max(0, layoutWidth - viewportWidth)
+    }
+
     /// The auto size: the first candidate whose grid fits in `heightMax`, and the last candidate when none
     /// do. `measure` is called once for every candidate up to and including the chosen one, in order — the
     /// production caller applies the size to `Appearance` inside it before laying the grid out, so the

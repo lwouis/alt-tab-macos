@@ -1,17 +1,24 @@
 import Cocoa
 
-/// Shared plumbing for the Pro-transition menubar-anchored popovers ([B] Day 12 Heads-Up,
-/// [E] Day 15 Hard Gate, [F] Day 21 Reminder, [H] Day 4 Tour). Centralises construction
-/// (transient behavior, optional fixed content size), presentation (activate app, anchor
-/// below the menubar icon, make the popover window key), and the content layout the four
-/// share: a fixed-width column of rows inset by `padding`, ending in a button row.
+/// Shared plumbing for the Pro-transition menubar-anchored popovers ([A] Day 1 Welcome,
+/// [E] Day 15 Hard Gate, [H] Day 4 Tour). Centralises construction (optional fixed content size),
+/// presentation below the menubar icon, and the
+/// content layout both share: a fixed-width column of rows inset by `padding`, ending in a button row.
 enum ProPromptPopover {
     static let padding = CGFloat(16)
     private static let popovers = NSHashTable<AnchoredPopover>.weakObjects()
-    static var isShowing: Bool { popovers.allObjects.contains { $0.isShown || $0.isWaitingForAnchor } }
+    static var isShowing: Bool { isShowing(excluding: nil) }
+
+    static func isShowing(excluding popover: AnchoredPopover?) -> Bool {
+        popovers.allObjects.contains { $0 !== popover && ($0.isShown || $0.isWaitingForAnchor) }
+    }
 
     static func closeAll() {
         popovers.allObjects.forEach { $0.close() }
+    }
+
+    static func cancelPendingPresentations() {
+        popovers.allObjects.filter { $0.isWaitingForAnchor }.forEach { $0.cancelPresentation() }
     }
 
     /// How a row sits in the column: hugging its own width at the leading edge, stretched to the
@@ -29,21 +36,24 @@ enum ProPromptPopover {
         let width: RowWidth
     }
 
-    /// Build a transient popover ready for the caller to fill with content. A fixed content
+    /// Defaults to transient dismissal; the independent blocked-feature gate overrides it. A fixed content
     /// size is optional — omit for views that are auto-sized via constraints.
-    static func make(contentSize: NSSize? = nil) -> AnchoredPopover {
-        let popover = AnchoredPopover()
+    static func make(contentSize: NSSize? = nil, popover: AnchoredPopover = AnchoredPopover()) -> AnchoredPopover {
         popovers.add(popover)
         popover.behavior = .transient
         if let contentSize { popover.contentSize = contentSize }
         return popover
     }
 
-    /// Anchor the popover below the menubar icon, or under the menu bar when the icon isn't there, and make its
-    /// content window key.
-    static func present(_ popover: AnchoredPopover, content: NSView) {
-        guard let item = Menubar.statusItem else { return }
-        popover.present(content, from: item)
+    /// Recheck eligibility after anchor layout, excluding this request from the occupied prompt slot.
+    static func present(_ popover: AnchoredPopover, content: NSView, userInitiated: Bool = false,
+                        canPresent: ((AnchoredPopover?) -> Bool)? = nil, onShown: (() -> Void)? = nil) {
+        popover.present(content, from: Menubar.statusItem, canPresent: { [weak popover] in
+            canPresent?(popover) ?? ProPromptHost.canPresent(userInitiated: userInitiated, excluding: popover)
+        }) {
+            ProTransitionManager.shared.state.recordMessage()
+            onShown?()
+        }
     }
 
     static func makeContainer(width: CGFloat, _ rows: [Row]) -> NSView {
@@ -74,7 +84,7 @@ enum ProPromptPopover {
     }
 
     static func makeTitle(_ text: String) -> NSTextField {
-        let title = NSTextField(labelWithString: text)
+        let title = NSTextField(wrappingLabelWithString: text)
         title.font = .systemFont(ofSize: 13, weight: .semibold)
         title.translatesAutoresizingMaskIntoConstraints = false
         title.isSelectable = false
@@ -92,16 +102,21 @@ enum ProPromptPopover {
         return body
     }
 
-    /// The [Not now] [Get Pro] pair every popover but Day 4 ends with. Both dismiss the popover;
+    /// The [Maybe later] [Get Pro] pair for blocked features. Both dismiss the popover;
     /// `Get Pro` also opens checkout.
-    static func makeButtonRow(closing popover: NSPopover, origin: CheckoutOrigin) -> NSStackView {
-        let notNow = NotAdvisedButton(NSLocalizedString("Not now", comment: ""))
-        notNow.onAction = { [weak popover] _ in popover?.close() }
-        let getPro = ProPromptButtons.makeGetPro(large: false) { [weak popover] in
+    static func makeButtonRow(closing popover: AnchoredPopover, origin: CheckoutOrigin,
+                              openCheckout: @escaping (CheckoutOrigin) -> Void = ProTransitionManager.openCheckout) -> NSStackView {
+        let later = NotAdvisedButton(NSLocalizedString("Maybe later", comment: ""))
+        later.onAction = { [weak popover] _ in
+            popover?.acknowledgePresentation()
             popover?.close()
-            ProTransitionManager.openCheckout(from: origin)
         }
-        let row = NSStackView(views: [notNow, getPro])
+        let getPro = ProPromptButtons.makeGetPro { [weak popover] in
+            popover?.acknowledgePresentation()
+            popover?.close()
+            openCheckout(origin)
+        }
+        let row = NSStackView(views: [later, getPro])
         row.translatesAutoresizingMaskIntoConstraints = false
         row.orientation = .horizontal
         row.spacing = 12

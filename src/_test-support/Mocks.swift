@@ -79,7 +79,7 @@ class Appearance {
 // Minimal stubs so `TableGroupView.swift` / `SidebarList.swift` compile in the test target without
 // dragging in `AppearanceTab` (which `IllustratedImageThemeView` lives in) or the full
 // `SettingsWindow`. Tests never instantiate these — they only need the symbols to resolve.
-enum SettingsWindow {
+class SettingsWindow: NSWindow {
     static let contentWidth = CGFloat(700)
 }
 

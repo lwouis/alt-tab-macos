@@ -38,6 +38,7 @@ class PermissionView: NSView {
         self.justification.stringValue = justification
         self.justification.font = .systemFont(ofSize: 12)
         self.justification.textColor = .secondaryLabelColor
+        self.justification.isSelectable = false
         status.font = .systemFont(ofSize: 11.5, weight: .medium)
         grantAfterSkip.isBordered = false
         grantAfterSkip.attributedTitle = NSAttributedString(string: grantAfterSkip.title, attributes: [

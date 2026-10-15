@@ -202,6 +202,7 @@ enum QaSurfaces {
     }
 
     static func closeAll(keepSettings: Bool = false) {
+        ProPromptHost.windowPresentation.cancel()
         renderGeneration += 1
         settlingGeneration = nil
         readyGeneration = nil
@@ -211,16 +212,16 @@ enum QaSurfaces {
         popovers.allObjects.forEach { $0.close() }
         Popover.shared.hide()
         if SwitcherSession.isActive { App.hideUi() }
-        if let settings = SettingsWindow.shared, let sheet = settings.attachedSheet {
+        for parent in [SettingsWindow.shared, FeedbackWindow.shared].compactMap({ $0 }) {
+            guard let sheet = parent.attachedSheet else { continue }
             sheet.animationBehavior = .none
             QaSheetAnimation.disable(on: sheet)
-            settings.endSheet(sheet)
+            parent.endSheet(sheet)
             sheet.orderOut(nil)
         }
         if !keepSettings { SettingsWindow.qaDiscard() }
         let windows: [NSWindow?] = [AboutWindow.shared, FeedbackWindow.shared, PermissionsWindow.shared,
-            Day1WelcomeLetterWindow.shared, Day15ProactiveWindow.shared, Day15FullUpgradeWindow.shared,
-            Day35FinalWindow.shared]
+            Day15FullUpgradeWindow.shared, Day35FinalWindow.shared]
         windows.compactMap { $0 }.filter { $0.isVisible }.forEach { $0.close() }
         PermissionsWindow.qaForcedStatus = nil
         current = nil
@@ -302,15 +303,13 @@ enum QaSurfaces {
             Surface(id: "pro.welcome.new", licenses: trial, inSettings: false) { welcome(freshInstall: true) },
             Surface(id: "pro.welcome.upgrade", licenses: trial, inSettings: false) { welcome(freshInstall: false) },
             Surface(id: "pro.day4-tour", licenses: trial, inSettings: false) { Day4TourPopover.show(); return Target() },
-            Surface(id: "pro.day12-heads-up", licenses: trial, inSettings: false) { Day12HeadsUpPopover.show(); return Target() },
-            Surface(id: "pro.day15-proactive", licenses: expired, inSettings: false) {
-                Day15ProactiveWindow.show()
-                return target(Day15ProactiveWindow.shared)
-            },
-            Surface(id: "pro.day21-reminder", licenses: expired, inSettings: false) { Day21ReminderPopover.show(); return Target() },
             Surface(id: "pro.day35-final", licenses: expired, inSettings: false) {
-                Day35FinalWindow.show()
-                return target(Day35FinalWindow.shared)
+                ProPromptWindow.showWithTrialEvidence { evidence in
+                    let window = Day35FinalWindow(evidence: evidence, preferred: ProTransitionManager.shared.state.lastIntent)
+                    Day35FinalWindow.shared = window
+                    App.showSecondaryWindow(window)
+                }
+                return Target()
             },
         ] + reasons.flatMap { name, reason in
             [
@@ -326,34 +325,44 @@ enum QaSurfaces {
         }
     }
 
-    /// Alerts run a modal loop of their own, so they are opened on the next turn of the main loop and the
-    /// harness finds their window among the ones that appeared. `closeAll` aborts the loop, and every caller
-    /// here reads an aborted alert as neither of its buttons, so nothing is reset, activated or sent.
+    /// Alerts are opened on the next turn of the main loop: some run a modal loop of their own. The launch-time
+    /// ones are app-modal, and the harness finds their window among the ones that appeared. The others are sheets
+    /// on the Settings section they belong to, or on Feedback. `closeAll` aborts any loop and ends the sheets, and
+    /// every caller here reads that as neither of its buttons, so nothing is reset, activated or sent.
     private static func alertSurfaces() -> [Surface] {
-        let alerts: [(String, () -> Void)] = [
-            ("reset-settings", { GeneralTab.resetPreferences() }),
-            ("language-change", { GeneralTab.setLanguageCallback(NSControl()) }),
-            ("conflicting-shortcut", { _ = ControlsTab.confirmUnassigningConflict("• " + NSLocalizedString("Show", comment: "Menubar option")) }),
+        let appModal: [(String, () -> Void)] = [
             ("settings-not-saved.symlink", { PreferencesPersistenceCheck.debugShowDialog(symlinked: true) }),
             ("settings-not-saved.unwritable", { PreferencesPersistenceCheck.debugShowDialog(symlinked: false) }),
-            ("activate-license", { UpgradeTab.presentActivationSheet() }),
-            ("activation-failed", { UpgradeTab.presentActivationSheet(prefilledKey: "QA-LICENSE-KEY", autoFailedHint: true) }),
-            ("seat-limit", { UpgradeTab.presentSeatLimitSheet(key: "QA-LICENSE-KEY", instances: seats) }),
-            ("license-error", { UpgradeTab.presentLicenseError(NSLocalizedString("Activation failed", comment: ""), LicenseAPIError.invalidKey) }),
-            ("license-error.details", {
+        ]
+        // A nil section is the Upgrade page.
+        let settingsSheets: [(String, String?, () -> Void)] = [
+            ("reset-settings", "general", { GeneralTab.resetPreferences() }),
+            ("language-change", "general", { GeneralTab.setLanguageCallback(NSControl()) }),
+            ("conflicting-shortcut", "controls", { _ = ControlsTab.confirmUnassigningConflict("• " + NSLocalizedString("Show", comment: "Menubar option")) }),
+            ("activate-license", nil, { UpgradeTab.presentActivationSheet() }),
+            ("activation-failed", nil, { UpgradeTab.presentActivationSheet(prefilledKey: "QA-LICENSE-KEY", autoFailedHint: true) }),
+            ("seat-limit", nil, { UpgradeTab.presentSeatLimitSheet(key: "QA-LICENSE-KEY", instances: seats) }),
+            ("license-error", nil, { UpgradeTab.presentLicenseError(NSLocalizedString("Activation failed", comment: ""), LicenseAPIError.invalidKey) }),
+            ("license-error.details", nil, {
                 UpgradeTab.presentLicenseError(NSLocalizedString("Activation failed", comment: ""),
                     LicenseAPIError.invalidResponse(debugInfo: "HTTP 500\n{\"error\": \"qa\"}"))
             }),
         ]
-        return alerts.map { name, show in
+        return appModal.map { name, show in
             Surface(id: "alert.\(name)", licenses: nil, inSettings: false) {
                 later(show)
                 return Target()
             }
+        } + settingsSheets.map { name, section, show in
+            Surface(id: "alert.\(name)", licenses: nil, inSettings: true) {
+                _ = settings(section)
+                later(show)
+                return Target(windows: { [SettingsWindow.shared?.attachedSheet].compactMap { $0 } })
+            }
         } + [Surface(id: "alert.feedback-confirm", licenses: nil, inSettings: false) {
             _ = feedback("selectEnhancement")
             later { _ = FeedbackWindow.shared?.perform(NSSelectorFromString("sendCallback")) }
-            return Target()
+            return Target(windows: { [FeedbackWindow.shared?.attachedSheet].compactMap { $0 } })
         }]
     }
 
@@ -409,10 +418,8 @@ enum QaSurfaces {
     }
 
     private static func welcome(freshInstall: Bool) -> Target {
-        Day1WelcomeLetterWindow.shared?.close()
-        Day1WelcomeLetterWindow.shared = nil
-        Day1WelcomeLetterWindow.show(forceFreshInstall: freshInstall)
-        return target(Day1WelcomeLetterWindow.shared)
+        Day1WelcomeLetterPopover.show(forceFreshInstall: freshInstall)
+        return Target()
     }
 
     private static func target(_ window: NSWindow?, pager: (() -> Pager?)? = nil) -> Target {
@@ -453,6 +460,8 @@ enum QaSurfaces {
 
     /// Relative to now, and re-pinned before every surface, so a week's count cannot drift as the run goes on.
     private static func pinVolatileContent() {
+        // Each capture is an independent presentation, regardless of earlier captures' daily budget.
+        ProTransitionState.defaults.removeObject(forKey: "proJourney.lastMessageAt")
         let now = Int(Date().timeIntervalSince1970)
         // A minute clear of both ends: a count made a few milliseconds after this pin must not decide
         // differently whether the event exactly one week ago belongs to "the past week".

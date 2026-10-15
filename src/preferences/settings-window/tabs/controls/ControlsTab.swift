@@ -560,7 +560,7 @@ class ControlsTab {
         let currentCount = Preferences.shortcutCount
         guard currentCount < Preferences.maxShortcutCount else { return }
         if currentCount >= 1 && LicenseManager.shared.isProLocked {
-            UpgradeTab.navigateToUpgradeTab()
+            UpgradeTab.navigateToUpgradeTab(for: .shortcuts)
             return
         }
         resetShortcutPreferences(currentCount)
@@ -901,15 +901,15 @@ class ControlsTab {
     }
 
     /// The prompt both conflict detectors raise: unassign whatever holds the shortcut, or cancel
-    /// (Esc). `true` means the user chose to unassign.
-    static func confirmUnassigningConflict(_ informativeText: String) -> Bool {
+    /// (Esc). `true` means the user chose to unassign. It is a sheet on `window`, which defaults to Settings.
+    static func confirmUnassigningConflict(_ informativeText: String, in window: NSWindow? = SettingsWindow.shared) -> Bool {
         let alert = NSAlert()
         alert.alertStyle = .warning
         alert.messageText = NSLocalizedString("Conflicting shortcut", comment: "")
         alert.informativeText = informativeText
         alert.addButton(withTitle: NSLocalizedString("Unassign existing shortcut and continue", comment: "")).setAccessibilityFocused(true)
         alert.addButton(withTitle: NSLocalizedString("Cancel", comment: "")).keyEquivalent = "\u{1b}"
-        return alert.runModal() == .alertFirstButtonReturn
+        return alert.runAttached(to: window) == .alertFirstButtonReturn
     }
 
     /// An action's name must not be split across lines by the alert's own wrapping.

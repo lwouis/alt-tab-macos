@@ -16,13 +16,22 @@ never placed produces no layout event. Coalesce retries on the main queue; there
 after presentation or cancellation. A pending trial popover also counts as occupying the prompt
 slot, so Search education does not overlap it, and the deadline bounds how long it does.
 
+The same deadline applies when an apparently usable anchor keeps rejecting native presentation.
+Try the unanchored fallback once; if macOS rejects that too, release the content and prompt slot
+without marking the message seen. Later eligible opportunities follow the journey's retry policy.
+
 An item switched off in System Settings while AltTab runs keeps reporting a usable frame; the
 popover then points at where the icon was. That still shows the content, and the arrow tells the
 user an icon lives there.
 
 Replacing a request, closing the popover, purchasing Pro or summoning the switcher invalidates
-all previously queued presentation work. The trial announcement is consumed only by the
-matching did-show notification, not by merely asking AppKit to display it.
+all previously queued presentation work. A blocked-feature popover already visible survives switching
+and re-summoning; its application-defined lifetime is specified in `ProTransitionSpecs.md`. It opts out
+of explicit application activation and making its window key, including when anchor layout finishes
+after the chosen app has received focus. Other anchored popovers retain their activation behavior. The trial announcement is consumed by the matching
+did-show notification or an explicit action in the displayed content, not by merely asking AppKit
+to display it. Both share one acknowledgement: a fast style choice before the appearance animation
+ends must not leave the Day 4 retry armed or consume the daily message budget twice.
 
 Explicit dismissal uses `close`, not `performClose`, which AppKit can refuse for child windows
 or a delegate veto. Close without an outgoing animation before opening Settings or replacing
@@ -51,11 +60,15 @@ windows or drive the desktop; they do not assert macOS's own animation or window
 - **testAButtonLayoutChangeRetriesWithoutAnotherUserEvent** — a frame change on the anchor alone is
   enough to retry.
 - **testARejectedNativeShowIsRetriedOnTheNextLayoutUpdate** — a `show` AppKit ignored stays pending.
+- **testAReadyAnchorThatRejectsPresentationFallsBackAtTheDeadline** — a usable frame cannot keep a rejected show waiting forever.
+- **testRejectedFallbackReleasesThePromptSlotWithoutAcknowledgingOrRetrying** — failed presentation releases its slot and consumes no message budget.
 - **testSummoningTheSwitcherCancelsAQueuedLessonBeforeItCanTakeFocus** — a cancelled request never shows.
 - **testReplacingAnUnshownLessonOnlyPresentsTheLatestContent** — two requests show once, with the
   latest content.
 - **testTheTrialAnnouncementIsConsumedOnlyAfterThePopoverAppears** — the callback waits for the
   matching did-show, and runs once.
+- **testAButtonActionBeforeTheAppearanceAnimationFinishesAcknowledgesOnlyOnce** — immediate action
+  consumes the announcement once; a later notification cannot repeat it.
 - **testClosingAQueuedReminderPreventsItFromAppearingAfterPurchase** — closing before the show cancels
   both the show and its callback.
 - **testClosingReleasesContentThatRetainsItsPopover** — `close` breaks the content-popover cycle.

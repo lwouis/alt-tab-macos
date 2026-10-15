@@ -43,6 +43,11 @@ frame's origin is one tile width before it.
 - **Centering is measured against a width the caller chooses** (`TilesView` passes the panel's final
   `thumbnailsWidth`, not the grid's `maxX`), so the last row of a short list sits under the middle of the
   panel rather than under the middle of the tiles.
+- **RTL origins are translated from the maximum layout width into the final viewport before centering.**
+  A short row must remain fully visible when the panel shrinks. The document is at least as wide as the
+  viewport, including the search field's minimum width, so centered tiles stay inside its bounds.
+  `testShortRtlRowRemainsInsideTheShrunkenViewport` and
+  `testRtlSearchMinimumWidthKeepsTheShortRowCenteredAndVisible` pin both cases.
 - **The auto size takes the first that fits, and the last one regardless.** `firstSizeThatFits` walks
   large → medium → small and stops at the first whose grid is no taller than the space available; if none
   fit, the smallest is used anyway. The measurement is a closure because the production caller has to apply

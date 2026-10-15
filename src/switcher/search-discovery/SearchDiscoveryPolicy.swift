@@ -14,8 +14,8 @@ enum SearchDiscoveryPolicy {
 
         var isEligible: Bool {
             switch self {
-            case .trial(let day): return (1...10).contains(day) && day != 3
-            case .pro: return true
+            case let .trial(day): return (1...10).contains(day) && day != 3
+            case .pro: return false
             case .locked: return false
             }
         }
@@ -29,16 +29,23 @@ enum SearchDiscoveryPolicy {
         var searchActive = false
         var blockedByOtherUI = false
         var hasShortcut = false
+        var extraShortcut = false
 
         func isEligible(history: History) -> Bool {
-            access.isEligible && windowCount >= minimumWindows && enabled && !optedOut
+            access.isEligible && windowCount >= (extraShortcut ? 3 : minimumWindows) && enabled && !optedOut
                 && !searchActive && !blockedByOtherUI && hasShortcut
-                && history.hasSearched == false
+                && (extraShortcut ? history.hasUsedExtraShortcut == false : history.hasSearched == false)
         }
+    }
+
+    static func canDemonstrateActiveApp(activeWindows: Int, totalWindows: Int) -> Bool {
+        activeWindows >= 2 && totalWindows > activeWindows
     }
 
     struct History {
         private(set) var hasSearched: Bool?
+        var hasUsedExtraShortcut: Bool?
+        var lastWasExtraShortcut = false
         private(set) var exposures: Int
         private(set) var lastExposure: Date?
 
@@ -73,6 +80,7 @@ enum SearchDiscoveryPolicy {
         var lastNavigationAt: TimeInterval?
         #if DEBUG
         var isPreview = false
+        var previewsExtraShortcut = false
         #endif
 
         var recordsHistory: Bool {
@@ -119,13 +127,14 @@ enum SearchDiscoveryPolicy {
         }
     }
 
-    static func frame(size: CGSize, switcher: CGRect, visibleScreen: CGRect, obstruction: CGRect?) -> CGRect? {
+    /// Above the switcher when it fits, else over its bottom edge. The window preview is ordered below the switcher, so it never matters.
+    static func frame(size: CGSize, switcher: CGRect, visibleScreen: CGRect) -> CGRect? {
         let safe = visibleScreen.insetBy(dx: 8, dy: 8)
         guard size.width > 0, size.height > 0, size.width <= safe.width, size.height <= safe.height else { return nil }
         let x = min(max(switcher.midX - size.width / 2, safe.minX), safe.maxX - size.width)
-        for y in [switcher.maxY + 8, switcher.minY - 8 - size.height] {
+        for y in [switcher.maxY + 8, max(switcher.minY + 16, safe.minY)] {
             let candidate = CGRect(origin: CGPoint(x: x, y: y), size: size)
-            if safe.contains(candidate) && !(obstruction?.intersects(candidate) ?? false) { return candidate }
+            if safe.contains(candidate) { return candidate }
         }
         return nil
     }

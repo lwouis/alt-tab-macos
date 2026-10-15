@@ -86,24 +86,8 @@ class FeedbackWindow: NSWindow {
 
     private func showKindPicker() {
         formIsVisible = false
-        let appIcon = LightImageView()
-        appIcon.translatesAutoresizingMaskIntoConstraints = false
-        let appIconSize = NSSize(width: 64, height: 64)
-        appIcon.updateContents(.cgImage(App.appIcon), appIconSize)
-        appIcon.fit(64, 64)
-
-        let subtitle = NSTextField(labelWithString: NSLocalizedString("Help improve AltTab", comment: ""))
-        subtitle.textColor = .secondaryLabelColor
-        let headerText = StackView([
-            BoldLabel(NSLocalizedString("Send feedback", comment: "")),
-            subtitle,
-        ], .vertical)
-        headerText.spacing = GridView.interPadding / 2
-
-        let header = NSStackView(views: [appIcon, headerText])
-        header.translatesAutoresizingMaskIntoConstraints = false
-        header.spacing = GridView.interPadding
-        header.alignment = .centerY
+        let header = MascotMessageView(title: NSLocalizedString("Send feedback", comment: ""),
+            message: NSLocalizedString("Help improve AltTab", comment: ""))
 
         let bug = FeedbackKindCard(
             symbol: .ladybug,
@@ -238,14 +222,15 @@ class FeedbackWindow: NSWindow {
         alert.informativeText = String(format: format, App.version, item.displayVersionString)
         alert.addButton(withTitle: NSLocalizedString("Update now", comment: ""))
         alert.addButton(withTitle: NSLocalizedString("Report on current version", comment: ""))
-        let response = alert.runModal()
-        if response == .alertFirstButtonReturn {
-            close()
+        alert.present(attachedTo: self) { [weak self] response in
+            guard response == .alertFirstButtonReturn else {
+                self?.showForm()
+                return
+            }
+            self?.close()
             DispatchQueue.main.async {
                 App.updaterController?.checkForUpdates(nil)
             }
-        } else {
-            showForm()
         }
     }
 
@@ -253,15 +238,9 @@ class FeedbackWindow: NSWindow {
 
     private func showForm() {
         formIsVisible = true
-        let appIcon = LightImageView()
-        appIcon.translatesAutoresizingMaskIntoConstraints = false
-        let appIconSize = NSSize(width: 64, height: 64)
-        appIcon.updateContents(.cgImage(App.appIcon), appIconSize)
-        appIcon.fit(64, 64)
-        let headerLeft = NSStackView(views: [appIcon, BoldLabel(formTitle())])
-        headerLeft.translatesAutoresizingMaskIntoConstraints = false
-        headerLeft.spacing = GridView.interPadding
-        headerLeft.alignment = .centerY
+        let headerLeft = MascotMessageView(title: formTitle(), message: kind == .bug
+            ? NSLocalizedString("What happened, and what did you expect?", comment: "")
+            : NSLocalizedString("What would make AltTab more useful for you?", comment: ""))
 
         let goBack = NSButton(title: "← " + NSLocalizedString("Go back", comment: ""), target: self, action: #selector(goBackToPicker))
         goBack.bezelStyle = .recessed
@@ -378,7 +357,13 @@ class FeedbackWindow: NSWindow {
         alert.addButton(withTitle: NSLocalizedString("Create GitHub issue", comment: ""))
         let cancelButton = alert.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))
         cancelButton.keyEquivalent = "\u{1b}" // Escape
-        if alert.runModal() != .alertFirstButtonReturn { return }
+        alert.present(attachedTo: self) { [weak self] in
+            if $0 == .alertFirstButtonReturn { self?.submit() }
+        }
+    }
+
+    private func submit() {
+        guard !isSubmitting else { return }
         beginSubmitting()
         // Capture the kind that owns this submission. If the user navigates to the other kind
         // form while the POST is in flight, completion still clears the right draft slot.
@@ -430,7 +415,7 @@ class FeedbackWindow: NSWindow {
         alert.messageText = NSLocalizedString("Couldn't submit feedback", comment: "")
         alert.informativeText = NSLocalizedString("The server didn't accept the submission. Check your internet connection and try again — your draft is preserved.", comment: "")
         alert.addButton(withTitle: NSLocalizedString("OK", comment: ""))
-        alert.runModal()
+        alert.present(attachedTo: self) { _ in }
     }
 
     /// The backend owns the final GitHub issue presentation — we just hand it the raw

@@ -1,15 +1,14 @@
 import Foundation
 
-/// Schedules the timed Pro-transition prompts ([A] Welcome, [B] Day 12, [D] Day 15, [F] Day 21,
-/// [G] Day 35). Owns the persisted `nextScheduledDate`, the in-flight `DispatchWorkItem`, and the
-/// `computeNextFireDate` logic that walks the remaining unshown prompts. Fires a caller-supplied
-/// closure when the time arrives; the coordinator decides what to show.
+/// Owns the single timed wake-up for Welcome, the trial's badge days and the end of the trial. Other prompts
+/// follow switcher dismissal. The coordinator rechecks eligibility when this scheduler fires.
 class ProTransitionScheduler {
     private let defaults: UserDefaults
     private let licenseManager: LicenseManager
     private let state: ProTransitionState
     private let onFire: () -> Void
     private var workItem: DispatchWorkItem?
+    private var attemptedWelcome = false
 
     private static let nextScheduledDateKey = "proTransition.nextScheduledDate"
 
@@ -22,10 +21,10 @@ class ProTransitionScheduler {
 
     /// Fire now if a missed wake-up was persisted, then schedule the next one.
     func onAppLaunchComplete() {
-        guard !state.onboardingInProgress else { cancel(); return }
+        guard licenseManager.state != .trialNotStarted, !state.onboardingInProgress else { cancel(); return }
         let saved = defaults.double(forKey: Self.nextScheduledDateKey)
         if saved > 0 && Date(timeIntervalSince1970: saved) <= licenseManager.clock.now {
-            onFire()
+            fire()
         }
         scheduleNext()
     }
@@ -48,80 +47,36 @@ class ProTransitionScheduler {
         let delay = max(0, fireDate.timeIntervalSince(licenseManager.clock.now))
         let item = DispatchWorkItem { [weak self] in
             guard let self else { return }
-            self.onFire()
-            self.scheduleNext()
+            fire()
+            scheduleNext()
         }
         workItem = item
-        DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: item)
+        // Wall time keeps counting while the Mac sleeps; `deadline:` would push the trial's end back by every
+        // night the Mac spent asleep. A wall deadline that passed during sleep fires on wake.
+        DispatchQueue.main.asyncAfter(wallDeadline: .now() + delay, execute: item)
+    }
+
+    private func fire() {
+        attemptedWelcome = true
+        onFire()
     }
 
     /// Compute the next date when a time-based prompt should fire.
     func computeNextFireDate() -> Date? {
         if case .pro = licenseManager.state { return nil }
         if state.onboardingInProgress { return nil }
-        if state.userOptedOut && state.hasSeenDay35 { return nil }
-        guard let trialStart = licenseManager.trialStartDate else { return nil }
-
-        // Day 1: Welcome (immediate)
-        if !state.hasSeenWelcome {
+        guard let start = licenseManager.trialStartDate else { return nil }
+        // Welcome is immediate; the badge and expiry deadlines remain independent of promotional prompts.
+        if case .trial = licenseManager.state, !state.userOptedOut && !state.hasSeenWelcome && !attemptedWelcome {
             return licenseManager.clock.now
         }
-
-        var candidates = [Date]()
-
-        // Day 12: 10:00 or 15:30 — single calendar day, drop the candidate once daysSinceTrialStart >= 12
-        if !state.hasSeenDay12 {
-            let day13Start = trialStart.addingTimeInterval(12 * 86400)
-            if let d = nextTimeWindow(onOrAfterDay: 11, trialStart: trialStart), d < day13Start {
-                candidates.append(d)
-            }
-        }
-
-        // Day 15+: Proactive (only if no hard-gate happened)
-        if !state.hasSeenProactiveDay15 && !state.hasSeenFullUpgrade {
-            if let d = nextTimeWindow(onOrAfterDay: 14, trialStart: trialStart) {
-                candidates.append(d)
-            }
-        }
-
-        // Day 21+: Reminder (skip once Day 35 shown)
-        if !state.hasSeenDay21 && !state.hasSeenDay35 {
-            if let d = nextTimeWindow(onOrAfterDay: 20, trialStart: trialStart),
-               d < trialStart.addingTimeInterval(34 * 86400) {
-                candidates.append(d)
-            }
-        }
-
-        // Day 35+: Final (give up at Day 49)
-        if !state.hasSeenDay35 && !state.userOptedOut {
-            if let d = nextTimeWindow(onOrAfterDay: 34, trialStart: trialStart) {
-                let day49 = trialStart.addingTimeInterval(48 * 86400)
-                if d < day49 {
-                    candidates.append(d)
-                }
-            }
-        }
-
-        return candidates.min()
+        guard case .trial = licenseManager.state else { return nil }
+        return ProTransitionManagerTestable.nextTrialDeadline(after: licenseManager.clock.now, trialStart: start)
     }
 
-    /// Find the next 10:00 or 15:30 that falls on or after the given trial day.
-    private func nextTimeWindow(onOrAfterDay trialDay: Int, trialStart: Date) -> Date? {
-        let cal = Calendar.current
-        let now = licenseManager.clock.now
-        let targetDate = trialStart.addingTimeInterval(Double(trialDay) * 86400)
-        let startDate = max(targetDate, now)
-
-        for dayOffset in 0..<60 {
-            let candidateDay = cal.date(byAdding: .day, value: dayOffset, to: cal.startOfDay(for: startDate))!
-            for slot in [(hour: 10, minute: 0), (hour: 15, minute: 30)] {
-                if let candidate = cal.date(bySettingHour: slot.hour, minute: slot.minute, second: 0, of: candidateDay) {
-                    if candidate >= now && candidate >= targetDate {
-                        return candidate
-                    }
-                }
-            }
-        }
-        return nil
+    #if DEBUG
+    func resetForQa() {
+        attemptedWelcome = false
     }
+    #endif
 }

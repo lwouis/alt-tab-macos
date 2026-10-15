@@ -23,13 +23,10 @@ enum Endpoints {
 /// Which "Get Pro" entry point opened the pricing page. The website copies `?via=` into the Paddle checkout, so a
 /// sale can be traced back to the prompt that led to it. Codes are deliberately opaque: the URL the user sees says
 /// nothing about the prompt schedule. The website accepts only these values, so keep its list in sync, and never reuse
-/// a retired code.
+/// a retired code. Retired: "a1", the Day 12 heads-up; "a3", the timed Day 15 window; "a5", the Day 21 reminder.
 enum CheckoutOrigin: String, CaseIterable {
-    case day12HeadsUp = "a1"
     case fullUpgrade = "a2"
-    case proactiveDay15 = "a3"
     case hardGate = "a4"
-    case day21Reminder = "a5"
     case day35Final = "a6"
     case settingsUpgradeTab = "a7"
     case menubar = "a8"

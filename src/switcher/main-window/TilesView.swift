@@ -610,10 +610,10 @@ class TilesView {
             searchField.removeFromSuperview()
         }
         if App.shared.userInterfaceLayoutDirection == .rightToLeft {
-            let croppedWidth = max(0, TilesView.thumbnailsWidth - maxX)
+            let croppedWidth = TileGridLayout.rightToLeftCropOffset(layoutWidth: widthMax, viewportWidth: TilesView.thumbnailsWidth)
             scrollView.documentView!.subviews.forEach { $0.frame.origin.x -= croppedWidth }
         }
-        scrollView.documentView!.frame.size = NSSize(width: maxX, height: maxY)
+        scrollView.documentView!.frame.size = NSSize(width: max(maxX, TilesView.thumbnailsWidth), height: maxY)
         let docSize = scrollView.documentView!.frame.size
         thumbnailOverView.frame = CGRect(origin: .zero, size: docSize)
         thumbnailUnderLayer.frame = CGRect(origin: .zero, size: docSize)

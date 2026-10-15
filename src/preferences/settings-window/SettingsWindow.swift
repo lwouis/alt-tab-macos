@@ -167,6 +167,11 @@ final class UpgradeButton: ProGradientButton {
     func refreshTitle() {
         wrappedWidth = bounds.width
         let state = LicenseManager.shared.state
+        if state == .trialNotStarted {
+            toolTip = ProFeatureCopy.trialSetup
+            applyTitle(secondary: nil, main: Self.attributed("Pro", Self.mainFont), height: Self.oneLineHeight)
+            return
+        }
         guard case .pro = state else {
             toolTip = nil
             applyTitle(secondary: trialSubtitle(state), main: Self.attributed(NSLocalizedString("Get Pro", comment: ""), Self.mainFont), height: Self.twoLineHeight)
@@ -290,7 +295,7 @@ class SettingsWindow: NSWindow {
     private static let sectionSelectionTriggerRatioWhenScrollingUp = CGFloat(0.6)
     private static let sectionSelectionDirectionDeltaThreshold = CGFloat(0.25)
     private static let minWindowHeight = CGFloat(400)
-    private static let defaultWindowHeight = CGFloat(570)
+    private static let defaultWindowHeight = CGFloat(600)
     private static let sidebarTopInset = CGFloat(40)
     private static let logoIconSize = NSSize(width: 48, height: 48)
     static let sidebarHorizontalPadding = CGFloat(10)

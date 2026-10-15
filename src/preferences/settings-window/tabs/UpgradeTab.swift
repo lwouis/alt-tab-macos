@@ -1,14 +1,10 @@
 import Cocoa
 
 class UpgradeTab {
-    private static var statusLabel: LightLabel!
-    private static var usageHero: UsageStatHeroView!
-    private static var heroButton: ProHeroButton!
-    private static var guaranteeLabel: NSTextField!
-    private static var separator: NSBox!
-    private static var activateLinkRow: NSStackView!
+    private static var introduction: MascotMessageView!
+    private static var journey: ProJourneyView!
+    private static var footer: NSView!
     private static var proManageTable: TableGroupView!
-    private static var featuresList: NSStackView!
     private static var isActivating = false
     private static var isInitialized = false
 
@@ -22,69 +18,34 @@ class UpgradeTab {
     static func cleanup() {
         isInitialized = false
         isActivating = false
-        statusLabel = nil
-        usageHero = nil
-        heroButton = nil
-        guaranteeLabel = nil
-        separator = nil
-        activateLinkRow = nil
+        introduction = nil
+        journey = nil
+        footer = nil
         proManageTable = nil
-        featuresList = nil
     }
 
     private static func makeView() -> NSView {
-        let headerStrip = makeHeaderStrip()
-        usageHero = UsageStatHeroView()
-        heroButton = makeHeroButton()
-        guaranteeLabel = makeGuaranteeLabel()
-        separator = makeSeparator()
-        featuresList = makeFeaturesList()
-        activateLinkRow = makeActivateLinkRow()
+        let header = makeHeaderStrip()
+        journey = ProJourneyView(width: SettingsWindow.contentWidth - 2 * TableGroupView.padding)
+        journey.spacing = 8
+        let purchase = ProPromptButtons.makeGetPro {
+            ProTransitionManager.openCheckout(from: .settingsUpgradeTab)
+        }
+        footer = journey.makeFooter(actions: purchase, leading: makeActivateLinkRow())
         proManageTable = makeProManageTable()
-        let bodyStack = NSStackView()
-        bodyStack.orientation = .vertical
-        bodyStack.alignment = .centerX
-        bodyStack.spacing = 0
-        bodyStack.addArrangedSubview(headerStrip)
-        bodyStack.setCustomSpacing(28, after: headerStrip)
-        bodyStack.addArrangedSubview(usageHero)
-        bodyStack.setCustomSpacing(40, after: usageHero)
-        bodyStack.addArrangedSubview(heroButton)
-        bodyStack.setCustomSpacing(6, after: heroButton)
-        bodyStack.addArrangedSubview(guaranteeLabel)
-        bodyStack.setCustomSpacing(28, after: guaranteeLabel)
-        bodyStack.addArrangedSubview(separator)
-        bodyStack.setCustomSpacing(24, after: separator)
-        bodyStack.addArrangedSubview(featuresList)
-        bodyStack.setCustomSpacing(28, after: featuresList)
-        bodyStack.addArrangedSubview(activateLinkRow)
-        bodyStack.setCustomSpacing(5, after: activateLinkRow)
-        bodyStack.addArrangedSubview(proManageTable)
-        headerStrip.widthAnchor.constraint(equalToConstant: SettingsWindow.contentWidth).isActive = true
-        return bodyStack
-    }
-
-    private static func makeGuaranteeLabel() -> NSTextField {
-        let label = NSTextField(labelWithString: NSLocalizedString("30-day money-back guarantee", comment: ""))
-        label.font = NSFont.systemFont(ofSize: 11)
-        label.textColor = .secondaryLabelColor
-        label.alignment = .center
-        return label
-    }
-
-    private static func makeSeparator() -> NSBox {
-        let box = NSBox()
-        box.boxType = .separator
-        box.translatesAutoresizingMaskIntoConstraints = false
-        box.widthAnchor.constraint(equalToConstant: 220).isActive = true
-        return box
+        let stack = NSStackView(views: [header, journey, footer, proManageTable])
+        stack.orientation = .vertical
+        stack.alignment = .centerX
+        stack.spacing = 8
+        stack.setCustomSpacing(20, after: journey)
+        return stack
     }
 
     private static func makeActivateLinkRow() -> NSStackView {
-        let haveKey = makeFooterLink(NSLocalizedString("I already have a license key", comment: "")) {
+        let haveKey = makeFooterLink(NSLocalizedString("Enter license key", comment: "")) {
             presentActivationSheet()
         }
-        let lostKey = makeFooterLink(NSLocalizedString("I lost my license key", comment: "")) {
+        let lostKey = makeFooterLink(NSLocalizedString("Lost your license key?", comment: "")) {
             openAccountPage()
         }
         let dot = NSTextField(labelWithString: "·")
@@ -109,58 +70,9 @@ class UpgradeTab {
         return button
     }
 
-    private static func makeHeaderStrip() -> NSStackView {
-        let titleFont = NSFont.systemFont(ofSize: 15, weight: .medium)
-        let titleText = NSLocalizedString("AltTab Pro", comment: "")
-        let titleAttr = NSMutableAttributedString(string: titleText, attributes: [
-            .font: titleFont,
-            .foregroundColor: NSColor.labelColor,
-        ])
-        if let range = titleText.range(of: "Pro", options: .backwards) {
-            titleAttr.replaceCharacters(in: NSRange(range, in: titleText),
-                with: ProGradient.makeProTextAttachment(font: titleFont))
-        }
-        let titleLabel = NSTextField(labelWithAttributedString: titleAttr)
-        // Match the section-title NSTextField cell drawing path. Without these, the
-        // attributed-string + `ProGradient` text-attachment label takes a different
-        // `NSTextFieldCell` path and renders its glyphs ~1pt lower than a plain section title.
-        titleLabel.lineBreakMode = .byWordWrapping
-        titleLabel.maximumNumberOfLines = 0
-        titleLabel.cell?.usesSingleLineMode = true
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        // `usesSingleLineMode = true` overshoots the multi-line baseline by ~0.5pt, leaving the
-        // title 1 retina pixel above where the plain section title sits. NSStackView's `edgeInsets`
-        // rounds fractional values, so we use a wrapper with an explicit AutoLayout constraint —
-        // the AutoLayout engine honours fractional CGFloat constants and produces a half-pixel
-        // shift on retina. `bottomAnchor + (-0.5)` keeps the wrapper's height equal to the
-        // label's intrinsic height so the subtitle below it isn't pushed off.
-        let titleWrapper = NSView()
-        titleWrapper.translatesAutoresizingMaskIntoConstraints = false
-        titleWrapper.addSubview(titleLabel)
-        NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: titleWrapper.topAnchor, constant: 0.5),
-            titleLabel.leadingAnchor.constraint(equalTo: titleWrapper.leadingAnchor),
-            titleLabel.trailingAnchor.constraint(lessThanOrEqualTo: titleWrapper.trailingAnchor),
-            titleWrapper.bottomAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: -0.5),
-        ])
-        statusLabel = TableGroupView.makeText("")
-        statusLabel.lineBreakMode = .byTruncatingTail
-        let strip = NSStackView()
-        strip.orientation = .vertical
-        strip.spacing = SettingsWindow.sectionTitleSpacing
-        strip.alignment = .leading
-        strip.edgeInsets = NSEdgeInsets(top: 0, left: TableGroupView.padding, bottom: 0, right: TableGroupView.padding)
-        strip.addArrangedSubview(titleWrapper)
-        strip.addArrangedSubview(statusLabel)
-        return strip
-    }
-
-    private static func makeHeroButton() -> ProHeroButton {
-        let button = ProHeroButton()
-        button.onAction = { _ in ProTransitionManager.openCheckout(from: .settingsUpgradeTab) }
-        button.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        button.widthAnchor.constraint(equalToConstant: 220).isActive = true
-        return button
+    private static func makeHeaderStrip() -> MascotMessageView {
+        introduction = ProJourneyView.makeIntroduction(width: SettingsWindow.contentWidth - 2 * TableGroupView.padding)
+        return introduction
     }
 
     private static func makeProManageTable() -> TableGroupView {
@@ -176,95 +88,27 @@ class UpgradeTab {
         return table
     }
 
-    private static func makeFeaturesList() -> NSStackView {
-        let features = [
-            NSLocalizedString("App Icons & Window Titles styles", comment: ""),
-            NSLocalizedString("Search windows by typing", comment: ""),
-            NSLocalizedString("Auto-sizing switcher", comment: ""),
-            NSLocalizedString("Up to 9 keyboard shortcuts", comment: ""),
-        ]
-        let stack = NSStackView()
-        stack.orientation = .vertical
-        stack.alignment = .leading
-        stack.spacing = 6
-        let header = NSTextField(labelWithString: NSLocalizedString("Pro includes:", comment: ""))
-        header.font = NSFont.systemFont(ofSize: 11, weight: .medium)
-        header.textColor = .secondaryLabelColor
-        stack.addArrangedSubview(header)
-        stack.setCustomSpacing(8, after: header)
-        for feature in features {
-            let check = NSTextField(labelWithString: "✓")
-            check.textColor = .systemGreen
-            check.font = NSFont.systemFont(ofSize: 13, weight: .medium)
-            let text = NSTextField(labelWithString: feature)
-            text.font = NSFont.systemFont(ofSize: 13)
-            text.textColor = .labelColor
-            let row = NSStackView(views: [check, text])
-            row.orientation = .horizontal
-            row.spacing = 8
-            row.alignment = .firstBaseline
-            stack.addArrangedSubview(row)
-        }
-        return stack
-    }
-
     static func refreshStatus() {
         SettingsWindow.shared?.refreshUpgradeButton()
         guard isInitialized else { return }
-        // `usageHero` is built once in `makeView()` and reused across the app's lifetime.
-        // Re-read `UsageStats` so the displayed trigger / Pro-use numbers track usage
-        // growth instead of staying frozen at first-render.
-        usageHero.refresh()
-        let state = LicenseManager.shared.state
-        switch state {
+        journey.refresh()
+        ProJourneyView.refreshIntroduction(introduction)
+        switch LicenseManager.shared.state {
         case .pro:
-            setHeroVisible(false)
-            featuresList.isHidden = true
-            activateLinkRow.isHidden = true
-            proManageTable.isHidden = false
-            let email = LicenseManager.shared.customerEmail ?? ""
-            let format = LicenseManager.shared.isLifetimeVariant
-                ? NSLocalizedString("Pro Lifetime license activated for %@", comment: "")
-                : NSLocalizedString("Pro license activated for %@", comment: "")
-            let fullText = String(format: format, email)
-            let attributed = makeStatusSubtitle(fullText)
-            if !email.isEmpty, let emailRange = fullText.range(of: email) {
-                attributed.addAttribute(.font, value: NSFont.systemFont(ofSize: 12, weight: .semibold), range: NSRange(emailRange, in: fullText))
-            }
-            statusLabel.attributedStringValue = attributed
-        case .trial(let daysRemaining):
-            setHeroVisible(true)
-            featuresList.isHidden = false
-            activateLinkRow.isHidden = false
-            proManageTable.isHidden = true
-            statusLabel.attributedStringValue = makeStatusSubtitle(String(format: NSLocalizedString("Trial: %d days remaining", comment: ""), daysRemaining))
-        case .proExpired:
-            setHeroVisible(true)
-            featuresList.isHidden = false
-            activateLinkRow.isHidden = false
-            proManageTable.isHidden = true
-            statusLabel.attributedStringValue = makeStatusSubtitle(NSLocalizedString("Your license doesn't cover this version. Upgrade to Lifetime Pro.", comment: ""))
-        case .trialExpired:
-            setHeroVisible(true)
-            featuresList.isHidden = false
-            activateLinkRow.isHidden = false
-            proManageTable.isHidden = true
-            statusLabel.attributedStringValue = makeStatusSubtitle(NSLocalizedString("Trial expired", comment: ""))
+            showSections(journey: false, licenseLinks: false)
+        case .trialNotStarted:
+            showSections(journey: false, licenseLinks: true)
+        case .trial, .proExpired, .trialExpired:
+            showSections(journey: true, licenseLinks: true)
         }
     }
 
-    private static func setHeroVisible(_ visible: Bool) {
-        usageHero.isHidden = !visible
-        heroButton.isHidden = !visible
-        guaranteeLabel.isHidden = !visible
-        separator.isHidden = !visible
-    }
-
-    private static func makeStatusSubtitle(_ text: String) -> NSMutableAttributedString {
-        NSMutableAttributedString(string: text, attributes: [
-            .foregroundColor: NSColor.secondaryLabelColor,
-            .font: NSFont.systemFont(ofSize: 12),
-        ])
+    /// Before the trial, the footer keeps only its license links.
+    private static func showSections(journey showsJourney: Bool, licenseLinks: Bool) {
+        journey.isHidden = !showsJourney
+        journey.setPurchaseHidden(!showsJourney)
+        footer.isHidden = !showsJourney && !licenseLinks
+        proManageTable.isHidden = licenseLinks
     }
 
     static func openAccountPage() {
@@ -287,10 +131,11 @@ class UpgradeTab {
         gate.button = activateButton
         field.delegate = gate
         activateButton.isEnabled = !prefilledKey.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-        let response = alert.runModal()
-        let key = field.stringValue.trimmingCharacters(in: .whitespacesAndNewlines)
-        if response == .alertFirstButtonReturn {
-            activateLicense(key)
+        alert.present(attachedTo: SettingsWindow.shared) { response in
+            // The field holds its delegate weakly; this keeps the gate alive while the sheet is up.
+            withExtendedLifetime(gate) {}
+            guard response == .alertFirstButtonReturn else { return }
+            activateLicense(field.stringValue.trimmingCharacters(in: .whitespacesAndNewlines))
         }
     }
 
@@ -322,7 +167,7 @@ class UpgradeTab {
             case .success:
                 refreshStatus()
                 App.resetPreferencesDependentComponents()
-            case .failure(let error):
+            case let .failure(error):
                 if case let LicenseAPIError.seatLimitExceeded(instances) = error, !instances.isEmpty {
                     presentSeatLimitSheet(key: key, instances: instances)
                     return
@@ -364,24 +209,26 @@ class UpgradeTab {
         let cancelButton = alert.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))
         cancelButton.keyEquivalent = "\u{1b}" // Escape
 
-        let response = alert.runModal()
-        guard response == .alertFirstButtonReturn,
-              let selected = buttons.first(where: { $0.state == .on }),
-              selected.tag < instances.count else {
-            return
+        alert.present(attachedTo: SettingsWindow.shared) { response in
+            guard response == .alertFirstButtonReturn,
+                  let selected = buttons.first(where: { $0.state == .on }),
+                  selected.tag < instances.count else { return }
+            deactivate(instances[selected.tag], thenActivate: licenseKey)
         }
-        let instance = instances[selected.tag]
+    }
+
+    private static func deactivate(_ instance: ActiveInstance, thenActivate licenseKey: String) {
         LicenseManager.shared.deactivateInstance(licenseKey: licenseKey, instanceId: instance.id) { result in
             switch result {
             case .success:
                 activateLicense(licenseKey)
-            case .failure(let error):
+            case let .failure(error):
                 let errAlert = NSAlert()
                 errAlert.alertStyle = .warning
                 errAlert.messageText = NSLocalizedString("Couldn't deactivate that machine", comment: "")
                 errAlert.informativeText = error.localizedDescription
                 addDebugInfoToAlert(errAlert, error)
-                errAlert.runModal()
+                errAlert.present(attachedTo: SettingsWindow.shared) { _ in }
             }
         }
     }
@@ -392,7 +239,7 @@ class UpgradeTab {
             case .success:
                 refreshStatus()
                 App.resetPreferencesDependentComponents()
-            case .failure(let error):
+            case let .failure(error):
                 presentLicenseError(NSLocalizedString("Deactivation failed", comment: ""), error)
             }
         }
@@ -406,8 +253,8 @@ class UpgradeTab {
         addDebugInfoToAlert(alert, error)
         alert.addButton(withTitle: NSLocalizedString("OK", comment: ""))
         alert.addButton(withTitle: NSLocalizedString("My Account", comment: ""))
-        if alert.runModal() == .alertSecondButtonReturn {
-            openAccountPage()
+        alert.present(attachedTo: SettingsWindow.shared) {
+            if $0 == .alertSecondButtonReturn { openAccountPage() }
         }
     }
 
@@ -447,10 +294,28 @@ class UpgradeTab {
         alert.accessoryView = container
     }
 
-    static func navigateToUpgradeTab() {
+    static func navigateToUpgradeTab(for feature: ProJourneyFeature? = nil) {
+        if let feature {
+            ProTransitionManager.shared.state.recordIntent(feature)
+            ProTransitionManager.shared.state.recordMessage()
+        }
         App.showSettingsWindow()
         SettingsWindow.shared?.showUpgradeView()
+        if let feature {
+            journey?.select(feature)
+        }
     }
+
+    #if DEBUG
+    /// Rebuilt, so the tab follows the history again instead of an earlier explicit selection.
+    static func showForQa(_ feature: ProJourneyFeature?) {
+        SettingsWindow.qaDiscard()
+        App.showSettingsWindow()
+        SettingsWindow.shared?.showUpgradeView()
+        refreshStatus()
+        if let feature { journey?.select(feature) }
+    }
+    #endif
 
     static func showAutoActivating() {
         navigateToUpgradeTab()
@@ -472,28 +337,5 @@ private final class ActivateButtonGate: NSObject, NSTextFieldDelegate {
     func controlTextDidChange(_ note: Notification) {
         guard let field = note.object as? NSTextField else { return }
         button?.isEnabled = !field.stringValue.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-    }
-}
-
-final class ProHeroButton: ProGradientButton {
-    override init(frame frameRect: NSRect) {
-        super.init(frame: frameRect)
-        let blue = NSColor(red: 0x44 / 255.0, green: 0x88 / 255.0, blue: 0xFF / 255.0, alpha: 1).cgColor
-        gradientLayer.colors = [blue, blue, blue]
-        layer?.shadowOpacity = 0
-        let attrs: [NSAttributedString.Key: Any] = [
-            .foregroundColor: NSColor.white,
-            .font: NSFont.systemFont(ofSize: 15, weight: .semibold),
-        ]
-        let style = NSMutableParagraphStyle()
-        style.alignment = .center
-        let title = NSMutableAttributedString(string: NSLocalizedString("Get Pro", comment: ""), attributes: attrs)
-        title.addAttribute(.paragraphStyle, value: style, range: NSRange(location: 0, length: title.length))
-        attributedTitle = title
-        contentTintColor = .white
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("Class only supports programmatic initialization")
     }
 }
