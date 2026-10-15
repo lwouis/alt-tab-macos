@@ -12,7 +12,7 @@ enum Symbols: String {
 }
 
 extension NSImage {
-    static func fromSymbol(_ symbol: Symbols, pointSize: CGFloat, rotated180: Bool = false) -> NSImage {
+    static func fromSymbol(_ symbol: Symbols, pointSize: CGFloat, rotated180: Bool = false, margin: CGFloat = 0) -> NSImage {
         let image = NSImage()
         image.isTemplate = true
         return image

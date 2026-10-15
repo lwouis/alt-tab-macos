@@ -22,6 +22,9 @@ and selection-sync behavior, with explicit regression coverage for two real bugs
   respects our tint (matching AppKit's monochrome segment rendering).
 - **Selection sync**: the badge reflects the segment's selected state on init and on refresh, and marks
   icon/label for redraw.
+- **Symbol spacing**: icons get a margin for anti-aliasing and a wider gap before the label, shared with
+  native segments (`SegmentSymbol.spacing`). It only comes out of slack, so a label that fit beside the
+  bare glyph never starts truncating because of it.
 - **Enabled state untouched**: attaching the badge never changes the segment's or control's enabled state.
 - **Regressions pinned**: (1) `layout()` sizes the three gradient sublayers + sets `borderMask.path` /
   `textMask.frame` — if suppressed, the badge renders as the "faded" 10%-alpha fill; (2)
@@ -65,3 +68,8 @@ Mirrors `ProBadgeViewSegmentTests.swift` 1:1.
 ### Layout / viewDidMoveToWindow (regression coverage)
 - **testLayoutConfiguresGradientSublayerFrames** — `layout()` sizes the gradient sublayers + masks (guards the "faded badge" bug).
 - **testViewDidMoveToWindowResyncsColors** — entering a window re-runs `updateColors()` (guards the "faded badge in a lazily-built pane" bug).
+
+### Symbol spacing
+- **testSymbolSpacingWithRoomToSpare** — with slack, the glyph gets its full margins and extra gap.
+- **testSymbolSpacingNeverExceedsSlack** — the spacing never pushes a label that fit into truncation.
+- **testSymbolSpacingIsZeroForLabelsThatAlreadyTruncate** — no slack, no spacing.

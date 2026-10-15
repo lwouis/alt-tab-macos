@@ -116,6 +116,28 @@ enum ProGradient {
     }
 }
 
+/// An SF Symbol beside a segment's label. Native segments (`LabelAndControl.makeSegmentedControl`)
+/// and the Pro overlay (`ProBadgeView.attach`) share these so both kinds of segment look alike.
+enum SegmentSymbol {
+    static let pointSize: CGFloat = 13
+    /// Room for anti-aliasing around the glyph; see `NSImage.fromSymbol`.
+    static let margin: CGFloat = 1
+    /// What AppKit leaves between a segment's image and its label. It reads as cramped next to round
+    /// glyphs and letters like S or M, hence `extraGap`.
+    static let appKitGap: CGFloat = 2
+    static let extraGap: CGFloat = 1.5
+
+    /// Space to put before and after a glyph that has no margin of its own. AppKit truncates a segment's
+    /// label as soon as image + `appKitGap` + label exceed the segment width, with no padding to spare
+    /// (measured on macOS 27), so this space only comes out of slack: a label that fit beside the bare
+    /// glyph still fits.
+    static func spacing(glyphWidth: CGFloat, labelWidth: CGFloat, availableWidth: CGFloat) -> (before: CGFloat, after: CGFloat) {
+        let room = max(0, min(2 * margin + extraGap, availableWidth - glyphWidth - appKitGap - labelWidth))
+        let before = min(margin, room / 2)
+        return (before, room - before)
+    }
+}
+
 // Borderless button for actions we want to discourage: small, gray text, no underline.
 class NotAdvisedButton: NSButton {
     convenience init(_ title: String) {
@@ -197,7 +219,7 @@ class ProBadgeView: NSView {
         iconView.translatesAutoresizingMaskIntoConstraints = false
         // Rendered from our bundled font subset; `isTemplate = true` (set by NSImage.fromSymbol)
         // makes AppKit apply `contentTintColor`. Mirrors the sibling segments' native rendering.
-        iconView.image = NSImage.fromSymbol(symbol, pointSize: 13)
+        iconView.image = NSImage.fromSymbol(symbol, pointSize: SegmentSymbol.pointSize, margin: SegmentSymbol.margin)
         iconView.contentTintColor = colorProvider()
         iconView.setContentHuggingPriority(.required, for: .horizontal)
         iconView.setContentCompressionResistancePriority(.required, for: .horizontal)
@@ -214,11 +236,13 @@ class ProBadgeView: NSView {
         segmentedControl.addSubview(textLabel)
         segmentedControl.addSubview(badge)
         let segmentWidth = segmentedControl.width(forSegment: segmentIndex)
-        let iconWidth = iconView.fittingSize.width
+        let glyphWidth = max(0, iconView.fittingSize.width - 2 * SegmentSymbol.margin)
         let textWidth = textLabel.fittingSize.width
         let badgeWidth = badge.fittingSize.width
-        let contentWidth = iconWidth + 2 + textWidth
         let availableWidth = segmentWidth - badgeWidth - 4 - 4 - 4 // leading pad, gap, trailing pad
+        let spacing = SegmentSymbol.spacing(glyphWidth: glyphWidth, labelWidth: textWidth, availableWidth: availableWidth)
+        let symbolWidth = spacing.before + glyphWidth + spacing.after + SegmentSymbol.appKitGap
+        let contentWidth = symbolWidth + textWidth
         // Position content as close to centered as possible without overlapping the Pro badge:
         // 1) Full-segment center if the centered content clears the badge.
         // 2) Otherwise shift left only as much as needed to keep the content's right edge clear.
@@ -233,12 +257,12 @@ class ProBadgeView: NSView {
             leadingOffset = segmentLeading + max(maxContentRightEdge - contentWidth, 8)
         }
         NSLayoutConstraint.activate([
-            iconView.leadingAnchor.constraint(equalTo: segmentedControl.leadingAnchor, constant: leadingOffset),
+            iconView.leadingAnchor.constraint(equalTo: segmentedControl.leadingAnchor, constant: leadingOffset + spacing.before - SegmentSymbol.margin),
             iconView.centerYAnchor.constraint(equalTo: segmentedControl.centerYAnchor),
-            textLabel.leadingAnchor.constraint(equalTo: iconView.trailingAnchor, constant: 2),
+            textLabel.leadingAnchor.constraint(equalTo: iconView.trailingAnchor, constant: spacing.after - SegmentSymbol.margin + SegmentSymbol.appKitGap),
             textLabel.centerYAnchor.constraint(equalTo: segmentedControl.centerYAnchor),
             textLabel.trailingAnchor.constraint(lessThanOrEqualTo: badge.leadingAnchor),
-            textLabel.widthAnchor.constraint(lessThanOrEqualToConstant: availableWidth - iconWidth - 2),
+            textLabel.widthAnchor.constraint(lessThanOrEqualToConstant: availableWidth - symbolWidth),
             badge.centerYAnchor.constraint(equalTo: segmentedControl.centerYAnchor),
             badge.trailingAnchor.constraint(equalTo: segmentedControl.trailingAnchor, constant: -segmentTrailingPadding),
         ])

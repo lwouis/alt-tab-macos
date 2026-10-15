@@ -212,7 +212,7 @@ class LabelAndControl: NSObject {
             }
             var hasImage = false
             if let preference = preference as? SfSymbolMacroPreference {
-                button.setImage(NSImage.fromSymbol(preference.symbol, pointSize: 13), forSegment: i)
+                button.setImage(segmentImage(preference.symbol, preference.localizedString, button, segmentWidth), forSegment: i)
                 hasImage = true
             }
             let selectedSegment = CachedUserDefaults.intFromMacroPref(rawName, macroPreferences)
@@ -227,7 +227,7 @@ class LabelAndControl: NSObject {
             // left+right segment padding plus the symbol image and its gap.
             if segmentWidth > 0 {
                 let label = preference.localizedString
-                let textWidth = (label as NSString).size(withAttributes: [.font: button.font ?? NSFont.systemFont(ofSize: NSFont.systemFontSize)]).width
+                let textWidth = segmentLabelWidth(label, button)
                 let imageWidth: CGFloat = hasImage ? 16 + 4 : 0
                 let availableTextWidth = segmentWidth - 12 - imageWidth
                 if textWidth > availableTextWidth {
@@ -240,6 +240,26 @@ class LabelAndControl: NSObject {
             button.widthAnchor.constraint(equalToConstant: segmentWidth * CGFloat(macroPreferences.count)).isActive = true
         }
         return button
+    }
+
+    /// AppKit draws a segment's image on the leading side of its label, so `spacing.after` goes on the
+    /// image's left in right-to-left layouts. The 0.5pt keeps clear of AppKit's truncation threshold.
+    private static func segmentImage(_ symbol: Symbols, _ label: String, _ control: NSSegmentedControl, _ segmentWidth: CGFloat) -> NSImage {
+        let icon = NSImage.fromSymbol(symbol, pointSize: SegmentSymbol.pointSize, margin: SegmentSymbol.margin)
+        let glyphWidth = icon.size.width - 2 * SegmentSymbol.margin
+        let availableWidth = segmentWidth > 0 ? segmentWidth - 0.5 : .greatestFiniteMagnitude
+        let spacing = SegmentSymbol.spacing(glyphWidth: glyphWidth, labelWidth: segmentLabelWidth(label, control), availableWidth: availableWidth)
+        let x = (control.userInterfaceLayoutDirection == .rightToLeft ? spacing.after : spacing.before) - SegmentSymbol.margin
+        let image = NSImage(size: NSSize(width: spacing.before + glyphWidth + spacing.after, height: icon.size.height), flipped: false) { _ in
+            icon.draw(at: NSPoint(x: x, y: 0), from: .zero, operation: .sourceOver, fraction: 1)
+            return true
+        }
+        image.isTemplate = true
+        return image
+    }
+
+    private static func segmentLabelWidth(_ label: String, _ control: NSSegmentedControl) -> CGFloat {
+        return (label as NSString).size(withAttributes: [.font: control.font ?? NSFont.systemFont(ofSize: NSFont.systemFontSize)]).width
     }
 
     static func makeLabelWithSlider(_ labelText: String, _ rawName: String, _ minValue: Double, _ maxValue: Double,

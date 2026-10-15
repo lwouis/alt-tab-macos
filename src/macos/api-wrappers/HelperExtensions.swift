@@ -182,13 +182,18 @@ extension NSImage {
     /// `rotated180` flips the glyph 180° around the image centre — used e.g. for the override
     /// indicator where the upright `arrow.triangle.branch` glyph reads better pointing
     /// downward ("this value branches to other shortcuts").
-    static func fromSymbol(_ symbol: Symbols, pointSize: CGFloat, rotated180: Bool = false) -> NSImage {
+    ///
+    /// `margin` adds transparent room on every side, keeping the glyph centred. Anti-aliasing paints
+    /// up to one device pixel past the ink bounds, so with no margin the glyph's bottom and left
+    /// edges are shaved flat (measured on the 13pt moon phases: the bottom and left pixel rows are
+    /// fully opaque, the top one is not).
+    static func fromSymbol(_ symbol: Symbols, pointSize: CGFloat, rotated180: Bool = false, margin: CGFloat = 0) -> NSImage {
         let font = NSFont(name: "SF Pro Text", size: pointSize)!
         let attrs: [NSAttributedString.Key: Any] = [.font: font, .foregroundColor: NSColor.black]
         let attrStr = NSAttributedString(string: symbol.rawValue, attributes: attrs)
         let line = CTLineCreateWithAttributedString(attrStr)
         let inkBounds = CTLineGetImageBounds(line, nil)
-        let imageSize = NSSize(width: ceil(inkBounds.width), height: ceil(inkBounds.height))
+        let imageSize = NSSize(width: ceil(inkBounds.width + 2 * margin), height: ceil(inkBounds.height + 2 * margin))
         let image = NSImage(size: imageSize)
         image.lockFocus()
         if let ctx = NSGraphicsContext.current?.cgContext {
@@ -197,7 +202,8 @@ extension NSImage {
                 ctx.rotate(by: .pi)
                 ctx.translateBy(x: -imageSize.width / 2, y: -imageSize.height / 2)
             }
-            ctx.translateBy(x: -inkBounds.origin.x, y: -inkBounds.origin.y)
+            ctx.translateBy(x: (imageSize.width - inkBounds.width) / 2 - inkBounds.origin.x,
+                y: (imageSize.height - inkBounds.height) / 2 - inkBounds.origin.y)
             CTLineDraw(line, ctx)
         }
         image.unlockFocus()
