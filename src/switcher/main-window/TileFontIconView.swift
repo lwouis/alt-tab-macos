@@ -93,7 +93,7 @@ class TileFontIconView: NSView {
     }
 
     private let rendering: Rendering
-    private let symbolSize: CGFloat
+    let symbolSize: CGFloat
     private let symbolColor: NSColor
     private let badgeFillColor: NSColor
     private let badgeTextColor: NSColor

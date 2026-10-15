@@ -330,6 +330,8 @@ class CliServer {
                 spaceIcon: icons[StatusIconsView.spaceIdx].visible,
                 dockLabel: badge.isHidden ? nil : badge.text,
                 dockLabelAccessibility: badge.isHidden ? nil : badge.accessibilityLabel(),
+                dockLabelHeight: badge.isHidden ? nil : badge.frame.height,
+                appIconHeight: view.appIcon.frame.height,
                 thumbnailPixelSize: window.thumbnail?.size(),
                 expectedThumbnailPixelSize: expectedThumbnailPixelSize(window),
                 x: frame.origin.x, y: frame.origin.y, w: frame.size.width, h: frame.size.height,
@@ -437,6 +439,9 @@ class CliServer {
         /// (`TileView.getAccessibilityTextForBadge`).
         var dockLabel: String?
         var dockLabelAccessibility: String?
+        /// The badge's drawn height next to the app icon's, so a test can judge the badge against the icon it sits on.
+        var dockLabelHeight: CGFloat?
+        var appIconHeight: CGFloat
         /// The pixel size of the window's last accepted capture (nil: never captured, so the tile shows the
         /// app icon), and the size a capture should come back with now (nil: no window geometry). The
         /// ScreenCaptureKit path is configured with the second, so the two differ by at most a pixel or two
