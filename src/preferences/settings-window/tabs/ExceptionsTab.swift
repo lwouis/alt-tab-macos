@@ -47,7 +47,15 @@ class ExceptionsTab {
 
     private static func makeContainer() -> NSView {
         let container = makeSidebarEditorContainer(sidebar: makeSidebar(), editor: makeEditorPane(), minHeight: minContainerHeight)
-        return TableGroupSetView(originalViews: [container], padding: 0, bottomPadding: 0)
+        return TableGroupSetView(originalViews: [makeListModeTable(), container], padding: 0, bottomPadding: 0)
+    }
+
+    private static func makeListModeTable() -> NSView {
+        let listMode = TableGroupView.Row(leftTitle: NSLocalizedString("Show in switcher", comment: ""),
+            rightViews: [LabelAndControl.makeDropdown("exceptionsListMode", ExceptionsListModePreference.allCases)])
+        let table = TableGroupView(width: SettingsWindow.contentWidth)
+        table.addRow(listMode)
+        return table
     }
 
     private static func makeSidebar() -> NSView {
@@ -218,7 +226,8 @@ class ExceptionsTab {
             refreshSelection()
             return
         }
-        items.append(ExceptionEntry(bundleIdentifier: bundleId, hide: .always, ignore: .none, windowTitleContains: nil))
+        let hide: ExceptionHidePreference = Preferences.exceptionsListMode == .showOnlyListedApps ? .none : .always
+        items.append(ExceptionEntry(bundleIdentifier: bundleId, hide: hide, ignore: .none, windowTitleContains: nil))
         savePreferences()
         selectedIndex = items.count - 1
         refreshSidebarRows()

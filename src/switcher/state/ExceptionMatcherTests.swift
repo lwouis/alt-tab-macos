@@ -4,7 +4,8 @@ import XCTest
 /// and whether AltTab's shortcuts are disabled while an app is frontmost (`ignore` rule). Operates
 /// on canonical `WindowState` / `ApplicationState` records — no `Window`/`Application` references.
 ///
-/// Groups: A per-exception hide rule · B hidesWindow (gate + hide) · C disablesShortcuts (gate + ignore).
+/// Groups: A per-exception hide rule · B hidesWindow (gate + hide) · C disablesShortcuts (gate + ignore) ·
+/// D hidesWindow in `showOnlyListedApps` mode.
 final class ExceptionMatcherTests: XCTestCase {
 
     private func entry(_ bundle: String, hide: ExceptionHidePreference = .none,
@@ -139,6 +140,53 @@ final class ExceptionMatcherTests: XCTestCase {
     func testDoesNotDisableWhenAppBundleIdNil() {
         XCTAssertFalse(ExceptionMatcher.disablesShortcuts(appState(bundleId: nil), isFullscreen: true,
                                                           exceptions: [entry("com.foo", ignore: .always)]))
+    }
+
+    // MARK: - D. hidesWindow in `showOnlyListedApps` mode (onlyListed)
+
+    func testOnlyListedHidesUnlistedApp() {
+        XCTAssertTrue(ExceptionMatcher.hidesWindow(ws(), appState(bundleId: "com.other"),
+                                                   exceptions: [entry("com.foo")], onlyListed: true))
+    }
+
+    func testOnlyListedShowsListedApp() {
+        XCTAssertFalse(ExceptionMatcher.hidesWindow(ws(), appState(bundleId: "com.foo"),
+                                                    exceptions: [entry("com.foo")], onlyListed: true))
+    }
+
+    func testOnlyListedMatchesByPrefix() {
+        XCTAssertFalse(ExceptionMatcher.hidesWindow(ws(), appState(bundleId: "com.foo.bar"),
+                                                    exceptions: [entry("com.foo")], onlyListed: true))
+    }
+
+    func testOnlyListedStillAppliesTheListedHideRule() {
+        let listed = [entry("com.foo", hide: .windowTitleContains, titles: ["Inspector"])]
+        XCTAssertTrue(ExceptionMatcher.hidesWindow(ws(title: "Web Inspector"), appState(bundleId: "com.foo"),
+                                                   exceptions: listed, onlyListed: true))
+        XCTAssertFalse(ExceptionMatcher.hidesWindow(ws(title: "Main"), appState(bundleId: "com.foo"),
+                                                    exceptions: listed, onlyListed: true))
+    }
+
+    func testOnlyListedHidesEverythingWhenListIsEmpty() {
+        XCTAssertTrue(ExceptionMatcher.hidesWindow(ws(), appState(bundleId: "com.foo"),
+                                                   exceptions: [], onlyListed: true))
+    }
+
+    func testOnlyListedDoesNotListEveryAppThroughAnEmptyBundleIdentifier() {
+        XCTAssertTrue(ExceptionMatcher.hidesWindow(ws(), appState(bundleId: "com.foo"),
+                                                   exceptions: [entry("")], onlyListed: true))
+    }
+
+    func testOnlyListedHidesAppWithoutBundleId() {
+        XCTAssertTrue(ExceptionMatcher.hidesWindow(ws(), appState(bundleId: nil),
+                                                   exceptions: [entry("com.foo")], onlyListed: true))
+    }
+
+    func testOnlyListedActiveAppOverrideShowsUnlistedApp() {
+        XCTAssertFalse(ExceptionMatcher.hidesWindow(ws(), appState(bundleId: "com.other"),
+                                                    exceptions: [entry("com.foo")], onlyListed: true, activeAppOverride: true))
+        XCTAssertFalse(ExceptionMatcher.hidesWindow(ws(), appState(bundleId: nil),
+                                                    exceptions: [], onlyListed: true, activeAppOverride: true))
     }
 }
 

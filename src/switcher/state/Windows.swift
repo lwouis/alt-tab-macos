@@ -183,6 +183,7 @@ class Windows {
             pidUnderCursor: f.pidUnderCursor,
             visibleSpaceIds: Spaces.visibleSpaces,
             exceptions: f.exceptions,
+            onlyListedApps: f.exceptionsListMode == .showOnlyListedApps,
             isOnPreferredScreen: window.isOnScreen(NSScreen.preferred),
             isUnderCursor: f.cursor.map { window.contains($0) } ?? false)
     }
@@ -928,6 +929,7 @@ enum WindowActivityType: Int {
 /// start of `updatesBeforeShowing` collapses N_windows × M_prefs accesses into M_prefs.
 struct WindowFilters {
     let exceptions: [ExceptionEntry]
+    let exceptionsListMode: ExceptionsListModePreference
     let appsToShow: AppsToShowPreference
     let showHiddenWindows: ShowHowPreference
     let showWindowlessApps: ShowHowPreference
@@ -946,6 +948,7 @@ struct WindowFilters {
         let cursor = appsToShow == .underCursor || appsToShow == .appUnderCursor ? cursorAtSummon() : nil
         return WindowFilters(
             exceptions: Preferences.exceptions,
+            exceptionsListMode: Preferences.exceptionsListMode,
             appsToShow: appsToShow,
             showHiddenWindows: Preferences.showHiddenWindows[i],
             showWindowlessApps: Preferences.showWindowlessApps[i],

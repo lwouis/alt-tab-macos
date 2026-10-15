@@ -29,11 +29,12 @@ enum WindowFilterResolver {
                            pidUnderCursor: pid_t? = nil,         // nil: nothing is under the cursor
                            visibleSpaceIds: [UInt64] = [],       // CGSSpaceID === UInt64
                            exceptions: [ExceptionEntry] = [],
+                           onlyListedApps: Bool = false,         // exceptionsListMode == .showOnlyListedApps
                            isOnPreferredScreen: @autoclosure () -> Bool,
                            isUnderCursor: @autoclosure () -> Bool = false) -> Bool {
         !s.isPhantom &&
             // Pointing at an app is as explicit as focusing it, so it also overrides the Exceptions list (#5810).
-            !ExceptionMatcher.hidesWindow(s, app, exceptions: exceptions,
+            !ExceptionMatcher.hidesWindow(s, app, exceptions: exceptions, onlyListed: onlyListedApps,
                 activeAppOverride: (onlyFrontmostApp && frontmostPid == app.pid) || (onlyAppUnderCursor && pidUnderCursor == app.pid)) &&
             !(onlyFrontmostApp && !(frontmostPid == app.pid)) &&
             !(onlyAppUnderCursor && !(pidUnderCursor == app.pid)) &&

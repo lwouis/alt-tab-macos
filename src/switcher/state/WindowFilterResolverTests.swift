@@ -40,6 +40,22 @@ final class WindowFilterResolverTests: XCTestCase {
                                                       exceptions: [except], isOnPreferredScreen: true))
     }
 
+    func testOnlyListedAppsHidesUnlistedApp() {
+        let listed = ExceptionEntry(bundleIdentifier: "com.x", hide: .none, ignore: .none)
+        XCTAssertFalse(WindowFilterResolver.shouldShow(ws(), appState(bundleIdentifier: "com.y"),
+                                                       exceptions: [listed], onlyListedApps: true, isOnPreferredScreen: true))
+        XCTAssertTrue(WindowFilterResolver.shouldShow(ws(), appState(bundleIdentifier: "com.x.app"),
+                                                      exceptions: [listed], onlyListedApps: true, isOnPreferredScreen: true))
+    }
+
+    /// "Active app" shows the frontmost app's windows even when it isn't listed, as it does over a hide-exception (#5810).
+    func testOnlyFrontmostAppOverridesOnlyListedApps() {
+        let listed = ExceptionEntry(bundleIdentifier: "com.x", hide: .none, ignore: .none)
+        XCTAssertTrue(WindowFilterResolver.shouldShow(ws(), appState(pid: 100, bundleIdentifier: "com.y"),
+                                                      onlyFrontmostApp: true, frontmostPid: 100,
+                                                      exceptions: [listed], onlyListedApps: true, isOnPreferredScreen: true))
+    }
+
     // MARK: - B. App scope (appsToShow)
 
     func testOnlyFrontmostAppHidesNonFrontmost() {

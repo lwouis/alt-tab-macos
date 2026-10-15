@@ -419,6 +419,18 @@ enum ExceptionHidePreference: String/* required for jsonEncode */, CaseIterable,
     }
 }
 
+enum ExceptionsListModePreference: CaseIterable, MacroPreference {
+    case hideListedApps
+    case showOnlyListedApps
+
+    var localizedString: LocalizedString {
+        switch self {
+            case .hideListedApps: return NSLocalizedString("All apps, except hidden ones below", comment: "")
+            case .showOnlyListedApps: return NSLocalizedString("Only apps below set to “Don't hide”", comment: "")
+        }
+    }
+}
+
 enum ExceptionIgnorePreference: String/* required for jsonEncode */, CaseIterable, MacroPreference, Codable {
     case none = "0"
     case always = "1"

@@ -24,6 +24,11 @@ Both share a **bundle-id prefix gate**: an exception applies to an app iff the e
 - **Active-app override (#5810)**: when `activeAppOverride` is set (filter is "Active app" and this is
   the active app), the blanket `.always` / `.whenNoOpenWindow` rules are ignored — the shortcut intent
   beats the Exceptions list. The narrower `.windowTitleContains` still fires (it hides only some windows).
+- **`showOnlyListedApps` mode (`onlyListed`)**: the Exceptions list becomes an allowlist. An app matching
+  no exception is hidden; a listed app's own hide rule still applies, so `.windowTitleContains` can hide
+  some of its windows. The same bundle-id prefix gate decides "listed": an empty exception bundle-id does
+  not list every app, and an app without a bundle-id is never listed. The active-app override also beats
+  being unlisted.
 - **Ignore rules**: `.always` disables shortcuts whenever the app is frontmost; `.whenFullscreen` only
   while the active window is fullscreen; `.none` never.
 - **Gate guards**: an empty exception `bundleIdentifier` must not match every app; a nil app bundle-id
@@ -64,3 +69,13 @@ Mirrors `ExceptionMatcherTests.swift` 1:1.
 - **testDoesNotDisableWhenIgnoreNone** — `.none` → enabled.
 - **testDoesNotDisableWhenPrefixDiffers** — non-matching prefix → enabled.
 - **testDoesNotDisableWhenAppBundleIdNil** — nil app bundle-id → enabled.
+
+### D. `hidesWindow` in `showOnlyListedApps` mode (`onlyListed`)
+- **testOnlyListedHidesUnlistedApp** — no exception matches the app → hide.
+- **testOnlyListedShowsListedApp** — a listed app with `hide == .none` → no hide.
+- **testOnlyListedMatchesByPrefix** — `com.foo` lists `com.foo.bar`.
+- **testOnlyListedStillAppliesTheListedHideRule** — a listed app's `.windowTitleContains` still hides matching windows only.
+- **testOnlyListedHidesEverythingWhenListIsEmpty** — empty list → every app hidden.
+- **testOnlyListedDoesNotListEveryAppThroughAnEmptyBundleIdentifier** — an empty exception bundle-id lists nothing.
+- **testOnlyListedHidesAppWithoutBundleId** — nil app bundle-id → never listed → hide.
+- **testOnlyListedActiveAppOverrideShowsUnlistedApp** — `activeAppOverride` shows an unlisted app (with or without a bundle-id).

@@ -22,7 +22,8 @@ fiddly part of the app — fully unit-testable *without* losing the original boo
 The predicate, in order:
 
 1. **Phantom** windows are always excluded (unconditional, first).
-2. Windows matching a **hide-exception** (by bundle-id prefix + the exception's hide rule) are excluded.
+2. Windows matching a **hide-exception** (by bundle-id prefix + the exception's hide rule) are excluded. In
+   `showOnlyListedApps` mode (`onlyListedApps`), windows of apps matching no exception are excluded too.
 3. **App scope** (`appsToShow`): `.active` keeps only the frontmost app's windows; `.nonActive` excludes them;
    `.underCursor` keeps only the windows whose frame contains the cursor (see 7); `.appUnderCursor` keeps only
    the windows of the app owning the frontmost window under the cursor (see 8).
@@ -75,6 +76,8 @@ Mirrors `WindowFilterResolverTests.swift` 1:1. Each test flips one knob from an 
 - **testDefaultsShowARealWindow** — a plain visible window with no filters shows.
 - **testPhantomIsHidden** — phantom → hidden.
 - **testHiddenByExceptionIsHidden** — a hide-exception match → hidden.
+- **testOnlyListedAppsHidesUnlistedApp** — `onlyListedApps`: an unlisted app → hidden; a listed one (by prefix) → shown.
+- **testOnlyFrontmostAppOverridesOnlyListedApps** — `.active` shows the frontmost app even when it is unlisted.
 
 ### B. App scope (`appsToShow`)
 - **testOnlyFrontmostAppHidesNonFrontmost** / **testOnlyFrontmostAppShowsFrontmost** — `.active` keeps only the frontmost app.
