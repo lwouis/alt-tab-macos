@@ -2,8 +2,9 @@ import Foundation
 
 /// Decides the display order of windows in the switcher. When a search query is active, ranks by
 /// match-then-relevance; otherwise applies the user's chosen order (recently-focused / recently-created
-/// / alphabetical / by-space), after pushing any "show at the end" buckets (windowless / hidden /
-/// minimized) to the back, with a stable `lastFocusOrder` tiebreak. Pure kernel.
+/// / alphabetical / by-space), after grouping the screen showing AltTab first (when configured) and
+/// pushing any "show at the end" buckets (windowless / hidden / minimized) to the back of each group,
+/// with a stable `lastFocusOrder` tiebreak. Pure kernel.
 ///
 /// `OrderWindow` bundles the canonical `WindowState` + `ApplicationState` for a window with its
 /// **query-derived** search rank (`searchMatches` / `searchRelevance`) — that bundling earns its
@@ -18,6 +19,8 @@ struct OrderWindow: Equatable {
     let app: ApplicationState
     let searchMatches: Bool       // Search.matches (only meaningful when search is active)
     let searchRelevance: Double   // Search.relevance
+    /// `Window.isOnScreen(NSScreen.preferred)`; only computed (and only read) when grouping by screen.
+    var isOnPreferredScreen = true
 }
 
 struct ApplicationRepresentativeCandidate: Equatable {
@@ -56,12 +59,15 @@ enum WindowOrderResolver {
                                 windowlessAtEnd: Bool = false,   // showWindowlessApps == .showAtTheEnd
                                 hiddenAtEnd: Bool = false,       // showHiddenWindows == .showAtTheEnd
                                 minimizedAtEnd: Bool = false,    // showMinimizedWindows == .showAtTheEnd
+                                groupByScreen: Bool = false,     // screensToShow == .allShowingAltTabFirst
                                 sortType: OrderSortType = .recentlyFocused) -> Bool {
         if searchActive {
             if a.searchMatches != b.searchMatches { return a.searchMatches }
             if a.searchRelevance != b.searchRelevance { return a.searchRelevance > b.searchRelevance }
             return a.state.lastFocusOrder < b.state.lastFocusOrder
         }
+        // the screen showing AltTab is the outermost group, so each "show at the end" bucket sinks within its group
+        if groupByScreen && a.isOnPreferredScreen != b.isOnPreferredScreen { return a.isOnPreferredScreen }
         // separate buckets for these window types (pushed to the end)
         if windowlessAtEnd && a.state.isWindowlessApp != b.state.isWindowlessApp { return b.state.isWindowlessApp }
         if hiddenAtEnd && a.app.isHidden != b.app.isHidden { return b.app.isHidden }

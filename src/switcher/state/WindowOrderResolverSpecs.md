@@ -15,13 +15,16 @@ snapshotted once).
 
 Decision order:
 1. **Search active** → matched windows first; then higher relevance; then `lastFocusOrder`.
-2. **Show-at-the-end buckets** → windows whose type is set to "show at the end" (windowless / hidden /
+2. **Screen group** (`groupByScreen`, from `Screens to show: All screens, this screen first` with more than
+   one screen) → windows on the screen showing AltTab (`isOnPreferredScreen`) before every other window.
+   Windowless apps have no screen and join the other group.
+3. **Show-at-the-end buckets** → windows whose type is set to "show at the end" (windowless / hidden /
    minimized) sink below the rest.
-3. **Sort type** → `recentlyFocused` (lowest `lastFocusOrder`), `recentlyCreated` (highest
+4. **Sort type** → `recentlyFocused` (lowest `lastFocusOrder`), `recentlyCreated` (highest
    `creationOrder`), `alphabetical` (app name, then title; `localizedStandardCompare`), or `space`
    (all-spaces windows first, then lowest space index, then windows with no space index, then
    alphabetical).
-4. **Tiebreak** → `lastFocusOrder` (for the alphabetical/space paths).
+5. **Tiebreak** → `lastFocusOrder` (for the alphabetical/space paths).
 
 ## Behavior & edge cases
 
@@ -32,6 +35,10 @@ Decision order:
 - `space`: windows on all spaces sort ahead of space-bound ones; windows with no space index sort after
   indexed ones; ties within a space fall back to alphabetical, then `lastFocusOrder`.
 - Equal facts → not ordered before each other (strict weak ordering, required by `Array.sort`).
+- The screen group is the outermost rule after search, so a "show at the end" bucket sinks to the end of its
+  own group, not past the other screens' windows. `Windows.sort` turns grouping off while searching, so the
+  best match stays first whatever screen it is on; the kernel's search branch returns before the group rule
+  either way.
 
 ## One window per app
 
@@ -78,3 +85,12 @@ Mirrors `WindowOrderResolverTests.swift` 1:1.
 
 ### G. Tiebreak / symmetry
 - **testEqualWindowsAreNotOrderedBeforeEachOther** — equal facts are not ordered before each other.
+
+### H. Grouped by screen
+- **testGroupByScreenPutsThePreferredScreenFirst** — a less recent window on the screen showing AltTab sorts
+  before a more recent one elsewhere, in both argument orders.
+- **testGroupByScreenOffIgnoresTheScreen** — without the flag the screen fact is not read.
+- **testGroupByScreenKeepsTheSortTypeWithinAGroup** — inside a group the chosen order still decides.
+- **testGroupByScreenSinksBucketsWithinTheirGroup** — a minimized window on the screen showing AltTab stays
+  ahead of the other screens' windows with `minimizedAtEnd`.
+- **testGroupByScreenGivesWayToSearch** — a match on another screen sorts before a non-match on this one.

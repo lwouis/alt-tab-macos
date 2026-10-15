@@ -13,13 +13,15 @@ final class WindowOrderResolverTests: XCTestCase {
                    isWindowlessApp: Bool = false, isHidden: Bool = false, isMinimized: Bool = false,
                    isOnAllSpaces: Bool = false, spaceIndexes: [Int] = [],
                    lastFocusOrder: Int = 0, creationOrder: Int = 0,
-                   appName: String = "App", windowTitle: String = "Title") -> OrderWindow {
+                   appName: String = "App", windowTitle: String = "Title",
+                   isOnPreferredScreen: Bool = true) -> OrderWindow {
         let state = WindowState(id: "w", isPhantom: false, isWindowlessApp: isWindowlessApp,
                                 isFullscreen: false, isMinimized: isMinimized, isTabbed: false,
                                 isOnAllSpaces: isOnAllSpaces, spaceIds: [], spaceIndexes: spaceIndexes,
                                 lastFocusOrder: lastFocusOrder, creationOrder: creationOrder, title: windowTitle)
         let app = ApplicationState(pid: 0, bundleIdentifier: nil, localizedName: appName, isHidden: isHidden)
-        return OrderWindow(state: state, app: app, searchMatches: searchMatches, searchRelevance: searchRelevance)
+        return OrderWindow(state: state, app: app, searchMatches: searchMatches, searchRelevance: searchRelevance,
+                           isOnPreferredScreen: isOnPreferredScreen)
     }
 
     // MARK: - A. Search ranking
@@ -155,6 +157,39 @@ final class WindowOrderResolverTests: XCTestCase {
     func testEqualWindowsAreNotOrderedBeforeEachOther() {
         let a = w(lastFocusOrder: 3)
         XCTAssertFalse(WindowOrderResolver.isOrderedBefore(a, a, sortType: .recentlyFocused))
+    }
+
+    // MARK: - H. Grouped by screen
+
+    func testGroupByScreenPutsThePreferredScreenFirst() {
+        let here = w(lastFocusOrder: 5, isOnPreferredScreen: true)
+        let there = w(lastFocusOrder: 0, isOnPreferredScreen: false)
+        XCTAssertTrue(WindowOrderResolver.isOrderedBefore(here, there, groupByScreen: true))
+        XCTAssertFalse(WindowOrderResolver.isOrderedBefore(there, here, groupByScreen: true))
+    }
+
+    func testGroupByScreenOffIgnoresTheScreen() {
+        let here = w(lastFocusOrder: 5, isOnPreferredScreen: true)
+        let there = w(lastFocusOrder: 0, isOnPreferredScreen: false)
+        XCTAssertTrue(WindowOrderResolver.isOrderedBefore(there, here))
+    }
+
+    func testGroupByScreenKeepsTheSortTypeWithinAGroup() {
+        let recent = w(lastFocusOrder: 1, isOnPreferredScreen: false)
+        let older = w(lastFocusOrder: 4, isOnPreferredScreen: false)
+        XCTAssertTrue(WindowOrderResolver.isOrderedBefore(recent, older, groupByScreen: true))
+    }
+
+    func testGroupByScreenSinksBucketsWithinTheirGroup() {
+        let minimizedHere = w(isMinimized: true, lastFocusOrder: 1, isOnPreferredScreen: true)
+        let there = w(lastFocusOrder: 0, isOnPreferredScreen: false)
+        XCTAssertTrue(WindowOrderResolver.isOrderedBefore(minimizedHere, there, minimizedAtEnd: true, groupByScreen: true))
+    }
+
+    func testGroupByScreenGivesWayToSearch() {
+        let here = w(searchMatches: false, isOnPreferredScreen: true)
+        let there = w(searchMatches: true, isOnPreferredScreen: false)
+        XCTAssertTrue(WindowOrderResolver.isOrderedBefore(there, here, searchActive: true, groupByScreen: true))
     }
 }
 

@@ -52,6 +52,10 @@ struct SelectionInputs: Equatable {
     /// Defaults to `true`: the ordinary case, and what every scenario written before #5941 assumes.
     var currentWindowIsDrawn = true
     var removalFallback: SelectionRemovalFallback? = nil
+    /// True when the drawn order is recently-focused but grouped by screen, so the list no longer runs in
+    /// focus order: the default pick is then decided over the list re-read in focus order, keeping "the
+    /// window you were on before" even when it sits in the other screen's group.
+    var pickInFocusOrder = false
 }
 
 /// Who inherits the selection if the window a shortcut action was aimed at leaves the list, recorded at the
@@ -151,11 +155,17 @@ enum SelectionResolver {
         if i.useLastFocusedRule, let idx = getLastFocusedOrderWindowIndex(i.list) {
             return idx
         }
+        guard i.pickInFocusOrder else { return mruPickIndex(i.list, i) }
+        let focusOrder = i.list.indices.sorted { (i.list[$0].lastFocusOrder, $0) < (i.list[$1].lastFocusOrder, $1) }
+        return mruPickIndex(focusOrder.map { i.list[$0] }, i).map { focusOrder[$0] }
+    }
+
+    private static func mruPickIndex(_ list: [SelectionWindow], _ i: SelectionInputs) -> Int? {
         // Edge case: top two windows both minimized — land on index 0 rather than cycling past.
-        if i.list.count >= 2 && i.list[0].isMinimized && i.list[1].isMinimized {
-            return i.list[0].visible ? 0 : nil
+        if list.count >= 2 && list[0].isMinimized && list[1].isMinimized {
+            return list[0].visible ? 0 : nil
         }
-        return defaultPickIndexAsOfSummon(i.list, i.visibleCountAtSummon, i.currentWindowIsDrawn)
+        return defaultPickIndexAsOfSummon(list, i.visibleCountAtSummon, i.currentWindowIsDrawn)
     }
 
     /// The default pick, over the MRU as it stood when the shortcut was pressed.

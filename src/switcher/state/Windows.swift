@@ -285,7 +285,9 @@ class Windows {
             restoreDefaultOnSearchClear: shouldRestoreDefaultSelectionOnSearchClear,
             bestMatchOnSearchChange: shouldSelectBestMatchOnSearchChange,
             currentWindowIsDrawn: currentWindowIsDrawn(),
-            removalFallback: session.removalFallback)
+            removalFallback: session.removalFallback,
+            pickInFocusOrder: Preferences.groupByScreen(session.shortcutIndex)
+                && Preferences.windowOrder(session.shortcutIndex) == .recentlyFocused)
     }
 
     private static func currentWindowIsDrawn() -> Bool {
@@ -546,8 +548,12 @@ class Windows {
         let hiddenAtEnd = Preferences.showHiddenWindows(shortcutIndex) == .showAtTheEnd
         let minimizedAtEnd = Preferences.showMinimizedWindows(shortcutIndex) == .showAtTheEnd
         let sortType = orderSortType(Preferences.windowOrder(shortcutIndex))
+        let groupByScreen = !searchActive && Preferences.groupByScreen(shortcutIndex)
         // Precompute each window's ordering facts once (O(n) Search calls), then sort on the snapshots.
-        let facts = Dictionary(uniqueKeysWithValues: list.map { (ObjectIdentifier($0), orderWindow($0, query, searchActive)) })
+        let facts = Dictionary(uniqueKeysWithValues: list.map { (ObjectIdentifier($0), orderWindow($0, query, searchActive, groupByScreen)) })
+        for window in list {
+            window.isInOtherScreenGroup = !facts[ObjectIdentifier(window)]!.isOnPreferredScreen
+        }
         list.sort {
             WindowOrderResolver.isOrderedBefore(
                 facts[ObjectIdentifier($0)]!, facts[ObjectIdentifier($1)]!,
@@ -555,16 +561,23 @@ class Windows {
                 windowlessAtEnd: windowlessAtEnd,
                 hiddenAtEnd: hiddenAtEnd,
                 minimizedAtEnd: minimizedAtEnd,
+                groupByScreen: groupByScreen,
                 sortType: sortType)
         }
     }
 
-    private static func orderWindow(_ window: Window, _ query: String, _ searchActive: Bool) -> OrderWindow {
+    private static func orderWindow(_ window: Window, _ query: String, _ searchActive: Bool, _ groupByScreen: Bool) -> OrderWindow {
         OrderWindow(
             state: window.state,
             app: window.application.state,
             searchMatches: searchActive ? Search.matches(window, query: query) : false,
-            searchRelevance: searchActive ? Search.relevance(for: window, query: query) : 0)
+            searchRelevance: searchActive ? Search.relevance(for: window, query: query) : 0,
+            isOnPreferredScreen: groupByScreen ? isInPreferredScreenGroup(window) : true)
+    }
+
+    /// A windowless app has no screen, so it joins the other screens' group rather than splitting the current one.
+    private static func isInPreferredScreenGroup(_ window: Window) -> Bool {
+        !window.isWindowlessApp && window.isOnScreen(NSScreen.preferred)
     }
 
     private static func orderSortType(_ p: WindowOrderPreference) -> OrderSortType {

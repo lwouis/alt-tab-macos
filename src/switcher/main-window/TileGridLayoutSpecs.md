@@ -48,6 +48,13 @@ frame's origin is one tile width before it.
   fit, the smallest is used anyway. The measurement is a closure because the production caller has to apply
   the size to `Appearance` before it can measure it — which means the appearance is left on the size that is
   returned, and the closure is called once per candidate up to and including that one.
+- **A gap can open before one tile.** With `Screens to show: All screens, this screen first`, `TilesView`
+  passes the position of the first tile of the other screens' group as `gapBefore`. When that tile shares a
+  row with the tile before it, the space between them grows by `gapWidth` (on top of the padding), `gapRow`
+  names the row, and `TilesView` draws the divider line in the middle of the gap. When the tile plus the gap
+  would cross the edge, the gap is dropped and the tile opens the next row, so the other screens' windows
+  start a row of their own with no line. A gap before the first tile means nothing and is ignored.
+- **The gap counts toward its row's width when centering**, so a centered row with the divider stays centered.
 
 ---
 
@@ -85,6 +92,7 @@ Mirrors `TileGridLayoutTests.swift` 1:1.
 - **testAShortRowIsCentered** — a half-empty last row is offset by half the slack, rounded away from zero.
 - **testAnEmptyRowGetsNoOffset** — the empty row 0 left by an oversized first tile.
 - **testARowWiderThanTheSpaceIsNotPulledBack** — the offset is clamped at zero, never negative.
+- **testTheGapCountsTowardItsRowWidth** — the gap's row is centered with the gap included; other rows are not.
 
 ### F. The auto size
 - **testAutoTakesTheFirstSizeThatFits** — large is measured first and kept when its grid fits.
@@ -92,3 +100,13 @@ Mirrors `TileGridLayoutTests.swift` 1:1.
 - **testAutoKeepsTheSmallestWhenNothingFits** — every candidate is measured and the last one is returned.
 - **testAutoMeasuresEachCandidateExactlyOnce** — the measurement has side effects in production
   (`Appearance.applySize`), so the call order and count are part of the contract.
+
+### G. The gap between screens
+- **testTheGapWidensTheSpaceBeforeItsTile** — the second tile moves along by the gap, `maxX` includes it,
+  and `gapRow` is the row it was laid in.
+- **testAGapThatWouldCrossTheEdgeIsDroppedAndItsTileOpensARow** — two tiles that fit together without the
+  gap no longer do with it: the second opens row 1 and there is no gap.
+- **testAGapBeforeTheFirstTileIsIgnored** — no tile comes before it, so there is nothing to separate.
+- **testRtlTheGapOpensTowardTheLeft** — the same gap mirrored.
+- **testAGapTileThatWrapsAnywayOpensItsRowWithoutAGap** — a tile that would have wrapped without the gap
+  opens its row the usual way.

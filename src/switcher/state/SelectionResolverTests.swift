@@ -40,7 +40,8 @@ final class SelectionResolverTests: XCTestCase {
                        visibleCountAtSummon: Int? = nil,
                        // defaults to the ordinary case: the window the user is on is tile 0. The `Non-active
                        // apps` cases (F) pass false — there the current window is filtered out of the list.
-                       currentWindowIsDrawn: Bool = true) -> SelectionInputs {
+                       currentWindowIsDrawn: Bool = true,
+                       pickInFocusOrder: Bool = false) -> SelectionInputs {
         SelectionInputs(list: list,
                         selectedIndex: selectedIndex,
                         selectedTarget: selectedTarget,
@@ -49,7 +50,8 @@ final class SelectionResolverTests: XCTestCase {
                         userPickedSelection: userPickedSelection,
                         restoreDefaultOnSearchClear: restoreDefaultOnSearchClear,
                         bestMatchOnSearchChange: bestMatchOnSearchChange,
-                        currentWindowIsDrawn: currentWindowIsDrawn)
+                        currentWindowIsDrawn: currentWindowIsDrawn,
+                        pickInFocusOrder: pickInFocusOrder)
     }
 
     // MARK: - A. Initial pick (`selectedTarget == nil`)
@@ -681,6 +683,36 @@ final class SelectionResolverTests: XCTestCase {
                        currentWindowIsDrawn: SelectionResolver.currentWindowIsDrawn(terminal))
         XCTAssertEqual(SelectionResolver.decide(i), .resetThenSelect(1))
     }
+    // MARK: - H. Grouped by screen (`Screens to show: All screens, this screen first`)
+
+    /// H1. The user is on B1 (BenQ) and was on L1 (laptop) before it. Grouping draws B1, B2 | L1, so the
+    /// second tile is B2 — but the previous window is L1, and that is where the default belongs.
+    func testGroupedPickLandsOnThePreviousWindowInTheOtherGroup() {
+        let list = [w("B1", focusOrder: 0), w("B2", focusOrder: 2), w("L1", focusOrder: 1)]
+        let i = inputs(list: list, userPickedSelection: false, pickInFocusOrder: true)
+        XCTAssertEqual(SelectionResolver.decide(i), .resetThenSelect(2))
+    }
+
+    /// H2. The control for H1, same list: without the flag the default is the second tile.
+    func testUngroupedPickStepsToTheSecondTile() {
+        let list = [w("B1", focusOrder: 0), w("B2", focusOrder: 2), w("L1", focusOrder: 1)]
+        XCTAssertEqual(SelectionResolver.decide(inputs(list: list, userPickedSelection: false)), .resetThenSelect(1))
+    }
+
+    /// H3. The previous window is in the current group: grouping changes nothing.
+    func testGroupedPickInTheSameGroup() {
+        let list = [w("B1", focusOrder: 0), w("B2", focusOrder: 1), w("L1", focusOrder: 2)]
+        let i = inputs(list: list, userPickedSelection: false, pickInFocusOrder: true)
+        XCTAssertEqual(SelectionResolver.decide(i), .resetThenSelect(1))
+    }
+
+    /// H4. The current window is filtered out: the most recent drawn window is the pick, wherever it is drawn.
+    func testGroupedPickWithTheCurrentWindowFilteredOut() {
+        let list = [w("B2", focusOrder: 2), w("L1", focusOrder: 1)]
+        let i = inputs(list: list, userPickedSelection: false, currentWindowIsDrawn: false, pickInFocusOrder: true)
+        XCTAssertEqual(SelectionResolver.decide(i), .resetThenSelect(1))
+    }
+
     // MARK: re-anchoring the hover
 
     /// A tile inserted before the hovered one moves its index. An index alone would still be in bounds and
