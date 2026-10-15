@@ -60,6 +60,12 @@ class Window {
     var semanticSurface: SemanticSurface?
     var application: Application
     var rowIndex: Int?
+    /// Set by `Windows.sort` when grouping by screen: this window sorts after the screen showing AltTab's group.
+    var isInOtherScreenGroup = false
+    /// Set by `Windows.sort` while the other screens' group is folded: this window is drawn as a stack standing
+    /// for `foldedCount` windows (itself included), or is hidden inside such a stack (`isFoldedAway`).
+    var foldedCount = 0
+    var isFoldedAway = false
     var debugId: String!
     var lastSearchQuery: String?
     /// AX answered this window's last title read, or its discovery, with an empty title
