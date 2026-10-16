@@ -1,116 +1,82 @@
-/* No comment provided by engineer. */
-"%@ %@ is currently the newest version available." = "%1$@ %2$@ เป็นเวอร์ชั่นใหม่ล่าสุดแล้ว";
-
-/* No comment provided by engineer. */
-"%@ %@ is currently the newest version available.\n(You are currently running version %@.)" = "%1$@ %2$@ เป็นเวอร์ชั่นใหม่ล่าสุดแล้ว\n(You are currently running version %3$@.)";
-
-/* Description text for SUUpdateAlert when the update is downloadable. */
-"%@ %@ is now available—you have %@. Would you like to download it now?" = "%1$@ %2$@ พร้อมให้ดาวน์โหลดแล้ว (คุณมีเวอร์ชั่น %3$@) ต้องการดาวน์โหลดเลยหรือไม่";
-
-/* The download progress in a unit of bytes, e.g. 100 KB */
-"%@ downloaded" = "ดาวน์โหลด %@ เสร็จสิ้น";
-
-/* The download progress in units of bytes, e.g. 100 KB of 1,0 MB */
-"%@ of %@" = "%1$@ จาก %2$@";
-
-/* Description text for SUUpdateAlert when the update has already been downloaded and ready to install. */
-"%1$@ %2$@ has been downloaded and is ready to use! Would you like to install it and relaunch %1$@ now?" = "%1$@ %2$@ ได้ถูกดาวน์โหลดและพร้อมใช้งานแล้ว คุณต้องการติดตั้งและเริ่ม %1$@ ใหม่เดี๋ยวนี้หรือไม่";
-
-/* No comment provided by engineer. */
-"%1$@ can’t be updated because it was opened from a read-only or a temporary location." = "%1$@ ไม่สามารถรับการอัพเดทได้เมื่อถูกเรียกจากดิสก์แบบอ่านอย่างเดียวหรือซีดีรอม ย้าย";
-
-/* No comment provided by engineer. */
-"A new version of %@ is available!" = "%@ มีเวอร์ชั่นใหม่!";
-
-/* No comment provided by engineer. */
-"A new version of %@ is ready to install!" = "เวอร์ชั่นใหม่ของ %@ พร้อมสำหรับการติดตั้งแล้ว";
-
-/* No comment provided by engineer. */
-"An error occurred in retrieving update information. Please try again later." = "เกิดข้อผิดพลาดระหว่างการรับข้อมูลอัพเดท กรุณาลองใหม่ในภายหลัง";
-
-/* No comment provided by engineer. */
-"An error occurred while downloading the update. Please try again later." = "เกิดข้อผิดพลาดระหว่างพยายามดาวน์โหลดอัพเดท กรุณาลองใหม่ในภายหลัง";
-
-/* No comment provided by engineer. */
-"An error occurred while extracting the archive. Please try again later." = "เกิดข้อผิดพลาดระหว่างการแตกไฟล์ที่ถูกบีบอัด กรุณาลองใหม่ในภายหลัง";
-
-/* No comment provided by engineer. */
-"An error occurred while parsing the update feed." = "เกิดข้อผิดพลาดระหว่างการประมวลผลฟีดอัพเดท กรุณาลองใหม่ในภายหลัง";
-
-/* No comment provided by engineer. */
+"An error occurred while connecting to the installer. Please try again later." = "เกิดข้อผิดพลาดขณะเชื่อมต่อกับตัวติดตั้ง โปรดลองอีกครั้งในภายหลัง";
 "Cancel" = "ยกเลิก";
-
-/* No comment provided by engineer. */
-"Cancel Update" = "ยกเลิกอัพเดท";
-
-/* No comment provided by engineer. */
-"Checking for updates…" = "ตรวจสอบอัพเดท…";
-
-/* Take care not to overflow the status window. */
-"Downloading update…" = "กำลังดาวน์โหลดอัพเดท…";
-
-/* Take care not to overflow the status window. */
-"Extracting update…" = "กำลังแตกไฟล์อัพเดท…";
-
-/* No comment provided by engineer. */
-"Install and Relaunch" = "ติดตั้งและเริ่มแอปพลิเคชันใหม่";
-
-/* Take care not to overflow the status window. */
-"Installing update…" = "กำลังติดตั้งอัพเดท…";
-
-/* Alternate title for 'Install Update' button when there's no download in RSS feed. */
-"Learn More…" = "เรียนรู้เพิ่มเติม…";
-
-/* No comment provided by engineer. */
-"OK" = "ตกลง";
-
-/* No comment provided by engineer. */
-"Ready to Install" = "พร้อมติดตั้ง";
-
-/* No comment provided by engineer. */
-"Should %1$@ automatically check for updates? You can always check for updates manually from the %1$@ menu." = "คุณต้องการให้ %1$@ ตรวจสอบอัพเดทโดยอัตโนมัติหรือไม่ คุณสามารถเริ่มการตรวจสอบอัพเดทด้วยตนเองได้ทุกเมื่อจากเมนูของ %1$@";
-
-/* No comment provided by engineer. */
-"Update Error!" = "อัพเดทผิดพลาด!";
-
-/* No comment provided by engineer. */
-"Updating %@" = "กำลังอัพเดท %@";
-
-/* No comment provided by engineer. */
-"Use Finder to copy %1$@ to the Applications folder, relaunch it from there, and try again." = "%1$@ ไปยังโฟลเดอร์แอปพลิเคชัน และเรียกใช้งาน จากนั้นลองใหม่อีกครั้ง";
-
-/* Status message shown when the user checks for updates but is already current or the feed doesn't contain any updates. */
-"You’re up to date!" = "คุณมีเวอร์ชั่นล่าสุดแล้ว!";
-
-/* Software Update title/label */
-"Software Update" = "อัพเดทซอฟต์แวร์";
-
-/* Remind Me Later choice for update alert */
-"Remind Me Later" = "เตือนในภายหลัง";
-
-/* Skip This Version choice for update alert */
-"Skip This Version" = "ข้ามเวอร์ชั่นนี้";
-
-/* Install Update choice for update alert */
-"Install Update" = "ติดตั้งอัพเดท";
-
-/* Automatically download and install updates in the future option for update alert */
-"Automatically download and install updates in the future" = "ดาวน์โหลดและติดตั้งอัพเดทโดยอัตโนมัติในอนาคต";
-
-/* Check for updates automatically response for update permission dialog */
-"Check Automatically" = "ตรวจสอบโดยอัตโนมัติ";
-
-/* Don't check for updates automatically response for update permission dialog */
+"Preferred Language" = "ภาษาที่ต้องการ";
 "Don’t Check" = "ไม่ต้องตรวจสอบ";
-
-/* Title question for update permission dialog */
+"Your macOS version is too old" = "เวอร์ชั่น macOS ของคุณเก่าเกินไป";
+"Failed to resume installing update." = "ไม่สามารถดำเนินการติดตั้งรายการอัปเดตต่อได้";
+"%1$@ can’t be updated because it was opened from a read-only or a temporary location." = "%1$@ ไม่สามารถรับการอัพเดทได้เมื่อถูกเรียกจากดิสก์แบบอ่านอย่างเดียวหรือซีดีรอม ย้าย";
+"%1$@ %2$@ is available but your macOS version is too old to install it. At least macOS %3$@ is required." = "มี %1$@ %2$@ ให้ใช้แล้ว แต่เวอร์ชั่น macOS ของคุณเก่าเกินกว่าจะติดตั้งได้ ต้องใช้ macOS %3$@ ขึ้นไป";
+"The updater failed to start. Please verify you have the latest version of %@ and contact the app developer if the issue still persists. Check the Console logs for more information." = "ไม่สามารถเริ่มตัวอัปเดตได้ โปรดตรวจสอบว่าคุณมี %@ เวอร์ชั่นล่าสุด แล้วติดต่อนักพัฒนาแอปหากยังมีปัญหา ดูบันทึกในคอนโซลสำหรับข้อมูลเพิ่มเติม";
+"An error occurred while parsing the update feed." = "เกิดข้อผิดพลาดระหว่างการประมวลผลฟีดอัพเดท กรุณาลองใหม่ในภายหลัง";
 "Check for updates automatically?" = "ตรวจสอบอัพเดทอัตโนมัติ?";
-
-/* Include anonymous system profile choice for update permission dialog */
-"Include anonymous system profile" = "ส่งข้อมูลระบบแบบนิรนาม";
-
-/* Automatically download and install updates choice for update permission dialog */
-"Automatically download and install updates" = "ดาวน์โหลดและติดตั้งอัพเดทโดยอัตโนมัติ";
-
-/* Anonymous system profile information disclosure for update permission dialog */
+"Yes" = "ใช่";
+"%1$@ can’t be updated if it’s running from the location it was downloaded to." = "ไม่สามารถอัปเดต %1$@ ได้หากกำลังทำงานจากตำแหน่งที่ดาวน์โหลดไว้";
+"Memory (MB)" = "หน่วยความจำ (MB)";
+"CPU Subtype" = "ประเภทย่อยของ CPU";
+"%@ %@ is now available—you have %@. This is an important update; would you like to download it now?" = "มี %@ %@ ให้ใช้แล้ว—คุณมีเวอร์ชั่น %@ นี่เป็นรายการอัปเดตที่สำคัญ คุณต้องการดาวน์โหลดตอนนี้หรือไม่";
+"You’re up to date!" = "คุณมีเวอร์ชั่นล่าสุดแล้ว!";
+"Update Error!" = "อัพเดทผิดพลาด!";
+"Install Update" = "ติดตั้งอัพเดท";
+"%@ %@ is now available—you have %@. Would you like to download it now?" = "%1$@ %2$@ พร้อมให้ดาวน์โหลดแล้ว (คุณมีเวอร์ชั่น %3$@) ต้องการดาวน์โหลดเลยหรือไม่";
+"No" = "ไม่ใช่";
+"%1$@ %2$@ is available but this update requires a new Apple silicon Mac." = "มี %1$@ %2$@ ให้ใช้แล้ว แต่รายการอัปเดตนี้ต้องใช้ Mac รุ่นใหม่ที่มี Apple Silicon";
+"%1$@ %2$@ has been downloaded and is ready to use! Would you like to install it and relaunch %1$@ now?" = "%1$@ %2$@ ได้ถูกดาวน์โหลดและพร้อมใช้งานแล้ว คุณต้องการติดตั้งและเริ่ม %1$@ ใหม่เดี๋ยวนี้หรือไม่";
+"Update Installed" = "ติดตั้งรายการอัปเดตแล้ว";
+"Application Name" = "ชื่อแอปพลิเคชัน";
+"Updating %@" = "กำลังอัพเดท %@";
+"Install on Quit" = "ติดตั้งเมื่อออก";
+"Application Version" = "เวอร์ชั่นแอปพลิเคชัน";
+"An error occurred while extracting the archive. Please try again later." = "เกิดข้อผิดพลาดระหว่างการแตกไฟล์ที่ถูกบีบอัด กรุณาลองใหม่ในภายหลัง";
+"Installing update…" = "กำลังติดตั้งอัพเดท…";
+"Version History" = "ประวัติเวอร์ชั่น";
+"The update feed is improperly signed and could not be validated. Please try again later or contact the app developer." = "ลายเซ็นของฟีดรายการอัปเดตไม่ถูกต้องและไม่สามารถตรวจสอบได้ โปรดลองอีกครั้งในภายหลังหรือติดต่อนักพัฒนาแอป";
+"%@ is now updated to version %@!" = "อัปเดต %@ เป็นเวอร์ชั่น %@ แล้ว!";
+"Unable to Check For Updates" = "ไม่สามารถตรวจหารายการอัปเดตได้";
+"Install and Relaunch" = "ติดตั้งและเริ่มแอปพลิเคชันใหม่";
+"Mac Model" = "รุ่น Mac";
+"Software Update" = "อัพเดทซอฟต์แวร์";
 "Anonymous system profile information is used to help us plan future development work. Please contact us if you have any questions about this.\n\nThis is the information that would be sent:" = "ข้อมูลระบบแบบนิรนามช่วยในการวางแผนพัฒนาแอปพลิเคชันของเราในอนาคต กรุณาติดต่อเราถ้าคุณมีข้อสงสัยในเรื่องนี้\n\nนี่คือข้อมูลที่จะถูกส่งไป:";
+"%1$@ %2$@ has been downloaded and is ready to use! This is an important update; would you like to install it and relaunch %1$@ now?" = "ดาวน์โหลด %1$@ %2$@ แล้วและพร้อมใช้งาน! นี่เป็นรายการอัปเดตที่สำคัญ คุณต้องการติดตั้งและเปิด %1$@ ใหม่ตอนนี้หรือไม่";
+"Checking for updates…" = "ตรวจสอบอัพเดท…";
+"%@ of %@" = "%1$@ จาก %2$@";
+"An error occurred while launching the installer. Please try again later." = "เกิดข้อผิดพลาดขณะเปิดตัวติดตั้ง โปรดลองอีกครั้งในภายหลัง";
+"Remind Me Later" = "เตือนในภายหลัง";
+"OS Version" = "เวอร์ชั่นระบบปฏิบัติการ";
+"Use Finder to copy %1$@ to the Applications folder, relaunch it from there, and try again." = "%1$@ ไปยังโฟลเดอร์แอปพลิเคชัน และเรียกใช้งาน จากนั้นลองใหม่อีกครั้ง";
+"Ready to Install" = "พร้อมติดตั้ง";
+"Skip This Version" = "ข้ามเวอร์ชั่นนี้";
+"Your Mac is too old" = "Mac ของคุณเก่าเกินไป";
+"Include anonymous system profile" = "ส่งข้อมูลระบบแบบนิรนาม";
+"Extracting update…" = "กำลังแตกไฟล์อัพเดท…";
+"An error occurred while downloading the update. Please try again later." = "เกิดข้อผิดพลาดระหว่างพยายามดาวน์โหลดอัพเดท กรุณาลองใหม่ในภายหลัง";
+"Quit %1$@, move it into your Applications folder, relaunch it from there and try again." = "ออกจาก %1$@ ย้ายไปยังโฟลเดอร์แอปพลิเคชัน แล้วเปิดจากที่นั่นและลองอีกครั้ง";
+"%@ %@ is currently the newest version available.\n(You are currently running version %@.)" = "%1$@ %2$@ เป็นเวอร์ชั่นใหม่ล่าสุดแล้ว\n(You are currently running version %3$@.)";
+"You may need to allow modifications from %1$@ in System Settings under Privacy & Security and App Management to install future updates." = "คุณอาจต้องอนุญาตให้ %1$@ ทำการเปลี่ยนแปลงในการตั้งค่าระบบ ภายใต้ความเป็นส่วนตัวและความปลอดภัย > การจัดการแอป เพื่อติดตั้งรายการอัปเดตในอนาคต";
+"The update is improperly signed and could not be validated. Please try again later or contact the app developer." = "ลายเซ็นของรายการอัปเดตไม่ถูกต้องและไม่สามารถตรวจสอบได้ โปรดลองอีกครั้งในภายหลังหรือติดต่อนักพัฒนาแอป";
+"%@ is now updated!" = "อัปเดต %@ แล้ว!";
+"The release notes is improperly signed and could not be validated. Please contact the app developer for more information." = "ลายเซ็นของโน้ตประจำรุ่นไม่ถูกต้องและไม่สามารถตรวจสอบได้ โปรดติดต่อนักพัฒนาแอปสำหรับข้อมูลเพิ่มเติม";
+"Automatically download and install updates" = "ดาวน์โหลดและติดตั้งอัพเดทโดยอัตโนมัติ";
+"Your macOS version is too new" = "เวอร์ชั่น macOS ของคุณใหม่เกินไป";
+"Cancel Update" = "ยกเลิกอัพเดท";
+"CPU Type" = "ประเภท CPU";
+"The installation failed due to not having permission to write the new update." = "การติดตั้งล้มเหลวเนื่องจากไม่มีสิทธิ์เขียนรายการอัปเดตใหม่";
+"A new version of %@ is ready to install!" = "เวอร์ชั่นใหม่ของ %@ พร้อมสำหรับการติดตั้งแล้ว";
+"%@ downloaded" = "ดาวน์โหลด %@ เสร็จสิ้น";
+"An error occurred while running the updater. Please try again later." = "เกิดข้อผิดพลาดขณะเรียกใช้ตัวอัปเดต โปรดลองอีกครั้งในภายหลัง";
+"A new version of %@ is available!" = "%@ มีเวอร์ชั่นใหม่!";
+"Downloading update…" = "กำลังดาวน์โหลดอัพเดท…";
+"Should %1$@ automatically check for updates? You can always check for updates manually from the %1$@ menu." = "คุณต้องการให้ %1$@ ตรวจสอบอัพเดทโดยอัตโนมัติหรือไม่ คุณสามารถเริ่มการตรวจสอบอัพเดทด้วยตนเองได้ทุกเมื่อจากเมนูของ %1$@";
+"Number of CPUs" = "จำนวน CPU";
+"Automatically download and install updates in the future" = "ดาวน์โหลดและติดตั้งอัพเดทโดยอัตโนมัติในอนาคต";
+"An important update to %@ is ready to install" = "รายการอัปเดตที่สำคัญสำหรับ %@ พร้อมติดตั้งแล้ว";
+"An error occurred in retrieving update information. Please try again later." = "เกิดข้อผิดพลาดระหว่างการรับข้อมูลอัพเดท กรุณาลองใหม่ในภายหลัง";
+"%@ %@ is currently the newest version available." = "%1$@ %2$@ เป็นเวอร์ชั่นใหม่ล่าสุดแล้ว";
+"Check Automatically" = "ตรวจสอบโดยอัตโนมัติ";
+"%1$@ %2$@ is available but your macOS version is too new for this update. This update only supports up to macOS %3$@." = "มี %1$@ %2$@ ให้ใช้แล้ว แต่เวอร์ชั่น macOS ของคุณใหม่เกินไปสำหรับรายการอัปเดตนี้ ซึ่งรองรับ macOS สูงสุดเพียงเวอร์ชั่น %3$@";
+"An error occurred while downloading the release notes." = "เกิดข้อผิดพลาดขณะดาวน์โหลดโน้ตประจำรุ่น";
+"An error occurred while starting the installer. Please try again later." = "เกิดข้อผิดพลาดขณะเริ่มตัวติดตั้ง โปรดลองอีกครั้งในภายหลัง";
+"CPU is 64-Bit?" = "CPU เป็นแบบ 64 บิตหรือไม่";
+"%@ %@ is now available—you have %@. Would you like to learn more about this update on the web?" = "มี %@ %@ ให้ใช้แล้ว—คุณมีเวอร์ชั่น %@ คุณต้องการดูข้อมูลเพิ่มเติมเกี่ยวกับรายการอัปเดตนี้บนเว็บหรือไม่";
+"Learn More…" = "เรียนรู้เพิ่มเติม…";
+"CPU Speed (MHz)" = "ความเร็ว CPU (MHz)";
+"OK" = "ตกลง";

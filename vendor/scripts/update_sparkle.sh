@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Vendor Sparkle as: source library (we compile, DCE-friendly) + prebuilt helpers (upstream-signed).
+# Vendor Sparkle as: source library (we compile, DCE-friendly) + prebuilt helpers (Developer ID-signed).
 # Usage: ./vendor/scripts/update_sparkle.sh --update
 #
 # The Sparkle library target in upstream's xcodeproj compiles 67 .m files across 6 directories
@@ -179,6 +179,17 @@ EOF
 # beats once per clean build.
 cp -R "$PREBUILT_FW/Versions/B/Updater.app" "$DEST/Helpers/"
 cp    "$PREBUILT_FW/Versions/B/Autoupdate"  "$DEST/Helpers/"
+# The helper loads translations from our framework, so advertise the same languages before signing it.
+python3 - "$DEST/Helpers/Updater.app/Contents/Info.plist" <<'PY'
+import plistlib
+import sys
+from pathlib import Path
+
+path = Path(sys.argv[1])
+info = plistlib.loads(path.read_bytes())
+info['CFBundleLocalizations'] = sorted(p.stem for p in Path('resources/l10n').glob('*.lproj'))
+path.write_bytes(plistlib.dumps(info, sort_keys=False))
+PY
 SPARKLE_HELPER_IDENT="${SPARKLE_HELPER_IDENT:-$(security find-identity -v -p codesigning | awk -F\" '/Developer ID Application/ {print $2; exit}')}"
 if [ -z "$SPARKLE_HELPER_IDENT" ]; then
     echo "error: no 'Developer ID Application' identity in keychain — set SPARKLE_HELPER_IDENT or import the cert before running this script" >&2

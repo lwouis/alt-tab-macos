@@ -1,89 +1,82 @@
-/* No comment provided by engineer. */
-"%@ %@ is currently the newest version available." = "الإصدار %2$@ هو أحدث إصدار متوفر حاليًا لتطبيق %1$@";
-
-/* The download progress in a unit of bytes, e.g. 100 KB */
-"%@ downloaded" = "تم تنزيل %@";
-
-/* The download progress in units of bytes, e.g. 100 KB of 1,0 MB */
-"%@ of %@" = "%1$@ من %2$@";
-
-/* Description text for SUUpdateAlert when the update has already been downloaded and ready to install. */
-"%1$@ %2$@ has been downloaded and is ready to use! Would you like to install it and relaunch %1$@ now?" = "تم تنزيل %1$@ %2$@ وهو جاهز للاستخدام، هل ترغب بتثبيت التحديث وإعادة تشغيل %1$@ الآن؟";
-
-/* No comment provided by engineer. */
-"A new version of %@ is available!" = "يتوفر إصدار جديد من تطبيق %@";
-
-/* No comment provided by engineer. */
-"A new version of %@ is ready to install!" = "الإصدار الجديد من تطبيق %@ جاهز للتثبيت";
-
-/* No comment provided by engineer. */
-"An error occurred in retrieving update information. Please try again later." = "حال خطأ دون الحصول على معلومات حول التحديث، الرجاء المحاولة لاحقًا.";
-
-/* No comment provided by engineer. */
-"An error occurred while downloading the update. Please try again later." = "حدث خطأ أثناء تنزيل التحديث، الرجاء المحاولة لاحقًا.";
-
-/* No comment provided by engineer. */
-"An error occurred while extracting the archive. Please try again later." = "حدث خطأ أثناء استخراج الأرشيف، الرجاء المحاولة لاحقًا.";
-
-/* No comment provided by engineer. */
-"An error occurred while parsing the update feed." = "حدث خطأ أثناء تحليل المعلومات المزوّدَة حول التحديث.";
-
-/* No comment provided by engineer. */
+"An error occurred while connecting to the installer. Please try again later." = "حدث خطأ أثناء الاتصال بالمثبّت. حاول مرة أخرى لاحقًا.";
 "Cancel" = "إلغاء";
-
-/* No comment provided by engineer. */
-"Cancel Update" = "إلغاء التحديث";
-
-/* No comment provided by engineer. */
-"Install and Relaunch" = "تثبيت وإعادة تشغيل التطبيق";
-
-/* No comment provided by engineer. */
-"OK" = "موافق";
-
-/* No comment provided by engineer. */
-"Ready to Install" = "جاهز للتثبيت";
-
-/* No comment provided by engineer. */
-"Should %1$@ automatically check for updates? You can always check for updates manually from the %1$@ menu." = "هل ترغب في أن يتحقق %1$@ من وجود تحديثات تلقائيًا؟ يمكنك التحقق من وجود تحديثات يدويًا في أي وقت من قائمة %1$@.";
-
-/* No comment provided by engineer. */
-"Update Error!" = "حدث خطأ أثناء التحديث";
-
-/* No comment provided by engineer. */
-"Updating %@" = "تحديث %@";
-
-/* No comment provided by engineer. */
-"Use Finder to copy %1$@ to the Applications folder, relaunch it from there, and try again." = "انقل %1$@ إلى مجلد التطبيقات وأعد تشغيله من هناك ثم حاول مجددًا.";
-
-/* Software Update title/label */
-"Software Update" = "محدث البرنامج";
-
-/* Remind Me Later choice for update alert */
-"Remind Me Later" = "تذكيري لاحقًا";
-
-/* Skip This Version choice for update alert */
-"Skip This Version" = "تخطي هذا الإصدار";
-
-/* Install Update choice for update alert */
-"Install Update" = "تثبيت التحديث";
-
-/* Automatically download and install updates in the future option for update alert */
-"Automatically download and install updates in the future" = "تنزيل التحديثات وتثبيتها تلقائيًا في المستقبل";
-
-/* Check for updates automatically response for update permission dialog */
-"Check Automatically" = "التحقق تلقائيًا";
-
-/* Don't check for updates automatically response for update permission dialog */
+"Preferred Language" = "اللغة المفضلة";
 "Don’t Check" = "عدم التحقق";
-
-/* Title question for update permission dialog */
+"Your macOS version is too old" = "إصدار macOS لديك قديم جدًا";
+"Failed to resume installing update." = "تعذر استئناف تثبيت التحديث.";
+"%1$@ can’t be updated because it was opened from a read-only or a temporary location." = "لا يمكن تحديث %1$@ لأنه فُتح من موقع مؤقت أو للقراءة فقط.";
+"%1$@ %2$@ is available but your macOS version is too old to install it. At least macOS %3$@ is required." = "يتوفر %1$@ %2$@ لكن إصدار macOS لديك قديم جدًا لتثبيته. يلزم macOS %3$@ على الأقل.";
+"The updater failed to start. Please verify you have the latest version of %@ and contact the app developer if the issue still persists. Check the Console logs for more information." = "تعذر بدء أداة التحديث. تأكد من توفر أحدث إصدار من %@، وتواصل مع مطوّر التطبيق إذا استمرت المشكلة. راجع سجلات وحدة التحكم لمزيد من المعلومات.";
+"An error occurred while parsing the update feed." = "حدث خطأ أثناء تحليل المعلومات المزوّدَة حول التحديث.";
 "Check for updates automatically?" = "هل تريد أن يتم التحقق من وجود تحديثات تلقائيًا؟";
-
-/* Include anonymous system profile choice for update permission dialog */
+"Yes" = "نعم";
+"%1$@ can’t be updated if it’s running from the location it was downloaded to." = "لا يمكن تحديث %1$@ أثناء تشغيله من الموقع الذي تم تنزيله إليه.";
+"Memory (MB)" = "الذاكرة (م.ب.)";
+"CPU Subtype" = "النوع الفرعي لوحدة المعالجة المركزية";
+"%@ %@ is now available—you have %@. This is an important update; would you like to download it now?" = "يتوفر الآن %@ %@، ولديك الإصدار %@. هذا تحديث مهم؛ هل تريد تنزيله الآن؟";
+"You’re up to date!" = "لديك أحدث إصدار!";
+"Update Error!" = "حدث خطأ أثناء التحديث";
+"Install Update" = "تثبيت التحديث";
+"%@ %@ is now available—you have %@. Would you like to download it now?" = "يتوفر الآن %@ %@، ولديك الإصدار %@. هل تريد تنزيله الآن؟";
+"No" = "لا";
+"%1$@ %2$@ is available but this update requires a new Apple silicon Mac." = "يتوفر %1$@ %2$@، لكن هذا التحديث يتطلب جهاز Mac جديدًا مزودًا بشريحة Apple silicon.";
+"%1$@ %2$@ has been downloaded and is ready to use! Would you like to install it and relaunch %1$@ now?" = "تم تنزيل %1$@ %2$@ وهو جاهز للاستخدام، هل ترغب بتثبيت التحديث وإعادة تشغيل %1$@ الآن؟";
+"Update Installed" = "تم تثبيت التحديث";
+"Application Name" = "اسم التطبيق";
+"Updating %@" = "تحديث %@";
+"Install on Quit" = "التثبيت عند الإنهاء";
+"Application Version" = "إصدار التطبيق";
+"An error occurred while extracting the archive. Please try again later." = "حدث خطأ أثناء استخراج الأرشيف، الرجاء المحاولة لاحقًا.";
+"Installing update…" = "جارٍ تثبيت التحديث…";
+"Version History" = "سجل الإصدارات";
+"The update feed is improperly signed and could not be validated. Please try again later or contact the app developer." = "توقيع موجز التحديثات غير صالح وتعذر التحقق منه. حاول مرة أخرى لاحقًا أو تواصل مع مطوّر التطبيق.";
+"%@ is now updated to version %@!" = "تم تحديث %@ إلى الإصدار %@!";
+"Unable to Check For Updates" = "تعذر البحث عن تحديثات";
+"Install and Relaunch" = "تثبيت وإعادة تشغيل التطبيق";
+"Mac Model" = "طراز Mac";
+"Software Update" = "محدث البرنامج";
+"Anonymous system profile information is used to help us plan future development work. Please contact us if you have any questions about this.\n\nThis is the information that would be sent:" = "تُستخدم معلومات ملف تعريف النظام المجهولة الهوية لمساعدتنا على التخطيط لأعمال التطوير المستقبلية. يُرجى التواصل معنا إذا كانت لديك أي أسئلة بهذا الشأن.\n\nهذه هي المعلومات التي سيتم إرسالها:";
+"%1$@ %2$@ has been downloaded and is ready to use! This is an important update; would you like to install it and relaunch %1$@ now?" = "تم تنزيل %1$@ %2$@ وهو جاهز للاستخدام! هذا تحديث مهم؛ هل تريد تثبيته وإعادة تشغيل %1$@ الآن؟";
+"Checking for updates…" = "جارٍ البحث عن تحديثات…";
+"%@ of %@" = "%1$@ من %2$@";
+"An error occurred while launching the installer. Please try again later." = "حدث خطأ أثناء فتح المثبّت. حاول مرة أخرى لاحقًا.";
+"Remind Me Later" = "تذكيري لاحقًا";
+"OS Version" = "إصدار نظام التشغيل";
+"Use Finder to copy %1$@ to the Applications folder, relaunch it from there, and try again." = "انقل %1$@ إلى مجلد التطبيقات وأعد تشغيله من هناك ثم حاول مجددًا.";
+"Ready to Install" = "جاهز للتثبيت";
+"Skip This Version" = "تخطي هذا الإصدار";
+"Your Mac is too old" = "جهاز Mac لديك قديم جدًا";
 "Include anonymous system profile" = "تضمين تقرير عن النظام دون ذكر معلومات عن المستخدم";
-
-/* Automatically download and install updates choice for update permission dialog */
+"Extracting update…" = "جارٍ استخراج التحديث…";
+"An error occurred while downloading the update. Please try again later." = "حدث خطأ أثناء تنزيل التحديث، الرجاء المحاولة لاحقًا.";
+"Quit %1$@, move it into your Applications folder, relaunch it from there and try again." = "أنهِ %1$@، وانقله إلى مجلد التطبيقات، ثم شغّله من هناك وحاول مرة أخرى.";
+"%@ %@ is currently the newest version available.\n(You are currently running version %@.)" = "%@ %@ هو أحدث إصدار متوفر حاليًا.\n(أنت تستخدم الآن الإصدار %@.)";
+"You may need to allow modifications from %1$@ in System Settings under Privacy & Security and App Management to install future updates." = "قد تحتاج إلى السماح بالتعديلات من %1$@ في إعدادات النظام، ضمن الخصوصية والأمن وإدارة التطبيقات، لتثبيت التحديثات مستقبلًا.";
+"The update is improperly signed and could not be validated. Please try again later or contact the app developer." = "توقيع التحديث غير صالح وتعذر التحقق منه. حاول مرة أخرى لاحقًا أو تواصل مع مطوّر التطبيق.";
+"%@ is now updated!" = "تم تحديث %@!";
+"The release notes is improperly signed and could not be validated. Please contact the app developer for more information." = "توقيع ملاحظات الإصدار غير صالح وتعذر التحقق منه. تواصل مع مطوّر التطبيق لمزيد من المعلومات.";
 "Automatically download and install updates" = "تنزيل التحديثات وتثبيتها تلقائيًا في المست";
-
-/* Anonymous system profile information disclosure for update permission dialog */
-"Anonymous system profile information is used to help us plan future development work. Please contact us if you have any questions about this.\n\nThis is the information that would be sent:" = "Anonymous system profile information is used to help us plan future development work. Please contact us if you have any questions about this.\n\nThis is the information that would be sent:";
+"Your macOS version is too new" = "إصدار macOS لديك حديث جدًا";
+"Cancel Update" = "إلغاء التحديث";
+"CPU Type" = "نوع وحدة المعالجة المركزية";
+"The installation failed due to not having permission to write the new update." = "فشل التثبيت لعدم توفر إذن لكتابة التحديث الجديد.";
+"A new version of %@ is ready to install!" = "الإصدار الجديد من تطبيق %@ جاهز للتثبيت";
+"%@ downloaded" = "تم تنزيل %@";
+"An error occurred while running the updater. Please try again later." = "حدث خطأ أثناء تشغيل أداة التحديث. حاول مرة أخرى لاحقًا.";
+"A new version of %@ is available!" = "يتوفر إصدار جديد من تطبيق %@";
+"Downloading update…" = "جارٍ تنزيل التحديث…";
+"Should %1$@ automatically check for updates? You can always check for updates manually from the %1$@ menu." = "هل ترغب في أن يتحقق %1$@ من وجود تحديثات تلقائيًا؟ يمكنك التحقق من وجود تحديثات يدويًا في أي وقت من قائمة %1$@.";
+"Number of CPUs" = "عدد وحدات المعالجة المركزية";
+"Automatically download and install updates in the future" = "تنزيل التحديثات وتثبيتها تلقائيًا في المستقبل";
+"An important update to %@ is ready to install" = "تحديث مهم لـ %@ جاهز للتثبيت";
+"An error occurred in retrieving update information. Please try again later." = "حال خطأ دون الحصول على معلومات حول التحديث، الرجاء المحاولة لاحقًا.";
+"%@ %@ is currently the newest version available." = "الإصدار %2$@ هو أحدث إصدار متوفر حاليًا لتطبيق %1$@";
+"Check Automatically" = "التحقق تلقائيًا";
+"%1$@ %2$@ is available but your macOS version is too new for this update. This update only supports up to macOS %3$@." = "يتوفر %1$@ %2$@ لكن إصدار macOS لديك حديث جدًا لهذا التحديث. يدعم هذا التحديث macOS حتى الإصدار %3$@ فقط.";
+"An error occurred while downloading the release notes." = "حدث خطأ أثناء تنزيل ملاحظات الإصدار.";
+"An error occurred while starting the installer. Please try again later." = "حدث خطأ أثناء بدء المثبّت. حاول مرة أخرى لاحقًا.";
+"CPU is 64-Bit?" = "هل وحدة المعالجة المركزية 64 بت؟";
+"%@ %@ is now available—you have %@. Would you like to learn more about this update on the web?" = "يتوفر الآن %@ %@، ولديك الإصدار %@. هل تريد معرفة المزيد عن هذا التحديث على الويب؟";
+"Learn More…" = "معرفة المزيد…";
+"CPU Speed (MHz)" = "سرعة وحدة المعالجة المركزية (ميغاهرتز)";
+"OK" = "موافق";

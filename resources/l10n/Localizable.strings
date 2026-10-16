@@ -605,6 +605,12 @@
 /* No comment provided by engineer. */
 "Recognize your apps at a glance" = "Recognize your apps at a glance";
 
+/* VoiceOver description of an app notification badge */
+"Red badge" = "Red badge";
+
+/* VoiceOver description of an app notification badge */
+"Red badge with number %@" = "Red badge with number %@";
+
 /* No comment provided by engineer. */
 "Reliable, fast window switching with high-quality thumbnails" = "Reliable, fast window switching with high-quality thumbnails";
 

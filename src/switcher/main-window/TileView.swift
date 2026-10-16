@@ -663,9 +663,9 @@ class TileView: FlippedView {
 
     private func getAccessibilityTextForBadge(_ dockLabel: String) -> String {
         if let dockLabelInt = Int(dockLabel) {
-            return "Red badge with number \(dockLabelInt)"
+            return String(format: NSLocalizedString("Red badge with number %@", comment: "VoiceOver description of an app notification badge"), UsageStats.formatCount(dockLabelInt))
         }
-        return "Red badge"
+        return NSLocalizedString("Red badge", comment: "VoiceOver description of an app notification badge")
     }
 
     static func makeShadow(_ color: NSColor?) -> NSShadow? {

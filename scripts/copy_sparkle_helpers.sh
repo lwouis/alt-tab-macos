@@ -64,6 +64,17 @@ cp    "$SRCROOT/vendor/Sparkle/Helpers/Autoupdate"  "$SPARKLE_VERSIONED/"
     ln -sfn Versions/Current/Updater.app Updater.app
 )
 
+# Removed or renamed locales can survive incremental SPM builds. An old zh_CN catalog takes
+# precedence over zh-CN at runtime, so prune obsolete catalogs before either framework copy.
+for resources in "$SPM_BUNDLE/Contents/Resources" "$SPARKLE_VERSIONED/Resources" "$SPARKLE_PKG/Resources"; do
+    for locale in "$resources"/*.lproj; do
+        [ -d "$locale" ] || continue
+        name="$(basename "$locale")"
+        if [ "$name" != Base.lproj ] && [ ! -d "$SRCROOT/vendor/Sparkle/Sources/Sparkle/$name" ]; then
+            rm -rf "$locale"
+        fi
+    done
+done
 # Mirror SPM-generated resource bundle (lprojs + nibs + css) into the framework.
 # Read from the SPM output ($BUILT_PRODUCTS_DIR/Sparkle_Sparkle.bundle), which exists before
 # Xcode copies it to $APP_RES — avoids ordering races on incremental builds.
