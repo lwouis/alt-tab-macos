@@ -8,7 +8,7 @@ import Cocoa
 /// app silently — users took it for "I'll deal with this later" and then wondered why AltTab was
 /// gone. Losing the titlebar means losing the drag handle too, hence `isMovableByWindowBackground`.
 class PermissionsWindow: NSWindow {
-    static let contentWidth = CGFloat(470)
+    static let contentWidth = CGFloat(482)
     private static let contentInset = CGFloat(22)
     static var shared: PermissionsWindow!
     /// Whether this launch displayed the permissions flow.

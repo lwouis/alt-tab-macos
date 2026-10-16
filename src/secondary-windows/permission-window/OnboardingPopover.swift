@@ -212,10 +212,10 @@ enum OnboardingPopover {
         return OnboardingLayout.root(stack, width: max(290, reminder.fittingSize.width + 2 * OnboardingLayout.horizontalInset))
     }
 
-    /// "Press [⌥ Option] + [⇥ Tab] any time.", the user's own keys as small keycaps between the two
+    /// "Press [⌥ Option] + [⇥ Tab] any time", the user's own keys as small keycaps between the two
     /// halves of the sentence.
     private static func pressAnyTime() -> NSView {
-        let template = NSLocalizedString("Press %@ any time.", comment: "Onboarding popover, once the shortcut was used; %@ is the keyboard shortcut")
+        let template = NSLocalizedString("Press %@ any time", comment: "Onboarding popover, once the shortcut was used; %@ is the keyboard shortcut")
         let halves = template.components(separatedBy: "%@")
         let keys = [OnboardingLayout.holdGlyphs, OnboardingLayout.nextGlyphs].map {
             KeycapView($0, name: OnboardingLayout.keyName($0), scale: .small)
@@ -234,8 +234,6 @@ enum OnboardingPopover {
         row.translatesAutoresizingMaskIntoConstraints = false
         row.alignment = .centerY
         row.spacing = 6
-        // "Drücke jederzeit %@." leaves a lone period, which belongs against the key
-        if let last = words[1], last.stringValue.allSatisfy(\.isPunctuation) { row.setCustomSpacing(2, after: keys[1]) }
         row.setAccessibilityElement(true)
         row.setAccessibilityRole(.staticText)
         row.setAccessibilityLabel(String(format: template, OnboardingLayout.holdGlyphs + OnboardingLayout.nextGlyphs))

@@ -13,6 +13,8 @@ struct ShowHideRowInfo {
 class IllustratedImageThemeView: ClickHoverImageView {
     override var acceptsFirstResponder: Bool { false }
     static let padding = CGFloat(4)
+    /// The settings artwork is drawn on a 320pt-wide canvas clipped to a 12pt corner.
+    private static let artworkCornerRatio = CGFloat(12) / 320
     /// Shown when the current Appearance style doesn't support a Show/Hide option (the illustration
     /// is for another style). Exposed so `CustomizeStyleSheet.searchableStrings` can reference it
     /// without re-`NSLocalizedString`-ing the same English text.
@@ -22,55 +24,31 @@ class IllustratedImageThemeView: ClickHoverImageView {
     var imageName: String!
     var isFocused: Bool = false
     private var placeholderLabel: NSTextField!
+    private var imageCornerRadius: CGFloat!
 
-    /// Loads an illustration from the bundle without going through `NSImage(named:)`'s global
-    /// named cache (which never releases). Pairs with `cacheMode = .never` so the per-image scaled
-    /// bitmap cache is also disabled. Lets ARC reclaim the bitmap when no view holds the image.
-    ///
-    /// The bundled file is deterministic, but the *load* isn't: the bundle lookup and the file open
-    /// both touch the filesystem and can fail transiently (Sparkle swapping the `.app` mid-update,
-    /// app-translocation I/O hiccups, file-descriptor exhaustion). A crash report (SIGTRAP on the
-    /// force-unwrap this used to feed) proved it happens in the wild, so we retry once: a one-off
-    /// blip resolves to the real image rather than nil.
-    static func loadIllustration(_ name: String) -> NSImage? {
-        guard let path = Bundle.main.path(forResource: "\(name)@2x", ofType: "heic") else {
-            Logger.error { "illustration missing from bundle: \(name)" }
-            return nil
-        }
-        for attempt in 1...2 {
-            if let image = NSImage(contentsOfFile: path) {
-                image.cacheMode = .never
-                return image
-            }
-            Logger.warning { "illustration load failed (attempt \(attempt)): \(name)" }
-        }
-        Logger.error { "illustration unavailable after retry: \(name)" }
-        return nil
+    static func artworkName(_ name: String) -> String {
+        "settings-" + name.replacingOccurrences(of: "_light", with: "")
+            .replacingOccurrences(of: "_dark", with: "").replacingOccurrences(of: "_", with: "-")
     }
 
     init(_ style: AppearanceStylePreference, _ width: CGFloat) {
-        // TODO: The appearance theme functionality has not been implemented yet.
-        // We will implement it later; for now, use the light theme.
         let theme = "light"
         let imageName = IllustratedImageThemeView.getConcatenatedImageName(style, theme)
-        // `loadIllustration` retries a transient miss, so it should virtually always return the real
-        // image. Still don't force-unwrap: a persistent failure must degrade to a blank tile, not
-        // crash the whole app when the user opens the Customize sheet (matches the other call sites,
-        // which assign the optional straight to `.image`).
-        let imageView = NSImageView()
-        imageView.image = IllustratedImageThemeView.loadIllustration(imageName)
+        let imageWidth = width - IllustratedImageThemeView.padding
+        let imageCornerRadius = imageWidth * Self.artworkCornerRatio
+        let imageView = LocalizedIllustrationView(Self.artworkName(imageName))
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.imageScaling = .scaleProportionallyUpOrDown
         imageView.wantsLayer = true
         imageView.layer!.masksToBounds = true
-        imageView.layer!.cornerRadius = TableGroupView.cornerRadius
+        imageView.layer!.cornerRadius = imageCornerRadius
         super.init(infoCircle: imageView)
         self.style = style
         self.theme = theme
         self.imageName = imageName
+        self.imageCornerRadius = imageCornerRadius
         translatesAutoresizingMaskIntoConstraints = false
         wantsLayer = true
-        let imageWidth = width - IllustratedImageThemeView.padding
         let imageHeight = imageWidth / 1.6
         NSLayoutConstraint.activate([
             imageView.widthAnchor.constraint(equalToConstant: imageWidth),
@@ -95,8 +73,6 @@ class IllustratedImageThemeView: ClickHoverImageView {
         ])
         placeholderLabel = placeholder
         highlight(false)
-        // [weak self]: `onClick` is our own stored property, so a strong capture keeps this view alive
-        // forever, along with the decoded illustration `loadIllustration` works to keep reclaimable.
         onClick = { [weak self] (event, view) in
             self?.highlight(false)
         }
@@ -107,7 +83,7 @@ class IllustratedImageThemeView: ClickHoverImageView {
     }
 
     private func setBorder() {
-        layer?.cornerRadius = TableGroupView.cornerRadius + 3
+        layer?.cornerRadius = imageCornerRadius + IllustratedImageThemeView.padding
         layer?.borderColor = isFocused ? NSColor.systemAccentColor.cgColor : NSColor.lightGray.cgColor
         layer?.borderWidth = 3
     }
@@ -127,7 +103,7 @@ class IllustratedImageThemeView: ClickHoverImageView {
         if highlighted {
             updateImage(imageName)
         } else {
-            (infoCircle as! NSImageView).image = IllustratedImageThemeView.loadIllustration(self.imageName)
+            (infoCircle as! LocalizedIllustrationView).artwork = Self.artworkName(self.imageName)
         }
     }
 
@@ -139,7 +115,7 @@ class IllustratedImageThemeView: ClickHoverImageView {
     }
 
     private func updateImage(_ imageName: String) {
-        (infoCircle as! NSImageView).image = IllustratedImageThemeView.loadIllustration(getStyleThemeImageName(imageName))
+        (infoCircle as! LocalizedIllustrationView).artwork = Self.artworkName(getStyleThemeImageName(imageName))
     }
 
     static func getConcatenatedImageName(_ style: AppearanceStylePreference,

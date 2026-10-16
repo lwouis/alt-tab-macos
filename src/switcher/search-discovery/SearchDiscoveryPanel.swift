@@ -39,6 +39,9 @@ final class SearchDiscoveryPanel: NSPanel {
             label.lineBreakMode = .byTruncatingTail
             label.cell?.usesSingleLineMode = true
         }
+        // The single-line cell fast path ignores attachment height when placing the baseline.
+        // maximumNumberOfLines still keeps the instruction on one line.
+        hintLabel.cell?.usesSingleLineMode = false
         dismissButton.isBordered = false
         dismissButton.image = NSImage(systemSymbolName: "xmark", accessibilityDescription: nil)?
             .withSymbolConfiguration(.init(pointSize: 10, weight: .semibold))
@@ -71,7 +74,6 @@ final class SearchDiscoveryPanel: NSPanel {
 
     /// The width hugs the measured text, up to the available screen width and the shared cap.
     func prepare(shortcut: String, spokenShortcut: String, dark: Bool, highContrast: Bool, maxWidth: CGFloat,
-                 maxCornerRadius: CGFloat = .greatestFiniteMagnitude,
         title: String? = nil,
         instruction: String? = nil,
         holdKey: (label: String, spoken: String)? = nil
@@ -106,29 +108,28 @@ final class SearchDiscoveryPanel: NSPanel {
         let titleWidth = ceil(titleLabel.cell!.cellSize.width)
         let naturalTextWidth = hintLabel.cell!.cellSize(forBounds:
             NSRect(x: 0, y: 0, width: 10000, height: 10000)).width
-        let width = max(1, min(560, maxWidth, ceil(max(titleWidth + 24, naturalTextWidth)) + 122))
-        let textWidth = max(1, width - 122)
+        let bubbleInsets = SpeechBubbleView.contentInsets(pointsRight: rtl)
+        let horizontalInsets = bubbleInsets.left + bubbleInsets.right
+        let width = max(1, min(560, maxWidth, ceil(max(titleWidth + 32, naturalTextWidth)) + 88 + horizontalInsets))
+        let textWidth = max(1, width - 88 - horizontalInsets)
         let measurement = NSRect(x: 0, y: 0, width: textWidth, height: 10000)
         let textHeight = max(24, ceil(hintLabel.cell!.cellSize(forBounds: measurement).height))
-        let titleHeight: CGFloat = 24
-        let contentHeight = titleHeight + 4 + textHeight
-        let size = NSSize(width: width, height: max(76, contentHeight + 24))
-        let top = (size.height - contentHeight) / 2
+        let titleHeight = ceil(titleLabel.intrinsicContentSize.height)
+        let contentHeight = titleHeight + SpeechBubbleView.lineSpacing + textHeight
+        let size = NSSize(width: width, height: contentHeight + bubbleInsets.top + bubbleInsets.bottom)
         root.frame.size = size
         (background as? SpeechBubbleView)?.pointsRight = rtl
         background.frame = NSRect(x: rtl ? 0 : 88, y: 0, width: width - 88, height: size.height)
-        if host !== background { host.frame = NSRect(origin: .zero, size: background.frame.size)
-        }
+        if host !== background { host.frame = NSRect(origin: .zero, size: background.frame.size) }
         rabbit.frame = NSRect(x: rtl ? width - 76 : 0, y: (size.height - 76) / 2, width: 76, height: 76)
-        cornerRadius = min(maxCornerRadius, 24)
-        (background as? SpeechBubbleView)?.cornerRadius = cornerRadius
-        let textX: CGFloat = rtl ? 12 : 22
-        titleLabel.frame = NSRect(x: rtl ? textX + 24 : textX, y: size.height - top - titleHeight,
-            width: max(1, textWidth - 24), height: titleHeight)
-        hintLabel.frame = NSRect(x: textX, y: top, width: textWidth, height: textHeight)
-        // The cross has about a 16-point optical inset; its larger hit target extends closer to the edge.
-        dismissButton.frame = NSRect(x: rtl ? 8 : background.frame.width - 32,
-            y: size.height - 32, width: 24, height: 24)
+        cornerRadius = SpeechBubbleView.cornerRadius
+        let content = SpeechBubbleView.contentRect(in: background.bounds, pointsRight: rtl)
+        titleLabel.frame = titleLabel.frame(forAlignmentRect: NSRect(x: content.minX + (rtl ? 32 : 0),
+            y: content.maxY - titleHeight, width: max(1, textWidth - 32), height: titleHeight))
+        hintLabel.frame = hintLabel.frame(forAlignmentRect:
+            NSRect(x: content.minX, y: content.minY, width: textWidth, height: textHeight))
+        dismissButton.frame = NSRect(x: rtl ? content.minX : content.maxX - 24,
+            y: titleLabel.frame.midY - 12, width: 24, height: 24)
         hintLabel.textColor = dark ? .white : .black
         dismissButton.dark = dark
         // The switcher has no outline; this one only exists for increased contrast.
@@ -249,19 +250,11 @@ final class MascotMessageView: NSStackView {
         let bubble = NSStackView(views: [heading, detail])
         bubble.orientation = .vertical
         bubble.alignment = .leading
-        bubble.spacing = 4
-        bubble.edgeInsets = NSEdgeInsets(top: 8, left: 12, bottom: 8, right: 12)
+        bubble.spacing = SpeechBubbleView.lineSpacing
         let balloon = SpeechBubbleView()
         balloon.pointsRight = userInterfaceLayoutDirection == .rightToLeft
         balloon.translatesAutoresizingMaskIntoConstraints = false
-        balloon.addSubview(bubble)
-        bubble.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            bubble.leadingAnchor.constraint(equalTo: balloon.leadingAnchor, constant: 8),
-            bubble.trailingAnchor.constraint(equalTo: balloon.trailingAnchor),
-            bubble.topAnchor.constraint(equalTo: balloon.topAnchor),
-            bubble.bottomAnchor.constraint(equalTo: balloon.bottomAnchor),
-        ])
+        balloon.addContent(bubble)
         addArrangedSubview(rabbit)
         addArrangedSubview(balloon)
         spacing = 10
@@ -286,11 +279,40 @@ final class MascotMessageView: NSStackView {
 }
 
 final class SpeechBubbleView: NSView {
-    var cornerRadius: CGFloat = 24 { didSet { needsLayout = true } }
+    static let cornerRadius = CGFloat(24)
+    static let contentPadding = CGFloat(18)
+    static let lineSpacing = CGFloat(4)
+    private static let tailWidth = CGFloat(10)
+    private static let outlineInset = CGFloat(1)
     var pointsRight = false { didSet { needsLayout = true } }
     var highContrast = false { didSet { needsLayout = true } }
     private var material: NSView?
     private let outline = CAShapeLayer()
+
+    static func contentInsets(pointsRight: Bool) -> NSEdgeInsets {
+        let inset = outlineInset + contentPadding
+        return NSEdgeInsets(top: inset, left: inset + (pointsRight ? 0 : tailWidth),
+            bottom: inset, right: inset + (pointsRight ? tailWidth : 0))
+    }
+
+    static func contentRect(in bounds: NSRect, pointsRight: Bool) -> NSRect {
+        let insets = contentInsets(pointsRight: pointsRight)
+        return NSRect(x: bounds.minX + insets.left, y: bounds.minY + insets.bottom,
+            width: max(1, bounds.width - insets.left - insets.right),
+            height: max(1, bounds.height - insets.top - insets.bottom))
+    }
+
+    func addContent(_ view: NSView) {
+        let insets = Self.contentInsets(pointsRight: pointsRight)
+        addSubview(view)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            view.leftAnchor.constraint(equalTo: leftAnchor, constant: insets.left),
+            view.rightAnchor.constraint(equalTo: rightAnchor, constant: -insets.right),
+            view.topAnchor.constraint(equalTo: topAnchor, constant: insets.top),
+            view.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -insets.bottom),
+        ])
+    }
 
     func setMaterial(_ view: NSView) {
         material?.removeFromSuperview()
@@ -339,9 +361,9 @@ final class SpeechBubbleView: NSView {
 
     /// One closed silhouette, with no edge crossing the mouth of the tail.
     func bubblePath() -> NSBezierPath {
-        let r = bounds.insetBy(dx: 1, dy: 1)
-        let left = r.minX + 10
-        let radius = max(0, min(cornerRadius, (r.height - 20) / 2))
+        let r = bounds.insetBy(dx: Self.outlineInset, dy: Self.outlineInset)
+        let left = r.minX + Self.tailWidth
+        let radius = max(0, min(Self.cornerRadius, (r.height - 20) / 2))
         let arc = radius * 0.5522847498
         let p = NSBezierPath()
         p.move(to: NSPoint(x: left + radius, y: r.minY))

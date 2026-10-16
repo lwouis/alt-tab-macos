@@ -261,6 +261,7 @@ final class SearchDiscoveryTests: XCTestCase {
             XCTAssertFalse(cell.wantsToTrackMouse())
             XCTAssertFalse(panel.hintLabel.isEditable)
             XCTAssertFalse(panel.hintLabel.isSelectable)
+            XCTAssertFalse(panel.hintLabel.cell!.usesSingleLineMode)
             XCTAssertTrue(try XCTUnwrap(panel.hintLabel.accessibilityLabel()?.contains("Command Shift F")))
             XCTAssertFalse(panel.hintLabel.stringValue.contains("Pro"))
             XCTAssertFalse(panel.hintLabel.frame.intersects(panel.dismissButton.frame))
@@ -276,11 +277,11 @@ final class SearchDiscoveryTests: XCTestCase {
         for width: CGFloat in [250, 560] {
             _ = panel.prepare(shortcut: "S", spokenShortcut: "S", dark: false,
                 highContrast: false, maxWidth: width, title: "Find a window by typing")
-            XCTAssertEqual(panel.hintLabel.frame.minX, 22)
-            XCTAssertEqual(panel.hintLabel.frame.minY, 12)
+            XCTAssertEqual(panel.hintLabel.alignmentRect(forFrame: panel.hintLabel.frame).minX, 29)
+            XCTAssertEqual(panel.hintLabel.frame.minY, 19)
             XCTAssertEqual(panel.titleLabel.frame.minY - panel.hintLabel.frame.maxY, 4)
-            XCTAssertEqual(panel.background.bounds.maxX - panel.dismissButton.frame.maxX, 8)
-            XCTAssertEqual(panel.background.bounds.maxY - panel.dismissButton.frame.maxY, 8)
+            XCTAssertEqual(panel.background.bounds.maxX - panel.dismissButton.frame.maxX, 19)
+            XCTAssertEqual(panel.background.bounds.maxY - panel.titleLabel.frame.maxY, 19)
             XCTAssertFalse(panel.hintLabel.frame.intersects(panel.dismissButton.frame))
             XCTAssertFalse(panel.dismissButton.acceptsFirstResponder)
         }
@@ -310,11 +311,11 @@ final class SearchDiscoveryTests: XCTestCase {
         for width: CGFloat in [250, 560] {
             let size = panel.prepare(shortcut: "`", spokenShortcut: "Grave", dark: false, highContrast: false,
                 maxWidth: width, title: title, instruction: instruction, holdKey: (label: "⌥", spoken: "Option"))
-            XCTAssertEqual(size.height, 76)
+            XCTAssertEqual(panel.background.bounds.maxY - panel.titleLabel.frame.maxY, panel.hintLabel.frame.minY)
             XCTAssertLessThanOrEqual(size.width, width)
             XCTAssertEqual(panel.titleLabel.stringValue, title)
             XCTAssertEqual(panel.hintLabel.accessibilityLabel(), String(format: instruction, "Option", "Grave"))
-            XCTAssertEqual(panel.titleLabel.frame.height, 24)
+            XCTAssertEqual(panel.titleLabel.frame.height, ceil(panel.titleLabel.intrinsicContentSize.height))
             XCTAssertEqual(panel.hintLabel.frame.height, 24)
             XCTAssertFalse(panel.titleLabel.frame.intersects(panel.dismissButton.frame))
             XCTAssertFalse(panel.hintLabel.frame.intersects(panel.dismissButton.frame))
@@ -349,6 +350,30 @@ final class SearchDiscoveryTests: XCTestCase {
         XCTAssertNil(SearchDiscoveryShortcut.combinedLabel(hold: hold, next: hold))
     }
 
+    func testMessageAndTipUseEqualSharedBodyInsets() throws {
+        _ = NSApplication.shared
+        for emphasized in [false, true] {
+            let message = MascotMessageView(title: "Trial status", message: "Get Pro to keep these features",
+                emphasizeMessage: emphasized)
+            let window = NSWindow(contentRect: .zero, styleMask: [], backing: .buffered, defer: false)
+            window.contentView = message
+            window.setContentSize(message.fittingSize)
+            message.layoutSubtreeIfNeeded()
+            let bubble = try XCTUnwrap(message.arrangedSubviews.last as? SpeechBubbleView)
+            let content = try XCTUnwrap(bubble.subviews.first)
+            XCTAssertEqual(content.frame.minX - 11, 18, accuracy: 0.5)
+            XCTAssertEqual(bubble.bounds.maxX - content.frame.maxX - 1, 18, accuracy: 0.5)
+            XCTAssertEqual(content.frame.minY - 1, 18, accuracy: 0.5)
+            XCTAssertEqual(bubble.bounds.maxY - content.frame.maxY - 1, 18, accuracy: 0.5)
+        }
+        let panel = SearchDiscoveryPanel()
+        _ = panel.prepare(shortcut: "S", spokenShortcut: "S", dark: false, highContrast: false, maxWidth: 560)
+        XCTAssertEqual(panel.hintLabel.alignmentRect(forFrame: panel.hintLabel.frame).minX - 11, 18)
+        XCTAssertEqual(panel.background.bounds.maxX - panel.hintLabel.alignmentRect(forFrame: panel.hintLabel.frame).maxX - 1, 18)
+        XCTAssertEqual(panel.hintLabel.frame.minY - 1, 18)
+        XCTAssertEqual(panel.background.bounds.maxY - panel.titleLabel.frame.maxY - 1, 18)
+    }
+
     func testBubbleTailHasOneClosedOutlineInBothDirections() {
         let bubble = SpeechBubbleView(frame: NSRect(x: 0, y: 0, width: 300, height: 90))
         for rtl in [false, true] {
@@ -370,8 +395,7 @@ final class SearchDiscoveryTests: XCTestCase {
         let host = NSView()
         background.addSubview(host)
         panel.setBackground(background, host: host)
-        let size = panel.prepare(shortcut: "S", spokenShortcut: "S", dark: true, highContrast: false, maxWidth: 470,
-                                 maxCornerRadius: 50)
+        let size = panel.prepare(shortcut: "S", spokenShortcut: "S", dark: true, highContrast: false, maxWidth: 470)
         XCTAssertTrue(background.superview === panel.contentView)
         XCTAssertTrue(panel.hintLabel.superview === host)
         XCTAssertTrue(panel.dismissButton.superview === host)
@@ -449,7 +473,7 @@ final class SearchDiscoveryTests: XCTestCase {
             snapshot.name = dark ? "Search hint - dark" : "Search hint - light"
             snapshot.lifetime = .keepAlways
             add(snapshot)
-            XCTAssertEqual(size.height, 76)
+            XCTAssertEqual(panel.background.bounds.maxY - panel.titleLabel.frame.maxY, panel.hintLabel.frame.minY)
         }
     }
 }

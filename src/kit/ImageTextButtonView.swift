@@ -69,7 +69,7 @@ class ImageTextButtonView: NSStackView {
         alignment = .centerX
         self.spacing = spacing
         translatesAutoresizingMaskIntoConstraints = false
-        makeButton(rawName, state, image, cornerRadius: cornerRadius)
+        makeButton(rawName, state, image, title: title, cornerRadius: cornerRadius)
         makeLabel(title)
         self.state = state
     }
@@ -78,7 +78,7 @@ class ImageTextButtonView: NSStackView {
         fatalError("Class only supports programmatic initialization")
     }
 
-    private func makeButton(_ rawName: String, _ state: NSControl.StateValue, _ image: WidthHeightImage,
+    private func makeButton(_ rawName: String, _ state: NSControl.StateValue, _ image: WidthHeightImage, title: String,
                             padding: CGFloat = ImageTextButtonView.padding,
                             cornerRadius: CGFloat = ImageTextButtonView.cornerRadius) {
         button = ImageButton(radioButtonWithTitle: "", target: nil, action: nil)
@@ -93,9 +93,7 @@ class ImageTextButtonView: NSStackView {
         // Create an NSView to contain the image and provide padding
         let imageContainer = NSView()
         imageContainer.translatesAutoresizingMaskIntoConstraints = false
-        // TODO: The appearance theme functionality has not been implemented yet.
-        // We will implement it later; for now, use the light theme.
-        let imageView = NSImageView(image: NSImage(named: image.name + "_light")!)
+        let imageView = LocalizedIllustrationView("settings-" + image.name.replacingOccurrences(of: "_", with: "-"))
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.imageScaling = .scaleProportionallyUpOrDown
         imageView.wantsLayer = true

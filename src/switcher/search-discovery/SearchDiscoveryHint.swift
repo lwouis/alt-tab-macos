@@ -204,7 +204,6 @@ final class SearchDiscoveryHint {
                                  dark: Appearance.currentTheme == .dark,
                                  highContrast: NSWorkspace.shared.accessibilityDisplayShouldIncreaseContrast,
                                  maxWidth: screen.visibleFrame.width - 16,
-                                 maxCornerRadius: Appearance.windowCornerRadius,
                                  title: offeredExtra?.title, instruction: offeredExtra?.instruction,
                                  holdKey: offeredExtra.map { (label: $0.holdLabel, spoken: $0.holdSpoken) })
         return SearchDiscoveryPolicy.frame(size: size, switcher: TilesPanel.shared.frame, visibleScreen: screen.visibleFrame)

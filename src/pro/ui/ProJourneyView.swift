@@ -119,13 +119,6 @@ final class ProJourneyView: NSStackView {
         fatalError("Class only supports programmatic initialization")
     }
 
-    /// Features the trial did not use say "With Pro" rather than claiming use that did not happen.
-    private func proTitle(_ feature: ProJourneyFeature) -> String {
-        evidence.used(feature)
-            ? NSLocalizedString("During your trial", comment: "")
-            : NSLocalizedString("With Pro", comment: "")
-    }
-
     private func render() {
         tabs.selectedSegment = ProJourneyFeature.allCases.firstIndex(of: selected)!
         for arrangedSubview in illustration.arrangedSubviews {
@@ -135,11 +128,7 @@ final class ProJourneyView: NSStackView {
         switch selected {
         case .search:
             heading.stringValue = NSLocalizedString("Find a window by typing", comment: "")
-            comparison(
-                column(proTitle(.search),
-                    image: ProJourneyArtwork(feature: "search-pro", height: 244, pro: true)),
-                column(NSLocalizedString("Without Pro", comment: ""),
-                    image: ProJourneyArtwork(feature: "search-free", height: 244)))
+            comparison("search-comparison", during: duringLabel(.search))
             if evidence.used(.search), let count = evidence.searches {
                 usage.stringValue = String(
                     format: NSLocalizedString("Searches started during your trial: %@", comment: ""),
@@ -152,15 +141,11 @@ final class ProJourneyView: NSStackView {
             heading.stringValue = style == .titles
                 ? NSLocalizedString("See your windows in a compact list", comment: "")
                 : NSLocalizedString("Recognize your apps at a glance", comment: "")
-            comparison(styleColumn(style, title: proTitle(.styles)),
-                styleColumn(.thumbnails, title: NSLocalizedString("Without Pro", comment: "")))
+            comparison(style == .appIcons ? "styles-app-icons-comparison" : "styles-titles-comparison",
+                during: duringLabel(.styles))
         case .shortcuts:
             heading.stringValue = NSLocalizedString("Choose which windows to switch between", comment: "")
-            comparison(
-                column(proTitle(.shortcuts),
-                    image: ProJourneyArtwork(feature: "shortcuts-pro", height: 244, pro: true)),
-                column(NSLocalizedString("Without Pro", comment: ""),
-                    image: ProJourneyArtwork(feature: "shortcuts-free", height: 244)))
+            comparison("shortcuts-comparison", during: duringLabel(.shortcuts))
             if evidence.used(.shortcuts), let count = evidence.extraShortcuts {
                 usage.stringValue = String(
                     format: NSLocalizedString("Extra shortcut uses during your trial: %@", comment: ""),
@@ -169,8 +154,7 @@ final class ProJourneyView: NSStackView {
             }
         case .autoSize:
             heading.stringValue = NSLocalizedString("Give your previews more room", comment: "")
-            comparison(autoColumn(fixed: false, title: proTitle(.autoSize)),
-                autoColumn(fixed: true, title: NSLocalizedString("Without Pro", comment: "")))
+            comparison("auto-size-comparison", during: duringLabel(.autoSize))
         }
         if !usage.stringValue.isEmpty {
             let attributed = NSMutableAttributedString(string: usage.stringValue,
@@ -273,203 +257,46 @@ final class ProJourneyView: NSStackView {
         return terms
     }
 
-    private func styleColumn(_ style: AppearanceStylePreference, title: String) -> NSStackView {
-        let feature: String
-        switch style {
-        case .thumbnails: feature = "thumbnails-pair"
-        case .appIcons: feature = "app-icons-comparison"
-        case .titles: feature = "titles-compact"
-        }
-        let image = ProJourneyArtwork(feature: feature, height: 244, pro: style != .thumbnails, caption: style.localizedString)
-        image.setAccessibilityLabel(style.localizedString)
-        return column(title, image: image)
+    /// The artwork's own Pro caption says "During your trial"; features the trial did not use say "With Pro".
+    private func duringLabel(_ feature: ProJourneyFeature) -> String? {
+        evidence.used(feature) ? nil : NSLocalizedString("With Pro", comment: "")
     }
 
-    /// The same artwork at two scales, so both sides show the same two windows.
-    private func autoColumn(fixed: Bool, title: String) -> NSStackView {
-        column(title, image: ProJourneyArtwork(feature: "thumbnails-pair", height: 244, scale: fixed ? 0.56 : 1, pro: !fixed,
-            caption: NSLocalizedString(fixed ? "Fixed size" : "Auto Size", comment: "")))
-    }
-
-    private func comparison(_ before: NSStackView, _ after: NSStackView) {
-        let arrow = NSImageView(image: NSImage(systemSymbolName:
-            userInterfaceLayoutDirection == .rightToLeft ? "arrow.left" : "arrow.right",
-            accessibilityDescription: nil)!)
-        arrow.contentTintColor = .secondaryLabelColor
-        arrow.setAccessibilityElement(false)
-        let slot = NSView()
-        slot.translatesAutoresizingMaskIntoConstraints = false
-        slot.addSubview(arrow)
-        arrow.translatesAutoresizingMaskIntoConstraints = false
-        for view in [before, slot, after] { illustration.addArrangedSubview(view) }
-        NSLayoutConstraint.activate([
-            slot.widthAnchor.constraint(equalToConstant: 24),
-            slot.heightAnchor.constraint(equalTo: before.heightAnchor),
-            arrow.centerXAnchor.constraint(equalTo: slot.centerXAnchor),
-            arrow.centerYAnchor.constraint(equalTo: before.arrangedSubviews.last!.centerYAnchor),
-        ])
-    }
-
-    private func column(_ title: String, image: NSView) -> NSStackView {
-        let label = NSTextField(wrappingLabelWithString: title)
-        label.font = .systemFont(ofSize: 13, weight: .semibold)
-        label.alignment = .center
-        let stack = NSStackView(views: [label, image])
-        stack.orientation = .vertical
-        stack.alignment = .leading
-        stack.spacing = 6
-        for item in [label, image] {
-            item.translatesAutoresizingMaskIntoConstraints = false
-            item.widthAnchor.constraint(equalTo: stack.widthAnchor).isActive = true
-        }
-        label.preferredMaxLayoutWidth = (contentWidth - 40) / 2
-        stack.widthAnchor.constraint(equalToConstant: (contentWidth - 40) / 2).isActive = true
-        return stack
+    private func comparison(_ artwork: String, during: String? = nil) {
+        let view = ProComparisonView(artwork,
+            overrides: during.map { ["comparison.during": $0] } ?? [:])
+        illustration.addArrangedSubview(view)
+        view.widthAnchor.constraint(equalToConstant: contentWidth).isActive = true
+        view.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 276 / 600).isActive = true
     }
 }
 
-/// Website scenes share one stationary desktop; only the switcher scales in comparisons.
-final class ProJourneyArtwork: NSView {
-    private let image: NSImage?
-    private let desktop = ProJourneyArtwork.loadSupplement("desktop")
-    private let feature: String
-    private let scale: CGFloat
-    private let caption: String?
-    private var proBadge: ProBadgeView?
-
-    init(feature: String, height: CGFloat, scale: CGFloat = 1, pro: Bool = false, caption: String? = nil) {
-        self.feature = feature
-        self.scale = scale
-        self.caption = caption
-        let source = ["search-pro": "search-match", "search-free": "thumbnails-pair",
-            "shortcuts-pro": "shortcuts-all", "shortcuts-free": "shortcuts-all"][feature] ?? feature
-        let path = Bundle.main.url(forResource: "\(source).en", withExtension: "svg", subdirectory: "pro-illustrations")
-        image = Self.loadSupplement(source) ?? path.flatMap { NSImage(contentsOf: $0) }
+/// The SVG contains the complete comparison; the app owns the native Pro badge.
+final class ProComparisonView: NSView {
+    init(_ artwork: String, overrides: [String: String] = [:]) {
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
-        heightAnchor.constraint(equalToConstant: height).isActive = true
-        if pro {
-            let badge = ProBadgeView()
-            addSubview(badge)
-            proBadge = badge
-            NSLayoutConstraint.activate([
-                badge.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
-                badge.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12),
-            ])
-        }
-        setAccessibilityElement(true)
-        setAccessibilityRole(.image)
-        let description: String
-        switch feature {
-        case "search", "search-pro": description = NSLocalizedString("Typing a title narrows the window list", comment: "")
-        case "search-free": description = NSLocalizedString("Two windows without a search field", comment: "")
-        case "shortcuts-pro": description = NSLocalizedString("Separate shortcuts for all windows and active app windows", comment: "")
-        case "shortcuts-free": description = NSLocalizedString("One shortcut for all windows", comment: "")
-        case "shortcuts-all": description = NSLocalizedString("Two Safari windows and one Notes window", comment: "")
-        case "shortcuts-safari": description = NSLocalizedString("Only the same two Safari windows", comment: "")
-        default: description = NSLocalizedString("The same two windows shown at different preview sizes", comment: "")
-        }
-        setAccessibilityLabel([description, caption].compactMap { $0 }.joined(separator: ": "))
-    }
-
-    private static func loadSupplement(_ feature: String) -> NSImage? {
-        guard ["desktop", "shortcuts-all", "shortcuts-safari", "search-results", "search-all", "titles-compact", "app-icons-comparison", "thumbnails-pair", "search-match"].contains(feature),
-            let url = Bundle.main.url(forResource: "\(feature).en", withExtension: "pdf",
-                subdirectory: "pro-illustrations") else { return nil }
-        return NSImage(contentsOf: url)
+        let image = LocalizedIllustrationView(artwork, overrides: overrides)
+        let badge = ProBadgeView()
+        let proPanel = NSLayoutGuide()
+        addLayoutGuide(proPanel)
+        addSubview(image)
+        addSubview(badge)
+        NSLayoutConstraint.activate([
+            image.leadingAnchor.constraint(equalTo: leadingAnchor),
+            image.trailingAnchor.constraint(equalTo: trailingAnchor),
+            image.topAnchor.constraint(equalTo: topAnchor),
+            image.bottomAnchor.constraint(equalTo: bottomAnchor),
+            proPanel.leftAnchor.constraint(equalTo: leftAnchor),
+            proPanel.widthAnchor.constraint(equalTo: widthAnchor, multiplier:
+                userInterfaceLayoutDirection == .rightToLeft ? 1 : 280 / 600),
+            badge.rightAnchor.constraint(equalTo: proPanel.rightAnchor, constant: -12),
+            badge.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12),
+        ])
     }
 
     @available(*, unavailable)
-    required init?(coder _: NSCoder) { fatalError("Class only supports programmatic initialization") }
-
-    override func draw(_: NSRect) {
-        NSGraphicsContext.saveGraphicsState()
-        defer { NSGraphicsContext.restoreGraphicsState() }
-        NSBezierPath(roundedRect: bounds, xRadius: 16, yRadius: 16).addClip()
-        NSColor(srgbRed: 0.11, green: 0.15, blue: 0.31, alpha: 1).setFill()
-        bounds.fill()
-        if let desktop {
-            let factor = max(bounds.width / desktop.size.width, bounds.height / desktop.size.height)
-            let size = NSSize(width: desktop.size.width * factor, height: desktop.size.height * factor)
-            desktop.draw(in: NSRect(x: bounds.midX - size.width / 2, y: bounds.midY - size.height / 2,
-                width: size.width, height: size.height))
-        }
-        proBadge?.layer?.backgroundColor = NSColor.windowBackgroundColor.cgColor
-        if feature.hasPrefix("search-") { drawSearch(); return }
-        if feature == "shortcuts-pro" || feature == "shortcuts-free" { drawShortcuts(); return }
-        if let caption {
-            drawLabel(caption, in: NSRect(x: 16, y: 32, width: bounds.width - 32, height: 22), size: 14)
-        }
-        guard let image else { return }
-        let inset = NSRect(x: 16, y: caption == nil ? 16 : 60, width: bounds.width - 32,
-            height: bounds.height - (caption == nil ? 32 : 120))
-        let referenceWidth = feature.hasPrefix("shortcuts-") ? 1128 : image.size.width
-        let factor = min(inset.width / referenceWidth, inset.height / image.size.height) * scale
-        let size = NSSize(width: image.size.width * factor, height: image.size.height * factor)
-        image.draw(in: NSRect(x: bounds.midX - size.width / 2, y: bounds.midY - size.height / 2,
-            width: size.width, height: size.height))
-    }
-
-    private func drawSearch() {
-        let content = bounds.insetBy(dx: 16, dy: 16)
-        let field = NSRect(x: content.minX, y: bounds.height - 64, width: content.width, height: 30)
-        if feature == "search-pro" {
-            NSColor.white.withAlphaComponent(0.14).setFill()
-            NSBezierPath(roundedRect: field, xRadius: 8, yRadius: 8).fill()
-            let query = NSAttributedString(string: "Japan",
-                attributes: [.font: NSFont.systemFont(ofSize: 13, weight: .medium), .foregroundColor: NSColor.white])
-            let start = field.midX - query.size().width / 2
-            NSImage(systemSymbolName: "magnifyingglass", accessibilityDescription: nil)?
-                .withSymbolConfiguration(.init(paletteColors: [.white]))?.draw(
-                in: NSRect(x: start - 20, y: field.midY - 7, width: 14, height: 14))
-            query.draw(at: NSPoint(x: start, y: field.midY - query.size().height / 2))
-        }
-        if let image {
-            let factor = min(content.width / image.size.width, (field.minY - 72) / image.size.height)
-            let size = NSSize(width: image.size.width * factor, height: image.size.height * factor)
-            image.draw(in: NSRect(x: bounds.midX - size.width / 2, y: field.minY - 12 - size.height,
-                width: size.width, height: size.height))
-        }
-        drawLabel(feature == "search-pro" ? NSLocalizedString("1 matching window", comment: "")
-            : NSLocalizedString("2 windows to browse", comment: ""),
-            in: NSRect(x: content.minX, y: 35, width: content.width, height: 18), size: 11)
-    }
-
-    private func drawShortcuts() {
-        let labels = [NSLocalizedString("All Windows", comment: ""), NSLocalizedString("Active App Only", comment: ""),
-            String(format: NSLocalizedString("Up to %d shortcuts", comment: ""), Preferences.maxShortcutCount)]
-        let font = NSFont.systemFont(ofSize: 12, weight: .medium)
-        let keycaps = ["⌥⇥", "⌥`"].map { SearchDiscoveryPanel.keycap($0, dark: false, highContrast: false) }
-        let keyWidth = keycaps.map { $0.size.width }.max()!
-        let labelWidth = labels.map { ($0 as NSString).size(withAttributes: [.font: font]).width }.max()!
-        let width = min(bounds.width - 32, keyWidth + 10 + ceil(labelWidth))
-        let start = bounds.midX - width / 2
-        let paragraph = NSMutableParagraphStyle()
-        paragraph.lineBreakMode = .byWordWrapping
-        for index in 0 ..< (feature == "shortcuts-pro" ? 3 : 1) {
-            let center = bounds.height - 78 - CGFloat(index) * 56
-            if index < keycaps.count {
-                let keys = keycaps[index]
-                keys.draw(in: NSRect(x: start + (keyWidth - keys.size.width) / 2, y: center - 12,
-                    width: keys.size.width, height: 24))
-            }
-            let text = NSAttributedString(string: labels[index],
-                attributes: [.font: font, .foregroundColor: NSColor.white, .paragraphStyle: paragraph])
-            let availableWidth = max(1, width - keyWidth - 10)
-            let height = ceil(text.boundingRect(with: NSSize(width: availableWidth, height: 1000),
-                options: .usesLineFragmentOrigin).height)
-            text.draw(in: NSRect(x: start + keyWidth + 10, y: center - height / 2, width: availableWidth, height: height))
-        }
-    }
-
-    private func drawLabel(_ text: String, in rect: NSRect, size: CGFloat = 13) {
-        let paragraph = NSMutableParagraphStyle()
-        paragraph.lineBreakMode = .byWordWrapping
-        paragraph.alignment = .center
-        (text as NSString).draw(in: rect, withAttributes: [.font: NSFont.systemFont(ofSize: size, weight: .medium),
-            .foregroundColor: NSColor.white, .paragraphStyle: paragraph])
-    }
-
+    required init?(coder: NSCoder) { fatalError("Class only supports programmatic initialization") }
 }
 
 final class ProJourneyCard: NSView {

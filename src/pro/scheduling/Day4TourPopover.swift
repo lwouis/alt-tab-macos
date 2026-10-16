@@ -22,37 +22,28 @@ class Day4TourPopover {
     }
 
     static func makeContent(select: @escaping (AppearanceStylePreference) -> Void) -> NSView {
+        let choices = AppearanceStylePreference.allCases.map { style in
+            (style, ProPromptButtons.makePrimary(buttonTitle(style)) { select(style) })
+        }
+        let cardWidth = max(164, (choices.map { $0.1.intrinsicContentSize.width }.max() ?? 164).rounded(.up))
         let cards = NSStackView()
         cards.translatesAutoresizingMaskIntoConstraints = false
         cards.orientation = .horizontal
         cards.distribution = .fillEqually
         cards.spacing = 12
-        for style in AppearanceStylePreference.allCases {
-            let image = NSImageView()
-            image.image =
-                IllustratedImageThemeView.loadIllustration(IllustratedImageThemeView.getConcatenatedImageName(
-                    style,
-                    "light"
-                ))
+        for (style, button) in choices {
+            let image = LocalizedIllustrationView("settings-" + style.image.name.replacingOccurrences(of: "_", with: "-"))
             image.imageScaling = .scaleProportionallyUpOrDown
             image.translatesAutoresizingMaskIntoConstraints = false
-            image.heightAnchor.constraint(equalToConstant: 108).isActive = true
-            image.widthAnchor.constraint(equalToConstant: 164).isActive = true
-            image.setAccessibilityLabel(style.localizedString)
-            let title: String
-            switch style {
-            case .thumbnails: title = NSLocalizedString("Keep Thumbnails", comment: "")
-            case .appIcons: title = NSLocalizedString("Use App Icons", comment: "")
-            case .titles: title = NSLocalizedString("Use Titles", comment: "")
-            }
-            let button = ProPromptButtons.makePrimary(title) { select(style) }
+            image.heightAnchor.constraint(equalToConstant: cardWidth * 108 / 164).isActive = true
+            image.widthAnchor.constraint(equalToConstant: cardWidth).isActive = true
             let card = NSStackView(views: [image, button])
             button.widthAnchor.constraint(equalTo: image.widthAnchor).isActive = true
             card.orientation = .vertical
             card.spacing = 10
             cards.addArrangedSubview(card)
             if style == .thumbnails {
-                cards.setCustomSpacing(24, after: card)
+                cards.setCustomSpacing(40, after: card)
                 let separator = NSBox()
                 separator.boxType = .separator
                 separator.translatesAutoresizingMaskIntoConstraints = false
@@ -60,23 +51,32 @@ class Day4TourPopover {
                 cards.addSubview(separator)
                 NSLayoutConstraint.activate([
                     separator.widthAnchor.constraint(equalToConstant: 1),
-                    separator.centerXAnchor.constraint(equalTo: card.trailingAnchor, constant: 12),
-                    separator.topAnchor.constraint(equalTo: card.topAnchor, constant: 8),
-                    separator.bottomAnchor.constraint(equalTo: card.bottomAnchor, constant: -8),
+                    separator.centerXAnchor.constraint(equalTo: card.trailingAnchor, constant: 20),
+                    separator.topAnchor.constraint(equalTo: card.topAnchor, constant: 20),
+                    separator.bottomAnchor.constraint(equalTo: card.bottomAnchor, constant: -20),
                 ])
             }
         }
+        let width = cardWidth * CGFloat(choices.count) + 40 + cards.spacing + 2 * ProPromptPopover.padding
         let title = ProPromptPopover.makeTitle(NSLocalizedString("Try a different window style", comment: ""))
         title.font = .systemFont(ofSize: 15, weight: .semibold)
-        let detail = NSTextField(wrappingLabelWithString: NSLocalizedString("You can change it anytime in Settings.", comment: ""))
+        let detail = NSTextField(wrappingLabelWithString: NSLocalizedString("You can change it anytime in Settings", comment: ""))
         detail.textColor = .secondaryLabelColor
         detail.isSelectable = false
         detail.translatesAutoresizingMaskIntoConstraints = false
-        detail.preferredMaxLayoutWidth = 528
-        return ProPromptPopover.makeContainer(width: 560, [
+        detail.preferredMaxLayoutWidth = width - 2 * ProPromptPopover.padding
+        return ProPromptPopover.makeContainer(width: width, [
             .init(view: title, gapAbove: 0, width: .full),
             .init(view: detail, gapAbove: 6, width: .full),
             .init(view: cards, gapAbove: 16, width: .full),
         ])
+    }
+
+    private static func buttonTitle(_ style: AppearanceStylePreference) -> String {
+        switch style {
+        case .thumbnails: return NSLocalizedString("Keep Thumbnails", comment: "")
+        case .appIcons: return NSLocalizedString("Use App Icons", comment: "")
+        case .titles: return NSLocalizedString("Use Titles", comment: "")
+        }
     }
 }

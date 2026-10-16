@@ -67,3 +67,6 @@ cue, and the window's only exit was the red close button — which quit the app 
 - `testOnlySkippedScreenRecordingOffersGrant` — a granted or pending Screen Recording, or the Accessibility card, never offers it.
 - `testSkippedScreenRecordingWaitsForAccessibility` — Accessibility missing → the skipped card offers nothing.
 - `testPrimaryActionGrantsUntilCompleteThenCloses` — the main button grants while a step is live and closes once complete.
+
+The completed Screen Recording badge uses the same orange as “Skipped” when waived;
+allowed permissions retain green checkmarks.

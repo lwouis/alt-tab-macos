@@ -85,7 +85,7 @@ class PermissionView: NSView {
     func update(_ state: PermissionFlow.StepState, _ permissionStatus: PermissionStatus, offersGrantAfterSkip: Bool) {
         self.state = state
         grantAfterSkip.isHidden = !offersGrantAfterSkip
-        badge.update(state)
+        badge.update(state, skipped: permissionStatus == .skipped)
         let isLive = state == .live
         [justification, illustration].forEach { $0.isHidden = !isLive }
         // Deactivate before activating: for a moment both would be active, which AppKit reports as a conflict
@@ -133,6 +133,7 @@ class PermissionView: NSView {
 private class PermissionStepBadge: NSView {
     private let label = NSTextField(labelWithString: "")
     private let stepNumber: Int
+    private var skipped = false
     private var state = PermissionFlow.StepState.upcoming
 
     init(_ stepNumber: Int) {
@@ -158,8 +159,9 @@ private class PermissionStepBadge: NSView {
         fatalError("Class only supports programmatic initialization")
     }
 
-    func update(_ state: PermissionFlow.StepState) {
+    func update(_ state: PermissionFlow.StepState, skipped: Bool) {
         self.state = state
+        self.skipped = skipped
         label.stringValue = state == .done ? "✓" : String(stepNumber)
         needsDisplay = true
     }
@@ -174,7 +176,7 @@ private class PermissionStepBadge: NSView {
     override func updateLayer() {
         withDrawingAppearance {
             switch state {
-                case .done: layer!.backgroundColor = NSColor.systemGreen.cgColor
+                case .done: layer!.backgroundColor = (skipped ? NSColor.systemOrange : .systemGreen).cgColor
                 case .live: layer!.backgroundColor = NSColor.controlAccentColor.cgColor
                 case .upcoming: layer!.backgroundColor = NSColor.tertiaryLabelColor.cgColor
             }

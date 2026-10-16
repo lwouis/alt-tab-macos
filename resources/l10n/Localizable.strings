@@ -5,12 +5,6 @@
 "%@ — last seen %@" = "%1$@ — last seen %2$@";
 
 /* No comment provided by engineer. */
-"1 matching window" = "1 matching window";
-
-/* No comment provided by engineer. */
-"2 windows to browse" = "2 windows to browse";
-
-/* No comment provided by engineer. */
 "3-finger Horizontal Swipe" = "3-finger Horizontal Swipe";
 
 /* No comment provided by engineer. */
@@ -47,9 +41,6 @@
 "Active app" = "Active app";
 
 /* No comment provided by engineer. */
-"Active App Only" = "Active App Only";
-
-/* No comment provided by engineer. */
 "Active screen" = "Active screen";
 
 /* No comment provided by engineer. */
@@ -81,9 +72,6 @@
 
 /* No comment provided by engineer. */
 "All Spaces" = "All Spaces";
-
-/* No comment provided by engineer. */
-"All Windows" = "All Windows";
 
 /* No comment provided by engineer. */
 "Allowed" = "Allowed";
@@ -137,9 +125,6 @@
 "Animations…" = "Animations…";
 
 /* No comment provided by engineer. */
-"App Icons" = "App Icons";
-
-/* No comment provided by engineer. */
 "App Icons & Titles styles" = "App Icons & Titles styles";
 
 /* No comment provided by engineer. */
@@ -177,9 +162,6 @@
 
 /* No comment provided by engineer. */
 "Auto" = "Auto";
-
-/* No comment provided by engineer. */
-"Auto Size" = "Auto Size";
 
 /* No comment provided by engineer. */
 "Auto Size — larger previews with few windows, more at once with many" = "Auto Size — larger previews with few windows, more at once with many";
@@ -315,9 +297,6 @@
 
 /* No comment provided by engineer. */
 "Don’t send" = "Don’t send";
-
-/* No comment provided by engineer. */
-"During your trial" = "During your trial";
 
 /* No comment provided by engineer. */
 "e.g. com.example.app" = "e.g. com.example.app";
@@ -548,17 +527,11 @@
 /* No comment provided by engineer. */
 "OK" = "OK";
 
-/* No comment provided by engineer. */
-"One shortcut for all windows" = "One shortcut for all windows";
-
 /* Purchase terms shown before opening the website */
 "One-time purchase" = "One-time purchase";
 
 /* No comment provided by engineer. */
 "Only on different screen" = "Only on different screen";
-
-/* No comment provided by engineer. */
-"Only the same two Safari windows" = "Only the same two Safari windows";
 
 /* No comment provided by engineer. */
 "Open Trackpad Settings…" = "Open Trackpad Settings…";
@@ -591,7 +564,7 @@
 "Press %@" = "Press %@";
 
 /* Onboarding popover, once the shortcut was used; %@ is the keyboard shortcut */
-"Press %@ any time." = "Press %@ any time.";
+"Press %@ any time" = "Press %@ any time";
 
 /* No comment provided by engineer. */
 "Preview selected window" = "Preview selected window";
@@ -706,9 +679,6 @@
 
 /* No comment provided by engineer. */
 "Sending…" = "Sending…";
-
-/* No comment provided by engineer. */
-"Separate shortcuts for all windows and active app windows" = "Separate shortcuts for all windows and active app windows";
 
 /* No comment provided by engineer. */
 "Settings imported" = "Settings imported";
@@ -837,9 +807,6 @@
 "The application needs to restart to apply the language change." = "The application needs to restart to apply the language change.";
 
 /* No comment provided by engineer. */
-"The same two windows shown at different preview sizes" = "The same two windows shown at different preview sizes";
-
-/* No comment provided by engineer. */
 "The server didn't accept the submission. Check your internet connection and try again — your draft is preserved." = "The server didn't accept the submission. Check your internet connection and try again — your draft is preserved.";
 
 /* No comment provided by engineer. */
@@ -857,17 +824,11 @@
 /* LetsMove replacement alert */
 "This will keep your Downloads folder uncluttered." = "This will keep your Downloads folder uncluttered.";
 
-/* No comment provided by engineer. */
-"Thumbnails" = "Thumbnails";
-
 /* Menubar callout subject */
 "Thumbnails and window previews" = "Thumbnails and window previews";
 
 /* No comment provided by engineer. */
 "Title truncation" = "Title truncation";
-
-/* No comment provided by engineer. */
-"Titles" = "Titles";
 
 /* No comment provided by engineer. */
 "Trackpad haptic feedback" = "Trackpad haptic feedback";
@@ -891,15 +852,6 @@
 "Try it right now" = "Try it right now";
 
 /* No comment provided by engineer. */
-"Two Safari windows and one Notes window" = "Two Safari windows and one Notes window";
-
-/* No comment provided by engineer. */
-"Two windows without a search field" = "Two windows without a search field";
-
-/* No comment provided by engineer. */
-"Typing a title narrows the window list" = "Typing a title narrows the window list";
-
-/* No comment provided by engineer. */
 "Unassign existing shortcut and continue" = "Unassign existing shortcut and continue";
 
 /* No comment provided by engineer. */
@@ -919,9 +871,6 @@
 
 /* No comment provided by engineer. */
 "Unlock the Titles style with Pro" = "Unlock the Titles style with Pro";
-
-/* No comment provided by engineer. */
-"Up to %d shortcuts" = "Up to %d shortcuts";
 
 /* No comment provided by engineer. */
 "Up to 9 keyboard shortcuts" = "Up to 9 keyboard shortcuts";
@@ -1011,10 +960,7 @@
 "With Pro" = "With Pro";
 
 /* No comment provided by engineer. */
-"Without Pro" = "Without Pro";
-
-/* No comment provided by engineer. */
-"You can change it anytime in Settings." = "You can change it anytime in Settings.";
+"You can change it anytime in Settings" = "You can change it anytime in Settings";
 
 /* No comment provided by engineer. */
 "You can’t undo this action." = "You can’t undo this action.";
@@ -1039,3 +985,144 @@
 
 /* No comment provided by engineer. */
 "Your settings reset every time AltTab restarts." = "Your settings reset every time AltTab restarts.";
+
+/* Illustration: space.number.1 */
+"1" = "1";
+
+/* Illustration: search.browse */
+"12 windows to browse" = "12 windows to browse";
+
+/* Illustration: space.number.2 */
+"2" = "2";
+
+/* Illustration: search.match */
+"2 matching windows" = "2 matching windows";
+
+/* Illustration: space.number.3 */
+"3" = "3";
+
+/* Illustration: key.` */
+"`" = "`";
+
+/* Illustration: page.recipe1 */
+"A little time." = "A little time.";
+
+/* Illustration: shortcut.active */
+"Active App Only" = "Active App Only";
+
+/* Illustration: shortcut.all */
+"All Windows" = "All Windows";
+
+/* Illustration: style.app-icons */
+"App Icons" = "App Icons";
+
+/* Illustration: size.auto */
+"Auto Size" = "Auto Size";
+
+/* Illustration: window.breakfast */
+"Breakfast" = "Breakfast";
+
+/* Illustration: window.dinner */
+"Dinner" = "Dinner";
+
+/* Illustration: comparison.during */
+"During your trial" = "During your trial";
+
+/* Illustration: size.fixed */
+"Fixed size" = "Fixed size";
+
+/* Illustration: window.ideas */
+"Ideas" = "Ideas";
+
+/* Illustration: search.query, window.japan */
+"Japan" = "Japan";
+
+/* Illustration: page.japan, window.japan */
+"Japan itinerary" = "Japan itinerary";
+
+/* Illustration: page.japan-plans, window.japan-plans */
+"Japan plans" = "Japan plans";
+
+/* Illustration: page.japan, window.japan, window.japan-trip */
+"Japan trip" = "Japan trip";
+
+/* Illustration: window.lunch */
+"Lunch" = "Lunch";
+
+/* Illustration: app.notes, window.checklist */
+"Notes" = "Notes";
+
+/* Illustration: window.checklist */
+"Notes — List" = "Notes — List";
+
+/* Illustration: shortcut.free-count */
+"Only 1 shortcut" = "Only 1 shortcut";
+
+/* Illustration: key.option */
+"option" = "option";
+
+/* Illustration: window.photos */
+"Photos" = "Photos";
+
+/* Illustration: window.reading */
+"Reading" = "Reading";
+
+/* Illustration: window.recipes */
+"Recipes" = "Recipes";
+
+/* Illustration: app.safari, window.japan, window.recipes */
+"Safari" = "Safari";
+
+/* Illustration: window.recipes */
+"Safari — Food" = "Safari — Food";
+
+/* Illustration: window.japan */
+"Safari — Trip" = "Safari — Trip";
+
+/* Illustration: window.shopping */
+"Shopping" = "Shopping";
+
+/* Illustration: page.recipe2 */
+"Something good." = "Something good.";
+
+/* Illustration: key.tab */
+"tab" = "tab";
+
+/* Illustration: style.thumbnails */
+"Thumbnails" = "Thumbnails";
+
+/* Illustration: style.titles */
+"Titles" = "Titles";
+
+/* Illustration: page.route */
+"Tokyo · Hakone · Kyoto" = "Tokyo · Hakone · Kyoto";
+
+/* Illustration: window.checklist */
+"Trip checklist" = "Trip checklist";
+
+/* Illustration: window.checklist */
+"Trip list" = "Trip list";
+
+/* Illustration: shortcut.count */
+"Up to 9 shortcuts" = "Up to 9 shortcuts";
+
+/* Illustration: window.weekend */
+"Weekend" = "Weekend";
+
+/* Illustration: window.recipes */
+"Weekend recipes" = "Weekend recipes";
+
+/* Illustration: comparison.without */
+"Without Pro" = "Without Pro";
+
+/* Illustration: window.work */
+"Work" = "Work";
+
+/* Illustration: key.glyph.` */
+"~" = "~";
+
+/* Illustration: key.glyph.tab */
+"⇥" = "⇥";
+
+/* Illustration: key.glyph.option */
+"⌥" = "⌥";
