@@ -16,6 +16,8 @@ giving either source universal authority.
    `AXDialog` and its sidebar as `AXStandardWindow`, the same subroles every ordinary AppKit window carries.
    The gate binds exact attention too, because an app key-focuses its own HUD through `kAXFocusedWindow`
    exactly as a real window does, so gating only discovery would delay the surface by one focus event.
+   Below the ordinary level is the desktop's layer, and nothing vouches for a surface there, not even
+   `kAXMain`: QSpace Pro's replacement desktop is marked main once an icon on it is selected (#6125).
 4. Exact attention makes a parentless, admissibly-placed surface a destination even when AX is absent or
    unconventional, but it cannot override an auxiliary subrole or a role that is not a window. It never
    refuses what discovery admits: Emacs 29.4 reports its frames as role `AXTextField` with subrole

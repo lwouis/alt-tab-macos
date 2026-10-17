@@ -136,7 +136,7 @@ final class WindowAdmissionResolverTests: XCTestCase {
             evidence: .attention), .destination(.exactAttention))
     }
 
-    func testMainWindowAcceptsUnknownSubroleAtAnyLevel() {
+    func testMainWindowAcceptsUnknownSubroleAboveTheOrdinaryLevel() {
         let s = semantic(title: nil, subrole: kAXUnknownSubrole, isMain: true)
         XCTAssertEqual(WindowAdmissionResolver.resolve(physical(width: 1, height: 1, level: 3), s),
             .destination(.mainWindow))
@@ -178,6 +178,16 @@ final class WindowAdmissionResolverTests: XCTestCase {
     func testFloatingMainWindowKeepsItsPlace() {
         XCTAssertEqual(WindowAdmissionResolver.resolve(physical(level: 3), semantic(isMain: true)),
             .destination(.mainWindow))
+    }
+
+    /// QSpace Pro 7.0.4's replacement desktop with an icon selected and no other QSpace window open: 1280x832
+    /// at level -2147483623, `AXWindow`/`AXUnknown`, empty title, `AXMain` true (measured on macOS 27, #6125).
+    func testMainWindowBelowTheOrdinaryLevelIsNotADestination() {
+        let desktop = physical(width: 1280, height: 832, level: -2147483623)
+        let s = semantic(title: "", subrole: kAXUnknownSubrole, isMain: true)
+        XCTAssertEqual(WindowAdmissionResolver.resolve(desktop, s), .reject(.auxiliarySurface))
+        XCTAssertEqual(WindowAdmissionResolver.resolve(desktop, s, evidence: .attention), .reject(.auxiliarySurface))
+        XCTAssertEqual(WindowAdmissionResolver.resolve(desktop, nil, evidence: .attention), .reject(.auxiliarySurface))
     }
 
     /// Covering the screen is the other positive vouch: the user is already there, whatever level the

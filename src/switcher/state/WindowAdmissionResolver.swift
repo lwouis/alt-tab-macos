@@ -153,8 +153,15 @@ enum WindowAdmissionResolver {
     ///
     /// Covering the screen is the other positive vouch: a fullscreen surface is where the user already is,
     /// whatever level the WindowServer parks it at.
+    ///
+    /// **Below the ordinary level, nothing vouches.** That is the desktop's layer: the wallpaper and the
+    /// desktop icons. QSpace Pro 7.0.4 draws its own desktop there, a screen-sized `AXWindow` with subrole
+    /// `AXUnknown` and no title at the desktop level, and once an icon on it is selected and no other
+    /// QSpace window is open, AppKit makes it the app's main window: `AXMain` true (measured on macOS 27,
+    /// #6125). A replacement desktop is not somewhere to switch to.
     private static func admissiblePlacement(_ physical: PhysicalSurface, _ semantic: SemanticSurface?) -> Bool {
-        physical.level == normalLevel || physical.isFullscreen || semantic?.isMain == true
+        guard physical.level >= normalLevel else { return false }
+        return physical.level == normalLevel || physical.isFullscreen || semantic?.isMain == true
     }
 
     /// **Exact attention fills a silence; it does not overrule an answer.** Both channels that reach here read
