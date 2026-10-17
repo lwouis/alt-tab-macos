@@ -114,4 +114,48 @@ final class WindowSurfaceInventoryTests: XCTestCase {
         XCTAssertNil(WindowSurfaceInventory.raw(1))
         XCTAssertNotNil(WindowSurfaceInventory.raw(2))
     }
+
+    private func surface(_ wid: CGWindowID, _ bounds: CGRect, pid: pid_t = 7, parent: CGWindowID = 0,
+                         visible: Bool = true) -> WsRawWindow {
+        WsRawWindow(wid: wid, pid: pid, attributes: visible ? WsWindowState.visibleAttribute : 0, level: 0,
+                    spaceTypeMask: 0, title: "", parentWid: parent, bounds: bounds)
+    }
+
+    private let textEditFrame = CGRect(x: 146, y: 72, width: 389, height: 188)
+
+    /// The measured case: a small TextEdit window whose Save sheet hangs below it.
+    func testSheetHangingPastTheWindowGrowsTheCaptureArea() {
+        let sheet = surface(2, CGRect(x: 146, y: 140, width: 390, height: 218), parent: 1)
+        XCTAssertEqual(CaptureArea.bounds(textEditFrame, 1, 7, [sheet]), CGRect(x: 146, y: 72, width: 390, height: 286))
+    }
+
+    func testSheetInsideTheWindowLeavesTheCaptureAreaAlone() {
+        let sheet = surface(2, CGRect(x: 160, y: 100, width: 300, height: 120), parent: 1)
+        XCTAssertEqual(CaptureArea.bounds(textEditFrame, 1, 7, [sheet]), textEditFrame)
+    }
+
+    func testOrderedOutSheetIsNotInTheCaptureArea() {
+        let sheet = surface(2, CGRect(x: 146, y: 140, width: 390, height: 218), parent: 1, visible: false)
+        XCTAssertEqual(CaptureArea.bounds(textEditFrame, 1, 7, [sheet]), textEditFrame)
+    }
+
+    func testChildOfAChildIsInTheCaptureArea() {
+        let sheet = surface(2, CGRect(x: 146, y: 100, width: 389, height: 100), parent: 1)
+        let nested = surface(3, CGRect(x: 146, y: 150, width: 389, height: 200), parent: 2)
+        XCTAssertEqual(CaptureArea.bounds(textEditFrame, 1, 7, [nested, sheet]).maxY, 350)
+    }
+
+    func testOtherWindowsAndTheirChildrenAreNotInTheCaptureArea() {
+        let otherWindow = surface(4, CGRect(x: 0, y: 0, width: 800, height: 600))
+        let otherSheet = surface(5, CGRect(x: 0, y: 500, width: 800, height: 400), parent: 4)
+        XCTAssertEqual(CaptureArea.bounds(textEditFrame, 1, 7, [otherWindow, otherSheet]), textEditFrame)
+    }
+
+    func testCrossProcessOrCyclicChainsAreNotInTheCaptureArea() {
+        let foreign = surface(2, CGRect(x: 146, y: 100, width: 389, height: 500), pid: 8, parent: 1)
+        let childOfForeign = surface(3, CGRect(x: 146, y: 150, width: 389, height: 500), parent: 2)
+        let cycleA = surface(6, CGRect(x: 146, y: 150, width: 389, height: 500), parent: 7)
+        let cycleB = surface(7, CGRect(x: 146, y: 150, width: 389, height: 500), parent: 6)
+        XCTAssertEqual(CaptureArea.bounds(textEditFrame, 1, 7, [foreign, childOfForeign, cycleA, cycleB]), textEditFrame)
+    }
 }

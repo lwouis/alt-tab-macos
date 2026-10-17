@@ -209,6 +209,7 @@ class TrackedWindowStateBridge {
             case .copyThumbnail(let from, let to):
                 if let src = Windows.byWindowId[from], let dst = Windows.byWindowId[to], dst.thumbnail == nil {
                     dst.thumbnail = src.thumbnail
+                    dst.capturedArea = src.capturedArea
                 }
             case .scheduleHoldReleaseCheck(let wid, let attempt):
                 WindowServerEvents.armHoldReleaseCheck(wid, attempt: attempt)

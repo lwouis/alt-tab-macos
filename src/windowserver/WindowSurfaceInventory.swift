@@ -59,6 +59,28 @@ struct WindowParentChain {
     }
 }
 
+/// The screen area a ScreenCaptureKit capture of a window covers. The capture draws the window's child
+/// windows too (`SCStreamConfiguration.includeChildWindows` defaults to true), so a sheet hanging past the
+/// window's edge makes the area larger than the window's own frame. Measured on macOS 27: a 389x188 TextEdit
+/// window with a 390x218 Save sheet captured as 390x286, the exact union of the two frames. Asked for at the
+/// window's own shape, the capture comes back with the picture shrunk to fit and empty pixels beside it.
+enum CaptureArea {
+    static func bounds(_ windowFrame: CGRect, _ wid: CGWindowID, _ pid: pid_t, _ surfaces: [WsRawWindow]) -> CGRect {
+        let byWid = Dictionary(surfaces.map { ($0.wid, $0) }, uniquingKeysWith: { first, _ in first })
+        return surfaces.reduce(windowFrame) { area, surface in
+            isDrawnWith(surface, wid, pid, byWid) ? area.union(surface.bounds) : area
+        }
+    }
+
+    /// A visible same-process descendant of `wid`. `wid` itself is never fetched, so the chain stops as
+    /// `.missing` right where it reaches it.
+    private static func isDrawnWith(_ surface: WsRawWindow, _ wid: CGWindowID, _ pid: pid_t, _ byWid: [CGWindowID: WsRawWindow]) -> Bool {
+        guard surface.wid != wid, surface.pid == pid, WsWindowState.isVisible(surface), !surface.bounds.isEmpty else { return false }
+        let chain = WindowParentChain.resolve(surface.wid) { $0 == wid ? nil : byWid[$0] }
+        return chain.stop == .missing && chain.rows.last?.parentWid == wid
+    }
+}
+
 /// Main-thread inventory of every WindowServer surface from the latest all-Space snapshot. Keeping this
 /// separate from `Windows.byWindowId` is essential: a physical background-tab row is not yet a tracked
 /// switch destination and must not prevent inactive-tab AX adoption from looking for it.

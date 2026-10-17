@@ -39,6 +39,7 @@ class Windows {
         let focusedAt: TimeInterval
         let creationOrder: Int
         let thumbnail: CALayerContents?
+        let capturedArea: CGRect?
         let groupMembers: [CGWindowID]
         let groupRepresentative: CGWindowID?
         let wasFocusedWindow: Bool
@@ -795,7 +796,7 @@ class Windows {
         let representative = TabGroups.groupId(of: wid).flatMap { TabGroups.representativeByGroup[$0] }
         surfaceRetirements.append(SurfaceRetirement(oldWid: wid, pid: window.application.pid,
             element: element, expiresAt: now + 2, focusedAt: window.focusedAt,
-            creationOrder: window.creationOrder, thumbnail: window.thumbnail, groupMembers: members,
+            creationOrder: window.creationOrder, thumbnail: window.thumbnail, capturedArea: window.capturedArea, groupMembers: members,
             groupRepresentative: representative,
             wasFocusedWindow: window.application.focusedWindow === window))
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
@@ -818,6 +819,7 @@ class Windows {
         window.focusedAt = retirement.focusedAt
         window.creationOrder = retirement.creationOrder
         window.thumbnail = retirement.thumbnail
+        window.capturedArea = retirement.capturedArea
         let newerFocusExists = list.contains { $0 !== window && $0.focusedAt > retirement.focusedAt }
         let restoreFocus = retirement.wasFocusedWindow && !newerFocusExists
             && window.application.focusedWindow == nil

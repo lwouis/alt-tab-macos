@@ -39,6 +39,15 @@ class Window {
     var axStatus = AxSemanticStatus.axVerified
     /// The pixels are shell-owned; `tracked.hasThumbnail` is the reducer's view of them, so it mirrors this.
     var thumbnail: CALayerContents? { didSet { tracked.hasThumbnail = thumbnail != nil } }
+    /// The screen area `thumbnail` shows, when its capture reported one (`CaptureArea`): a sheet hanging past
+    /// the window makes it larger than `frame`. Read `thumbnailArea`, which falls back to the frame.
+    var capturedArea: CGRect?
+    var thumbnailArea: CGRect? { capturedArea ?? frame }
+    /// top-left global, like `position`
+    var frame: CGRect? {
+        guard let position = self.position, let size = self.size else { return nil }
+        return CGRect(origin: position, size: size)
+    }
     var icon: CGImage? { get { application.icon } }
     var shouldShowTheUser = true
     /// DERIVED from the `TabGroups` registry (the single owner of group membership): the ordered members of
@@ -233,16 +242,17 @@ class Window {
         WindowElementAcquisition.element(for: wid, pid: pid, route: .otherSpaceViaBruteForce)
     }
 
-    func refreshThumbnail(_ screenshot: CALayerContents) {
+    func refreshThumbnail(_ screenshot: CALayerContents, _ area: CGRect?) {
         // a frame the OS drew mid-animation is much smaller than this window: keep the previous thumbnail,
         // stale but correct, while another capture is asked for (`WindowThumbnails.acceptCapture`)
         guard WindowThumbnails.acceptCapture(self, screenshot) else { return }
         thumbnail = screenshot
+        capturedArea = area
         if !SwitcherSession.isActive || !shouldShowTheUser { return }
-        if let position = self.position, let size = self.size,
+        if let shownArea = thumbnailArea,
            let view = (TilesView.recycledViews.first { $0.window_?.cgWindowId == cgWindowId }) {
             if !view.thumbnail.isHidden {
-                let thumbnailSize = TileView.thumbnailSize(size, false)
+                let thumbnailSize = TileView.thumbnailSize(shownArea.size, false)
                 let newSize = thumbnailSize.width != view.thumbnail.frame.width || thumbnailSize.height != view.thumbnail.frame.height
                 view.thumbnail.updateContents(screenshot, thumbnailSize)
                 // if the thumbnail size has changed, we need to refresh the open UI
@@ -253,7 +263,7 @@ class Window {
             // a thumbnail-scale refresh must not downgrade the sharp full-res frame the Preview may be
             // showing; the thumbnail only serves as the instant placeholder before the full-res fetch lands
             if cgWindowId.flatMap({ SwitcherSession.current?.hasPreviewFrame($0) }) != true {
-                PreviewPanel.updateIfShowing(cgWindowId, screenshot, position, size)
+                PreviewPanel.updateIfShowing(cgWindowId, screenshot, shownArea)
             }
         }
     }

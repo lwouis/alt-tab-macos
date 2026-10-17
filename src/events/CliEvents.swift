@@ -334,6 +334,7 @@ class CliServer {
                 appIconHeight: view.appIcon.frame.height,
                 thumbnailPixelSize: window.thumbnail?.size(),
                 expectedThumbnailPixelSize: expectedThumbnailPixelSize(window),
+                thumbnailSize: view.thumbnail.isHidden ? nil : view.thumbnail.frame.size,
                 x: frame.origin.x, y: frame.origin.y, w: frame.size.width, h: frame.size.height,
                 thumbY: view.thumbnail.frame.origin.y, labelY: view.label.frame.origin.y,
                 row: window.rowIndex ?? -1,
@@ -353,9 +354,10 @@ class CliServer {
     /// The pixel size a thumbnail capture of this window should measure right now, from the same
     /// `capturePixelSize` the capture request is configured with. Reported next to the size the last
     /// capture actually came back with, so a harness can judge the capture path without knowing the
-    /// thumbnail-scale arithmetic.
+    /// thumbnail-scale arithmetic. Sized from the area the last capture covered, which a sheet hanging past
+    /// the window makes larger than the window (`CaptureArea`).
     private static func expectedThumbnailPixelSize(_ window: Window) -> CGSize? {
-        guard let size = window.size else { return nil }
+        guard let size = window.thumbnailArea?.size else { return nil }
         return WindowThumbnails.capturePixelSize(size, WindowThumbnails.captureScaleFactor(window), false)
     }
 
@@ -448,6 +450,10 @@ class CliServer {
         /// when the capture path works.
         var thumbnailPixelSize: CGSize?
         var expectedThumbnailPixelSize: CGSize?
+        /// The thumbnail as drawn on the tile, in points (nil: thumbnails hidden in this style). Its shape
+        /// should be the capture's: a tile shaped after the window alone while the capture also holds an
+        /// overflowing sheet shows the picture squashed or beside an empty band.
+        var thumbnailSize: CGSize?
         /// **The laid-out geometry, so a test can judge the GRID and not just the list.** The tile's own
         /// frame moves when the row height is wrong (titles / appIcons styles), and the thumbnail's origin
         /// inside it moves when only the label metric is wrong (thumbnails style) — which is the shape of

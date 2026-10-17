@@ -11,10 +11,9 @@ enum WindowThumbnails {
            let id = window.cgWindowId,
            // the session's full-res frame if already fetched, else the thumbnail upscaled while
            // fetchPreviewFrames' capture is in flight (it swaps in via PreviewPanel.updateIfShowing)
-           let preview = session.previewFrame(id) ?? window.thumbnail,
-           let position = window.position,
-           let size = window.size {
-            PreviewPanel.show(id, preview, position, size)
+           let preview = session.previewFrame(id) ?? window.thumbnail.map({ ($0, window.capturedArea) }),
+           let area = preview.area ?? window.frame {
+            PreviewPanel.show(id, preview.contents, area)
         } else {
             PreviewPanel.hide()
         }

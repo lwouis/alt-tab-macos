@@ -28,6 +28,13 @@ class WindowCaptureScreenshots {
         let scaleFactor: CGFloat
         let isFullscreen: Bool
         let fullRes: Bool
+        /// top-left global, like `Window.position`; nil when AX hasn't reported the position
+        let frame: CGRect?
+        let pid: pid_t
+        /// The app's other surfaces, any of which may be a child window drawn into this capture
+        /// (`CaptureArea`). Their parent and visibility are re-read at capture time: attaching a child window
+        /// posts no event, so the inventory's copy of those fields can be stale.
+        let childCandidates: [CGWindowID]
     }
 
     private struct PendingCapture {
@@ -46,11 +53,14 @@ class WindowCaptureScreenshots {
         // Trade-off: size is fixed at call time, so a window resized between snapshot and capture will be captured
         // at the old size. Acceptable because the next refresh will re-snapshot.
         var requests = [CGWindowID: CaptureRequest]()
+        let candidatesByPid = childCandidatesByPid()
         for window in windowsToScreenshot {
             guard let wid = window.cgWindowId, let size = window.size else { continue }
             let scaleFactor = WindowThumbnails.captureScaleFactor(window)
             requests[wid] = CaptureRequest(window: window, size: size, scaleFactor: scaleFactor,
-                isFullscreen: window.isFullscreen, fullRes: fullRes)
+                isFullscreen: window.isFullscreen, fullRes: fullRes,
+                frame: window.position.map { CGRect(origin: $0, size: size) }, pid: window.application.pid,
+                childCandidates: candidatesByPid[window.application.pid] ?? [])
         }
         guard !requests.isEmpty else { return }
         let prioritized = prioritizedIds ?? []
@@ -64,6 +74,22 @@ class WindowCaptureScreenshots {
             handleCachedWindows(sortedCached, requests, source, prioritized)
             handleNotCachedWindows(sortedNotCached, requests, source, prioritized)
         }
+    }
+
+    /// Switch destinations are parentless roots, so they can't be anyone's child window.
+    private static func childCandidatesByPid() -> [pid_t: [CGWindowID]] {
+        var byPid = [pid_t: [CGWindowID]]()
+        for surface in WindowSurfaceInventory.byWindowId.values where Windows.byWindowId[surface.wid] == nil {
+            byPid[surface.pid, default: []].append(surface.wid)
+        }
+        return byPid
+    }
+
+    /// Runs off main: `WindowServerQuery` is a WindowServer round trip.
+    private static func captureArea(_ request: CaptureRequest, _ wid: CGWindowID) -> CGRect? {
+        guard let frame = request.frame else { return nil }
+        guard !request.childCandidates.isEmpty else { return frame }
+        return CaptureArea.bounds(frame, wid, request.pid, WindowServerQuery.query(request.childCandidates))
     }
 
     private static func handleCachedWindows(_ cachedWindows: [SCWindow], _ requests: [CGWindowID: CaptureRequest], _ source: RefreshCausedBy, _ prioritized: Set<CGWindowID>) {
@@ -178,7 +204,6 @@ class WindowCaptureScreenshots {
     }
 
     private static func oneTimeCapture(_ scWindow: SCWindow, _ request: CaptureRequest, _ source: RefreshCausedBy, _ isPrioritized: Bool = false) {
-        let size = request.size
         let scaleFactor = request.scaleFactor
         // distinct key per resolution: a preview fetch must not be coalesced away by the thumbnail
         // capture of the same window submitted milliseconds earlier at show time
@@ -186,7 +211,8 @@ class WindowCaptureScreenshots {
         // [weak window] avoids keeping a closed Window alive while the capture is queued or in-flight with the OS
         Applications.screenshotThrottler.throttleOrProceed(key: "\(keyPrefix)-wid-\(scWindow.windowID)", queue: BackgroundWork.screenshotsQueue, priority: isPrioritized ? .high : .normal) { [weak window = request.window] in
             guard !ActiveWindowCaptures.isTerminating, !ScreenLockEvents.isScreenLocked, let window else { return }
-            let config = SCStreamConfiguration.forWindow(size, scaleFactor, request.fullRes)
+            let area = captureArea(request, scWindow.windowID)
+            let config = SCStreamConfiguration.forWindow(area?.size ?? request.size, scaleFactor, request.fullRes)
             let filter = SCContentFilter(desktopIndependentWindow: scWindow)
             // These APIs return before the OS answers, so `screenshotsQueue` cannot bound their concurrency.
             // The gate limits bursts that can wedge replayd machine-wide (#5861).
@@ -206,16 +232,16 @@ class WindowCaptureScreenshots {
                 // that one case stays on captureSampleBuffer. Its CGImage copy (vs a shared IOSurface) is acceptable
                 // even at full resolution now that Preview frames are fetched lazily, a few per session (#5861).
                 if #available(macOS 26.0, *), !request.isFullscreen {
-                    captureScreenshot(filter, config, window, source, request.fullRes, finish)
+                    captureScreenshot(filter, config, window, source, request.fullRes, area, finish)
                 } else {
-                    captureSampleBuffer(filter, config, window, source, request.fullRes, finish)
+                    captureSampleBuffer(filter, config, window, source, request.fullRes, area, finish)
                 }
             }
         }
     }
 
     @available(macOS 26.0, *)
-    private static func captureScreenshot(_ filter: SCContentFilter, _ streamConfig: SCStreamConfiguration, _ window: Window, _ source: RefreshCausedBy, _ fullRes: Bool, _ finish: @escaping () -> Void) {
+    private static func captureScreenshot(_ filter: SCContentFilter, _ streamConfig: SCStreamConfiguration, _ window: Window, _ source: RefreshCausedBy, _ fullRes: Bool, _ area: CGRect?, _ finish: @escaping () -> Void) {
         let config = SCScreenshotConfiguration()
         config.width = streamConfig.width
         config.height = streamConfig.height
@@ -228,21 +254,21 @@ class WindowCaptureScreenshots {
             // fullscreen transition, and the next refresh re-routes it. Retrying here would silently reintroduce
             // the stream churn this path exists to avoid, and would hide new failure modes from the logs.
             guard let cgImage = output?.sdrImage, error == nil else { Logger.error { "\(window.debugId) \(output == nil) \(error)" }; return }
-            deliver(window, source, .cgImage(cgImage), fullRes)
+            deliver(window, source, .cgImage(cgImage), fullRes, area)
         }
     }
 
-    private static func captureSampleBuffer(_ filter: SCContentFilter, _ config: SCStreamConfiguration, _ window: Window, _ source: RefreshCausedBy, _ fullRes: Bool, _ finish: @escaping () -> Void) {
+    private static func captureSampleBuffer(_ filter: SCContentFilter, _ config: SCStreamConfiguration, _ window: Window, _ source: RefreshCausedBy, _ fullRes: Bool, _ area: CGRect?, _ finish: @escaping () -> Void) {
         SCScreenshotManager.captureSampleBuffer(contentFilter: filter, configuration: config) { [weak window] sampleBuffer, error in
             finish()
             guard let window else { return }
             guard let sampleBuffer, error == nil else { Logger.error { "\(window.debugId) \(sampleBuffer == nil) \(error)" }; return }
             guard let pixelBuffer = sampleBuffer.pixelBuffer() ?? sampleBuffer.imageBuffer else { Logger.error { "\(window.debugId) no pixelBuffer" }; return }
-            deliver(window, source, .pixelBuffer(pixelBuffer), fullRes)
+            deliver(window, source, .pixelBuffer(pixelBuffer), fullRes, area)
         }
     }
 
-    private static func deliver(_ window: Window, _ source: RefreshCausedBy, _ contents: CALayerContents, _ fullRes: Bool) {
+    private static func deliver(_ window: Window, _ source: RefreshCausedBy, _ contents: CALayerContents, _ fullRes: Bool, _ area: CGRect?) {
         guard source != .refreshOnlyThumbnailsAfterShowUi || SwitcherSession.isActive else { return }
         DispatchQueue.main.async { [weak window] in
             guard let window, source != .refreshOnlyThumbnailsAfterShowUi || SwitcherSession.isActive else { return }
@@ -253,12 +279,12 @@ class WindowCaptureScreenshots {
                 // a mid-animation frame is refused here too; leaving the cache empty makes the next selection
                 // move re-fetch it, and the thumbnail stands in as the Preview's placeholder meanwhile
                 guard !WindowThumbnails.isPartialFrame(window, contents, fullRes: true) else { return }
-                session.storePreviewFrame(wid, contents)
-                if let position = window.position, let size = window.size {
-                    PreviewPanel.updateIfShowing(wid, contents, position, size)
+                session.storePreviewFrame(wid, contents, area)
+                if let area = area ?? window.frame {
+                    PreviewPanel.updateIfShowing(wid, contents, area)
                 }
             } else {
-                window.refreshThumbnail(contents)
+                window.refreshThumbnail(contents, area)
             }
         }
     }
@@ -282,7 +308,7 @@ class WindowCaptureScreenshotsPrivateApi {
                 guard source != .refreshOnlyThumbnailsAfterShowUi || SwitcherSession.isActive else { return }
                 DispatchQueue.main.async { [weak window] in
                     guard source != .refreshOnlyThumbnailsAfterShowUi || SwitcherSession.isActive else { return }
-                    window?.refreshThumbnail(.cgImage(cgImage))
+                    window?.refreshThumbnail(.cgImage(cgImage), nil)
                 }
             }
         }
