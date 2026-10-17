@@ -17,6 +17,10 @@ positive here stops the switcher from appearing at all.
 - Shield plus Spaces bar (level 14) is Mission Control. Shield alone is App Exposé.
 - With no shield, the Show Desktop overlay (level 18) is Show Desktop.
 - A shield with no bounds is not a gesture.
+- AltTab's own surface events do not invalidate the overlay cache. Its panel IDs cover events before
+  the inventory knows their owner; other known AltTab surfaces use the inventory. Unknown owners still
+  invalidate it, and destroyed surfaces are checked before their ownership is removed. This avoids a
+  window-list round trip between releasing the switcher shortcut and handing back the keyboard.
 
 ## Test scenarios
 

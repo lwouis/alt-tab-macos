@@ -22,6 +22,7 @@ class AxObserverRegistry {
 
     private var observers = [pid_t: ObserverEntry]()
     private var health = AxObserverHealthState()
+    private var recoveryTickArmed = false
     /// The pids whose observer currently holds a live `titleChanged` subscription. `health` belongs to the
     /// AX thread, but the decision "may this window's title read be skipped" is taken on main, on the event
     /// path, so the one bit main needs is mirrored here. An app missing from it is simply read the old way,
@@ -197,16 +198,21 @@ class AxObserverRegistry {
 
     /// **The sparse recovery tick.** Every other trigger needs something to happen — an activation, a wake,
     /// an unlock. An app that was wedged and quietly starts answering again causes none of them, so without a
-    /// tick it stays quarantined until the user happens to activate it. The health policy refuses anything
-    /// not actually in cooldown, so this costs one pass over the table.
+    /// tick it stays quarantined until the user happens to activate it. It is armed only while something
+    /// waits out a cooldown (`awaitsRecovery`): with every app healthy, nothing wakes the CPU for it.
     func startRecoveryTicks() {
-        scheduleRecoveryTick()
+        onAxThread { self.armRecoveryTickIfNeeded() }
     }
 
-    private func scheduleRecoveryTick() {
+    /// AX thread only, like `recoveryTickArmed`.
+    private func armRecoveryTickIfNeeded() {
+        guard !recoveryTickArmed, health.awaitsRecovery else { return }
+        recoveryTickArmed = true
         BackgroundWork.axSemanticsThread?.asyncAfter(Self.recoveryTickInterval) { [weak self] in
-            self?.recoverAll(.recoveryTick)
-            self?.scheduleRecoveryTick()
+            guard let self else { return }
+            recoveryTickArmed = false
+            recoverAll(.recoveryTick)
+            onAxThread { self.armRecoveryTickIfNeeded() }
         }
     }
 
@@ -295,6 +301,7 @@ class AxObserverRegistry {
 
     private func scheduleObserverCreationRetry(_ process: ProcessGeneration,
                                                _ deadline: MonotonicTimestamp) {
+        armRecoveryTickIfNeeded()
         let delay = Self.delay(until: deadline)
         BackgroundWork.axSemanticsThread?.asyncAfter(max(delay, 0)) {
             self.startObserverCreation(process)
@@ -375,6 +382,7 @@ class AxObserverRegistry {
     /// and the only thing retrying anything was the sparse tick — which is why a wedged app that started
     /// answering again took up to a tick plus a cooldown to come back.
     private func scheduleRetry(_ process: ProcessGeneration, _ deadline: MonotonicTimestamp) {
+        armRecoveryTickIfNeeded()
         let delay = Self.delay(until: deadline)
         BackgroundWork.axSemanticsThread?.asyncAfter(max(delay, 0)) {
             guard self.health.entry(for: process) != nil else { return }

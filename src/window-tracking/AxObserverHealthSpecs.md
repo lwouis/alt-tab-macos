@@ -59,7 +59,9 @@ decisions, and cancelling the generation synchronously on teardown.
   begins, so stale sources remain invalid.
 - Frontmost, new-window, dirty-semantics, wake, unlock, successful AX call, and low-frequency tick are bounded
   recovery triggers. They respect the next retry time except that a real successful AX call proves liveness and
-  may recover immediately.
+  may recover immediately. The low-frequency tick is armed only while an observer or a capability waits out a
+  cooldown (`AxObserverHealthState.awaitsRecovery`, `testRecoveryTickIsOwedOnlyWhileSomethingWaitsOutACooldown`); with
+  every app healthy, nothing is scheduled.
 
 ## Window-node end reconciliation
 

@@ -5,6 +5,7 @@ class PreviewPanel: NSPanel {
     private static let borderView = BorderView()
     private static var currentId: CGWindowID?
     static var shared: PreviewPanel!
+    private(set) static var windowId: CGWindowID?
 
     /// `.titled` would make it eligible, and the preview outlives the switcher after a focus (`beginHideUi`'s
     /// `keepPreview`): ordering out the key `TilesPanel` once the target is front made AppKit hand key to this
@@ -24,6 +25,7 @@ class PreviewPanel: NSPanel {
         Self.borderView.autoresizingMask = [.width, .height]
         Self.previewView.addSubview(Self.borderView)
         Self.shared = self
+        Self.windowId = CGWindowID(windowNumber)
     }
 
     /// `area` is top-left global: what the preview's capture covers, which a sheet can make larger than the window

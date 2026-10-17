@@ -195,6 +195,15 @@ struct AxObserverHealthState: Equatable {
         guard let entry = entries[process.pid], entry.process == process else { return nil }
         return entry
     }
+
+    /// A capability or an observer waiting out a cooldown: the only thing the sparse recovery tick can act on.
+    /// A lost permission is not here: tccd's notification restores it (`SystemPermissions`).
+    var awaitsRecovery: Bool {
+        entries.values.contains { entry in
+            if case .cooldown = entry.observer { return true }
+            return entry.notifications.values.contains { if case .cooldown = $0 { return true }; return false }
+        }
+    }
 }
 
 struct AxObserverRetryPolicy: Equatable {

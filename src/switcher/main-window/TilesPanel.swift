@@ -21,6 +21,7 @@ class TilesPanel: NSPanel {
     private var frozenTopCenter: NSPoint?
     private var highWaterHeight: CGFloat = 0
     private var showGeneration: UInt = 0
+    private var afterOrderOut: (() -> Void)?
 
     convenience init() {
         self.init(contentRect: .zero, styleMask: .nonactivatingPanel, backing: .buffered, defer: false)
@@ -92,6 +93,7 @@ class TilesPanel: NSPanel {
                     // A re-summon during the fade must not have its fresh panel ordered out by the stale fade.
                     guard self.showGeneration == generation else { return }
                     super.orderOut(sender)
+                    self.runAfterOrderOut()
                 }
             )
         } else {
@@ -101,6 +103,24 @@ class TilesPanel: NSPanel {
             // `showUiOrCycleSelection` mask a cross-shortcut rebuild and `show()` reveal it atomically.
             alphaValue = 0
             super.orderOut(sender)
+            runAfterOrderOut()
+        }
+    }
+
+    /// Dismissal bookkeeping must wait for the keyboard release, including an unfinished focus or fade.
+    /// Its AppKit calls can pump incoming keys while blocking the main queue that releases the panel (S-21).
+    func whenOrderedOut(_ work: @escaping () -> Void) {
+        afterOrderOut = work
+        if !isVisible { runAfterOrderOut() }
+    }
+
+    private func runAfterOrderOut() {
+        guard let work = afterOrderOut else { return }
+        afterOrderOut = nil
+        let generation = showGeneration
+        DispatchQueue.main.async {
+            guard self.showGeneration == generation, SwitcherSession.current == nil else { return }
+            work()
         }
     }
 
@@ -136,6 +156,7 @@ class TilesPanel: NSPanel {
     func show() {
         MainThreadStall.step()
         showGeneration &+= 1
+        afterOrderOut = nil
         updateAppearance()
         // The panel may have been hidden (alpha=0) by `App.showUiOrCycleSelection` on a
         // cross-shortcut summon to mask the rebuild. Reveal it atomically now that contents

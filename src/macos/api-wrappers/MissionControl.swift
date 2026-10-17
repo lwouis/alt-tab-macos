@@ -36,11 +36,11 @@ class MissionControl {
     /// five windows and has one state.
     private static let settleDelay = 0.15
 
-    /// No round trip in the ordinary case. The overlay can only have moved if a surface came or went since
-    /// the last look, and every such arrival reaches `surfacesChanged`, so a cache with nothing pending is
-    /// exact whatever its age. The `CGWindowListCopyWindowInfo` (0.245ms p50, 0.43ms p95 measured, and it
-    /// grows with the on-screen list) is paid on the caller's thread only when a change is still inside its
-    /// settle window, or while the cache says a gesture is up (`maxAge`).
+    /// No round trip in the ordinary case. Every potentially relevant surface change reaches
+    /// `surfacesChanged`; AltTab's own surfaces cannot be overlays and are excluded. A cache with nothing
+    /// pending is exact whatever its age. The window-list read runs on the caller's thread only while a
+    /// change is inside its settle window, or the cache says a gesture is up (`maxAge`). Initially measured
+    /// at 0.245ms p50 and 0.43ms p95, it reached 22–41ms before focus in macOS 27 QA S-21/S-22.
     static func state() -> MissionControlState {
         if needsFreshLook() { look() }
         lock.lock()

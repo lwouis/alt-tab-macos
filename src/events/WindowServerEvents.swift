@@ -125,7 +125,7 @@ class WindowServerEvents {
     /// The four window-lifecycle cases each tell `MissionControl` to take a look: the overlay that says a
     /// gesture is up is created, ordered in, ordered out and destroyed like any other surface, and that is
     /// the only announcement left on macOS 27 (see `MissionControl`). The look is coalesced there, so every
-    /// other window doing the same thing costs one throttled window-list read.
+    /// other app's window doing the same thing costs one throttled window-list read.
     private static func handle(_ n: WsEventRouting.Notification, _ w0: UInt32, _ space: UInt64, _ widInSpace: UInt32,
                               _ at: TimeInterval) {
         switch n {
@@ -141,11 +141,11 @@ class WindowServerEvents {
             // Creation bookkeeping lives in the reducer (`.windowCreated`). Window numbers are unique for
             // the login session, so this event must not discard facts already learned for the same surface.
             // Discovery subscribes after it has read the level.
-            MissionControl.surfacesChanged()
+            missionControlSurfaceChanged(w0)
         case .windowDestroyed:
+            missionControlSurfaceChanged(w0)
             unsubscribe(w0)
             WindowSurfaceInventory.remove(w0)
-            MissionControl.surfacesChanged()
         case .windowOrderedIn:
             // Our own panel's orderedIn is the true "pixels on screen" moment — it can trail the show's
             // main-thread work by ~500ms while the WindowServer settles a Space transition. Anchor the
@@ -154,9 +154,9 @@ class WindowServerEvents {
                let panel = TilesPanel.shared, panel.windowNumber > 0, w0 == CGWindowID(panel.windowNumber) {
                 session.panelBecameVisibleAt = ProcessInfo.processInfo.systemUptime
             }
-            MissionControl.surfacesChanged()
+            missionControlSurfaceChanged(w0)
         case .windowOrderedOut:
-            MissionControl.surfacesChanged()
+            missionControlSurfaceChanged(w0)
         default:
             break
         }
@@ -166,6 +166,15 @@ class WindowServerEvents {
         // second log channel was invented to escape. The one notification that reaches no reducer input is
         // the Space transition, which is debounced; it logs below.
         route(n, w0, space, widInSpace, at)
+    }
+
+    /// Our panels cannot be gesture overlays. Invalidating their own show/hide forces the release path
+    /// to synchronously query the window list before handing back the keyboard.
+    /// The panel IDs cover creation before inventory admission; unknown owners remain conservative.
+    private static func missionControlSurfaceChanged(_ wid: CGWindowID) {
+        guard wid != TilesPanel.windowIdSnapshot, wid != PreviewPanel.windowId,
+              WindowSurfaceInventory.raw(wid)?.pid != getpid() else { return }
+        MissionControl.surfacesChanged()
     }
 
     /// Turn a WindowServer notification into a `ReducerInput` and dispatch it through the reducer — which owns

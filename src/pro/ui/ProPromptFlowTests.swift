@@ -101,6 +101,20 @@ final class ProPromptFlowTests: XCTestCase {
         }
     }
 
+    func testEscapeDiscardedAfterSwitcherDismissalStillDismissesGate() throws {
+        XCTAssertFalse(manager.attemptHardGatedFeature(.searchInSwitcher))
+        drain()
+        let popover = try XCTUnwrap(popovers.last)
+        DismissalInput.begin()
+        defer { DismissalInput.cancel() }
+        let event = try XCTUnwrap(NSEvent.keyEvent(with: .keyDown, location: .zero,
+            modifierFlags: [], timestamp: 0, windowNumber: 0, context: nil,
+            characters: "\u{1b}", charactersIgnoringModifiers: "\u{1b}", isARepeat: false, keyCode: 53))
+        XCTAssertTrue(DismissalInput.discard(event))
+        XCTAssertFalse(popover.isShown)
+        XCTAssertTrue(checkouts.isEmpty)
+    }
+
     func testEscapeInterceptedBySwitcherDismissesGateAndStillTriggersCancelShortcut() throws {
         ControlsTab.shortcuts = ControlsTab.defaultShortcuts
         ControlsTab.shortcuts.values.forEach { $0.state = .up }

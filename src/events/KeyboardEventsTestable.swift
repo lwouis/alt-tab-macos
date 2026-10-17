@@ -10,6 +10,28 @@ class KeyboardEventsTestable {
     }
 }
 
+/// After dismissal starts, a key still addressed to AltTab belongs to neither its closed switcher nor
+/// the target app. Let macOS deliver later keys to whichever window it actually focuses.
+enum DismissalInput {
+    private static var isDismissing = false
+
+    static func begin() { isDismissing = true }
+
+    static func cancel() { isDismissing = false }
+
+    static func discard(_ event: NSEvent) -> Bool {
+        guard isDismissing else { return false }
+        if let window = event.window, window !== TilesPanel.shared {
+            cancel()
+            return false
+        }
+        // The gate takes no focus, so AltTab can be the app receiving the Escape meant to close it.
+        if event.type == .keyDown && event.keyCode == kVK_Escape { Day15HardGatePopover.dismissOnEscape() }
+        Logger.debug { "discarded key during switcher dismissal" }
+        return true
+    }
+}
+
 @discardableResult
 func handleKeyboardEvent(_ globalId: Int?, _ shortcutState: ShortcutState?, _ keyCode: UInt32?,
                          _ modifiers: NSEvent.ModifierFlags?, _ isARepeat: Bool, _ event: NSEvent? = nil,

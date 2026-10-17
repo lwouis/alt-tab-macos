@@ -23,6 +23,16 @@ the resulting actions.
 - Switching directly from one shortcut slot to another is handled.
 - **Escape**: while the switcher is active (e.g. Option held), Escape fires the cancel shortcut; when the
   switcher is closed, Escape does nothing (AltTab doesn't swallow it).
+- Dismissal ends logical session state immediately, but postpones AppKit and event-tap cleanup until
+  the panel has released the keyboard, including when focus or a fade is still pending. A new summon
+  cancels stale cleanup; its preference refresh uses the new session's state. Golden Gate scenarios
+  S-20 through S-23 check that typing resumes after the selected window has focus.
+- Once dismissal starts, AltTab silently discards keys still delivered to its panel, including a key that
+  itself settles a delayed shortcut release. It neither acts on those keys nor sends them to the target.
+  Keys that macOS delivers to another app are outside AltTab's local monitor. A new summon or an AltTab
+  secondary window ends the dismissal state so their own input works normally.
+  An Escape discarded this way still closes the blocked-feature gate, which takes no focus and so can
+  leave AltTab receiving the key meant for it.
 
 ## Test scenarios
 

@@ -65,7 +65,10 @@ wrong, which is what makes the #5981 tail as bad as it is.
 often it applies:
 
 1. **Reorder** so the stall lands after everything the user is waiting for. What #5981 did: the panel hides
-   and the focus request goes out in `beginHideUi`, all bookkeeping in `endHideUi`.
+   and the focus request goes out in `beginHideUi`. `endHideUi` ends logical session state;
+   `finishHideUi` waits until the panel is ordered out, then runs AppKit and event-tap cleanup on the next
+   main-queue turn. A new summon cancels that cleanup. Golden Gate S-21 captured a printable key reaching
+   the still-key panel during a 221ms dismissal stall, despite the target application already being frontmost.
 2. **Defer one runloop turn.** The CoreAnimation transaction commits when the turn ends, so `alphaValue = 0`
    or an `orderOut` earlier in the same turn has *not* reached the screen yet — blocking later in that turn
    keeps the old frame up. Anything that can stall and isn't itself the visible work belongs in a
@@ -104,7 +107,7 @@ no unbounded stall of the #5981 kind; the summon and the dismissal are where the
 | `TilesPanel.show` — `alphaValue` + `makeKeyAndOrderFront` | WindowServer | summon | 14ms first summon, 7ms steady | unavoidable; it *is* the visible work |
 | `TilesPanel.updateContents` — `setContentSize`, `setFrameOrigin` | WindowServer | summon, every search keystroke | the IPC here is small: `setContentSize` 2-4ms on the first summon and under 1ms after, `repositionOrFreeze`'s `setFrameOrigin` under 1ms always. What the step actually costs is `TilesView.updateItemsAndLayout`, our own view layout: 22-29ms first summon, 2-6ms steady | nothing to do here as IPC. If this step ever needs to get faster it is a layout problem, not a round-trip problem |
 | `TilesPanel.orderOut` | WindowServer | dismissal | 3–9ms | unavoidable; visible work |
-| `KeyboardEvents.updateEscapeAbsorptionTap` — `CGEvent.tapIsEnabled` + `tapEnable` | WindowServer event server | dismissal | 0–8ms, and it sat ahead of the panel hide | moved from `beginHideUi` to `endHideUi` |
+| `KeyboardEvents.updateEscapeAbsorptionTap` — `CGEvent.tapIsEnabled` + `tapEnable` | WindowServer event server | dismissal | 0–8ms | `finishHideUi`, after the panel releases the keyboard |
 | `CursorEvents.toggle` / `TrackpadEvents.setAbsorbTapEnabled` — `CGEvent.tapEnable` | WindowServer event server | summon, dismissal | <1ms | fine as is; already at gesture boundaries only, never per event |
 | `ContextMenuEvents.toggle(true)` | in-process (`NotificationCenter`) | summon | 2ms on the first summon only | no IPC; first-call cost |
 | `PreviewPanel.show` — `setFrame`, `order(.below:)`, `level` | WindowServer | every selection change, when Preview is on (off by default) | over 25 scripted cycles: `setFrame` 1-2ms on 6 of them, `order(.below:)` 2ms and 6ms, `level` always under 1ms. `PreviewPanel.hide()`'s `orderOut`, taken when the selected window has no frame yet, cost 4-5ms | none. It is bounded and it is the visible work for that feature. `order(.below:)` could be skipped while the panel is already visible and already on a lower level, but the flicker it exists to prevent (#preview z-order, see the comment there) needs two monitors to reproduce, so that is not worth trading blind for ~4ms on a minority of keystrokes |

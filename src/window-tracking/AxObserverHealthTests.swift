@@ -195,6 +195,22 @@ final class AxObserverHealthTests: XCTestCase {
         XCTAssertEqual(state.entry(for: process)?.notifications[.focusedWindowChanged], .unattempted)
     }
 
+    /// Nothing in cooldown, nothing to tick for: a healthy machine schedules no recovery wake-up at all.
+    func testRecoveryTickIsOwedOnlyWhileSomethingWaitsOutACooldown() {
+        var state = state([process, other])
+        XCTAssertFalse(state.awaitsRecovery)
+        let generation = begin(&state, process)
+        _ = complete(&state, process, generation, .focusedWindowChanged, .failed(.cannotComplete), 0)
+        XCTAssertTrue(state.awaitsRecovery)
+        _ = AxObserverHealth.reduce(&state, .cooldownElapsed(process, at: time(10)), policy: policy)
+        XCTAssertFalse(state.awaitsRecovery)
+        guard case let .observerCreationStarted(creation) = AxObserverHealth.reduce(&state,
+            .beginObserverCreation(other, at: time(0)), policy: policy) else { return XCTFail("creation did not start") }
+        _ = AxObserverHealth.reduce(&state, .observerCreationResult(other, observerGeneration: creation,
+            error: .genericFailure, at: time(0)), policy: policy)
+        XCTAssertTrue(state.awaitsRecovery)
+    }
+
     func testEveryBoundedRecoveryTriggerTransitionsWhenPermitted() {
         let triggers: [AxRecoveryTrigger] = [.processBecameFrontmost, .wake, .unlock, .recoveryTick]
         for trigger in triggers {
