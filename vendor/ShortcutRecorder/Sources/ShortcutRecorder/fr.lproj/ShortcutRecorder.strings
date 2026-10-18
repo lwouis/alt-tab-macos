@@ -20,7 +20,7 @@
 "Type shortcut" = "Taper le raccourci";
 
 /* Label for the value-less control */
-"Record Shortcut" = "Enregistrer le raccourci";
+"Record Shortcut" = "Définir";
 
 /* Tooltip for the normal mode */
 "Click to record shortcut" = "Enregistrer le raccourci";

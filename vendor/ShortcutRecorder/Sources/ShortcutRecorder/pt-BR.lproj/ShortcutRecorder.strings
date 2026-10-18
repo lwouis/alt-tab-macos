@@ -20,7 +20,7 @@
 "Type shortcut" = "Digite atalho";
 
 /* Label for the value-less control */
-"Record Shortcut" = "Gravar Atalho";
+"Record Shortcut" = "Definir";
 
 /* Tooltip for the normal mode */
 "Click to record shortcut" = "Clique para gravar o atalho";

@@ -43,6 +43,27 @@ and activation replaced. It covers delayed layout, rejected shows, cancellation 
 flow, replacement, actual-show acknowledgement, and content release. These tests do not display
 windows or drive the desktop; they do not assert macOS's own animation or window-order behavior.
 
+## Appearance
+
+Native popovers have their own appearance (defaulting to vibrant light), so status-item
+popovers explicitly follow the application's effective appearance while a presentation is
+active, including live theme changes. Closing stops that observation; reopening resolves
+the current theme again. `testPopoverFollowsAppThemeWhilePresentedAndWhenReopened` covers
+this independently of the anchor's appearance.
+
+## Visual capture fixture
+
+Only during a `QaSurfaces` capture, an anchored status-item popover uses a transparent fixed
+anchor at the horizontal center of the screen. A wide popover near the screen edge otherwise
+keeps its body clamped to that edge while its arrow follows the status item's moving position
+(for example when the clock changes width). The fixed anchor preserves the complete native
+outline for pixel comparison, without widening tolerance or masking the arrow. It inherits
+the real anchor's appearance and is excluded from the photographed windows.
+
+Closing the visual surface clears the override and hides the fixture. Ordinary presentations,
+hidden-icon fallbacks, in-window info popovers and lifecycle tests retain their real positioning.
+The override does not exist in Release builds.
+
 ## Test scenarios
 
 - **testAFrameAloneDoesNotMeanTheStatusItemCanHostAPopover** — a hidden window, an empty frame, empty

@@ -275,6 +275,7 @@ class Popover: NSPopover {
     private var searchMatchRanges: ((String, String) -> [Range<Int>])?
     private var currentMessage = ""
     private weak var currentMessageLabel: NSTextField?
+    private var appearanceObservation: NSKeyValueObservation?
 
     override init() {
         super.init()
@@ -325,6 +326,9 @@ class Popover: NSPopover {
         let locationInWindow = event.locationInWindow
         let locationInPositioningView = positioningView.convert(locationInWindow, from: nil)
         let rect = CGRect(origin: locationInPositioningView, size: .zero)
+        appearanceObservation = positioningView.observe(\.effectiveAppearance, options: [.initial, .new]) { [weak self] view, _ in
+            self?.appearance = view.effectiveAppearance
+        }
         show(relativeTo: rect, of: positioningView, preferredEdge: .minX)
     }
 
@@ -351,6 +355,7 @@ class Popover: NSPopover {
 
 extension Popover: NSPopoverDelegate {
     func popoverWillClose(_ notification: Notification) {
+        appearanceObservation = nil
         hidingInitiated = true
         currentMessage = ""
         currentMessageLabel = nil

@@ -20,7 +20,7 @@
 "Type shortcut" = "Druk toetscombinatie in";
 
 /* Label for the value-less control */
-"Record Shortcut" = "Toetscombinatie opnemen";
+"Record Shortcut" = "Instellen";
 
 /* Tooltip for the normal mode */
 "Click to record shortcut" = "Klik om de toetscombinatie op te nemen";

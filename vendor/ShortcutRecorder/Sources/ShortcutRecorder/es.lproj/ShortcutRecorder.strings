@@ -20,7 +20,7 @@
 "Type shortcut" = "Teclear función rápida";
 
 /* Label for the value-less control */
-"Record Shortcut" = "Grabar función rápida";
+"Record Shortcut" = "Definir";
 
 /* Tooltip for the normal mode */
 "Click to record shortcut" = "Haga clic para registrar la función rápida";

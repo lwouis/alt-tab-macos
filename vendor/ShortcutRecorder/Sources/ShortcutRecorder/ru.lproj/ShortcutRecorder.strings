@@ -20,7 +20,7 @@
 "Type shortcut" = "Введите сочетание клавиш";
 
 /* Label for the value-less control */
-"Record Shortcut" = "Ввести сочетание клавиш";
+"Record Shortcut" = "Задать";
 
 /* Tooltip for the normal mode */
 "Click to record shortcut" = "Нажмите, чтобы ввести сочетание клавиш";

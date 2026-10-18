@@ -8,6 +8,29 @@ final class AnchoredPopoverTests: XCTestCase {
         notch: CGRect(x: 645.5, y: 924, width: 179, height: 32))
     private let placed = CGRect(x: 853, y: 923, width: 38, height: 33)
 
+    func testPopoverFollowsAppThemeWhilePresentedAndWhenReopened() {
+        let app = NSApplication.shared
+        let previous = app.appearance
+        defer { app.appearance = previous }
+        let popover = TestPopover()
+        popover.readiness = .ready
+        let anchor = NSView()
+        anchor.appearance = NSAppearance(named: .aqua)
+        app.appearance = NSAppearance(named: .darkAqua)
+        popover.present(NSView(), from: anchor)
+        drainMainQueue()
+        XCTAssertEqual(popover.appearance?.name, .darkAqua)
+        app.appearance = NSAppearance(named: .aqua)
+        XCTAssertEqual(popover.appearance?.name, .aqua)
+        popover.close()
+        app.appearance = NSAppearance(named: .darkAqua)
+        XCTAssertEqual(popover.appearance?.name, .aqua)
+        popover.present(NSView(), from: anchor)
+        drainMainQueue()
+        XCTAssertEqual(popover.appearance?.name, .darkAqua)
+        popover.close()
+    }
+
     private func readiness(isHidden: Bool = false, windowVisible: Bool = true, windowFrame: CGRect? = nil,
                            bounds: CGRect? = nil, visibleRect: CGRect? = nil, screens: [StatusItemAnchor.Screen]? = nil,
                            deadlinePassed: Bool = false) -> StatusItemAnchor.Readiness {

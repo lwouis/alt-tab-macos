@@ -20,7 +20,7 @@
 "Type shortcut" = "Digita abbreviazione";
 
 /* Label for the value-less control */
-"Record Shortcut" = "Registra abbreviazione";
+"Record Shortcut" = "Imposta";
 
 /* Tooltip for the normal mode */
 "Click to record shortcut" = "Clicca per registrare la abbreviazione";

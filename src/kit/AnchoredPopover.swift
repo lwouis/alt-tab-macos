@@ -6,6 +6,9 @@ import Carbon.HIToolbox.Events
 /// An icon macOS never puts in the menu bar gets the same content, without the arrow, under the menu bar
 /// (`StatusItemAnchor`).
 class AnchoredPopover: NSPopover {
+    #if DEBUG
+    static var qaPositioningView: ((NSView) -> NSView)?
+    #endif
     var isWaitingForAnchor: Bool { pending != nil }
     var takesKeyboardFocus = true
     var dismissesOnEscapeAndOutsideClick = false
@@ -21,6 +24,7 @@ class AnchoredPopover: NSPopover {
     private var shownObserver: NSObjectProtocol?
     private var closedObserver: NSObjectProtocol?
     private var floatingAnchor: NSWindow?
+    private var appearanceObservation: NSKeyValueObservation?
     private var dismissalMonitors = [Any]()
 
     func present(_ content: NSView, from item: NSStatusItem?, canPresent: @escaping () -> Bool = { true }, onShown: (() -> Void)? = nil) {
@@ -29,6 +33,10 @@ class AnchoredPopover: NSPopover {
 
     func present(_ content: NSView, from anchor: NSView?, anchorIsHidden: @escaping () -> Bool = { false }, canPresent: @escaping () -> Bool = { true }, onShown: (() -> Void)? = nil) {
         cancelPresentation()
+        // NSPopover defaults to vibrant light rather than inheriting NSApplication's appearance.
+        appearanceObservation = NSApplication.shared.observe(\.effectiveAppearance, options: [.initial, .new]) { [weak self] app, _ in
+            self?.appearance = app.effectiveAppearance
+        }
         self.onShown = onShown
         let request = generation
         let requestedAt = ProcessInfo.processInfo.systemUptime
@@ -83,6 +91,7 @@ class AnchoredPopover: NSPopover {
         scheduled = false
         showingGeneration = nil
         onShown = nil
+        appearanceObservation = nil
         dismissalMonitors.forEach { NSEvent.removeMonitor($0) }
         dismissalMonitors = []
         stopObservingAnchor()
@@ -153,6 +162,9 @@ class AnchoredPopover: NSPopover {
 
     func showImmediately(from anchor: NSView) -> Bool {
         floatingAnchor?.orderOut(nil)
+        #if DEBUG
+        let anchor = Self.qaPositioningView?(anchor) ?? anchor
+        #endif
         return display(relativeTo: anchor, hidingArrow: false)
     }
 

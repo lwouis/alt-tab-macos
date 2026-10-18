@@ -76,6 +76,7 @@ enum QaSurfaces {
     private static var currentId: String?
     private static var windowsBefore = Set<UInt32>()
     private static var popovers = NSHashTable<NSPopover>.weakObjects()
+    private static var visualPopoverAnchor: NSWindow?
     private static var observingPopovers = false
     private static var renderGeneration = 0
     private static var settlingGeneration: Int?
@@ -114,6 +115,7 @@ enum QaSurfaces {
         pinVolatileContent()
         closeAll(keepSettings: surface.inSettings)
         currentId = id
+        AnchoredPopover.qaPositioningView = positioningView
         let generation = renderGeneration
         if id != "switcher" { App.shared.activate(ignoringOtherApps: true) }
         if surface.inSettings { SettingsWindow.shared?.disableScreenUpdatesUntilFlush() }
@@ -210,6 +212,8 @@ enum QaSurfaces {
         Menubar.menu.cancelTrackingWithoutAnimation()
         if NSApp.modalWindow != nil { NSApp.abortModal() }
         popovers.allObjects.forEach { $0.close() }
+        AnchoredPopover.qaPositioningView = nil
+        visualPopoverAnchor?.orderOut(nil)
         Popover.shared.hide()
         if SwitcherSession.isActive { App.hideUi() }
         for parent in [SettingsWindow.shared, FeedbackWindow.shared].compactMap({ $0 }) {
@@ -453,6 +457,31 @@ enum QaSurfaces {
 
     // MARK: - holding things still
 
+    /// A wide popover is clamped to the screen edge, so its arrow moves with the status item's position
+    /// (including the clock's changing width). VR-01 uses a fixed anchor away from the edges; lifecycle
+    /// and ordinary presentations retain the real status item. The native arrow stays in the comparison.
+    private static func positioningView(_ proposed: NSView) -> NSView {
+        guard currentId != nil, proposed === Menubar.statusItem?.button,
+              let screen = proposed.window?.screen else { return proposed }
+        let window = visualPopoverAnchor ?? makeVisualPopoverAnchor()
+        visualPopoverAnchor = window
+        window.appearance = proposed.effectiveAppearance
+        window.setFrameOrigin(NSPoint(x: screen.frame.midX, y: screen.visibleFrame.maxY))
+        window.orderFrontRegardless()
+        return window.contentView!
+    }
+
+    private static func makeVisualPopoverAnchor() -> NSWindow {
+        let window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 1, height: 1), styleMask: .borderless, backing: .buffered, defer: false)
+        window.isReleasedWhenClosed = false
+        window.isOpaque = false
+        window.backgroundColor = .clear
+        window.ignoresMouseEvents = true
+        window.level = .statusBar
+        window.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary, .ignoresCycle]
+        return window
+    }
+
     private static let seats = [
         ActiveInstance(id: "qa-instance-1", machineName: "MacBook Pro", lastSeenAt: Date(timeIntervalSince1970: 1_767_225_600)),
         ActiveInstance(id: "qa-instance-2", machineName: "Mac mini", lastSeenAt: Date(timeIntervalSince1970: 1_769_904_000)),
@@ -555,7 +584,8 @@ enum QaSurfaces {
     private static func onScreenWindowNumbers() -> [UInt32] {
         let pid = ProcessInfo.processInfo.processIdentifier
         let infos = CGWindowListCopyWindowInfo([.optionOnScreenOnly], kCGNullWindowID) as? [[String: Any]] ?? []
-        let excluded = Set([QAMenu.shared?.windowNumber, Menubar.statusItem?.button?.window?.windowNumber].compactMap { $0 })
+        let excluded = Set([QAMenu.shared?.windowNumber, Menubar.statusItem?.button?.window?.windowNumber,
+                            visualPopoverAnchor?.windowNumber].compactMap { $0 })
         return infos.compactMap { info in
             guard info[kCGWindowOwnerPID as String] as? pid_t == pid,
                   let number = info[kCGWindowNumber as String] as? UInt32,

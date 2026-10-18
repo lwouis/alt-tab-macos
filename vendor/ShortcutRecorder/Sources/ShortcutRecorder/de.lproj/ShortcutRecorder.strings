@@ -20,7 +20,7 @@
 "Type shortcut" = "Kurzbefehl eingeben";
 
 /* Label for the value-less control */
-"Record Shortcut" = "Kurzbefehl Aufnehmen";
+"Record Shortcut" = "Festlegen";
 
 /* Tooltip for the normal mode */
 "Click to record shortcut" = "Klicken, um kurzbefehl einzugeben";

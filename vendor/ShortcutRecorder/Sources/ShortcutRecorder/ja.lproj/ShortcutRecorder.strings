@@ -20,7 +20,7 @@
 "Type shortcut" = "ショートカットを入力してください";
 
 /* Label for the value-less control */
-"Record Shortcut" = "ショートカットを入力";
+"Record Shortcut" = "入力する";
 
 /* Tooltip for the normal mode */
 "Click to record shortcut" = "クリックして、ショートカットを記録してください";

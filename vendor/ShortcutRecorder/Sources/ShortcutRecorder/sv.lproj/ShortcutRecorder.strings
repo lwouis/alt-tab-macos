@@ -20,7 +20,7 @@
 "Type shortcut" = "Tryck kortkommando";
 
 /* Label for the value-less control */
-"Record Shortcut" = "Registrera kortkommando";
+"Record Shortcut" = "Ange";
 
 /* Tooltip for the normal mode */
 "Click to record shortcut" = "Klicka och spela in kommando";
