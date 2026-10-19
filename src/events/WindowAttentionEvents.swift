@@ -157,7 +157,7 @@ class WindowAttentionEvents {
     }
 
     private static func invalid(_ subtype: Int?) {
-        DispatchQueue.main.async { TrackingTelemetryRecorder.attentionTapInvalid(subtype: subtype) }
+        TrackingTelemetryRecorder.attentionTapInvalid(subtype: subtype)
     }
 
     private static func other(_ subtype: Int) {

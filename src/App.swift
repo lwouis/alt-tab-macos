@@ -585,7 +585,9 @@ class App: AppCenterApplication {
         DispatchQueue.main.asyncAfter(deadline: .now() + 30) { App.updaterController?.startUpdater() }
         #endif
         PreferencesEvents.initialize()
+        #if DEBUG
         BenchmarkRunner.startIfNeeded()
+        #endif
         LicenseManager.shared.onAppBecameUsable(accessibility: AccessibilityPermission.status,
                                                screenRecording: ScreenRecordingPermission.status)
         endFirstLaunchWithPopoverOrSettings()

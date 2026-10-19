@@ -5,7 +5,8 @@ attention decisions that were committed and refused. It is written after decisio
 recorder that owns nothing — the deciding is `AttentionEngine`'s (`AttentionOrderSpecs.md`). Switching
 telemetry off cannot change what AltTab does.
 
-Both consumers are CLI: `--qa-state` reads `summary`, `--qa-telemetry` drains the ring.
+Both consumers are CLI: `--qa-state` reads `summary`, `--qa-telemetry` drains the ring. Both are debug-only, so a
+release build records nothing and its tests run in Debug only.
 
 ## Record schema
 

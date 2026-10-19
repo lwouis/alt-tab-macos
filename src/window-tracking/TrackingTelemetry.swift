@@ -1,5 +1,6 @@
 import Foundation
 
+#if DEBUG
 /// What every provider, decision and repair in the tracking pipeline reports about itself, as one value.
 ///
 /// Two consumers, one schema: `--qa-state` reads `summary` (the current health of each provider), and
@@ -215,6 +216,8 @@ struct TrackingTelemetrySummary: Codable, Equatable {
     var recordsBuffered: Int
     var recordsDropped: Int
 }
+
+#endif
 
 extension TrackingProvider {
     var telemetryName: String {

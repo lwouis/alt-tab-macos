@@ -31,6 +31,7 @@ class AxObserverRegistry {
 
     private static let destroyCorrelations = ConcurrentMap<pid_t, AxDestroyCorrelation>()
 
+    #if DEBUG
     /// **Pids whose `elementDestroyed` deliveries are dropped on arrival**, so the app looks to the rest of
     /// AltTab exactly like one whose accessibility implementation accepted the subscription and never posts:
     /// the capability never turns on, and every close falls back to the WindowServer's order-out probe.
@@ -59,6 +60,7 @@ class AxObserverRegistry {
     static func destroysAreMuted(_ pid: pid_t) -> Bool {
         mutedDestroyPids.withLock { $0[pid] != nil }
     }
+    #endif
 
     /// **The join `AXUIElementDestroyed` needs.** Its element is dead by callback time, so it cannot be asked
     /// its wid — but `CFEqual` recognises it against the element AltTab cached for the window when it was
@@ -504,8 +506,10 @@ class AxObserverRegistry {
     /// apps rebuild one while its window stays on screen (Chromium and Electron do it routinely), and
     /// condemning on that edge alone made a live QQ window vanish and return with no MRU history (#5785).
     private func windowDestroyed(_ process: ProcessGeneration, _ element: AXUIElement) {
+        #if DEBUG
         // Dropped BEFORE the match, so a muted app never proves delivery and never gains the capability.
         guard !Self.destroysAreMuted(process.pid) else { return }
+        #endif
         guard let wid = Self.trackedWid(of: element, pid: process.pid) else { return }
         Self.noteDestroy(pid: process.pid, wid: wid, at: ProcessInfo.processInfo.systemUptime)
         DispatchQueue.main.async {

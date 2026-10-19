@@ -1,3 +1,4 @@
+#if DEBUG
 import Foundation
 
 final class BenchmarkRunner {
@@ -67,3 +68,4 @@ struct BenchmarkConfig {
         return BenchmarkConfig(mode: .showUi(count))
     }
 }
+#endif

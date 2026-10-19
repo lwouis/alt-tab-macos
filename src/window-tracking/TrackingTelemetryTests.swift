@@ -1,5 +1,7 @@
 import XCTest
 
+#if DEBUG
+
 final class TrackingTelemetryTests: XCTestCase {
     /// Every key the record schema is allowed to encode. A field a title or a keystroke could be written into
     /// has to be added here first, which is the point: the review is forced, not hoped for.
@@ -155,3 +157,4 @@ final class TrackingTelemetryTests: XCTestCase {
         XCTAssertEqual(state.summary().v, TrackingTelemetryState.schemaVersion)
     }
 }
+#endif

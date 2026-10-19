@@ -101,10 +101,10 @@ class CliServer {
                 }
             )
         }
+        #if DEBUG
         if rawValue == "--qa-state" {
             return qaState()
         }
-        #if DEBUG
         if let reply = QaLifecycle.command(rawValue) { return reply }
         if rawValue.hasPrefix("--qa-defer-repaints=") {
             let ms = Int(rawValue.dropFirst("--qa-defer-repaints=".count)) ?? 0
@@ -137,7 +137,6 @@ class CliServer {
         if let reply = QaSurfaces.command(rawValue) {
             return reply
         }
-        #endif
         // The provider timeline, drained rather than read: each record is reported exactly once, so a test
         // gets the events of its own session and not the whole run's backlog. The harness writes them out as
         // NDJSON (`TrackingTelemetryNdjson`).
@@ -178,6 +177,7 @@ class CliServer {
             Logger.info { "QAMARK \(mark)" }
             return noOutput
         }
+        #endif
         if rawValue.hasPrefix("--focus="),
            let id = CGWindowID(rawValue.dropFirst("--focus=".count)), let window = (Windows.list.first { $0.cgWindowId == id }) {
             window.focus()
@@ -208,6 +208,7 @@ class CliServer {
         return error
     }
 
+    #if DEBUG
     /// Read-only snapshot of everything the switcher would decide, without showing the UI. Exists for the
     /// automated runs: a live assertion oracle that costs one IPC round-trip instead of
     /// parsing debug logs or screenshotting tiles. Mutates nothing — `shown` is computed into a local, not
@@ -535,6 +536,7 @@ class CliServer {
         var size: CGSize?
         var axHash: Int?
     }
+    #endif
 
     private struct JsonWindowList: Codable {
         var windows: [JsonWindow]
@@ -572,9 +574,14 @@ class CliClient {
     static func detectCommand() -> String? {
         let args = CommandLine.arguments
         if args.count == 2 && !args[1].starts(with: "--logs=") {
-            if args[1] == "--list" || args[1] == "--detailed-list" || args[1] == "--qa-state" || args[1] == "--qa-telemetry" || args[1] == "--hide" || args[1].hasPrefix("--qa-mark=") || args[1].hasPrefix("--focus=") || args[1].hasPrefix("--focusUsingLastFocusOrder=") || args[1].hasPrefix("--show=") {
+            if args[1] == "--list" || args[1] == "--detailed-list" || args[1] == "--hide" || args[1].hasPrefix("--focus=") || args[1].hasPrefix("--focusUsingLastFocusOrder=") || args[1].hasPrefix("--show=") {
                 return args[1]
             }
+            #if DEBUG
+            if args[1] == "--qa-state" || args[1] == "--qa-telemetry" || args[1].hasPrefix("--qa-mark=") {
+                return args[1]
+            }
+            #endif
         }
         return nil
     }
