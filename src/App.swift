@@ -620,6 +620,9 @@ extension App: NSApplicationDelegate {
         App.shared.disableRelaunchOnLogin()
         Logger.initialize()
         MainThreadStall.observe()
+        #if DEBUG
+        MainThreadWatchdog.start()
+        #endif
         Logger.info { "Launching AltTab \(App.version)" }
         // Create the background queues first, before anything that can pump the main run loop re-entrantly
         // (the "move to /Applications" modal below, the WindowServer tap's discovery). Window.init reads

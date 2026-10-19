@@ -195,6 +195,7 @@
 		5FA1E0B22F50000100A1A1A1 /* PreferencesEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA1E0B12F50000100A1A1A1 /* PreferencesEvents.swift */; };
 		5FBB24D32F389A0400BF7E14 /* Benchmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBB24D22F389A0400BF7E14 /* Benchmark.swift */; };
 		5FBB24E12F389A0400BF7E14 /* MainThreadStall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBB24E02F389A0400BF7E14 /* MainThreadStall.swift */; };
+		5FBB24E32F389A0400BF7E14 /* MainThreadWatchdog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBB24E22F389A0400BF7E14 /* MainThreadWatchdog.swift */; };
 		5FDF9EA62FB3575B00703843 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = 5FDF9EA52FB3575B00703843 /* Sparkle */; };
 		5FDF9EA92FB3577600703843 /* ShortcutRecorder in Frameworks */ = {isa = PBXBuildFile; productRef = 5FDF9EA82FB3577600703843 /* ShortcutRecorder */; };
 		5FDF9EAB2FB357F600703843 /* ShortcutRecorder in Frameworks */ = {isa = PBXBuildFile; productRef = 5FDF9EAA2FB357F600703843 /* ShortcutRecorder */; };
@@ -634,6 +635,7 @@
 		5FB41C082F9D1EF900ECF3CF /* local.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = local.xcconfig; sourceTree = "<group>"; };
 		5FBB24D22F389A0400BF7E14 /* Benchmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Benchmark.swift; sourceTree = "<group>"; };
 		5FBB24E02F389A0400BF7E14 /* MainThreadStall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainThreadStall.swift; sourceTree = "<group>"; };
+		5FBB24E22F389A0400BF7E14 /* MainThreadWatchdog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainThreadWatchdog.swift; sourceTree = "<group>"; };
 		5FC0B4352F8F6ECB00DCC310 /* changelog.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = changelog.md; sourceTree = "<group>"; };
 		5FC0B4362F8F6EE500DCC310 /* frontpage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = frontpage.jpg; sourceTree = "<group>"; };
 		5FC0B4372F8F6EE500DCC310 /* jetbrains.svg */ = {isa = PBXFileReference; lastKnownFileType = text; path = jetbrains.svg; sourceTree = "<group>"; };
@@ -1403,6 +1405,7 @@
 			children = (
 				5FBB24D22F389A0400BF7E14 /* Benchmark.swift */,
 				5FBB24E02F389A0400BF7E14 /* MainThreadStall.swift */,
+				5FBB24E22F389A0400BF7E14 /* MainThreadWatchdog.swift */,
 				BF0CA0005555666677778888 /* QAMenu.swift */,
 				BF0CA0019999AAAABBBB0002 /* QaSurfaces.swift */,
 				BF0CA0019999AAAABBBB0004 /* QaTrial.swift */,
@@ -2440,6 +2443,7 @@
 				D04BA4A11F821548EE3C5E95 /* Bash.swift in Sources */,
 				5FBB24D32F389A0400BF7E14 /* Benchmark.swift in Sources */,
 				5FBB24E12F389A0400BF7E14 /* MainThreadStall.swift in Sources */,
+				5FBB24E32F389A0400BF7E14 /* MainThreadWatchdog.swift in Sources */,
 				5F21C9E62C6E94920091F72F /* AnimationsSheet.swift in Sources */,
 				D04BAFB90E00AA5D662EAF24 /* PermissionsWindow.swift in Sources */,
 				5FEEAA040000000000000002 /* OnboardingPopover.swift in Sources */,
