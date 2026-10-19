@@ -122,8 +122,8 @@ class ControlsTab {
         gestureEditorView = makeGestureEditor()
 
         let shortcutsView = makeShortcutsView()
-        let additionalControlsButton = NSButton(title: NSLocalizedString("Additional controls…", comment: ""), target: self, action: #selector(showAdditionalControlsSettings))
-        let shortcutsButton = NSButton(title: NSLocalizedString("Shortcuts when active…", comment: ""), target: self, action: #selector(showShortcutsSettings))
+        let additionalControlsButton = NSButton(title: NSLocalizedString("Additional controls", comment: "") + "…", target: self, action: #selector(showAdditionalControlsSettings))
+        let shortcutsButton = NSButton(title: NSLocalizedString("Shortcuts when active", comment: "") + "…", target: self, action: #selector(showShortcutsSettings))
         let tools = StackView([additionalControlsButton, shortcutsButton], .horizontal)
         let view = TableGroupSetView(originalViews: [shortcutsView], toolsViews: [tools], padding: 0, bottomPadding: 0, othersAlignment: .leading, toolsAlignment: .trailing)
 

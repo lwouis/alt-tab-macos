@@ -18,7 +18,6 @@
 "Add a running app" = "실행 중인 앱 추가";
 "Add an app from disk" = "디스크에서 앱 추가";
 "Additional controls" = "추가 컨트롤";
-"Additional controls…" = "추가 컨트롤…";
 "After keys are released" = "키를 놓은 후";
 "After that, window switching and thumbnails stay free. Search, extra styles, Auto Size, and additional shortcuts require Pro." = "이후에도 창 전환과 썸네일은 무료로 사용할 수 있습니다. 검색, 추가 스타일, 자동 크기 조절 및 추가 단축키에는 Pro가 필요합니다.";
 "All apps" = "모든 앱";
@@ -41,7 +40,6 @@
 "Always send crash reports" = "항상 충돌 보고서 보내기";
 "and press" = "그리고 누르기";
 "Animations" = "애니메이션";
-"Animations…" = "애니메이션…";
 "App Icons" = "앱 아이콘";
 "App Icons & Titles styles" = "앱 아이콘 및 제목 스타일";
 "App is hidden" = "앱 숨김";
@@ -115,16 +113,13 @@
 "Notes" = "메모";
 "Notes — List" = "메모 — 목록";
 "Only 1 shortcut" = "단축키 1개만";
-"option" = "option";
 "Photos" = "사진";
 "Reading" = "독서";
 "Recipes" = "요리법";
-"Safari" = "Safari";
 "Safari — Food" = "Safari — 요리";
 "Safari — Trip" = "Safari — 여행";
 "Shopping" = "쇼핑";
 "Something good." = "맛있는 한 끼.";
-"tab" = "tab";
 "e.g. com.example.app" = "예: com.example.app";
 "e.g. Debug" = "예: Debug";
 "End" = "끝";
@@ -234,7 +229,6 @@
 "Report a bug" = "버그 신고";
 "Report on current version" = "현재 버전에서 신고";
 "Reset settings and restart" = "설정 초기화 및 재시작";
-"Reset settings and restart…" = "설정 초기화 및 재시작…";
 "Restart Now" = "지금 재시작";
 "Screen including menu bar" = "메뉴 막대가 있는 화면";
 "Screen including mouse" = "마우스가 있는 화면";
@@ -252,15 +246,13 @@
 "Send" = "보내기";
 "Send a crash report?" = "충돌 보고서를 보내시겠습니까?";
 "Send feedback" = "피드백 보내기";
-"Send feedback…" = "피드백 보내기…";
 "Sending…" = "보내는 중…";
 "Settings imported" = "설정을 가져왔습니다";
 "Settings…" = "설정…";
 "Shortcut" = "단축키";
 "Shortcut already assigned to: %@" = "단축키가 이미 할당되어 있습니다: %@";
 "Shortcuts" = "단축키";
-"Shortcuts When Active" = "활성 시 단축키";
-"Shortcuts when active…" = "활성 시 단축키…";
+"Shortcuts when active" = "활성 시 단축키";
 "Show" = "보이기";
 "Show all windows" = "모든 윈도우 보이기";
 "Show apps with no open window" = "열린 윈도우가 없는 앱 보이기";
@@ -326,7 +318,6 @@
 "Unlock Search with Pro" = "Pro로 검색 잠금 해제";
 "Unlock the App Icons style with Pro" = "Pro로 앱 아이콘 스타일 잠금 해제";
 "Unlock the Titles style with Pro" = "Pro로 제목 스타일 잠금 해제";
-"Up to 9 keyboard shortcuts" = "최대 9개의 키보드 단축키";
 "Update now" = "지금 업데이트";
 "Updates policy" = "업데이트 정책";
 "Usage" = "사용량";
@@ -358,9 +349,6 @@
 "You can change it anytime in Settings" = "설정에서 언제든지 변경할 수 있습니다";
 "Without Pro" = "Pro 미사용";
 "Work" = "업무";
-"~" = "~";
-"⇥" = "⇥";
-"⌥" = "⌥";
 "You can’t undo this action." = "이 작업은 되돌릴 수 없습니다.";
 "You may need to disable some conflicting system gestures" = "충돌하는 일부 시스템 제스처를 비활성화해야 할 수 있습니다";
 "You reached for AltTab Pro this week" = "이번 주에 AltTab Pro 기능을 찾으셨어요";
@@ -369,10 +357,6 @@
 "Your feedback will be submitted as a public GitHub issue." = "피드백은 공개 GitHub 이슈로 제출됩니다.";
 "Your Pro trial starts when AltTab is ready" = "AltTab을 사용할 준비가 되면 Pro 체험이 시작됩니다";
 "Your settings reset every time AltTab restarts." = "AltTab을 다시 시작할 때마다 설정이 초기화됩니다.";
-"1" = "1";
 "12 windows to browse" = "살펴볼 윈도우 12개";
-"2" = "2";
 "2 matching windows" = "일치하는 윈도우 2개";
-"3" = "3";
-"`" = "`";
 "A little time." = "조금의 시간.";

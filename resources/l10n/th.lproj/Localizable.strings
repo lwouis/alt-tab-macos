@@ -18,7 +18,6 @@
 "Add a running app" = "เพิ่มแอปที่กำลังทำงาน";
 "Add an app from disk" = "เพิ่มแอปจากดิสก์";
 "Additional controls" = "การควบคุมเพิ่มเติม";
-"Additional controls…" = "การควบคุมเพิ่มเติม…";
 "After keys are released" = "หลังจากปล่อยปุ่ม";
 "After that, window switching and thumbnails stay free. Search, extra styles, Auto Size, and additional shortcuts require Pro." = "หลังจากนั้น การสลับหน้าต่างและภาพขนาดย่อจะยังใช้ฟรีได้ การค้นหา สไตล์เพิ่มเติม ขนาดอัตโนมัติ และปุ่มลัดเพิ่มเติมต้องใช้ Pro";
 "All apps" = "แอปทั้งหมด";
@@ -41,7 +40,6 @@
 "Always send crash reports" = "ส่งรายงานการขัดข้องเสมอ";
 "and press" = "แล้วกด";
 "Animations" = "แอนิเมชัน";
-"Animations…" = "แอนิเมชัน…";
 "App Icons" = "ไอคอนแอป";
 "App Icons & Titles styles" = "สไตล์ไอคอนแอปและชื่อ";
 "App is hidden" = "แอปถูกซ่อน";
@@ -115,16 +113,13 @@
 "Notes" = "โน้ต";
 "Notes — List" = "โน้ต — รายการ";
 "Only 1 shortcut" = "ทางลัดเพียง 1 ชุด";
-"option" = "option";
 "Photos" = "รูปภาพ";
 "Reading" = "อ่านหนังสือ";
 "Recipes" = "สูตรอาหาร";
-"Safari" = "Safari";
 "Safari — Food" = "Safari — อาหาร";
 "Safari — Trip" = "Safari — เที่ยว";
 "Shopping" = "ซื้อของ";
 "Something good." = "อาหารอร่อย";
-"tab" = "tab";
 "e.g. com.example.app" = "เช่น com.example.app";
 "e.g. Debug" = "เช่น Debug";
 "End" = "สิ้นสุด";
@@ -234,7 +229,6 @@
 "Report a bug" = "รายงานข้อบกพร่อง";
 "Report on current version" = "รายงานเกี่ยวกับเวอร์ชันปัจจุบัน";
 "Reset settings and restart" = "รีเซ็ตการตั้งค่าและรีสตาร์ท";
-"Reset settings and restart…" = "รีเซ็ตการตั้งค่าและรีสตาร์ท…";
 "Restart Now" = "รีสตาร์ททันที";
 "Screen including menu bar" = "หน้าจอที่มีแถบเมนู";
 "Screen including mouse" = "หน้าจอที่มีเมาส์";
@@ -252,15 +246,13 @@
 "Send" = "ส่ง";
 "Send a crash report?" = "ส่งรายงานการขัดข้องหรือไม่?";
 "Send feedback" = "ส่งคำติชม";
-"Send feedback…" = "ส่งคำติชม…";
 "Sending…" = "กำลังส่ง…";
 "Settings imported" = "นำเข้าการตั้งค่าแล้ว";
 "Settings…" = "การตั้งค่า…";
 "Shortcut" = "ทางลัด";
 "Shortcut already assigned to: %@" = "ทางลัดถูกกำหนดไว้แล้ว: %@";
 "Shortcuts" = "ทางลัด";
-"Shortcuts When Active" = "ทางลัดเมื่อทำงานอยู่";
-"Shortcuts when active…" = "ทางลัดเมื่อทำงานอยู่…";
+"Shortcuts when active" = "ทางลัดเมื่อทำงานอยู่";
 "Show" = "แสดง";
 "Show all windows" = "แสดงหน้าต่างทั้งหมด";
 "Show apps with no open window" = "แสดงแอปที่ไม่มีหน้าต่างเปิดอยู่";
@@ -326,7 +318,6 @@
 "Unlock Search with Pro" = "ปลดล็อกการค้นหาด้วย Pro";
 "Unlock the App Icons style with Pro" = "ปลดล็อกสไตล์ไอคอนแอปด้วย Pro";
 "Unlock the Titles style with Pro" = "ปลดล็อกสไตล์ชื่อด้วย Pro";
-"Up to 9 keyboard shortcuts" = "ทางลัดแป้นพิมพ์สูงสุด 9 รายการ";
 "Update now" = "อัปเดตทันที";
 "Updates policy" = "นโยบายการอัปเดต";
 "Usage" = "การใช้งาน";
@@ -358,9 +349,6 @@
 "You can change it anytime in Settings" = "คุณเปลี่ยนได้ทุกเมื่อในการตั้งค่า";
 "Without Pro" = "ไม่มี Pro";
 "Work" = "งาน";
-"~" = "~";
-"⇥" = "⇥";
-"⌥" = "⌥";
 "You can’t undo this action." = "คุณไม่สามารถเลิกทำการกระทำนี้ได้";
 "You may need to disable some conflicting system gestures" = "คุณอาจต้องปิดท่าทางของระบบบางอย่างที่ขัดแย้งกัน";
 "You reached for AltTab Pro this week" = "สัปดาห์นี้คุณลองใช้ AltTab Pro";
@@ -369,10 +357,6 @@
 "Your feedback will be submitted as a public GitHub issue." = "คำติชมของคุณจะถูกส่งเป็นปัญหาสาธารณะบน GitHub";
 "Your Pro trial starts when AltTab is ready" = "ช่วงทดลองใช้ Pro จะเริ่มเมื่อ AltTab พร้อมใช้งาน";
 "Your settings reset every time AltTab restarts." = "การตั้งค่าของคุณจะถูกรีเซ็ตทุกครั้งที่ AltTab เริ่มทำงานใหม่";
-"1" = "1";
 "12 windows to browse" = "12 หน้าต่างให้เลือกดู";
-"2" = "2";
 "2 matching windows" = "2 หน้าต่างที่ตรงกัน";
-"3" = "3";
-"`" = "`";
 "A little time." = "เวลาเล็กน้อย";

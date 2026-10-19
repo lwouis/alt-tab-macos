@@ -392,7 +392,7 @@ class AppearanceTab: NSObject {
 
     static func initTab() -> NSView {
         customizeStyleButton = NSButton(title: getCustomizeStyleButtonTitle(), target: self, action: #selector(showCustomizeStyleSheet))
-        animationsButton = NSButton(title: NSLocalizedString("Animations…", comment: ""), target: self, action: #selector(showAnimationsSheet))
+        animationsButton = NSButton(title: NSLocalizedString("Animations", comment: "") + "…", target: self, action: #selector(showAnimationsSheet))
         // Sheets are constructed lazily on first show — see `showCustomizeStyleSheet` /
         // `showAnimationsSheet`. Pre-build search is satisfied by the sheets' static
         // `searchableStrings`, consulted through `SettingsSearchIndex`.

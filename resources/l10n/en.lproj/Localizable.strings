@@ -18,7 +18,6 @@
 "Add a running app" = "Add a running app";
 "Add an app from disk" = "Add an app from disk";
 "Additional controls" = "Additional controls";
-"Additional controls…" = "Additional controls…";
 "After keys are released" = "After keys are released";
 "After that, window switching and thumbnails stay free. Search, extra styles, Auto Size, and additional shortcuts require Pro." = "After that, window switching and thumbnails stay free. Search, extra styles, Auto Size, and additional shortcuts require Pro.";
 "All apps" = "All apps";
@@ -41,7 +40,6 @@
 "Always send crash reports" = "Always send crash reports";
 "and press" = "and press";
 "Animations" = "Animations";
-"Animations…" = "Animations…";
 "App Icons" = "App Icons";
 "App Icons & Titles styles" = "App Icons & Titles styles";
 "App is hidden" = "App is hidden";
@@ -115,16 +113,13 @@
 "Notes" = "Notes";
 "Notes — List" = "Notes — List";
 "Only 1 shortcut" = "Only 1 shortcut";
-"option" = "option";
 "Photos" = "Photos";
 "Reading" = "Reading";
 "Recipes" = "Recipes";
-"Safari" = "Safari";
 "Safari — Food" = "Safari — Food";
 "Safari — Trip" = "Safari — Trip";
 "Shopping" = "Shopping";
 "Something good." = "Something good.";
-"tab" = "tab";
 "e.g. com.example.app" = "e.g. com.example.app";
 "e.g. Debug" = "e.g. Debug";
 "End" = "End";
@@ -234,7 +229,6 @@
 "Report a bug" = "Report a bug";
 "Report on current version" = "Report on current version";
 "Reset settings and restart" = "Reset settings and restart";
-"Reset settings and restart…" = "Reset settings and restart…";
 "Restart Now" = "Restart Now";
 "Screen including menu bar" = "Screen including menu bar";
 "Screen including mouse" = "Screen including mouse";
@@ -252,15 +246,13 @@
 "Send" = "Send";
 "Send a crash report?" = "Send a crash report?";
 "Send feedback" = "Send feedback";
-"Send feedback…" = "Send feedback…";
 "Sending…" = "Sending…";
 "Settings imported" = "Settings imported";
 "Settings…" = "Settings…";
 "Shortcut" = "Shortcut";
 "Shortcut already assigned to: %@" = "Shortcut already assigned to: %@";
 "Shortcuts" = "Shortcuts";
-"Shortcuts When Active" = "Shortcuts When Active";
-"Shortcuts when active…" = "Shortcuts when active…";
+"Shortcuts when active" = "Shortcuts when active";
 "Show" = "Show";
 "Show all windows" = "Show all windows";
 "Show apps with no open window" = "Show apps with no open window";
@@ -326,7 +318,6 @@
 "Unlock Search with Pro" = "Unlock Search with Pro";
 "Unlock the App Icons style with Pro" = "Unlock the App Icons style with Pro";
 "Unlock the Titles style with Pro" = "Unlock the Titles style with Pro";
-"Up to 9 keyboard shortcuts" = "Up to 9 keyboard shortcuts";
 "Update now" = "Update now";
 "Updates policy" = "Updates policy";
 "Usage" = "Usage";
@@ -358,9 +349,6 @@
 "You can change it anytime in Settings" = "You can change it anytime in Settings";
 "Without Pro" = "Without Pro";
 "Work" = "Work";
-"~" = "~";
-"⇥" = "⇥";
-"⌥" = "⌥";
 "You can’t undo this action." = "You can’t undo this action.";
 "You may need to disable some conflicting system gestures" = "You may need to disable some conflicting system gestures";
 "You reached for AltTab Pro this week" = "You reached for AltTab Pro this week";
@@ -369,10 +357,6 @@
 "Your feedback will be submitted as a public GitHub issue." = "Your feedback will be submitted as a public GitHub issue.";
 "Your Pro trial starts when AltTab is ready" = "Your Pro trial starts when AltTab is ready";
 "Your settings reset every time AltTab restarts." = "Your settings reset every time AltTab restarts.";
-"1" = "1";
 "12 windows to browse" = "12 windows to browse";
-"2" = "2";
 "2 matching windows" = "2 matching windows";
-"3" = "3";
-"`" = "`";
 "A little time." = "A little time.";

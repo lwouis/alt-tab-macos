@@ -18,7 +18,6 @@
 "Add a running app" = "Ajouter une app en cours d'exécution";
 "Add an app from disk" = "Ajouter une app depuis le disque";
 "Additional controls" = "Contrôles supplémentaires";
-"Additional controls…" = "Contrôles supplémentaires…";
 "After keys are released" = "Après le relâchement des touches";
 "After that, window switching and thumbnails stay free. Search, extra styles, Auto Size, and additional shortcuts require Pro." = "Ensuite, le changement de fenêtre et les vignettes restent gratuits. La recherche, les styles supplémentaires, la taille automatique et les raccourcis supplémentaires nécessitent Pro.";
 "All apps" = "Toutes les apps";
@@ -41,7 +40,6 @@
 "Always send crash reports" = "Toujours envoyer les rapports de plantage";
 "and press" = "et appuyer sur";
 "Animations" = "Animations";
-"Animations…" = "Animations…";
 "App Icons" = "Icônes d'app";
 "App Icons & Titles styles" = "Styles Icônes d'app et Titres";
 "App is hidden" = "App masquée";
@@ -115,16 +113,13 @@
 "Notes" = "Notes";
 "Notes — List" = "Notes — Liste";
 "Only 1 shortcut" = "1 seul raccourci";
-"option" = "option";
 "Photos" = "Photos";
 "Reading" = "Lecture";
 "Recipes" = "Recettes";
-"Safari" = "Safari";
 "Safari — Food" = "Safari — Cuisine";
 "Safari — Trip" = "Safari — Voyage";
 "Shopping" = "Courses";
 "Something good." = "Un vrai régal.";
-"tab" = "tab";
 "e.g. com.example.app" = "ex. com.example.app";
 "e.g. Debug" = "ex. Debug";
 "End" = "Fin";
@@ -234,7 +229,6 @@
 "Report a bug" = "Signaler un bug";
 "Report on current version" = "Signaler sur la version actuelle";
 "Reset settings and restart" = "Réinitialiser les réglages et redémarrer";
-"Reset settings and restart…" = "Réinitialiser les réglages et redémarrer…";
 "Restart Now" = "Redémarrer maintenant";
 "Screen including menu bar" = "Écran avec la barre des menus";
 "Screen including mouse" = "Écran avec la souris";
@@ -252,15 +246,13 @@
 "Send" = "Envoyer";
 "Send a crash report?" = "Envoyer un rapport de plantage ?";
 "Send feedback" = "Envoyer un commentaire";
-"Send feedback…" = "Envoyer un commentaire…";
 "Sending…" = "Envoi…";
 "Settings imported" = "Réglages importés";
 "Settings…" = "Réglages…";
 "Shortcut" = "Raccourci";
 "Shortcut already assigned to: %@" = "Raccourci déjà affecté à : %@";
 "Shortcuts" = "Raccourcis";
-"Shortcuts When Active" = "Raccourcis pendant l'utilisation";
-"Shortcuts when active…" = "Raccourcis pendant l'utilisation…";
+"Shortcuts when active" = "Raccourcis pendant l'utilisation";
 "Show" = "Afficher";
 "Show all windows" = "Afficher toutes les fenêtres";
 "Show apps with no open window" = "Afficher les apps sans fenêtre ouverte";
@@ -326,7 +318,6 @@
 "Unlock Search with Pro" = "Débloquez la recherche avec Pro";
 "Unlock the App Icons style with Pro" = "Débloquez le style Icônes d'app avec Pro";
 "Unlock the Titles style with Pro" = "Débloquez le style Titres avec Pro";
-"Up to 9 keyboard shortcuts" = "Jusqu'à 9 raccourcis clavier";
 "Update now" = "Mettre à jour maintenant";
 "Updates policy" = "Politique des mises à jour";
 "Usage" = "Utilisation";
@@ -358,9 +349,6 @@
 "You can change it anytime in Settings" = "Vous pouvez le changer à tout moment dans Réglages";
 "Without Pro" = "Sans Pro";
 "Work" = "Travail";
-"~" = "~";
-"⇥" = "⇥";
-"⌥" = "⌥";
 "You can’t undo this action." = "Vous ne pouvez pas annuler cette action.";
 "You may need to disable some conflicting system gestures" = "Vous devrez peut-être désactiver certains gestes système conflictuels";
 "You reached for AltTab Pro this week" = "Vous avez eu besoin d'AltTab Pro cette semaine";
@@ -369,10 +357,6 @@
 "Your feedback will be submitted as a public GitHub issue." = "Votre commentaire sera envoyé sous forme de ticket GitHub public.";
 "Your Pro trial starts when AltTab is ready" = "Votre essai Pro commence quand AltTab est prêt";
 "Your settings reset every time AltTab restarts." = "Vos réglages sont réinitialisés à chaque redémarrage d'AltTab.";
-"1" = "1";
 "12 windows to browse" = "12 fenêtres à parcourir";
-"2" = "2";
 "2 matching windows" = "2 fenêtres trouvées";
-"3" = "3";
-"`" = "`";
 "A little time." = "Un instant.";

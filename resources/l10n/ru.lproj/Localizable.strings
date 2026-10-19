@@ -18,7 +18,6 @@
 "Add a running app" = "Добавить запущенное приложение";
 "Add an app from disk" = "Добавить приложение с диска";
 "Additional controls" = "Дополнительные элементы управления";
-"Additional controls…" = "Дополнительные элементы управления…";
 "After keys are released" = "После отпускания клавиш";
 "After that, window switching and thumbnails stay free. Search, extra styles, Auto Size, and additional shortcuts require Pro." = "После этого переключение окон и миниатюры останутся бесплатными. Поиск, дополнительные стили, автоматический размер и дополнительные сочетания клавиш требуют Pro.";
 "All apps" = "Все приложения";
@@ -41,7 +40,6 @@
 "Always send crash reports" = "Всегда отправлять отчёты о сбоях";
 "and press" = "и нажмите";
 "Animations" = "Анимация";
-"Animations…" = "Анимация…";
 "App Icons" = "Значки приложений";
 "App Icons & Titles styles" = "Стили «Значки приложений» и «Заголовки»";
 "App is hidden" = "Приложение скрыто";
@@ -115,16 +113,13 @@
 "Notes" = "Заметки";
 "Notes — List" = "Заметки — Список";
 "Only 1 shortcut" = "Всего 1 сочетание";
-"option" = "option";
 "Photos" = "Фото";
 "Reading" = "Чтение";
 "Recipes" = "Рецепты";
-"Safari" = "Safari";
 "Safari — Food" = "Safari — Еда";
 "Safari — Trip" = "Safari — Поездка";
 "Shopping" = "Покупки";
 "Something good." = "Будет вкусно.";
-"tab" = "tab";
 "e.g. com.example.app" = "напр. com.example.app";
 "e.g. Debug" = "напр. Debug";
 "End" = "Конец";
@@ -234,7 +229,6 @@
 "Report a bug" = "Сообщить об ошибке";
 "Report on current version" = "Сообщить о текущей версии";
 "Reset settings and restart" = "Сбросить настройки и перезапустить";
-"Reset settings and restart…" = "Сбросить настройки и перезапустить…";
 "Restart Now" = "Перезапустить сейчас";
 "Screen including menu bar" = "Экран со строкой меню";
 "Screen including mouse" = "Экран с курсором мыши";
@@ -252,15 +246,13 @@
 "Send" = "Отправить";
 "Send a crash report?" = "Отправить отчёт о сбое?";
 "Send feedback" = "Отправить отзыв";
-"Send feedback…" = "Отправить отзыв…";
 "Sending…" = "Отправка…";
 "Settings imported" = "Настройки импортированы";
 "Settings…" = "Настройки…";
 "Shortcut" = "Сочетание клавиш";
 "Shortcut already assigned to: %@" = "Сочетание клавиш уже назначено: %@";
 "Shortcuts" = "Сочетания клавиш";
-"Shortcuts When Active" = "Сочетания клавиш при активном переключателе";
-"Shortcuts when active…" = "Сочетания клавиш при активном переключателе…";
+"Shortcuts when active" = "Сочетания клавиш при активном переключателе";
 "Show" = "Показать";
 "Show all windows" = "Показать все окна";
 "Show apps with no open window" = "Показывать приложения без открытых окон";
@@ -326,7 +318,6 @@
 "Unlock Search with Pro" = "Откройте Поиск с Pro";
 "Unlock the App Icons style with Pro" = "Откройте стиль «Значки приложений» с Pro";
 "Unlock the Titles style with Pro" = "Откройте стиль «Заголовки» с Pro";
-"Up to 9 keyboard shortcuts" = "До 9 сочетаний клавиш";
 "Update now" = "Обновить сейчас";
 "Updates policy" = "Политика обновлений";
 "Usage" = "Использование";
@@ -358,9 +349,6 @@
 "You can change it anytime in Settings" = "Его можно изменить в любое время в Настройках";
 "Without Pro" = "Без Pro";
 "Work" = "Работа";
-"~" = "~";
-"⇥" = "⇥";
-"⌥" = "⌥";
 "You can’t undo this action." = "Это действие нельзя отменить.";
 "You may need to disable some conflicting system gestures" = "Возможно, потребуется отключить некоторые конфликтующие системные жесты";
 "You reached for AltTab Pro this week" = "На этой неделе вам понадобился AltTab Pro";
@@ -369,10 +357,6 @@
 "Your feedback will be submitted as a public GitHub issue." = "Ваш отзыв будет отправлен как публичный issue на GitHub.";
 "Your Pro trial starts when AltTab is ready" = "Пробный период Pro начнётся, когда AltTab будет готов к работе";
 "Your settings reset every time AltTab restarts." = "Ваши настройки сбрасываются при каждом перезапуске AltTab.";
-"1" = "1";
 "12 windows to browse" = "12 окон для просмотра";
-"2" = "2";
 "2 matching windows" = "Найдено 2 окна";
-"3" = "3";
-"`" = "`";
 "A little time." = "Минутка.";

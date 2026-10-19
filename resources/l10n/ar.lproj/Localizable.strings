@@ -18,7 +18,6 @@
 "Add a running app" = "إضافة تطبيق قيد التشغيل";
 "Add an app from disk" = "إضافة تطبيق من القرص";
 "Additional controls" = "عناصر تحكم إضافية";
-"Additional controls…" = "عناصر تحكم إضافية…";
 "After keys are released" = "بعد تحرير المفاتيح";
 "After that, window switching and thumbnails stay free. Search, extra styles, Auto Size, and additional shortcuts require Pro." = "بعد ذلك، يظل تبديل النوافذ والصور المصغّرة مجانيًا. يتطلب البحث والأنماط الإضافية والحجم التلقائي والاختصارات الإضافية Pro.";
 "All apps" = "جميع التطبيقات";
@@ -41,7 +40,6 @@
 "Always send crash reports" = "إرسال تقارير الأعطال دائمًا";
 "and press" = "ثم اضغط";
 "Animations" = "الرسوم المتحركة";
-"Animations…" = "الرسوم المتحركة…";
 "App Icons" = "أيقونات التطبيقات";
 "App Icons & Titles styles" = "نمطا أيقونات التطبيقات والعناوين";
 "App is hidden" = "التطبيق مخفي";
@@ -115,16 +113,13 @@
 "Notes" = "الملاحظات";
 "Notes — List" = "الملاحظات — قائمة";
 "Only 1 shortcut" = "1 اختصار فقط";
-"option" = "option";
 "Photos" = "صور";
 "Reading" = "قراءة";
 "Recipes" = "وصفات";
-"Safari" = "Safari";
 "Safari — Food" = "Safari — طعام";
 "Safari — Trip" = "Safari — سفر";
 "Shopping" = "تسوّق";
 "Something good." = "شيء لذيذ.";
-"tab" = "tab";
 "e.g. com.example.app" = "مثال: com.example.app";
 "e.g. Debug" = "مثال: Debug";
 "End" = "النهاية";
@@ -234,7 +229,6 @@
 "Report a bug" = "الإبلاغ عن خلل";
 "Report on current version" = "الإبلاغ عن الإصدار الحالي";
 "Reset settings and restart" = "إعادة تعيين الإعدادات وإعادة التشغيل";
-"Reset settings and restart…" = "إعادة تعيين الإعدادات وإعادة التشغيل…";
 "Restart Now" = "إعادة التشغيل الآن";
 "Screen including menu bar" = "الشاشة التي تتضمن شريط القائمة";
 "Screen including mouse" = "الشاشة التي تتضمن الفأرة";
@@ -252,15 +246,13 @@
 "Send" = "إرسال";
 "Send a crash report?" = "إرسال تقرير الأعطال؟";
 "Send feedback" = "إرسال ملاحظات";
-"Send feedback…" = "إرسال ملاحظات…";
 "Sending…" = "جارٍ الإرسال…";
 "Settings imported" = "تم استيراد الإعدادات";
 "Settings…" = "الإعدادات…";
 "Shortcut" = "اختصار";
 "Shortcut already assigned to: %@" = "الاختصار معيّن بالفعل: %@";
 "Shortcuts" = "الاختصارات";
-"Shortcuts When Active" = "الاختصارات عند النشاط";
-"Shortcuts when active…" = "الاختصارات عند النشاط…";
+"Shortcuts when active" = "الاختصارات عند النشاط";
 "Show" = "إظهار";
 "Show all windows" = "إظهار جميع النوافذ";
 "Show apps with no open window" = "إظهار التطبيقات التي ليس لديها نافذة مفتوحة";
@@ -326,7 +318,6 @@
 "Unlock Search with Pro" = "افتح البحث مع Pro";
 "Unlock the App Icons style with Pro" = "افتح نمط أيقونات التطبيقات مع Pro";
 "Unlock the Titles style with Pro" = "افتح نمط العناوين مع Pro";
-"Up to 9 keyboard shortcuts" = "ما يصل إلى 9 اختصارات لوحة المفاتيح";
 "Update now" = "التحديث الآن";
 "Updates policy" = "سياسة التحديثات";
 "Usage" = "الاستخدام";
@@ -358,9 +349,6 @@
 "You can change it anytime in Settings" = "يمكنك تغييره في أي وقت من الإعدادات";
 "Without Pro" = "بدون Pro";
 "Work" = "عمل";
-"~" = "~";
-"⇥" = "⇥";
-"⌥" = "⌥";
 "You can’t undo this action." = "لا يمكنك التراجع عن هذا الإجراء.";
 "You may need to disable some conflicting system gestures" = "قد تحتاج إلى تعطيل بعض إيماءات النظام المتعارضة";
 "You reached for AltTab Pro this week" = "لجأت إلى AltTab Pro هذا الأسبوع";
@@ -369,10 +357,6 @@
 "Your feedback will be submitted as a public GitHub issue." = "سيتم إرسال ملاحظاتك كمشكلة عامة على GitHub.";
 "Your Pro trial starts when AltTab is ready" = "تبدأ تجربتك لـ Pro عندما يصبح AltTab جاهزًا";
 "Your settings reset every time AltTab restarts." = "تتم إعادة تعيين إعداداتك في كل مرة يُعاد فيها تشغيل AltTab.";
-"1" = "1";
 "12 windows to browse" = "12 نافذة للتصفح";
-"2" = "2";
 "2 matching windows" = "2 نافذة مطابقة";
-"3" = "3";
-"`" = "`";
 "A little time." = "لحظة فقط.";

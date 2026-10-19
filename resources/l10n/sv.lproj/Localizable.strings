@@ -18,7 +18,6 @@
 "Add a running app" = "Lägg till en app som körs";
 "Add an app from disk" = "Lägg till en app från disk";
 "Additional controls" = "Ytterligare kontroller";
-"Additional controls…" = "Ytterligare kontroller…";
 "After keys are released" = "Efter att tangenterna släppts";
 "After that, window switching and thumbnails stay free. Search, extra styles, Auto Size, and additional shortcuts require Pro." = "Därefter förblir fönsterbyte och miniatyrer gratis. Sökning, extra stilar, automatisk storlek och fler kortkommandon kräver Pro.";
 "All apps" = "Alla appar";
@@ -41,7 +40,6 @@
 "Always send crash reports" = "Skicka alltid kraschrapporter";
 "and press" = "och tryck";
 "Animations" = "Animationer";
-"Animations…" = "Animationer…";
 "App Icons" = "Appikoner";
 "App Icons & Titles styles" = "Stilar för Appikoner och Titlar";
 "App is hidden" = "App är dold";
@@ -115,16 +113,13 @@
 "Notes" = "Anteckningar";
 "Notes — List" = "Anteckningar — Lista";
 "Only 1 shortcut" = "Bara 1 kortkommando";
-"option" = "option";
 "Photos" = "Bilder";
 "Reading" = "Läsning";
 "Recipes" = "Recept";
-"Safari" = "Safari";
 "Safari — Food" = "Safari — Mat";
 "Safari — Trip" = "Safari — Resa";
 "Shopping" = "Inköp";
 "Something good." = "Något gott.";
-"tab" = "tab";
 "e.g. com.example.app" = "t.ex. com.example.app";
 "e.g. Debug" = "t.ex. Debug";
 "End" = "Slut";
@@ -234,7 +229,6 @@
 "Report a bug" = "Rapportera ett fel";
 "Report on current version" = "Rapportera om aktuell version";
 "Reset settings and restart" = "Återställ inställningar och starta om";
-"Reset settings and restart…" = "Återställ inställningar och starta om…";
 "Restart Now" = "Starta om nu";
 "Screen including menu bar" = "Skärm som innehåller menyraden";
 "Screen including mouse" = "Skärm som innehåller musen";
@@ -252,15 +246,13 @@
 "Send" = "Skicka";
 "Send a crash report?" = "Skicka en kraschrapport?";
 "Send feedback" = "Skicka feedback";
-"Send feedback…" = "Skicka feedback…";
 "Sending…" = "Skickar…";
 "Settings imported" = "Inställningar importerade";
 "Settings…" = "Inställningar…";
 "Shortcut" = "Kortkommando";
 "Shortcut already assigned to: %@" = "Kortkommandot är redan tilldelat: %@";
 "Shortcuts" = "Kortkommandon";
-"Shortcuts When Active" = "Kortkommandon när aktiv";
-"Shortcuts when active…" = "Kortkommandon när aktiv…";
+"Shortcuts when active" = "Kortkommandon när aktiv";
 "Show" = "Visa";
 "Show all windows" = "Visa alla fönster";
 "Show apps with no open window" = "Visa appar utan öppet fönster";
@@ -326,7 +318,6 @@
 "Unlock Search with Pro" = "Lås upp Sök med Pro";
 "Unlock the App Icons style with Pro" = "Lås upp stilen Appikoner med Pro";
 "Unlock the Titles style with Pro" = "Lås upp stilen Titlar med Pro";
-"Up to 9 keyboard shortcuts" = "Upp till 9 kortkommandon";
 "Update now" = "Uppdatera nu";
 "Updates policy" = "Policy för uppdateringar";
 "Usage" = "Användning";
@@ -358,9 +349,6 @@
 "You can change it anytime in Settings" = "Du kan ändra den när som helst i Inställningar";
 "Without Pro" = "Utan Pro";
 "Work" = "Arbete";
-"~" = "~";
-"⇥" = "⇥";
-"⌥" = "⌥";
 "You can’t undo this action." = "Den här åtgärden kan inte ångras.";
 "You may need to disable some conflicting system gestures" = "Du kan behöva inaktivera vissa motstridiga systemgester";
 "You reached for AltTab Pro this week" = "Du sträckte dig efter AltTab Pro den här veckan";
@@ -369,10 +357,6 @@
 "Your feedback will be submitted as a public GitHub issue." = "Din feedback skickas in som ett offentligt GitHub-ärende.";
 "Your Pro trial starts when AltTab is ready" = "Din Pro-provperiod börjar när AltTab är redo";
 "Your settings reset every time AltTab restarts." = "Dina inställningar återställs varje gång AltTab startas om.";
-"1" = "1";
 "12 windows to browse" = "12 fönster att bläddra i";
-"2" = "2";
 "2 matching windows" = "2 matchande fönster";
-"3" = "3";
-"`" = "`";
 "A little time." = "Lite tid.";

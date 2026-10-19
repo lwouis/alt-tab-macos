@@ -18,7 +18,6 @@
 "Add a running app" = "Çalışan bir uygulama ekle";
 "Add an app from disk" = "Diskten bir uygulama ekle";
 "Additional controls" = "Ek denetimler";
-"Additional controls…" = "Ek denetimler…";
 "After keys are released" = "Tuşlar bırakıldıktan sonra";
 "After that, window switching and thumbnails stay free. Search, extra styles, Auto Size, and additional shortcuts require Pro." = "Sonrasında pencere değiştirme ve küçük resimler ücretsiz kalır. Arama, ek stiller, otomatik boyut ve ek kısayollar Pro gerektirir.";
 "All apps" = "Tüm uygulamalar";
@@ -41,7 +40,6 @@
 "Always send crash reports" = "Çökme raporlarını her zaman gönder";
 "and press" = "ve basın";
 "Animations" = "Animasyonlar";
-"Animations…" = "Animasyonlar…";
 "App Icons" = "Uygulama simgeleri";
 "App Icons & Titles styles" = "Uygulama simgeleri ve Başlıklar stilleri";
 "App is hidden" = "Uygulama gizli";
@@ -115,16 +113,13 @@
 "Notes" = "Notlar";
 "Notes — List" = "Notlar — Liste";
 "Only 1 shortcut" = "Yalnızca 1 kısayol";
-"option" = "option";
 "Photos" = "Fotoğraflar";
 "Reading" = "Okuma";
 "Recipes" = "Tarifler";
-"Safari" = "Safari";
 "Safari — Food" = "Safari — Yemek";
 "Safari — Trip" = "Safari — Gezi";
 "Shopping" = "Alışveriş";
 "Something good." = "Lezzetli bir şey.";
-"tab" = "tab";
 "e.g. com.example.app" = "örn. com.example.app";
 "e.g. Debug" = "örn. Debug";
 "End" = "Son";
@@ -234,7 +229,6 @@
 "Report a bug" = "Hata bildir";
 "Report on current version" = "Mevcut sürümde bildir";
 "Reset settings and restart" = "Ayarları sıfırla ve yeniden başlat";
-"Reset settings and restart…" = "Ayarları sıfırla ve yeniden başlat…";
 "Restart Now" = "Şimdi Yeniden Başlat";
 "Screen including menu bar" = "Menü çubuğunu içeren ekran";
 "Screen including mouse" = "Fareyi içeren ekran";
@@ -252,15 +246,13 @@
 "Send" = "Gönder";
 "Send a crash report?" = "Çökme raporu gönderilsin mi?";
 "Send feedback" = "Geri bildirim gönder";
-"Send feedback…" = "Geri bildirim gönder…";
 "Sending…" = "Gönderiliyor…";
 "Settings imported" = "Ayarlar içe aktarıldı";
 "Settings…" = "Ayarlar…";
 "Shortcut" = "Kısayol";
 "Shortcut already assigned to: %@" = "Kısayol zaten şuna atanmış: %@";
 "Shortcuts" = "Kısayollar";
-"Shortcuts When Active" = "Etkinken Kullanılan Kısayollar";
-"Shortcuts when active…" = "Etkinken kullanılan kısayollar…";
+"Shortcuts when active" = "Etkinken kullanılan kısayollar";
 "Show" = "Göster";
 "Show all windows" = "Tüm pencereleri göster";
 "Show apps with no open window" = "Açık penceresi olmayan uygulamaları göster";
@@ -326,7 +318,6 @@
 "Unlock Search with Pro" = "Pro ile Arama’nın kilidini açın";
 "Unlock the App Icons style with Pro" = "Pro ile Uygulama simgeleri stilinin kilidini açın";
 "Unlock the Titles style with Pro" = "Pro ile Başlıklar stilinin kilidini açın";
-"Up to 9 keyboard shortcuts" = "9’a kadar klavye kısayolu";
 "Update now" = "Şimdi güncelle";
 "Updates policy" = "Güncelleme ilkesi";
 "Usage" = "Kullanım";
@@ -358,9 +349,6 @@
 "You can change it anytime in Settings" = "İstediğiniz zaman Ayarlar’dan değiştirebilirsiniz";
 "Without Pro" = "Pro olmadan";
 "Work" = "İş";
-"~" = "~";
-"⇥" = "⇥";
-"⌥" = "⌥";
 "You can’t undo this action." = "Bu eylemi geri alamazsınız.";
 "You may need to disable some conflicting system gestures" = "Çakışan bazı sistem hareketlerini devre dışı bırakmanız gerekebilir";
 "You reached for AltTab Pro this week" = "Bu hafta AltTab Pro'ya ihtiyaç duydunuz";
@@ -369,10 +357,6 @@
 "Your feedback will be submitted as a public GitHub issue." = "Geri bildiriminiz herkese açık bir GitHub konusu olarak gönderilecek.";
 "Your Pro trial starts when AltTab is ready" = "Pro denemeniz AltTab hazır olduğunda başlar";
 "Your settings reset every time AltTab restarts." = "Ayarların her AltTab yeniden başlatıldığında sıfırlanıyor.";
-"1" = "1";
 "12 windows to browse" = "Göz atılacak 12 pencere";
-"2" = "2";
 "2 matching windows" = "Eşleşen 2 pencere";
-"3" = "3";
-"`" = "`";
 "A little time." = "Bir an.";

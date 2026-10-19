@@ -18,7 +18,6 @@
 "Add a running app" = "Thêm một ứng dụng đang chạy";
 "Add an app from disk" = "Thêm một ứng dụng từ ổ đĩa";
 "Additional controls" = "Điều khiển bổ sung";
-"Additional controls…" = "Điều khiển bổ sung…";
 "After keys are released" = "Sau khi nhả phím";
 "After that, window switching and thumbnails stay free. Search, extra styles, Auto Size, and additional shortcuts require Pro." = "Sau đó, việc chuyển cửa sổ và hình thu nhỏ vẫn miễn phí. Tìm kiếm, kiểu bổ sung, kích thước tự động và phím tắt bổ sung cần có Pro.";
 "All apps" = "Tất cả ứng dụng";
@@ -41,7 +40,6 @@
 "Always send crash reports" = "Luôn gửi báo cáo sự cố";
 "and press" = "và nhấn";
 "Animations" = "Hoạt ảnh";
-"Animations…" = "Hoạt ảnh…";
 "App Icons" = "Biểu tượng ứng dụng";
 "App Icons & Titles styles" = "Kiểu Biểu tượng ứng dụng & Tiêu đề";
 "App is hidden" = "Ứng dụng đang ẩn";
@@ -115,16 +113,13 @@
 "Notes" = "Ghi chú";
 "Notes — List" = "Ghi chú — Danh sách";
 "Only 1 shortcut" = "Chỉ 1 phím tắt";
-"option" = "option";
 "Photos" = "Ảnh";
 "Reading" = "Đọc sách";
 "Recipes" = "Công thức";
-"Safari" = "Safari";
 "Safari — Food" = "Safari — Món ăn";
 "Safari — Trip" = "Safari — Du lịch";
 "Shopping" = "Mua sắm";
 "Something good." = "Một món ngon.";
-"tab" = "tab";
 "e.g. com.example.app" = "ví dụ: com.example.app";
 "e.g. Debug" = "ví dụ: Debug";
 "End" = "Cuối";
@@ -234,7 +229,6 @@
 "Report a bug" = "Báo cáo lỗi";
 "Report on current version" = "Báo cáo trên phiên bản hiện tại";
 "Reset settings and restart" = "Đặt lại cài đặt và khởi động lại";
-"Reset settings and restart…" = "Đặt lại cài đặt và khởi động lại…";
 "Restart Now" = "Khởi động lại ngay";
 "Screen including menu bar" = "Màn hình có thanh menu";
 "Screen including mouse" = "Màn hình có con trỏ chuột";
@@ -252,15 +246,13 @@
 "Send" = "Gửi";
 "Send a crash report?" = "Gửi báo cáo sự cố?";
 "Send feedback" = "Gửi phản hồi";
-"Send feedback…" = "Gửi phản hồi…";
 "Sending…" = "Đang gửi…";
 "Settings imported" = "Đã nhập cài đặt";
 "Settings…" = "Cài đặt…";
 "Shortcut" = "Phím tắt";
 "Shortcut already assigned to: %@" = "Phím tắt đã được gán cho: %@";
 "Shortcuts" = "Phím tắt";
-"Shortcuts When Active" = "Phím tắt khi hoạt động";
-"Shortcuts when active…" = "Phím tắt khi hoạt động…";
+"Shortcuts when active" = "Phím tắt khi hoạt động";
 "Show" = "Hiển thị";
 "Show all windows" = "Hiển thị tất cả cửa sổ";
 "Show apps with no open window" = "Hiển thị ứng dụng không có cửa sổ mở";
@@ -326,7 +318,6 @@
 "Unlock Search with Pro" = "Mở khóa Tìm kiếm với Pro";
 "Unlock the App Icons style with Pro" = "Mở khóa kiểu Biểu tượng ứng dụng với Pro";
 "Unlock the Titles style with Pro" = "Mở khóa kiểu Tiêu đề với Pro";
-"Up to 9 keyboard shortcuts" = "Tối đa 9 phím tắt bàn phím";
 "Update now" = "Cập nhật ngay";
 "Updates policy" = "Chính sách cập nhật";
 "Usage" = "Sử dụng";
@@ -358,9 +349,6 @@
 "You can change it anytime in Settings" = "Bạn có thể đổi bất cứ lúc nào trong Cài đặt";
 "Without Pro" = "Không có Pro";
 "Work" = "Công việc";
-"~" = "~";
-"⇥" = "⇥";
-"⌥" = "⌥";
 "You can’t undo this action." = "Bạn không thể hoàn tác hành động này.";
 "You may need to disable some conflicting system gestures" = "Bạn có thể cần tắt một số cử chỉ hệ thống xung đột";
 "You reached for AltTab Pro this week" = "Tuần này bạn đã cần đến AltTab Pro";
@@ -369,10 +357,6 @@
 "Your feedback will be submitted as a public GitHub issue." = "Phản hồi của bạn sẽ được gửi dưới dạng GitHub Issue công khai.";
 "Your Pro trial starts when AltTab is ready" = "Bản dùng thử Pro bắt đầu khi AltTab sẵn sàng";
 "Your settings reset every time AltTab restarts." = "Cài đặt của bạn bị đặt lại mỗi khi AltTab khởi động lại.";
-"1" = "1";
 "12 windows to browse" = "12 cửa sổ để duyệt";
-"2" = "2";
 "2 matching windows" = "2 cửa sổ phù hợp";
-"3" = "3";
-"`" = "`";
 "A little time." = "Một lát.";

@@ -18,7 +18,6 @@
 "Add a running app" = "Dodaj uruchomioną aplikację";
 "Add an app from disk" = "Dodaj aplikację z dysku";
 "Additional controls" = "Dodatkowe sterowanie";
-"Additional controls…" = "Dodatkowe sterowanie…";
 "After keys are released" = "Po zwolnieniu klawiszy";
 "After that, window switching and thumbnails stay free. Search, extra styles, Auto Size, and additional shortcuts require Pro." = "Potem przełączanie okien i miniatury pozostają bezpłatne. Wyszukiwanie, dodatkowe style, automatyczny rozmiar i dodatkowe skróty wymagają Pro.";
 "All apps" = "Wszystkie aplikacje";
@@ -41,7 +40,6 @@
 "Always send crash reports" = "Zawsze wysyłaj raporty awarii";
 "and press" = "i naciśnij";
 "Animations" = "Animacje";
-"Animations…" = "Animacje…";
 "App Icons" = "Ikony aplikacji";
 "App Icons & Titles styles" = "Style Ikony aplikacji i Tytuły";
 "App is hidden" = "Aplikacja ukryta";
@@ -115,16 +113,13 @@
 "Notes" = "Notatki";
 "Notes — List" = "Notatki — Lista";
 "Only 1 shortcut" = "Tylko 1 skrót";
-"option" = "option";
 "Photos" = "Zdjęcia";
 "Reading" = "Czytanie";
 "Recipes" = "Przepisy";
-"Safari" = "Safari";
 "Safari — Food" = "Safari — Jedzenie";
 "Safari — Trip" = "Safari — Podróż";
 "Shopping" = "Zakupy";
 "Something good." = "Coś pysznego.";
-"tab" = "tab";
 "e.g. com.example.app" = "np. com.example.app";
 "e.g. Debug" = "np. Debug";
 "End" = "Koniec";
@@ -234,7 +229,6 @@
 "Report a bug" = "Zgłoś błąd";
 "Report on current version" = "Zgłaszaj na bieżącej wersji";
 "Reset settings and restart" = "Wyzeruj ustawienia i uruchom ponownie";
-"Reset settings and restart…" = "Wyzeruj ustawienia i uruchom ponownie…";
 "Restart Now" = "Uruchom ponownie teraz";
 "Screen including menu bar" = "Ekran z paskiem menu";
 "Screen including mouse" = "Ekran z kursorem";
@@ -252,15 +246,13 @@
 "Send" = "Wyślij";
 "Send a crash report?" = "Wysłać raport awarii?";
 "Send feedback" = "Wyślij opinię";
-"Send feedback…" = "Wyślij opinię…";
 "Sending…" = "Wysyłanie…";
 "Settings imported" = "Ustawienia zaimportowane";
 "Settings…" = "Ustawienia…";
 "Shortcut" = "Skrót";
 "Shortcut already assigned to: %@" = "Skrót jest już przypisany do: %@";
 "Shortcuts" = "Skróty";
-"Shortcuts When Active" = "Skróty, gdy aktywne";
-"Shortcuts when active…" = "Skróty, gdy aktywne…";
+"Shortcuts when active" = "Skróty, gdy aktywne";
 "Show" = "Pokaż";
 "Show all windows" = "Pokaż wszystkie okna";
 "Show apps with no open window" = "Pokaż aplikacje bez otwartych okien";
@@ -326,7 +318,6 @@
 "Unlock Search with Pro" = "Odblokuj Wyszukiwanie z Pro";
 "Unlock the App Icons style with Pro" = "Odblokuj styl Ikony aplikacji z Pro";
 "Unlock the Titles style with Pro" = "Odblokuj styl Tytuły z Pro";
-"Up to 9 keyboard shortcuts" = "Do 9 skrótów klawiszowych";
 "Update now" = "Uaktualnij teraz";
 "Updates policy" = "Zasady uaktualnień";
 "Usage" = "Użycie";
@@ -358,9 +349,6 @@
 "You can change it anytime in Settings" = "Możesz go zmienić w dowolnej chwili w Ustawieniach";
 "Without Pro" = "Bez Pro";
 "Work" = "Praca";
-"~" = "~";
-"⇥" = "⇥";
-"⌥" = "⌥";
 "You can’t undo this action." = "Nie można cofnąć tej akcji.";
 "You may need to disable some conflicting system gestures" = "Możesz musieć wyłączyć niektóre sprzeczne gesty systemowe";
 "You reached for AltTab Pro this week" = "W tym tygodniu sięgnąłeś po AltTab Pro";
@@ -369,10 +357,6 @@
 "Your feedback will be submitted as a public GitHub issue." = "Twoja opinia zostanie wysłana jako publiczne zgłoszenie na GitHub.";
 "Your Pro trial starts when AltTab is ready" = "Okres próbny Pro rozpocznie się, gdy AltTab będzie gotowy";
 "Your settings reset every time AltTab restarts." = "Twoje ustawienia są resetowane przy każdym ponownym uruchomieniu AltTab.";
-"1" = "1";
 "12 windows to browse" = "12 okien do przejrzenia";
-"2" = "2";
 "2 matching windows" = "2 pasujące okna";
-"3" = "3";
-"`" = "`";
 "A little time." = "Chwila.";

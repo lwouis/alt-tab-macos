@@ -18,7 +18,6 @@
 "Add a running app" = "הוסף יישום פעיל";
 "Add an app from disk" = "הוסף יישום מהדיסק";
 "Additional controls" = "פקדים נוספים";
-"Additional controls…" = "פקדים נוספים…";
 "After keys are released" = "לאחר שחרור המקשים";
 "After that, window switching and thumbnails stay free. Search, extra styles, Auto Size, and additional shortcuts require Pro." = "לאחר מכן, החלפת חלונות ותמונות ממוזערות יישארו בחינם. חיפוש, סגנונות נוספים, גודל אוטומטי וקיצורים נוספים דורשים Pro.";
 "All apps" = "כל היישומים";
@@ -41,7 +40,6 @@
 "Always send crash reports" = "שלח תמיד דיווחי קריסה";
 "and press" = "ולחץ על";
 "Animations" = "אנימציות";
-"Animations…" = "אנימציות…";
 "App Icons" = "סמלי יישומים";
 "App Icons & Titles styles" = "סגנונות סמלי יישומים וכותרות";
 "App is hidden" = "יישום מוסתר";
@@ -115,16 +113,13 @@
 "Notes" = "פתקים";
 "Notes — List" = "פתקים — רשימה";
 "Only 1 shortcut" = "1 קיצור בלבד";
-"option" = "option";
 "Photos" = "תמונות";
 "Reading" = "קריאה";
 "Recipes" = "מתכונים";
-"Safari" = "Safari";
 "Safari — Food" = "Safari — אוכל";
 "Safari — Trip" = "Safari — טיול";
 "Shopping" = "קניות";
 "Something good." = "משהו טעים.";
-"tab" = "tab";
 "e.g. com.example.app" = "לדוגמה: com.example.app";
 "e.g. Debug" = "לדוגמה: Debug";
 "End" = "סוף";
@@ -234,7 +229,6 @@
 "Report a bug" = "דווח על באג";
 "Report on current version" = "דווח על הגרסה הנוכחית";
 "Reset settings and restart" = "אפס הגדרות והפעל מחדש";
-"Reset settings and restart…" = "אפס הגדרות והפעל מחדש…";
 "Restart Now" = "הפעל מחדש כעת";
 "Screen including menu bar" = "מסך הכולל את שורת התפריטים";
 "Screen including mouse" = "מסך הכולל את העכבר";
@@ -252,15 +246,13 @@
 "Send" = "שלח";
 "Send a crash report?" = "לשלוח דיווח קריסה?";
 "Send feedback" = "שלח משוב";
-"Send feedback…" = "שלח משוב…";
 "Sending…" = "שולח…";
 "Settings imported" = "ההגדרות יובאו";
 "Settings…" = "הגדרות…";
 "Shortcut" = "קיצור דרך";
 "Shortcut already assigned to: %@" = "קיצור הדרך כבר משויך: %@";
 "Shortcuts" = "קיצורים";
-"Shortcuts When Active" = "קיצורי דרך כאשר פעיל";
-"Shortcuts when active…" = "קיצורי דרך כאשר פעיל…";
+"Shortcuts when active" = "קיצורי דרך כאשר פעיל";
 "Show" = "הצג";
 "Show all windows" = "הצג את כל החלונות";
 "Show apps with no open window" = "הצג יישומים ללא חלון פתוח";
@@ -326,7 +318,6 @@
 "Unlock Search with Pro" = "פתח חיפוש עם Pro";
 "Unlock the App Icons style with Pro" = "פתח את סגנון סמלי היישומים עם Pro";
 "Unlock the Titles style with Pro" = "פתח את סגנון הכותרות עם Pro";
-"Up to 9 keyboard shortcuts" = "עד 9 קיצורי מקלדת";
 "Update now" = "עדכן כעת";
 "Updates policy" = "מדיניות עדכונים";
 "Usage" = "שימוש";
@@ -358,9 +349,6 @@
 "You can change it anytime in Settings" = "אפשר לשנות אותו בכל עת בהגדרות";
 "Without Pro" = "בלי Pro";
 "Work" = "עבודה";
-"~" = "~";
-"⇥" = "⇥";
-"⌥" = "⌥";
 "You can’t undo this action." = "לא ניתן לבטל פעולה זו.";
 "You may need to disable some conflicting system gestures" = "ייתכן שתצטרך להשבית מחוות מערכת מתנגשות מסוימות";
 "You reached for AltTab Pro this week" = "השבוע פניתם ל-AltTab Pro";
@@ -369,10 +357,6 @@
 "Your feedback will be submitted as a public GitHub issue." = "המשוב שלך יוגש כ-issue ציבורי ב-GitHub.";
 "Your Pro trial starts when AltTab is ready" = "תקופת הניסיון של Pro מתחילה כאשר AltTab מוכן";
 "Your settings reset every time AltTab restarts." = "ההגדרות שלך מתאפסות בכל פעם ש‑AltTab מופעל מחדש.";
-"1" = "1";
 "12 windows to browse" = "12 חלונות לעיון";
-"2" = "2";
 "2 matching windows" = "2 חלונות תואמים";
-"3" = "3";
-"`" = "`";
 "A little time." = "קצת זמן.";

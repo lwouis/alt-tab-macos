@@ -18,7 +18,6 @@
 "Add a running app" = "加入執行中的 App";
 "Add an app from disk" = "從磁碟加入 App";
 "Additional controls" = "其他控制";
-"Additional controls…" = "其他控制…";
 "After keys are released" = "放開按鍵之後";
 "After that, window switching and thumbnails stay free. Search, extra styles, Auto Size, and additional shortcuts require Pro." = "之後，視窗切換和縮圖仍可免費使用。搜尋、更多樣式、自動大小和額外快捷鍵需要 Pro。";
 "All apps" = "所有 App";
@@ -41,7 +40,6 @@
 "Always send crash reports" = "永遠傳送當機報告";
 "and press" = "並按下";
 "Animations" = "動畫";
-"Animations…" = "動畫…";
 "App Icons" = "App 圖像";
 "App Icons & Titles styles" = "App 圖像與標題樣式";
 "App is hidden" = "App 已隱藏";
@@ -115,16 +113,13 @@
 "Notes" = "備忘錄";
 "Notes — List" = "備忘錄 — 清單";
 "Only 1 shortcut" = "僅 1 個快速鍵";
-"option" = "option";
 "Photos" = "照片";
 "Reading" = "閱讀";
 "Recipes" = "食譜";
-"Safari" = "Safari";
 "Safari — Food" = "Safari — 美食";
 "Safari — Trip" = "Safari — 旅行";
 "Shopping" = "購物";
 "Something good." = "做點美食。";
-"tab" = "tab";
 "e.g. com.example.app" = "例如 com.example.app";
 "e.g. Debug" = "例如 Debug";
 "End" = "結尾";
@@ -234,7 +229,6 @@
 "Report a bug" = "回報問題";
 "Report on current version" = "回報目前版本";
 "Reset settings and restart" = "重設設定並重新啟動";
-"Reset settings and restart…" = "重設設定並重新啟動…";
 "Restart Now" = "立即重新啟動";
 "Screen including menu bar" = "包含選單列的螢幕";
 "Screen including mouse" = "包含滑鼠的螢幕";
@@ -252,15 +246,13 @@
 "Send" = "傳送";
 "Send a crash report?" = "傳送當機報告？";
 "Send feedback" = "傳送意見回饋";
-"Send feedback…" = "傳送意見回饋…";
 "Sending…" = "傳送中…";
 "Settings imported" = "設定已輸入";
 "Settings…" = "設定…";
 "Shortcut" = "快速鍵";
 "Shortcut already assigned to: %@" = "快速鍵已指派給：%@";
 "Shortcuts" = "快速鍵";
-"Shortcuts When Active" = "啟用時的快速鍵";
-"Shortcuts when active…" = "啟用時的快速鍵…";
+"Shortcuts when active" = "啟用時的快速鍵";
 "Show" = "顯示";
 "Show all windows" = "顯示所有視窗";
 "Show apps with no open window" = "顯示沒有開啟視窗的 App";
@@ -326,7 +318,6 @@
 "Unlock Search with Pro" = "透過 Pro 解鎖「搜尋」";
 "Unlock the App Icons style with Pro" = "透過 Pro 解鎖「App 圖像」樣式";
 "Unlock the Titles style with Pro" = "透過 Pro 解鎖「標題」樣式";
-"Up to 9 keyboard shortcuts" = "最多 9 組鍵盤快速鍵";
 "Update now" = "立即更新";
 "Updates policy" = "更新政策";
 "Usage" = "使用情況";
@@ -358,9 +349,6 @@
 "You can change it anytime in Settings" = "您可以隨時在設定中更改";
 "Without Pro" = "不使用 Pro";
 "Work" = "工作";
-"~" = "~";
-"⇥" = "⇥";
-"⌥" = "⌥";
 "You can’t undo this action." = "此動作無法復原。";
 "You may need to disable some conflicting system gestures" = "您可能需要停用某些衝突的系統手勢";
 "You reached for AltTab Pro this week" = "你本週用到了 AltTab Pro";
@@ -369,10 +357,6 @@
 "Your feedback will be submitted as a public GitHub issue." = "您的意見回饋將以公開的 GitHub issue 形式提交。";
 "Your Pro trial starts when AltTab is ready" = "AltTab 準備就緒後，Pro 試用期即開始";
 "Your settings reset every time AltTab restarts." = "每次重新啟動 AltTab 時，你的設定都會重設。";
-"1" = "1";
 "12 windows to browse" = "瀏覽 12 個視窗";
-"2" = "2";
 "2 matching windows" = "2 個符合的視窗";
-"3" = "3";
-"`" = "`";
 "A little time." = "花點時間。";

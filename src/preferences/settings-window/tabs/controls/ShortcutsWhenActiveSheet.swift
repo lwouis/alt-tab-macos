@@ -1,7 +1,7 @@
 import Cocoa
 
 class ShortcutsWhenActiveSheet: SheetWindow {
-    private static let title = NSLocalizedString("Shortcuts When Active", comment: "")
+    private static let title = NSLocalizedString("Shortcuts when active", comment: "")
     private static let labelSearchHint = NSLocalizedString("Show the search hint", comment: "")
     // Row titles come from `ControlsTab.staticShortcutLabels` (single source of truth, also used by
     // the conflict dialog to name these actions).

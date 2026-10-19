@@ -18,7 +18,6 @@
 "Add a running app" = "実行中の App を追加";
 "Add an app from disk" = "ディスクから App を追加";
 "Additional controls" = "追加のコントロール";
-"Additional controls…" = "追加のコントロール…";
 "After keys are released" = "キーを離した後";
 "After that, window switching and thumbnails stay free. Search, extra styles, Auto Size, and additional shortcuts require Pro." = "その後も、ウインドウの切り替えとサムネイルは無料で利用できます。検索、追加のスタイル、自動サイズ調整、追加のショートカットにはProが必要です。";
 "All apps" = "すべての App";
@@ -41,7 +40,6 @@
 "Always send crash reports" = "常にクラッシュレポートを送信";
 "and press" = "を押す";
 "Animations" = "アニメーション";
-"Animations…" = "アニメーション…";
 "App Icons" = "App アイコン";
 "App Icons & Titles styles" = "App アイコン & タイトルのスタイル";
 "App is hidden" = "App は非表示";
@@ -115,16 +113,13 @@
 "Notes" = "メモ";
 "Notes — List" = "メモ — リスト";
 "Only 1 shortcut" = "ショートカットは1個のみ";
-"option" = "option";
 "Photos" = "写真";
 "Reading" = "読書";
 "Recipes" = "レシピ";
-"Safari" = "Safari";
 "Safari — Food" = "Safari — 料理";
 "Safari — Trip" = "Safari — 旅行";
 "Shopping" = "買い物";
 "Something good." = "おいしいものを。";
-"tab" = "tab";
 "e.g. com.example.app" = "例: com.example.app";
 "e.g. Debug" = "例: Debug";
 "End" = "末尾";
@@ -234,7 +229,6 @@
 "Report a bug" = "バグを報告";
 "Report on current version" = "現在のバージョンについて報告";
 "Reset settings and restart" = "設定をリセットして再起動";
-"Reset settings and restart…" = "設定をリセットして再起動…";
 "Restart Now" = "今すぐ再起動";
 "Screen including menu bar" = "メニューバーを含む画面";
 "Screen including mouse" = "マウスのある画面";
@@ -252,15 +246,13 @@
 "Send" = "送信";
 "Send a crash report?" = "クラッシュレポートを送信しますか?";
 "Send feedback" = "フィードバックを送信";
-"Send feedback…" = "フィードバックを送信…";
 "Sending…" = "送信中…";
 "Settings imported" = "設定を読み込みました";
 "Settings…" = "設定…";
 "Shortcut" = "ショートカット";
 "Shortcut already assigned to: %@" = "ショートカットはすでに割り当てられています: %@";
 "Shortcuts" = "ショートカット";
-"Shortcuts When Active" = "アクティブ時のショートカット";
-"Shortcuts when active…" = "アクティブ時のショートカット…";
+"Shortcuts when active" = "アクティブ時のショートカット";
 "Show" = "表示";
 "Show all windows" = "すべてのウインドウを表示";
 "Show apps with no open window" = "開いているウインドウのない App を表示";
@@ -326,7 +318,6 @@
 "Unlock Search with Pro" = "Pro で検索を解除";
 "Unlock the App Icons style with Pro" = "Pro で App アイコンのスタイルを解除";
 "Unlock the Titles style with Pro" = "Pro でタイトルのスタイルを解除";
-"Up to 9 keyboard shortcuts" = "最大 9 個のキーボードショートカット";
 "Update now" = "今すぐアップデート";
 "Updates policy" = "アップデートのポリシー";
 "Usage" = "使用状況";
@@ -358,9 +349,6 @@
 "You can change it anytime in Settings" = "スタイルは「設定」でいつでも変更できます";
 "Without Pro" = "Proなし";
 "Work" = "仕事";
-"~" = "~";
-"⇥" = "⇥";
-"⌥" = "⌥";
 "You can’t undo this action." = "この操作は取り消せません。";
 "You may need to disable some conflicting system gestures" = "競合するシステムのジェスチャを一部無効にする必要があるかもしれません";
 "You reached for AltTab Pro this week" = "今週、AltTab Pro の機能を使おうとしました";
@@ -369,10 +357,6 @@
 "Your feedback will be submitted as a public GitHub issue." = "フィードバックは公開の GitHub Issue として送信されます。";
 "Your Pro trial starts when AltTab is ready" = "AltTabが使えるようになるとProの試用期間が始まります";
 "Your settings reset every time AltTab restarts." = "AltTab を再起動するたびに設定がリセットされます。";
-"1" = "1";
 "12 windows to browse" = "閲覧するウインドウ12個";
-"2" = "2";
 "2 matching windows" = "一致するウインドウ2個";
-"3" = "3";
-"`" = "`";
 "A little time." = "ひと手間。";

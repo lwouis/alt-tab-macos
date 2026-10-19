@@ -18,7 +18,6 @@
 "Add a running app" = "Actieve app toevoegen";
 "Add an app from disk" = "App vanaf schijf toevoegen";
 "Additional controls" = "Extra bedieningselementen";
-"Additional controls…" = "Extra bedieningselementen…";
 "After keys are released" = "Nadat toetsen zijn losgelaten";
 "After that, window switching and thumbnails stay free. Search, extra styles, Auto Size, and additional shortcuts require Pro." = "Daarna blijven vensters wisselen en miniaturen gratis. Zoeken, extra stijlen, automatische grootte en extra sneltoetsen vereisen Pro.";
 "All apps" = "Alle apps";
@@ -41,7 +40,6 @@
 "Always send crash reports" = "Altijd crashrapporten versturen";
 "and press" = "en druk op";
 "Animations" = "Animaties";
-"Animations…" = "Animaties…";
 "App Icons" = "App-symbolen";
 "App Icons & Titles styles" = "Stijlen App-symbolen en Titels";
 "App is hidden" = "App is verborgen";
@@ -115,16 +113,13 @@
 "Notes" = "Notities";
 "Notes — List" = "Notities — Lijst";
 "Only 1 shortcut" = "Slechts 1 sneltoets";
-"option" = "option";
 "Photos" = "Foto’s";
 "Reading" = "Lezen";
 "Recipes" = "Recepten";
-"Safari" = "Safari";
 "Safari — Food" = "Safari — Eten";
 "Safari — Trip" = "Safari — Reis";
 "Shopping" = "Boodschappen";
 "Something good." = "Iets lekkers.";
-"tab" = "tab";
 "e.g. com.example.app" = "bijv. com.example.app";
 "e.g. Debug" = "bijv. Debug";
 "End" = "Einde";
@@ -234,7 +229,6 @@
 "Report a bug" = "Een bug melden";
 "Report on current version" = "Rapporteren over huidige versie";
 "Reset settings and restart" = "Instellingen herstellen en herstarten";
-"Reset settings and restart…" = "Instellingen herstellen en herstarten…";
 "Restart Now" = "Herstart nu";
 "Screen including menu bar" = "Scherm met menubalk";
 "Screen including mouse" = "Scherm met muis";
@@ -252,15 +246,13 @@
 "Send" = "Verstuur";
 "Send a crash report?" = "Crashrapport versturen?";
 "Send feedback" = "Feedback versturen";
-"Send feedback…" = "Feedback versturen…";
 "Sending…" = "Versturen…";
 "Settings imported" = "Instellingen geïmporteerd";
 "Settings…" = "Instellingen…";
 "Shortcut" = "Sneltoets";
 "Shortcut already assigned to: %@" = "Sneltoets is al toegewezen aan: %@";
 "Shortcuts" = "Sneltoetsen";
-"Shortcuts When Active" = "Sneltoetsen wanneer actief";
-"Shortcuts when active…" = "Sneltoetsen wanneer actief…";
+"Shortcuts when active" = "Sneltoetsen wanneer actief";
 "Show" = "Toon";
 "Show all windows" = "Toon alle vensters";
 "Show apps with no open window" = "Toon apps zonder open venster";
@@ -326,7 +318,6 @@
 "Unlock Search with Pro" = "Ontgrendel Zoeken met Pro";
 "Unlock the App Icons style with Pro" = "Ontgrendel de stijl App-symbolen met Pro";
 "Unlock the Titles style with Pro" = "Ontgrendel de stijl Titels met Pro";
-"Up to 9 keyboard shortcuts" = "Tot 9 sneltoetsen";
 "Update now" = "Nu bijwerken";
 "Updates policy" = "Updatebeleid";
 "Usage" = "Gebruik";
@@ -358,9 +349,6 @@
 "You can change it anytime in Settings" = "Je kunt dit altijd wijzigen in Instellingen";
 "Without Pro" = "Zonder Pro";
 "Work" = "Werk";
-"~" = "~";
-"⇥" = "⇥";
-"⌥" = "⌥";
 "You can’t undo this action." = "Je kunt deze actie niet ongedaan maken.";
 "You may need to disable some conflicting system gestures" = "Mogelijk moet je enkele conflicterende systeemgebaren uitschakelen";
 "You reached for AltTab Pro this week" = "Je greep deze week naar AltTab Pro";
@@ -369,10 +357,6 @@
 "Your feedback will be submitted as a public GitHub issue." = "Je feedback wordt ingediend als openbare GitHub-issue.";
 "Your Pro trial starts when AltTab is ready" = "Je Pro-proefperiode begint zodra AltTab klaar is";
 "Your settings reset every time AltTab restarts." = "Je instellingen worden bij elke herstart van AltTab teruggezet.";
-"1" = "1";
 "12 windows to browse" = "12 vensters doorzoeken";
-"2" = "2";
 "2 matching windows" = "2 passende vensters";
-"3" = "3";
-"`" = "`";
 "A little time." = "Even tijd.";

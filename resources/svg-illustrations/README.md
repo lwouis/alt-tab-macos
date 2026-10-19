@@ -8,7 +8,7 @@ The visual reference is the website's `docs/design/vector-assets/scenes.mjs` and
 - `*-comparison`: the four Pro features, including both Titles and App Icons. The two panels share a stationary desktop. Only the switcher scales in Auto Size.
 - `permission-*`: Device Control and Screen Recording explanations.
 
-Text carries stable `data-i18n` identifiers with English defaults. Keep `font-family`, `font-size`, `data-max-width`, `data-min-font-size`, anchors and clip bounds on each text item. The shared native drawer supplies existing translations, measures the resolved text, shrinks to the declared minimum, and truncates by complete characters if necessary. Keep clips inside any RTL positioning wrapper. `data-dark-fill` supplies theme-dependent labels; `data-rtl-transform` repositions comparison panels without mirroring their contents.
+Text carries stable `data-i18n` identifiers with English defaults. Text that reads the same in every language (digits, key glyphs, key names, app names like Safari) has no `data-i18n`, so it is drawn as written and never sent to translators. Keep `font-family`, `font-size`, `data-max-width`, `data-min-font-size`, anchors and clip bounds on each text item. The shared native drawer supplies existing translations, measures the resolved text, shrinks to the declared minimum, and truncates by complete characters if necessary. Keep clips inside any RTL positioning wrapper. `data-dark-fill` supplies theme-dependent labels; `data-rtl-transform` repositions comparison panels without mirroring their contents.
 
 Do not put a Pro badge in an SVG. `ProComparisonView` supplies the existing native badge above the artwork. English heading overrides for unknown trial history use stable text IDs and do not move layout into Swift.
 

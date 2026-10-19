@@ -57,7 +57,7 @@ class GeneralTab {
         exportButton.onAction = { _ in exportSettings() }
         let importButton = NSButton(title: NSLocalizedString("Import settings…", comment: ""), target: nil, action: nil)
         importButton.onAction = { _ in importSettings() }
-        let resetButton = NSButton(title: NSLocalizedString("Reset settings and restart…", comment: ""), target: nil, action: nil)
+        let resetButton = NSButton(title: NSLocalizedString("Reset settings and restart", comment: "") + "…", target: nil, action: nil)
         resetButton.bezelStyle = .rounded
         resetButton.hasDestructiveAction = true
         resetButton.onAction = { _ in resetPreferences() }

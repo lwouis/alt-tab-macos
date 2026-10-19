@@ -18,7 +18,6 @@
 "Add a running app" = "Tambah aplikasi yang sedang berjalan";
 "Add an app from disk" = "Tambah aplikasi dari disk";
 "Additional controls" = "Kontrol tambahan";
-"Additional controls…" = "Kontrol tambahan…";
 "After keys are released" = "Setelah tombol dilepas";
 "After that, window switching and thumbnails stay free. Search, extra styles, Auto Size, and additional shortcuts require Pro." = "Setelah itu, perpindahan jendela dan gambar mini tetap gratis. Pencarian, gaya tambahan, ukuran otomatis, dan pintasan tambahan memerlukan Pro.";
 "All apps" = "Semua aplikasi";
@@ -41,7 +40,6 @@
 "Always send crash reports" = "Selalu kirim laporan kerusakan";
 "and press" = "lalu tekan";
 "Animations" = "Animasi";
-"Animations…" = "Animasi…";
 "App Icons" = "Ikon Aplikasi";
 "App Icons & Titles styles" = "Gaya Ikon Aplikasi & Judul";
 "App is hidden" = "Aplikasi disembunyikan";
@@ -115,16 +113,13 @@
 "Notes" = "Catatan";
 "Notes — List" = "Catatan — Daftar";
 "Only 1 shortcut" = "Hanya 1 pintasan";
-"option" = "option";
 "Photos" = "Foto";
 "Reading" = "Bacaan";
 "Recipes" = "Resep";
-"Safari" = "Safari";
 "Safari — Food" = "Safari — Makanan";
 "Safari — Trip" = "Safari — Wisata";
 "Shopping" = "Belanja";
 "Something good." = "Hidangan lezat.";
-"tab" = "tab";
 "e.g. com.example.app" = "mis. com.example.app";
 "e.g. Debug" = "mis. Debug";
 "End" = "Akhir";
@@ -234,7 +229,6 @@
 "Report a bug" = "Laporkan bug";
 "Report on current version" = "Laporkan pada versi saat ini";
 "Reset settings and restart" = "Setel ulang pengaturan dan mulai ulang";
-"Reset settings and restart…" = "Setel ulang pengaturan dan mulai ulang…";
 "Restart Now" = "Mulai Ulang Sekarang";
 "Screen including menu bar" = "Layar termasuk bilah menu";
 "Screen including mouse" = "Layar termasuk tetikus";
@@ -252,15 +246,13 @@
 "Send" = "Kirim";
 "Send a crash report?" = "Kirim laporan kerusakan?";
 "Send feedback" = "Kirim masukan";
-"Send feedback…" = "Kirim masukan…";
 "Sending…" = "Mengirim…";
 "Settings imported" = "Pengaturan diimpor";
 "Settings…" = "Pengaturan…";
 "Shortcut" = "Pintasan";
 "Shortcut already assigned to: %@" = "Pintasan sudah ditetapkan untuk: %@";
 "Shortcuts" = "Pintasan";
-"Shortcuts When Active" = "Pintasan Saat Aktif";
-"Shortcuts when active…" = "Pintasan saat aktif…";
+"Shortcuts when active" = "Pintasan saat aktif";
 "Show" = "Tampilkan";
 "Show all windows" = "Tampilkan semua jendela";
 "Show apps with no open window" = "Tampilkan aplikasi tanpa jendela terbuka";
@@ -326,7 +318,6 @@
 "Unlock Search with Pro" = "Buka Pencarian dengan Pro";
 "Unlock the App Icons style with Pro" = "Buka gaya Ikon Aplikasi dengan Pro";
 "Unlock the Titles style with Pro" = "Buka gaya Judul dengan Pro";
-"Up to 9 keyboard shortcuts" = "Hingga 9 pintasan keyboard";
 "Update now" = "Perbarui sekarang";
 "Updates policy" = "Kebijakan pembaruan";
 "Usage" = "Penggunaan";
@@ -358,9 +349,6 @@
 "You can change it anytime in Settings" = "Anda dapat mengubahnya kapan saja di Pengaturan";
 "Without Pro" = "Tanpa Pro";
 "Work" = "Kerja";
-"~" = "~";
-"⇥" = "⇥";
-"⌥" = "⌥";
 "You can’t undo this action." = "Anda tidak dapat membatalkan tindakan ini.";
 "You may need to disable some conflicting system gestures" = "Anda mungkin perlu menonaktifkan beberapa gestur sistem yang bertentangan";
 "You reached for AltTab Pro this week" = "Anda mencoba AltTab Pro minggu ini";
@@ -369,10 +357,6 @@
 "Your feedback will be submitted as a public GitHub issue." = "Masukan Anda akan dikirim sebagai isu GitHub publik.";
 "Your Pro trial starts when AltTab is ready" = "Uji coba Pro dimulai saat AltTab siap digunakan";
 "Your settings reset every time AltTab restarts." = "Pengaturan Anda diatur ulang setiap kali AltTab dimulai ulang.";
-"1" = "1";
 "12 windows to browse" = "12 jendela untuk dilihat";
-"2" = "2";
 "2 matching windows" = "2 jendela cocok";
-"3" = "3";
-"`" = "`";
 "A little time." = "Sejenak.";
