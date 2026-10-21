@@ -91,12 +91,14 @@ struct SystemKeychain: Keychain {
     }
 
     #if DEBUG
-    /// Wipe every keychain entry under `service`. Used by the QA "Mock fresh install" action.
+    /// Wipe every keychain entry under `service`. macOS's file-based keychain deletes only the first
+    /// match without an explicit limit; LIVE-STORE-01 verifies all three fixture accounts disappear.
     @discardableResult
     func removeAll() -> OSStatus {
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrService as String: service,
+            kSecMatchLimit as String: kSecMatchLimitAll,
         ]
         let status = SecItemDelete(query as CFDictionary)
         if status != errSecSuccess && status != errSecItemNotFound {
