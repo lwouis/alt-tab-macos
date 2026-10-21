@@ -17,3 +17,14 @@ enum AxQueryRouting {
         return scan ? .scan : .firstTry
     }
 }
+
+/// Why an AX call produced no answer. The two are handled differently by `AXCallScheduler`: only
+/// `.appUnresponsive` is worth retrying. See `AXUIElement.throwIfNotSuccess`.
+enum AxError: Error {
+    /// `.cannotComplete` — the messaging timeout expired on a busy app. Retryable.
+    case appUnresponsive
+    /// any other AX error — a dead element, an unimplemented attribute, an app refusing the API. Permanent
+    /// for this call: retrying re-asks a question that cannot be answered, and marking the app unresponsive
+    /// for it quarantines a process that is answering fine.
+    case noAnswer
+}

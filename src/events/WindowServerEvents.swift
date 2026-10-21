@@ -268,7 +268,8 @@ class WindowServerEvents {
     }
 
     /// A dedicated element carries the measured 250ms cap, so a wedged app can occupy one bounded worker but
-    /// never the main thread or the observer runloop.
+    /// never the main thread or the observer runloop. A read the cap cut short is asked again rather than
+    /// answered empty (`FocusIntentPolicy.focusedWindowAnswer`).
     private static func readFocusedWindow(_ pid: pid_t, key: String, viaActivationRead: Bool, attempt: Int = 0) {
         guard Applications.findOrCreate(pid) != nil else { return }
         AXCallScheduler.shared.schedule(key: key, pid: pid) {
@@ -276,15 +277,16 @@ class WindowServerEvents {
             AXUIElementSetMessagingTimeout(appAx, 0.25)
             // Our own windows (e.g. Preferences) are tracked like any app's; both reads use the pid-aware
             // wrappers so an own-process query runs AppKit on main.
-            let focused = try? appAx.attributes([kAXFocusedWindowAttribute], pid: pid).focusedWindow
+            let focused = try FocusIntentPolicy.focusedWindowAnswer {
+                try appAx.attributes([kAXFocusedWindowAttribute], pid: pid).focusedWindow
+            }
             let wid = focused.flatMap { try? $0.cgWindowId(pid: pid) }
             DispatchQueue.main.async { focusedWindowAnswered(pid, wid, viaActivationRead, attempt) }
         }
     }
 
     /// The read came back. The post-focus one is the answer the pending switch was waiting for, whether or
-    /// not the app named a window: a wedged app that cannot answer must not keep the rest of the model
-    /// waiting on it either.
+    /// not the app named a window.
     private static func focusedWindowAnswered(_ pid: pid_t, _ wid: CGWindowID?, _ viaActivationRead: Bool,
                                               _ attempt: Int) {
         if !viaActivationRead {
@@ -295,8 +297,8 @@ class WindowServerEvents {
             return TrackedWindowStateBridge.dispatch(.axFocusedWindowRead(pid: pid, wid: wid,
                 viaActivationRead: viaActivationRead))
         }
-        // A wedged or windowless app. The activation read reports it: the model asked for that read and would
-        // otherwise keep waiting on it forever.
+        // A windowless app, or one refusing the read. The activation read reports it: the model asked for that
+        // read and would otherwise keep waiting on it forever.
         guard viaActivationRead else { return }
         TrackedWindowStateBridge.dispatch(.axFocusedWindowReadFailed(pid: pid))
     }

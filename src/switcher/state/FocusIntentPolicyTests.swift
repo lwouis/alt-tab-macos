@@ -237,6 +237,16 @@ final class FocusIntentPolicyTests: XCTestCase {
         XCTAssertFalse(policy.answeredTooEarly(pid: safari, wid: 2, attempt: 0, now: 0.02))
     }
 
+    func testFocusedWindowReadPropagatesOnlyBusyErrors() {
+        XCTAssertThrowsError(try FocusIntentPolicy.focusedWindowAnswer { () -> CGWindowID? in throw AxError.appUnresponsive }) { error in
+            guard case AxError.appUnresponsive = error else { return XCTFail("The scheduler requires the original busy error") }
+        }
+        XCTAssertNil(try FocusIntentPolicy.focusedWindowAnswer { () -> CGWindowID? in throw AxError.noAnswer })
+        XCTAssertNil(try FocusIntentPolicy.focusedWindowAnswer { () -> CGWindowID? in throw NSError(domain: "test", code: 1) })
+        XCTAssertNil(try FocusIntentPolicy.focusedWindowAnswer { nil as CGWindowID? })
+        XCTAssertEqual(try FocusIntentPolicy.focusedWindowAnswer { CGWindowID(1) }, 1)
+    }
+
     /// An operation that bailed before its read never answers, so the wait expires on the same horizon a
     /// repair does rather than leaving every later activation of that app waiting on it.
     func testAnUnansweredSwitchStopsBeingAwaitedAtTheHorizon() {

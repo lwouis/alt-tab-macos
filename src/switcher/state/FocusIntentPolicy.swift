@@ -119,6 +119,15 @@ struct FocusIntentPolicy {
     static let earlyAnswerRereads = 3
     static let earlyAnswerRereadDelay: TimeInterval = 0.1
 
+    /// **An app too busy to answer has not answered.** The focused-window read's 250ms cap expiring is
+    /// `.appUnresponsive`. Read as "no window", the switch would go unheard: the activation has already
+    /// deferred to this read, and a busy app that recovers posts no focus change. It propagates,
+    /// so `AXCallScheduler` asks again within its 60-second retry budget
+    /// (`testFocusedWindowReadPropagatesOnlyBusyErrors`). Any other failure is the app's answer: no window.
+    static func focusedWindowAnswer<T>(_ read: () throws -> T?) throws -> T? {
+        do { return try read() } catch AxError.appUnresponsive { throw AxError.appUnresponsive } catch { return nil }
+    }
+
     /// A focus that this policy cannot re-assert took over: `Window.focus()` also lands on AltTab's own
     /// window and on a windowless app, and neither is a wid this can front. Pending operations still have to
     /// stop, so they are superseded with nothing to repair to.

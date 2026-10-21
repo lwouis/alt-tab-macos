@@ -64,6 +64,13 @@ of the awaited app is therefore asked again, up to three times 100ms apart, and 
 then it is a switch that did not take (#6055). Measured in a macOS 27 VM (2026-10-04): the read 7ms after the
 switch named Finder's previous window and left it second in the order, above the window the user came from.
 
+A busy app can also run out the read's 250ms cap. That is not an answer: the activation has already deferred to
+this read, and an app that recovers posts no focus change of its own, so dropping it left the order on the
+window the user came from until something else made the app speak. The read is asked again with the
+scheduler's backoff (200ms, 1s, 2s, then every 5s), within its 60-second retry budget. Measured in a macOS 27 VM
+(2026-10-21) with Finder stopped for 5s after an alt-tab: the read timed out and the order never moved; with
+the read asked again, it landed on the first try after Finder resumed.
+
 Nothing else in AltTab may act on a switch it has not heard back about. A second alt-tab that beats the
 answer finds the order unmoved and picks the same window again, which is what the user sees on screen
 anyway: two switches into the same window rather than a toggle AltTab cannot yet know it owes.
@@ -138,6 +145,9 @@ focus. `testDeferredRaiseStopsAfterTheDeadlineOrANewerAltTab` covers delayed and
   window that kept focus, and after the rereads that is what the order shows.
 - **testOnlyAnAnswerAboutTheAwaitedSwitchIsAskedAgain** — another app, an app with no answer, nothing awaited,
   or a wait past the horizon: the answer is taken as it is.
+- **testFocusedWindowReadPropagatesOnlyBusyErrors** — a read cut short by the cap preserves the exact busy
+  error for the scheduler; other errors become no window, and successful answers (including nil) are preserved.
+  This unit test does not execute the scheduler's retries or macOS focus delivery.
 - **testAnUnansweredSwitchStopsBeingAwaitedAtTheHorizon** — an operation that bailed before its read never
   answers, and the wait expires rather than holding every later activation of that app.
 - **testCurrentTargetCoveredByAnotherAppNeedsARaise** — the captured failure: the target app is front while
