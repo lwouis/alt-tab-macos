@@ -231,6 +231,39 @@ final class TestReducerRunnerTests: XCTestCase {
         XCTAssertEqual(harness.state.held, [100], "trace: \(harness.trace)")
     }
 
+    /// A Cmd+T burst, as logged on macOS 27: a middle tab's discovery lands after the burst's last tab has
+    /// been discovered and is already drawn at the same frame. Holding the late tab, ungrouped, drew a second
+    /// tile until the next release check.
+    func testATabDiscoveredAfterItsReplacementIsDrawnIsNotHeld() {
+        let finderWindow = { (wid: CGWindowID, spaceIds: [UInt64]) in
+            self.window(wid, title: "lwouis", size: CGSize(width: 812, height: 452),
+                        position: CGPoint(x: 449, y: 429), spaceIds: spaceIds, lastFocusOrder: 0)
+        }
+        let harness = TestReducerRunner(initial: state(windows: [finderWindow(100, [3])]))
+        harness.run([
+            .input(.windowCreated(wid: 101, now: 10.0, inSpaceTransition: false)),
+            .input(.spaceMembershipChanged(wid: 101, spaceId: 3, added: true, now: 10.0, inSpaceTransition: false)),
+            .input(.spaceMembershipChanged(wid: 100, spaceId: 3, added: false, now: 10.0, inSpaceTransition: false)),
+            .input(.windowCreated(wid: 102, now: 10.5, inSpaceTransition: false)),
+            .input(.spaceMembershipChanged(wid: 102, spaceId: 3, added: true, now: 10.5, inSpaceTransition: false)),
+            .input(.spaceMembershipChanged(wid: 101, spaceId: 3, added: false, now: 10.5, inSpaceTransition: false)),
+            .input(.windowCreated(wid: 103, now: 11.0, inSpaceTransition: false)),
+            .input(.spaceMembershipChanged(wid: 103, spaceId: 3, added: true, now: 11.0, inSpaceTransition: false)),
+            .input(.spaceMembershipChanged(wid: 102, spaceId: 3, added: false, now: 11.0, inSpaceTransition: false)),
+            .track(finderWindow(103, [3])),
+            .input(.discoveryLanded(wid: 103, accepted: true, newlyTracked: true, adoptedAsInactiveTab: false,
+                                    queriedSpaceIds: [3], isOrderedIn: true, tabTitles: ["lwouis", "lwouis", "lwouis", "lwouis"],
+                                    tabGroupToken: nil)),
+            .input(.holdReleaseCheck(wid: 100, attempt: 0)),
+            .track(finderWindow(101, [])),
+            .input(.discoveryLanded(wid: 101, accepted: true, newlyTracked: true, adoptedAsInactiveTab: false,
+                                    queriedSpaceIds: [], isOrderedIn: false, tabTitles: nil, tabGroupToken: nil)),
+        ])
+        XCTAssertEqual(harness.violations, [])
+        XCTAssertFalse(harness.state.held.contains(101), "trace: \(harness.trace)")
+        XCTAssertEqual(harness.state.groups.siblingWids(of: 103)?.sorted(), [100, 101, 103])
+    }
+
     /// Two same-size windows of one app, the bottom one's background tabs filed under the top one because
     /// their frozen origin is where the top one now sits. Switching to one of those tabs in the
     /// bottom window groups it with the bottom window's outgoing tab, and the union must not follow the

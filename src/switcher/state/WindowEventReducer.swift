@@ -322,10 +322,14 @@ enum WindowEventReducer {
 
     /// The same hold `spaceMembershipChanged` gives a tracked tab leaving its Space, for one that left while
     /// still untracked: its discovery lands in the gap before its replacement's, and without the hold the
-    /// window shows no tile until then (`testATabBackgroundedBeforeItsDiscoveryLandsJoinsTheGroup`).
+    /// window shows no tile until then (`testATabBackgroundedBeforeItsDiscoveryLandsJoinsTheGroup`). A discovery
+    /// landing after its replacement is already drawn has no gap left to cover
+    /// (`testATabDiscoveredAfterItsReplacementIsDrawnIsNotHeld`).
     private static func holdThroughDiscoveryIfReplaced(_ state: inout TrackedWindowState,
                                                        wid: CGWindowID) -> [ReducerEffect] {
         guard let window = state.window(wid), !anotherTabIsHeld(state, window),
+              !TabGroupResolver.hasPresentableReplacement(for: state.tabWindow(window),
+                  among: state.windows.filter { $0.pid == window.pid && $0.wid != nil }.map { state.tabWindow($0) }),
               TabGroupResolver.shouldHoldVisibleThroughDiscovery(
                   isTabbed: state.isTabbed(window), becomesSpaceless: true,
                   hadRecentWindowCreate: state.now - state.carried.lastWindowCreatedAt < recentPairingWindow,
@@ -1181,7 +1185,8 @@ enum WindowEventReducer {
             }
         }
         if newlyTracked {
-            effects.append(contentsOf: reconcile(&state, newlyDiscovered: adoptedAsInactiveTab ? nil : wid))
+            effects.append(contentsOf: reconcile(&state,
+                newlyDiscovered: adoptedAsInactiveTab || wasRemovedFromSpaceWhileUntracked ? nil : wid))
         }
         // Converge the group NOW: the adopted tab is Space-less, so re-reading its app's on-screen actives
         // lets their AXTabGroup claim it immediately, instead of it sitting phantom-hidden until the next
