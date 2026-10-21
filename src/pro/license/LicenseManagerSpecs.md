@@ -1,16 +1,16 @@
 # LicenseManager — Specs
 
-> **Line coverage:** `LicenseManager.swift` 91% · _refreshed 2026-05-27 by `/coverage-explore`_
+> **Line coverage:** `LicenseManager.swift` 94.4% (373/395) · `RemoteLicenseClient.swift` 79.4% (189/238), measured 2026-10-21 with the Debug unit-test scheme and code coverage enabled.
 
 ## Summary
 
 `LicenseManager` is the single source of truth for whether the user has AltTab **Pro**. It computes a `LicenseState` and notifies observers when it changes. The state drives every Pro gate in the app (search, lock-search, extra shortcuts, App Icons / Titles styles, Auto size, search-on-release) and the Pro-transition prompts.
 
-It is built from three injected collaborators so the logic is testable without real I/O — the tests pass in mocks (`MockClock`, `MockKeychain`, `MockLicenseAPI`, all defined inline at the bottom of `LicenseManagerTests.swift`):
+Its collaborators are injected so the logic is testable without real I/O — the tests pass in mocks (`MockClock`, `MockKeychain`, `MockLicenseAPI`, all defined inline at the bottom of `LicenseManagerTests.swift`):
 
 - **`Clock`** — current time. Lets tests fast-forward the trial without sleeping.
 - **`Keychain`** — secure storage for the license key, instance id, and variant id. Tied to the app's code signature (see the License/Keychain invariant in `AGENTS.md`).
-- **`LicenseAPI`** — the LemonSqueezy-backed activate / validate / deactivate calls.
+- **`LicenseAPI`** — activate / validate / deactivate calls to AltTab's provider-independent licensing backend.
 - **`UserDefaults`** — non-secret bookkeeping: `trialStartDate`, `lastValidation` (timestamp), `lastValidationResult` (Bool).
 
 ## State model
@@ -110,3 +110,16 @@ Mirrors `LicenseManagerTests.swift` 1:1. Each test uses an isolated `UserDefault
 - **testTrialDay_isNilWithoutTrial** — no `trialStartDate` → `trialDay` is nil, never a guessed day.
 - **testTrialDay_isOneIndexed** — the start day is day 1, 34 days later is day 35, 99 days later is day 100.
 - **testTrialDay_isNilWhenClockIsBeforeTrialStart** — a clock set before the trial start → nil.
+
+## Team licenses
+
+- A team key reports the existing `pro_lifetime` tier. Its purchased Mac count is enforced by the server, without changing personal licenses' three-Mac limit.
+- A seat-limit response carrying `seats` becomes `teamSeatLimitExceeded`, even if it also includes a roster. The app asks the user to contact their license manager; only the buyer manages the team's other Macs through My Account. A personal response still opens the existing remote-deactivation flow.
+- Activation and validation send the computer name from System Configuration, without network hostname resolution. Control characters and surrounding whitespace are removed, and the name is capped at 64 Unicode scalars. Missing or empty names are omitted. Deactivation sends no name.
+- `RemoteLicenseClientTests` covers both limit responses, the request bodies for all three operations, and an unavailable name. The tests use a private URL session and never contact the licensing service.
+
+### Teams verification
+
+- `RemoteLicenseClientTests` sends actual requests through an isolated URL session and checks the Lifetime response, team/personal seat-limit distinction, machine-name normalization, and trial attribution. The trial-start source is injected so tests do not initialize the production singleton or read its Keychain.
+- `testLifetimeActivationPersistsAcrossManagerReplacement` checks the stored entitlement remains Lifetime after manager initialization.
+- AltTab QA `LIVE-PRO-05` and `LIVE-PRO-06` exercise Lifetime unlock, prompt cancellation and relaunch using the real isolated Keychain. They do not make a purchase or contact the licensing server.

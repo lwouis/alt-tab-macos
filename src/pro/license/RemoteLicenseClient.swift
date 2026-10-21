@@ -1,4 +1,5 @@
 import Foundation
+import SystemConfiguration
 
 /// Talks to our own licensing backend at `alt-tab.app/v1/license/*`. Provider-agnostic:
 /// the backend's active payment provider is a deployment-time choice that this client
@@ -6,10 +7,18 @@ import Foundation
 struct RemoteLicenseClient: LicenseAPI {
     let baseUrl: String
     let keychain: Keychain
+    let session: URLSession
+    let machineName: () -> String?
+    let trialStartDate: () -> Date?
 
-    init(baseUrl: String, keychain: Keychain) {
+    init(baseUrl: String, keychain: Keychain, session: URLSession = .shared,
+         machineName: @escaping () -> String? = { SCDynamicStoreCopyComputerName(nil, nil) as String? },
+         trialStartDate: @escaping () -> Date? = { LicenseManager.shared.trialStartDate }) {
         self.baseUrl = baseUrl
         self.keychain = keychain
+        self.session = session
+        self.machineName = machineName
+        self.trialStartDate = trialStartDate
     }
 
     func activate(_ licenseKey: String, completion: @escaping (Result<ActivateResult, Error>) -> Void) {
@@ -20,7 +29,7 @@ struct RemoteLicenseClient: LicenseAPI {
         // Pass the local trial-start timestamp so the backend can report
         // trial-to-paid conversion latency. The backend takes MIN across
         // machines; omitted when nil (e.g. after deactivation clears it).
-        if let trialStart = LicenseManager.shared.trialStartDate {
+        if let trialStart = trialStartDate() {
             body["trial_started_at"] = Int(trialStart.timeIntervalSince1970)
         }
         Logger.debug { "alt-tab-backend POST \(baseUrl)/activate" }
@@ -45,8 +54,12 @@ struct RemoteLicenseClient: LicenseAPI {
                 case "invalid_key":
                     completion(.failure(LicenseAPIError.invalidKey))
                 case "seat_limit_exceeded":
-                    let instances = (response.instances ?? []).map(\.asActiveInstance)
-                    completion(.failure(LicenseAPIError.seatLimitExceeded(instances: instances)))
+                    if response.seats != nil {
+                        completion(.failure(LicenseAPIError.teamSeatLimitExceeded))
+                    } else {
+                        let instances = (response.instances ?? []).map(\.asActiveInstance)
+                        completion(.failure(LicenseAPIError.seatLimitExceeded(instances: instances)))
+                    }
                 case .some(let reason):
                     completion(.failure(LicenseAPIError.activationRejected(reason)))
                 case nil:
@@ -105,8 +118,13 @@ struct RemoteLicenseClient: LicenseAPI {
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
+        var body = body
+        if endpoint == "activate" || endpoint == "validate", let name = machineName() {
+            let trimmed = name.components(separatedBy: .controlCharacters).joined().trimmingCharacters(in: .whitespacesAndNewlines)
+            if !trimmed.isEmpty { body["machine_name"] = String(trimmed.unicodeScalars.prefix(64)) }
+        }
         request.httpBody = try? JSONSerialization.data(withJSONObject: body)
-        URLSession.shared.dataTask(with: request) { data, response, error in
+        session.dataTask(with: request) { data, response, error in
             if let error { completion(.failure(error)); return }
             guard let data else { completion(.failure(LicenseAPIError.noData)); return }
             do {
@@ -136,6 +154,7 @@ struct RemoteLicenseClient: LicenseAPI {
         let customer_email: String?
         let error: String?
         let instances: [InstanceDTO]?
+        let seats: Int?
     }
 
     private struct ValidateResponse: Decodable {

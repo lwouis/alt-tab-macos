@@ -268,6 +268,21 @@ final class LicenseManagerTests: XCTestCase {
         XCTAssertNil(keychain.value(account: LicenseManager.keychainKeyAccount))
     }
 
+    func testLifetimeActivationPersistsAcrossManagerReplacement() {
+        api.activateResult = .success(ActivateResult(instanceId: "team-mac", variantId: "pro_lifetime", customerEmail: "manager@example.com"))
+        let done = expectation(description: "Lifetime activation")
+        manager.activate("TEAM-KEY") { result in
+            if case .failure(let error) = result { XCTFail("Lifetime activation failed: \(error)") }
+            done.fulfill()
+        }
+        wait(for: [done], timeout: 1)
+        let replacement = LicenseManager(clock: clock, keychain: keychain, api: api, defaults: defaults)
+        replacement.initialize()
+        XCTAssertEqual(replacement.state, .pro)
+        XCTAssertTrue(replacement.isLifetimeVariant)
+        XCTAssertEqual(keychain.value(account: LicenseManager.keychainInstanceAccount), "team-mac")
+    }
+
     func testActivateWithoutCustomerEmailLeavesCustomerEmailNil() {
         api.activateResult = .success(ActivateResult(instanceId: "inst", variantId: nil, customerEmail: nil))
         let exp = expectation(description: "activate")
@@ -754,4 +769,157 @@ final class MockLicenseAPI: LicenseAPI {
         let r = deactivateResult
         DispatchQueue.main.async { completion(r) }
     }
+}
+
+final class RemoteLicenseClientTests: XCTestCase {
+    func testTeamLimitDoesNotOfferRemoteDeactivationEvenWithARoster() throws {
+        let response = """
+        {"activated":false,"error":"seat_limit_exceeded","seats":5,
+         "instances":[{"id":"another-mac","lastSeenAt":1700000000}]}
+        """
+        let client = makeClient(response)
+        let done = expectation(description: "team limit")
+        client.activate("team-key") { result in
+            guard case .failure(LicenseAPIError.teamSeatLimitExceeded) = result else {
+                XCTFail("Team keys must never open the personal remote-deactivation flow")
+                done.fulfill()
+                return
+            }
+            done.fulfill()
+        }
+        waitForExpectations(timeout: 2)
+    }
+
+    func testPersonalLimitStillOffersItsRoster() {
+        let response = """
+        {"activated":false,"error":"seat_limit_exceeded",
+         "instances":[{"id":"personal-mac","machineName":"Office Mac","lastSeenAt":1700000000}]}
+        """
+        let client = makeClient(response)
+        let done = expectation(description: "personal limit")
+        client.activate("personal-key") { result in
+            if case .failure(LicenseAPIError.seatLimitExceeded(let instances)) = result {
+                XCTAssertEqual(instances.map(\.id), ["personal-mac"])
+                XCTAssertEqual(instances.first?.machineName, "Office Mac")
+            } else {
+                XCTFail("Personal keys retain their remote-deactivation flow")
+            }
+            done.fulfill()
+        }
+        waitForExpectations(timeout: 2)
+    }
+
+    func testMachineNameIsSentOnActivateAndValidateButNotDeactivate() {
+        let name = "  " + String(repeating: "é", count: 70) + "\n"
+        let client = makeClient("{\"activated\":true,\"instance_id\":\"i\",\"valid\":true,\"deactivated\":true}", name: name)
+        let done = expectation(description: "requests")
+        done.expectedFulfillmentCount = 3
+        let inspected = expectation(description: "request bodies inspected")
+        inspected.expectedFulfillmentCount = 3
+        TeamLicenseURLProtocol.inspect = { request, body in
+            let expected = request.url?.lastPathComponent == "deactivate" ? nil : String(repeating: "é", count: 64)
+            XCTAssertEqual(body["machine_name"] as? String, expected)
+            inspected.fulfill()
+        }
+        client.activate("key") { result in
+            XCTAssertEqual(try? result.get().instanceId, "i")
+            done.fulfill()
+        }
+        client.validate("key", instanceId: "i") { result in
+            XCTAssertEqual(try? result.get().valid, true)
+            done.fulfill()
+        }
+        client.deactivate("key", instanceId: "i") { result in
+            if case .failure(let error) = result { XCTFail("Deactivation failed: \(error)") }
+            done.fulfill()
+        }
+        waitForExpectations(timeout: 2)
+    }
+
+    func testMissingMachineNameIsOmitted() {
+        let client = makeClient("{\"valid\":true}", name: nil)
+        let inspected = expectation(description: "unnamed Mac request inspected")
+        let done = expectation(description: "unnamed Mac")
+        TeamLicenseURLProtocol.inspect = { request, body in
+            XCTAssertEqual(request.url?.lastPathComponent, "validate")
+            XCTAssertEqual(body["license_key"] as? String, "key")
+            XCTAssertEqual(body["instance_id"] as? String, "i")
+            XCTAssertNil(body["machine_name"])
+            inspected.fulfill()
+        }
+        client.validate("key", instanceId: "i") { result in
+            XCTAssertEqual(try? result.get().valid, true)
+            done.fulfill()
+        }
+        waitForExpectations(timeout: 2)
+    }
+
+    func testLifetimeResponseAndTrialAttributionSurviveTransport() {
+        let client = makeClient("{\"activated\":true,\"instance_id\":\"team-mac\",\"variant_id\":\"pro_lifetime\",\"customer_email\":\"manager@example.com\"}", trialStart: Date(timeIntervalSince1970: 1700000000))
+        let inspected = expectation(description: "trial attribution")
+        TeamLicenseURLProtocol.inspect = { _, body in
+            XCTAssertEqual(body["trial_started_at"] as? Int, 1700000000)
+            inspected.fulfill()
+        }
+        let done = expectation(description: "Lifetime response")
+        client.activate("team-key") { result in
+            if case .success(let value) = result {
+                XCTAssertEqual(value.variantId, "pro_lifetime")
+                XCTAssertEqual(value.instanceId, "team-mac")
+                XCTAssertEqual(value.customerEmail, "manager@example.com")
+            } else { XCTFail("A team activation must decode as Lifetime") }
+            done.fulfill()
+        }
+        waitForExpectations(timeout: 2)
+    }
+
+    func testMachineNamesRemoveControlsAndCountUnicodeScalars() {
+        let client = makeClient("{\"valid\":true}", name: " \n" + String(repeating: "😀", count: 70) + "\u{0}\t ")
+        let inspected = expectation(description: "Unicode machine name")
+        TeamLicenseURLProtocol.inspect = { _, body in
+            XCTAssertEqual(body["machine_name"] as? String, String(repeating: "😀", count: 64))
+            inspected.fulfill()
+        }
+        let done = expectation(description: "validation")
+        client.validate("key", instanceId: "i") { result in
+            XCTAssertEqual(try? result.get().valid, true)
+            done.fulfill()
+        }
+        waitForExpectations(timeout: 2)
+    }
+
+    private func makeClient(_ response: String, name: String? = "Test Mac", trialStart: Date? = nil) -> RemoteLicenseClient {
+        TeamLicenseURLProtocol.response = Data(response.utf8)
+        TeamLicenseURLProtocol.inspect = nil
+        let config = URLSessionConfiguration.ephemeral
+        config.protocolClasses = [TeamLicenseURLProtocol.self]
+        return RemoteLicenseClient(baseUrl: "https://license.test", keychain: MockKeychain(),
+            session: URLSession(configuration: config), machineName: { name }, trialStartDate: { trialStart })
+    }
+}
+
+private final class TeamLicenseURLProtocol: URLProtocol {
+    static var response = Data()
+    static var inspect: ((URLRequest, [String: Any]) -> Void)?
+
+    override class func canInit(with request: URLRequest) -> Bool { true }
+    override class func canonicalRequest(for request: URLRequest) -> URLRequest { request }
+    override func startLoading() {
+        var data = request.httpBody ?? Data()
+        if let stream = request.httpBodyStream {
+            stream.open()
+            defer { stream.close() }
+            var buffer = [UInt8](repeating: 0, count: 1024)
+            while stream.hasBytesAvailable {
+                let count = stream.read(&buffer, maxLength: buffer.count)
+                guard count > 0 else { break }
+                data.append(buffer, count: count)
+            }
+        }
+        Self.inspect?(request, (try? JSONSerialization.jsonObject(with: data)) as? [String: Any] ?? [:])
+        client?.urlProtocol(self, didReceive: HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: nil, headerFields: nil)!, cacheStoragePolicy: .notAllowed)
+        client?.urlProtocol(self, didLoad: Self.response)
+        client?.urlProtocolDidFinishLoading(self)
+    }
+    override func stopLoading() {}
 }

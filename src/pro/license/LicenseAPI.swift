@@ -28,6 +28,7 @@ enum LicenseAPIError: LocalizedError {
     case invalidKey
     case activationRejected(String)
     case seatLimitExceeded(instances: [ActiveInstance])
+    case teamSeatLimitExceeded
     case deactivationRejected
     case noData
     case invalidResponse(debugInfo: String)
@@ -39,6 +40,7 @@ enum LicenseAPIError: LocalizedError {
         case .invalidKey: return NSLocalizedString("Invalid license key.", comment: "")
         case .activationRejected(let reason): return reason
         case .seatLimitExceeded: return NSLocalizedString("This license is already activated on the maximum number of machines. Deactivate one to continue.", comment: "")
+        case .teamSeatLimitExceeded: return NSLocalizedString("All Macs covered by this team license are in use. Ask your license manager to free a place in My Account.", comment: "")
         case .deactivationRejected: return NSLocalizedString("Deactivation was rejected by the server.", comment: "")
         case .noData: return NSLocalizedString("No response from server.", comment: "")
         case .invalidResponse: return NSLocalizedString("Unexpected response from server.", comment: "")
