@@ -19,7 +19,7 @@ env:
   APP_NAME: AltTab
 jobs:
   build:
-    runs-on: macos-15 # all options: https://github.com/actions/runner-images/tree/main
+    runs-on: macos-26 # all options: https://github.com/actions/runner-images/tree/main
     environment: production
     steps:
 #      - env:
@@ -42,7 +42,7 @@ jobs:
         with:
           node-version: 16
           cache: 'npm'
-      - run: sudo xcode-select -s /Applications/Xcode_26.0.1.app/Contents/Developer
+      - run: sudo xcode-select -s /Applications/Xcode_26.6.app/Contents/Developer
       - run: scripts/print_env.sh
       - run: npm ci
       # lint what the next release will contain: every commit since the last release commit. The push's own
