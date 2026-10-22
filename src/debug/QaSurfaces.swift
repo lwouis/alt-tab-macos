@@ -320,7 +320,15 @@ enum QaSurfaces {
         ] + reasons.flatMap { name, reason in
             [
                 Surface(id: "pro.day15-full-upgrade.\(name)", licenses: expired, inSettings: false) {
+                    // A Pro style kept until expiry is one the trial adopted, so the window opens on it.
+                    // The evidence is read synchronously when it is set, so it can be restored right after.
+                    let previous = UsageStats.qaEvidence
+                    if case let .proPreferences(style?, _) = reason {
+                        UsageStats.qaEvidence = ProJourneyEvidence(searches: UsageStats.qaPinned?["searches"]?.count,
+                            extraShortcuts: UsageStats.qaPinned?["triggersExtraShortcuts"]?.count, adoptedStyle: style.index)
+                    }
                     Day15FullUpgradeWindow.show(for: reason)
+                    UsageStats.qaEvidence = previous
                     return target(Day15FullUpgradeWindow.shared)
                 },
                 Surface(id: "pro.day15-hard-gate.\(name)", licenses: expired, inSettings: false) {
