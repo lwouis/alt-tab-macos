@@ -333,7 +333,8 @@ final class SpeechBubbleView: NSView {
             switch path.element(at: index, associatedPoints: &points) {
             case .moveTo: shape.move(to: points[0])
             case .lineTo: shape.addLine(to: points[0])
-            case .curveTo: shape.addCurve(to: points[2], control1: points[0], control2: points[1])
+            case .cubicCurveTo: shape.addCurve(to: points[2], control1: points[0], control2: points[1])
+            case .quadraticCurveTo: shape.addQuadCurve(to: points[1], control: points[0])
             case .closePath: shape.closeSubpath()
             @unknown default: break
             }

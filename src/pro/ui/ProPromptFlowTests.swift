@@ -377,10 +377,19 @@ final class ProPromptFlowTests: XCTestCase {
         XCTAssertTrue(manager.attemptHardGatedFeature(.extraShortcut(index: 1)))
         XCTAssertTrue(manager.isFreePassSessionActive)
         XCTAssertTrue(manager.freePassUsed)
-        guard case .showFullUpgrade(.some(.feature(.extraShortcut(index: 1)))) = manager.pendingPromptForQa else {
-            return XCTFail("The one-session pass must still queue the expiry announcement")
-        }
+        XCTAssertTrue(manager.hasPendingPrompt)
         XCTAssertTrue(popovers.isEmpty)
+        let announced = expectation(description: "expiry announcement after the free-pass session")
+        manager.onAction = { action in
+            guard case .showDay15FullUpgrade(.some(.feature(.extraShortcut(index: 1)))) = action else {
+                return XCTFail("The one-session pass must announce the feature that was used")
+            }
+            announced.fulfill()
+        }
+        dismiss()
+        waitForExpectations(timeout: 3)
+        XCTAssertFalse(manager.isFreePassSessionActive)
+        XCTAssertFalse(manager.hasPendingPrompt)
     }
 
     private func summon() {
