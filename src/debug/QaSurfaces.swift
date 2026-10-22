@@ -191,6 +191,8 @@ enum QaSurfaces {
     /// Day 4 of the trial and a long-expired one, rather than whatever day the machine happens to be on: the
     /// day count is printed in the Upgrade button, the menubar menu and the prompts.
     static func setLicense(_ license: String) {
+        QaLifecycleEnvironment.visualNow = Calendar(identifier: .gregorian).date(from:
+            DateComponents(year: 2026, month: 10, day: 21, hour: 12))
         SettingsWindow.qaDiscard()
         switch license {
             case "trial":
