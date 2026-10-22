@@ -1,3 +1,30 @@
+# [11.10.0](https://github.com/lwouis/alt-tab-macos/compare/v11.9.2...v11.10.0) (2026-10-22)
+
+
+### Bug Fixes
+
+* hide QSpace Pro's desktop from the window list (closes [#6125](https://github.com/lwouis/alt-tab-macos/issues/6125)) ([bcc04b2](https://github.com/lwouis/alt-tab-macos/commit/bcc04b2))
+* keep a new tab from briefly showing as a separate window ([56d0189](https://github.com/lwouis/alt-tab-macos/commit/56d0189))
+* keep icons and translated labels readable in Settings ([6989607](https://github.com/lwouis/alt-tab-macos/commit/6989607))
+* keep notification badges readable in App Icons (closes [#6124](https://github.com/lwouis/alt-tab-macos/issues/6124)) ([e06b105](https://github.com/lwouis/alt-tab-macos/commit/e06b105))
+* keep switching responsive and avoid unwanted keyboard sounds ([44dcbe3](https://github.com/lwouis/alt-tab-macos/commit/44dcbe3))
+* keep the window order right after switching to a busy app ([4486747](https://github.com/lwouis/alt-tab-macos/commit/4486747))
+* match popovers to the app theme and shorten shortcut labels ([7a68c5a](https://github.com/lwouis/alt-tab-macos/commit/7a68c5a))
+* show complete thumbnails for windows with large dialogs ([8665030](https://github.com/lwouis/alt-tab-macos/commit/8665030))
+* show update dialogs and shortcut recording in your language ([49c1012](https://github.com/lwouis/alt-tab-macos/commit/49c1012))
+
+
+### Features
+
+* improve the Pro trial experience ([293fc2a](https://github.com/lwouis/alt-tab-macos/commit/293fc2a))
+* refresh illustrations throughout the app ([1e7d6ba](https://github.com/lwouis/alt-tab-macos/commit/1e7d6ba))
+* support shared team licenses ([37fcf7f](https://github.com/lwouis/alt-tab-macos/commit/37fcf7f))
+
+
+### Performance Improvements
+
+* make AltTab smaller to download and install ([7c01517](https://github.com/lwouis/alt-tab-macos/commit/7c01517))
+
 ## [11.9.2](https://github.com/lwouis/alt-tab-macos/compare/v11.9.1...v11.9.2) (2026-10-13)
 
 
