@@ -56,6 +56,8 @@ class PreferencesMigrations {
             ("6.18.1", migrateShowWindowsCheckboxToDropdown),
             // "Max size on screen" was split into max width and max height
             ("6.18.1", migrateMaxSizeOnScreenToWidthAndHeight),
+            // shortcuts were stored as key equivalents ("⌘", "⇥"); last, because migrations above read them as strings
+            ("10.4.0", migrateShortcutsFromKeyEquivalents),
         ] {
             if shouldRun(versionInPlist, version) {
                 migration()
@@ -90,6 +92,16 @@ class PreferencesMigrations {
             } else if let convertedGlobal {
                 Self.defaults.set(convertedGlobal, forKey: key)
             }
+        }
+    }
+
+    /// `CachedUserDefaults.shortcut` deletes a value it can't decode, so an unconverted string resets that
+    /// shortcut to its default on first read. An empty string meant "no shortcut", and stays so.
+    static func migrateShortcutsFromKeyEquivalents() {
+        let perShortcutKeys = (0..<Preferences.maxShortcutCount).flatMap { [Preferences.indexToName("holdShortcut", $0), Preferences.indexToName("nextWindowShortcut", $0)] }
+        for key in Preferences.staticShortcutKeys + perShortcutKeys {
+            guard let keyEquivalent = Self.defaults.object(forKey: key) as? String else { continue }
+            Self.defaults.set(Preferences.shortcutStorage(Preferences.shortcutFromKeyEquivalent(keyEquivalent), keyEquivalent), forKey: key)
         }
     }
 

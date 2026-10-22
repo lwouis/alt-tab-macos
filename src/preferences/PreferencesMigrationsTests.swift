@@ -1,4 +1,5 @@
 import Cocoa
+import ShortcutRecorder
 import XCTest
 
 /// Pins the `UserDefaults` transforms in `PreferencesMigrations`. These run on every app upgrade,
@@ -10,7 +11,8 @@ import XCTest
 /// LaunchServices APIs.
 ///
 /// Groups: A version gating · B grouping→per-shortcut · C language remap · D/E/F exceptions ·
-/// G/H show-windows dropdowns · I gestures · J cursor · K menubar · L/M sizes · N shortcuts · P dropdowns.
+/// G/H show-windows dropdowns · I gestures · J cursor · K menubar · L/M sizes · N shortcuts ·
+/// O shortcut strings → archived storage · P dropdowns.
 final class PreferencesMigrationsTests: XCTestCase {
     var defaults: UserDefaults!
     var suiteName: String!
@@ -266,6 +268,39 @@ final class PreferencesMigrationsTests: XCTestCase {
         XCTAssertEqual(defaults.string(forKey: "shortcutCount"), "3")
     }
 
+    // MARK: - O. Shortcuts: key-equivalent strings -> archived storage
+
+    func testShortcutKeyEquivalentsBecomeArchivedStorage() {
+        defaults.set("⌘", forKey: "holdShortcut")
+        defaults.set("⇥", forKey: "nextWindowShortcut")
+        defaults.set("Q", forKey: "quitAppShortcut")
+        PreferencesMigrations.migrateShortcutsFromKeyEquivalents()
+        XCTAssertEqual(storage("holdShortcut"), Preferences.shortcutStorage(Shortcut(keyEquivalent: "⌘"), "⌘"))
+        XCTAssertEqual(storage("nextWindowShortcut"), Preferences.shortcutStorage(Shortcut(keyEquivalent: "⇥"), "⇥"))
+        XCTAssertEqual(storage("quitAppShortcut"), Preferences.shortcutStorage(Shortcut(keyEquivalent: "Q"), "Q"))
+    }
+
+    func testShortcutEmptyKeyEquivalentStaysNoShortcut() {
+        defaults.set("", forKey: "nextWindowShortcut2")
+        PreferencesMigrations.migrateShortcutsFromKeyEquivalents()
+        XCTAssertEqual(storage("nextWindowShortcut2"), Preferences.shortcutStorage(nil, ""))
+    }
+
+    func testShortcutAlreadyArchivedStorageIsLeftUntouched() {
+        let archived: [String: Any] = ["string": "⌃", "secureData": Data([1, 2, 3])]
+        defaults.set(archived, forKey: "holdShortcut")
+        PreferencesMigrations.migrateShortcutsFromKeyEquivalents()
+        XCTAssertEqual(storage("holdShortcut"), archived as NSDictionary)
+    }
+
+    func testUpgradeFromBefore9KeepsThirdShortcutAndConvertsIt() {
+        defaults.set("⌘", forKey: "holdShortcut3")
+        defaults.set("`", forKey: "nextWindowShortcut3")
+        PreferencesMigrations.updateToNewPreferences("8.0.0")
+        XCTAssertEqual(defaults.string(forKey: "shortcutCount"), "3")
+        XCTAssertEqual(storage("holdShortcut3"), Preferences.shortcutStorage(Shortcut(keyEquivalent: "⌘"), "⌘"))
+    }
+
     // MARK: - P. Dropdowns: English text -> indexes
 
     func testDropdownTextValuesBecomeIndexes() {
@@ -277,6 +312,10 @@ final class PreferencesMigrationsTests: XCTestCase {
     }
 
     // MARK: - Helpers
+
+    private func storage(_ key: String) -> NSDictionary? {
+        defaults.dictionary(forKey: key) as NSDictionary?
+    }
 
     private func decodeExceptions() throws -> [ExceptionEntry] {
         let raw = try XCTUnwrap(defaults.string(forKey: "exceptions"), "expected an 'exceptions' JSON string")
@@ -295,6 +334,9 @@ final class PreferencesMigrationsTests: XCTestCase {
 //     JSON produced by `jsonEncode` is byte-identical to production.
 //   - ShowHowPreference.indexAsString: same case order / index values.
 //   - Preferences.jsonEncode: the real JSONEncoder round-trip.
+//   - Preferences.staticShortcutKeys and shortcutFromKeyEquivalent: same keys and parse as production.
+// RECORDING stub: Preferences.shortcutStorage can't archive here (ShortcutRecorder's encoder needs its
+// resource bundle, which the test target doesn't ship), so it records the parsed shortcut's fields instead.
 
 // Faithful: exceptions model (matches src/preferences/Preferences.swift + MacroPreferences.swift)
 
@@ -358,5 +400,17 @@ extension Preferences {
     static func jsonEncode<T>(_ value: T) -> String where T: Encodable {
         let data = try! JSONEncoder().encode(value)
         return String(data: data, encoding: .utf8)!
+    }
+    static let staticShortcutKeys = [
+        "focusWindowShortcut", "previousWindowShortcut", "cancelShortcut", "closeWindowShortcut",
+        "minDeminWindowShortcut", "toggleFullscreenWindowShortcut", "quitAppShortcut", "hideShowAppShortcut", "searchShortcut",
+    ]
+
+    static func shortcutStorage(_ shortcut: Shortcut?, _ stringRepresentation: String?) -> NSDictionary {
+        ["string": stringRepresentation ?? "", "keyCode": shortcut?.keyCode.rawValue ?? 0, "modifierFlags": shortcut?.modifierFlags.rawValue ?? 0]
+    }
+
+    static func shortcutFromKeyEquivalent(_ keyEquivalent: String) -> Shortcut? {
+        keyEquivalent.isEmpty ? nil : Shortcut(keyEquivalent: keyEquivalent)
     }
 }

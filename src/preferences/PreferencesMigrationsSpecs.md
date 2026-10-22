@@ -81,5 +81,12 @@ Mirrors `PreferencesMigrationsTests.swift` 1:1.
 - **testNextWindowShortcutStripsHoldModifierChars** — hold-modifier chars removed from `nextWindowShortcut` (`"⌥⇥"` → `"⇥"`).
 - **testShortcutIndexesMoveSuffix4To10AndSetCount** — suffix `4` → `10`; `shortcutCount` set to `3` when a 3rd shortcut exists.
 
+### O. Shortcuts: key-equivalent strings → archived storage
+Before 10.4.0 shortcuts were stored as key-equivalent strings. The reader deletes any value it can't decode, so an unconverted string would reset that shortcut to its default. Registered last, because the older shortcut migrations still read these keys as strings.
+- **testShortcutKeyEquivalentsBecomeArchivedStorage** — `holdShortcut "⌘"`, `nextWindowShortcut "⇥"`, `quitAppShortcut "Q"` → storage decoding to the same shortcut; the string is kept in the storage.
+- **testShortcutEmptyKeyEquivalentStaysNoShortcut** — `""` → storage of the empty shortcut (no shortcut), not removed back to the default.
+- **testShortcutAlreadyArchivedStorageIsLeftUntouched** — a value already in storage form is not rewritten.
+- **testUpgradeFromBefore9KeepsThirdShortcutAndConvertsIt** — full `updateToNewPreferences("8.0.0")`: `shortcutCount` still becomes `3` (the 9.0.0 migration saw the string), and `holdShortcut3` is converted.
+
 ### P. Dropdowns: English text → indexes
 - **testDropdownTextValuesBecomeIndexes** — `appsToShow "Active app"` → `"1"`; `screensToShow "Screen showing AltTab"` → `"1"`.
