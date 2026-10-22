@@ -10,6 +10,8 @@ keychainPassword="password"
 
 # create a keychain
 security create-keychain -p $keychainPassword $keychain
+# The default five-minute timeout can lock the key before tests and compilation finish.
+security set-keychain-settings -lut 21600 $keychain
 # make keychain default so xcodebuild uses it
 security default-keychain -s $keychain
 # unlock keychain
