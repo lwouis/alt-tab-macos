@@ -2,8 +2,9 @@ import Foundation
 
 /// Decides the display order of windows in the switcher. When a search query is active, ranks by
 /// match-then-relevance; otherwise applies the user's chosen order (recently-focused / recently-created
-/// / alphabetical / by-space), after pushing any "show at the end" buckets (windowless / hidden /
-/// minimized) to the back, with a stable `lastFocusOrder` tiebreak. Pure kernel.
+/// / alphabetical / by-space), after grouping the screen showing AltTab first (when configured) and
+/// pushing any "show at the end" buckets (windowless / hidden / minimized) to the back of each group,
+/// with a stable `lastFocusOrder` tiebreak. Pure kernel.
 ///
 /// `OrderWindow` bundles the canonical `WindowState` + `ApplicationState` for a window with its
 /// **query-derived** search rank (`searchMatches` / `searchRelevance`) — that bundling earns its
@@ -18,6 +19,8 @@ struct OrderWindow: Equatable {
     let app: ApplicationState
     let searchMatches: Bool       // Search.matches (only meaningful when search is active)
     let searchRelevance: Double   // Search.relevance
+    /// `Window.isOnScreen(NSScreen.preferred)`; only computed (and only read) when grouping by screen.
+    var isOnPreferredScreen = true
 }
 
 struct ApplicationRepresentativeCandidate: Equatable {
@@ -49,6 +52,31 @@ enum ApplicationRepresentativeResolver {
     }
 }
 
+/// Folds the other screens' windows into one stack tile while grouping by screen. Pure kernel behind
+/// `Windows.applyFold` and `Windows.unfoldIfUserArrivedOnStack`.
+enum ScreenFoldResolver {
+    struct Fold: Equatable {
+        /// The window drawn as the stack: the other screens' first shown window in display order.
+        let stack: Int
+        /// The other shown windows of those screens, hidden inside the stack.
+        let foldedAway: [Int]
+    }
+
+    /// `otherScreenShown[i]`: the window at display position `i` is in the other screens' group and passes
+    /// the filters. Nil when there is nothing to fold: folding is off, or one window alone stands for itself.
+    static func fold(_ otherScreenShown: [Bool], enabled: Bool) -> Fold? {
+        let others = otherScreenShown.indices.filter { otherScreenShown[$0] }
+        guard enabled, others.count > 1 else { return nil }
+        return Fold(stack: others[0], foldedAway: Array(others.dropFirst()))
+    }
+
+    /// The stack opens when the user moves the selection onto it with the keyboard — not when the default pick
+    /// lands on it (a quick Cmd-Tab back to the other screen must not unfold it), and not on mouse hover.
+    static func opensOnArrival(isStack: Bool, userPickedSelection: Bool, fromMouse: Bool, fromRefresh: Bool) -> Bool {
+        isStack && userPickedSelection && !fromMouse && !fromRefresh
+    }
+}
+
 enum WindowOrderResolver {
     /// Strict-weak-ordering "should `a` sort before `b`?"
     static func isOrderedBefore(_ a: OrderWindow, _ b: OrderWindow,
@@ -56,12 +84,15 @@ enum WindowOrderResolver {
                                 windowlessAtEnd: Bool = false,   // showWindowlessApps == .showAtTheEnd
                                 hiddenAtEnd: Bool = false,       // showHiddenWindows == .showAtTheEnd
                                 minimizedAtEnd: Bool = false,    // showMinimizedWindows == .showAtTheEnd
+                                groupByScreen: Bool = false,     // screensToShow == .allShowingAltTabFirst
                                 sortType: OrderSortType = .recentlyFocused) -> Bool {
         if searchActive {
             if a.searchMatches != b.searchMatches { return a.searchMatches }
             if a.searchRelevance != b.searchRelevance { return a.searchRelevance > b.searchRelevance }
             return a.state.lastFocusOrder < b.state.lastFocusOrder
         }
+        // the screen showing AltTab is the outermost group, so each "show at the end" bucket sinks within its group
+        if groupByScreen && a.isOnPreferredScreen != b.isOnPreferredScreen { return a.isOnPreferredScreen }
         // separate buckets for these window types (pushed to the end)
         if windowlessAtEnd && a.state.isWindowlessApp != b.state.isWindowlessApp { return b.state.isWindowlessApp }
         if hiddenAtEnd && a.app.isHidden != b.app.isHidden { return b.app.isHidden }

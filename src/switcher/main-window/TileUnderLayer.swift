@@ -3,6 +3,7 @@ import Cocoa
 class TileUnderLayer: CALayer {
     let focusedLayer = noAnimation { CALayer() }
     let hoveredLayer = noAnimation { CALayer() }
+    let dividerLayer = noAnimation { CALayer() }
 
     override init() {
         super.init()
@@ -11,6 +12,8 @@ class TileUnderLayer: CALayer {
             highlightLayer.isHidden = true
             addSublayer(highlightLayer)
         }
+        dividerLayer.isHidden = true
+        addSublayer(dividerLayer)
     }
 
     required init?(coder: NSCoder) { fatalError() }
@@ -18,6 +21,18 @@ class TileUnderLayer: CALayer {
     func updateHighlight(focusedView: TileView?, hoveredView: TileView?) {
         updateLayer(focusedLayer, for: focusedView, isFocused: true)
         updateLayer(hoveredLayer, for: hoveredView, isFocused: false)
+    }
+
+    /// The line between the screen showing AltTab's group and the other screens' group; nil hides it.
+    func updateDivider(_ frame: CGRect?) {
+        guard let frame else {
+            dividerLayer.isHidden = true
+            return
+        }
+        dividerLayer.frame = frame
+        dividerLayer.cornerRadius = frame.width / 2
+        dividerLayer.backgroundColor = Appearance.fontColor.withAlphaComponent(0.3).cgColor
+        dividerLayer.isHidden = false
     }
 
     private func updateLayer(_ highlightLayer: CALayer, for view: TileView?, isFocused: Bool) {

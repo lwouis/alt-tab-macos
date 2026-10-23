@@ -13,6 +13,8 @@ class TileView: FlippedView {
     var statusIcons = StatusIconsView()
     var dockLabelIcon = TileFontIconView(badgeSize: TileFontIconView.badgeBaseSize(forIconSize: TileView.iconSize().width))
     var windowlessAppIndicator = WindowlessAppIndicator(tooltip: TileView.noOpenWindowToolTip)
+    /// Card edges peeking out behind a folded stack's thumbnail or icon, nearest first.
+    private let stackEdges = [noAnimation { CALayer() }, noAnimation { CALayer() }]
     private var fullTitle = ""
     private var fullTitleWidth = CGFloat(0)
     private struct TruncationKey: Hashable {
@@ -85,7 +87,23 @@ class TileView: FlippedView {
         updateValues(element, index)
         updateSizes(newHeight)
         updatePositions()
+        updateStackEdges(element)
         applySearchHighlight()
+    }
+
+    private func updateStackEdges(_ element: Window) {
+        let anchor = thumbnail.isHidden ? appIcon.frame : thumbnail.frame
+        let direction: CGFloat = App.shared.userInterfaceLayoutDirection == .leftToRight ? 1 : -1
+        for (depth, edge) in stackEdges.enumerated() {
+            edge.isHidden = element.foldedCount == 0
+            guard !edge.isHidden else { continue }
+            let offset = CGFloat(depth + 1) * 3
+            edge.frame = anchor.offsetBy(dx: direction * offset, dy: offset)
+            edge.cornerRadius = 4
+            edge.borderWidth = 1
+            edge.borderColor = Appearance.fontColor.withAlphaComponent(0.3).cgColor
+            edge.backgroundColor = Appearance.fontColor.withAlphaComponent(0.08).cgColor
+        }
     }
 
     func drawHighlight() {
@@ -128,6 +146,7 @@ class TileView: FlippedView {
         thumbnail.masksToBounds = false // let thumbnail shadows show
         appIconHighlight.isHidden = true
         layer!.addSublayer(appIconHighlight)
+        stackEdges.reversed().forEach { layer!.addSublayer($0) }
         layer!.addSublayer(appIcon)
         // All style-dependent subviews/layers are attached up front. Per-shortcut overrides can
         // change the effective appearance style between summons; the recycled `TileView` instances
@@ -625,6 +644,7 @@ class TileView: FlippedView {
     }
 
     private func getAppOrAndWindowTitle() -> String {
+        if let window_, window_.foldedCount > 0 { return NSScreen.foldedStackTitle(window_) }
         let appName = window_?.application.localizedName
         let windowTitle = window_?.title
         if Preferences.showTitles == .appName {
