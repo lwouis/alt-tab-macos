@@ -310,7 +310,7 @@
 {
     NSMutableArray *items = [NSMutableArray array];
     static const NSUInteger Limit = 1000;
-    static const NSString *Delimeter = @" → ";
+    NSString *Delimeter = [NSString stringWithUTF8String:" → "];
     NSMenuItem *currentMenuItem = self;
     NSUInteger i = 0;
 

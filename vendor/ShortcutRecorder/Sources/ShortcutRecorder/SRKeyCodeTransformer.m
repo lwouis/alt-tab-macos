@@ -841,7 +841,7 @@ typedef TISInputSourceRef (*_SRKeyCodeTransformerCacheInputSourceCreate)(void);
             @(SRKeyCodeReturn): SRKeyCodeStringReturnR2L,
             @(SRKeyCodeKeypadEnter): SRKeyCodeStringReturn,
             @(SRKeyCodeTab): SRKeyCodeStringTabRight,
-            @(SRKeyCodeHelp): @"?⃝"
+            @(SRKeyCodeHelp): SRKeyCodeStringHelp
         };
     });
     return Mapping;
@@ -1295,7 +1295,7 @@ typedef TISInputSourceRef (*_SRKeyCodeTransformerCacheInputSourceCreate)(void);
                 result = @(SRKeyCodeEscape);
             else if ([lowercaseValue isEqualToString:@"tab"])
                 result = @(SRKeyCodeTab);
-            else if ([lowercaseValue isEqualToString:@"help"] || [lowercaseValue isEqualToString:@"?⃝"])
+            else if ([lowercaseValue isEqualToString:@"help"] || [lowercaseValue isEqualToString:SRKeyCodeStringHelp])
                 result = @(SRKeyCodeHelp);
             else if ([lowercaseValue isEqualToString:@"enter"])
                 result = @(SRKeyCodeReturn);

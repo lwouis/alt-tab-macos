@@ -8,32 +8,63 @@
 #import "SRCommon.h"
 
 
-SRKeyCodeString const SRKeyCodeStringTabRight = @"⇥";
-SRKeyCodeString const SRKeyCodeStringTabLeft = @"⇤";
-SRKeyCodeString const SRKeyCodeStringReturn = @"⌅";
-SRKeyCodeString const SRKeyCodeStringReturnR2L = @"↩";
-SRKeyCodeString const SRKeyCodeStringDeleteLeft = @"⌫";
-SRKeyCodeString const SRKeyCodeStringDeleteRight = @"⌦";
-SRKeyCodeString const SRKeyCodeStringPadClear = @"⌧";
-SRKeyCodeString const SRKeyCodeStringLeftArrow = @"←";
-SRKeyCodeString const SRKeyCodeStringRightArrow = @"→";
-SRKeyCodeString const SRKeyCodeStringUpArrow = @"↑";
-SRKeyCodeString const SRKeyCodeStringDownArrow = @"↓";
-SRKeyCodeString const SRKeyCodeStringPageDown = @"⇟";
-SRKeyCodeString const SRKeyCodeStringPageUp = @"⇞";
-SRKeyCodeString const SRKeyCodeStringNorthwestArrow = @"↖";
-SRKeyCodeString const SRKeyCodeStringSoutheastArrow = @"↘";
-SRKeyCodeString const SRKeyCodeStringEscape = @"⎋";
+// Xcode 27.1's x86_64 linker coalesces distinct UTF-16 literals after the package's `ld -r` step
+// (#6138). Build the exported glyph strings from UTF-8 at load time so the default hold modifiers
+// and key labels retain their values. `testModifierSymbolsKeepTheirFlags` pins the parsing contract.
+SRKeyCodeString SRKeyCodeStringTabRight;
+SRKeyCodeString SRKeyCodeStringTabLeft;
+SRKeyCodeString SRKeyCodeStringReturn;
+SRKeyCodeString SRKeyCodeStringReturnR2L;
+SRKeyCodeString SRKeyCodeStringDeleteLeft;
+SRKeyCodeString SRKeyCodeStringDeleteRight;
+SRKeyCodeString SRKeyCodeStringPadClear;
+SRKeyCodeString SRKeyCodeStringLeftArrow;
+SRKeyCodeString SRKeyCodeStringRightArrow;
+SRKeyCodeString SRKeyCodeStringUpArrow;
+SRKeyCodeString SRKeyCodeStringDownArrow;
+SRKeyCodeString SRKeyCodeStringPageDown;
+SRKeyCodeString SRKeyCodeStringPageUp;
+SRKeyCodeString SRKeyCodeStringNorthwestArrow;
+SRKeyCodeString SRKeyCodeStringSoutheastArrow;
+SRKeyCodeString SRKeyCodeStringEscape;
 SRKeyCodeString const SRKeyCodeStringSpace = @" ";
-SRKeyCodeString const SRKeyCodeStringHelp = @"?⃝";
-SRKeyCodeString const SRKeyCodeStringJISUnderscore = @"＿";
-SRKeyCodeString const SRKeyCodeStringJISComma = @"、";
-SRKeyCodeString const SRKeyCodeStringJISYen = @"¥";
+SRKeyCodeString SRKeyCodeStringHelp;
+SRKeyCodeString SRKeyCodeStringJISUnderscore;
+SRKeyCodeString SRKeyCodeStringJISComma;
+SRKeyCodeString SRKeyCodeStringJISYen;
 
-SRModifierFlagString const SRModifierFlagStringCommand = @"⌘";
-SRModifierFlagString const SRModifierFlagStringOption = @"⌥";
-SRModifierFlagString const SRModifierFlagStringShift = @"⇧";
-SRModifierFlagString const SRModifierFlagStringControl = @"⌃";
+SRModifierFlagString SRModifierFlagStringCommand;
+SRModifierFlagString SRModifierFlagStringOption;
+SRModifierFlagString SRModifierFlagStringShift;
+SRModifierFlagString SRModifierFlagStringControl;
+
+__attribute__((constructor)) static void SRMakeNonASCIIStrings(void)
+{
+    SRKeyCodeStringTabRight = [NSString stringWithUTF8String:"⇥"];
+    SRKeyCodeStringTabLeft = [NSString stringWithUTF8String:"⇤"];
+    SRKeyCodeStringReturn = [NSString stringWithUTF8String:"⌅"];
+    SRKeyCodeStringReturnR2L = [NSString stringWithUTF8String:"↩"];
+    SRKeyCodeStringDeleteLeft = [NSString stringWithUTF8String:"⌫"];
+    SRKeyCodeStringDeleteRight = [NSString stringWithUTF8String:"⌦"];
+    SRKeyCodeStringPadClear = [NSString stringWithUTF8String:"⌧"];
+    SRKeyCodeStringLeftArrow = [NSString stringWithUTF8String:"←"];
+    SRKeyCodeStringRightArrow = [NSString stringWithUTF8String:"→"];
+    SRKeyCodeStringUpArrow = [NSString stringWithUTF8String:"↑"];
+    SRKeyCodeStringDownArrow = [NSString stringWithUTF8String:"↓"];
+    SRKeyCodeStringPageDown = [NSString stringWithUTF8String:"⇟"];
+    SRKeyCodeStringPageUp = [NSString stringWithUTF8String:"⇞"];
+    SRKeyCodeStringNorthwestArrow = [NSString stringWithUTF8String:"↖"];
+    SRKeyCodeStringSoutheastArrow = [NSString stringWithUTF8String:"↘"];
+    SRKeyCodeStringEscape = [NSString stringWithUTF8String:"⎋"];
+    SRKeyCodeStringHelp = [NSString stringWithUTF8String:"?⃝"];
+    SRKeyCodeStringJISUnderscore = [NSString stringWithUTF8String:"＿"];
+    SRKeyCodeStringJISComma = [NSString stringWithUTF8String:"、"];
+    SRKeyCodeStringJISYen = [NSString stringWithUTF8String:"¥"];
+    SRModifierFlagStringCommand = [NSString stringWithUTF8String:"⌘"];
+    SRModifierFlagStringOption = [NSString stringWithUTF8String:"⌥"];
+    SRModifierFlagStringShift = [NSString stringWithUTF8String:"⇧"];
+    SRModifierFlagStringControl = [NSString stringWithUTF8String:"⌃"];
+}
 
 
 NSBundle *SRBundle()

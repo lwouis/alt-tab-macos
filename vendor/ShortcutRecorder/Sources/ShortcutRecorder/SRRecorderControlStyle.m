@@ -695,7 +695,7 @@ NSUserInterfaceLayoutDirection SRRecorderControlStyleComponentsLayoutDirectionTo
             NSFontAttributeName: font,
             NSForegroundColorAttributeName: fontColor
         }.mutableCopy;
-        attributes[SRMinimalDrawableWidthAttributeName] = @([@"…" sizeWithAttributes:attributes].width);
+        attributes[SRMinimalDrawableWidthAttributeName] = @([[NSString stringWithUTF8String:"…"] sizeWithAttributes:attributes].width);
 
         return [attributes copy];
     };

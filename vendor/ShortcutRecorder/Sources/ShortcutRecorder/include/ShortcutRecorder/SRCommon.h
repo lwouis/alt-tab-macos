@@ -74,27 +74,27 @@ typedef NS_ENUM(unichar, SRKeyCodeGlyph)
  @seealso SRKeyCodeGlyph
  */
 typedef NSString *SRKeyCodeString NS_TYPED_EXTENSIBLE_ENUM NS_SWIFT_NAME(KeyCodeString);
-extern SRKeyCodeString const SRKeyCodeStringTabRight;
-extern SRKeyCodeString const SRKeyCodeStringTabLeft;
-extern SRKeyCodeString const SRKeyCodeStringReturn;
-extern SRKeyCodeString const SRKeyCodeStringReturnR2L;
-extern SRKeyCodeString const SRKeyCodeStringDeleteLeft;
-extern SRKeyCodeString const SRKeyCodeStringDeleteRight;
-extern SRKeyCodeString const SRKeyCodeStringPadClear;
-extern SRKeyCodeString const SRKeyCodeStringLeftArrow;
-extern SRKeyCodeString const SRKeyCodeStringRightArrow;
-extern SRKeyCodeString const SRKeyCodeStringUpArrow;
-extern SRKeyCodeString const SRKeyCodeStringDownArrow;
-extern SRKeyCodeString const SRKeyCodeStringPageDown;
-extern SRKeyCodeString const SRKeyCodeStringPageUp;
-extern SRKeyCodeString const SRKeyCodeStringNorthwestArrow;
-extern SRKeyCodeString const SRKeyCodeStringSoutheastArrow;
-extern SRKeyCodeString const SRKeyCodeStringEscape;
+extern SRKeyCodeString SRKeyCodeStringTabRight;
+extern SRKeyCodeString SRKeyCodeStringTabLeft;
+extern SRKeyCodeString SRKeyCodeStringReturn;
+extern SRKeyCodeString SRKeyCodeStringReturnR2L;
+extern SRKeyCodeString SRKeyCodeStringDeleteLeft;
+extern SRKeyCodeString SRKeyCodeStringDeleteRight;
+extern SRKeyCodeString SRKeyCodeStringPadClear;
+extern SRKeyCodeString SRKeyCodeStringLeftArrow;
+extern SRKeyCodeString SRKeyCodeStringRightArrow;
+extern SRKeyCodeString SRKeyCodeStringUpArrow;
+extern SRKeyCodeString SRKeyCodeStringDownArrow;
+extern SRKeyCodeString SRKeyCodeStringPageDown;
+extern SRKeyCodeString SRKeyCodeStringPageUp;
+extern SRKeyCodeString SRKeyCodeStringNorthwestArrow;
+extern SRKeyCodeString SRKeyCodeStringSoutheastArrow;
+extern SRKeyCodeString SRKeyCodeStringEscape;
 extern SRKeyCodeString const SRKeyCodeStringSpace;
-extern SRKeyCodeString const SRKeyCodeStringHelp;
-extern SRKeyCodeString const SRKeyCodeStringJISUnderscore;
-extern SRKeyCodeString const SRKeyCodeStringJISComma;
-extern SRKeyCodeString const SRKeyCodeStringJISYen;
+extern SRKeyCodeString SRKeyCodeStringHelp;
+extern SRKeyCodeString SRKeyCodeStringJISUnderscore;
+extern SRKeyCodeString SRKeyCodeStringJISComma;
+extern SRKeyCodeString SRKeyCodeStringJISYen;
 
 
 /*!
@@ -239,10 +239,10 @@ typedef NS_ENUM(uint16_t, SRKeyCode) {
  @seealso SRModifierFlagGlyph
  */
 typedef NSString *SRModifierFlagString NS_TYPED_EXTENSIBLE_ENUM NS_SWIFT_NAME(ModifierFlagString);
-extern SRModifierFlagString const SRModifierFlagStringCommand;
-extern SRModifierFlagString const SRModifierFlagStringOption;
-extern SRModifierFlagString const SRModifierFlagStringShift;
-extern SRModifierFlagString const SRModifierFlagStringControl;
+extern SRModifierFlagString SRModifierFlagStringCommand;
+extern SRModifierFlagString SRModifierFlagStringOption;
+extern SRModifierFlagString SRModifierFlagStringShift;
+extern SRModifierFlagString SRModifierFlagStringControl;
 
 
 /*!

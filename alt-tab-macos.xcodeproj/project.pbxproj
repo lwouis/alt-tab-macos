@@ -227,6 +227,7 @@
 		BF0C80C69EFEF93C18539925 /* PreferencesMigrations.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C8F58B38F29B2662E6C2D /* PreferencesMigrations.swift */; };
 		5FCEFA110000000000000001 /* PreferencesMigrations.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C8F58B38F29B2662E6C2D /* PreferencesMigrations.swift */; };
 		5FCEFA110000000000000021 /* PreferencesMigrationsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCEFA110000000000000020 /* PreferencesMigrationsTests.swift */; };
+		613861380000000000000002 /* ShortcutSymbolsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613861380000000000000001 /* ShortcutSymbolsTests.swift */; };
 		BF0C81FA62D810342F59291A /* AppearanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C84933936C6FE676CD33C /* AppearanceTests.swift */; };
 		BF0C8203D0EFEDEED0F908E8 /* ScreensEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C822D3BEDAB1F1C9F775E /* ScreensEvents.swift */; };
 		BF0C8249228867A3188E13F3 /* SystemAppearanceEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C869E544F968051715452 /* SystemAppearanceEvents.swift */; };
@@ -728,6 +729,7 @@
 		BF0C8EE17F3ABD7A6D44BFFE /* pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = pl; path = Localizable.strings; sourceTree = "<group>"; };
 		BF0C8F58B38F29B2662E6C2D /* PreferencesMigrations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesMigrations.swift; sourceTree = "<group>"; };
 		5FCEFA110000000000000020 /* PreferencesMigrationsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesMigrationsTests.swift; sourceTree = "<group>"; };
+		613861380000000000000001 /* ShortcutSymbolsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutSymbolsTests.swift; sourceTree = "<group>"; };
 		BF0C8F8E1B7A3C4D5E6F7081 /* ContextMenuEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContextMenuEvents.swift; sourceTree = "<group>"; };
 		BF0C8FAF34022E23582797F3 /* ScrollwheelEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollwheelEvents.swift; sourceTree = "<group>"; };
 		BF0C8FB9777EE9BE74EF542B /* zh-HK */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = "zh-HK"; path = Localizable.strings; sourceTree = "<group>"; };
@@ -1382,6 +1384,7 @@
 				BF0C8998862E0E04D60CACBC /* MacroPreferences.swift */,
 				BF0C8F58B38F29B2662E6C2D /* PreferencesMigrations.swift */,
 				5FCEFA110000000000000020 /* PreferencesMigrationsTests.swift */,
+				613861380000000000000001 /* ShortcutSymbolsTests.swift */,
 				5F5790DE7EC7000000000A01 /* PreferencesPersistenceProbe.swift */,
 				5F5790DE7EC7000000000B01 /* PreferencesPersistenceCheck.swift */,
 				5F5790DE7EC7000000000C01 /* PreferencesPersistenceProbeTests.swift */,
@@ -2291,6 +2294,7 @@
 				5F1CE001000000000000000A /* LicenseManagerTests.swift in Sources */,
 				5FCEFA110000000000000001 /* PreferencesMigrations.swift in Sources */,
 				5FCEFA110000000000000021 /* PreferencesMigrationsTests.swift in Sources */,
+				613861380000000000000002 /* ShortcutSymbolsTests.swift in Sources */,
 				5F1CE001000000000000000B /* RemoteLicenseClient.swift in Sources */,
 				5F1CE001000000000000000C /* MachineFingerprint.swift in Sources */,
 				AECF000000000000000000A3 /* Endpoints.swift in Sources */,
