@@ -1,3 +1,11 @@
+## [11.10.1](https://github.com/lwouis/alt-tab-macos/compare/v11.10.0...v11.10.1) (2026-10-23)
+
+
+### Bug Fixes
+
+* keep shortcuts when upgrading from before 10.4.0 (closes [#5828](https://github.com/lwouis/alt-tab-macos/issues/5828)) ([9abb3fe](https://github.com/lwouis/alt-tab-macos/commit/9abb3fe))
+* shortcuts fire without hold keys (closes [#6138](https://github.com/lwouis/alt-tab-macos/issues/6138), closes [#6139](https://github.com/lwouis/alt-tab-macos/issues/6139)) ([0d7a36f](https://github.com/lwouis/alt-tab-macos/commit/0d7a36f))
+
 # [11.10.0](https://github.com/lwouis/alt-tab-macos/compare/v11.9.2...v11.10.0) (2026-10-22)
 
 
