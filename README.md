@@ -4,4 +4,7 @@
 
 <a href="https://jb.gg/OpenSource"><img src="docs/readme/sponsor.svg" alt="Sponsored by JetBrains" width="900"/></a>
 
+  <a href="https://appwk.cn/apps/alttab">
+    <img src="https://appwk.cn/badges/featured-dark.svg" alt="Featured on AppWK" />
+  </a>
 </div>
