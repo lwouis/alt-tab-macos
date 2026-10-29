@@ -49,8 +49,8 @@ enum WsEventRouting {
 }
 
 /// Ordered ingress buffer for the WindowServer notify proc. Move/resize reports only say "read the latest
-/// geometry", so repeated reports for one wid are interchangeable until a semantic edge intervenes. Focus,
-/// order, lifecycle and Space events split segments and are never coalesced or reordered.
+/// geometry". A batch retains whether any report was a resize, which bypasses move-discovery backoff.
+/// Focus, order, lifecycle and Space events split segments and are never coalesced or reordered.
 struct WsEventIngress {
     struct Event: Equatable {
         let notification: WsEventRouting.Notification
@@ -83,7 +83,9 @@ struct WsEventIngress {
         }
         let key = GeometryKey(segment: segment, wid: event.w0)
         if let index = geometryIndexes[key] {
-            events[index] = event
+            let resized = events[index].notification == .windowResized || event.notification == .windowResized
+            events[index] = Event(notification: resized ? .windowResized : .windowMoved, w0: event.w0,
+                space: event.space, widInSpace: event.widInSpace, at: event.at)
             coalescedGeometryEvents += 1
         } else {
             geometryIndexes[key] = events.count

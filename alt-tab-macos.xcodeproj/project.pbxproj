@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		614700000000000000000002 /* WindowEventReducerDiscoveryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614700000000000000000001 /* WindowEventReducerDiscoveryTests.swift */; };
 		A02020261020000000000001 /* ProFeatureCopy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA001000000000000000010 /* ProFeatureCopy.swift */; };
 		A01920261019000000020001 /* ProPromptTestSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01920261019000000010001 /* ProPromptTestSupport.swift */; };
 		A01920261019000000020000 /* ProPromptFlowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01920261019000000010000 /* ProPromptFlowTests.swift */; };
@@ -489,6 +490,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		614700000000000000000001 /* WindowEventReducerDiscoveryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowEventReducerDiscoveryTests.swift; sourceTree = "<group>"; };
 		A01920261019000000010001 /* ProPromptTestSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = src/_test-support/ProPromptTestSupport.swift; sourceTree = SOURCE_ROOT; };
 		A01920261019000000010000 /* ProPromptFlowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = src/pro/ui/ProPromptFlowTests.swift; sourceTree = SOURCE_ROOT; };
 		F01700000000000000000001 /* IllustrationDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IllustrationDrawer.swift; sourceTree = "<group>"; };
@@ -1213,6 +1215,7 @@
 				5F5849B000000000000000C1 /* WindowEventReducerSpaceTests.swift */,
 				5F5849B100000000000000B1 /* WindowEventReducerFocusTests.swift */,
 				5F5849B100000000000000C1 /* WindowEventReducerMinimizeTests.swift */,
+				614700000000000000000001 /* WindowEventReducerDiscoveryTests.swift */,
 				5F117E40000000000000F101 /* WindowFilterResolverTests.swift */,
 				5F117E40000000000000E101 /* TabReadPolicyTests.swift */,
 				5F117E41000000000000F101 /* PhantomWindowDetectorTests.swift */,
@@ -2206,6 +2209,7 @@
 				5F5849B000000000000000C2 /* WindowEventReducerSpaceTests.swift in Sources */,
 				5F5849B100000000000000B2 /* WindowEventReducerFocusTests.swift in Sources */,
 				5F5849B100000000000000C2 /* WindowEventReducerMinimizeTests.swift in Sources */,
+				614700000000000000000002 /* WindowEventReducerDiscoveryTests.swift in Sources */,
 				5E5EA12E0000000000000003 /* KeyRepeatTimerTestable.swift in Sources */,
 				5E5EA12E0000000000000102 /* KeyRepeatTimerTests.swift in Sources */,
 				5F117E40000000000000F003 /* WindowFilterResolver.swift in Sources */,

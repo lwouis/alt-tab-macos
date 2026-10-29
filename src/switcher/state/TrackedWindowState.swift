@@ -447,6 +447,8 @@ struct TrackedWindowState: Equatable {
     /// that is the only thing standing between this class of bug and a green test suite. Measured: eight
     /// fields shipped unbridged (the whole minted-tab handover chain plus `offScreen`), all 817 tests green.
     struct Carried: Equatable {
+        /// Leading move-discovery attempts, including those whose asynchronous admission has not landed yet.
+        var moveDiscoveryAt = [CGWindowID: TimeInterval]()
         /// Wids the WindowServer took OFF screen (an 816) and has not put back yet. It exists to tell the two
         /// meanings of an order-in apart: a RAISE of a window that was on screen all along (Cmd+`), versus a
         /// RE-SHOW of one that had left it (Space switch, fullscreen exit, un-hide). Only the first is a focus
@@ -848,7 +850,7 @@ enum ReducerInput: Equatable {
     // WindowServer events (raw ids in `WsEventRouting.Notification`)
     case windowCreated(wid: CGWindowID, now: TimeInterval, inSpaceTransition: Bool)          // 811
     case windowDestroyed(wid: CGWindowID)                                                    // 804
-    case windowMovedOrResized(wid: CGWindowID, inSpaceTransition: Bool)                      // 806/807
+    case windowMovedOrResized(wid: CGWindowID, resized: Bool = false, inSpaceTransition: Bool)                      // 806/807
     case windowOrderedIn(wid: CGWindowID, now: TimeInterval, inSpaceTransition: Bool)        // 815
     case windowOrderedOut(wid: CGWindowID, inSpaceTransition: Bool)                          // 816
     case windowFocused(wid: CGWindowID, now: TimeInterval)                                   // 808
