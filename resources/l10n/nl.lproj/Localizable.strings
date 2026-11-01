@@ -361,3 +361,12 @@
 "Your feedback will be submitted as a public GitHub issue." = "Je feedback wordt ingediend als openbare GitHub-issue.";
 "Your Pro trial starts when AltTab is ready" = "Je Pro-proefperiode begint zodra AltTab klaar is";
 "Your settings reset every time AltTab restarts." = "Je instellingen worden bij elke herstart van AltTab teruggezet.";
+
+/* Startup recovery */
+"AltTab couldn’t start." = "AltTab kon niet starten.";
+
+/* Startup recovery */
+"AltTab couldn’t access the keyboard or mouse. You can try again or quit AltTab." = "AltTab kon geen toegang krijgen tot het toetsenbord of de muis. Je kunt het opnieuw proberen of AltTab afsluiten.";
+
+/* Startup recovery */
+"Try again" = "Opnieuw proberen";

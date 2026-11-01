@@ -361,3 +361,12 @@
 "Your feedback will be submitted as a public GitHub issue." = "您的反馈将作为公开的 GitHub issue 提交。";
 "Your Pro trial starts when AltTab is ready" = "AltTab 准备就绪后，Pro 试用期即开始";
 "Your settings reset every time AltTab restarts." = "每次重新启动 AltTab 时，你的设置都会被重置。";
+
+/* Startup recovery */
+"AltTab couldn’t start." = "AltTab 无法启动。";
+
+/* Startup recovery */
+"AltTab couldn’t access the keyboard or mouse. You can try again or quit AltTab." = "AltTab 无法访问键盘或鼠标。你可以重试或退出 AltTab。";
+
+/* Startup recovery */
+"Try again" = "重试";

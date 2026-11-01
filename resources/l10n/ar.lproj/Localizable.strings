@@ -361,3 +361,12 @@
 "Your feedback will be submitted as a public GitHub issue." = "سيتم إرسال ملاحظاتك كمشكلة عامة على GitHub.";
 "Your Pro trial starts when AltTab is ready" = "تبدأ تجربتك لـ Pro عندما يصبح AltTab جاهزًا";
 "Your settings reset every time AltTab restarts." = "تتم إعادة تعيين إعداداتك في كل مرة يُعاد فيها تشغيل AltTab.";
+
+/* Startup recovery */
+"AltTab couldn’t start." = "تعذّر بدء AltTab.";
+
+/* Startup recovery */
+"AltTab couldn’t access the keyboard or mouse. You can try again or quit AltTab." = "تعذّر على AltTab الوصول إلى لوحة المفاتيح أو الماوس. يمكنك المحاولة مرة أخرى أو إنهاء AltTab.";
+
+/* Startup recovery */
+"Try again" = "المحاولة مرة أخرى";

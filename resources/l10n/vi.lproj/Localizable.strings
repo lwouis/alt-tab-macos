@@ -361,3 +361,12 @@
 "Your feedback will be submitted as a public GitHub issue." = "Phản hồi của bạn sẽ được gửi dưới dạng GitHub Issue công khai.";
 "Your Pro trial starts when AltTab is ready" = "Bản dùng thử Pro bắt đầu khi AltTab sẵn sàng";
 "Your settings reset every time AltTab restarts." = "Cài đặt của bạn bị đặt lại mỗi khi AltTab khởi động lại.";
+
+/* Startup recovery */
+"AltTab couldn’t start." = "Không thể khởi động AltTab.";
+
+/* Startup recovery */
+"AltTab couldn’t access the keyboard or mouse. You can try again or quit AltTab." = "AltTab không thể truy cập bàn phím hoặc chuột. Bạn có thể thử lại hoặc thoát AltTab.";
+
+/* Startup recovery */
+"Try again" = "Thử lại";

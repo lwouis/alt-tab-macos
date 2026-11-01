@@ -361,3 +361,12 @@
 "Your feedback will be submitted as a public GitHub issue." = "Masukan Anda akan dikirim sebagai isu GitHub publik.";
 "Your Pro trial starts when AltTab is ready" = "Uji coba Pro dimulai saat AltTab siap digunakan";
 "Your settings reset every time AltTab restarts." = "Pengaturan Anda diatur ulang setiap kali AltTab dimulai ulang.";
+
+/* Startup recovery */
+"AltTab couldn’t start." = "AltTab tidak dapat dimulai.";
+
+/* Startup recovery */
+"AltTab couldn’t access the keyboard or mouse. You can try again or quit AltTab." = "AltTab tidak dapat mengakses keyboard atau mouse. Anda dapat mencoba lagi atau keluar dari AltTab.";
+
+/* Startup recovery */
+"Try again" = "Coba lagi";

@@ -361,3 +361,12 @@
 "Your feedback will be submitted as a public GitHub issue." = "피드백은 공개 GitHub 이슈로 제출됩니다.";
 "Your Pro trial starts when AltTab is ready" = "AltTab을 사용할 준비가 되면 Pro 체험이 시작됩니다";
 "Your settings reset every time AltTab restarts." = "AltTab을 다시 시작할 때마다 설정이 초기화됩니다.";
+
+/* Startup recovery */
+"AltTab couldn’t start." = "AltTab을 시작할 수 없습니다.";
+
+/* Startup recovery */
+"AltTab couldn’t access the keyboard or mouse. You can try again or quit AltTab." = "AltTab이 키보드 또는 마우스에 접근할 수 없습니다. 다시 시도하거나 AltTab을 종료할 수 있습니다.";
+
+/* Startup recovery */
+"Try again" = "다시 시도";

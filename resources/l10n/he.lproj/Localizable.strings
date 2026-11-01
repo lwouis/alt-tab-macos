@@ -361,3 +361,12 @@
 "Your feedback will be submitted as a public GitHub issue." = "המשוב שלך יוגש כ-issue ציבורי ב-GitHub.";
 "Your Pro trial starts when AltTab is ready" = "תקופת הניסיון של Pro מתחילה כאשר AltTab מוכן";
 "Your settings reset every time AltTab restarts." = "ההגדרות שלך מתאפסות בכל פעם ש‑AltTab מופעל מחדש.";
+
+/* Startup recovery */
+"AltTab couldn’t start." = "לא ניתן היה להפעיל את AltTab.";
+
+/* Startup recovery */
+"AltTab couldn’t access the keyboard or mouse. You can try again or quit AltTab." = "ל-AltTab לא הייתה גישה למקלדת או לעכבר. אפשר לנסות שוב או לצאת מ-AltTab.";
+
+/* Startup recovery */
+"Try again" = "ניסיון נוסף";

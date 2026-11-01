@@ -57,6 +57,8 @@ enum QaLifecycle {
     static var actions = [String]()
 }
 
+enum StartupRecovery { static var isRecovering = false }
+
 enum ScreenLockEvents { static var isScreenLocked = false }
 enum ContextMenuEvents { static var isMenuOpen = false }
 enum Menubar {

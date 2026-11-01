@@ -95,6 +95,12 @@
 "Alphabetical Order" = "Alphabetical Order";
 
 /* No comment provided by engineer. */
+"AltTab couldn’t access the keyboard or mouse. You can try again or quit AltTab." = "AltTab couldn’t access the keyboard or mouse. You can try again or quit AltTab.";
+
+/* No comment provided by engineer. */
+"AltTab couldn’t start." = "AltTab couldn’t start.";
+
+/* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed";
 
 /* Onboarding popover */
@@ -934,6 +940,9 @@
 
 /* No comment provided by engineer. */
 "Try a different window style" = "Try a different window style";
+
+/* No comment provided by engineer. */
+"Try again" = "Try again";
 
 /* No comment provided by engineer. */
 "Try all four Pro features." = "Try all four Pro features.";

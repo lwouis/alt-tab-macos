@@ -79,7 +79,7 @@ enum ProPromptAction {
     case showDay15FullUpgrade(HardGateReason?)            // [C] Day 15 full upgrade
     case showDay15HardGatePopover(HardGateReason?)        // [E] post-[C] hard-gate popover
     case showDay35Final                                   // [G] Day 35
-    case dismissAllProWindows                             // on upgrade-to-pro
+    case dismissAllProWindows                             // on upgrade-to-pro or input recovery
     case refreshBadge                                     // menubar badge dot
 }
 
@@ -182,6 +182,11 @@ class ProTransitionManager {
         deferredPrompt?.cancel()
         deferredPrompt = nil
         pendingDismissAction = nil
+    }
+
+    func suspendForRecovery() {
+        cancelPendingPrompts()
+        emit(.dismissAllProWindows)
     }
 
     func activeSpaceDidChange() {

@@ -54,6 +54,45 @@ final class ProPromptFlowTests: XCTestCase {
         super.tearDown()
     }
 
+    func testRecoveryRejectsNewOffersEvenWithAnOtherwiseAvailableContext() {
+        StartupRecovery.isRecovering = true
+        defer { StartupRecovery.isRecovering = false }
+        XCTAssertFalse(ProPromptHost.sessionIsAvailable)
+        XCTAssertFalse(manager.attemptHardGatedFeature(.searchInSwitcher))
+        drain()
+        XCTAssertTrue(popovers.isEmpty)
+        StartupRecovery.isRecovering = false
+        XCTAssertFalse(manager.attemptHardGatedFeature(.searchInSwitcher))
+        drain()
+        XCTAssertEqual(popovers.count, 1)
+        XCTAssertTrue(popovers[0].isShown)
+    }
+
+    func testRecoveryCancelsVisibleAndAnchoringOffersAndLateHistory() throws {
+        for shown in [false, true] {
+            readiness = shown ? .ready : .settling
+            XCTAssertFalse(manager.attemptHardGatedFeature(.searchInSwitcher))
+            drain()
+            let popover = try XCTUnwrap(popovers.last)
+            XCTAssertEqual(popover.isShown, shown)
+            XCTAssertEqual(popover.isWaitingForAnchor, !shown)
+            var complete: ((Int) -> Void)?
+            ProPromptHost.windowPresentation.load(using: { complete = $0 }, canPresent: { true },
+                show: { _ in XCTFail("Cancelled history must not show an offer after recovery") })
+            XCTAssertTrue(ProPromptHost.windowPresentation.isPending)
+            StartupRecovery.isRecovering = true
+            manager.suspendForRecovery()
+            StartupRecovery.isRecovering = false
+            complete?(1)
+            popover.readiness = .ready
+            popover.retryPresentation()
+            drain()
+            XCTAssertFalse(popover.isShown)
+            XCTAssertNil(popover.contentViewController)
+            XCTAssertFalse(manager.hasPendingPrompt)
+        }
+    }
+
     func testBlockedSearchKeepsTheSessionAndSelectionAndPresentsBeforeDismissal() throws {
         summon()
         let session = try XCTUnwrap(SwitcherSession.current)

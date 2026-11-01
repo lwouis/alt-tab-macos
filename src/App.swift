@@ -386,6 +386,7 @@ class App: AppCenterApplication {
     }
 
     static func showUiOrCycleSelection(_ shortcutIndex: Int, _ forceDoNothingOnRelease_: Bool) {
+        guard !StartupRecovery.isRecovering else { return }
         MainThreadStall.step()
         if !SwitcherSession.isActive { DismissalInput.cancel() }
         OnboardingPopover.switcherWasSummoned()
@@ -519,7 +520,7 @@ class App: AppCenterApplication {
     /// sources, so both threads get every event), and the gesture state in `TrackpadEvents` is unlocked on
     /// the grounds that one thread reaches it. Two of them segfault in `GestureTracker.prune`.
     static func continueAppLaunchAfterPermissionsAreGranted() {
-        guard !didContinueAppLaunch else {
+        guard !didContinueAppLaunch, !StartupRecovery.isRecovering else {
             Logger.warning { "launch continuation asked for twice; ignoring" }
             return
         }
@@ -558,6 +559,7 @@ class App: AppCenterApplication {
             Applications.manuallyRefreshAllWindows()
         }
         KeyboardEvents.addEventHandlers()
+        guard !StartupRecovery.isRecovering else { return }
         // Evaluate the "ignore shortcuts" exception for whatever app is already frontmost at launch (#5842):
         // no didActivateApplication fires for it, so without this an app blacklisted with ignore=.always keeps
         // AltTab's shortcut registered after an auto-update relaunch until the user switches away and back.
@@ -565,7 +567,9 @@ class App: AppCenterApplication {
             checkIfShortcutsShouldBeDisabled(frontmostApp.focusedWindow, frontmostApp)
         }
         CursorEvents.observe()
+        guard !StartupRecovery.isRecovering else { return }
         TrackpadEvents.observe()
+        guard !StartupRecovery.isRecovering else { return }
         // With the other taps, not with `WindowServerEvents`: it needs Accessibility (`tapCreate` returns nil
         // without it) and the input-devices runloop, neither of which exists before this point.
         WindowAttentionEvents.observe()
@@ -612,6 +616,7 @@ class App: AppCenterApplication {
         #if DEBUG
         if QaLifecycle.enabled { QaLifecycle.finishedLaunching = true; QaLifecycle.launchCount += 1 }
         #endif
+        StartupRecovery.becameReady()
         Logger.info { "Finished launching AltTab" }
     }
 }

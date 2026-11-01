@@ -97,8 +97,8 @@ class SystemPermissions {
 
     private static func checkPermissionsPostStartup() {
         if AccessibilityPermission.status == .notGranted {
-            Logger.error { "Accessibility permission revoked while AltTab was running; restarting" }
-            DispatchQueue.main.async { App.restart() }
+            Logger.error { "Accessibility permission revoked while AltTab was running" }
+            DispatchQueue.main.async { StartupRecovery.failed("accessibility revoked") }
         }
     }
 

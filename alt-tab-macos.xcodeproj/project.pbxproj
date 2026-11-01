@@ -473,6 +473,10 @@
 		A01720261017000000000003 /* ProPromptPresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01720261017000000000001 /* ProPromptPresentation.swift */; };
 		A01720261017000000000004 /* ProPromptPresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01720261017000000000001 /* ProPromptPresentation.swift */; };
 		A01720261017000000000005 /* ProPromptPresentationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01720261017000000000002 /* ProPromptPresentationTests.swift */; };
+		AA0200000000000000000004 /* StartupRecoveryPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0200000000000000000001 /* StartupRecoveryPolicy.swift */; };
+		AA0200000000000000000007 /* StartupRecoveryPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0200000000000000000001 /* StartupRecoveryPolicy.swift */; };
+		AA0200000000000000000005 /* StartupRecovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0200000000000000000002 /* StartupRecovery.swift */; };
+		AA0200000000000000000009 /* StartupRecoveryPolicyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0200000000000000000003 /* StartupRecoveryPolicyTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -933,6 +937,10 @@
 		C07100000000000000000003 /* pro-rabbit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "resources/pro-rabbit.png"; sourceTree = SOURCE_ROOT; };
 		A01720261017000000000001 /* ProPromptPresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProPromptPresentation.swift; sourceTree = "<group>"; };
 		A01720261017000000000002 /* ProPromptPresentationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProPromptPresentationTests.swift; sourceTree = "<group>"; };
+		AA0200000000000000000001 /* StartupRecoveryPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartupRecoveryPolicy.swift; sourceTree = "<group>"; };
+		AA0200000000000000000002 /* StartupRecovery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartupRecovery.swift; sourceTree = "<group>"; };
+		AA0200000000000000000003 /* StartupRecoveryPolicyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartupRecoveryPolicyTests.swift; sourceTree = "<group>"; };
+		AA020000000000000000000C /* StartupRecoverySpecs.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = StartupRecoverySpecs.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1650,6 +1658,7 @@
 				CC00000000000000000C0001 /* pro */,
 				CC00000000000000000C0010 /* switcher */,
 				CC00000000000000000C0011 /* preferences */,
+				AA020000000000000000000B /* startup */,
 				71FD1536EE94015DF0B9D6E7 /* vendors */,
 				22F7376E535079E83916A3CD /* util */,
 				5230A54090E2067083AB1CD6 /* events */,
@@ -1934,6 +1943,17 @@
 				4C8B3930635A963ACF1016A9 /* SearchDiscoverySpecs.md */,
 			);
 			path = "search-discovery";
+			sourceTree = "<group>";
+		};
+		AA020000000000000000000B /* startup */ = {
+			isa = PBXGroup;
+			children = (
+				AA0200000000000000000001 /* StartupRecoveryPolicy.swift */,
+				AA0200000000000000000002 /* StartupRecovery.swift */,
+				AA0200000000000000000003 /* StartupRecoveryPolicyTests.swift */,
+				AA020000000000000000000C /* StartupRecoverySpecs.md */,
+			);
+			path = startup;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2223,6 +2243,8 @@
 				5F117E41000000000000F003 /* PhantomWindowDetector.swift in Sources */,
 				5F117E41000000000000F102 /* PhantomWindowDetectorTests.swift in Sources */,
 				5F5790DE7EC7000000000A03 /* PreferencesPersistenceProbe.swift in Sources */,
+				AA0200000000000000000009 /* StartupRecoveryPolicyTests.swift in Sources */,
+				AA0200000000000000000007 /* StartupRecoveryPolicy.swift in Sources */,
 				5F5790DE7EC7000000000C02 /* PreferencesPersistenceProbeTests.swift in Sources */,
 				5F117E40000000000000F203 /* PermissionCalloutResolver.swift in Sources */,
 				5F117E40000000000000F212 /* PermissionCalloutResolverTests.swift in Sources */,
@@ -2348,6 +2370,8 @@
 				5A220000000000000000B002 /* WindowSurfaceInventory.swift in Sources */,
 				5F117E41000000000000F002 /* PhantomWindowDetector.swift in Sources */,
 				5F5790DE7EC7000000000A02 /* PreferencesPersistenceProbe.swift in Sources */,
+				AA0200000000000000000005 /* StartupRecovery.swift in Sources */,
+				AA0200000000000000000004 /* StartupRecoveryPolicy.swift in Sources */,
 				5F5790DE7EC7000000000B02 /* PreferencesPersistenceCheck.swift in Sources */,
 				5E7C0F70000000000000E002 /* ExceptionMatcher.swift in Sources */,
 				5E0DE2A0000000000000D002 /* WindowOrderResolver.swift in Sources */,

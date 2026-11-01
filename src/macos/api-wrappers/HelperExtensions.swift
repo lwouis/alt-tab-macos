@@ -396,14 +396,21 @@ extension CGEvent {
         return nsEvent
     }
 
-    /// Create an event tap and put it on `runLoop`. `tapCreate` returns nil when the Accessibility
-    /// permission isn't granted, and every input tap we install is load-bearing, so that case restarts
-    /// the app rather than running on with a dead tap.
-    static func createTapOrRestart(tap: CGEventTapLocation, options: CGEventTapOptions, eventsOfInterest: CGEventMask,
+    static func createInputTap(control: String, tap: CGEventTapLocation, options: CGEventTapOptions,
+                               eventsOfInterest: CGEventMask, callback: @escaping CGEventTapCallBack) -> CFMachPort? {
+        #if DEBUG
+        guard !StartupRecovery.shouldFail(control) else { return nil }
+        #endif
+        return CGEvent.tapCreate(tap: tap, place: .headInsertEventTap, options: options,
+            eventsOfInterest: eventsOfInterest, callback: callback, userInfo: nil)
+    }
+
+    /// Mandatory input failures suspend startup and share the persisted recovery budget.
+    static func createRequiredTap(control: String, tap: CGEventTapLocation, options: CGEventTapOptions, eventsOfInterest: CGEventMask,
                                    callback: @escaping CGEventTapCallBack, runLoop: CFRunLoop?) -> CFMachPort? {
-        guard let port = CGEvent.tapCreate(tap: tap, place: .headInsertEventTap, options: options,
-            eventsOfInterest: eventsOfInterest, callback: callback, userInfo: nil) else {
-            App.restart()
+        guard let port = createInputTap(control: control, tap: tap, options: options,
+            eventsOfInterest: eventsOfInterest, callback: callback) else {
+            StartupRecovery.failed(control)
             return nil
         }
         CFRunLoopAddSource(runLoop, CFMachPortCreateRunLoopSource(nil, port, 0), .commonModes)
@@ -413,7 +420,7 @@ extension CGEvent {
     /// macOS disables taps on sleep and on a callback timeout (#5723). Put one back in the stream if we
     /// still want it on. Returns whether it re-enabled, so each caller logs its own wording.
     static func reEnableTapIfNeeded(_ port: CFMachPort?, wanted: Bool) -> Bool {
-        guard let port, wanted, !CGEvent.tapIsEnabled(tap: port) else { return false }
+        guard let port, wanted, CFMachPortIsValid(port), !CGEvent.tapIsEnabled(tap: port) else { return false }
         CGEvent.tapEnable(tap: port, enable: true)
         return true
     }

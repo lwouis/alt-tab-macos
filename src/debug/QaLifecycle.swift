@@ -61,6 +61,7 @@ enum QaLifecycle {
         var seen: [String]?
         var accessibility: Bool?
         var screenRecording: Bool?
+        var failures: Int?
     }
 
     struct Surface: Codable {
@@ -75,6 +76,8 @@ enum QaLifecycle {
     }
 
     struct Snapshot: Codable {
+        var recoveryFailures: Int? = StartupRecovery.recordedFailuresForQa
+        var recoveryPending: Bool? = StartupRecovery.retryDelay != nil
         let session: String
         let pid: Int32
         let ready: Bool
@@ -147,6 +150,8 @@ enum QaLifecycle {
             guard let key = r.key, let value = r.value, ["appearanceStyle", "appearanceSize", "shortcutStyle", "screenRecordingPermissionSkipped"].contains(key) else { throw QaError("Unsupported preference") }
             Preferences.set(key, value)
         case "keychain": try keychainRoundTrip()
+        case "input-failure":
+            try StartupRecovery.configureForQa(control: r.text ?? "", recoverAfter: r.failures)
         case "close": closeSurfaces()
         default: throw QaError("Unknown lifecycle action")
         }
@@ -256,6 +261,11 @@ enum QaLifecycle {
     static func cleanup(_ session: String) -> Int32 {
         guard let id = UUID(uuidString: session)?.uuidString else { return 2 }
         let name = App.bundleIdentifier + ".qa.lifecycle." + id
+        let root = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
+            .appendingPathComponent(App.bundleIdentifier + "/qa/" + id)
+        if FileManager.default.fileExists(atPath: root.path) {
+            do { try FileManager.default.removeItem(at: root) } catch { return 1 }
+        }
         let status = SystemKeychain(service: name).removeAll()
         guard status == errSecSuccess || status == errSecItemNotFound else { return 1 }
         UserDefaults.standard.removePersistentDomain(forName: name)
