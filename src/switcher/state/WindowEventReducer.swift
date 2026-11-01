@@ -905,7 +905,9 @@ enum WindowEventReducer {
     /// already on its way because AltTab asked this app for the switch, and then it waits for that one.
     private static func appActivated(_ state: inout TrackedWindowState, pid: pid_t) -> [ReducerEffect] {
         state.frontmostPid = pid
-        return []
+        guard let changed = state.noteWindowlessFocus(pid, at: state.now) else { return [] }
+        return [.log("mru windowless pid=\(pid) by=activation"),
+                .refreshUi(wids: changed, onlyWhileSwitcherOpen: true)]
     }
 
     // MARK: - async read results landing

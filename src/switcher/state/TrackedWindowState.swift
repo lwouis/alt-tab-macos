@@ -619,6 +619,39 @@ struct TrackedWindowState: Equatable {
     // periphery:ignore - assertion accessor for the MRU tests
     var mruFrontWid: CGWindowID? { windows.first { $0.lastFocusOrder == 0 }?.wid }
 
+    /// A placeholder represents the same app after its last window disappears. Inherit the existing
+    /// evidence rather than inventing a new focus time; a close can land after the user switched away.
+    mutating func inheritWindowlessFocus(_ id: String, replacing removed: [TrackedWindow] = []) {
+        guard let i = windows.firstIndex(where: { $0.id == id && $0.isWindowlessApp }) else { return }
+        let pid = windows[i].pid
+        let departed = removed.filter { $0.pid == pid && !$0.isWindowlessApp }
+        let candidates = departed.isEmpty ? windows.filter { $0.pid == pid && !$0.isWindowlessApp } : departed
+        guard let previous = candidates.min(by: { $0.lastFocusOrder < $1.lastFocusOrder }) else { return }
+        let removedBefore = departed.isEmpty ? 0 : removed.filter { $0.lastFocusOrder < previous.lastFocusOrder }.count
+        // An earlier app replaced during the same bulk close still occupies one slot.
+        let restoredBefore = departed.isEmpty ? 0 : windows.filter { w in
+            w.id != id && w.isWindowlessApp && removed.contains {
+                $0.pid == w.pid && !$0.isWindowlessApp && $0.lastFocusOrder < previous.lastFocusOrder
+            }
+        }.count
+        let inheritedRank = min(max(0, previous.lastFocusOrder - removedBefore + restoredBefore), windows.count - 1)
+        let appendedRank = windows[i].lastFocusOrder
+        for j in windows.indices where j != i && windows[j].lastFocusOrder >= inheritedRank
+            && windows[j].lastFocusOrder < appendedRank {
+            windows[j].lastFocusOrder += 1
+        }
+        windows[i].focusedAt = previous.focusedAt
+        windows[i].lastFocusOrder = inheritedRank
+        _ = recomputeFocusRanks()
+    }
+
+    mutating func noteWindowlessFocus(_ pid: pid_t, at: TimeInterval) -> [CGWindowID]? {
+        guard let i = windows.firstIndex(where: { $0.pid == pid && $0.isWindowlessApp }),
+              !windows.contains(where: { $0.pid == pid && !$0.isWindowlessApp && !isPhantom($0) }) else { return nil }
+        windows[i].focusedAt = max(windows[i].focusedAt, at)
+        return recomputeFocusRanks()
+    }
+
     /// Record that the OS brought `wid` forward at time `at`, then re-derive the ranks. Usually `at` is the
     /// newest time in the model and the window lands at the front, exactly as the old front-and-shift did.
     ///
@@ -925,7 +958,7 @@ enum ReducerInput: Equatable {
     /// (`Windows.sortByLevel`). The order to fall back on for windows AltTab has never seen focused.
     case zOrderRead(widsTopFirst: [CGWindowID])
 
-    /// **The attention reducer committed a decision.** The only input that may move the order: a click or
+    /// **The attention reducer committed a real-window decision.** A click or
     /// Cmd+` naming its target, or an app answering which of its windows it considers focused. AltTab's own
     /// switch is not on that list: it moves the order when the OS reports it, like any other switch. Physical events reach the model through their own cases and change
     /// visibility, geometry, membership and Space — never this.

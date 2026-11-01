@@ -43,6 +43,139 @@ final class WindowEventReducerFocusTests: XCTestCase {
         state.window(wid)?.lastFocusOrder
     }
 
+    func testActivatingWindowlessAppUpdatesItsRecentPosition() {
+        var front = window(Self.finderWid, Self.finderPid, "Finder", order: 0)
+        front.focusedAt = 10
+        let placeholder = TrackedWindow(id: "pid-\(Self.reaperPid)", wid: nil,
+            pid: Self.reaperPid, isWindowlessApp: true, lastFocusOrder: 1)
+        var s = state([front, placeholder], frontmost: Self.finderPid)
+        s.now = 20
+        let effects = WindowEventReducer.reduce(&s, .appActivated(pid: Self.reaperPid, now: s.now))
+        XCTAssertEqual(s.windows.first { $0.isWindowlessApp }?.lastFocusOrder, 0)
+        XCTAssertEqual(s.windows.first { $0.isWindowlessApp }?.focusedAt, 20)
+        XCTAssertEqual(order(s, Self.finderWid), 1)
+        XCTAssertTrue(effects.contains { if case .refreshUi = $0 { return true }; return false })
+        s.now = 30
+        _ = WindowEventReducer.reduce(&s, .attentionCommitted(wid: Self.finderWid,
+            observed: Self.finderWid, at: s.now))
+        XCTAssertEqual(s.windows.first { $0.isWindowlessApp }?.lastFocusOrder, 1)
+    }
+
+    private func placeholder(order: Int) -> TrackedWindow {
+        TrackedWindow(id: "pid-\(Self.reaperPid)", wid: nil, pid: Self.reaperPid,
+            isWindowlessApp: true, lastFocusOrder: order)
+    }
+
+    func testLastWindowTransfersItsFocusHistoryToTheAppEntry() {
+        var closed = window(Self.reaperMainWid, Self.reaperPid, "Closed", order: 0)
+        closed.focusedAt = 20
+        var other = window(Self.finderWid, Self.finderPid, "Other", order: 0)
+        other.focusedAt = 10
+        let entry = placeholder(order: 1)
+        var s = state([other, entry], frontmost: Self.reaperPid)
+        s.inheritWindowlessFocus(entry.id, replacing: [closed])
+        XCTAssertEqual(s.windows.first { $0.id == entry.id }?.lastFocusOrder, 0)
+        XCTAssertEqual(s.windows.first { $0.id == entry.id }?.focusedAt, 20)
+        XCTAssertEqual(order(s, Self.finderWid), 1)
+        _ = s.noteFocus(Self.finderWid, at: 30)
+        XCTAssertEqual(s.windows.first { $0.id == entry.id }?.lastFocusOrder, 1)
+    }
+
+    func testDelayedCloseCannotPromoteTheAppAheadOfANewerFocus() {
+        var closed = window(Self.reaperMainWid, Self.reaperPid, "Closed", order: 1)
+        closed.focusedAt = 10
+        var other = window(Self.finderWid, Self.finderPid, "Other", order: 0)
+        other.focusedAt = 20
+        let entry = placeholder(order: 1)
+        var s = state([other, entry], frontmost: Self.finderPid)
+        s.now = 30
+        s.inheritWindowlessFocus(entry.id, replacing: [closed])
+        XCTAssertEqual(s.windows.first { $0.id == entry.id }?.focusedAt, 10)
+        XCTAssertEqual(s.windows.first { $0.id == entry.id }?.lastFocusOrder, 1)
+        XCTAssertEqual(order(s, Self.finderWid), 0)
+    }
+
+    func testWindowlessEntryKeepsSeededRankThroughBatchRemoval() {
+        let earlier = window(900, 99, "Removed earlier", order: 0)
+        let closed = window(Self.reaperMainWid, Self.reaperPid, "Closed", order: 2)
+        let first = window(Self.finderWid, Self.finderPid, "First survivor", order: 0)
+        let last = window(901, Self.finderPid, "Last survivor", order: 1)
+        let entry = placeholder(order: 2)
+        var s = state([first, last, entry], frontmost: Self.finderPid)
+        s.inheritWindowlessFocus(entry.id, replacing: [earlier, closed])
+        XCTAssertEqual(s.windows.first { $0.id == entry.id }?.focusedAt, 0)
+        XCTAssertEqual(s.windows.first { $0.id == entry.id }?.lastFocusOrder, 1)
+        XCTAssertEqual(order(s, Self.finderWid), 0)
+        XCTAssertEqual(order(s, 901), 2)
+    }
+
+    func testClosingSeveralWindowsKeepsTheAppsMostRecentPosition() {
+        var recent = window(Self.reaperMainWid, Self.reaperPid, "Recent", order: 0)
+        recent.focusedAt = 20
+        var older = window(Self.reaperDialogWid, Self.reaperPid, "Older", order: 2)
+        older.focusedAt = 5
+        var other = window(Self.finderWid, Self.finderPid, "Other", order: 0)
+        other.focusedAt = 10
+        let entry = placeholder(order: 1)
+        var s = state([other, entry], frontmost: Self.reaperPid)
+        s.inheritWindowlessFocus(entry.id, replacing: [older, recent])
+        XCTAssertEqual(s.windows.first { $0.id == entry.id }?.focusedAt, 20)
+        XCTAssertEqual(s.windows.first { $0.id == entry.id }?.lastFocusOrder, 0)
+    }
+
+    func testBulkClosePreservesTheRelativeOrderOfWindowlessApps() {
+        let first = window(Self.reaperMainWid, Self.reaperPid, "First", order: 0)
+        let second = window(900, 99, "Second", order: 1)
+        let survivor = window(Self.finderWid, Self.finderPid, "Survivor", order: 0)
+        for pids in [[Self.reaperPid, 99], [99, Self.reaperPid]] {
+            var s = state([survivor], frontmost: Self.finderPid)
+            for pid in pids {
+                let entry = TrackedWindow(id: "pid-\(pid)", wid: nil, pid: pid,
+                    isWindowlessApp: true, lastFocusOrder: s.windows.count)
+                s.windows.append(entry)
+                s.inheritWindowlessFocus(entry.id, replacing: [first, second])
+            }
+            XCTAssertEqual(s.windows.sorted { $0.lastFocusOrder < $1.lastFocusOrder }.map { $0.pid },
+                [Self.reaperPid, 99, Self.finderPid])
+            XCTAssertEqual(Set(s.windows.map { $0.lastFocusOrder }), [0, 1, 2])
+        }
+    }
+
+    func testPhantomWindowTransfersItsFocusHistoryToTheAppEntry() {
+        var phantom = window(Self.reaperMainWid, Self.reaperPid, "Phantom", order: 0)
+        phantom.focusedAt = 20
+        phantom.cgsPhantomLatch = true
+        var other = window(Self.finderWid, Self.finderPid, "Other", order: 1)
+        other.focusedAt = 10
+        let entry = placeholder(order: 2)
+        var s = state([phantom, other, entry], frontmost: Self.reaperPid)
+        s.inheritWindowlessFocus(entry.id)
+        XCTAssertEqual(s.windows.first { $0.id == entry.id }?.focusedAt, 20)
+        XCTAssertEqual(s.windows.first { $0.id == entry.id }?.lastFocusOrder, 0)
+        XCTAssertEqual(Set(s.windows.map { $0.lastFocusOrder }), [0, 1, 2])
+    }
+
+    func testNewWindowlessAppCannotInheritAnotherAppsFocus() {
+        var other = window(Self.finderWid, Self.finderPid, "Other", order: 0)
+        other.focusedAt = 20
+        let entry = placeholder(order: 1)
+        var s = state([other, entry], frontmost: Self.finderPid)
+        s.inheritWindowlessFocus(entry.id, replacing: [other])
+        XCTAssertEqual(s.windows.first { $0.id == entry.id }, entry)
+        XCTAssertEqual(order(s, Self.finderWid), 0)
+    }
+
+    func testStaleWindowlessEntryCannotClaimFocusForAnAppWithARealWindow() {
+        let entry = placeholder(order: 2)
+        var s = state([window(Self.finderWid, Self.finderPid, "Finder", order: 0),
+            window(Self.reaperMainWid, Self.reaperPid, "Real", order: 1), entry], frontmost: Self.finderPid)
+        let before = s.windows
+        s.now = 20
+        let effects = WindowEventReducer.reduce(&s, .appActivated(pid: Self.reaperPid, now: s.now))
+        XCTAssertEqual(s.windows, before)
+        XCTAssertTrue(effects.isEmpty)
+    }
+
     // MARK: the front of the MRU after a removal (#5346)
 
     /// Another app holds slot 1, but focus never crosses apps because a window closed: the frontmost app's

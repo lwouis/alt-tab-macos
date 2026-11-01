@@ -10,7 +10,8 @@ import Cocoa
 /// - **the click channel** (`directedAttention`), the type-13 tap in `WindowAttentionEvents`.
 ///
 /// A decision that arrives outside the reducer's input stream is committed back into the model here, as
-/// `.attentionCommitted`. Nothing else in the app may move the window order — see `AttentionOrderSpecs.md`.
+/// `.attentionCommitted`. This owns real-window attention; windowless entries follow confirmed process
+/// activations in `WindowEventReducer`. See `AttentionOrderSpecs.md`.
 ///
 /// Deciding is `AttentionModel`'s, translating is `AttentionDriver`'s; what lives here is the impure part:
 /// which process generation a pid currently has, the settle timer, and the commit.
