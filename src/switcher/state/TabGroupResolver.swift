@@ -411,6 +411,12 @@ enum TabGroupResolver {
         // window" rule as the line above, but keyed on the handover rather than the Space — and it reaches
         // the case that one cannot, where the two windows SHARE a Space (see `belongsToTheWindowThatReplacedIt`).
         background = background.filter { !belongsToTheWindowThatReplacedIt($0, among: members, visible: visible) }
+        // ...nor a tab nobody has linked yet while another window genuinely shares this frame on another
+        // Space: it is Space-less, so it could be either window's (#6146, maximized windows on two Spaces).
+        // Its own window's tab bar names it right after this pass, by title or once it is selected.
+        if hasTwinOnAnotherSpace(visible, among: members) {
+            background = background.filter { $0.tabbedSiblingWids != nil }
+        }
         // Never absorb a member of ANOTHER established group. Claiming a wid already linked to a group the
         // visible is not in means MERGING TWO GROUPS, and geometry is a guess that must not overrule the AX
         // or causal link that built them. This happens whenever the other window's members are all
@@ -578,6 +584,15 @@ enum TabGroupResolver {
         return members.contains { $0.wid == successor }
     }
 
+    /// Another un-tabbed member genuinely settled on a different Space than the visible: a second window at
+    /// the same frame, which a cluster cannot tell apart from the visible's by geometry.
+    private static func hasTwinOnAnotherSpace(_ visible: TabWindow, among members: [TabWindow]) -> Bool {
+        guard let home = genuineSettledSpace(visible) else { return false }
+        return members.contains { m in
+            m.wid != visible.wid && !m.isTabbed && genuineSettledSpace(m).map { $0 != home } ?? false
+        }
+    }
+
     /// Is `candidate` a grouped tab whose group has LOST its visible — i.e. up for adoption by a new active
     /// tab? True when no OTHER tracked member of its group still holds a Space. That last clause is the
     /// load-bearing half, and skipping it is what let geometry steal a window's tab: a group whose own active
@@ -625,6 +640,14 @@ enum TabGroupResolver {
         var remainingTitles = axTitles
         if let i = remainingTitles.firstIndex(of: active.title) { remainingTitles.remove(at: i) }
         let zeroSizedMergeWids = zeroSizedMergeClaim(active, remainingTitles, sameAppWindows)
+        // The geometry rule's twin, on this path (#6146): with a same-frame window on another Space, unlinked
+        // Space-less tabs could be either window's. A title shared by more of them than this window lists
+        // names none of them; they stay unlinked until each is selected and reads its own window's group.
+        let twinElsewhere = hasTwinOnAnotherSpace(active, among: sameAppWindows.filter { sameFrame($0, active) })
+        let ambiguousTitles = Set(remainingTitles.filter { title in
+            sameAppWindows.filter { $0.wid != active.wid && $0.title == title && $0.spaceIds.isEmpty
+                && $0.tabbedSiblingWids == nil }.count > remainingTitles.filter { $0 == title }.count
+        })
         var matchedWids = [CGWindowID]()
         var matchedTitles = [String]()
         for title in remainingTitles {
@@ -680,6 +703,7 @@ enum TabGroupResolver {
                     && !belongsToAWindowOnAnotherSpace(s, activeOn: active)
                     && !belongsToAnotherVisibleGroup(s, active, sameAppWindows)
                     && (positionsCompatible(active, s) || zeroSizedMergeWids.contains(s.wid))
+                    && !(twinElsewhere && s.tabbedSiblingWids == nil && ambiguousTitles.contains(title))
             }
             if let sibling = preferredExistingMember(candidates, active) {
                 matchedWids.append(sibling.wid)
@@ -779,6 +803,7 @@ enum TabGroupResolver {
         let keptWids = sameAppWindows.filter { s in
             s.wid != active.wid && !matchedWids.contains(s.wid)
                 && s.tabbedSiblingWids?.contains(active.wid) == true
+                && !wasReadInAnotherTabGroup(s, active)
                 && (s.isTabbed || activeIsNewlyDiscovered || !isPresentable(active)
                     || (!s.spaceIds.isEmpty && s.lastFocusOrder < active.lastFocusOrder))
         }.map { $0.wid }
@@ -797,6 +822,16 @@ enum TabGroupResolver {
         }.map { $0.wid }
         return SiblingMatch(siblingWids: [active.wid] + matchedWids, matchedWids: matchedWids,
             untrackedTitles: untrackedTitles, toUntabWids: toUntabWids)
+    }
+
+    /// The stability rule's limit: a link is our inference, a token is the OS's statement. A member last read
+    /// as the selected tab of ANOTHER `AXTabGroup` than the one this active reads now is a tab of another
+    /// window, so a link to it is a misattribution and keeping it fuses two windows. Two same-frame windows
+    /// on two Spaces did exactly that (#6146): launch geometry filed a Space-less tab of one under the other,
+    /// and selecting that tab kept every member of both windows in one group, so each Space showed none.
+    private static func wasReadInAnotherTabGroup(_ member: TabWindow, _ active: TabWindow) -> Bool {
+        guard let theirs = member.tabGroupToken, let mine = active.tabGroupToken else { return false }
+        return theirs != mine
     }
 
     /// Duplicate titles make the AX list a count rather than an identity. Spend those slots on members this

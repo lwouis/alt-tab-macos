@@ -294,6 +294,9 @@ Written RED before the change, so "it worked" had a definition that predated it:
   focused member and is elected visible. X (Space-less, same app, same frame, same title) folded in as B's
   tab: a real tab of A hidden under B's tile. `belongsToTheWindowThatReplacedIt` refuses a candidate whose
   successor is present in the cluster and is not the visible.
+- **testSpacelessTabIsNotFiledUnderASameFrameWindowOnAnotherSpace** — #6146. AltTab launched over two tabbed
+  windows sharing one frame, one per Space. Their background tabs are all Space-less at that frame, so
+  geometry cannot say whose an unlinked one is and leaves it to the AX read of its own window's tab bar.
 - **testDragOutIsDecidedByTheMissingLeaveNotTheFrame** — a tab torn out and dropped back over its parent
   starts at the parent's frame, which `dragOutVerdict` read as a tab switch, and finally ("same frame ⇒ stop
   checking"): the window stayed in the group, hidden as a tab of it. Now a join that REPLACED someone is a
@@ -476,6 +479,15 @@ and silence is not a verdict.
 - **testTokenDoesNotClaimAFullscreenWindow** — entering fullscreen REPLACES the element, so a fullscreen
   window never really shares a windowed group's token; the fullscreen Space invariant is stated here too
   rather than assumed.
+- **testSharedTitleDoesNotClaimTabsOfASameFrameWindowOnAnotherSpace** — #6146 with Ghostty, whose new tabs
+  all read "~". With a same-frame window on another Space, more unlinked Space-less tabs share a title than
+  the active lists, so the title names none of them; each is linked once selected, by its own group token. A
+  title only this window lists still claims its tab.
+- **testStabilityDoesNotKeepMembersReadInAnotherTabGroup** — #6146. Two same-frame tabbed windows on two
+  Spaces: launch geometry can file a Space-less tab of one under the other, since nothing tells them apart
+  there. When that tab is selected, its read names another `AXTabGroup` than the one its linked members were
+  read in. Those members are a different window, so the stability rule lets them go instead of fusing both
+  windows into one group whose single tile is on one Space only.
 
 ### C. positionsCompatible
 
