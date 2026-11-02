@@ -73,7 +73,7 @@ downloads=$(format_number "$(get_total_downloads)")
 stars=$(format_number "$(get_stars)")
 
 # Stats are baked into docs/readme/main.svg (one consolidated SVG that holds
-# the hero, stats, CTAs, and screenshot). Each stat text element is preceded by
+# the headline, stats, download button, and animated demo). Each stat text element is preceded by
 # an XML comment marker — anchor sed on the marker and replace whatever value
 # follows up to the next `<` (i.e. the closing `</text>`).
 sed -i "" -E "s|(<!--downloads-->)[^<]*|\1${downloads}|" "docs/readme/main.svg"
