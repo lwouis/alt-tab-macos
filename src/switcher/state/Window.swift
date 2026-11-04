@@ -39,6 +39,7 @@ class Window {
     var axStatus = AxSemanticStatus.axVerified
     /// The pixels are shell-owned; `tracked.hasThumbnail` is the reducer's view of them, so it mirrors this.
     var thumbnail: CALayerContents? { didSet { tracked.hasThumbnail = thumbnail != nil } }
+    var thumbnailCapturePolicy = ThumbnailCapturePolicy()
     /// The screen area `thumbnail` shows, when its capture reported one (`CaptureArea`): a sheet hanging past
     /// the window makes it larger than `frame`. Read `thumbnailArea`, which falls back to the frame.
     var capturedArea: CGRect?
@@ -242,10 +243,20 @@ class Window {
         WindowElementAcquisition.element(for: wid, pid: pid, route: .otherSpaceViaBruteForce)
     }
 
-    func refreshThumbnail(_ screenshot: CALayerContents, _ area: CGRect?) {
+    func refreshThumbnail(
+        _ screenshot: CALayerContents,
+        _ area: CGRect?,
+        contentSize: CGSize? = nil,
+        expectedSize: CGSize? = nil
+    ) {
         // a frame the OS drew mid-animation is much smaller than this window: keep the previous thumbnail,
         // stale but correct, while another capture is asked for (`WindowThumbnails.acceptCapture`)
-        guard WindowThumbnails.acceptCapture(self, screenshot) else { return }
+        guard WindowThumbnails.acceptCapture(
+            self,
+            screenshot,
+            contentSize: contentSize,
+            expectedSize: expectedSize
+        ) else { return }
         thumbnail = screenshot
         capturedArea = area
         if !SwitcherSession.isActive || !shouldShowTheUser { return }

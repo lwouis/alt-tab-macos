@@ -35,6 +35,24 @@ class WindowCaptureScreenshots {
         /// (`CaptureArea`). Their parent and visibility are re-read at capture time: attaching a child window
         /// posts no event, so the inventory's copy of those fields can be stale.
         let childCandidates: [CGWindowID]
+        var geometry: CaptureGeometry {
+            CaptureGeometry(
+                size: size,
+                scaleFactor: scaleFactor,
+                isFullscreen: isFullscreen,
+                fullRes: fullRes
+            )
+        }
+    }
+
+    struct CaptureGeometry {
+        let size: CGSize
+        let scaleFactor: CGFloat
+        let isFullscreen: Bool
+        let fullRes: Bool
+        var state: ThumbnailCapturePolicy.Geometry {
+            ThumbnailCapturePolicy.Geometry(size: size, scaleFactor: scaleFactor, isFullscreen: isFullscreen)
+        }
     }
 
     private struct PendingCapture {
@@ -232,16 +250,24 @@ class WindowCaptureScreenshots {
                 // that one case stays on captureSampleBuffer. Its CGImage copy (vs a shared IOSurface) is acceptable
                 // even at full resolution now that Preview frames are fetched lazily, a few per session (#5861).
                 if #available(macOS 26.0, *), !request.isFullscreen {
-                    captureScreenshot(filter, config, window, source, request.fullRes, area, finish)
+                    captureScreenshot(filter, config, window, source, request.geometry, area, finish)
                 } else {
-                    captureSampleBuffer(filter, config, window, source, request.fullRes, area, finish)
+                    captureSampleBuffer(filter, config, window, source, request.geometry, area, finish)
                 }
             }
         }
     }
 
     @available(macOS 26.0, *)
-    private static func captureScreenshot(_ filter: SCContentFilter, _ streamConfig: SCStreamConfiguration, _ window: Window, _ source: RefreshCausedBy, _ fullRes: Bool, _ area: CGRect?, _ finish: @escaping () -> Void) {
+    private static func captureScreenshot(
+        _ filter: SCContentFilter,
+        _ streamConfig: SCStreamConfiguration,
+        _ window: Window,
+        _ source: RefreshCausedBy,
+        _ geometry: CaptureGeometry,
+        _ area: CGRect?,
+        _ finish: @escaping () -> Void
+    ) {
         let config = SCScreenshotConfiguration()
         config.width = streamConfig.width
         config.height = streamConfig.height
@@ -254,37 +280,69 @@ class WindowCaptureScreenshots {
             // fullscreen transition, and the next refresh re-routes it. Retrying here would silently reintroduce
             // the stream churn this path exists to avoid, and would hide new failure modes from the logs.
             guard let cgImage = output?.sdrImage, error == nil else { Logger.error { "\(window.debugId) \(output == nil) \(error)" }; return }
-            deliver(window, source, .cgImage(cgImage), fullRes, area)
+            BackgroundWork.screenshotsQueue.addOperation { [weak window] in
+                guard let window else { return }
+                let contentSize = ThumbnailCapturePolicy.contentPixelSize(cgImage)
+                deliver(window, source, .cgImage(cgImage), geometry, area, contentSize)
+            }
         }
     }
 
-    private static func captureSampleBuffer(_ filter: SCContentFilter, _ config: SCStreamConfiguration, _ window: Window, _ source: RefreshCausedBy, _ fullRes: Bool, _ area: CGRect?, _ finish: @escaping () -> Void) {
+    private static func captureSampleBuffer(
+        _ filter: SCContentFilter,
+        _ config: SCStreamConfiguration,
+        _ window: Window,
+        _ source: RefreshCausedBy,
+        _ geometry: CaptureGeometry,
+        _ area: CGRect?,
+        _ finish: @escaping () -> Void
+    ) {
         SCScreenshotManager.captureSampleBuffer(contentFilter: filter, configuration: config) { [weak window] sampleBuffer, error in
             finish()
             guard let window else { return }
             guard let sampleBuffer, error == nil else { Logger.error { "\(window.debugId) \(sampleBuffer == nil) \(error)" }; return }
             guard let pixelBuffer = sampleBuffer.pixelBuffer() ?? sampleBuffer.imageBuffer else { Logger.error { "\(window.debugId) no pixelBuffer" }; return }
-            deliver(window, source, .pixelBuffer(pixelBuffer), fullRes, area)
+            let contentSize = sampleBuffer.contentPixelSize(pixelBuffer)
+            deliver(window, source, .pixelBuffer(pixelBuffer), geometry, area, contentSize)
         }
     }
 
-    private static func deliver(_ window: Window, _ source: RefreshCausedBy, _ contents: CALayerContents, _ fullRes: Bool, _ area: CGRect?) {
+    private static func deliver(
+        _ window: Window,
+        _ source: RefreshCausedBy,
+        _ contents: CALayerContents,
+        _ geometry: CaptureGeometry,
+        _ area: CGRect?,
+        _ contentSize: CGSize?
+    ) {
         guard source != .refreshOnlyThumbnailsAfterShowUi || SwitcherSession.isActive else { return }
         DispatchQueue.main.async { [weak window] in
             guard let window, source != .refreshOnlyThumbnailsAfterShowUi || SwitcherSession.isActive else { return }
-            if fullRes {
+            guard WindowThumbnails.captureGeometry(window) == geometry.state else { return }
+            let expectedSize = WindowThumbnails.capturePixelSize(
+                area?.size ?? geometry.size,
+                geometry.scaleFactor,
+                geometry.fullRes
+            )
+            if geometry.fullRes {
                 // full-res Preview frames go to the session's capped cache, not Window.thumbnail, so they
                 // are released when the session ends; swap the sharp frame in if it's the one being previewed
                 guard let session = SwitcherSession.current, let wid = window.cgWindowId else { return }
                 // a mid-animation frame is refused here too; leaving the cache empty makes the next selection
                 // move re-fetch it, and the thumbnail stands in as the Preview's placeholder meanwhile
-                guard !WindowThumbnails.isPartialFrame(window, contents, fullRes: true) else { return }
+                guard !WindowThumbnails.isPartialFrame(
+                    window,
+                    contents,
+                    fullRes: true,
+                    contentSize: contentSize,
+                    expectedSize: expectedSize
+                ) else { return }
                 session.storePreviewFrame(wid, contents, area)
                 if let area = area ?? window.frame {
                     PreviewPanel.updateIfShowing(wid, contents, area)
                 }
             } else {
-                window.refreshThumbnail(contents, area)
+                window.refreshThumbnail(contents, area, contentSize: contentSize, expectedSize: expectedSize)
             }
         }
     }
@@ -349,6 +407,22 @@ extension SCStreamConfiguration {
 }
 
 extension CMSampleBuffer {
+    @available(macOS 12.3, *)
+    func contentPixelSize(_ pixelBuffer: CVPixelBuffer) -> CGSize? {
+        guard let attachments = CMSampleBufferGetSampleAttachmentsArray(self,
+                                                                        createIfNecessary: false) as? [
+            [SCStreamFrameInfo: Any]
+        ],
+            let info = attachments.first, let value = info[.contentRect] as? NSDictionary,
+            let rect = CGRect(dictionaryRepresentation: value),
+            let scale = info[.scaleFactor] as? CGFloat else { return nil }
+        return ThumbnailCapturePolicy.contentPixelSize(rect, scaleFactor: scale,
+                                                       frameSize: CGSize(
+                                                           width: CVPixelBufferGetWidth(pixelBuffer),
+                                                           height: CVPixelBufferGetHeight(pixelBuffer)
+                                                       ))
+    }
+
     @available(macOS 12.3, *)
     func pixelBuffer() -> CVPixelBuffer? {
         if let attachmentsArray = CMSampleBufferGetSampleAttachmentsArray(self, createIfNecessary: false) as? [[SCStreamFrameInfo: Any]],

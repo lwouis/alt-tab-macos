@@ -90,14 +90,9 @@ enum WindowThumbnails {
         }
     }
 
-    /// wid → how many partial frames in a row we refused. Cleared as soon as one is accepted.
-    private static var partialFrameRetries = [CGWindowID: Int]()
-    private static let maxPartialFrameRetries = 3
-    /// long enough to outlast the rest of a restore animation (~0.6s over 3 retries), short enough that a
+    /// long enough to outlast the rest of a restore animation (~0.75s over 3 retries), short enough that a
     /// thumbnail the user is looking at is only briefly stale
     private static let partialFrameRetryDelay = 0.25
-    /// captures land a pixel or two off the size we asked for; only a materially smaller frame is partial
-    private static let partialFrameRatio = 0.9
 
     /// The OS can hand us a frame drawn much smaller than the window it is of, because it was still animating
     /// when it drew: un-minimizing is the reported case, where the restore animation is still running when the
@@ -105,45 +100,69 @@ enum WindowThumbnails {
     /// Compare what came back against what a capture of this window should measure now — the window's CURRENT
     /// size, not the one snapshotted when the request was queued, so a request made off a mid-animation frame
     /// is caught too. Main-thread only (it reads live `Window` state).
-    static func isPartialFrame(_ window: Window, _ contents: CALayerContents, fullRes: Bool) -> Bool {
-        // Only the ScreenCaptureKit path is judged: there the capture is configured with the exact pixel size
-        // we expect back, so a smaller frame is the OS's own admission that it drew a partial one. Below
-        // macOS 26 captures go through `CGSHWCaptureWindowList`, which sizes its output itself — there is no
-        // exact expectation to compare against, and a wrong one would loop every capture through the retries.
+    static func isPartialFrame(
+        _ window: Window,
+        _ contents: CALayerContents,
+        fullRes: Bool,
+        contentSize: CGSize? = nil,
+        expectedSize: CGSize? = nil
+    ) -> Bool {
+        // The ScreenCaptureKit path has a configured output size. Content bounds also catch a small
+        // Stage Manager drawing inside a full-size canvas. Below macOS 26, CGSHWCaptureWindowList chooses
+        // its own output size, so the same comparison could reject valid captures.
         guard #available(macOS 26.0, *) else { return false }
-        guard let size = window.size, let actual = contents.size(),
-              let expected = capturePixelSize(size, captureScaleFactor(window), fullRes)
+        guard let geometry = captureGeometry(window), let actual = contents.size(),
+              let expected = expectedSize ?? capturePixelSize(geometry.size, geometry.scaleFactor, fullRes)
         else { return false }
-        let partial = actual.width < expected.width * partialFrameRatio
-            || actual.height < expected.height * partialFrameRatio
+        let partial = window.thumbnailCapturePolicy.isPartial(actual: actual, expected: expected,
+                                                              contentSize: contentSize,
+                                                              allowsContentChange: isFocused(window),
+                                                              geometry: geometry)
         if partial { Logger.debug { "\(window.debugId) partial frame \(actual) expected \(expected) fullRes:\(fullRes)" } }
         return partial
     }
 
-    /// Whether a freshly captured thumbnail is worth showing. A stale-but-correct thumbnail beats a partial
-    /// frame, so that one is dropped and another capture asked for a beat later. Bounded by
-    /// `maxPartialFrameRetries`, then the frame is taken as-is: "smaller than expected" is a heuristic, and a
-    /// tile stuck forever on a stale thumbnail would be worse than one that is briefly off.
-    static func acceptCapture(_ window: Window, _ contents: CALayerContents) -> Bool {
-        guard let wid = window.cgWindowId else { return true }
-        guard isPartialFrame(window, contents, fullRes: false) else {
-            partialFrameRetries[wid] = nil
+    /// Partial frames never replace the cached thumbnail. Retry exhaustion holds the cache until a valid
+    /// ordinary capture arrives; a resize is judged against its new expected output size.
+    static func acceptCapture(
+        _ window: Window,
+        _ contents: CALayerContents,
+        contentSize: CGSize? = nil,
+        expectedSize: CGSize? = nil
+    ) -> Bool {
+        guard #available(macOS 26.0, *),
+              window.cgWindowId != nil, let geometry = captureGeometry(window), let actual = contents.size(),
+              let expected = expectedSize ?? capturePixelSize(geometry.size, geometry.scaleFactor, false)
+        else { return true }
+        let decision = window.thumbnailCapturePolicy.evaluate(actual: actual, expected: expected,
+                                                              contentSize: contentSize,
+                                                              allowsContentChange: isFocused(window),
+                                                              geometry: geometry)
+        if decision == .accept {
             return true
         }
-        let retries = partialFrameRetries[wid] ?? 0
-        guard retries < maxPartialFrameRetries else {
-            Logger.debug { "\(window.debugId) giving up on partial frames after \(retries) retries" }
-            partialFrameRetries[wid] = nil
-            return true
-        }
-        partialFrameRetries[wid] = retries + 1
+        guard case let .retry(token) = decision else { return false }
         // no `force`: this re-capture obeys the same conditions the original one did, so a switcher that
         // closed in the meantime (with background captures off) simply drops it
         DispatchQueue.main.asyncAfter(deadline: .now() + partialFrameRetryDelay) { [weak window] in
-            guard let window else { return }
+            guard let window, window.thumbnailCapturePolicy.takeRetry(token) else { return }
             refreshAsync([window], .refreshUiAfterExternalEvent)
         }
         return false
+    }
+
+    static func captureGeometry(_ window: Window) -> ThumbnailCapturePolicy.Geometry? {
+        guard let size = window.size else { return nil }
+        return ThumbnailCapturePolicy.Geometry(
+            size: size,
+            scaleFactor: captureScaleFactor(window),
+            isFullscreen: window.isFullscreen
+        )
+    }
+
+    private static func isFocused(_ window: Window) -> Bool {
+        Applications.frontmostPid == window.application.pid && window.application.focusedWindow === window &&
+            !window.isMinimized
     }
 
     /// Dispatch screenshot requests off the main-thread. These captures are thumbnail-scale ONLY (on
