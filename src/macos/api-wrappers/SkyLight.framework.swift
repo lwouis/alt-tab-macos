@@ -132,66 +132,13 @@ func SLSSpaceSetFrontPSN(_ cid: CGSConnectionID, _ sid: CGSSpaceID, _ psn: Proce
 @_silgen_name("SLPSPostEventRecordTo") @discardableResult
 func SLPSPostEventRecordTo(_ psn: UnsafeMutablePointer<ProcessSerialNumber>, _ bytes: UnsafeMutablePointer<UInt8>) -> CGError
 
-/// Byte layout of the `CGSEventRecord` posted in `makeKeyWindow` to make another app's window key.
-/// Offsets and field meanings are reverse-engineered from CGSInternal's CGSEvent.h:
-/// https://github.com/NUIKit/CGSInternal/blob/master/CGSEvent.h
-private enum MakeKeyWindowEvent {
-    /// Bytes we allocate. The record itself is `recordLength` (0xf8) bytes; we allocate a little more,
-    /// zeroed, because on macOS 14.7.4+ the WindowServer's `CGSEncodeEventRecord` reads past the record
-    /// and would otherwise SIGABRT on out-of-bounds heap garbage
-    /// (https://github.com/karinushka/paneru/issues/123). yabai allocates the same 0x100.
-    static let bufferSize = 0x100
-    /// 0x04: the record's own declared length. Stays 0xf8 regardless of `bufferSize`, so the event the
-    /// WindowServer parses is identical to before we widened the buffer.
-    static let lengthOffset = 0x04
-    static let recordLength: UInt8 = 0xf8
-    /// 0x08: the `CGSEventType`, matching the public `CGEventType` values. We post the DOWN only. yabai and
-    /// Hammerspoon post a down/up pair, and the pair is what makes it a click: measured on macOS 26.5 (two
-    /// windows, `windowDidBecomeKey` logged), the down alone makes the right window key, an up alone does
-    /// nothing, and the front-process call alone does nothing either. Dropping the up costs no key focus and
-    /// means no control can ever be activated, wherever the point lands — the point can be sanitized, but a
-    /// half-click can't be completed. That is what finally closed #5381 (see `offContentPoint`).
-    static let eventTypeOffset = 0x08
-    static let leftMouseDown: UInt8 = 0x01 // kCGEventLeftMouseDown
-    /// 0x20: `windowLocation`, the window-relative click point (a 16-byte CGPoint). Aimed far past the
-    /// window's BOTTOM-RIGHT corner, which is the only region no failure has come from:
-    ///   * NaN (yabai's `memset(0xff)`, what we posted before v11.3.1) is sanitized by some apps back to
-    ///     (0, 0), onto real content — Figma's Home button, Telegram's sidebar, Wezterm's first pane (#5381).
-    ///   * a point one or two off the frame sits in the window's resize grab region, and macOS 27 acts on it:
-    ///     rapid switching grew the target's top-left corner out to the screen's visible corner, bottom-right
-    ///     anchored (#5900). The reporter measured -1 broken, -2000 and +3000 clean; never reproducible on
-    ///     macOS 26.5 at any distance.
-    ///   * -2000 still tripped #5381 in fullscreen Figma, so the sanitizing fallback is (0, 0) regardless of
-    ///     how far out the point is. Every #5381 report names a TOP-LEFT control, because that is what (0, 0)
-    ///     hits; aiming positive puts any fallback on the bottom-right of the content instead.
-    /// Hence far past the bottom-right of any conceivable window — too big to be inside one (a fullscreen
-    /// window on a Pro Display XDR is already 3008pt wide), too far out to graze a grab region.
-    static let windowLocationOffset = 0x20
-    static let offContentPoint = CGPoint(x: 300_000, y: 300_000)
-    /// 0x3c: the target `CGWindowID`. The event is delivered to this window by id, not by the coordinate.
-    static let windowIdOffset = 0x3c
-    /// 0x3a: purpose undocumented. yabai and Hammerspoon set it to 0x10.
-    static let unknownFlagOffset = 0x3a
-    static let unknownFlagValue: UInt8 = 0x10
-}
-
-/// Makes the window `wid` the key window of its app by posting a synthetic left-mouse-down to the
-/// WindowServer. No public API moves key focus across apps. Ported from
-/// https://github.com/Hammerspoon/hammerspoon/issues/370#issuecomment-545545468 (yabai's
-/// `window_manager_make_key_window`), minus the mouse-up it pairs the down with (see `eventTypeOffset`),
-/// and aimed far off the window (see `offContentPoint`) — so the window becomes key without any of its
-/// content being clicked.
+/// Makes the window key without aiming at its content. Both coordinate fields must stay outside
+/// content (#5381, #5900), and the down must have a matching up so clients such as SDL do not keep
+/// a pending focus click that suppresses mouse confinement. See WindowFocusEventSpecs.md.
 func makeKeyWindow(_ psn: inout ProcessSerialNumber, _ wid: CGWindowID) {
-    var wid = wid
-    var point = MakeKeyWindowEvent.offContentPoint
-    var bytes = [UInt8](repeating: 0, count: MakeKeyWindowEvent.bufferSize)
-    bytes[MakeKeyWindowEvent.lengthOffset] = MakeKeyWindowEvent.recordLength
-    bytes[MakeKeyWindowEvent.unknownFlagOffset] = MakeKeyWindowEvent.unknownFlagValue
-    // deliver the event to this specific window by id (not by the click point below)
-    memcpy(&bytes[MakeKeyWindowEvent.windowIdOffset], &wid, MemoryLayout<CGWindowID>.size)
-    memcpy(&bytes[MakeKeyWindowEvent.windowLocationOffset], &point, MemoryLayout<CGPoint>.size)
-    bytes[MakeKeyWindowEvent.eventTypeOffset] = MakeKeyWindowEvent.leftMouseDown
-    SLPSPostEventRecordTo(&psn, &bytes)
+    WindowFocusEvent.post(windowId: wid) { bytes in
+        SLPSPostEventRecordTo(&psn, bytes)
+    }
 }
 
 // MARK: - WindowServer notification tap (see WindowServerEvents.swift)
