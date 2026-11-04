@@ -129,6 +129,24 @@ class TileOverView: FlippedView {
         guard shouldShow, let window = view.window_ else { hideWindowControls(); return }
         isShowingWindowControls = true
         for button in windowControlButtons { button.window_ = window }
+        for button in windowControlButtons {
+            updateVisibility(button, window)
+        }
+        layoutVisibleButtons(view)
+    }
+
+    private func updateVisibility(_ button: TrafficLightButton, _ window: Window) {
+        let shouldHide =
+            (button.type == .quit && !window.application.canBeQuit()) ||
+            (button.type == .close && !window.canBeClosed()) ||
+            ((button.type == .miniaturize || button.type == .fullscreen) && !window.canBeMinDeminOrFullscreened())
+        guard button.isHidden != shouldHide else { return }
+        button.isHidden = shouldHide
+        button.needsDisplay = true
+    }
+
+    /// Hidden buttons (e.g. Finder's quit) take no slot, so the visible ones stay packed against the thumbnail's leading corner
+    private func layoutVisibleButtons(_ view: TileView) {
         let thumbnailOrigin = NSPoint(
             x: view.frame.origin.x + view.thumbnail.frame.origin.x,
             y: view.frame.origin.y + view.thumbnail.frame.origin.y
@@ -136,15 +154,7 @@ class TileOverView: FlippedView {
         let thumbnailWidth = view.thumbnail.frame.width
         var xOffset = CGFloat(3)
         var yOffset = CGFloat(2)
-        for button in windowControlButtons {
-            let shouldHide =
-                (button.type == .quit && !window.application.canBeQuit()) ||
-                (button.type == .close && !window.canBeClosed()) ||
-                ((button.type == .miniaturize || button.type == .fullscreen) && !window.canBeMinDeminOrFullscreened())
-            if button.isHidden != shouldHide {
-                button.isHidden = shouldHide
-                button.needsDisplay = true
-            }
+        for button in windowControlButtons where !button.isHidden {
             assignIfDifferent(&button.frame.origin, NSPoint(x: thumbnailOrigin.x + xOffset, y: thumbnailOrigin.y + yOffset))
             xOffset += TrafficLightButton.size + TrafficLightButton.spacing
             if xOffset + TrafficLightButton.size > thumbnailWidth {
