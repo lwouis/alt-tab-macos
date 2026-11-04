@@ -25,6 +25,9 @@ class TilesView {
     static var layoutCache = LayoutCache()
     static var thumbnailUnderLayer = TileUnderLayer()
     static var thumbnailOverView = TileOverView()
+    /// The space between the screen showing AltTab's group and the other screens' group, a divider line in its middle.
+    private static let screenGapWidth = CGFloat(24)
+    private static var screenGap: (row: Int, before: TileView, after: TileView)?
     private static var initialized = false
 
     static func initialize() {
@@ -460,6 +463,7 @@ class TilesView {
         if let (maxX, maxY, labelHeight, rowSignature) = layoutTileViews(widthMax) {
             layoutParentViews(maxX, widthMax, maxY, labelHeight)
             centerRows(TilesView.thumbnailsWidth)
+            updateScreenDivider()
             if rowSignature != lastRowSignature {
                 for row in rows {
                     for (j, view) in row.enumerated() {
@@ -538,7 +542,14 @@ class TilesView {
     private static func gridInput(_ tiles: [(index: Int, view: TileView)], _ height: CGFloat, _ widthMax: CGFloat) -> TileGridLayout.Input {
         TileGridLayout.Input(widths: tiles.map { $0.view.frame.size.width }, tileHeight: height, widthMax: widthMax,
             padding: Appearance.interCellPadding,
-            isLeftToRight: App.shared.userInterfaceLayoutDirection == .leftToRight)
+            isLeftToRight: App.shared.userInterfaceLayoutDirection == .leftToRight,
+            gapBefore: screenGapPosition(tiles), gapWidth: screenGapWidth)
+    }
+
+    /// The first drawn tile of the other screens' group, when the screen showing AltTab has tiles before it.
+    private static func screenGapPosition(_ tiles: [(index: Int, view: TileView)]) -> Int? {
+        guard let position = tiles.firstIndex(where: { Windows.list[$0.index].isInOtherScreenGroup }), position > 0 else { return nil }
+        return position
     }
 
     private static func layoutTileViews(_ widthMax: CGFloat) -> (CGFloat, CGFloat, CGFloat, [Int])? {
@@ -552,6 +563,9 @@ class TilesView {
             tile.view.frame.origin = layout.origins[position]
         }
         rows = layout.rows.map { $0.map { tiles[$0].view } }
+        screenGap = layout.gapRow.flatMap { row in
+            screenGapPosition(tiles).map { (row, tiles[$0 - 1].view, tiles[$0].view) }
+        }
         for (rowIndex, row) in layout.rows.enumerated() {
             for position in row { Windows.list[tiles[position].index].rowIndex = rowIndex }
         }
@@ -644,13 +658,25 @@ class TilesView {
 
     static func centerRows(_ maxX: CGFloat) {
         let offsets = TileGridLayout.centeringOffsets(rowWidths: rows.map { $0.map { $0.frame.size.width } },
-            padding: Appearance.interCellPadding, within: maxX)
+            padding: Appearance.interCellPadding, within: maxX, gapRow: screenGap?.row, gapWidth: screenGapWidth)
         let sign: CGFloat = App.shared.userInterfaceLayoutDirection == .leftToRight ? 1 : -1
         for (rowIndex, row) in rows.enumerated() {
             guard SwitcherSession.isActive else { return }
             guard offsets[rowIndex] > 0 else { continue }
             for view in row { view.frame.origin.x += sign * offsets[rowIndex] }
         }
+    }
+
+    /// Drawn from the final frames, after centering and the RTL shift have moved the two tiles around the gap.
+    private static func updateScreenDivider() {
+        guard let gap = screenGap else {
+            thumbnailUnderLayer.updateDivider(nil)
+            return
+        }
+        let isLeftToRight = App.shared.userInterfaceLayoutDirection == .leftToRight
+        let centerX = isLeftToRight ? (gap.before.frame.maxX + gap.after.frame.minX) / 2 : (gap.after.frame.maxX + gap.before.frame.minX) / 2
+        let height = (gap.after.frame.height * 0.7).rounded()
+        thumbnailUnderLayer.updateDivider(CGRect(x: (centerX - 1).rounded(), y: (gap.after.frame.midY - height / 2).rounded(), width: 2, height: height))
     }
 
     private static func highlightStartView() {

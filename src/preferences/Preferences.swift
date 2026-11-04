@@ -142,6 +142,9 @@ class Preferences {
     static func showHiddenWindows(_ i: Int) -> ShowHowPreference { CachedUserDefaults.macroPref(indexToName("showHiddenWindows", i), ShowHowPreference.allCases) }
     static func showWindowlessApps(_ i: Int) -> ShowHowPreference { CachedUserDefaults.macroPref(indexToName("showWindowlessApps", i), ShowHowPreference.allCases) }
     static func windowOrder(_ i: Int) -> WindowOrderPreference { CachedUserDefaults.macroPref(indexToName("windowOrder", i), WindowOrderPreference.allCases) }
+    static func screensToShow(_ i: Int) -> ScreensToShowPreference { CachedUserDefaults.macroPref(indexToName("screensToShow", i), ScreensToShowPreference.allCases) }
+    /// Grouping by screen only means something while there is another screen to group apart from.
+    static func groupByScreen(_ i: Int) -> Bool { screensToShow(i) == .allShowingAltTabFirst && NSScreen.screens.count > 1 }
     static func groupApps(_ i: Int) -> GroupAppsPreference { CachedUserDefaults.macroPref(indexToName("showAppsOrWindows", i), GroupAppsPreference.allCases) }
     static func groupTabs(_ i: Int) -> GroupTabsPreference { CachedUserDefaults.macroPref(indexToName("showTabsAsWindows", i), GroupTabsPreference.allCases) }
     static var shortcutStyle: ShortcutStylePreference { ProGatedPreferences.shortcutStyle.read() }

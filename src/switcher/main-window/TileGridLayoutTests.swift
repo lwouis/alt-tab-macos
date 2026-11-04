@@ -5,15 +5,15 @@ import XCTest
 /// numbers out — no AppKit, no screen, no `Appearance`.
 ///
 /// Groups: A one row · B wrapping · C right-to-left · D tile size (the shape of #6010) · E centering ·
-/// F the auto size.
+/// F the auto size · G the gap between screens.
 final class TileGridLayoutTests: XCTestCase {
     private let padding = CGFloat(5)
     private let tileHeight = CGFloat(100)
 
     private func layout(_ widths: [CGFloat], widthMax: CGFloat, tileHeight: CGFloat? = nil,
-                        isLeftToRight: Bool = true) -> TileGridLayout.Result {
+                        isLeftToRight: Bool = true, gapBefore: Int? = nil, gapWidth: CGFloat = 0) -> TileGridLayout.Result {
         TileGridLayout.compute(TileGridLayout.Input(widths: widths, tileHeight: tileHeight ?? self.tileHeight,
-            widthMax: widthMax, padding: padding, isLeftToRight: isLeftToRight))
+            widthMax: widthMax, padding: padding, isLeftToRight: isLeftToRight, gapBefore: gapBefore, gapWidth: gapWidth))
     }
 
     // MARK: - A. One row
@@ -147,6 +147,12 @@ final class TileGridLayoutTests: XCTestCase {
         XCTAssertEqual(offsets, [0])
     }
 
+    func testTheGapCountsTowardItsRowWidth() {
+        let offsets = TileGridLayout.centeringOffsets(rowWidths: [[40, 40], [40]], padding: padding, within: 125,
+            gapRow: 0, gapWidth: 10)
+        XCTAssertEqual(offsets, [10, 38])
+    }
+
     // MARK: - F. The auto size
 
     func testAutoTakesTheFirstSizeThatFits() {
@@ -182,5 +188,40 @@ final class TileGridLayoutTests: XCTestCase {
         }
         XCTAssertEqual(measured, ["large", "medium", "small"])
         XCTAssertEqual(picked, measured.last)
+    }
+
+    // MARK: - G. The gap between screens
+
+    func testTheGapWidensTheSpaceBeforeItsTile() {
+        let result = layout([40, 40], widthMax: 200, gapBefore: 1, gapWidth: 10)
+        XCTAssertEqual(result.origins, [CGPoint(x: 5, y: 5), CGPoint(x: 60, y: 5)])
+        XCTAssertEqual(result.maxX, 105)
+        XCTAssertEqual(result.gapRow, 0)
+    }
+
+    func testAGapThatWouldCrossTheEdgeIsDroppedAndItsTileOpensARow() {
+        let result = layout([40, 40], widthMax: 100, gapBefore: 1, gapWidth: 10)
+        XCTAssertEqual(result.origins, [CGPoint(x: 5, y: 5), CGPoint(x: 5, y: 110)])
+        XCTAssertEqual(result.rows, [[0], [1]])
+        XCTAssertNil(result.gapRow)
+    }
+
+    func testAGapBeforeTheFirstTileIsIgnored() {
+        let result = layout([40, 40], widthMax: 200, gapBefore: 0, gapWidth: 10)
+        XCTAssertEqual(result.origins, [CGPoint(x: 5, y: 5), CGPoint(x: 50, y: 5)])
+        XCTAssertNil(result.gapRow)
+    }
+
+    func testRtlTheGapOpensTowardTheLeft() {
+        let result = layout([40, 40], widthMax: 200, isLeftToRight: false, gapBefore: 1, gapWidth: 10)
+        XCTAssertEqual(result.origins, [CGPoint(x: 155, y: 5), CGPoint(x: 100, y: 5)])
+        XCTAssertEqual(result.maxX, 105)
+        XCTAssertEqual(result.gapRow, 0)
+    }
+
+    func testAGapTileThatWrapsAnywayOpensItsRowWithoutAGap() {
+        let result = layout([40, 40, 40], widthMax: 100, gapBefore: 2, gapWidth: 5)
+        XCTAssertEqual(result.origins[2], CGPoint(x: 5, y: 110))
+        XCTAssertNil(result.gapRow)
     }
 }

@@ -218,6 +218,19 @@ tab-switch interval where attention still names the outgoing background tab.
 - **testInitialPickStepsOverTheFrontTileAfterTheFrontmostAppLostItsLastWindow** — #5960 through both kernels,
   on the reporter's own steps: the pick lands on the second tile, not the window already on screen.
 
+### H. Grouped by screen (`Screens to show: All screens, this screen first`)
+
+Grouping draws the screen showing AltTab's windows first, so with `Window order: Recently focused` the list
+no longer runs in focus order and "the second tile" stops meaning "the window you were on before". With
+`pickInFocusOrder` the default pick is decided over the list re-read in focus order (ties by position), then
+mapped back to its drawn index; every other rule (newcomers, the current window filtered out, the two
+minimized windows edge case) applies unchanged to that re-read list. Other window orders already use the
+last-focused rule.
+- **testGroupedPickLandsOnThePreviousWindowInTheOtherGroup** — the previous window sits after the divider.
+- **testUngroupedPickStepsToTheSecondTile** — the control: same list, no flag.
+- **testGroupedPickInTheSameGroup** — the previous window is in the current group.
+- **testGroupedPickWithTheCurrentWindowFilteredOut** — the most recent drawn window wins wherever it is.
+
 ### Helper kernels (direct)
 - **testGetLastFocusedOrderWindowIndexIgnoresWindowlessAndInvisible** — scan ignores windowless + invisible.
 - **testInitialPickStepsOverWindowThatAppearedAfterSummon** — a window focused behind the switcher takes slot 0;

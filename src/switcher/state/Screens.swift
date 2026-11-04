@@ -64,6 +64,23 @@ extension NSScreen {
         return NSScreen.screens.first { NSMouseInRect(NSEvent.mouseLocation, $0.frame, false) }
     }
 
+    /// The title of the folded stack of the other screens' windows: "Laptop" when the stack's window is on a
+    /// built-in display, that screen's name otherwise.
+    static func foldedStackTitle(_ window: Window) -> String {
+        let format = NSLocalizedString("%@ · %d windows", comment: "Folded stack of another screen's windows: screen name, window count")
+        return String(format: format, foldedStackScreenName(window), window.foldedCount)
+    }
+
+    private static func foldedStackScreenName(_ window: Window) -> String {
+        guard let screen = NSScreen.screens.first(where: { $0 != preferred && window.isOnScreen($0) }) else {
+            return NSLocalizedString("Other screens", comment: "")
+        }
+        if let number = screen.number(), CGDisplayIsBuiltin(number) != 0 {
+            return NSLocalizedString("Laptop", comment: "")
+        }
+        return screen.localizedName
+    }
+
     func ratio() -> CGFloat {
         return frame.width / frame.height
     }

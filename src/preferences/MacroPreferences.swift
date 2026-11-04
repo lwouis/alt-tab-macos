@@ -203,11 +203,14 @@ enum SpacesToShowPreference: CaseIterable, MacroPreference {
 enum ScreensToShowPreference: CaseIterable, MacroPreference {
     case all
     case showingAltTab
+    /// Every screen's windows, those of the screen showing AltTab first, then a divider, then the rest.
+    case allShowingAltTabFirst
 
     var localizedString: LocalizedString {
         switch self {
             case .all: return NSLocalizedString("All screens", comment: "")
             case .showingAltTab: return NSLocalizedString("Screen showing AltTab", comment: "")
+            case .allShowingAltTabFirst: return NSLocalizedString("All screens, this screen first", comment: "")
         }
     }
 }

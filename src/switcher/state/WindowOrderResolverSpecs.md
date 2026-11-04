@@ -15,13 +15,16 @@ snapshotted once).
 
 Decision order:
 1. **Search active** → matched windows first; then higher relevance; then `lastFocusOrder`.
-2. **Show-at-the-end buckets** → windows whose type is set to "show at the end" (windowless / hidden /
+2. **Screen group** (`groupByScreen`, from `Screens to show: All screens, this screen first` with more than
+   one screen) → windows on the screen showing AltTab (`isOnPreferredScreen`) before every other window.
+   Windowless apps have no screen and join the other group.
+3. **Show-at-the-end buckets** → windows whose type is set to "show at the end" (windowless / hidden /
    minimized) sink below the rest.
-3. **Sort type** → `recentlyFocused` (lowest `lastFocusOrder`), `recentlyCreated` (highest
+4. **Sort type** → `recentlyFocused` (lowest `lastFocusOrder`), `recentlyCreated` (highest
    `creationOrder`), `alphabetical` (app name, then title; `localizedStandardCompare`), or `space`
    (all-spaces windows first, then lowest space index, then windows with no space index, then
    alphabetical).
-4. **Tiebreak** → `lastFocusOrder` (for the alphabetical/space paths).
+5. **Tiebreak** → `lastFocusOrder` (for the alphabetical/space paths).
 
 ## Behavior & edge cases
 
@@ -32,6 +35,10 @@ Decision order:
 - `space`: windows on all spaces sort ahead of space-bound ones; windows with no space index sort after
   indexed ones; ties within a space fall back to alphabetical, then `lastFocusOrder`.
 - Equal facts → not ordered before each other (strict weak ordering, required by `Array.sort`).
+- The screen group is the outermost rule after search, so a "show at the end" bucket sinks to the end of its
+  own group, not past the other screens' windows. `Windows.sort` turns grouping off while searching, so the
+  best match stays first whatever screen it is on; the kernel's search branch returns before the group rule
+  either way.
 
 ## One window per app
 
@@ -78,3 +85,39 @@ Mirrors `WindowOrderResolverTests.swift` 1:1.
 
 ### G. Tiebreak / symmetry
 - **testEqualWindowsAreNotOrderedBeforeEachOther** — equal facts are not ordered before each other.
+
+### H. Grouped by screen
+- **testGroupByScreenPutsThePreferredScreenFirst** — a less recent window on the screen showing AltTab sorts
+  before a more recent one elsewhere, in both argument orders.
+- **testGroupByScreenOffIgnoresTheScreen** — without the flag the screen fact is not read.
+- **testGroupByScreenKeepsTheSortTypeWithinAGroup** — inside a group the chosen order still decides.
+- **testGroupByScreenSinksBucketsWithinTheirGroup** — a minimized window on the screen showing AltTab stays
+  ahead of the other screens' windows with `minimizedAtEnd`.
+- **testGroupByScreenGivesWayToSearch** — a match on another screen sorts before a non-match on this one.
+
+## Folding the other screens (`ScreenFoldResolver`)
+
+While grouping by screen, the other screens' windows fold into one stack tile so the switcher shows the
+current screen in full and the rest as one entry. The stack is a real window: the other screens' first shown
+window in display order, which with `Recently focused` is the one used last. `Windows.applyFold` marks it
+with the number of windows it stands for (it draws as a stack titled "Laptop · 8 windows", or the screen's
+name for an external display) and hides the others; selecting it and releasing focuses that window.
+
+- **Nothing to fold** → one shown window on the other screens stays an ordinary tile; with folding off
+  (`Screens to show` is not grouped, there is one screen, search is active, or the stack was opened this
+  summon) nothing is folded.
+- **Opening** → the stack opens, for the rest of the summon, when the user moves the selection onto it with
+  the keyboard (cycling or arrows). The default pick landing on it opens nothing, so a quick Cmd-Tab back to
+  the other screen's last window works as before; mouse hover and refreshes open nothing either. Opening
+  leaves the selection on the same window, now the first tile of the opened group.
+
+### I. Folding (`ScreenFoldResolverTests`)
+- **testTheFirstOtherScreenWindowBecomesTheStack** — the first other-screen window is the stack, the rest fold.
+- **testWindowsFilteredOutAreNotFolded** — only shown windows count.
+- **testASingleOtherScreenWindowIsNotFolded** — one window stands for itself.
+- **testNothingFoldsWhenDisabled** — folding off.
+- **testTheStackOpensWhenTheUserCyclesOntoIt** — keyboard arrival opens it.
+- **testTheDefaultPickDoesNotOpenTheStack** — the default pick does not.
+- **testHoverDoesNotOpenTheStack** — mouse hover does not.
+- **testARefreshDoesNotOpenTheStack** — a list refresh re-selecting it does not.
+- **testAnOrdinaryWindowOpensNothing** — arriving on any other tile changes nothing.
