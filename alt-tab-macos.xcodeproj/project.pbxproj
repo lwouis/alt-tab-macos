@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA6116000000000000000003 /* PermissionStartup.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6116000000000000000001 /* PermissionStartup.swift */; };
+		AA6116000000000000000004 /* PermissionStartup.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6116000000000000000001 /* PermissionStartup.swift */; };
+		AA6116000000000000000005 /* PermissionStartupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6116000000000000000002 /* PermissionStartupTests.swift */; };
 		614700000000000000000002 /* WindowEventReducerDiscoveryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614700000000000000000001 /* WindowEventReducerDiscoveryTests.swift */; };
 		A02020261020000000000001 /* ProFeatureCopy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA001000000000000000010 /* ProFeatureCopy.swift */; };
 		A01920261019000000020001 /* ProPromptTestSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01920261019000000010001 /* ProPromptTestSupport.swift */; };
@@ -494,6 +497,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		AA6116000000000000000001 /* PermissionStartup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionStartup.swift; sourceTree = "<group>"; };
+		AA6116000000000000000002 /* PermissionStartupTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionStartupTests.swift; sourceTree = "<group>"; };
 		614700000000000000000001 /* WindowEventReducerDiscoveryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowEventReducerDiscoveryTests.swift; sourceTree = "<group>"; };
 		A01920261019000000010001 /* ProPromptTestSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = src/_test-support/ProPromptTestSupport.swift; sourceTree = SOURCE_ROOT; };
 		A01920261019000000010000 /* ProPromptFlowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = src/pro/ui/ProPromptFlowTests.swift; sourceTree = SOURCE_ROOT; };
@@ -1501,6 +1506,8 @@
 				5FEEAA060000000000000001 /* ConfettiBurst.swift */,
 				5FEEAA020000000000000001 /* PermissionIllustrationView.swift */,
 				5FEEAA010000000000000001 /* PermissionFlow.swift */,
+				AA6116000000000000000001 /* PermissionStartup.swift */,
+				AA6116000000000000000002 /* PermissionStartupTests.swift */,
 			);
 			path = "permission-window";
 			sourceTree = "<group>";
@@ -2250,6 +2257,8 @@
 				5F117E40000000000000F212 /* PermissionCalloutResolverTests.swift in Sources */,
 				5FEEAA050000000000000003 /* PermissionFlowTests.swift in Sources */,
 				5FEEAA010000000000000003 /* PermissionFlow.swift in Sources */,
+				AA6116000000000000000004 /* PermissionStartup.swift in Sources */,
+				AA6116000000000000000005 /* PermissionStartupTests.swift in Sources */,
 				5E7C0F70000000000000E003 /* ExceptionMatcher.swift in Sources */,
 				5E7C0F70000000000000E102 /* ExceptionMatcherTests.swift in Sources */,
 				5E0DE2A0000000000000D003 /* WindowOrderResolver.swift in Sources */,
@@ -2482,6 +2491,7 @@
 				5FEEAA060000000000000002 /* ConfettiBurst.swift in Sources */,
 				5FEEAA020000000000000002 /* PermissionIllustrationView.swift in Sources */,
 				5FEEAA010000000000000002 /* PermissionFlow.swift in Sources */,
+				AA6116000000000000000003 /* PermissionStartup.swift in Sources */,
 				D04BA7E39FA539DD8316447A /* PermissionView.swift in Sources */,
 				D04BA446D702C5E252AF2319 /* TitleLabel.swift in Sources */,
 				D04BAFF30A98CF287F85DA1E /* ExceptionsTab.swift in Sources */,
