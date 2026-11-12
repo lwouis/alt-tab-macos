@@ -64,6 +64,8 @@ class App: AppCenterApplication {
         // we use -n to open a new instance, to avoid calling applicationShouldHandleReopen
         // we use Bundle.main.bundlePath in case of multiple AltTab versions on the machine
         printStackTrace()
+        // A successor can register its command port before this process finishes terminating.
+        CliEvents.stop()
         var arguments = ["-n", Bundle.main.bundlePath]
         #if DEBUG
         if QaLifecycle.enabled { arguments += ["--args"] + QaLifecycle.restartArguments }

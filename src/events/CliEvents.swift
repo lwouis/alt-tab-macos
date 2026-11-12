@@ -1,21 +1,22 @@
 class CliEvents {
-    private static var listening = false
+    private static var messagePort: CFMessagePort?
     static let portName = "\(App.bundleIdentifier).cli"
 
     static func observe() {
-        guard !listening else { return }
-        listening = true
+        guard messagePort == nil else { return }
         var context = CFMessagePortContext(version: 0, info: nil, retain: nil, release: nil, copyDescription: nil)
         if let messagePort = CFMessagePortCreateLocal(nil, portName as CFString, handleEvent, &context, nil),
            let source = CFMessagePortCreateRunLoopSource(nil, messagePort, 0) {
+            self.messagePort = messagePort
             CFRunLoopAddSource(BackgroundWork.cliEventsThread.runLoop, source, .commonModes)
         } else {
             Logger.error { "Can't listen on message port. Is another AltTab already running?" }
-            // TODO: should we quit or restart here?
-            // It's complex since AltTab can be restarted sometimes,
-            // and the new instance may coexist with the old for some duration
-            // There is also the case of multiple instances at login
         }
+    }
+
+    static func stop() {
+        if let messagePort { CFMessagePortInvalidate(messagePort) }
+        messagePort = nil
     }
 
     /// Returning nil is not an error the caller can see: a NULL from a message-port callback arrives as a
