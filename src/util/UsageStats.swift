@@ -164,6 +164,16 @@ struct UsageStats {
 }
 
 extension UsageStats {
+    static func loadLateReminderUsage(months: Int, now: Date, completion: @escaping (LateReminderExperiment.Usage) -> Void) {
+        writeQueue.async {
+            let timestamps = loadOnQueue("triggers")
+            let history = malformed.contains("triggers") ? nil : timestamps
+            let usage = LateReminderExperiment.Usage(months: months,
+                count: LateReminderExperiment.Usage.count(history, months: months, now: now))
+            DispatchQueue.main.async { completion(usage) }
+        }
+    }
+
     static func loadTrialEvidence(_ completion: @escaping (ProJourneyEvidence) -> Void) {
         guard LicenseManager.shared.state != .proExpired else { completion(ProJourneyEvidence()); return }
         #if DEBUG

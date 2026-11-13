@@ -97,6 +97,8 @@ class ProPromptHost {
             }
         case .showDay35Final:
             Day35FinalWindow.show()
+        case .showLateReminder:
+            LateReminderPopover.shared.show()
         case .dismissAllProWindows:
             Self.windowPresentation.cancel()
             SearchDiscoveryHint.shared.cancel()

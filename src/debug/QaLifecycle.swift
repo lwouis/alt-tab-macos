@@ -62,6 +62,14 @@ enum QaLifecycle {
         var accessibility: Bool?
         var screenRecording: Bool?
         var failures: Int?
+        var lateReminderArm: String?
+    }
+
+    struct LateReminderSnapshot: Codable {
+        let arm: String?
+        let opportunityAt: Double?
+        let optedOut: Bool
+        let lastMessageAt: Double?
     }
 
     struct Surface: Codable {
@@ -100,6 +108,7 @@ enum QaLifecycle {
         let switcher: Bool
         let actions: [String]
         let surfaces: [Surface]
+        var lateReminder: LateReminderSnapshot? = nil
         let error: String?
     }
 
@@ -129,7 +138,7 @@ enum QaLifecycle {
         case "schedule":
             // A launch draws the menu bar icon before it arms the scheduler.
             Menubar.menubarIconCallback(nil)
-            ProTransitionManager.shared.onAppLaunchComplete()
+            ProTransitionManager.shared.rescheduleForQa()
         case "permissions":
             permissionLock.lock()
             if let value = r.accessibility { permissionValues[0] = value }
@@ -158,6 +167,9 @@ enum QaLifecycle {
     }
 
     private static func seed(_ r: Request) throws {
+        if let arm = r.lateReminderArm, LateReminderExperiment.Arm(rawValue: arm) == nil {
+            throw QaError("Unsupported late reminder arm")
+        }
         App.hideUi()
         closeSurfaces()
         OnboardingPopover.closeForQa()
@@ -172,6 +184,7 @@ enum QaLifecycle {
         let clock = Calendar.current.date(bySettingHour: r.hour ?? 10, minute: 0, second: 0, of: Date())!
         now = clock
         store.set(clock.addingTimeInterval(-Double((r.day ?? 1) - 1) * 86400).timeIntervalSince1970, forKey: "trialStartDate")
+        if let arm = r.lateReminderArm { store.set(arm, forKey: "lateReminder.arm") }
         ProTransitionState.markFreshInstallIfUnknown(r.fresh ?? true)
         manager.hasSeenWelcome = r.welcome ?? true
         for key in r.seen ?? [] {
@@ -299,7 +312,11 @@ enum QaLifecycle {
             day: license.daysSinceTrialStart + 1, welcomeSeen: manager.hasSeenWelcome,
             completed: Preferences.settingsWindowShownOnFirstLaunch, pending: manager.hasPendingPrompt,
             freePass: manager.isFreePassSessionActive, badge: manager.shouldShowBadgeDot, badgeDrawn: Menubar.badgeDotLayer != nil, switcher: TilesPanel.shared?.isVisible == true,
-            actions: actions, surfaces: surfaces, error: error)
+            actions: actions, surfaces: surfaces, lateReminder: LateReminderSnapshot(
+                arm: license.defaults.string(forKey: "lateReminder.arm"),
+                opportunityAt: (license.defaults.object(forKey: "lateReminder.opportunityAt") as? Date)?.timeIntervalSince1970,
+                optedOut: manager.userOptedOut,
+                lastMessageAt: (license.defaults.object(forKey: "proJourney.lastMessageAt") as? Date)?.timeIntervalSince1970), error: error)
     }
 
     struct QaError: Error, CustomStringConvertible {

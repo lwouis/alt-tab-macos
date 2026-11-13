@@ -104,12 +104,12 @@ class App: AppCenterApplication {
     }
 
     /// Reset session state now; AppKit cleanup waits until the panel has given the keyboard back.
-    private static func endHideUi() {
+    private static func endHideUi(didSwitchWindow: Bool = false) {
         MainThreadStall.step()
         UsageStats.resetSession()
         ContextMenuEvents.toggle(false)
         TrackpadEvents.reset()
-        ProTransitionManager.shared.onSwitcherDismissed()
+        ProTransitionManager.shared.onSwitcherDismissed(didSwitchWindow: didSwitchWindow)
         OnboardingPopover.switcherWasDismissed()
         TilesPanel.shared.whenOrderedOut(finishHideUi)
     }
@@ -343,7 +343,7 @@ class App: AppCenterApplication {
             Preferences.cursorFollowFocus == .differentScreen && (Spaces.screenSpacesMap.first { $0.value.contains { space in window.spaceIds.contains(space) } })?.key != NSScreen.active()?.cachedUuid()) {
             moveCursorToSelectedWindow(window)
         }
-        endHideUi()
+        endHideUi(didSwitchWindow: window != nil)
     }
 
     static func moveCursorToSelectedWindow(_ window: Window) {
@@ -614,7 +614,7 @@ class App: AppCenterApplication {
         // Created now rather than on the first prompt: its observers cancel prompts queued before that.
         let promptHost = ProPromptHost.shared
         ProTransitionManager.shared.onAction = { promptHost.dispatch($0) }
-        ProTransitionManager.shared.onAppLaunchComplete()
+        ProTransitionManager.shared.onAppLaunchComplete(didUpdate: PreferencesMigrations.didUpdate)
         #if DEBUG
         if QaLifecycle.enabled { QaLifecycle.finishedLaunching = true; QaLifecycle.launchCount += 1 }
         #endif

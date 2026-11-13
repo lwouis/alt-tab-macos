@@ -489,8 +489,8 @@ final class ProTransitionTests: XCTestCase {
         XCTAssertTrue(ProTransitionManagerTestable.spaceChangeCancelsPendingPrompt(switcherIsShown: false, awaitingDismissalDelay: false))
     }
 
-    func testCheckoutOrigin_codesMatchTheWebsiteList() {
-        XCTAssertEqual(CheckoutOrigin.allCases.map(\.rawValue), ["a2", "a4", "a6", "a7", "a8"])
+    func testCheckoutOrigin_reservesA9WithoutReusingRetiredCodes() {
+        XCTAssertEqual(CheckoutOrigin.allCases.map(\.rawValue), ["a2", "a4", "a6", "a7", "a8", "a9"])
     }
 }
 

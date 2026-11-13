@@ -251,6 +251,7 @@ enum QaTrial {
             case .showFullUpgrade: return "trial-ended popover"
             case .showDay4Tour: return "style tour"
             case .showDay35Final: return "final reminder"
+            case .showLateReminder: return "late reminder experiment"
         }
     }
 

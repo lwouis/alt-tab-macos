@@ -370,3 +370,7 @@
 
 /* Startup recovery */
 "Try again" = "다시 시도";
+"AltTab Pro is still here" = "AltTab Pro는 언제든 이용할 수 있어요";
+"Not now" = "나중에";
+"Search, extra shortcuts and App Icons are a one-time purchase away." = "한 번 구매하면 검색, 추가 단축키 및 앱 아이콘을 사용할 수 있습니다.";
+"You've used AltTab %@ times over the last %d months." = "지난 %2$d개월 동안 AltTab을 %1$@번 사용했습니다.";

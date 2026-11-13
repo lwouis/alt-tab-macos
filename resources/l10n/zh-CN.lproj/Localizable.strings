@@ -370,3 +370,7 @@
 
 /* Startup recovery */
 "Try again" = "重试";
+"AltTab Pro is still here" = "AltTab Pro 随时为你准备";
+"Not now" = "暂时不用";
+"Search, extra shortcuts and App Icons are a one-time purchase away." = "只需一次购买，即可使用搜索、更多快捷键和 App 图标。";
+"You've used AltTab %@ times over the last %d months." = "过去 %2$d 个月里，你使用了 AltTab %1$@ 次。";

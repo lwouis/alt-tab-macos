@@ -370,3 +370,7 @@
 
 /* Startup recovery */
 "Try again" = "Yeniden dene";
+"AltTab Pro is still here" = "AltTab Pro hâlâ burada";
+"Not now" = "Şimdi değil";
+"Search, extra shortcuts and App Icons are a one-time purchase away." = "Arama, ek kısayollar ve Uygulama Simgeleri tek seferlik satın alımla kullanılabilir.";
+"You've used AltTab %@ times over the last %d months." = "Son %2$d ayda AltTab’ı %1$@ kez kullandınız.";

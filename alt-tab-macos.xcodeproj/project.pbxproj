@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A11320261113000000000012 /* LateReminderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11320261113000000000002 /* LateReminderTests.swift */; };
+		A11320261113000000000021 /* LateReminderPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11320261113000000000001 /* LateReminderPopover.swift */; };
+		A11320261113000000000011 /* LateReminderPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11320261113000000000001 /* LateReminderPopover.swift */; };
+		A11320261113000000000020 /* LateReminderExperiment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11320261113000000000000 /* LateReminderExperiment.swift */; };
+		A11320261113000000000010 /* LateReminderExperiment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11320261113000000000000 /* LateReminderExperiment.swift */; };
 		AA6116000000000000000003 /* PermissionStartup.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6116000000000000000001 /* PermissionStartup.swift */; };
 		AA6116000000000000000004 /* PermissionStartup.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6116000000000000000001 /* PermissionStartup.swift */; };
 		AA6116000000000000000005 /* PermissionStartupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6116000000000000000002 /* PermissionStartupTests.swift */; };
@@ -497,6 +502,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A11320261113000000000002 /* LateReminderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LateReminderTests.swift; sourceTree = "<group>"; };
+		A11320261113000000000001 /* LateReminderPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LateReminderPopover.swift; sourceTree = "<group>"; };
+		A11320261113000000000000 /* LateReminderExperiment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LateReminderExperiment.swift; sourceTree = "<group>"; };
 		AA6116000000000000000001 /* PermissionStartup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionStartup.swift; sourceTree = "<group>"; };
 		AA6116000000000000000002 /* PermissionStartupTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionStartupTests.swift; sourceTree = "<group>"; };
 		614700000000000000000001 /* WindowEventReducerDiscoveryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowEventReducerDiscoveryTests.swift; sourceTree = "<group>"; };
@@ -1934,6 +1942,9 @@
 				5FA001000000000000000009 /* Day4TourPopover.swift */,
 				5FA001000000000000000004 /* Day15FullUpgradeWindow.swift */,
 				5FA001000000000000000006 /* Day15HardGatePopover.swift */,
+				A11320261113000000000000 /* LateReminderExperiment.swift */,
+				A11320261113000000000001 /* LateReminderPopover.swift */,
+				A11320261113000000000002 /* LateReminderTests.swift */,
 				5FA001000000000000000008 /* Day35FinalWindow.swift */,
 			);
 			path = scheduling;
@@ -2282,6 +2293,9 @@
 				A01920261019000000000003 /* ProPromptHost.swift in Sources */,
 				A01920261019000000000002 /* ProFeature.swift in Sources */,
 				A01920261019000000000001 /* ProTransitionScheduler.swift in Sources */,
+				A11320261113000000000010 /* LateReminderExperiment.swift in Sources */,
+				A11320261113000000000011 /* LateReminderPopover.swift in Sources */,
+				A11320261113000000000012 /* LateReminderTests.swift in Sources */,
 				A01920261019000000000000 /* ProTransitionManager.swift in Sources */,
 				AA2026092800000000000005 /* PermissionCheckRetryTests.swift in Sources */,
 				5E2A571E000000000000A003 /* WindowState.swift in Sources */,
@@ -2458,6 +2472,8 @@
 				5FA002000000000000000009 /* Day4TourPopover.swift in Sources */,
 				5FA002000000000000000004 /* Day15FullUpgradeWindow.swift in Sources */,
 				5FA002000000000000000006 /* Day15HardGatePopover.swift in Sources */,
+				A11320261113000000000020 /* LateReminderExperiment.swift in Sources */,
+				A11320261113000000000021 /* LateReminderPopover.swift in Sources */,
 				5FA002000000000000000008 /* Day35FinalWindow.swift in Sources */,
 				5FA002000000000000000010 /* ProFeatureCopy.swift in Sources */,
 				D04BA1637E125D38546C26E2 /* StackView.swift in Sources */,

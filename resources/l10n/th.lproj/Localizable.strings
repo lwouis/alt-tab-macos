@@ -370,3 +370,7 @@
 
 /* Startup recovery */
 "Try again" = "ลองอีกครั้ง";
+"AltTab Pro is still here" = "AltTab Pro ยังพร้อมให้คุณใช้งาน";
+"Not now" = "ไม่ใช่ตอนนี้";
+"Search, extra shortcuts and App Icons are a one-time purchase away." = "การค้นหา ปุ่มลัดเพิ่มเติม และไอคอนแอป พร้อมให้ใช้งานด้วยการซื้อเพียงครั้งเดียว";
+"You've used AltTab %@ times over the last %d months." = "คุณใช้ AltTab %1$@ ครั้งในช่วง %2$d เดือนที่ผ่านมา";

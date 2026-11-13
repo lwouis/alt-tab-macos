@@ -91,6 +91,12 @@ class Day35FinalWindow: ProPromptWindow {
 }
 enum Day4TourPopover { static func show() {} }
 
+enum UsageStats {
+    static func loadLateReminderUsage(months: Int, now: Date, completion: @escaping (LateReminderExperiment.Usage) -> Void) {
+        completion(.init(months: months, count: nil))
+    }
+}
+
 extension Array {
     subscript(safe index: Int) -> Element? { indices.contains(index) ? self[index] : nil }
 }
