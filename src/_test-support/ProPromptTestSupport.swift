@@ -62,6 +62,7 @@ enum StartupRecovery { static var isRecovering = false }
 enum ScreenLockEvents { static var isScreenLocked = false }
 enum ContextMenuEvents { static var isMenuOpen = false }
 enum Menubar {
+    static var isInitialized = true
     static var statusItem: NSStatusItem?
     static func menubarIconCallback(_ sender: Any?) {}
 }

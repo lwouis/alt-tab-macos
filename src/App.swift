@@ -180,7 +180,7 @@ class App: AppCenterApplication {
     }
 
     @objc static func showSettingsWindow() {
-        guard Menubar.statusItem != nil else {
+        guard Menubar.isInitialized else {
             pendingShowSettingsWindow = true
             return
         }

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A11420261114000000000005 /* StatusItemLifecycleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11420261114000000000001 /* StatusItemLifecycleTests.swift */; };
+		A11420261114000000000004 /* StatusItemLifecycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11420261114000000000000 /* StatusItemLifecycle.swift */; };
+		A11420261114000000000003 /* StatusItemLifecycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11420261114000000000000 /* StatusItemLifecycle.swift */; };
 		A11320261113000000000012 /* LateReminderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11320261113000000000002 /* LateReminderTests.swift */; };
 		A11320261113000000000021 /* LateReminderPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11320261113000000000001 /* LateReminderPopover.swift */; };
 		A11320261113000000000011 /* LateReminderPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11320261113000000000001 /* LateReminderPopover.swift */; };
@@ -502,6 +505,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A11420261114000000000002 /* StatusItemLifecycleSpecs.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = StatusItemLifecycleSpecs.md; sourceTree = "<group>"; };
+		A11420261114000000000001 /* StatusItemLifecycleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusItemLifecycleTests.swift; sourceTree = "<group>"; };
+		A11420261114000000000000 /* StatusItemLifecycle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusItemLifecycle.swift; sourceTree = "<group>"; };
 		A11320261113000000000002 /* LateReminderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LateReminderTests.swift; sourceTree = "<group>"; };
 		A11320261113000000000001 /* LateReminderPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LateReminderPopover.swift; sourceTree = "<group>"; };
 		A11320261113000000000000 /* LateReminderExperiment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LateReminderExperiment.swift; sourceTree = "<group>"; };
@@ -980,6 +986,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A11420261114000000000006 /* menubar */ = {
+			isa = PBXGroup;
+			children = (
+				A11420261114000000000000 /* StatusItemLifecycle.swift */,
+				A11420261114000000000001 /* StatusItemLifecycleTests.swift */,
+				A11420261114000000000002 /* StatusItemLifecycleSpecs.md */,
+			);
+			path = menubar;
+			sourceTree = "<group>";
+		};
 		1C961B4542D84D5B6E937B15 /* workflows */ = {
 			isa = PBXGroup;
 			children = (
@@ -1664,6 +1680,7 @@
 		D04BA6251F309645757C6000 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				A11420261114000000000006 /* menubar */,
 				D04BA70746DEEC3D30B43F81 /* main.swift */,
 				CC00000000000000000C0003 /* macos */,
 				D04BA2CBF267F267225CA671 /* kit */,
@@ -2294,6 +2311,8 @@
 				A01920261019000000000002 /* ProFeature.swift in Sources */,
 				A01920261019000000000001 /* ProTransitionScheduler.swift in Sources */,
 				A11320261113000000000010 /* LateReminderExperiment.swift in Sources */,
+				A11420261114000000000004 /* StatusItemLifecycle.swift in Sources */,
+				A11420261114000000000005 /* StatusItemLifecycleTests.swift in Sources */,
 				A11320261113000000000011 /* LateReminderPopover.swift in Sources */,
 				A11320261113000000000012 /* LateReminderTests.swift in Sources */,
 				A01920261019000000000000 /* ProTransitionManager.swift in Sources */,
@@ -2473,6 +2492,7 @@
 				5FA002000000000000000004 /* Day15FullUpgradeWindow.swift in Sources */,
 				5FA002000000000000000006 /* Day15HardGatePopover.swift in Sources */,
 				A11320261113000000000020 /* LateReminderExperiment.swift in Sources */,
+				A11420261114000000000003 /* StatusItemLifecycle.swift in Sources */,
 				A11320261113000000000021 /* LateReminderPopover.swift in Sources */,
 				5FA002000000000000000008 /* Day35FinalWindow.swift in Sources */,
 				5FA002000000000000000010 /* ProFeatureCopy.swift in Sources */,
