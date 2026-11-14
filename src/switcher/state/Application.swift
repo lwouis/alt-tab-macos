@@ -161,6 +161,20 @@ class Application: NSObject {
         }
     }
 
+    /// A held `NSRunningApplication` keeps returning the icon it loaded first, even after the bundle's icon changes
+    /// (e.g. a custom icon the app writes onto its own bundle once it is running). A new instance for the same pid
+    /// returns the current one.
+    func refreshAppIcon() {
+        let pid = self.pid
+        BackgroundWork.screenshotsQueue.addOperation { [weak self] in
+            guard self != nil, let r = Application.appIconWithoutPadding(NSRunningApplication(processIdentifier: pid)?.icon) else { return }
+            DispatchQueue.main.async { [weak self] in
+                self?.icon = r.image
+                self?.iconSourcePixels = r.sourcePixels
+            }
+        }
+    }
+
     func fetchAppIcon() {
         guard icon == nil else { return }
         BackgroundWork.screenshotsQueue.addOperation { [weak self] in

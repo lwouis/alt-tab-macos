@@ -60,6 +60,7 @@ class WindowServerEvents {
                 let frontmostApp = Applications.findOrCreate(pid)
                 TrackedWindowStateBridge.dispatch(.appActivated(pid: pid, now: ProcessInfo.processInfo.systemUptime))
                 if let frontmostApp {
+                    frontmostApp.refreshAppIcon()
                     _ = frontmostApp.addWindowlessWindowIfNeeded()
                     App.checkIfShortcutsShouldBeDisabled(frontmostApp.focusedWindow, frontmostApp)
                 }
