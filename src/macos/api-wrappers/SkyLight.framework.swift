@@ -84,11 +84,6 @@ enum CGSSpaceMask: Int {
 @_silgen_name("CGSCopySpacesForWindows")
 func CGSCopySpacesForWindows(_ cid: CGSConnectionID, _ mask: CGSSpaceMask.RawValue, _ wids: CFArray) -> CFArray?
 
-/// returns window level (see definition in CGWindowLevel.h) of provided window
-/// * macOS 10.10+
-@_silgen_name("CGSGetWindowLevel") @discardableResult
-func CGSGetWindowLevel(_ cid: CGSConnectionID, _ wid: CGWindowID, _ level: UnsafeMutablePointer<CGWindowLevel>) -> CGError
-
 /// enables/disables a symbolic hotkeys. These are system shortcuts such as command+tab or Spotlight
 /// it is possible to find all the existing hotkey IDs by using CGSGetSymbolicHotKeyValue on the first few hundred numbers
 /// note: the effect of enabling/disabling persists after the app is quit

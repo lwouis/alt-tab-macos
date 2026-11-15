@@ -95,7 +95,7 @@
 "Deactivate license on this machine" = "Inaktivera licens på den här datorn";
 "Deactivation failed" = "Inaktiveringen misslyckades";
 "Deactivation was rejected by the server." = "Inaktiveringen avvisades av servern.";
-"Debug tools" = "Felsökningsverktyg";
+"Debug Logs" = "Felsökningsloggar";
 "Device Control" = "Enhetskontroll";
 "Dinner" = "Middag";
 "Disabled" = "Inaktiverad";

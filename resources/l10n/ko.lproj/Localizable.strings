@@ -95,7 +95,7 @@
 "Deactivate license on this machine" = "이 기기에서 라이선스 비활성화";
 "Deactivation failed" = "비활성화 실패";
 "Deactivation was rejected by the server." = "서버에서 비활성화가 거부되었습니다.";
-"Debug tools" = "디버그 도구";
+"Debug Logs" = "디버그 로그";
 "Device Control" = "기기 제어";
 "Dinner" = "저녁";
 "Disabled" = "비활성화됨";

@@ -174,9 +174,9 @@ class App: AppCenterApplication {
         showSecondaryWindow(FeedbackWindow.shared!)
     }
 
-    @objc static func showDebugWindow() {
-        initializeDebugWindowIfNeeded()
-        showSecondaryWindow(DebugWindow.shared!)
+    @objc static func showDebugLogsWindow() {
+        initializeDebugLogsWindowIfNeeded()
+        showSecondaryWindow(DebugLogsWindow.shared!)
     }
 
     @objc static func showSettingsWindow() {
@@ -229,8 +229,8 @@ class App: AppCenterApplication {
         if FeedbackWindow.shared == nil { _ = FeedbackWindow() }
     }
 
-    private static func initializeDebugWindowIfNeeded() {
-        if DebugWindow.shared == nil { _ = DebugWindow() }
+    private static func initializeDebugLogsWindowIfNeeded() {
+        if DebugLogsWindow.shared == nil { _ = DebugLogsWindow() }
     }
 
     private static func initializePermissionsWindowIfNeeded() {

@@ -95,7 +95,7 @@
 "Deactivate license on this machine" = "このマシンのライセンスを非アクティブ化";
 "Deactivation failed" = "非アクティブ化に失敗しました";
 "Deactivation was rejected by the server." = "サーバーが非アクティブ化を拒否しました。";
-"Debug tools" = "デバッグツール";
+"Debug Logs" = "デバッグログ";
 "Device Control" = "デバイスの制御";
 "Dinner" = "夕食";
 "Disabled" = "無効";

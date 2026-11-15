@@ -95,7 +95,7 @@
 "Deactivate license on this machine" = "Hủy kích hoạt giấy phép trên máy này";
 "Deactivation failed" = "Hủy kích hoạt thất bại";
 "Deactivation was rejected by the server." = "Máy chủ đã từ chối hủy kích hoạt.";
-"Debug tools" = "Công cụ gỡ lỗi";
+"Debug Logs" = "Nhật ký gỡ lỗi";
 "Device Control" = "Điều khiển thiết bị";
 "Dinner" = "Bữa tối";
 "Disabled" = "Đã tắt";

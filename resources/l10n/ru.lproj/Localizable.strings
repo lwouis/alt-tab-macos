@@ -95,7 +95,7 @@
 "Deactivate license on this machine" = "Деактивировать лицензию на этом компьютере";
 "Deactivation failed" = "Не удалось деактивировать";
 "Deactivation was rejected by the server." = "Сервер отклонил деактивацию.";
-"Debug tools" = "Инструменты отладки";
+"Debug Logs" = "Журналы отладки";
 "Device Control" = "Управление устройством";
 "Dinner" = "Ужин";
 "Disabled" = "Отключено";

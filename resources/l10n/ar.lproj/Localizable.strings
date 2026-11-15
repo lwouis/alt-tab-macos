@@ -95,7 +95,7 @@
 "Deactivate license on this machine" = "إلغاء تفعيل الترخيص على هذا الجهاز";
 "Deactivation failed" = "فشل إلغاء التفعيل";
 "Deactivation was rejected by the server." = "تم رفض إلغاء التفعيل من قبل الخادم.";
-"Debug tools" = "أدوات التصحيح";
+"Debug Logs" = "سجلات التصحيح";
 "Device Control" = "التحكم في الأجهزة";
 "Dinner" = "عشاء";
 "Disabled" = "مُعطّل";

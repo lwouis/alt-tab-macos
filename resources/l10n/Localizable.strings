@@ -299,7 +299,7 @@
 "Deactivation was rejected by the server." = "Deactivation was rejected by the server.";
 
 /* Menubar option */
-"Debug tools" = "Debug tools";
+"Debug Logs" = "Debug Logs";
 
 /* Name of the Accessibility permission since macOS 27: the first half of \"Device Control and Data Access\", as System Settings shows it */
 "Device Control" = "Device Control";

@@ -95,7 +95,7 @@
 "Deactivate license on this machine" = "停用此裝置上的授權";
 "Deactivation failed" = "停用失敗";
 "Deactivation was rejected by the server." = "伺服器拒絕了停用請求。";
-"Debug tools" = "除錯工具";
+"Debug Logs" = "除錯記錄";
 "Device Control" = "裝置控制";
 "Dinner" = "晚餐";
 "Disabled" = "已停用";

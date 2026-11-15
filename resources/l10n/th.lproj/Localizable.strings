@@ -95,7 +95,7 @@
 "Deactivate license on this machine" = "ปิดใช้งานสิทธิ์บนเครื่องนี้";
 "Deactivation failed" = "การปิดใช้งานล้มเหลว";
 "Deactivation was rejected by the server." = "เซิร์ฟเวอร์ปฏิเสธการปิดใช้งาน";
-"Debug tools" = "เครื่องมือแก้ไขข้อบกพร่อง";
+"Debug Logs" = "บันทึกการแก้ไขข้อบกพร่อง";
 "Device Control" = "การควบคุมอุปกรณ์";
 "Dinner" = "มื้อเย็น";
 "Disabled" = "ปิดใช้งาน";

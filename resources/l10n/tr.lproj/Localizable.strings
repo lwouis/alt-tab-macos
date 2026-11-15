@@ -95,7 +95,7 @@
 "Deactivate license on this machine" = "Bu makinedeki lisansı devre dışı bırak";
 "Deactivation failed" = "Devre dışı bırakma başarısız";
 "Deactivation was rejected by the server." = "Devre dışı bırakma sunucu tarafından reddedildi.";
-"Debug tools" = "Hata ayıklama araçları";
+"Debug Logs" = "Hata ayıklama günlükleri";
 "Device Control" = "Aygıt Denetimi";
 "Dinner" = "Akşam yemeği";
 "Disabled" = "Devre dışı";
