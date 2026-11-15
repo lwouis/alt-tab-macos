@@ -20,6 +20,8 @@
 		AA6116000000000000000005 /* PermissionStartupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6116000000000000000002 /* PermissionStartupTests.swift */; };
 		614700000000000000000002 /* WindowEventReducerDiscoveryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614700000000000000000001 /* WindowEventReducerDiscoveryTests.swift */; };
 		A02020261020000000000001 /* ProFeatureCopy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA001000000000000000010 /* ProFeatureCopy.swift */; };
+		A01520261115000000000001 /* Day1WelcomeLetterPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA001000000000000000002 /* Day1WelcomeLetterPopover.swift */; };
+		A01520261115000000000002 /* ProPromptHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA001000000000000000021 /* ProPromptHeader.swift */; };
 		A01920261019000000020001 /* ProPromptTestSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01920261019000000010001 /* ProPromptTestSupport.swift */; };
 		A01920261019000000020000 /* ProPromptFlowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01920261019000000010000 /* ProPromptFlowTests.swift */; };
 		A01920261019000000000006 /* Day15HardGatePopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA001000000000000000006 /* Day15HardGatePopover.swift */; };
@@ -2301,6 +2303,8 @@
 				AA2026092800000000000015 /* AnchoredPopoverTests.swift in Sources */,
 				A01720261017000000000004 /* ProPromptPresentation.swift in Sources */,
 				A01720261017000000000005 /* ProPromptPresentationTests.swift in Sources */,
+				A01520261115000000000001 /* Day1WelcomeLetterPopover.swift in Sources */,
+				A01520261115000000000002 /* ProPromptHeader.swift in Sources */,
 				A01920261019000000020001 /* ProPromptTestSupport.swift in Sources */,
 				A02020261020000000000001 /* ProFeatureCopy.swift in Sources */,
 				A01920261019000000020000 /* ProPromptFlowTests.swift in Sources */,

@@ -402,7 +402,6 @@ class ProTransitionManager {
         let action = ProTransitionManagerTestable.evaluateTimedAction(currentState())
         switch action {
         case .showWelcome:
-            state.hasSeenWelcome = true
             emit(.showWelcome)
         case .showDay35Final:
             emit(.showDay35Final)

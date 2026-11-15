@@ -39,6 +39,7 @@ final class ProPromptFlowTests: XCTestCase {
     }
 
     override func tearDown() {
+        Day1WelcomeLetterPopover.close()
         ProPromptPopover.closeAll()
         ProPromptHost.windowPresentation.cancel()
         manager.cancelPendingPrompts()
@@ -52,6 +53,113 @@ final class ProPromptFlowTests: XCTestCase {
         popovers = []
         TestDefaults.tearDown(ProTransitionState.defaults, ProTransitionState.suite)
         super.tearDown()
+    }
+
+    func testWelcomeIsNotConsumedByDispatchOrWhileItsAnchorIsPending() {
+        let popover = FlowPopover(anchor: anchor)
+        popover.readiness = .settling
+        _ = prepareWelcome(popover)
+        manager.onAppLaunchComplete()
+        XCTAssertFalse(manager.hasSeenWelcome)
+        drain()
+        XCTAssertTrue(popover.isWaitingForAnchor)
+        XCTAssertFalse(manager.hasSeenWelcome)
+        popover.readiness = .ready
+        popover.retryPresentation()
+        drain()
+        XCTAssertTrue(popover.isShown)
+        XCTAssertTrue(manager.hasSeenWelcome)
+        XCTAssertEqual(manager.state.messages, 0)
+    }
+
+    func testCancelledWelcomeIgnoresLateAppearanceAndDoesNotLoopInTheSameSession() {
+        let popover = FlowPopover(anchor: anchor)
+        popover.readiness = .settling
+        _ = prepareWelcome(popover)
+        manager.onAppLaunchComplete()
+        drain()
+        Day1WelcomeLetterPopover.close()
+        popover.readiness = .ready
+        popover.retryPresentation()
+        NotificationCenter.default.post(name: NSPopover.didShowNotification, object: popover)
+        manager.onAppLaunchComplete()
+        drain()
+        XCTAssertFalse(popover.isShown)
+        XCTAssertEqual(popover.showCount, 0)
+        XCTAssertFalse(manager.hasSeenWelcome)
+    }
+
+    func testInterruptedWelcomeCanBePresentedOnTheNextLaunch() {
+        let first = FlowPopover(anchor: anchor)
+        first.readiness = .settling
+        let license = prepareWelcome(first)
+        manager.onAppLaunchComplete()
+        drain()
+        Day1WelcomeLetterPopover.close()
+        XCTAssertFalse(manager.hasSeenWelcome)
+        let next = FlowPopover(anchor: anchor)
+        let state = manager.state
+        let scheduler = ProTransitionScheduler(defaults: ProTransitionState.defaults,
+            licenseManager: license, state: state, onFire: {
+                Day1WelcomeLetterPopover.show(licenseManager: license, state: state,
+                    makePopover: { ProPromptPopover.make(popover: next) })
+            })
+        defer { scheduler.cancel() }
+        XCTAssertEqual(scheduler.computeNextFireDate(), license.clock.now)
+        scheduler.onAppLaunchComplete()
+        drain()
+        drain()
+        XCTAssertTrue(next.isShown)
+        XCTAssertTrue(state.hasSeenWelcome)
+        next.close()
+    }
+
+    func testWelcomeContinueAcknowledgesBeforeTheAppearanceNotification() throws {
+        let popover = FlowPopover(anchor: anchor)
+        popover.notifiesAppearance = false
+        _ = prepareWelcome(popover)
+        manager.onAppLaunchComplete()
+        drain()
+        XCTAssertTrue(popover.isShown)
+        XCTAssertFalse(manager.hasSeenWelcome)
+        let button = try XCTUnwrap(popover.contentViewController?.view.subviews.last as? NSButton)
+        XCTAssertEqual(button.title, NSLocalizedString("Continue", comment: ""))
+        button.performClick(nil)
+        XCTAssertTrue(manager.hasSeenWelcome)
+        XCTAssertFalse(popover.isShown)
+        XCTAssertTrue(checkouts.isEmpty)
+    }
+
+    func testWelcomeExpiresWhileWaitingWithoutBeingConsumed() {
+        let popover = FlowPopover(anchor: anchor)
+        popover.readiness = .settling
+        let license = prepareWelcome(popover)
+        manager.onAppLaunchComplete()
+        drain()
+        (license.clock as! MockClock).now.addTimeInterval(15 * 86400)
+        popover.readiness = .ready
+        popover.retryPresentation()
+        drain()
+        XCTAssertFalse(popover.isWaitingForAnchor)
+        XCTAssertFalse(popover.isShown)
+        XCTAssertFalse(manager.hasSeenWelcome)
+    }
+
+    private func prepareWelcome(_ popover: FlowPopover) -> LicenseManager {
+        let now = Date(timeIntervalSince1970: 1_700_000_000)
+        ProTransitionState.defaults.set(now.timeIntervalSince1970, forKey: "trialStartDate")
+        ProTransitionState.defaults.set(now.addingTimeInterval(-1).timeIntervalSince1970,
+            forKey: "proTransition.nextScheduledDate")
+        let license = LicenseManager(clock: MockClock(now: now), keychain: MockKeychain(),
+            api: MockLicenseAPI(), defaults: ProTransitionState.defaults)
+        license.initialize()
+        manager = ProTransitionManager(licenseManager: { license }, canPresentProactively: { true })
+        manager.onAction = { [unowned self] action in
+            guard case .showWelcome = action else { return }
+            Day1WelcomeLetterPopover.show(licenseManager: license, state: manager.state,
+                makePopover: { ProPromptPopover.make(popover: popover) })
+        }
+        return license
     }
 
     func testRecoveryRejectsNewOffersEvenWithAnOtherwiseAvailableContext() {
@@ -461,6 +569,7 @@ private final class FlowPopover: AnchoredPopover {
     private let anchor: NSView
     var readiness = StatusItemAnchor.Readiness.ready
     var showCount = 0
+    var notifiesAppearance = true
     private var displayed = false
     override var isShown: Bool { displayed }
 
@@ -481,7 +590,7 @@ private final class FlowPopover: AnchoredPopover {
     override func showImmediately(from anchor: NSView) -> Bool {
         showCount += 1
         displayed = true
-        NotificationCenter.default.post(name: NSPopover.didShowNotification, object: self)
+        if notifiesAppearance { NotificationCenter.default.post(name: NSPopover.didShowNotification, object: self) }
         return true
     }
 
