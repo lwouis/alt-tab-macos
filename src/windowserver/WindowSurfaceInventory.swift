@@ -97,6 +97,19 @@ enum WindowSurfaceInventory {
     /// `others` waves every candidate through). After the first `replace` it is a SUPERSET of the on-screen
     /// list: every app-level surface on every Space, not just the current one.
     private(set) static var hasFullSnapshot = false
+    private static var pendingAcquisitions = Set<CGWindowID>()
+
+    /// A first window arriving does not mean the other windows in the same inventory are ready.
+    /// Keep the launch grace until the requested descriptions land or fail, not until the list is nonempty.
+    static var isDiscoveryPending: Bool { !hasFullSnapshot || !pendingAcquisitions.isEmpty }
+
+    static func beginAcquisitions(_ wids: [CGWindowID]) {
+        pendingAcquisitions.formUnion(wids)
+    }
+
+    static func finishAcquisition(_ wid: CGWindowID) {
+        pendingAcquisitions.remove(wid)
+    }
 
     /// Stamp a full snapshot when it is issued, before its WindowServer call leaves main. A targeted upsert
     /// or removal that happens after this token must survive even when the older full answer lands later.
@@ -122,6 +135,7 @@ enum WindowSurfaceInventory {
             byWindowId.removeValue(forKey: wid)
             lastMutation[wid] = issuedAt
         }
+        pendingAcquisitions.formIntersection(byWindowId.keys)
         hasFullSnapshot = true
     }
 
@@ -145,6 +159,7 @@ enum WindowSurfaceInventory {
         lastProcessRemoval[pid] = mutationSequence
         for wid in byWindowId.values.filter({ $0.pid == pid }).map({ $0.wid }) {
             byWindowId.removeValue(forKey: wid)
+            pendingAcquisitions.remove(wid)
             lastMutation[wid] = mutationSequence
         }
     }
@@ -152,6 +167,7 @@ enum WindowSurfaceInventory {
     static func remove(_ wid: CGWindowID) {
         mutationSequence += 1
         byWindowId.removeValue(forKey: wid)
+        pendingAcquisitions.remove(wid)
         lastMutation[wid] = mutationSequence
     }
 

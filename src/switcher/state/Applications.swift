@@ -286,9 +286,8 @@ class Applications {
                 // cold start: this sweep landed 34ms before the acquisition, and a summon in that gap drew
                 // Finder, Chrome, ChatGPT and TextEdit as four icon placeholders (measured live).
                 //
-                // The placeholders also DEFEATED the fix for that frame. `App.showUiOrCycleSelection` waits
-                // for the launch inventory only while `Windows.list` is empty, and four placeholders are not
-                // empty, so the panel opened immediately on them instead of taking its grace period.
+                // The first summon also waits for these pending acquisitions, even when another app's
+                // window has already arrived. A partial inventory must not bypass the launch grace.
                 //
                 // The suppression is lifted by the batch itself, in `scheduleSurfaceAcquisitions`, not by a
                 // later sweep — sweeps are event-driven, so there may not be one.
@@ -314,6 +313,7 @@ class Applications {
     /// in flight. Each unresolved wid keeps its own situation-keyed retry record; batching changes cost, not
     /// eligibility or the meaning of a failure.
     private static func scheduleSurfaceAcquisitions(_ requests: [(raw: WsRawWindow, app: Application, situation: UInt64)]) {
+        WindowSurfaceInventory.beginAcquisitions(requests.map { $0.raw.wid })
         for (pid, batch) in Dictionary(grouping: requests, by: { $0.raw.pid }) {
             guard let app = batch.first?.app else { continue }
             let rows = batch.map { $0.raw }
@@ -326,6 +326,7 @@ class Applications {
                             // Recorded against the situation the batch was ISSUED at, not the one current
                             // when its shared 250ms traversal finished.
                             noteAcquisitionFailed(request.raw.wid, pid, request.situation)
+                            WindowSurfaceInventory.finishAcquisition(request.raw.wid)
                             continue
                         }
                         failedAcquisitions[request.raw.wid] = nil
@@ -367,6 +368,9 @@ class Applications {
                                     adoptedAsInactiveTab: Bool = false) {
         let wid = discoveredRaw.wid
         AXCallScheduler.shared.schedule(key: "wid-\(wid)-generic", context: app.debugId, pid: app.pid, scan: true) { [weak app] in
+            // Enqueued after the successful model write below, or immediately when this attempt fails.
+            // A retrying app must not retain the startup gate until its full retry budget expires.
+            defer { DispatchQueue.main.async { WindowSurfaceInventory.finishAcquisition(wid) } }
             guard let app else { return }
             guard wid != 0 else { return }
             guard wid != TilesPanel.windowIdSnapshot else { return }

@@ -428,12 +428,10 @@ class App: AppCenterApplication {
             }
             if !Windows.updatesBeforeShowing() { hideUi(); return }
             Windows.setInitialSelectedAndHoveredWindowIndex()
-            // The very first summon of a launch can beat the launch inventory: AltTab has been alive for a
-            // few hundred milliseconds, nothing has been discovered yet, and the panel opens EMPTY and fills
-            // itself under the user's eyes a beat later. Nobody is served by that frame. Ask for the scan
-            // now and let the panel wait for it — capped, because a desktop that genuinely has no window
-            // still has to be told so, and measured against the ~280ms an inventory takes to land.
-            let awaitingLaunchInventory = isLaunchSummon && Windows.list.isEmpty
+            // Discovery lands one window at a time: a nonempty list can still omit the front app. C-01
+            // caught TextEdit arriving 13ms before Finder and bypassing the empty-list grace. Wait for a
+            // pending inventory too, capped so an unavailable app cannot hold the first summon forever.
+            let awaitingLaunchInventory = isLaunchSummon && (Windows.list.isEmpty || WindowSurfaceInventory.isDiscoveryPending)
             if awaitingLaunchInventory { Applications.manuallyRefreshAllWindows() }
             let displayDelay = awaitingLaunchInventory
                 ? DispatchTimeInterval.milliseconds(max(Preferences.windowDisplayDelayInMs, launchInventoryGraceInMs))
