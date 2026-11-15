@@ -1,4 +1,7 @@
 import Cocoa
+#if DEBUG
+import IOSurface
+#endif
 
 class PreviewPanel: NSPanel {
     private static let previewView = LightImageView()
@@ -6,6 +9,24 @@ class PreviewPanel: NSPanel {
     private static var currentId: CGWindowID?
     static var shared: PreviewPanel!
     private(set) static var windowId: CGWindowID?
+
+    #if DEBUG
+    static var qaWindowId: CGWindowID? { shared?.isVisible == true ? currentId : nil }
+
+    /// Read the displayed layer itself: a queued request or cached thumbnail does not prove a sharp Preview landed.
+    static var qaPixelSize: CGSize? {
+        guard qaWindowId != nil, let contents = previewView.imageLayer.contents else { return nil }
+        let value = contents as CFTypeRef
+        if CFGetTypeID(value) == CGImage.typeID {
+            return unsafeBitCast(value, to: CGImage.self).size()
+        }
+        if CFGetTypeID(value) == IOSurfaceGetTypeID() {
+            let surface = unsafeBitCast(value, to: IOSurfaceRef.self)
+            return CGSize(width: IOSurfaceGetWidth(surface), height: IOSurfaceGetHeight(surface))
+        }
+        return nil
+    }
+    #endif
 
     /// `.titled` would make it eligible, and the preview outlives the switcher after a focus (`beginHideUi`'s
     /// `keepPreview`): ordering out the key `TilesPanel` once the target is front made AppKit hand key to this

@@ -279,6 +279,8 @@ class CliServer {
             screens: qaScreens(),
             missionControl: MissionControl.state().rawValue,
             switcherVisible: SwitcherSession.isActive,
+            previewWid: PreviewPanel.qaWindowId,
+            previewPixelSize: PreviewPanel.qaPixelSize,
             selectedIndex: SwitcherSession.current?.selectedIndex,
             selectionCommitCount: selectionCommitCount,
             lastSelectionCommitWid: lastSelectionCommitWid,
@@ -397,6 +399,9 @@ class CliServer {
         /// skipped, and whether a pick may focus — and nothing else reports it.
         var missionControl: String
         var switcherVisible: Bool
+        var previewObservation = true
+        var previewWid: CGWindowID?
+        var previewPixelSize: CGSize?
         var selectedIndex: Int?
         /// DEBUG builds count the selections handed to the focus path. The QA harness snapshots the count
         /// before injecting input, so it can judge a release after the switcher has correctly closed.
