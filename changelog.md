@@ -1,3 +1,19 @@
+## [11.10.2](https://github.com/lwouis/alt-tab-macos/compare/v11.10.1...v11.10.2) (2026-11-16)
+
+
+### Bug Fixes
+
+* avoid a rare extra permission prompt after setup (closes [#6116](https://github.com/lwouis/alt-tab-macos/issues/6116)) ([b10e070](https://github.com/lwouis/alt-tab-macos/commit/b10e070))
+* avoid an occasional brief flicker on the first switch after launch ([95629a4](https://github.com/lwouis/alt-tab-macos/commit/95629a4))
+* avoid Apple menu interference when icon is hidden (closes [#6142](https://github.com/lwouis/alt-tab-macos/issues/6142)) ([8c28031](https://github.com/lwouis/alt-tab-macos/commit/8c28031))
+* avoid intermittent command-line failures during restarts ([5505c1e](https://github.com/lwouis/alt-tab-macos/commit/5505c1e))
+* preserve recent order for apps with no windows (closes [#6154](https://github.com/lwouis/alt-tab-macos/issues/6154)) ([48f5212](https://github.com/lwouis/alt-tab-macos/commit/48f5212))
+* prevent rare tab mix-ups across Spaces (closes [#6146](https://github.com/lwouis/alt-tab-macos/issues/6146)) ([eb73576](https://github.com/lwouis/alt-tab-macos/commit/eb73576))
+* recover the trial welcome message if its display is interrupted ([b3a693d](https://github.com/lwouis/alt-tab-macos/commit/b3a693d))
+* reduce CPU usage with certain animated popups (closes [#6147](https://github.com/lwouis/alt-tab-macos/issues/6147)) ([d310a85](https://github.com/lwouis/alt-tab-macos/commit/d310a85))
+* restore Minecraft mouse capture after switching (closes [#6148](https://github.com/lwouis/alt-tab-macos/issues/6148)) ([8cccde9](https://github.com/lwouis/alt-tab-macos/commit/8cccde9)), closes [#6150](https://github.com/lwouis/alt-tab-macos/issues/6150)
+* stop restart loops after rare keyboard or mouse access failures ([a6942d8](https://github.com/lwouis/alt-tab-macos/commit/a6942d8))
+
 ## [11.10.1](https://github.com/lwouis/alt-tab-macos/compare/v11.10.0...v11.10.1) (2026-10-23)
 
 
