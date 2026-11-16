@@ -103,6 +103,7 @@ final class LateReminderTests: XCTestCase {
         scheduler.cancel()
     }
 
+    #if DEBUG
     func testQaClockJumpRearmsTheExistingBadgeDeadline() {
         let clock = MockClock(now: context.now)
         let start = clock.now.addingTimeInterval(-11 * 86400)
@@ -126,21 +127,25 @@ final class LateReminderTests: XCTestCase {
         scheduler.onAppLaunchComplete()
         wait(for: [fired], timeout: 1)
     }
+    #endif
 
     func testCoordinatorQueuesOnlyAfterAWindowIsSelected() {
         let manager = makeManager()
+        let shown = expectation(description: "late reminder after selecting a window")
+        manager.onAction = { if case .showLateReminder = $0 { shown.fulfill() } }
         manager.onSwitcherShown()
-        XCTAssertNil(manager.pendingPromptForQa)
+        XCTAssertFalse(manager.hasPendingPrompt)
         manager.onSwitcherDismissed()
-        XCTAssertNil(manager.pendingPromptForQa)
+        XCTAssertFalse(manager.hasPendingPrompt)
         manager.onSwitcherShown()
         manager.onSwitcherDismissed(didSwitchWindow: true)
-        guard case .showLateReminder = manager.pendingPromptForQa else { return XCTFail("Expected late reminder") }
-        manager.cancelPendingPrompts()
+        XCTAssertTrue(manager.hasPendingPrompt)
+        wait(for: [shown], timeout: 3)
+        XCTAssertFalse(manager.hasPendingPrompt)
         manager.userOptedOut = true
         manager.onSwitcherShown()
         manager.onSwitcherDismissed(didSwitchWindow: true)
-        XCTAssertNil(manager.pendingPromptForQa)
+        XCTAssertFalse(manager.hasPendingPrompt)
         XCTAssertTrue(manager.state.intents.isEmpty)
     }
 
@@ -185,13 +190,16 @@ final class LateReminderTests: XCTestCase {
         context.trialStart = context.now.addingTimeInterval(-62 * 86400)
         let clock = MockClock(now: context.now)
         let manager = makeManager(clock: clock)
+        let shown = expectation(description: "late reminder after reaching 63 days")
+        manager.onAction = { if case .showLateReminder = $0 { shown.fulfill() } }
         manager.onAppLaunchComplete(didUpdate: true)
         XCTAssertFalse(manager.hasPendingPrompt)
         clock.now.addTimeInterval(86400)
         manager.onSwitcherShown()
         manager.onSwitcherDismissed(didSwitchWindow: true)
-        guard case .showLateReminder = manager.pendingPromptForQa else { return XCTFail("Expected reminder at 63 days") }
-        manager.cancelPendingPrompts()
+        XCTAssertTrue(manager.hasPendingPrompt)
+        wait(for: [shown], timeout: 3)
+        XCTAssertFalse(manager.hasPendingPrompt)
     }
 
     private func makeManager(clock: MockClock? = nil) -> ProTransitionManager {
