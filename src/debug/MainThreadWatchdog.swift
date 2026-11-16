@@ -43,6 +43,9 @@ enum MainThreadWatchdog {
         stack = (top - UInt(pthread_get_stacksize_np(thread)))...top
         // A static is initialized on first access, which may allocate: that must not happen while main is suspended.
         frameBuffer.initialize(repeating: 0, count: maxFrames)
+        // The first register read resolves imported Swift metadata. Do it before suspending a thread that
+        // may hold the runtime metadata lock (the C-12 startup timeout captured both sides of that deadlock).
+        _ = walkStack()
         observeRunLoop()
         startTimer()
     }

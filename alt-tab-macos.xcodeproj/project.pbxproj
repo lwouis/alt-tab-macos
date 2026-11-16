@@ -19,6 +19,9 @@
 		AA6116000000000000000004 /* PermissionStartup.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6116000000000000000001 /* PermissionStartup.swift */; };
 		AA6116000000000000000005 /* PermissionStartupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6116000000000000000002 /* PermissionStartupTests.swift */; };
 		614700000000000000000002 /* WindowEventReducerDiscoveryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614700000000000000000001 /* WindowEventReducerDiscoveryTests.swift */; };
+		A02720261027000000000202 /* WindowFocusEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02720261027000000000102 /* WindowFocusEvent.swift */; };
+		A02720261027000000000203 /* WindowFocusEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02720261027000000000102 /* WindowFocusEvent.swift */; };
+		A02720261027000000000201 /* WindowFocusEventTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02720261027000000000101 /* WindowFocusEventTests.swift */; };
 		A02020261020000000000001 /* ProFeatureCopy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA001000000000000000010 /* ProFeatureCopy.swift */; };
 		A01520261115000000000001 /* Day1WelcomeLetterPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA001000000000000000002 /* Day1WelcomeLetterPopover.swift */; };
 		A01520261115000000000002 /* ProPromptHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA001000000000000000021 /* ProPromptHeader.swift */; };
@@ -516,6 +519,8 @@
 		AA6116000000000000000001 /* PermissionStartup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionStartup.swift; sourceTree = "<group>"; };
 		AA6116000000000000000002 /* PermissionStartupTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionStartupTests.swift; sourceTree = "<group>"; };
 		614700000000000000000001 /* WindowEventReducerDiscoveryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowEventReducerDiscoveryTests.swift; sourceTree = "<group>"; };
+		A02720261027000000000102 /* WindowFocusEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowFocusEvent.swift; sourceTree = "<group>"; };
+		A02720261027000000000101 /* WindowFocusEventTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowFocusEventTests.swift; sourceTree = "<group>"; };
 		A01920261019000000010001 /* ProPromptTestSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = src/_test-support/ProPromptTestSupport.swift; sourceTree = SOURCE_ROOT; };
 		A01920261019000000010000 /* ProPromptFlowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = src/pro/ui/ProPromptFlowTests.swift; sourceTree = SOURCE_ROOT; };
 		F01700000000000000000001 /* IllustrationDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IllustrationDrawer.swift; sourceTree = "<group>"; };
@@ -1647,6 +1652,8 @@
 				BF0C83EE9730BCFA41D840A9 /* README.md */,
 				BF0C8C5C0FF5D567BF190DE5 /* ApplicationServices.HIServices.framework.swift */,
 				BF0C8B94D7994AB9007F6391 /* SkyLight.framework.swift */,
+				A02720261027000000000102 /* WindowFocusEvent.swift */,
+				A02720261027000000000101 /* WindowFocusEventTests.swift */,
 				5FC5980000000000000C0001 /* CGSSymbolicHotKey.swift */,
 			);
 			path = "api-wrappers";
@@ -2298,6 +2305,8 @@
 				5EC0DE00000000000000A102 /* RealWorldScenariosTests.swift in Sources */,
 				5EF0C000000000000000F103 /* FocusIntentPolicy.swift in Sources */,
 				5EF0C000000000000000F202 /* FocusIntentPolicyTests.swift in Sources */,
+				A02720261027000000000201 /* WindowFocusEventTests.swift in Sources */,
+				A02720261027000000000203 /* WindowFocusEvent.swift in Sources */,
 				AA2026092800000000000003 /* PermissionCheckRetry.swift in Sources */,
 				AA2026092800000000000013 /* AnchoredPopover.swift in Sources */,
 				AA2026092800000000000015 /* AnchoredPopoverTests.swift in Sources */,
@@ -2590,6 +2599,7 @@
 				BF0C8A49891371E4027E0641 /* MacroPreferences.swift in Sources */,
 				BF0C8E366BC25171C0A3881C /* ApplicationServices.HIServices.framework.swift in Sources */,
 				BF0C803A13C409E7F01FBCAB /* SkyLight.framework.swift in Sources */,
+				A02720261027000000000202 /* WindowFocusEvent.swift in Sources */,
 				5FC5980000000000000C0002 /* CGSSymbolicHotKey.swift in Sources */,
 				BF0C80C69EFEF93C18539925 /* PreferencesMigrations.swift in Sources */,
 				BF0C8A2F6E4C85A7D9B63B12 /* Throttler.swift in Sources */,
