@@ -6,9 +6,7 @@
 "3-finger Vertical Swipe" = "3-finger Vertical Swipe";
 "4-finger Horizontal Swipe" = "4-finger Horizontal Swipe";
 "4-finger Vertical Swipe" = "4-finger Vertical Swipe";
-"A debug profile (versions, settings, hardware) is attached to help diagnose the issue." = "A debug profile (versions, settings, hardware) is attached to help diagnose the issue.";
 "A little time." = "A little time.";
-"A new version of AltTab is available" = "A new version of AltTab is available";
 "About %@" = "About %@";
 "Accessibility" = "Accessibility";
 "Activate" = "Activate";
@@ -30,7 +28,6 @@
 "All Windows" = "All Windows";
 "Allowed" = "Allowed";
 "Alphabetical Order" = "Alphabetical Order";
-"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed";
 "AltTab is ready" = "AltTab is ready";
 "AltTab is running without Screen Recording permissions. %@ won’t show." = "AltTab is running without Screen Recording permissions. %@ won’t show.";
 "AltTab preferences file is a symlink. macOS doesn’t support symlink for preferences. Please use a valid file instead of a symlink here:" = "AltTab preferences file is a symlink. macOS doesn’t support symlink for preferences. Please use a valid file instead of a symlink here:";
@@ -63,14 +60,10 @@
 "Auto-install updates periodically" = "Auto-install updates periodically";
 "Automatic activation failed" = "Automatic activation failed";
 "Breakfast" = "Breakfast";
-"Brief description of the bug" = "Brief description of the bug";
-"Brief description of the change" = "Brief description of the change";
 "Bundle ID" = "Bundle ID";
 "Cancel" = "Cancel";
 "Capture windows in the background" = "Capture windows in the background";
-"Check for updates now…" = "Check for updates now…";
 "Check for updates periodically" = "Check for updates periodically";
-"Check for updates…" = "Check for updates…";
 "Check permissions…" = "Check permissions…";
 "Choose a style" = "Choose a style";
 "Choose which windows to switch between" = "Choose which windows to switch between";
@@ -83,9 +76,7 @@
 "Could not move to Applications folder" = "Could not move to Applications folder";
 "Couldn't deactivate that machine" = "Couldn't deactivate that machine";
 "Couldn't save your license to the macOS Keychain. Please share the details below with the developer." = "Couldn't save your license to the macOS Keychain. Please share the details below with the developer.";
-"Couldn't submit feedback" = "Couldn't submit feedback";
 "Crash reports policy" = "Crash reports policy";
-"Create GitHub issue" = "Create GitHub issue";
 "Cursor follows focus" = "Cursor follows focus";
 "Customize more…" = "Customize more…";
 "Dark" = "Dark";
@@ -105,7 +96,6 @@
 "Don't show discovery tips again" = "Don't show discovery tips again";
 "Done" = "Done";
 "Don’t check for updates periodically" = "Don’t check for updates periodically";
-"Don’t send" = "Don’t send";
 "During your trial" = "During your trial";
 "e.g. com.example.app" = "e.g. com.example.app";
 "e.g. Debug" = "e.g. Debug";
@@ -134,11 +124,9 @@
 "Get Pro to keep these features" = "Get Pro to keep these features";
 "Give different groups of windows their own shortcuts." = "Give different groups of windows their own shortcuts.";
 "Give your previews more room" = "Give your previews more room";
-"Go back" = "Go back";
 "Grant permission" = "Grant permission";
 "Group apps" = "Group apps";
 "Group tabs" = "Group tabs";
-"Help improve AltTab" = "Help improve AltTab";
 "Hide" = "Hide";
 "Hide colored circles on mouse hover" = "Hide colored circles on mouse hover";
 "Hide Space number labels" = "Hide Space number labels";
@@ -148,7 +136,6 @@
 "Hold" = "Hold";
 "hold" = "hold";
 "I can move myself to the Applications folder if you'd like." = "I can move myself to the Applications folder if you'd like.";
-"I think the app could be improved with…" = "I think the app could be improved with…";
 "Ideas" = "Ideas";
 "Ignore shortcuts" = "Ignore shortcuts";
 "Import settings…" = "Import settings…";
@@ -203,7 +190,6 @@
 "Photos" = "Photos";
 "Pick a machine to deactivate so you can activate here." = "Pick a machine to deactivate so you can activate here.";
 "Please drag AltTab into the Applications folder manually." = "Please drag AltTab into the Applications folder manually.";
-"Please fill in the form" = "Please fill in the form";
 "press" = "press";
 "Press %@" = "Press %@";
 "Press %@ any time" = "Press %@ any time";
@@ -225,9 +211,6 @@
 "Red badge" = "Red badge";
 "Red badge with number %@" = "Red badge with number %@";
 "Reliable, fast window switching with high-quality thumbnails" = "Reliable, fast window switching with high-quality thumbnails";
-"Remember my choice" = "Remember my choice";
-"Report a bug" = "Report a bug";
-"Report on current version" = "Report on current version";
 "Reset settings and restart" = "Reset settings and restart";
 "Restart Now" = "Restart Now";
 "Safari — Food" = "Safari — Food";
@@ -245,10 +228,6 @@
 "Select windows on mouse hover" = "Select windows on mouse hover";
 "Select windows using arrow keys" = "Select windows using arrow keys";
 "Select windows using vim keys" = "Select windows using vim keys";
-"Send" = "Send";
-"Send a crash report?" = "Send a crash report?";
-"Send feedback" = "Send feedback";
-"Sending…" = "Sending…";
 "Settings imported" = "Settings imported";
 "Settings…" = "Settings…";
 "Shopping" = "Shopping";
@@ -283,7 +262,6 @@
 "Start" = "Start";
 "Start at login" = "Start at login";
 "Styles" = "Styles";
-"Suggest a change" = "Suggest a change";
 "Support this project" = "Support this project";
 "Switch between 3 different styles. You can customize them." = "Switch between 3 different styles. You can customize them.";
 "Sync with global value" = "Sync with global value";
@@ -292,7 +270,6 @@
 "That's it" = "That's it";
 "The application needs to restart to apply the imported settings." = "The application needs to restart to apply the imported settings.";
 "The application needs to restart to apply the language change." = "The application needs to restart to apply the language change.";
-"The server didn't accept the submission. Check your internet connection and try again — your draft is preserved." = "The server didn't accept the submission. Check your internet connection and try again — your draft is preserved.";
 "Theme" = "Theme";
 "This license is already activated elsewhere" = "This license is already activated elsewhere";
 "This license is already activated on the maximum number of machines. Deactivate one to continue." = "This license is already activated on the maximum number of machines. Deactivate one to continue.";
@@ -320,13 +297,11 @@
 "Unlock the App Icons style with Pro" = "Unlock the App Icons style with Pro";
 "Unlock the Titles style with Pro" = "Unlock the Titles style with Pro";
 "Up to 9 shortcuts" = "Up to 9 shortcuts";
-"Update now" = "Update now";
 "Updates policy" = "Updates policy";
 "Usage" = "Usage";
 "Use App Icons" = "Use App Icons";
 "Use Titles" = "Use Titles";
 "Version" = "Version";
-"View existing discussions" = "View existing discussions";
 "Vim keys" = "Vim keys";
 "Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
 "Visible Spaces" = "Visible Spaces";
@@ -334,9 +309,6 @@
 "Weekend" = "Weekend";
 "Weekend recipes" = "Weekend recipes";
 "Welcome to %@" = "Welcome to %@";
-"What did you expect? What happened? Steps to reproduce…" = "What did you expect? What happened? Steps to reproduce…";
-"What happened, and what did you expect?" = "What happened, and what did you expect?";
-"What would make AltTab more useful for you?" = "What would make AltTab more useful for you?";
 "When disabled, avoids the macOS purple screen-recording indicator, and avoids flickers when playing DRM video. Thumbnails will be less up-to-date." = "When disabled, avoids the macOS purple screen-recording indicator, and avoids flickers when playing DRM video. Thumbnails will be less up-to-date.";
 "When fullscreen" = "When fullscreen";
 "When no open window" = "When no open window";
@@ -356,9 +328,7 @@
 "You can’t undo this action." = "You can’t undo this action.";
 "You may need to disable some conflicting system gestures" = "You may need to disable some conflicting system gestures";
 "You reached for AltTab Pro this week" = "You reached for AltTab Pro this week";
-"You're running v%1$@. v%2$@ is available. The bug you're seeing may already be fixed — please update first and check before reporting." = "You're running v%1$@. v%2$@ is available. The bug you're seeing may already be fixed — please update first and check before reporting.";
 "Your AltTab Pro trial has ended" = "Your AltTab Pro trial has ended";
-"Your feedback will be submitted as a public GitHub issue." = "Your feedback will be submitted as a public GitHub issue.";
 "Your Pro trial starts when AltTab is ready" = "Your Pro trial starts when AltTab is ready";
 "Your settings reset every time AltTab restarts." = "Your settings reset every time AltTab restarts.";
 

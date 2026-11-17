@@ -6,9 +6,7 @@
 "3-finger Vertical Swipe" = "ปัด 3 นิ้วในแนวตั้ง";
 "4-finger Horizontal Swipe" = "ปัด 4 นิ้วในแนวนอน";
 "4-finger Vertical Swipe" = "ปัด 4 นิ้วในแนวตั้ง";
-"A debug profile (versions, settings, hardware) is attached to help diagnose the issue." = "แนบโปรไฟล์การแก้ไขข้อบกพร่อง (เวอร์ชัน การตั้งค่า ฮาร์ดแวร์) เพื่อช่วยวินิจฉัยปัญหา";
 "A little time." = "เวลาเล็กน้อย";
-"A new version of AltTab is available" = "มี AltTab เวอร์ชันใหม่ให้ใช้งาน";
 "About %@" = "เกี่ยวกับ %@";
 "Accessibility" = "การช่วยการเข้าถึง";
 "Activate" = "เปิดใช้งาน";
@@ -30,7 +28,6 @@
 "All Windows" = "ทุกหน้าต่าง";
 "Allowed" = "อนุญาต";
 "Alphabetical Order" = "เรียงตามตัวอักษร";
-"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab ขัดข้องในการใช้งานครั้งล่าสุด การส่งรายงานการขัดข้องจะช่วยแก้ไขปัญหา";
 "AltTab is ready" = "AltTab พร้อมแล้ว";
 "AltTab is running without Screen Recording permissions. %@ won’t show." = "AltTab กำลังทำงานโดยไม่มีสิทธิ์การบันทึกหน้าจอ %@จะไม่แสดง";
 "AltTab preferences file is a symlink. macOS doesn’t support symlink for preferences. Please use a valid file instead of a symlink here:" = "ไฟล์การตั้งค่าของ AltTab เป็นลิงก์สัญลักษณ์ macOS ไม่รองรับลิงก์สัญลักษณ์สำหรับการตั้งค่า โปรดใช้ไฟล์ที่ถูกต้องแทนลิงก์สัญลักษณ์ที่นี่:";
@@ -63,14 +60,10 @@
 "Auto-install updates periodically" = "ติดตั้งอัปเดตอัตโนมัติเป็นระยะ";
 "Automatic activation failed" = "การเปิดใช้งานอัตโนมัติล้มเหลว";
 "Breakfast" = "มื้อเช้า";
-"Brief description of the bug" = "คำอธิบายโดยย่อของข้อบกพร่อง";
-"Brief description of the change" = "คำอธิบายโดยย่อของการเปลี่ยนแปลง";
 "Bundle ID" = "Bundle ID";
 "Cancel" = "ยกเลิก";
 "Capture windows in the background" = "จับภาพหน้าต่างในเบื้องหลัง";
-"Check for updates now…" = "ตรวจหาอัปเดตทันที…";
 "Check for updates periodically" = "ตรวจหาอัปเดตเป็นระยะ";
-"Check for updates…" = "ตรวจหาอัปเดต…";
 "Check permissions…" = "ตรวจสอบสิทธิ์…";
 "Choose a style" = "เลือกสไตล์";
 "Choose which windows to switch between" = "เลือกว่าจะสลับระหว่างหน้าต่างใด";
@@ -83,9 +76,7 @@
 "Could not move to Applications folder" = "ไม่สามารถย้ายไปยังโฟลเดอร์ Applications";
 "Couldn't deactivate that machine" = "ไม่สามารถปิดใช้งานเครื่องนั้น";
 "Couldn't save your license to the macOS Keychain. Please share the details below with the developer." = "ไม่สามารถบันทึกสิทธิ์ใช้งานของคุณไปยังพวงกุญแจของ macOS โปรดแบ่งปันรายละเอียดด้านล่างกับนักพัฒนา";
-"Couldn't submit feedback" = "ไม่สามารถส่งคำติชม";
 "Crash reports policy" = "นโยบายรายงานการขัดข้อง";
-"Create GitHub issue" = "สร้างปัญหาบน GitHub";
 "Cursor follows focus" = "เคอร์เซอร์ตามโฟกัส";
 "Customize more…" = "ปรับแต่งเพิ่มเติม…";
 "Dark" = "มืด";
@@ -105,7 +96,6 @@
 "Don't show discovery tips again" = "ไม่แสดงคำแนะนำคุณสมบัติอีก";
 "Done" = "เสร็จแล้ว";
 "Don’t check for updates periodically" = "ไม่ตรวจหาอัปเดตเป็นระยะ";
-"Don’t send" = "ไม่ส่ง";
 "During your trial" = "ระหว่างช่วงทดลองใช้";
 "e.g. com.example.app" = "เช่น com.example.app";
 "e.g. Debug" = "เช่น Debug";
@@ -134,11 +124,9 @@
 "Get Pro to keep these features" = "รับ Pro เพื่อใช้คุณสมบัติเหล่านี้ต่อ";
 "Give different groups of windows their own shortcuts." = "กำหนดทางลัดเฉพาะให้หน้าต่างแต่ละกลุ่ม";
 "Give your previews more room" = "เพิ่มพื้นที่ให้ภาพตัวอย่าง";
-"Go back" = "ย้อนกลับ";
 "Grant permission" = "ให้สิทธิ์";
 "Group apps" = "จัดกลุ่มแอป";
 "Group tabs" = "จัดกลุ่มแท็บ";
-"Help improve AltTab" = "ช่วยปรับปรุง AltTab";
 "Hide" = "ซ่อน";
 "Hide colored circles on mouse hover" = "ซ่อนวงกลมสีเมื่อชี้เมาส์";
 "Hide Space number labels" = "ซ่อนป้ายหมายเลขพื้นที่ทำงาน";
@@ -148,7 +136,6 @@
 "Hold" = "กดค้าง";
 "hold" = "กดค้าง";
 "I can move myself to the Applications folder if you'd like." = "ฉันสามารถย้ายตัวเองไปยังโฟลเดอร์ Applications ได้หากคุณต้องการ";
-"I think the app could be improved with…" = "ฉันคิดว่าแอปนี้สามารถปรับปรุงได้ด้วย…";
 "Ideas" = "ไอเดีย";
 "Ignore shortcuts" = "เพิกเฉยต่อทางลัด";
 "Import settings…" = "นำเข้าการตั้งค่า…";
@@ -203,7 +190,6 @@
 "Photos" = "รูปภาพ";
 "Pick a machine to deactivate so you can activate here." = "เลือกเครื่องที่จะปิดใช้งานเพื่อให้คุณสามารถเปิดใช้งานที่นี่ได้";
 "Please drag AltTab into the Applications folder manually." = "โปรดลาก AltTab ไปยังโฟลเดอร์ Applications ด้วยตนเอง";
-"Please fill in the form" = "โปรดกรอกแบบฟอร์ม";
 "press" = "กด";
 "Press %@" = "กด %@";
 "Press %@ any time" = "กด %@ ได้ทุกเมื่อ";
@@ -225,9 +211,6 @@
 "Red badge" = "ป้ายกำกับสีแดง";
 "Red badge with number %@" = "ป้ายกำกับสีแดงที่มีหมายเลข %@";
 "Reliable, fast window switching with high-quality thumbnails" = "การสลับหน้าต่างที่เชื่อถือได้และรวดเร็วด้วยภาพย่อคุณภาพสูง";
-"Remember my choice" = "จดจำตัวเลือกของฉัน";
-"Report a bug" = "รายงานข้อบกพร่อง";
-"Report on current version" = "รายงานเกี่ยวกับเวอร์ชันปัจจุบัน";
 "Reset settings and restart" = "รีเซ็ตการตั้งค่าและรีสตาร์ท";
 "Restart Now" = "รีสตาร์ททันที";
 "Safari — Food" = "Safari — อาหาร";
@@ -245,10 +228,6 @@
 "Select windows on mouse hover" = "เลือกหน้าต่างเมื่อชี้เมาส์";
 "Select windows using arrow keys" = "เลือกหน้าต่างโดยใช้ปุ่มลูกศร";
 "Select windows using vim keys" = "เลือกหน้าต่างโดยใช้ปุ่ม Vim";
-"Send" = "ส่ง";
-"Send a crash report?" = "ส่งรายงานการขัดข้องหรือไม่?";
-"Send feedback" = "ส่งคำติชม";
-"Sending…" = "กำลังส่ง…";
 "Settings imported" = "นำเข้าการตั้งค่าแล้ว";
 "Settings…" = "การตั้งค่า…";
 "Shopping" = "ซื้อของ";
@@ -283,7 +262,6 @@
 "Start" = "เริ่มต้น";
 "Start at login" = "เริ่มต้นเมื่อเข้าสู่ระบบ";
 "Styles" = "รูปแบบ";
-"Suggest a change" = "แนะนำการเปลี่ยนแปลง";
 "Support this project" = "สนับสนุนโครงการนี้";
 "Switch between 3 different styles. You can customize them." = "สลับระหว่าง 3 สไตล์ที่ต่างกัน คุณสามารถปรับแต่งได้";
 "Sync with global value" = "ซิงค์กับค่าส่วนกลาง";
@@ -292,7 +270,6 @@
 "That's it" = "เท่านี้เอง";
 "The application needs to restart to apply the imported settings." = "แอปพลิเคชันต้องรีสตาร์ทเพื่อนำการตั้งค่าที่นำเข้ามาใช้";
 "The application needs to restart to apply the language change." = "แอปพลิเคชันต้องรีสตาร์ทเพื่อนำการเปลี่ยนแปลงภาษามาใช้";
-"The server didn't accept the submission. Check your internet connection and try again — your draft is preserved." = "เซิร์ฟเวอร์ไม่ยอมรับการส่ง โปรดตรวจสอบการเชื่อมต่ออินเทอร์เน็ตและลองอีกครั้ง — ฉบับร่างของคุณยังคงอยู่";
 "Theme" = "ธีม";
 "This license is already activated elsewhere" = "สิทธิ์ใช้งานนี้ถูกเปิดใช้งานในที่อื่นแล้ว";
 "This license is already activated on the maximum number of machines. Deactivate one to continue." = "สิทธิ์ใช้งานนี้ถูกเปิดใช้งานบนเครื่องในจำนวนสูงสุดแล้ว ปิดใช้งานหนึ่งเครื่องเพื่อดำเนินการต่อ";
@@ -320,13 +297,11 @@
 "Unlock the App Icons style with Pro" = "ปลดล็อกสไตล์ไอคอนแอปด้วย Pro";
 "Unlock the Titles style with Pro" = "ปลดล็อกสไตล์ชื่อด้วย Pro";
 "Up to 9 shortcuts" = "ทางลัดสูงสุด 9 ชุด";
-"Update now" = "อัปเดตทันที";
 "Updates policy" = "นโยบายการอัปเดต";
 "Usage" = "การใช้งาน";
 "Use App Icons" = "ใช้ไอคอนแอป";
 "Use Titles" = "ใช้ชื่อหน้าต่าง";
 "Version" = "เวอร์ชัน";
-"View existing discussions" = "ดูการสนทนาที่มีอยู่";
 "Vim keys" = "ปุ่ม Vim";
 "Vim keys already assigned to other actions:\n%@" = "ปุ่ม Vim ถูกกำหนดให้กับการกระทำอื่นแล้ว:\n%@";
 "Visible Spaces" = "พื้นที่ทำงานที่แสดง";
@@ -334,9 +309,6 @@
 "Weekend" = "วันหยุด";
 "Weekend recipes" = "สูตรอาหารวันหยุด";
 "Welcome to %@" = "ยินดีต้อนรับสู่ %@";
-"What did you expect? What happened? Steps to reproduce…" = "คุณคาดหวังอะไร? เกิดอะไรขึ้น? ขั้นตอนการทำซ้ำ…";
-"What happened, and what did you expect?" = "เกิดอะไรขึ้น และคุณคาดหวังอะไร?";
-"What would make AltTab more useful for you?" = "อะไรจะทำให้ AltTab มีประโยชน์กับคุณมากขึ้น?";
 "When disabled, avoids the macOS purple screen-recording indicator, and avoids flickers when playing DRM video. Thumbnails will be less up-to-date." = "เมื่อปิดใช้งาน จะหลีกเลี่ยงตัวบ่งชี้การบันทึกหน้าจอสีม่วงของ macOS และหลีกเลี่ยงการกะพริบเมื่อเล่นวิดีโอ DRM ภาพย่อจะอัปเดตน้อยลง";
 "When fullscreen" = "เมื่อเต็มหน้าจอ";
 "When no open window" = "เมื่อไม่มีหน้าต่างที่เปิดอยู่";
@@ -356,9 +328,7 @@
 "You can’t undo this action." = "คุณไม่สามารถเลิกทำการกระทำนี้ได้";
 "You may need to disable some conflicting system gestures" = "คุณอาจต้องปิดท่าทางของระบบบางอย่างที่ขัดแย้งกัน";
 "You reached for AltTab Pro this week" = "สัปดาห์นี้คุณลองใช้ AltTab Pro";
-"You're running v%1$@. v%2$@ is available. The bug you're seeing may already be fixed — please update first and check before reporting." = "คุณใช้งานเวอร์ชัน %1$@ อยู่ มีเวอร์ชัน %2$@ ให้ใช้งาน ข้อบกพร่องที่คุณเห็นอาจได้รับการแก้ไขแล้ว — โปรดอัปเดตก่อนและตรวจสอบก่อนรายงาน";
 "Your AltTab Pro trial has ended" = "ช่วงทดลองใช้ AltTab Pro สิ้นสุดแล้ว";
-"Your feedback will be submitted as a public GitHub issue." = "คำติชมของคุณจะถูกส่งเป็นปัญหาสาธารณะบน GitHub";
 "Your Pro trial starts when AltTab is ready" = "ช่วงทดลองใช้ Pro จะเริ่มเมื่อ AltTab พร้อมใช้งาน";
 "Your settings reset every time AltTab restarts." = "การตั้งค่าของคุณจะถูกรีเซ็ตทุกครั้งที่ AltTab เริ่มทำงานใหม่";
 

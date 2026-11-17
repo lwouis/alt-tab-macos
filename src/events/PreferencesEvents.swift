@@ -1,8 +1,7 @@
 import Cocoa
-import Sparkle
 
 /// Side-effect dispatcher for preference changes. Each branch of `preferenceChanged(_:)`
-/// calls into a domain-specific owner (Menubar, TrackpadEvents, SparkleDelegate, LoginItem,
+/// calls into a domain-specific owner (Menubar, TrackpadEvents, LoginItem,
 /// ProFeature) rather than implementing the side effect inline. Over time each call-site
 /// should subscribe directly to its own preference; this file is a transition scaffold.
 class PreferencesEvents {
@@ -41,11 +40,6 @@ class PreferencesEvents {
     static func initialize() {
         guard !initialized else { return }
         initialized = true
-        #if DEBUG
-        if !Preferences.qaPristine { UserDefaultsEvents.observe() }
-        #else
-        UserDefaultsEvents.observe()
-        #endif
         ControlsTab.initializePreferencesDependentState()
         #if DEBUG
         if !Preferences.qaPristine && !QaLifecycle.enabled { applyUpdatePolicyPreference() }
@@ -94,9 +88,8 @@ class PreferencesEvents {
 
     private static func applyUpdatePolicyPreference() {
         GeneralTab.policyLock = true
-        let policy = Preferences.updatePolicy
-        App.updaterController?.updater.automaticallyDownloadsUpdates = policy == .autoInstall
-        App.updaterController?.updater.automaticallyChecksForUpdates = policy == .autoInstall || policy == .autoCheck
+        UserDefaults.standard.set(false, forKey: "SUAutomaticallyUpdate")
+        UserDefaults.standard.set(false, forKey: "SUEnableAutomaticChecks")
         GeneralTab.policyLock = false
     }
 }

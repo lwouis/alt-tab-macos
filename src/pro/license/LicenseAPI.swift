@@ -7,6 +7,19 @@ protocol LicenseAPI {
     func deactivate(_ licenseKey: String, instanceId: String, completion: @escaping (Result<Void, Error>) -> Void)
 }
 
+struct OfflineLicenseClient: LicenseAPI {
+    private enum OfflineError: Error { case networkingDisabled }
+    func activate(_ licenseKey: String, completion: @escaping (Result<ActivateResult, Error>) -> Void) {
+        completion(.failure(OfflineError.networkingDisabled))
+    }
+    func validate(_ licenseKey: String, instanceId: String, completion: @escaping (Result<ValidateResult, Error>) -> Void) {
+        completion(.failure(OfflineError.networkingDisabled))
+    }
+    func deactivate(_ licenseKey: String, instanceId: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        completion(.failure(OfflineError.networkingDisabled))
+    }
+}
+
 struct ActivateResult {
     let instanceId: String
     let variantId: String?

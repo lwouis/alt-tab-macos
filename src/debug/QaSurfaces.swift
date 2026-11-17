@@ -417,7 +417,6 @@ enum QaSurfaces {
     }
 
     private static func feedback(_ selector: String?) -> Target {
-        App.sparkleDelegate?.cachedResult = .upToDate
         App.showFeedbackPanel()
         if let selector { _ = FeedbackWindow.shared?.perform(NSSelectorFromString(selector)) }
         return target(FeedbackWindow.shared)
@@ -511,7 +510,6 @@ enum QaSurfaces {
             "triggersExtraShortcuts": triggers.enumerated().filter { $0.offset % 7 == 0 }.map { $0.element },
             "searches": triggers.enumerated().filter { $0.offset % 10 == 0 }.map { $0.element },
         ]
-        App.sparkleDelegate?.cachedResult = .upToDate
     }
 
     private static func observePopovers() {

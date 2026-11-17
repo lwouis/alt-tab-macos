@@ -214,7 +214,7 @@ final class SearchDiscoveryHint {
         let access: SearchDiscoveryPolicy.Access
         switch license.state {
         case .trial: access = .trial(day: license.daysSinceTrialStart)
-        case .pro: access = .pro
+        case .unrestricted, .pro: access = .pro
         case .trialNotStarted, .trialExpired, .proExpired: access = .locked
         }
         return SearchDiscoveryPolicy.Context(access: access,

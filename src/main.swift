@@ -1,6 +1,14 @@
 import AppKit
 import Darwin
 
+var offlineSandboxError: UnsafeMutablePointer<CChar>?
+if AltTabEnableOfflineSandbox(&offlineSandboxError) != 0 {
+    let reason = offlineSandboxError.map { String(cString: $0) } ?? "unknown error"
+    fputs("AltTab Free could not enforce offline mode: \(reason)\n", stderr)
+    if let offlineSandboxError { AltTabFreeSandboxError(offlineSandboxError) }
+    exit(EX_OSERR)
+}
+
 #if DEBUG
 if let cleanup = CommandLine.arguments.first(where: { $0.hasPrefix("--qa-lifecycle-cleanup=") }) {
     exit(QaLifecycle.cleanup(String(cleanup.dropFirst("--qa-lifecycle-cleanup=".count))))

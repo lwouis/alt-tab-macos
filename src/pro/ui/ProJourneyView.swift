@@ -73,6 +73,9 @@ final class ProJourneyView: NSStackView {
         let status: String
         let message: String
         switch license.state {
+        case .unrestricted:
+            status = "AltTab Community"
+            message = NSLocalizedString("Unlimited access to all four Pro features", comment: "")
         case .trialNotStarted:
             status = ProFeatureCopy.trialSetup
             message = ""

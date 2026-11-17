@@ -4,6 +4,15 @@
 
 ## Summary
 
+This fork's shared manager is constructed with `licensingEnabled: false`. It immediately uses
+`.unrestricted`, allows all features indefinitely, restores remembered feature preferences, and
+never reads license keys or calls the licensing API. Saved trial/license state is left untouched.
+Activation URLs and license operations are disabled. The original licensed mode remains available
+only to explicitly constructed managers and the upstream regression tests described below.
+`testCommunityModeIgnoresExpiredLicenseWithoutTouchingKeychainOrServer`,
+`testCommunityModeRejectsLicenseOperationsLocallyWithoutChangingExistingKeys`, and
+`testCommunityInitializationRestoresPreviouslyLockedFeaturePreferences` cover this fork's behavior.
+
 `LicenseManager` is the single source of truth for whether the user has AltTab **Pro**. It computes a `LicenseState` and notifies observers when it changes. The state drives every Pro gate in the app (search, lock-search, extra shortcuts, App Icons / Titles styles, Auto size, search-on-release) and the Pro-transition prompts.
 
 Its collaborators are injected so the logic is testable without real I/O — the tests pass in mocks (`MockClock`, `MockKeychain`, `MockLicenseAPI`, all defined inline at the bottom of `LicenseManagerTests.swift`):

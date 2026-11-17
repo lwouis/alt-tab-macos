@@ -44,12 +44,11 @@ class Menubar {
         addMenuItem(NSLocalizedString("Show", comment: "Menubar option"), #selector(App.showUiFromShortcut0), "", "eye", nil, App.self)
         menu.addItem(NSMenuItem.separator())
         addMenuItem(NSLocalizedString("Settings…", comment: "Menubar option"), #selector(App.showSettingsWindow), ",", "gear", nil, App.self)
-        addMenuItem(NSLocalizedString("Check for updates…", comment: "Menubar option"), #selector(App.checkForUpdatesNow), "", "checkmark.arrow.trianglehead.clockwise", nil, App.self)
         addMenuItem(NSLocalizedString("Check permissions…", comment: "Menubar option"), #selector(App.checkPermissions), "", "hand.raised", nil, App.self)
         menu.addItem(NSMenuItem.separator())
         addMenuItem(String(format: NSLocalizedString("About %@", comment: "Menubar option. %@ is AltTab"), App.name), #selector(App.showAboutWindow), "", "info.circle", nil, App.self)
         addMenuItem(NSLocalizedString("Debug Logs", comment: "Menubar option"), #selector(App.showDebugLogsWindow), "", "doc.text", nil, App.self)
-        addMenuItem(NSLocalizedString("Send feedback", comment: "Menubar option") + "…", #selector(App.showFeedbackPanel), "", "text.bubble", nil, App.self)
+        addMenuItem("Local diagnostics…", #selector(App.showFeedbackPanel), "", "text.bubble", nil, App.self)
         upgradeToProMenuItem = addMenuItem(NSLocalizedString("Get Pro", comment: "Menubar option"), App.upgradeToProAction, "", "star.fill", nil, App.self)
         upgradeToProMenuItem.view = UpgradeMenuItemView()
         myAccountMenuItem = addMenuItem(NSLocalizedString("My Account", comment: ""), App.openAccountAction, "", "person.crop.circle", nil, App.self)
@@ -88,6 +87,10 @@ class Menubar {
         guard upgradeToProMenuItem != nil else { return }
         let state = LicenseManager.shared.state
         switch state {
+        case .unrestricted:
+            toggleUpgradeMenuItem(false)
+            supportProjectMenuItem.isHidden = true
+            myAccountMenuItem.isHidden = true
         case .trialNotStarted:
             toggleUpgradeMenuItem(false)
             supportProjectMenuItem.isHidden = true
@@ -109,7 +112,7 @@ class Menubar {
             supportProjectMenuItem.isHidden = false
             myAccountMenuItem.isHidden = true
         }
-        if case .pro = state { return }
+        if state == .pro || state == .unrestricted { return }
         (upgradeToProMenuItem.view as? UpgradeMenuItemView)?.updateContent(state)
     }
 

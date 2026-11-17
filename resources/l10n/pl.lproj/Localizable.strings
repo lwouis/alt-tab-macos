@@ -6,9 +6,7 @@
 "3-finger Vertical Swipe" = "Przeciągnięcie 3 palcami w pionie";
 "4-finger Horizontal Swipe" = "Przeciągnięcie 4 palcami w poziomie";
 "4-finger Vertical Swipe" = "Przeciągnięcie 4 palcami w pionie";
-"A debug profile (versions, settings, hardware) is attached to help diagnose the issue." = "Załączono profil diagnostyczny (wersje, ustawienia, sprzęt), aby pomóc w diagnozie problemu.";
 "A little time." = "Chwila.";
-"A new version of AltTab is available" = "Dostępna jest nowa wersja AltTab";
 "About %@" = "%@ — informacje";
 "Accessibility" = "Dostępność";
 "Activate" = "Aktywuj";
@@ -30,7 +28,6 @@
 "All Windows" = "Wszystkie okna";
 "Allowed" = "Dozwolone";
 "Alphabetical Order" = "Kolejność alfabetyczna";
-"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab uległ awarii podczas ostatniego użycia. Wysłanie raportu awarii pomoże naprawić problem";
 "AltTab is ready" = "AltTab jest gotowy";
 "AltTab is running without Screen Recording permissions. %@ won’t show." = "AltTab działa bez uprawnień do Nagrywania ekranu. %@ nie będą wyświetlane.";
 "AltTab preferences file is a symlink. macOS doesn’t support symlink for preferences. Please use a valid file instead of a symlink here:" = "Plik ustawień AltTab jest dowiązaniem symbolicznym. macOS nie obsługuje dowiązań symbolicznych dla ustawień. Użyj tutaj prawidłowego pliku zamiast dowiązania symbolicznego:";
@@ -63,14 +60,10 @@
 "Auto-install updates periodically" = "Automatycznie instaluj uaktualnienia okresowo";
 "Automatic activation failed" = "Automatyczna aktywacja nie powiodła się";
 "Breakfast" = "Śniadanie";
-"Brief description of the bug" = "Krótki opis błędu";
-"Brief description of the change" = "Krótki opis zmiany";
 "Bundle ID" = "Bundle ID";
 "Cancel" = "Anuluj";
 "Capture windows in the background" = "Przechwytuj okna w tle";
-"Check for updates now…" = "Sprawdź uaktualnienia teraz…";
 "Check for updates periodically" = "Sprawdzaj uaktualnienia okresowo";
-"Check for updates…" = "Sprawdź uaktualnienia…";
 "Check permissions…" = "Sprawdź uprawnienia…";
 "Choose a style" = "Wybierz styl";
 "Choose which windows to switch between" = "Wybierz okna, między którymi przełączasz";
@@ -83,9 +76,7 @@
 "Could not move to Applications folder" = "Nie udało się przenieść do folderu Aplikacje";
 "Couldn't deactivate that machine" = "Nie udało się dezaktywować tego komputera";
 "Couldn't save your license to the macOS Keychain. Please share the details below with the developer." = "Nie udało się zapisać licencji w Pęku kluczy macOS. Udostępnij poniższe szczegóły deweloperowi.";
-"Couldn't submit feedback" = "Nie udało się wysłać opinii";
 "Crash reports policy" = "Zasady raportów awarii";
-"Create GitHub issue" = "Utwórz zgłoszenie na GitHub";
 "Cursor follows focus" = "Kursor podąża za aktywnym oknem";
 "Customize more…" = "Dostosuj więcej…";
 "Dark" = "Ciemny";
@@ -105,7 +96,6 @@
 "Don't show discovery tips again" = "Nie pokazuj więcej wskazówek o funkcjach";
 "Done" = "Gotowe";
 "Don’t check for updates periodically" = "Nie sprawdzaj uaktualnień okresowo";
-"Don’t send" = "Nie wysyłaj";
 "During your trial" = "Podczas okresu próbnego";
 "e.g. com.example.app" = "np. com.example.app";
 "e.g. Debug" = "np. Debug";
@@ -134,11 +124,9 @@
 "Get Pro to keep these features" = "Kup Pro, aby zachować te funkcje";
 "Give different groups of windows their own shortcuts." = "Przypisz osobne skróty różnym grupom okien.";
 "Give your previews more room" = "Więcej miejsca na podglądy";
-"Go back" = "Wróć";
 "Grant permission" = "Przyznaj uprawnienie";
 "Group apps" = "Grupuj aplikacje";
 "Group tabs" = "Grupuj karty";
-"Help improve AltTab" = "Pomóż ulepszyć AltTab";
 "Hide" = "Ukryj";
 "Hide colored circles on mouse hover" = "Ukryj kolorowe kółka przy najechaniu kursorem";
 "Hide Space number labels" = "Ukryj etykiety numerów Przestrzeni";
@@ -148,7 +136,6 @@
 "Hold" = "Przytrzymaj";
 "hold" = "przytrzymaj";
 "I can move myself to the Applications folder if you'd like." = "Mogę przenieść się do folderu Aplikacje, jeśli chcesz.";
-"I think the app could be improved with…" = "Myślę, że aplikację można by ulepszyć o…";
 "Ideas" = "Pomysły";
 "Ignore shortcuts" = "Ignoruj skróty";
 "Import settings…" = "Zaimportuj ustawienia…";
@@ -203,7 +190,6 @@
 "Photos" = "Zdjęcia";
 "Pick a machine to deactivate so you can activate here." = "Wybierz komputer do dezaktywacji, aby aktywować tutaj.";
 "Please drag AltTab into the Applications folder manually." = "Przeciągnij AltTab do folderu Aplikacje ręcznie.";
-"Please fill in the form" = "Wypełnij formularz";
 "press" = "naciśnij";
 "Press %@" = "Naciśnij %@";
 "Press %@ any time" = "Naciśnij %@ w dowolnej chwili";
@@ -225,9 +211,6 @@
 "Red badge" = "Czerwona plakietka";
 "Red badge with number %@" = "Czerwona plakietka z liczbą %@";
 "Reliable, fast window switching with high-quality thumbnails" = "Niezawodne, szybkie przełączanie okien z wysokiej jakości miniaturami";
-"Remember my choice" = "Zapamiętaj mój wybór";
-"Report a bug" = "Zgłoś błąd";
-"Report on current version" = "Zgłaszaj na bieżącej wersji";
 "Reset settings and restart" = "Wyzeruj ustawienia i uruchom ponownie";
 "Restart Now" = "Uruchom ponownie teraz";
 "Safari — Food" = "Safari — Jedzenie";
@@ -245,10 +228,6 @@
 "Select windows on mouse hover" = "Zaznaczaj okna po najechaniu kursorem";
 "Select windows using arrow keys" = "Zaznaczaj okna klawiszami strzałek";
 "Select windows using vim keys" = "Zaznaczaj okna klawiszami Vim";
-"Send" = "Wyślij";
-"Send a crash report?" = "Wysłać raport awarii?";
-"Send feedback" = "Wyślij opinię";
-"Sending…" = "Wysyłanie…";
 "Settings imported" = "Ustawienia zaimportowane";
 "Settings…" = "Ustawienia…";
 "Shopping" = "Zakupy";
@@ -283,7 +262,6 @@
 "Start" = "Początek";
 "Start at login" = "Uruchamiaj przy logowaniu";
 "Styles" = "Style";
-"Suggest a change" = "Zaproponuj zmianę";
 "Support this project" = "Wesprzyj ten projekt";
 "Switch between 3 different styles. You can customize them." = "Przełączaj między 3 różnymi stylami. Możesz je dostosować.";
 "Sync with global value" = "Synchronizuj z wartością globalną";
@@ -292,7 +270,6 @@
 "That's it" = "To wszystko";
 "The application needs to restart to apply the imported settings." = "Aplikacja musi zostać uruchomiona ponownie, aby zastosować zaimportowane ustawienia.";
 "The application needs to restart to apply the language change." = "Aplikacja musi zostać uruchomiona ponownie, aby zastosować zmianę języka.";
-"The server didn't accept the submission. Check your internet connection and try again — your draft is preserved." = "Serwer nie przyjął zgłoszenia. Sprawdź połączenie z internetem i spróbuj ponownie — wersja robocza została zachowana.";
 "Theme" = "Motyw";
 "This license is already activated elsewhere" = "Ta licencja jest już aktywowana w innym miejscu";
 "This license is already activated on the maximum number of machines. Deactivate one to continue." = "Ta licencja jest już aktywowana na maksymalnej liczbie komputerów. Dezaktywuj jeden, aby kontynuować.";
@@ -320,13 +297,11 @@
 "Unlock the App Icons style with Pro" = "Odblokuj styl Ikony aplikacji z Pro";
 "Unlock the Titles style with Pro" = "Odblokuj styl Tytuły z Pro";
 "Up to 9 shortcuts" = "Do 9 skrótów";
-"Update now" = "Uaktualnij teraz";
 "Updates policy" = "Zasady uaktualnień";
 "Usage" = "Użycie";
 "Use App Icons" = "Użyj ikon aplikacji";
 "Use Titles" = "Użyj tytułów";
 "Version" = "Wersja";
-"View existing discussions" = "Wyświetl istniejące dyskusje";
 "Vim keys" = "Klawisze Vim";
 "Vim keys already assigned to other actions:\n%@" = "Klawisze Vim są już przypisane do innych akcji:\n%@";
 "Visible Spaces" = "Widoczne Przestrzenie";
@@ -334,9 +309,6 @@
 "Weekend" = "Weekend";
 "Weekend recipes" = "Nasze przepisy";
 "Welcome to %@" = "Witaj w %@";
-"What did you expect? What happened? Steps to reproduce…" = "Czego oczekiwałeś? Co się stało? Kroki do odtworzenia…";
-"What happened, and what did you expect?" = "Co się stało i jaki był oczekiwany rezultat?";
-"What would make AltTab more useful for you?" = "Co sprawiłoby, że AltTab byłby dla Ciebie bardziej przydatny?";
 "When disabled, avoids the macOS purple screen-recording indicator, and avoids flickers when playing DRM video. Thumbnails will be less up-to-date." = "Po wyłączeniu unika fioletowego wskaźnika nagrywania ekranu w macOS i migotania podczas odtwarzania wideo z DRM. Miniatury będą mniej aktualne.";
 "When fullscreen" = "Gdy na pełnym ekranie";
 "When no open window" = "Gdy brak otwartego okna";
@@ -356,9 +328,7 @@
 "You can’t undo this action." = "Nie można cofnąć tej akcji.";
 "You may need to disable some conflicting system gestures" = "Możesz musieć wyłączyć niektóre sprzeczne gesty systemowe";
 "You reached for AltTab Pro this week" = "W tym tygodniu sięgnąłeś po AltTab Pro";
-"You're running v%1$@. v%2$@ is available. The bug you're seeing may already be fixed — please update first and check before reporting." = "Używasz wersji v%1$@. Dostępna jest v%2$@. Błąd, który widzisz, może być już naprawiony — uaktualnij najpierw i sprawdź przed zgłoszeniem.";
 "Your AltTab Pro trial has ended" = "Okres próbny AltTab Pro dobiegł końca";
-"Your feedback will be submitted as a public GitHub issue." = "Twoja opinia zostanie wysłana jako publiczne zgłoszenie na GitHub.";
 "Your Pro trial starts when AltTab is ready" = "Okres próbny Pro rozpocznie się, gdy AltTab będzie gotowy";
 "Your settings reset every time AltTab restarts." = "Twoje ustawienia są resetowane przy każdym ponownym uruchomieniu AltTab.";
 

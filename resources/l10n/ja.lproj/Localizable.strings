@@ -6,9 +6,7 @@
 "3-finger Vertical Swipe" = "3 本指の垂直スワイプ";
 "4-finger Horizontal Swipe" = "4 本指の水平スワイプ";
 "4-finger Vertical Swipe" = "4 本指の垂直スワイプ";
-"A debug profile (versions, settings, hardware) is attached to help diagnose the issue." = "問題の診断に役立てるため、デバッグ情報(バージョン、設定、ハードウェア)を添付しています。";
 "A little time." = "ひと手間。";
-"A new version of AltTab is available" = "AltTab の新しいバージョンが利用可能です";
 "About %@" = "%@ について";
 "Accessibility" = "アクセシビリティ";
 "Activate" = "アクティベート";
@@ -30,7 +28,6 @@
 "All Windows" = "すべてのウインドウ";
 "Allowed" = "許可";
 "Alphabetical Order" = "アルファベット順";
-"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "前回の使用時に AltTab がクラッシュしました。クラッシュレポートを送信すると問題の修正に役立ちます";
 "AltTab is ready" = "AltTab の準備ができました";
 "AltTab is running without Screen Recording permissions. %@ won’t show." = "AltTab は画面収録の権限なしで動作しています。%@は表示されません。";
 "AltTab preferences file is a symlink. macOS doesn’t support symlink for preferences. Please use a valid file instead of a symlink here:" = "AltTab の設定ファイルがシンボリックリンクです。macOS は設定にシンボリックリンクをサポートしていません。ここではシンボリックリンクではなく通常のファイルを使用してください:";
@@ -63,14 +60,10 @@
 "Auto-install updates periodically" = "アップデートを定期的に自動インストール";
 "Automatic activation failed" = "自動アクティベーションに失敗しました";
 "Breakfast" = "朝食";
-"Brief description of the bug" = "バグの簡単な説明";
-"Brief description of the change" = "変更の簡単な説明";
 "Bundle ID" = "Bundle ID";
 "Cancel" = "キャンセル";
 "Capture windows in the background" = "バックグラウンドでウインドウをキャプチャ";
-"Check for updates now…" = "今すぐアップデートを確認…";
 "Check for updates periodically" = "アップデートを定期的に確認";
-"Check for updates…" = "アップデートを確認…";
 "Check permissions…" = "権限を確認…";
 "Choose a style" = "スタイルを選択";
 "Choose which windows to switch between" = "切り替えるウインドウを選ぶ";
@@ -83,9 +76,7 @@
 "Could not move to Applications folder" = "アプリケーションフォルダに移動できませんでした";
 "Couldn't deactivate that machine" = "そのマシンを非アクティブ化できませんでした";
 "Couldn't save your license to the macOS Keychain. Please share the details below with the developer." = "ライセンスを macOS キーチェーンに保存できませんでした。以下の詳細を開発者に共有してください。";
-"Couldn't submit feedback" = "フィードバックを送信できませんでした";
 "Crash reports policy" = "クラッシュレポートのポリシー";
-"Create GitHub issue" = "GitHub Issue を作成";
 "Cursor follows focus" = "カーソルがフォーカスに従う";
 "Customize more…" = "さらにカスタマイズ…";
 "Dark" = "ダーク";
@@ -105,7 +96,6 @@
 "Don't show discovery tips again" = "機能のヒントを今後表示しない";
 "Done" = "完了";
 "Don’t check for updates periodically" = "アップデートを定期的に確認しない";
-"Don’t send" = "送信しない";
 "During your trial" = "トライアル期間中";
 "e.g. com.example.app" = "例: com.example.app";
 "e.g. Debug" = "例: Debug";
@@ -134,11 +124,9 @@
 "Get Pro to keep these features" = "Proを購入してこれらの機能を使い続ける";
 "Give different groups of windows their own shortcuts." = "ウインドウのグループごとにショートカットを割り当てられます。";
 "Give your previews more room" = "プレビューをもっと見やすく";
-"Go back" = "戻る";
 "Grant permission" = "権限を付与";
 "Group apps" = "App をグループ化";
 "Group tabs" = "タブをグループ化";
-"Help improve AltTab" = "AltTab の改善に協力";
 "Hide" = "非表示";
 "Hide colored circles on mouse hover" = "マウスホバー時のカラーサークルを非表示";
 "Hide Space number labels" = "Space 番号ラベルを非表示";
@@ -148,7 +136,6 @@
 "Hold" = "押し続ける";
 "hold" = "押し続ける";
 "I can move myself to the Applications folder if you'd like." = "ご希望であれば、アプリケーションフォルダに自動で移動できます。";
-"I think the app could be improved with…" = "App の改善案…";
 "Ideas" = "アイデア";
 "Ignore shortcuts" = "ショートカットを無視";
 "Import settings…" = "設定を読み込む…";
@@ -203,7 +190,6 @@
 "Photos" = "写真";
 "Pick a machine to deactivate so you can activate here." = "ここでアクティベートできるよう、非アクティブ化するマシンを選択してください。";
 "Please drag AltTab into the Applications folder manually." = "AltTab を手動でアプリケーションフォルダにドラッグしてください。";
-"Please fill in the form" = "フォームを入力してください";
 "press" = "押す";
 "Press %@" = "%@を押す";
 "Press %@ any time" = "いつでも %@ を押してください";
@@ -225,9 +211,6 @@
 "Red badge" = "赤いバッジ";
 "Red badge with number %@" = "数字%@の赤いバッジ";
 "Reliable, fast window switching with high-quality thumbnails" = "高品質なサムネイルによる、安定した高速なウインドウ切り替え";
-"Remember my choice" = "選択を記憶する";
-"Report a bug" = "バグを報告";
-"Report on current version" = "現在のバージョンについて報告";
 "Reset settings and restart" = "設定をリセットして再起動";
 "Restart Now" = "今すぐ再起動";
 "Safari — Food" = "Safari — 料理";
@@ -245,10 +228,6 @@
 "Select windows on mouse hover" = "マウスホバーでウインドウを選択";
 "Select windows using arrow keys" = "矢印キーでウインドウを選択";
 "Select windows using vim keys" = "Vim キーでウインドウを選択";
-"Send" = "送信";
-"Send a crash report?" = "クラッシュレポートを送信しますか?";
-"Send feedback" = "フィードバックを送信";
-"Sending…" = "送信中…";
 "Settings imported" = "設定を読み込みました";
 "Settings…" = "設定…";
 "Shopping" = "買い物";
@@ -283,7 +262,6 @@
 "Start" = "先頭";
 "Start at login" = "ログイン時に起動";
 "Styles" = "スタイル";
-"Suggest a change" = "変更を提案";
 "Support this project" = "このプロジェクトを支援";
 "Switch between 3 different styles. You can customize them." = "3 種類のスタイルを切り替えられます。カスタマイズも可能です。";
 "Sync with global value" = "全体の値と同期";
@@ -292,7 +270,6 @@
 "That's it" = "完了です";
 "The application needs to restart to apply the imported settings." = "読み込んだ設定を適用するには App を再起動する必要があります。";
 "The application needs to restart to apply the language change." = "言語の変更を適用するには App を再起動する必要があります。";
-"The server didn't accept the submission. Check your internet connection and try again — your draft is preserved." = "サーバーが送信を受け付けませんでした。インターネット接続を確認して再度お試しください — 下書きは保存されています。";
 "Theme" = "テーマ";
 "This license is already activated elsewhere" = "このライセンスは別のマシンですでにアクティベートされています";
 "This license is already activated on the maximum number of machines. Deactivate one to continue." = "このライセンスは最大数のマシンですでにアクティベートされています。続行するには 1 台を非アクティブ化してください。";
@@ -320,13 +297,11 @@
 "Unlock the App Icons style with Pro" = "Pro で App アイコンのスタイルを解除";
 "Unlock the Titles style with Pro" = "Pro でタイトルのスタイルを解除";
 "Up to 9 shortcuts" = "最大9個のショートカット";
-"Update now" = "今すぐアップデート";
 "Updates policy" = "アップデートのポリシー";
 "Usage" = "使用状況";
 "Use App Icons" = "App アイコンを使用";
 "Use Titles" = "タイトルを使用";
 "Version" = "バージョン";
-"View existing discussions" = "既存のディスカッションを表示";
 "Vim keys" = "Vim キー";
 "Vim keys already assigned to other actions:\n%@" = "Vim キーはすでに他のアクションに割り当てられています:\n%@";
 "Visible Spaces" = "表示中の Space";
@@ -334,9 +309,6 @@
 "Weekend" = "週末";
 "Weekend recipes" = "週末のレシピ";
 "Welcome to %@" = "%@ へようこそ";
-"What did you expect? What happened? Steps to reproduce…" = "期待した動作、実際に起きたこと、再現手順…";
-"What happened, and what did you expect?" = "何が起きましたか？期待していた動作は何ですか？";
-"What would make AltTab more useful for you?" = "AltTabがどのようになれば、もっと役立ちますか？";
 "When disabled, avoids the macOS purple screen-recording indicator, and avoids flickers when playing DRM video. Thumbnails will be less up-to-date." = "無効にすると、macOS の紫色の画面収録インジケータを回避し、DRM ビデオ再生時のちらつきを防げます。サムネイルの更新頻度は低くなります。";
 "When fullscreen" = "フルスクリーン時";
 "When no open window" = "開いているウインドウがないとき";
@@ -356,9 +328,7 @@
 "You can’t undo this action." = "この操作は取り消せません。";
 "You may need to disable some conflicting system gestures" = "競合するシステムのジェスチャを一部無効にする必要があるかもしれません";
 "You reached for AltTab Pro this week" = "今週、AltTab Pro の機能を使おうとしました";
-"You're running v%1$@. v%2$@ is available. The bug you're seeing may already be fixed — please update first and check before reporting." = "現在のバージョンは v%1$@ です。v%2$@ が利用可能です。発生している不具合はすでに修正されている可能性があります — 報告前にまずアップデートしてご確認ください。";
 "Your AltTab Pro trial has ended" = "AltTab Pro のトライアルが終了しました";
-"Your feedback will be submitted as a public GitHub issue." = "フィードバックは公開の GitHub Issue として送信されます。";
 "Your Pro trial starts when AltTab is ready" = "AltTabが使えるようになるとProの試用期間が始まります";
 "Your settings reset every time AltTab restarts." = "AltTab を再起動するたびに設定がリセットされます。";
 

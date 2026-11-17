@@ -94,7 +94,7 @@ class UpgradeTab {
         journey.refresh()
         ProJourneyView.refreshIntroduction(introduction)
         switch LicenseManager.shared.state {
-        case .pro:
+        case .unrestricted, .pro:
             showSections(journey: false, licenseLinks: false)
         case .trialNotStarted:
             showSections(journey: false, licenseLinks: true)
@@ -112,7 +112,6 @@ class UpgradeTab {
     }
 
     static func openAccountPage() {
-        NSWorkspace.shared.open(URL(string: Endpoints.accountUrl)!)
     }
 
     static func presentActivationSheet(prefilledKey: String = "", autoFailedHint: Bool = false) {

@@ -167,6 +167,11 @@ final class UpgradeButton: ProGradientButton {
     func refreshTitle() {
         wrappedWidth = bounds.width
         let state = LicenseManager.shared.state
+        if state == .unrestricted {
+            isHidden = true
+            return
+        }
+        isHidden = false
         if state == .trialNotStarted {
             toolTip = ProFeatureCopy.trialSetup
             applyTitle(secondary: nil, main: Self.attributed("Pro", Self.mainFont), height: Self.oneLineHeight)
@@ -556,6 +561,7 @@ class SettingsWindow: NSWindow {
     }
 
     @objc private func upgradeButtonClicked() {
+        guard LicenseManager.shared.state != .unrestricted else { return }
         showUpgradeView()
     }
 

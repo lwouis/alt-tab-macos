@@ -5,8 +5,11 @@ class HyperlinkLabel: NSTextField {
 
     convenience init(_ string: String, _ urlString: String) {
         self.init(labelWithString: string)
-        url = URL(string: urlString)!
-        applyLinkStyle(string)
+        let target = URL(string: urlString)!
+        if target.isFileURL || target.scheme == "x-apple.systempreferences" {
+            url = target
+            applyLinkStyle(string)
+        }
     }
 
     private func applyLinkStyle(_ string: String) {
@@ -18,7 +21,7 @@ class HyperlinkLabel: NSTextField {
     }
 
     override func resetCursorRects() {
-        addCursorRect(bounds, cursor: .pointingHand)
+        if url != nil { addCursorRect(bounds, cursor: .pointingHand) }
     }
 
     override func mouseDown(with event: NSEvent) {

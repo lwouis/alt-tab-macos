@@ -63,7 +63,7 @@ class ProPromptHost {
         let state = ProTransitionManager.shared.state
         return ProPromptPresentation.Context(
             sessionAvailable: sessionIsAvailable,
-            isPro: LicenseManager.shared.state == .pro,
+            isPro: LicenseManager.shared.state == .pro || LicenseManager.shared.state == .unrestricted,
             switcherActive: SwitcherSession.isActive,
             onboarding: state.onboardingInProgress || LicenseManager.shared.state == .trialNotStarted,
             competingUI: ContextMenuEvents.isMenuOpen || ProPromptPopover.isShowing(excluding: popover) ||

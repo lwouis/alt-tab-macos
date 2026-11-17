@@ -23,6 +23,7 @@ class ProTransitionScheduler {
 
     /// Fire now if a missed wake-up was persisted, then schedule the next one.
     func onAppLaunchComplete() {
+        guard licenseManager.state != .unrestricted else { cancel(); return }
         guard licenseManager.state != .trialNotStarted, !state.onboardingInProgress else { cancel(); return }
         let saved = defaults.double(forKey: Self.nextScheduledDateKey)
         if saved > 0 && Date(timeIntervalSince1970: saved) <= licenseManager.clock.now {
@@ -74,7 +75,7 @@ class ProTransitionScheduler {
 
     /// Compute the next date when a time-based prompt should fire.
     func computeNextFireDate() -> Date? {
-        if case .pro = licenseManager.state { return nil }
+        if licenseManager.state == .pro || licenseManager.state == .unrestricted { return nil }
         if state.onboardingInProgress { return nil }
         guard let start = licenseManager.trialStartDate else { return nil }
         // Welcome is immediate; the badge and expiry deadlines remain independent of promotional prompts.

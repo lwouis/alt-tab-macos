@@ -93,6 +93,7 @@ enum ProGradient {
     }
 
     static func makeProTextAttachment(font: NSFont, baselineOffset: CGFloat = 0) -> NSAttributedString {
+        guard LicenseManager.shared.state != .unrestricted else { return NSAttributedString(string: "") }
         return makeGradientTextAttachment(ProBadgeView.proLabel, font: font, baselineOffset: baselineOffset)
     }
 
@@ -290,6 +291,7 @@ class ProBadgeView: NSView {
 
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
+        isHidden = LicenseManager.shared.state == .unrestricted
         // Register the "Pro" tag with the search index if a section build is in progress —
         // mirrors what the post-construction walk in `SettingsWindow.collectSearchContent` does
         // when it spots a `ProBadgeView`, just without needing the walk to find it after.

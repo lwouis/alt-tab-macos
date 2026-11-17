@@ -1,4 +1,5 @@
 enum LicenseState: Equatable {
+    case unrestricted
     case trialNotStarted
     case trial(daysRemaining: Int)
     case pro
@@ -7,13 +8,14 @@ enum LicenseState: Equatable {
 
     var isProAvailable: Bool {
         switch self {
-        case .trial, .pro: return true
+        case .unrestricted, .trial, .pro: return true
         case .trialNotStarted, .proExpired, .trialExpired: return false
         }
     }
 
     var debugProfileLabel: String {
         switch self {
+        case .unrestricted: return "Community"
         case .trialNotStarted: return "Setup"
         case .trial: return "Trial"
         case .pro: return "Pro"
@@ -25,6 +27,7 @@ enum LicenseState: Equatable {
     /// `debugProfileLabel` and the analytics view group both as Free.
     var appcastTier: String {
         switch self {
+        case .unrestricted: return ""
         case .trialNotStarted: return ""
         case .trial: return "trial"
         case .pro: return "pro"

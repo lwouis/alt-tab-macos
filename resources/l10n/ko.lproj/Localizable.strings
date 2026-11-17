@@ -6,9 +6,7 @@
 "3-finger Vertical Swipe" = "세 손가락 세로 스와이프";
 "4-finger Horizontal Swipe" = "네 손가락 가로 스와이프";
 "4-finger Vertical Swipe" = "네 손가락 세로 스와이프";
-"A debug profile (versions, settings, hardware) is attached to help diagnose the issue." = "문제 진단을 돕기 위해 디버그 프로파일(버전, 설정, 하드웨어)이 첨부됩니다.";
 "A little time." = "조금의 시간.";
-"A new version of AltTab is available" = "AltTab의 새 버전이 출시되었습니다";
 "About %@" = "%@ 정보";
 "Accessibility" = "손쉬운 사용";
 "Activate" = "활성화";
@@ -30,7 +28,6 @@
 "All Windows" = "모든 윈도우";
 "Allowed" = "허용됨";
 "Alphabetical Order" = "알파벳 순서";
-"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab이 마지막 사용 시 충돌했습니다. 충돌 보고서를 보내면 문제 해결에 도움이 됩니다";
 "AltTab is ready" = "AltTab 준비 완료";
 "AltTab is running without Screen Recording permissions. %@ won’t show." = "AltTab이 화면 녹화 권한 없이 실행 중입니다. %@이(가) 표시되지 않습니다.";
 "AltTab preferences file is a symlink. macOS doesn’t support symlink for preferences. Please use a valid file instead of a symlink here:" = "AltTab 환경설정 파일이 심볼릭 링크입니다. macOS는 환경설정에 심볼릭 링크를 지원하지 않습니다. 여기에서 심볼릭 링크 대신 올바른 파일을 사용하십시오:";
@@ -63,14 +60,10 @@
 "Auto-install updates periodically" = "주기적으로 업데이트 자동 설치";
 "Automatic activation failed" = "자동 활성화 실패";
 "Breakfast" = "아침";
-"Brief description of the bug" = "버그에 대한 간단한 설명";
-"Brief description of the change" = "변경 사항에 대한 간단한 설명";
 "Bundle ID" = "Bundle ID";
 "Cancel" = "취소";
 "Capture windows in the background" = "백그라운드에서 윈도우 캡처";
-"Check for updates now…" = "지금 업데이트 확인…";
 "Check for updates periodically" = "주기적으로 업데이트 확인";
-"Check for updates…" = "업데이트 확인…";
 "Check permissions…" = "권한 확인…";
 "Choose a style" = "스타일 선택";
 "Choose which windows to switch between" = "전환할 윈도우를 선택하세요";
@@ -83,9 +76,7 @@
 "Could not move to Applications folder" = "응용 프로그램 폴더로 이동할 수 없습니다";
 "Couldn't deactivate that machine" = "해당 기기를 비활성화할 수 없습니다";
 "Couldn't save your license to the macOS Keychain. Please share the details below with the developer." = "라이선스를 macOS 키체인에 저장할 수 없습니다. 아래 세부 정보를 개발자와 공유해 주세요.";
-"Couldn't submit feedback" = "피드백을 제출할 수 없습니다";
 "Crash reports policy" = "충돌 보고서 정책";
-"Create GitHub issue" = "GitHub 이슈 생성";
 "Cursor follows focus" = "커서가 포커스를 따라감";
 "Customize more…" = "더 사용자화…";
 "Dark" = "다크";
@@ -105,7 +96,6 @@
 "Don't show discovery tips again" = "기능 안내 팁 다시 표시하지 않기";
 "Done" = "완료";
 "Don’t check for updates periodically" = "주기적으로 업데이트 확인 안 함";
-"Don’t send" = "보내지 않음";
 "During your trial" = "체험 기간 동안";
 "e.g. com.example.app" = "예: com.example.app";
 "e.g. Debug" = "예: Debug";
@@ -134,11 +124,9 @@
 "Get Pro to keep these features" = "이 기능을 계속 사용하려면 Pro를 구매하세요";
 "Give different groups of windows their own shortcuts." = "윈도우 그룹마다 다른 단축키를 지정하세요.";
 "Give your previews more room" = "미리보기를 더 넓게 보기";
-"Go back" = "뒤로 가기";
 "Grant permission" = "권한 부여";
 "Group apps" = "앱 그룹화";
 "Group tabs" = "탭 그룹화";
-"Help improve AltTab" = "AltTab 개선에 도움 주기";
 "Hide" = "숨기기";
 "Hide colored circles on mouse hover" = "마우스 오버 시 색상 원 숨기기";
 "Hide Space number labels" = "Space 번호 레이블 숨기기";
@@ -148,7 +136,6 @@
 "Hold" = "유지";
 "hold" = "누른 채로";
 "I can move myself to the Applications folder if you'd like." = "원하시면 응용 프로그램 폴더로 자동 이동할 수 있습니다.";
-"I think the app could be improved with…" = "이 앱이 개선되었으면 하는 점…";
 "Ideas" = "아이디어";
 "Ignore shortcuts" = "단축키 무시";
 "Import settings…" = "설정 가져오기…";
@@ -203,7 +190,6 @@
 "Photos" = "사진";
 "Pick a machine to deactivate so you can activate here." = "여기서 활성화하려면 비활성화할 기기를 선택하세요.";
 "Please drag AltTab into the Applications folder manually." = "AltTab을 응용 프로그램 폴더로 직접 드래그해 주세요.";
-"Please fill in the form" = "양식을 작성해 주세요";
 "press" = "누르기";
 "Press %@" = "%@ 누르기";
 "Press %@ any time" = "언제든지 %@ 키를 누르십시오";
@@ -225,9 +211,6 @@
 "Red badge" = "빨간색 배지";
 "Red badge with number %@" = "숫자 %@이(가) 표시된 빨간색 배지";
 "Reliable, fast window switching with high-quality thumbnails" = "고품질 썸네일로 안정적이고 빠른 윈도우 전환";
-"Remember my choice" = "내 선택 기억하기";
-"Report a bug" = "버그 신고";
-"Report on current version" = "현재 버전에서 신고";
 "Reset settings and restart" = "설정 초기화 및 재시작";
 "Restart Now" = "지금 재시작";
 "Safari — Food" = "Safari — 요리";
@@ -245,10 +228,6 @@
 "Select windows on mouse hover" = "마우스 오버 시 윈도우 선택";
 "Select windows using arrow keys" = "화살표 키로 윈도우 선택";
 "Select windows using vim keys" = "Vim 키로 윈도우 선택";
-"Send" = "보내기";
-"Send a crash report?" = "충돌 보고서를 보내시겠습니까?";
-"Send feedback" = "피드백 보내기";
-"Sending…" = "보내는 중…";
 "Settings imported" = "설정을 가져왔습니다";
 "Settings…" = "설정…";
 "Shopping" = "쇼핑";
@@ -283,7 +262,6 @@
 "Start" = "시작";
 "Start at login" = "로그인 시 시작";
 "Styles" = "스타일";
-"Suggest a change" = "변경 제안";
 "Support this project" = "이 프로젝트 후원하기";
 "Switch between 3 different styles. You can customize them." = "3가지 다른 스타일 간에 전환합니다. 사용자화할 수 있습니다.";
 "Sync with global value" = "전역 값과 동기화";
@@ -292,7 +270,6 @@
 "That's it" = "완료되었습니다";
 "The application needs to restart to apply the imported settings." = "가져온 설정을 적용하려면 앱을 재시작해야 합니다.";
 "The application needs to restart to apply the language change." = "언어 변경을 적용하려면 앱을 재시작해야 합니다.";
-"The server didn't accept the submission. Check your internet connection and try again — your draft is preserved." = "서버에서 제출을 수락하지 않았습니다. 인터넷 연결을 확인하고 다시 시도해 주세요 — 초안은 보존됩니다.";
 "Theme" = "테마";
 "This license is already activated elsewhere" = "이 라이선스는 이미 다른 곳에서 활성화되어 있습니다";
 "This license is already activated on the maximum number of machines. Deactivate one to continue." = "이 라이선스는 이미 최대 기기 수에서 활성화되어 있습니다. 계속하려면 하나를 비활성화하세요.";
@@ -320,13 +297,11 @@
 "Unlock the App Icons style with Pro" = "Pro로 앱 아이콘 스타일 잠금 해제";
 "Unlock the Titles style with Pro" = "Pro로 제목 스타일 잠금 해제";
 "Up to 9 shortcuts" = "최대 9개 단축키";
-"Update now" = "지금 업데이트";
 "Updates policy" = "업데이트 정책";
 "Usage" = "사용량";
 "Use App Icons" = "앱 아이콘 사용";
 "Use Titles" = "제목 사용";
 "Version" = "버전";
-"View existing discussions" = "기존 토론 보기";
 "Vim keys" = "Vim 키";
 "Vim keys already assigned to other actions:\n%@" = "Vim 키가 이미 다른 동작에 할당되어 있습니다:\n%@";
 "Visible Spaces" = "보이는 Space";
@@ -334,9 +309,6 @@
 "Weekend" = "주말";
 "Weekend recipes" = "주말 요리법";
 "Welcome to %@" = "%@에 오신 것을 환영합니다";
-"What did you expect? What happened? Steps to reproduce…" = "예상했던 동작은? 실제로 일어난 일은? 재현 단계…";
-"What happened, and what did you expect?" = "무슨 일이 있었고, 어떤 동작을 기대하셨나요?";
-"What would make AltTab more useful for you?" = "AltTab이 어떻게 바뀌면 더 유용할까요?";
 "When disabled, avoids the macOS purple screen-recording indicator, and avoids flickers when playing DRM video. Thumbnails will be less up-to-date." = "비활성화하면 macOS의 보라색 화면 녹화 표시기가 나타나지 않으며 DRM 비디오 재생 시 깜박임을 방지합니다. 썸네일은 최신 상태로 유지되지 않을 수 있습니다.";
 "When fullscreen" = "전체 화면일 때";
 "When no open window" = "열린 윈도우가 없을 때";
@@ -356,9 +328,7 @@
 "You can’t undo this action." = "이 작업은 되돌릴 수 없습니다.";
 "You may need to disable some conflicting system gestures" = "충돌하는 일부 시스템 제스처를 비활성화해야 할 수 있습니다";
 "You reached for AltTab Pro this week" = "이번 주에 AltTab Pro 기능을 찾으셨어요";
-"You're running v%1$@. v%2$@ is available. The bug you're seeing may already be fixed — please update first and check before reporting." = "현재 v%1$@를 사용 중입니다. v%2$@가 사용 가능합니다. 보고 있는 버그가 이미 수정되었을 수 있습니다 — 신고 전에 먼저 업데이트하고 확인해 주세요.";
 "Your AltTab Pro trial has ended" = "AltTab Pro 체험 기간이 끝났습니다";
-"Your feedback will be submitted as a public GitHub issue." = "피드백은 공개 GitHub 이슈로 제출됩니다.";
 "Your Pro trial starts when AltTab is ready" = "AltTab을 사용할 준비가 되면 Pro 체험이 시작됩니다";
 "Your settings reset every time AltTab restarts." = "AltTab을 다시 시작할 때마다 설정이 초기화됩니다.";
 

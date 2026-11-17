@@ -6,9 +6,7 @@
 "3-finger Vertical Swipe" = "Gesek Vertikal 3 Jari";
 "4-finger Horizontal Swipe" = "Gesek Horizontal 4 Jari";
 "4-finger Vertical Swipe" = "Gesek Vertikal 4 Jari";
-"A debug profile (versions, settings, hardware) is attached to help diagnose the issue." = "Profil debug (versi, pengaturan, perangkat keras) dilampirkan untuk membantu mendiagnosis masalah.";
 "A little time." = "Sejenak.";
-"A new version of AltTab is available" = "Versi baru AltTab tersedia";
 "About %@" = "Tentang %@";
 "Accessibility" = "Aksesibilitas";
 "Activate" = "Aktifkan";
@@ -30,7 +28,6 @@
 "All Windows" = "Semua Jendela";
 "Allowed" = "Diizinkan";
 "Alphabetical Order" = "Urutan Abjad";
-"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab mengalami kerusakan saat terakhir kali Anda menggunakannya. Mengirim laporan kerusakan akan membantu memperbaiki masalah";
 "AltTab is ready" = "AltTab sudah siap";
 "AltTab is running without Screen Recording permissions. %@ won’t show." = "AltTab berjalan tanpa izin Perekaman Layar. %@ tidak akan ditampilkan.";
 "AltTab preferences file is a symlink. macOS doesn’t support symlink for preferences. Please use a valid file instead of a symlink here:" = "Berkas preferensi AltTab adalah tautan simbolik. macOS tidak mendukung tautan simbolik untuk preferensi. Harap gunakan berkas yang valid alih-alih tautan simbolik di sini:";
@@ -63,14 +60,10 @@
 "Auto-install updates periodically" = "Pasang pembaruan otomatis secara berkala";
 "Automatic activation failed" = "Aktivasi otomatis gagal";
 "Breakfast" = "Sarapan";
-"Brief description of the bug" = "Deskripsi singkat tentang bug";
-"Brief description of the change" = "Deskripsi singkat tentang perubahan";
 "Bundle ID" = "Bundle ID";
 "Cancel" = "Batal";
 "Capture windows in the background" = "Tangkap jendela di latar belakang";
-"Check for updates now…" = "Periksa pembaruan sekarang…";
 "Check for updates periodically" = "Periksa pembaruan secara berkala";
-"Check for updates…" = "Periksa pembaruan…";
 "Check permissions…" = "Periksa izin…";
 "Choose a style" = "Pilih gaya";
 "Choose which windows to switch between" = "Pilih jendela yang ingin Anda alihkan";
@@ -83,9 +76,7 @@
 "Could not move to Applications folder" = "Tidak dapat memindahkan ke folder Aplikasi";
 "Couldn't deactivate that machine" = "Tidak dapat menonaktifkan mesin tersebut";
 "Couldn't save your license to the macOS Keychain. Please share the details below with the developer." = "Tidak dapat menyimpan lisensi Anda ke Rantai Kunci macOS. Bagikan detail di bawah ini kepada pengembang.";
-"Couldn't submit feedback" = "Tidak dapat mengirim masukan";
 "Crash reports policy" = "Kebijakan laporan kerusakan";
-"Create GitHub issue" = "Buat isu GitHub";
 "Cursor follows focus" = "Kursor mengikuti fokus";
 "Customize more…" = "Sesuaikan lebih lanjut…";
 "Dark" = "Gelap";
@@ -105,7 +96,6 @@
 "Don't show discovery tips again" = "Jangan tampilkan tips fitur lagi";
 "Done" = "Selesai";
 "Don’t check for updates periodically" = "Jangan periksa pembaruan secara berkala";
-"Don’t send" = "Jangan kirim";
 "During your trial" = "Selama masa uji coba";
 "e.g. com.example.app" = "mis. com.example.app";
 "e.g. Debug" = "mis. Debug";
@@ -134,11 +124,9 @@
 "Get Pro to keep these features" = "Dapatkan Pro untuk tetap memakai fitur ini";
 "Give different groups of windows their own shortcuts." = "Berikan pintasan tersendiri untuk tiap kelompok jendela.";
 "Give your previews more room" = "Lebih banyak ruang untuk pratinjau";
-"Go back" = "Kembali";
 "Grant permission" = "Berikan izin";
 "Group apps" = "Kelompokkan aplikasi";
 "Group tabs" = "Kelompokkan tab";
-"Help improve AltTab" = "Bantu tingkatkan AltTab";
 "Hide" = "Sembunyikan";
 "Hide colored circles on mouse hover" = "Sembunyikan lingkaran berwarna saat kursor diarahkan";
 "Hide Space number labels" = "Sembunyikan label nomor Ruang";
@@ -148,7 +136,6 @@
 "Hold" = "Tahan";
 "hold" = "tahan";
 "I can move myself to the Applications folder if you'd like." = "Saya dapat memindahkan diri ke folder Aplikasi jika Anda mau.";
-"I think the app could be improved with…" = "Menurut saya aplikasi dapat ditingkatkan dengan…";
 "Ideas" = "Ide";
 "Ignore shortcuts" = "Abaikan pintasan";
 "Import settings…" = "Impor pengaturan…";
@@ -203,7 +190,6 @@
 "Photos" = "Foto";
 "Pick a machine to deactivate so you can activate here." = "Pilih mesin untuk dinonaktifkan agar Anda dapat mengaktifkan di sini.";
 "Please drag AltTab into the Applications folder manually." = "Seret AltTab ke folder Aplikasi secara manual.";
-"Please fill in the form" = "Isi formulir";
 "press" = "tekan";
 "Press %@" = "Tekan %@";
 "Press %@ any time" = "Tekan %@ kapan saja";
@@ -225,9 +211,6 @@
 "Red badge" = "Lencana merah";
 "Red badge with number %@" = "Lencana merah dengan angka %@";
 "Reliable, fast window switching with high-quality thumbnails" = "Pengalihan jendela yang andal dan cepat dengan gambar mini berkualitas tinggi";
-"Remember my choice" = "Ingat pilihan saya";
-"Report a bug" = "Laporkan bug";
-"Report on current version" = "Laporkan pada versi saat ini";
 "Reset settings and restart" = "Setel ulang pengaturan dan mulai ulang";
 "Restart Now" = "Mulai Ulang Sekarang";
 "Safari — Food" = "Safari — Makanan";
@@ -245,10 +228,6 @@
 "Select windows on mouse hover" = "Pilih jendela saat kursor diarahkan";
 "Select windows using arrow keys" = "Pilih jendela menggunakan tombol panah";
 "Select windows using vim keys" = "Pilih jendela menggunakan tombol Vim";
-"Send" = "Kirim";
-"Send a crash report?" = "Kirim laporan kerusakan?";
-"Send feedback" = "Kirim masukan";
-"Sending…" = "Mengirim…";
 "Settings imported" = "Pengaturan diimpor";
 "Settings…" = "Pengaturan…";
 "Shopping" = "Belanja";
@@ -283,7 +262,6 @@
 "Start" = "Mulai";
 "Start at login" = "Jalankan saat masuk";
 "Styles" = "Gaya";
-"Suggest a change" = "Sarankan perubahan";
 "Support this project" = "Dukung proyek ini";
 "Switch between 3 different styles. You can customize them." = "Beralih antara 3 gaya berbeda. Anda dapat menyesuaikannya.";
 "Sync with global value" = "Sinkronkan dengan nilai global";
@@ -292,7 +270,6 @@
 "That's it" = "Selesai";
 "The application needs to restart to apply the imported settings." = "Aplikasi perlu dimulai ulang untuk menerapkan pengaturan yang diimpor.";
 "The application needs to restart to apply the language change." = "Aplikasi perlu dimulai ulang untuk menerapkan perubahan bahasa.";
-"The server didn't accept the submission. Check your internet connection and try again — your draft is preserved." = "Server tidak menerima kiriman. Periksa koneksi internet Anda dan coba lagi — draf Anda tetap tersimpan.";
 "Theme" = "Tema";
 "This license is already activated elsewhere" = "Lisensi ini sudah diaktifkan di tempat lain";
 "This license is already activated on the maximum number of machines. Deactivate one to continue." = "Lisensi ini sudah diaktifkan pada jumlah mesin maksimum. Nonaktifkan salah satu untuk melanjutkan.";
@@ -320,13 +297,11 @@
 "Unlock the App Icons style with Pro" = "Buka gaya Ikon Aplikasi dengan Pro";
 "Unlock the Titles style with Pro" = "Buka gaya Judul dengan Pro";
 "Up to 9 shortcuts" = "Hingga 9 pintasan";
-"Update now" = "Perbarui sekarang";
 "Updates policy" = "Kebijakan pembaruan";
 "Usage" = "Penggunaan";
 "Use App Icons" = "Gunakan ikon aplikasi";
 "Use Titles" = "Gunakan judul";
 "Version" = "Versi";
-"View existing discussions" = "Lihat diskusi yang ada";
 "Vim keys" = "Tombol Vim";
 "Vim keys already assigned to other actions:\n%@" = "Tombol Vim sudah ditetapkan untuk tindakan lain:\n%@";
 "Visible Spaces" = "Ruang terlihat";
@@ -334,9 +309,6 @@
 "Weekend" = "Akhir pekan";
 "Weekend recipes" = "Resep akhir pekan";
 "Welcome to %@" = "Selamat datang di %@";
-"What did you expect? What happened? Steps to reproduce…" = "Apa yang Anda harapkan? Apa yang terjadi? Langkah-langkah untuk mereproduksi…";
-"What happened, and what did you expect?" = "Apa yang terjadi, dan apa yang Anda harapkan?";
-"What would make AltTab more useful for you?" = "Apa yang akan membuat AltTab lebih bermanfaat bagi Anda?";
 "When disabled, avoids the macOS purple screen-recording indicator, and avoids flickers when playing DRM video. Thumbnails will be less up-to-date." = "Saat dinonaktifkan, menghindari indikator perekaman layar ungu macOS, dan menghindari kedipan saat memutar video DRM. Gambar mini akan kurang terbaru.";
 "When fullscreen" = "Saat layar penuh";
 "When no open window" = "Saat tidak ada jendela terbuka";
@@ -356,9 +328,7 @@
 "You can’t undo this action." = "Anda tidak dapat membatalkan tindakan ini.";
 "You may need to disable some conflicting system gestures" = "Anda mungkin perlu menonaktifkan beberapa gestur sistem yang bertentangan";
 "You reached for AltTab Pro this week" = "Anda mencoba AltTab Pro minggu ini";
-"You're running v%1$@. v%2$@ is available. The bug you're seeing may already be fixed — please update first and check before reporting." = "Anda menjalankan v%1$@. v%2$@ tersedia. Bug yang Anda lihat mungkin sudah diperbaiki — harap perbarui dulu dan periksa sebelum melaporkan.";
 "Your AltTab Pro trial has ended" = "Masa uji coba AltTab Pro Anda berakhir";
-"Your feedback will be submitted as a public GitHub issue." = "Masukan Anda akan dikirim sebagai isu GitHub publik.";
 "Your Pro trial starts when AltTab is ready" = "Uji coba Pro dimulai saat AltTab siap digunakan";
 "Your settings reset every time AltTab restarts." = "Pengaturan Anda diatur ulang setiap kali AltTab dimulai ulang.";
 

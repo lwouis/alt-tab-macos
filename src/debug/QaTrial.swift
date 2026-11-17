@@ -227,6 +227,7 @@ enum QaTrial {
 
     private static func licenseLabel(_ state: LicenseState) -> String {
         switch state {
+            case .unrestricted: return "Community"
             case .trialNotStarted: return "setup pending"
             case let .trial(daysRemaining): return "trial, \(daysRemaining) days left"
             case .trialExpired: return "trial ended"

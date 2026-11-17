@@ -6,9 +6,7 @@
 "3-finger Vertical Swipe" = "三指垂直滑动";
 "4-finger Horizontal Swipe" = "四指水平滑动";
 "4-finger Vertical Swipe" = "四指垂直滑动";
-"A debug profile (versions, settings, hardware) is attached to help diagnose the issue." = "已附上调试信息（版本、设置、硬件）以协助诊断问题。";
 "A little time." = "花点时间。";
-"A new version of AltTab is available" = "AltTab 有新版本可用";
 "About %@" = "关于 %@";
 "Accessibility" = "辅助功能";
 "Activate" = "激活";
@@ -30,7 +28,6 @@
 "All Windows" = "所有窗口";
 "Allowed" = "允许";
 "Alphabetical Order" = "按字母顺序";
-"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab 在您上次使用时崩溃了。发送崩溃报告有助于修复问题";
 "AltTab is ready" = "AltTab 已准备就绪";
 "AltTab is running without Screen Recording permissions. %@ won’t show." = "AltTab 正在运行但未获得屏幕录制权限。%@将无法显示。";
 "AltTab preferences file is a symlink. macOS doesn’t support symlink for preferences. Please use a valid file instead of a symlink here:" = "AltTab 的偏好设置文件是一个符号链接。macOS 不支持用符号链接保存偏好设置。请在此处使用正常文件，而不是符号链接：";
@@ -63,14 +60,10 @@
 "Auto-install updates periodically" = "定期自动安装更新";
 "Automatic activation failed" = "自动激活失败";
 "Breakfast" = "早餐";
-"Brief description of the bug" = "简要描述错误";
-"Brief description of the change" = "简要描述改动";
 "Bundle ID" = "Bundle ID";
 "Cancel" = "取消";
 "Capture windows in the background" = "在后台捕获窗口";
-"Check for updates now…" = "立即检查更新…";
 "Check for updates periodically" = "定期检查更新";
-"Check for updates…" = "检查更新…";
 "Check permissions…" = "检查权限…";
 "Choose a style" = "选择样式";
 "Choose which windows to switch between" = "选择要切换的窗口范围";
@@ -83,9 +76,7 @@
 "Could not move to Applications folder" = "无法移动到应用程序文件夹";
 "Couldn't deactivate that machine" = "无法停用该设备";
 "Couldn't save your license to the macOS Keychain. Please share the details below with the developer." = "无法将您的许可证保存到 macOS 钥匙串。请将以下详细信息发送给开发者。";
-"Couldn't submit feedback" = "无法提交反馈";
 "Crash reports policy" = "崩溃报告策略";
-"Create GitHub issue" = "创建 GitHub issue";
 "Cursor follows focus" = "光标跟随焦点";
 "Customize more…" = "更多自定义…";
 "Dark" = "深色";
@@ -105,7 +96,6 @@
 "Don't show discovery tips again" = "不再显示功能提示";
 "Done" = "完成";
 "Don’t check for updates periodically" = "不定期检查更新";
-"Don’t send" = "不发送";
 "During your trial" = "试用期间";
 "e.g. com.example.app" = "例如 com.example.app";
 "e.g. Debug" = "例如 Debug";
@@ -134,11 +124,9 @@
 "Get Pro to keep these features" = "获取 Pro 以继续使用这些功能";
 "Give different groups of windows their own shortcuts." = "为不同的窗口分组设置各自的快捷键。";
 "Give your previews more room" = "让预览拥有更多空间";
-"Go back" = "返回";
 "Grant permission" = "授予权限";
 "Group apps" = "应用分组";
 "Group tabs" = "标签分组";
-"Help improve AltTab" = "帮助改进 AltTab";
 "Hide" = "隐藏";
 "Hide colored circles on mouse hover" = "鼠标悬停时隐藏彩色圆圈";
 "Hide Space number labels" = "隐藏桌面编号标签";
@@ -148,7 +136,6 @@
 "Hold" = "按住";
 "hold" = "按住";
 "I can move myself to the Applications folder if you'd like." = "如果您愿意,我可以将自己移动到应用程序文件夹。";
-"I think the app could be improved with…" = "我认为该应用可以通过以下方式改进…";
 "Ideas" = "灵感";
 "Ignore shortcuts" = "忽略快捷键";
 "Import settings…" = "导入设置…";
@@ -203,7 +190,6 @@
 "Photos" = "照片";
 "Pick a machine to deactivate so you can activate here." = "请选择一台设备停用，以便在此处激活。";
 "Please drag AltTab into the Applications folder manually." = "请手动将 AltTab 拖动到应用程序文件夹。";
-"Please fill in the form" = "请填写表单";
 "press" = "按下";
 "Press %@" = "按 %@";
 "Press %@ any time" = "随时按 %@";
@@ -225,9 +211,6 @@
 "Red badge" = "红色标记";
 "Red badge with number %@" = "带有数字 %@ 的红色标记";
 "Reliable, fast window switching with high-quality thumbnails" = "可靠、快速的窗口切换，提供高质量缩略图";
-"Remember my choice" = "记住我的选择";
-"Report a bug" = "报告错误";
-"Report on current version" = "在当前版本上报告";
 "Reset settings and restart" = "重置设置并重启";
 "Restart Now" = "立即重启";
 "Safari — Food" = "Safari — 美食";
@@ -245,10 +228,6 @@
 "Select windows on mouse hover" = "鼠标悬停时选择窗口";
 "Select windows using arrow keys" = "使用方向键选择窗口";
 "Select windows using vim keys" = "使用 Vim 键选择窗口";
-"Send" = "发送";
-"Send a crash report?" = "发送崩溃报告？";
-"Send feedback" = "发送反馈";
-"Sending…" = "发送中…";
 "Settings imported" = "设置已导入";
 "Settings…" = "设置…";
 "Shopping" = "购物";
@@ -283,7 +262,6 @@
 "Start" = "起始";
 "Start at login" = "登录时启动";
 "Styles" = "样式";
-"Suggest a change" = "提出改动建议";
 "Support this project" = "支持此项目";
 "Switch between 3 different styles. You can customize them." = "在 3 种不同的样式之间切换。您可以自定义它们。";
 "Sync with global value" = "与全局值同步";
@@ -292,7 +270,6 @@
 "That's it" = "就是这样";
 "The application needs to restart to apply the imported settings." = "应用需要重启以应用导入的设置。";
 "The application needs to restart to apply the language change." = "应用需要重启以应用语言更改。";
-"The server didn't accept the submission. Check your internet connection and try again — your draft is preserved." = "服务器未接受提交。请检查网络连接并重试 — 草稿已保留。";
 "Theme" = "主题";
 "This license is already activated elsewhere" = "此许可证已在其他设备上激活";
 "This license is already activated on the maximum number of machines. Deactivate one to continue." = "此许可证已达到最大激活设备数。请停用其中一台以继续。";
@@ -320,13 +297,11 @@
 "Unlock the App Icons style with Pro" = "通过 Pro 解锁应用图标样式";
 "Unlock the Titles style with Pro" = "通过 Pro 解锁标题样式";
 "Up to 9 shortcuts" = "最多 9 个快捷键";
-"Update now" = "立即更新";
 "Updates policy" = "更新策略";
 "Usage" = "使用情况";
 "Use App Icons" = "使用应用图标";
 "Use Titles" = "使用标题";
 "Version" = "版本";
-"View existing discussions" = "查看现有讨论";
 "Vim keys" = "Vim 键";
 "Vim keys already assigned to other actions:\n%@" = "Vim 键已分配给其他操作：\n%@";
 "Visible Spaces" = "可见的桌面";
@@ -334,9 +309,6 @@
 "Weekend" = "周末";
 "Weekend recipes" = "周末食谱";
 "Welcome to %@" = "欢迎使用 %@";
-"What did you expect? What happened? Steps to reproduce…" = "您期望什么？发生了什么？重现步骤…";
-"What happened, and what did you expect?" = "发生了什么？您期望的结果是什么？";
-"What would make AltTab more useful for you?" = "怎样才能让 AltTab 对您更有用？";
 "When disabled, avoids the macOS purple screen-recording indicator, and avoids flickers when playing DRM video. Thumbnails will be less up-to-date." = "停用后，可避免 macOS 的紫色屏幕录制指示器，并避免播放 DRM 视频时出现闪烁。缩略图的实时性会降低。";
 "When fullscreen" = "全屏时";
 "When no open window" = "无打开窗口时";
@@ -356,9 +328,7 @@
 "You can’t undo this action." = "此操作无法撤销。";
 "You may need to disable some conflicting system gestures" = "您可能需要禁用一些冲突的系统手势";
 "You reached for AltTab Pro this week" = "你本周用到了 AltTab Pro";
-"You're running v%1$@. v%2$@ is available. The bug you're seeing may already be fixed — please update first and check before reporting." = "您当前运行的是 v%1$@。v%2$@ 已可用。您遇到的错误可能已被修复 — 请先更新并检查，再提交报告。";
 "Your AltTab Pro trial has ended" = "您的 AltTab Pro 试用已结束";
-"Your feedback will be submitted as a public GitHub issue." = "您的反馈将作为公开的 GitHub issue 提交。";
 "Your Pro trial starts when AltTab is ready" = "AltTab 准备就绪后，Pro 试用期即开始";
 "Your settings reset every time AltTab restarts." = "每次重新启动 AltTab 时，你的设置都会被重置。";
 

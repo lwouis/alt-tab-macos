@@ -6,9 +6,7 @@
 "3-finger Vertical Swipe" = "החלקה אנכית ב-3 אצבעות";
 "4-finger Horizontal Swipe" = "החלקה אופקית ב-4 אצבעות";
 "4-finger Vertical Swipe" = "החלקה אנכית ב-4 אצבעות";
-"A debug profile (versions, settings, hardware) is attached to help diagnose the issue." = "פרופיל איתור באגים (גרסאות, הגדרות, חומרה) מצורף כדי לסייע באבחון הבעיה.";
 "A little time." = "קצת זמן.";
-"A new version of AltTab is available" = "גרסה חדשה של AltTab זמינה";
 "About %@" = "אודות %@";
 "Accessibility" = "נגישות";
 "Activate" = "הפעל";
@@ -30,7 +28,6 @@
 "All Windows" = "כל החלונות";
 "Allowed" = "מותר";
 "Alphabetical Order" = "סדר אלפביתי";
-"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab קרס בפעם האחרונה שהשתמשת בו. שליחת דיווח קריסה תסייע לתקן את הבעיה";
 "AltTab is ready" = "AltTab מוכן";
 "AltTab is running without Screen Recording permissions. %@ won’t show." = "AltTab פועל ללא הרשאות הקלטת מסך. %@ לא יוצגו.";
 "AltTab preferences file is a symlink. macOS doesn’t support symlink for preferences. Please use a valid file instead of a symlink here:" = "קובץ ההגדרות של AltTab הוא קישור סימבולי. macOS אינו תומך בקישורים סימבוליים עבור הגדרות. אנא השתמש בקובץ תקין במקום קישור סימבולי כאן:";
@@ -63,14 +60,10 @@
 "Auto-install updates periodically" = "התקן עדכונים אוטומטית מעת לעת";
 "Automatic activation failed" = "ההפעלה האוטומטית נכשלה";
 "Breakfast" = "ארוחת בוקר";
-"Brief description of the bug" = "תיאור קצר של הבאג";
-"Brief description of the change" = "תיאור קצר של השינוי";
 "Bundle ID" = "Bundle ID";
 "Cancel" = "ביטול";
 "Capture windows in the background" = "לכוד חלונות ברקע";
-"Check for updates now…" = "חפש עדכונים כעת…";
 "Check for updates periodically" = "חפש עדכונים מעת לעת";
-"Check for updates…" = "חפש עדכונים…";
 "Check permissions…" = "בדוק הרשאות…";
 "Choose a style" = "בחר סגנון";
 "Choose which windows to switch between" = "בחירת החלונות למעבר ביניהם";
@@ -83,9 +76,7 @@
 "Could not move to Applications folder" = "לא ניתן היה להעביר לתיקיית היישומים";
 "Couldn't deactivate that machine" = "לא ניתן היה לבטל את הפעלת המכשיר הזה";
 "Couldn't save your license to the macOS Keychain. Please share the details below with the developer." = "לא ניתן היה לשמור את הרישיון שלך בצרור המפתחות של macOS. שתף את הפרטים שלהלן עם המפתח.";
-"Couldn't submit feedback" = "לא ניתן היה לשלוח משוב";
 "Crash reports policy" = "מדיניות דיווחי קריסה";
-"Create GitHub issue" = "צור issue ב-GitHub";
 "Cursor follows focus" = "הסמן עוקב אחר המיקוד";
 "Customize more…" = "התאמה אישית נוספת…";
 "Dark" = "כהה";
@@ -105,7 +96,6 @@
 "Don't show discovery tips again" = "לא להציג שוב טיפים על תכונות";
 "Done" = "בוצע";
 "Don’t check for updates periodically" = "אל תחפש עדכונים מעת לעת";
-"Don’t send" = "אל תשלח";
 "During your trial" = "במהלך תקופת הניסיון";
 "e.g. com.example.app" = "לדוגמה: com.example.app";
 "e.g. Debug" = "לדוגמה: Debug";
@@ -134,11 +124,9 @@
 "Get Pro to keep these features" = "קבלו Pro כדי להמשיך להשתמש בתכונות האלה";
 "Give different groups of windows their own shortcuts." = "אפשר להקצות קיצור משלו לכל קבוצת חלונות.";
 "Give your previews more room" = "יותר מקום לתצוגות המקדימות";
-"Go back" = "חזור";
 "Grant permission" = "הענק הרשאה";
 "Group apps" = "קבץ יישומים";
 "Group tabs" = "קבץ לשוניות";
-"Help improve AltTab" = "סייע בשיפור AltTab";
 "Hide" = "הסתר";
 "Hide colored circles on mouse hover" = "הסתר עיגולים צבעוניים בעת ריחוף עכבר";
 "Hide Space number labels" = "הסתר תוויות מספרי מרחבים";
@@ -148,7 +136,6 @@
 "Hold" = "החזק";
 "hold" = "החזק";
 "I can move myself to the Applications folder if you'd like." = "אני יכול להעביר את עצמי לתיקיית היישומים אם תרצה.";
-"I think the app could be improved with…" = "אני חושב שהיישום יכול להשתפר עם…";
 "Ideas" = "רעיונות";
 "Ignore shortcuts" = "התעלם מקיצורי דרך";
 "Import settings…" = "ייבא הגדרות…";
@@ -203,7 +190,6 @@
 "Photos" = "תמונות";
 "Pick a machine to deactivate so you can activate here." = "בחר מכשיר לביטול הפעלה כדי שתוכל להפעיל כאן.";
 "Please drag AltTab into the Applications folder manually." = "גרור את AltTab לתיקיית היישומים באופן ידני.";
-"Please fill in the form" = "מלא את הטופס";
 "press" = "לחץ";
 "Press %@" = "לחצו על %@";
 "Press %@ any time" = "יש ללחוץ על %@ בכל עת";
@@ -225,9 +211,6 @@
 "Red badge" = "תג אדום";
 "Red badge with number %@" = "תג אדום עם המספר %@";
 "Reliable, fast window switching with high-quality thumbnails" = "החלפת חלונות אמינה ומהירה עם תמונות ממוזערות באיכות גבוהה";
-"Remember my choice" = "זכור את הבחירה שלי";
-"Report a bug" = "דווח על באג";
-"Report on current version" = "דווח על הגרסה הנוכחית";
 "Reset settings and restart" = "אפס הגדרות והפעל מחדש";
 "Restart Now" = "הפעל מחדש כעת";
 "Safari — Food" = "Safari — אוכל";
@@ -245,10 +228,6 @@
 "Select windows on mouse hover" = "בחר חלונות בעת ריחוף עכבר";
 "Select windows using arrow keys" = "בחר חלונות באמצעות מקשי חצים";
 "Select windows using vim keys" = "בחר חלונות באמצעות מקשי Vim";
-"Send" = "שלח";
-"Send a crash report?" = "לשלוח דיווח קריסה?";
-"Send feedback" = "שלח משוב";
-"Sending…" = "שולח…";
 "Settings imported" = "ההגדרות יובאו";
 "Settings…" = "הגדרות…";
 "Shopping" = "קניות";
@@ -283,7 +262,6 @@
 "Start" = "התחלה";
 "Start at login" = "הפעל בעת ההתחברות";
 "Styles" = "סגנונות";
-"Suggest a change" = "הצע שינוי";
 "Support this project" = "תמוך בפרויקט זה";
 "Switch between 3 different styles. You can customize them." = "החלף בין 3 סגנונות שונים. ניתן להתאים אותם אישית.";
 "Sync with global value" = "סנכרן עם הערך הגלובלי";
@@ -292,7 +270,6 @@
 "That's it" = "זהו";
 "The application needs to restart to apply the imported settings." = "היישום צריך להיפתח מחדש כדי להחיל את ההגדרות שיובאו.";
 "The application needs to restart to apply the language change." = "היישום צריך להיפתח מחדש כדי להחיל את שינוי השפה.";
-"The server didn't accept the submission. Check your internet connection and try again — your draft is preserved." = "השרת לא קיבל את ההגשה. בדוק את חיבור האינטרנט ונסה שוב — הטיוטה שלך נשמרת.";
 "Theme" = "ערכת נושא";
 "This license is already activated elsewhere" = "רישיון זה כבר מופעל במקום אחר";
 "This license is already activated on the maximum number of machines. Deactivate one to continue." = "רישיון זה כבר מופעל במספר המקסימלי של מכשירים. בטל הפעלת אחד כדי להמשיך.";
@@ -320,13 +297,11 @@
 "Unlock the App Icons style with Pro" = "פתח את סגנון סמלי היישומים עם Pro";
 "Unlock the Titles style with Pro" = "פתח את סגנון הכותרות עם Pro";
 "Up to 9 shortcuts" = "עד 9 קיצורים";
-"Update now" = "עדכן כעת";
 "Updates policy" = "מדיניות עדכונים";
 "Usage" = "שימוש";
 "Use App Icons" = "שימוש בסמלי יישומים";
 "Use Titles" = "שימוש בכותרות";
 "Version" = "גרסה";
-"View existing discussions" = "צפה בדיונים קיימים";
 "Vim keys" = "מקשי Vim";
 "Vim keys already assigned to other actions:\n%@" = "מקשי Vim כבר משויכים לפעולות אחרות:\n%@";
 "Visible Spaces" = "מרחבים נראים";
@@ -334,9 +309,6 @@
 "Weekend" = "סוף שבוע";
 "Weekend recipes" = "מתכונים לסופ״ש";
 "Welcome to %@" = "ברוך הבא ל-%@";
-"What did you expect? What happened? Steps to reproduce…" = "מה ציפית? מה קרה? שלבים לשחזור…";
-"What happened, and what did you expect?" = "מה קרה ומה הייתה הציפייה?";
-"What would make AltTab more useful for you?" = "מה יהפוך את AltTab לשימושי יותר עבורך?";
 "When disabled, avoids the macOS purple screen-recording indicator, and avoids flickers when playing DRM video. Thumbnails will be less up-to-date." = "כאשר מושבת, נמנע מהמחוון הסגול של הקלטת המסך ב-macOS ונמנע מהבהובים בעת הפעלת וידאו DRM. תמונות ממוזערות יהיו פחות עדכניות.";
 "When fullscreen" = "כאשר במסך מלא";
 "When no open window" = "כאשר אין חלון פתוח";
@@ -356,9 +328,7 @@
 "You can’t undo this action." = "לא ניתן לבטל פעולה זו.";
 "You may need to disable some conflicting system gestures" = "ייתכן שתצטרך להשבית מחוות מערכת מתנגשות מסוימות";
 "You reached for AltTab Pro this week" = "השבוע פניתם ל-AltTab Pro";
-"You're running v%1$@. v%2$@ is available. The bug you're seeing may already be fixed — please update first and check before reporting." = "אתה מריץ את v%1$@. v%2$@ זמינה. ייתכן שהבאג שאתה רואה כבר תוקן — עדכן תחילה ובדוק לפני הדיווח.";
 "Your AltTab Pro trial has ended" = "תקופת הניסיון של AltTab Pro הסתיימה";
-"Your feedback will be submitted as a public GitHub issue." = "המשוב שלך יוגש כ-issue ציבורי ב-GitHub.";
 "Your Pro trial starts when AltTab is ready" = "תקופת הניסיון של Pro מתחילה כאשר AltTab מוכן";
 "Your settings reset every time AltTab restarts." = "ההגדרות שלך מתאפסות בכל פעם ש‑AltTab מופעל מחדש.";
 

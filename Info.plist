@@ -7,6 +7,10 @@
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleName</key>
 	<string>$(PRODUCT_NAME)</string>
+	<key>CFBundleDisplayName</key>
+	<string>AltTab Free</string>
+	<key>CommunityBuild</key>
+	<true/>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundlePackageType</key>
@@ -34,7 +38,7 @@
 	<key>LSUIElement</key>
 	<string>true</string>
 	<key>NSPrincipalClass</key>
-	<string>AppCenterApplication</string>
+	<string>NSApplication</string>
 	<key>NSSupportsAutomaticTermination</key>
 	<string>false</string>
 	<key>NSSupportsSuddenTermination</key>
@@ -57,21 +61,15 @@
 		</dict>
 	</array>
 
-	<!-- ===== Sparkle (auto-update framework — reads these directly from the bundle) ===== -->
-	<key>SUPublicEDKey</key>
-	<string>2e9SQOBoaKElchSa/4QDli/nvYkyuDNfynfzBF6vJK4=</string>
+	<!-- ===== Legacy update preferences (updates are disabled in this fork) ===== -->
 	<key>SUEnableAutomaticChecks</key>
-	<string>true</string>
-	<key>SUScheduledCheckInterval</key>
-	<string>604800</string>
+	<false/>
+	<key>SUAutomaticallyUpdate</key>
+	<false/>
+	<key>SUAllowsAutomaticUpdates</key>
+	<false/>
 
-	<!-- ===== AppCenter (crash reporter — read by AppCenterApplication superclass at init) ===== -->
-	<key>AppCenterApplicationForwarderEnabled</key>
-	<string>0</string>
-
-	<!-- ===== Build-time secrets (substituted from xcconfig; override per-dev via config/local.xcconfig) ===== -->
-	<key>AppCenterSecret</key>
-	<string>$(APPCENTER_SECRET)</string>
+	<!-- ===== Legacy endpoint configuration (no network client is built into the app) ===== -->
 	<key>Domain</key>
 	<string>$(DOMAIN)</string>
 	<key>ApiDomain</key>

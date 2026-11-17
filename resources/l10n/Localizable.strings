@@ -22,14 +22,8 @@
 /* No comment provided by engineer. */
 "4-finger Vertical Swipe" = "4-finger Vertical Swipe";
 
-/* No comment provided by engineer. */
-"A debug profile (versions, settings, hardware) is attached to help diagnose the issue." = "A debug profile (versions, settings, hardware) is attached to help diagnose the issue.";
-
 /* Illustration: page.recipe1 */
 "A little time." = "A little time.";
-
-/* No comment provided by engineer. */
-"A new version of AltTab is available" = "A new version of AltTab is available";
 
 /* Menubar option. %@ is AltTab */
 "About %@" = "About %@";
@@ -99,9 +93,6 @@
 
 /* No comment provided by engineer. */
 "AltTab couldn’t start." = "AltTab couldn’t start.";
-
-/* No comment provided by engineer. */
-"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed";
 
 /* Onboarding popover */
 "AltTab is ready" = "AltTab is ready";
@@ -203,12 +194,6 @@
 "Breakfast" = "Breakfast";
 
 /* No comment provided by engineer. */
-"Brief description of the bug" = "Brief description of the bug";
-
-/* No comment provided by engineer. */
-"Brief description of the change" = "Brief description of the change";
-
-/* No comment provided by engineer. */
 "Bundle ID" = "Bundle ID";
 
 /* No comment provided by engineer. */
@@ -218,13 +203,7 @@
 "Capture windows in the background" = "Capture windows in the background";
 
 /* No comment provided by engineer. */
-"Check for updates now…" = "Check for updates now…";
-
-/* No comment provided by engineer. */
 "Check for updates periodically" = "Check for updates periodically";
-
-/* Menubar option */
-"Check for updates…" = "Check for updates…";
 
 /* Menubar option */
 "Check permissions…" = "Check permissions…";
@@ -263,13 +242,7 @@
 "Couldn't save your license to the macOS Keychain. Please share the details below with the developer." = "Couldn't save your license to the macOS Keychain. Please share the details below with the developer.";
 
 /* No comment provided by engineer. */
-"Couldn't submit feedback" = "Couldn't submit feedback";
-
-/* No comment provided by engineer. */
 "Crash reports policy" = "Crash reports policy";
-
-/* No comment provided by engineer. */
-"Create GitHub issue" = "Create GitHub issue";
 
 /* No comment provided by engineer. */
 "Cursor follows focus" = "Cursor follows focus";
@@ -327,9 +300,6 @@
 
 /* No comment provided by engineer. */
 "Don’t check for updates periodically" = "Don’t check for updates periodically";
-
-/* No comment provided by engineer. */
-"Don’t send" = "Don’t send";
 
 /* Illustration: comparison.during */
 "During your trial" = "During your trial";
@@ -415,9 +385,6 @@
 /* No comment provided by engineer. */
 "Give your previews more room" = "Give your previews more room";
 
-/* No comment provided by engineer. */
-"Go back" = "Go back";
-
 /* Menubar callout button
    Permissions window button */
 "Grant permission" = "Grant permission";
@@ -427,9 +394,6 @@
 
 /* No comment provided by engineer. */
 "Group tabs" = "Group tabs";
-
-/* No comment provided by engineer. */
-"Help improve AltTab" = "Help improve AltTab";
 
 /* No comment provided by engineer. */
 "Hide" = "Hide";
@@ -457,9 +421,6 @@
 
 /* LetsMove replacement alert */
 "I can move myself to the Applications folder if you'd like." = "I can move myself to the Applications folder if you'd like.";
-
-/* No comment provided by engineer. */
-"I think the app could be improved with…" = "I think the app could be improved with…";
 
 /* Illustration: window.ideas */
 "Ideas" = "Ideas";
@@ -626,9 +587,6 @@
 /* LetsMove replacement alert */
 "Please drag AltTab into the Applications folder manually." = "Please drag AltTab into the Applications folder manually.";
 
-/* No comment provided by engineer. */
-"Please fill in the form" = "Please fill in the form";
-
 /* Onboarding popover, above the key to press */
 "press" = "press";
 
@@ -693,15 +651,6 @@
 "Reliable, fast window switching with high-quality thumbnails" = "Reliable, fast window switching with high-quality thumbnails";
 
 /* No comment provided by engineer. */
-"Remember my choice" = "Remember my choice";
-
-/* No comment provided by engineer. */
-"Report a bug" = "Report a bug";
-
-/* No comment provided by engineer. */
-"Report on current version" = "Report on current version";
-
-/* No comment provided by engineer. */
 "Reset settings and restart" = "Reset settings and restart";
 
 /* No comment provided by engineer. */
@@ -754,18 +703,6 @@
 
 /* No comment provided by engineer. */
 "Select windows using vim keys" = "Select windows using vim keys";
-
-/* No comment provided by engineer. */
-"Send" = "Send";
-
-/* No comment provided by engineer. */
-"Send a crash report?" = "Send a crash report?";
-
-/* Menubar option */
-"Send feedback" = "Send feedback";
-
-/* No comment provided by engineer. */
-"Sending…" = "Sending…";
 
 /* No comment provided by engineer. */
 "Settings imported" = "Settings imported";
@@ -869,9 +806,6 @@
 /* No comment provided by engineer. */
 "Styles" = "Styles";
 
-/* No comment provided by engineer. */
-"Suggest a change" = "Suggest a change";
-
 /* Menubar option */
 "Support this project" = "Support this project";
 
@@ -895,9 +829,6 @@
 
 /* No comment provided by engineer. */
 "The application needs to restart to apply the language change." = "The application needs to restart to apply the language change.";
-
-/* No comment provided by engineer. */
-"The server didn't accept the submission. Check your internet connection and try again — your draft is preserved." = "The server didn't accept the submission. Check your internet connection and try again — your draft is preserved.";
 
 /* No comment provided by engineer. */
 "Theme" = "Theme";
@@ -984,9 +915,6 @@
 "Up to 9 shortcuts" = "Up to 9 shortcuts";
 
 /* No comment provided by engineer. */
-"Update now" = "Update now";
-
-/* No comment provided by engineer. */
 "Updates policy" = "Updates policy";
 
 /* No comment provided by engineer. */
@@ -1000,9 +928,6 @@
 
 /* No comment provided by engineer. */
 "Version" = "Version";
-
-/* No comment provided by engineer. */
-"View existing discussions" = "View existing discussions";
 
 /* No comment provided by engineer. */
 "Vim keys" = "Vim keys";
@@ -1024,15 +949,6 @@
 
 /* No comment provided by engineer. */
 "Welcome to %@" = "Welcome to %@";
-
-/* No comment provided by engineer. */
-"What did you expect? What happened? Steps to reproduce…" = "What did you expect? What happened? Steps to reproduce…";
-
-/* No comment provided by engineer. */
-"What happened, and what did you expect?" = "What happened, and what did you expect?";
-
-/* No comment provided by engineer. */
-"What would make AltTab more useful for you?" = "What would make AltTab more useful for you?";
 
 /* No comment provided by engineer. */
 "When disabled, avoids the macOS purple screen-recording indicator, and avoids flickers when playing DRM video. Thumbnails will be less up-to-date." = "When disabled, avoids the macOS purple screen-recording indicator, and avoids flickers when playing DRM video. Thumbnails will be less up-to-date.";
@@ -1091,17 +1007,11 @@
 /* No comment provided by engineer. */
 "You reached for AltTab Pro this week" = "You reached for AltTab Pro this week";
 
-/* No comment provided by engineer. */
-"You're running v%1$@. v%2$@ is available. The bug you're seeing may already be fixed — please update first and check before reporting." = "You're running v%1$@. v%2$@ is available. The bug you're seeing may already be fixed — please update first and check before reporting.";
-
 /* Usage count, then rounded number of 30-day months (2 to 12). Counts shortcut uses, not completed switches. */
 "You've used AltTab %@ times over the last %d months." = "You've used AltTab %1$@ times over the last %2$d months.";
 
 /* No comment provided by engineer. */
 "Your AltTab Pro trial has ended" = "Your AltTab Pro trial has ended";
-
-/* No comment provided by engineer. */
-"Your feedback will be submitted as a public GitHub issue." = "Your feedback will be submitted as a public GitHub issue.";
 
 /* Permissions setup is not finished */
 "Your Pro trial starts when AltTab is ready" = "Your Pro trial starts when AltTab is ready";

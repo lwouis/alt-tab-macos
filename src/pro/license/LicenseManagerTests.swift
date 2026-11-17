@@ -57,6 +57,62 @@ final class LicenseManagerTests: XCTestCase {
 
     // MARK: - Launch / initialize
 
+    func testCommunityModeIgnoresExpiredLicenseWithoutTouchingKeychainOrServer() {
+        let savedTrialStart = clock.now.addingTimeInterval(-100 * 86400).timeIntervalSince1970
+        defaults.set(savedTrialStart, forKey: "trialStartDate")
+        defaults.set(false, forKey: "lastValidationResult")
+        keychain.setValue("existing-key", account: LicenseManager.keychainKeyAccount)
+        keychain.valueReadCount = 0
+        manager = LicenseManager(clock: clock, keychain: keychain, api: api, defaults: defaults, licensingEnabled: false)
+        manager.initialize()
+        becomeUsable()
+        clock.advance(days: 1000)
+        manager.refreshState()
+        manager.scheduleAsyncRevalidationIfNeeded()
+        manager.revalidateWithServer()
+        XCTAssertEqual(manager.state, .unrestricted)
+        XCTAssertTrue(manager.isProAvailable)
+        XCTAssertFalse(manager.isProLocked)
+        XCTAssertFalse(manager.trialEndedSinceLastRefresh)
+        XCTAssertNil(manager.trialStartDate)
+        XCTAssertNil(manager.trialEndDate)
+        XCTAssertNil(manager.trialDay)
+        XCTAssertNil(manager.customerEmail)
+        XCTAssertFalse(manager.isLifetimeVariant)
+        XCTAssertEqual(defaults.double(forKey: "trialStartDate"), savedTrialStart)
+        XCTAssertEqual(keychain.valueReadCount, 0)
+        XCTAssertTrue(api.validateCalls.isEmpty)
+    }
+
+    func testCommunityModeRejectsLicenseOperationsLocallyWithoutChangingExistingKeys() {
+        keychain.setValue("existing-key", account: LicenseManager.keychainKeyAccount)
+        manager = LicenseManager(clock: clock, keychain: keychain, api: api, defaults: defaults, licensingEnabled: false)
+        let completed = expectation(description: "local-only license operations")
+        completed.expectedFulfillmentCount = 3
+        let completion: (Result<Void, Error>) -> Void = { result in
+            if case .success = result { XCTFail("Community builds do not activate licenses") }
+            completed.fulfill()
+        }
+        manager.activate("new-key", completion: completion)
+        manager.deactivate(completion: completion)
+        manager.deactivateInstance(licenseKey: "new-key", instanceId: "instance", completion: completion)
+        waitForExpectations(timeout: 1)
+        XCTAssertTrue(api.activateCalls.isEmpty)
+        XCTAssertTrue(api.deactivateCalls.isEmpty)
+        XCTAssertEqual(keychain.valueReadCount, 0)
+        XCTAssertEqual(keychain.value(account: LicenseManager.keychainKeyAccount), "existing-key")
+        XCTAssertEqual(manager.state, .unrestricted)
+    }
+
+    func testCommunityInitializationRestoresPreviouslyLockedFeaturePreferences() {
+        manager = LicenseManager(clock: clock, keychain: keychain, api: api, defaults: defaults, licensingEnabled: false)
+        var restored = false
+        manager.onBeforeProUnlock = { restored = true }
+        manager.initialize()
+        XCTAssertTrue(restored)
+        XCTAssertEqual(manager.state, .unrestricted)
+    }
+
     private func becomeUsable() {
         manager.onAppBecameUsable(accessibility: .granted, screenRecording: .granted)
     }
@@ -723,10 +779,14 @@ final class MockClock: Clock {
 
 final class MockKeychain: Keychain {
     private var store: [String: String] = [:]
+    var valueReadCount = 0
     var setValueStatus: (String) -> OSStatus = { _ in errSecSuccess }
     var removeStatus: (String) -> OSStatus = { _ in errSecSuccess }
 
-    func value(account: String) -> String? { store[account] }
+    func value(account: String) -> String? {
+        valueReadCount += 1
+        return store[account]
+    }
 
     @discardableResult
     func setValue(_ value: String, account: String) -> OSStatus {

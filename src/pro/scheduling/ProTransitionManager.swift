@@ -217,7 +217,7 @@ class ProTransitionManager {
     }
 
     func onLicenseStateChanged() {
-        if case .pro = licenseManager.state {
+        if licenseManager.state == .pro || licenseManager.state == .unrestricted {
             scheduler.cancel()
             deferredPrompt?.cancel()
             deferredPrompt = nil
@@ -285,7 +285,7 @@ class ProTransitionManager {
             if case .showDay4Tour = action { state.day4TourDeferred = true }
             return
         }
-        if case .pro = licenseManager.state { return }
+        if licenseManager.state == .pro || licenseManager.state == .unrestricted { return }
         switch action {
         case let .showFullUpgrade(feature): showFullUpgradeWindow(for: feature)
         case .showDay4Tour:
@@ -429,9 +429,6 @@ class ProTransitionManager {
     }
 
     static func openCheckout(from origin: CheckoutOrigin) {
-        shared.lateReminder.checkoutArm(context: shared.lateReminderContext) { arm in
-            NSWorkspace.shared.open(Endpoints.checkoutUrl(from: origin, trialDay: LicenseManager.shared.trialDay, arm: arm))
-        }
     }
 
     // MARK: - QA / Debug

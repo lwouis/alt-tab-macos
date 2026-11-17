@@ -6,9 +6,7 @@
 "3-finger Vertical Swipe" = "Vertikalt svep med 3 fingrar";
 "4-finger Horizontal Swipe" = "Horisontellt svep med 4 fingrar";
 "4-finger Vertical Swipe" = "Vertikalt svep med 4 fingrar";
-"A debug profile (versions, settings, hardware) is attached to help diagnose the issue." = "En felsökningsprofil (versioner, inställningar, hårdvara) bifogas för att hjälpa till att diagnostisera problemet.";
 "A little time." = "Lite tid.";
-"A new version of AltTab is available" = "En ny version av AltTab är tillgänglig";
 "About %@" = "Om %@";
 "Accessibility" = "Hjälpmedel";
 "Activate" = "Aktivera";
@@ -30,7 +28,6 @@
 "All Windows" = "Alla fönster";
 "Allowed" = "Tillåten";
 "Alphabetical Order" = "Alfabetisk ordning";
-"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab kraschade förra gången du använde den. Att skicka en kraschrapport hjälper till att åtgärda problemet";
 "AltTab is ready" = "AltTab är redo";
 "AltTab is running without Screen Recording permissions. %@ won’t show." = "AltTab körs utan behörighet för Skärminspelning. %@ visas inte.";
 "AltTab preferences file is a symlink. macOS doesn’t support symlink for preferences. Please use a valid file instead of a symlink here:" = "AltTabs inställningsfil är en symbolisk länk. macOS stöder inte symboliska länkar för inställningar. Använd en giltig fil i stället för en symbolisk länk här:";
@@ -63,14 +60,10 @@
 "Auto-install updates periodically" = "Installera uppdateringar automatiskt regelbundet";
 "Automatic activation failed" = "Automatisk aktivering misslyckades";
 "Breakfast" = "Frukost";
-"Brief description of the bug" = "Kort beskrivning av felet";
-"Brief description of the change" = "Kort beskrivning av ändringen";
 "Bundle ID" = "Bundle ID";
 "Cancel" = "Avbryt";
 "Capture windows in the background" = "Fånga fönster i bakgrunden";
-"Check for updates now…" = "Sök efter uppdateringar nu…";
 "Check for updates periodically" = "Sök efter uppdateringar regelbundet";
-"Check for updates…" = "Sök efter uppdateringar…";
 "Check permissions…" = "Kontrollera behörigheter…";
 "Choose a style" = "Välj en stil";
 "Choose which windows to switch between" = "Välj vilka fönster du vill växla mellan";
@@ -83,9 +76,7 @@
 "Could not move to Applications folder" = "Kunde inte flytta till mappen Program";
 "Couldn't deactivate that machine" = "Kunde inte inaktivera den datorn";
 "Couldn't save your license to the macOS Keychain. Please share the details below with the developer." = "Kunde inte spara din licens i macOS Nyckelring. Dela uppgifterna nedan med utvecklaren.";
-"Couldn't submit feedback" = "Kunde inte skicka feedback";
 "Crash reports policy" = "Policy för kraschrapporter";
-"Create GitHub issue" = "Skapa GitHub-ärende";
 "Cursor follows focus" = "Markören följer fokus";
 "Customize more…" = "Anpassa mer…";
 "Dark" = "Mörk";
@@ -105,7 +96,6 @@
 "Don't show discovery tips again" = "Visa inte fler funktionstips";
 "Done" = "Klar";
 "Don’t check for updates periodically" = "Sök inte efter uppdateringar regelbundet";
-"Don’t send" = "Skicka inte";
 "During your trial" = "Under din provperiod";
 "e.g. com.example.app" = "t.ex. com.example.app";
 "e.g. Debug" = "t.ex. Debug";
@@ -134,11 +124,9 @@
 "Get Pro to keep these features" = "Skaffa Pro för att behålla funktionerna";
 "Give different groups of windows their own shortcuts." = "Ge olika fönstergrupper egna kortkommandon.";
 "Give your previews more room" = "Mer utrymme för dina förhandsvisningar";
-"Go back" = "Tillbaka";
 "Grant permission" = "Bevilja behörighet";
 "Group apps" = "Gruppera appar";
 "Group tabs" = "Gruppera flikar";
-"Help improve AltTab" = "Hjälp till att förbättra AltTab";
 "Hide" = "Dölj";
 "Hide colored circles on mouse hover" = "Dölj färgade cirklar när muspekaren är över";
 "Hide Space number labels" = "Dölj nummeretiketter för skrivbord";
@@ -148,7 +136,6 @@
 "Hold" = "Håll ned";
 "hold" = "håll ned";
 "I can move myself to the Applications folder if you'd like." = "Jag kan flytta mig själv till mappen Program om du vill.";
-"I think the app could be improved with…" = "Jag tycker appen skulle kunna förbättras med…";
 "Ideas" = "Idéer";
 "Ignore shortcuts" = "Ignorera kortkommandon";
 "Import settings…" = "Importera inställningar…";
@@ -203,7 +190,6 @@
 "Photos" = "Bilder";
 "Pick a machine to deactivate so you can activate here." = "Välj en dator att inaktivera så att du kan aktivera här.";
 "Please drag AltTab into the Applications folder manually." = "Dra AltTab till mappen Program manuellt.";
-"Please fill in the form" = "Fyll i formuläret";
 "press" = "tryck";
 "Press %@" = "Tryck på %@";
 "Press %@ any time" = "Tryck på %@ när som helst";
@@ -225,9 +211,6 @@
 "Red badge" = "Röd bricka";
 "Red badge with number %@" = "Röd bricka med talet %@";
 "Reliable, fast window switching with high-quality thumbnails" = "Pålitlig, snabb fönsterväxling med högkvalitativa miniatyrer";
-"Remember my choice" = "Kom ihåg mitt val";
-"Report a bug" = "Rapportera ett fel";
-"Report on current version" = "Rapportera om aktuell version";
 "Reset settings and restart" = "Återställ inställningar och starta om";
 "Restart Now" = "Starta om nu";
 "Safari — Food" = "Safari — Mat";
@@ -245,10 +228,6 @@
 "Select windows on mouse hover" = "Välj fönster när muspekaren är över";
 "Select windows using arrow keys" = "Välj fönster med piltangenterna";
 "Select windows using vim keys" = "Välj fönster med Vim-tangenter";
-"Send" = "Skicka";
-"Send a crash report?" = "Skicka en kraschrapport?";
-"Send feedback" = "Skicka feedback";
-"Sending…" = "Skickar…";
 "Settings imported" = "Inställningar importerade";
 "Settings…" = "Inställningar…";
 "Shopping" = "Inköp";
@@ -283,7 +262,6 @@
 "Start" = "Start";
 "Start at login" = "Starta vid inloggning";
 "Styles" = "Stilar";
-"Suggest a change" = "Föreslå en ändring";
 "Support this project" = "Stöd projektet";
 "Switch between 3 different styles. You can customize them." = "Växla mellan 3 olika stilar. Du kan anpassa dem.";
 "Sync with global value" = "Synkronisera med globalt värde";
@@ -292,7 +270,6 @@
 "That's it" = "Klart";
 "The application needs to restart to apply the imported settings." = "Programmet måste startas om för att tillämpa de importerade inställningarna.";
 "The application needs to restart to apply the language change." = "Programmet måste startas om för att tillämpa språkändringen.";
-"The server didn't accept the submission. Check your internet connection and try again — your draft is preserved." = "Servern accepterade inte inlämningen. Kontrollera din internetanslutning och försök igen — ditt utkast har sparats.";
 "Theme" = "Tema";
 "This license is already activated elsewhere" = "Den här licensen är redan aktiverad någon annanstans";
 "This license is already activated on the maximum number of machines. Deactivate one to continue." = "Den här licensen är redan aktiverad på det maximala antalet datorer. Inaktivera en för att fortsätta.";
@@ -320,13 +297,11 @@
 "Unlock the App Icons style with Pro" = "Lås upp stilen Appikoner med Pro";
 "Unlock the Titles style with Pro" = "Lås upp stilen Titlar med Pro";
 "Up to 9 shortcuts" = "Upp till 9 kortkommandon";
-"Update now" = "Uppdatera nu";
 "Updates policy" = "Policy för uppdateringar";
 "Usage" = "Användning";
 "Use App Icons" = "Använd appikoner";
 "Use Titles" = "Använd titlar";
 "Version" = "Version";
-"View existing discussions" = "Visa befintliga diskussioner";
 "Vim keys" = "Vim-tangenter";
 "Vim keys already assigned to other actions:\n%@" = "Vim-tangenter är redan tilldelade andra åtgärder:\n%@";
 "Visible Spaces" = "Synliga skrivbord";
@@ -334,9 +309,6 @@
 "Weekend" = "Helg";
 "Weekend recipes" = "Helgrecept";
 "Welcome to %@" = "Välkommen till %@";
-"What did you expect? What happened? Steps to reproduce…" = "Vad förväntade du dig? Vad hände? Steg för att återskapa…";
-"What happened, and what did you expect?" = "Vad hände och vad förväntade du dig?";
-"What would make AltTab more useful for you?" = "Vad skulle göra AltTab mer användbart för dig?";
 "When disabled, avoids the macOS purple screen-recording indicator, and avoids flickers when playing DRM video. Thumbnails will be less up-to-date." = "När inaktiverad undviks macOS lila skärminspelningsindikator och flimmer vid uppspelning av DRM-video. Miniatyrer blir mindre uppdaterade.";
 "When fullscreen" = "När i helskärm";
 "When no open window" = "När inget öppet fönster";
@@ -356,9 +328,7 @@
 "You can’t undo this action." = "Den här åtgärden kan inte ångras.";
 "You may need to disable some conflicting system gestures" = "Du kan behöva inaktivera vissa motstridiga systemgester";
 "You reached for AltTab Pro this week" = "Du sträckte dig efter AltTab Pro den här veckan";
-"You're running v%1$@. v%2$@ is available. The bug you're seeing may already be fixed — please update first and check before reporting." = "Du kör v%1$@. v%2$@ är tillgänglig. Felet du ser kan redan vara åtgärdat — uppdatera först och kontrollera innan du rapporterar.";
 "Your AltTab Pro trial has ended" = "Din provperiod för AltTab Pro har avslutats";
-"Your feedback will be submitted as a public GitHub issue." = "Din feedback skickas in som ett offentligt GitHub-ärende.";
 "Your Pro trial starts when AltTab is ready" = "Din Pro-provperiod börjar när AltTab är redo";
 "Your settings reset every time AltTab restarts." = "Dina inställningar återställs varje gång AltTab startas om.";
 

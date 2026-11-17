@@ -6,9 +6,7 @@
 "3-finger Vertical Swipe" = "تمرير عمودي بثلاثة أصابع";
 "4-finger Horizontal Swipe" = "تمرير أفقي بأربعة أصابع";
 "4-finger Vertical Swipe" = "تمرير عمودي بأربعة أصابع";
-"A debug profile (versions, settings, hardware) is attached to help diagnose the issue." = "تم إرفاق ملف تصحيح (الإصدارات، الإعدادات، العتاد) للمساعدة في تشخيص المشكلة.";
 "A little time." = "لحظة فقط.";
-"A new version of AltTab is available" = "يتوفر إصدار جديد من AltTab";
 "About %@" = "حول %@";
 "Accessibility" = "إمكانية الوصول";
 "Activate" = "تفعيل";
@@ -30,7 +28,6 @@
 "All Windows" = "كل النوافذ";
 "Allowed" = "مسموح";
 "Alphabetical Order" = "ترتيب أبجدي";
-"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "تعطّل AltTab في آخر مرة استخدمته فيها. إرسال تقرير الأعطال سيساعد في إصلاح المشكلة";
 "AltTab is ready" = "AltTab جاهز";
 "AltTab is running without Screen Recording permissions. %@ won’t show." = "يعمل AltTab بدون أذونات تسجيل الشاشة. لن تظهر %@.";
 "AltTab preferences file is a symlink. macOS doesn’t support symlink for preferences. Please use a valid file instead of a symlink here:" = "ملف إعدادات AltTab هو رابط رمزي. لا يدعم macOS الروابط الرمزية للإعدادات. الرجاء استخدام ملف صالح بدلاً من رابط رمزي هنا:";
@@ -63,14 +60,10 @@
 "Auto-install updates periodically" = "تثبيت التحديثات تلقائيًا بشكل دوري";
 "Automatic activation failed" = "فشل التفعيل التلقائي";
 "Breakfast" = "فطور";
-"Brief description of the bug" = "وصف موجز للخلل";
-"Brief description of the change" = "وصف موجز للتغيير";
 "Bundle ID" = "Bundle ID";
 "Cancel" = "إلغاء";
 "Capture windows in the background" = "التقاط النوافذ في الخلفية";
-"Check for updates now…" = "البحث عن التحديثات الآن…";
 "Check for updates periodically" = "البحث عن التحديثات بشكل دوري";
-"Check for updates…" = "البحث عن التحديثات…";
 "Check permissions…" = "التحقق من الأذونات…";
 "Choose a style" = "اختر نمطًا";
 "Choose which windows to switch between" = "اختر النوافذ التي تريد التبديل بينها";
@@ -83,9 +76,7 @@
 "Could not move to Applications folder" = "تعذّر النقل إلى مجلد التطبيقات";
 "Couldn't deactivate that machine" = "تعذّر إلغاء تفعيل ذلك الجهاز";
 "Couldn't save your license to the macOS Keychain. Please share the details below with the developer." = "تعذّر حفظ ترخيصك في سلسلة مفاتيح macOS. يُرجى مشاركة التفاصيل أدناه مع المطوّر.";
-"Couldn't submit feedback" = "تعذّر إرسال الملاحظات";
 "Crash reports policy" = "سياسة تقارير الأعطال";
-"Create GitHub issue" = "إنشاء مشكلة على GitHub";
 "Cursor follows focus" = "المؤشر يتبع التركيز";
 "Customize more…" = "تخصيص المزيد…";
 "Dark" = "مظلم";
@@ -105,7 +96,6 @@
 "Don't show discovery tips again" = "عدم عرض تلميحات الميزات مجددًا";
 "Done" = "تم";
 "Don’t check for updates periodically" = "عدم البحث عن التحديثات بشكل دوري";
-"Don’t send" = "عدم الإرسال";
 "During your trial" = "خلال الفترة التجريبية";
 "e.g. com.example.app" = "مثال: com.example.app";
 "e.g. Debug" = "مثال: Debug";
@@ -134,11 +124,9 @@
 "Get Pro to keep these features" = "احصل على Pro للاحتفاظ بهذه الميزات";
 "Give different groups of windows their own shortcuts." = "خصص اختصارات مختلفة لمجموعات النوافذ.";
 "Give your previews more room" = "مساحة أكبر للمعاينات";
-"Go back" = "العودة";
 "Grant permission" = "منح الإذن";
 "Group apps" = "تجميع التطبيقات";
 "Group tabs" = "تجميع علامات التبويب";
-"Help improve AltTab" = "ساعد في تحسين AltTab";
 "Hide" = "إخفاء";
 "Hide colored circles on mouse hover" = "إخفاء الدوائر الملوّنة عند تمرير الفأرة";
 "Hide Space number labels" = "إخفاء تسميات أرقام المساحات";
@@ -148,7 +136,6 @@
 "Hold" = "الاستمرار بالضغط";
 "hold" = "اضغط مطولًا";
 "I can move myself to the Applications folder if you'd like." = "يمكنني نقل نفسي إلى مجلد التطبيقات إذا أردت ذلك.";
-"I think the app could be improved with…" = "أعتقد أن التطبيق يمكن تحسينه بـ…";
 "Ideas" = "أفكار";
 "Ignore shortcuts" = "تجاهل الاختصارات";
 "Import settings…" = "استيراد الإعدادات…";
@@ -203,7 +190,6 @@
 "Photos" = "صور";
 "Pick a machine to deactivate so you can activate here." = "اختر جهازًا لإلغاء تفعيله حتى تتمكن من التفعيل هنا.";
 "Please drag AltTab into the Applications folder manually." = "يرجى سحب AltTab إلى مجلد التطبيقات يدويًا.";
-"Please fill in the form" = "يرجى ملء النموذج";
 "press" = "اضغط";
 "Press %@" = "اضغط على %@";
 "Press %@ any time" = "اضغط على %@ في أي وقت";
@@ -225,9 +211,6 @@
 "Red badge" = "شارة حمراء";
 "Red badge with number %@" = "شارة حمراء تحمل الرقم %@";
 "Reliable, fast window switching with high-quality thumbnails" = "تبديل نوافذ موثوق وسريع مع مصغّرات عالية الجودة";
-"Remember my choice" = "تذكّر خياري";
-"Report a bug" = "الإبلاغ عن خلل";
-"Report on current version" = "الإبلاغ عن الإصدار الحالي";
 "Reset settings and restart" = "إعادة تعيين الإعدادات وإعادة التشغيل";
 "Restart Now" = "إعادة التشغيل الآن";
 "Safari — Food" = "Safari — طعام";
@@ -245,10 +228,6 @@
 "Select windows on mouse hover" = "تحديد النوافذ عند تمرير الفأرة";
 "Select windows using arrow keys" = "تحديد النوافذ باستخدام مفاتيح الأسهم";
 "Select windows using vim keys" = "تحديد النوافذ باستخدام مفاتيح Vim";
-"Send" = "إرسال";
-"Send a crash report?" = "إرسال تقرير الأعطال؟";
-"Send feedback" = "إرسال ملاحظات";
-"Sending…" = "جارٍ الإرسال…";
 "Settings imported" = "تم استيراد الإعدادات";
 "Settings…" = "الإعدادات…";
 "Shopping" = "تسوّق";
@@ -283,7 +262,6 @@
 "Start" = "البداية";
 "Start at login" = "البدء عند تسجيل الدخول";
 "Styles" = "الأنماط";
-"Suggest a change" = "اقتراح تغيير";
 "Support this project" = "دعم هذا المشروع";
 "Switch between 3 different styles. You can customize them." = "التبديل بين 3 أنماط مختلفة. يمكنك تخصيصها.";
 "Sync with global value" = "المزامنة مع القيمة العامة";
@@ -292,7 +270,6 @@
 "That's it" = "هذا كل شيء";
 "The application needs to restart to apply the imported settings." = "يحتاج التطبيق إلى إعادة التشغيل لتطبيق الإعدادات المستوردة.";
 "The application needs to restart to apply the language change." = "يحتاج التطبيق إلى إعادة التشغيل لتطبيق تغيير اللغة.";
-"The server didn't accept the submission. Check your internet connection and try again — your draft is preserved." = "لم يقبل الخادم الإرسال. تحقق من اتصالك بالإنترنت وحاول مرة أخرى — تم الاحتفاظ بمسودتك.";
 "Theme" = "السمة";
 "This license is already activated elsewhere" = "هذا الترخيص مفعّل بالفعل في مكان آخر";
 "This license is already activated on the maximum number of machines. Deactivate one to continue." = "هذا الترخيص مفعّل بالفعل على الحد الأقصى من الأجهزة. ألغِ تفعيل أحدها للمتابعة.";
@@ -320,13 +297,11 @@
 "Unlock the App Icons style with Pro" = "افتح نمط أيقونات التطبيقات مع Pro";
 "Unlock the Titles style with Pro" = "افتح نمط العناوين مع Pro";
 "Up to 9 shortcuts" = "حتى 9 اختصارات";
-"Update now" = "التحديث الآن";
 "Updates policy" = "سياسة التحديثات";
 "Usage" = "الاستخدام";
 "Use App Icons" = "استخدام أيقونات التطبيقات";
 "Use Titles" = "استخدام العناوين";
 "Version" = "الإصدار";
-"View existing discussions" = "عرض المناقشات الحالية";
 "Vim keys" = "مفاتيح Vim";
 "Vim keys already assigned to other actions:\n%@" = "مفاتيح Vim معيّنة بالفعل لإجراءات أخرى:\n%@";
 "Visible Spaces" = "المساحات المرئية";
@@ -334,9 +309,6 @@
 "Weekend" = "العطلة";
 "Weekend recipes" = "وصفات للعطلة";
 "Welcome to %@" = "مرحبًا بك في %@";
-"What did you expect? What happened? Steps to reproduce…" = "ماذا توقعت؟ ماذا حدث؟ خطوات إعادة الإنتاج…";
-"What happened, and what did you expect?" = "ماذا حدث، وماذا كنت تتوقع؟";
-"What would make AltTab more useful for you?" = "ما الذي قد يجعل AltTab أكثر فائدة لك؟";
 "When disabled, avoids the macOS purple screen-recording indicator, and avoids flickers when playing DRM video. Thumbnails will be less up-to-date." = "عند التعطيل، يتجنب مؤشر تسجيل الشاشة الأرجواني في macOS، ويتجنب الومضات عند تشغيل فيديو DRM. ستكون المصغّرات أقل حداثة.";
 "When fullscreen" = "عند ملء الشاشة";
 "When no open window" = "عند عدم وجود نافذة مفتوحة";
@@ -356,9 +328,7 @@
 "You can’t undo this action." = "لا يمكنك التراجع عن هذا الإجراء.";
 "You may need to disable some conflicting system gestures" = "قد تحتاج إلى تعطيل بعض إيماءات النظام المتعارضة";
 "You reached for AltTab Pro this week" = "لجأت إلى AltTab Pro هذا الأسبوع";
-"You're running v%1$@. v%2$@ is available. The bug you're seeing may already be fixed — please update first and check before reporting." = "أنت تستخدم الإصدار v%1$@. الإصدار v%2$@ متاح. ربما تم إصلاح الخلل الذي تراه بالفعل — يرجى التحديث أولاً والتحقق قبل الإبلاغ.";
 "Your AltTab Pro trial has ended" = "انتهت الفترة التجريبية لـ AltTab Pro";
-"Your feedback will be submitted as a public GitHub issue." = "سيتم إرسال ملاحظاتك كمشكلة عامة على GitHub.";
 "Your Pro trial starts when AltTab is ready" = "تبدأ تجربتك لـ Pro عندما يصبح AltTab جاهزًا";
 "Your settings reset every time AltTab restarts." = "تتم إعادة تعيين إعداداتك في كل مرة يُعاد فيها تشغيل AltTab.";
 

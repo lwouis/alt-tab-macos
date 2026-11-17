@@ -1,10 +1,8 @@
 import Cocoa
 import Darwin
 import ShortcutRecorder
-import AppCenterCrashes
-import Sparkle
 
-class App: AppCenterApplication {
+class App: NSApplication {
     /// Held for the process lifetime. `static let` is lazy, so `init` has to touch it or App Nap is never
     /// disabled.
     private static let activity = ProcessInfo.processInfo.beginActivity(options: .userInitiatedAllowingIdleSystemSleep,
@@ -14,7 +12,7 @@ class App: AppCenterApplication {
     static let name = Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as! String
     static let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String
     static let licence = Bundle.main.object(forInfoDictionaryKey: "NSHumanReadableCopyright") as! String
-    static let repository = "https://github.com/lwouis/alt-tab-macos"
+    static let repository = "https://github.com/houskii/alt-tab-macos"
     static let appIcon: CGImage = {
         let url = Bundle.main.url(forResource: "app", withExtension: "png")!
         let source = CGImageSourceCreateWithURL(url as CFURL, nil)!
@@ -32,12 +30,6 @@ class App: AppCenterApplication {
     private static let launchInventoryGraceInMs = 400
     private static var pendingShowSettingsWindow = false
     private static var firstLaunchSettingsObserver: NSObjectProtocol?
-    /// Written once and never read: AppCenter holds its delegate weakly, so this is the strong reference
-    /// that keeps the crash handler alive for the process lifetime.
-    // periphery:ignore
-    private static var appCenterDelegate: AppCenterCrash?
-    static var sparkleDelegate: SparkleDelegate?
-    static var updaterController: SPUStandardUpdaterController?
     private static var delayedDisplayWork: DispatchWorkItem?
     private static let switcherUiRepaintCoalescer = RepaintCoalescer()
 
@@ -144,17 +136,12 @@ class App: AppCenterApplication {
         focusSelectedWindow(selectedWindow)
     }
 
-    @objc static func checkForUpdatesNow(_ sender: NSMenuItem) {
-        GeneralTab.checkForUpdatesNow(sender)
-    }
-
     // periphery:ignore:parameters sender - NSMenuItem target/action signature
     @objc static func checkPermissions(_ sender: NSMenuItem) {
         showPermissionsWindow()
     }
 
     @objc static func supportProject() {
-        NSWorkspace.shared.open(URL(string: Endpoints.supportUrl)!)
     }
 
     @objc static func upgradeToPro() {
@@ -168,8 +155,6 @@ class App: AppCenterApplication {
     @objc static func showFeedbackPanel() {
         let wasFresh = FeedbackWindow.shared == nil
         initializeFeedbackWindowIfNeeded()
-        // Fresh init already runs reset(); skip the redundant second call so we don't
-        // double-fire the Sparkle preflight on the first ever open.
         if !wasFresh { FeedbackWindow.shared?.reset() }
         showSecondaryWindow(FeedbackWindow.shared!)
     }
@@ -576,18 +561,6 @@ class App: AppCenterApplication {
         // Needs the AX runloop `BackgroundWork.start()` created, so it cannot go with the launch-time setup.
         AxObserverRegistry.shared.startRecoveryTicks()
         CliEvents.observe()
-        App.sparkleDelegate = SparkleDelegate()
-        App.updaterController = SPUStandardUpdaterController(
-            startingUpdater: false,
-            updaterDelegate: App.sparkleDelegate!,
-            userDriverDelegate: nil)
-        #if DEBUG
-        if !Preferences.qaPristine && !QaLifecycle.enabled {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 30) { App.updaterController?.startUpdater() }
-        }
-        #else
-        DispatchQueue.main.asyncAfter(deadline: .now() + 30) { App.updaterController?.startUpdater() }
-        #endif
         PreferencesEvents.initialize()
         #if DEBUG
         BenchmarkRunner.startIfNeeded()
@@ -623,7 +596,6 @@ class App: AppCenterApplication {
 
 extension App: NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        App.appCenterDelegate = AppCenterCrash()
         App.shared.disableRelaunchOnLogin()
         Logger.initialize()
         MainThreadStall.observe()
@@ -631,6 +603,7 @@ extension App: NSApplicationDelegate {
         MainThreadWatchdog.start()
         #endif
         Logger.info { "Launching AltTab \(App.version)" }
+        Logger.info { "Offline network sandbox active" }
         // Create the background queues first, before anything that can pump the main run loop re-entrantly
         // (the "move to /Applications" modal below, the WindowServer tap's discovery). Window.init reads
         // BackgroundWork.screenshotsQueue (an implicitly-unwrapped optional) via Application.fetchAppIcon, so
@@ -678,7 +651,6 @@ extension App: NSApplicationDelegate {
         LicenseManager.shared.onStateChanged = { state in
             Menubar.refreshLicenseMenuItems()
             if !LicenseManager.shared.isMocked {
-                syncLicenseCookie(state: state)
                 ProTransitionManager.shared.onLicenseStateChanged()
             }
             UpgradeTab.refreshStatus()
@@ -711,6 +683,7 @@ extension App: NSApplicationDelegate {
     }
 
     private func handleCustomUrl(_ url: URL) {
+        guard LicenseManager.shared.licensingEnabled else { return }
         guard url.host == "activate",
               let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
               let licenseKey = components.queryItems?.first(where: { $0.name == "license_key" })?.value,

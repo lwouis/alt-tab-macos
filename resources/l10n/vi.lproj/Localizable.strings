@@ -6,9 +6,7 @@
 "3-finger Vertical Swipe" = "Vuốt dọc 3 ngón tay";
 "4-finger Horizontal Swipe" = "Vuốt ngang 4 ngón tay";
 "4-finger Vertical Swipe" = "Vuốt dọc 4 ngón tay";
-"A debug profile (versions, settings, hardware) is attached to help diagnose the issue." = "Hồ sơ gỡ lỗi (phiên bản, cài đặt, phần cứng) được đính kèm để giúp chẩn đoán sự cố.";
 "A little time." = "Một lát.";
-"A new version of AltTab is available" = "Đã có phiên bản mới của AltTab";
 "About %@" = "Giới thiệu về %@";
 "Accessibility" = "Trợ năng";
 "Activate" = "Kích hoạt";
@@ -30,7 +28,6 @@
 "All Windows" = "Tất cả cửa sổ";
 "Allowed" = "Cho phép";
 "Alphabetical Order" = "Thứ tự bảng chữ cái";
-"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab đã gặp sự cố ở lần dùng trước. Gửi báo cáo sự cố sẽ giúp khắc phục vấn đề";
 "AltTab is ready" = "AltTab đã sẵn sàng";
 "AltTab is running without Screen Recording permissions. %@ won’t show." = "AltTab đang chạy mà không có quyền Ghi màn hình. %@ sẽ không hiển thị.";
 "AltTab preferences file is a symlink. macOS doesn’t support symlink for preferences. Please use a valid file instead of a symlink here:" = "Tệp cài đặt của AltTab là một liên kết tượng trưng. macOS không hỗ trợ liên kết tượng trưng cho cài đặt. Vui lòng dùng một tệp hợp lệ thay cho liên kết tượng trưng tại đây:";
@@ -63,14 +60,10 @@
 "Auto-install updates periodically" = "Tự động cài đặt cập nhật định kỳ";
 "Automatic activation failed" = "Kích hoạt tự động thất bại";
 "Breakfast" = "Bữa sáng";
-"Brief description of the bug" = "Mô tả ngắn gọn về lỗi";
-"Brief description of the change" = "Mô tả ngắn gọn về thay đổi";
 "Bundle ID" = "Bundle ID";
 "Cancel" = "Hủy";
 "Capture windows in the background" = "Chụp cửa sổ ở chế độ nền";
-"Check for updates now…" = "Kiểm tra cập nhật ngay…";
 "Check for updates periodically" = "Kiểm tra cập nhật định kỳ";
-"Check for updates…" = "Kiểm tra cập nhật…";
 "Check permissions…" = "Kiểm tra quyền…";
 "Choose a style" = "Chọn kiểu";
 "Choose which windows to switch between" = "Chọn những cửa sổ để chuyển đổi";
@@ -83,9 +76,7 @@
 "Could not move to Applications folder" = "Không thể di chuyển vào thư mục Ứng dụng";
 "Couldn't deactivate that machine" = "Không thể hủy kích hoạt máy đó";
 "Couldn't save your license to the macOS Keychain. Please share the details below with the developer." = "Không thể lưu giấy phép của bạn vào Chuỗi khóa macOS. Vui lòng chia sẻ chi tiết bên dưới với nhà phát triển.";
-"Couldn't submit feedback" = "Không thể gửi phản hồi";
 "Crash reports policy" = "Chính sách báo cáo sự cố";
-"Create GitHub issue" = "Tạo issue trên GitHub";
 "Cursor follows focus" = "Con trỏ theo tiêu điểm";
 "Customize more…" = "Tùy chỉnh thêm…";
 "Dark" = "Tối";
@@ -105,7 +96,6 @@
 "Don't show discovery tips again" = "Không hiện mẹo khám phá tính năng nữa";
 "Done" = "Xong";
 "Don’t check for updates periodically" = "Không kiểm tra cập nhật định kỳ";
-"Don’t send" = "Không gửi";
 "During your trial" = "Trong thời gian dùng thử";
 "e.g. com.example.app" = "ví dụ: com.example.app";
 "e.g. Debug" = "ví dụ: Debug";
@@ -134,11 +124,9 @@
 "Get Pro to keep these features" = "Mua Pro để giữ các tính năng này";
 "Give different groups of windows their own shortcuts." = "Đặt phím tắt riêng cho từng nhóm cửa sổ.";
 "Give your previews more room" = "Thêm không gian cho bản xem trước";
-"Go back" = "Quay lại";
 "Grant permission" = "Cấp quyền";
 "Group apps" = "Nhóm ứng dụng";
 "Group tabs" = "Nhóm tab";
-"Help improve AltTab" = "Giúp cải thiện AltTab";
 "Hide" = "Ẩn";
 "Hide colored circles on mouse hover" = "Ẩn các vòng tròn màu khi di chuột";
 "Hide Space number labels" = "Ẩn nhãn số Không gian";
@@ -148,7 +136,6 @@
 "Hold" = "Giữ";
 "hold" = "giữ";
 "I can move myself to the Applications folder if you'd like." = "Nếu bạn muốn, tôi có thể tự di chuyển vào thư mục Ứng dụng.";
-"I think the app could be improved with…" = "Tôi nghĩ ứng dụng có thể được cải thiện với…";
 "Ideas" = "Ý tưởng";
 "Ignore shortcuts" = "Bỏ qua phím tắt";
 "Import settings…" = "Nhập cài đặt…";
@@ -203,7 +190,6 @@
 "Photos" = "Ảnh";
 "Pick a machine to deactivate so you can activate here." = "Chọn một máy để hủy kích hoạt để bạn có thể kích hoạt tại đây.";
 "Please drag AltTab into the Applications folder manually." = "Vui lòng kéo AltTab vào thư mục Ứng dụng theo cách thủ công.";
-"Please fill in the form" = "Vui lòng điền vào biểu mẫu";
 "press" = "nhấn";
 "Press %@" = "Nhấn %@";
 "Press %@ any time" = "Nhấn %@ bất cứ lúc nào";
@@ -225,9 +211,6 @@
 "Red badge" = "Biểu tượng màu đỏ";
 "Red badge with number %@" = "Biểu tượng màu đỏ có số %@";
 "Reliable, fast window switching with high-quality thumbnails" = "Chuyển cửa sổ đáng tin cậy, nhanh chóng với hình thu nhỏ chất lượng cao";
-"Remember my choice" = "Ghi nhớ lựa chọn của tôi";
-"Report a bug" = "Báo cáo lỗi";
-"Report on current version" = "Báo cáo trên phiên bản hiện tại";
 "Reset settings and restart" = "Đặt lại cài đặt và khởi động lại";
 "Restart Now" = "Khởi động lại ngay";
 "Safari — Food" = "Safari — Món ăn";
@@ -245,10 +228,6 @@
 "Select windows on mouse hover" = "Chọn cửa sổ khi di chuột";
 "Select windows using arrow keys" = "Chọn cửa sổ bằng phím mũi tên";
 "Select windows using vim keys" = "Chọn cửa sổ bằng phím Vim";
-"Send" = "Gửi";
-"Send a crash report?" = "Gửi báo cáo sự cố?";
-"Send feedback" = "Gửi phản hồi";
-"Sending…" = "Đang gửi…";
 "Settings imported" = "Đã nhập cài đặt";
 "Settings…" = "Cài đặt…";
 "Shopping" = "Mua sắm";
@@ -283,7 +262,6 @@
 "Start" = "Đầu";
 "Start at login" = "Khởi động khi đăng nhập";
 "Styles" = "Kiểu";
-"Suggest a change" = "Đề xuất thay đổi";
 "Support this project" = "Ủng hộ dự án này";
 "Switch between 3 different styles. You can customize them." = "Chuyển đổi giữa 3 kiểu khác nhau. Bạn có thể tùy chỉnh chúng.";
 "Sync with global value" = "Đồng bộ với giá trị chung";
@@ -292,7 +270,6 @@
 "That's it" = "Xong rồi";
 "The application needs to restart to apply the imported settings." = "Ứng dụng cần khởi động lại để áp dụng cài đặt đã nhập.";
 "The application needs to restart to apply the language change." = "Ứng dụng cần khởi động lại để áp dụng thay đổi ngôn ngữ.";
-"The server didn't accept the submission. Check your internet connection and try again — your draft is preserved." = "Máy chủ không chấp nhận bản gửi. Vui lòng kiểm tra kết nối internet và thử lại — bản nháp của bạn được giữ lại.";
 "Theme" = "Chủ đề";
 "This license is already activated elsewhere" = "Giấy phép này đã được kích hoạt ở nơi khác";
 "This license is already activated on the maximum number of machines. Deactivate one to continue." = "Giấy phép này đã được kích hoạt trên số máy tối đa. Hãy hủy kích hoạt một máy để tiếp tục.";
@@ -320,13 +297,11 @@
 "Unlock the App Icons style with Pro" = "Mở khóa kiểu Biểu tượng ứng dụng với Pro";
 "Unlock the Titles style with Pro" = "Mở khóa kiểu Tiêu đề với Pro";
 "Up to 9 shortcuts" = "Tối đa 9 phím tắt";
-"Update now" = "Cập nhật ngay";
 "Updates policy" = "Chính sách cập nhật";
 "Usage" = "Sử dụng";
 "Use App Icons" = "Dùng biểu tượng ứng dụng";
 "Use Titles" = "Dùng tiêu đề";
 "Version" = "Phiên bản";
-"View existing discussions" = "Xem các thảo luận hiện có";
 "Vim keys" = "Phím Vim";
 "Vim keys already assigned to other actions:\n%@" = "Phím Vim đã được gán cho các hành động khác:\n%@";
 "Visible Spaces" = "Không gian hiển thị";
@@ -334,9 +309,6 @@
 "Weekend" = "Cuối tuần";
 "Weekend recipes" = "Món ngon";
 "Welcome to %@" = "Chào mừng đến với %@";
-"What did you expect? What happened? Steps to reproduce…" = "Bạn mong đợi điều gì? Đã xảy ra chuyện gì? Các bước tái hiện…";
-"What happened, and what did you expect?" = "Điều gì đã xảy ra và bạn mong đợi điều gì?";
-"What would make AltTab more useful for you?" = "Điều gì sẽ khiến AltTab hữu ích hơn với bạn?";
 "When disabled, avoids the macOS purple screen-recording indicator, and avoids flickers when playing DRM video. Thumbnails will be less up-to-date." = "Khi tắt, tránh chỉ báo ghi màn hình màu tím của macOS và tránh nhấp nháy khi phát video DRM. Hình thu nhỏ sẽ ít được cập nhật hơn.";
 "When fullscreen" = "Khi toàn màn hình";
 "When no open window" = "Khi không có cửa sổ mở";
@@ -356,9 +328,7 @@
 "You can’t undo this action." = "Bạn không thể hoàn tác hành động này.";
 "You may need to disable some conflicting system gestures" = "Bạn có thể cần tắt một số cử chỉ hệ thống xung đột";
 "You reached for AltTab Pro this week" = "Tuần này bạn đã cần đến AltTab Pro";
-"You're running v%1$@. v%2$@ is available. The bug you're seeing may already be fixed — please update first and check before reporting." = "Bạn đang dùng v%1$@. v%2$@ đã có sẵn. Lỗi bạn đang gặp có thể đã được sửa — vui lòng cập nhật trước và kiểm tra lại trước khi báo cáo.";
 "Your AltTab Pro trial has ended" = "Thời gian dùng thử AltTab Pro đã kết thúc";
-"Your feedback will be submitted as a public GitHub issue." = "Phản hồi của bạn sẽ được gửi dưới dạng GitHub Issue công khai.";
 "Your Pro trial starts when AltTab is ready" = "Bản dùng thử Pro bắt đầu khi AltTab sẵn sàng";
 "Your settings reset every time AltTab restarts." = "Cài đặt của bạn bị đặt lại mỗi khi AltTab khởi động lại.";
 

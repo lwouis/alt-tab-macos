@@ -75,7 +75,7 @@ class ProTransitionState {
         let now = clock.now
         return ProTransitionManagerTestable.State(
             isAwaitingTrial: licenseState == .trialNotStarted,
-            isPro: { if case .pro = licenseState { return true }; return false }(),
+            isPro: licenseState == .pro || licenseState == .unrestricted,
             isTrialActive: licenseState.isProAvailable,
             daysSinceTrialStart: daysSinceTrialStart,
             hasSeenWelcome: hasSeenWelcome,

@@ -6,9 +6,7 @@
 "3-finger Vertical Swipe" = "Verticale veegbeweging met 3 vingers";
 "4-finger Horizontal Swipe" = "Horizontale veegbeweging met 4 vingers";
 "4-finger Vertical Swipe" = "Verticale veegbeweging met 4 vingers";
-"A debug profile (versions, settings, hardware) is attached to help diagnose the issue." = "Een debugprofiel (versies, instellingen, hardware) is bijgevoegd om het probleem te diagnosticeren.";
 "A little time." = "Even tijd.";
-"A new version of AltTab is available" = "Er is een nieuwe versie van AltTab beschikbaar";
 "About %@" = "Over %@";
 "Accessibility" = "Toegankelijkheid";
 "Activate" = "Activeren";
@@ -30,7 +28,6 @@
 "All Windows" = "Alle vensters";
 "Allowed" = "Toegestaan";
 "Alphabetical Order" = "Alfabetische volgorde";
-"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab is de vorige keer gecrasht. Door een crashrapport te versturen help je het probleem op te lossen";
 "AltTab is ready" = "AltTab is klaar";
 "AltTab is running without Screen Recording permissions. %@ won’t show." = "AltTab werkt zonder toegang voor Schermopname. %@ worden niet weergegeven.";
 "AltTab preferences file is a symlink. macOS doesn’t support symlink for preferences. Please use a valid file instead of a symlink here:" = "Het voorkeurenbestand van AltTab is een symbolische koppeling. macOS ondersteunt geen symbolische koppelingen voor voorkeuren. Gebruik hier een geldig bestand in plaats van een symbolische koppeling:";
@@ -63,14 +60,10 @@
 "Auto-install updates periodically" = "Updates regelmatig automatisch installeren";
 "Automatic activation failed" = "Automatische activering mislukt";
 "Breakfast" = "Ontbijt";
-"Brief description of the bug" = "Korte beschrijving van de bug";
-"Brief description of the change" = "Korte beschrijving van de wijziging";
 "Bundle ID" = "Bundle ID";
 "Cancel" = "Annuleer";
 "Capture windows in the background" = "Vensters op de achtergrond vastleggen";
-"Check for updates now…" = "Nu op updates controleren…";
 "Check for updates periodically" = "Regelmatig op updates controleren";
-"Check for updates…" = "Op updates controleren…";
 "Check permissions…" = "Rechten controleren…";
 "Choose a style" = "Kies een stijl";
 "Choose which windows to switch between" = "Kies tussen welke vensters je schakelt";
@@ -83,9 +76,7 @@
 "Could not move to Applications folder" = "Kan niet naar map Programma's verplaatsen";
 "Couldn't deactivate that machine" = "Kon dat apparaat niet deactiveren";
 "Couldn't save your license to the macOS Keychain. Please share the details below with the developer." = "Kon je licentie niet opslaan in de macOS Sleutelhanger. Deel de gegevens hieronder met de ontwikkelaar.";
-"Couldn't submit feedback" = "Kon feedback niet versturen";
 "Crash reports policy" = "Beleid voor crashrapporten";
-"Create GitHub issue" = "GitHub-issue aanmaken";
 "Cursor follows focus" = "Cursor volgt focus";
 "Customize more…" = "Meer aanpassen…";
 "Dark" = "Donker";
@@ -105,7 +96,6 @@
 "Don't show discovery tips again" = "Geen functietips meer tonen";
 "Done" = "Klaar";
 "Don’t check for updates periodically" = "Niet regelmatig op updates controleren";
-"Don’t send" = "Niet versturen";
 "During your trial" = "Tijdens je proefperiode";
 "e.g. com.example.app" = "bijv. com.example.app";
 "e.g. Debug" = "bijv. Debug";
@@ -134,11 +124,9 @@
 "Get Pro to keep these features" = "Neem Pro om deze functies te behouden";
 "Give different groups of windows their own shortcuts." = "Geef verschillende groepen vensters hun eigen sneltoetsen.";
 "Give your previews more room" = "Meer ruimte voor je voorvertoningen";
-"Go back" = "Terug";
 "Grant permission" = "Toegang verlenen";
 "Group apps" = "Apps groeperen";
 "Group tabs" = "Tabbladen groeperen";
-"Help improve AltTab" = "Help AltTab verbeteren";
 "Hide" = "Verberg";
 "Hide colored circles on mouse hover" = "Gekleurde cirkels verbergen bij aanwijzen met muis";
 "Hide Space number labels" = "Nummerlabels van Spaces verbergen";
@@ -148,7 +136,6 @@
 "Hold" = "Vasthouden";
 "hold" = "vasthouden";
 "I can move myself to the Applications folder if you'd like." = "Ik kan mezelf naar de map Programma's verplaatsen als je dat wilt.";
-"I think the app could be improved with…" = "Ik denk dat de app verbeterd kan worden met…";
 "Ideas" = "Ideeën";
 "Ignore shortcuts" = "Sneltoetsen negeren";
 "Import settings…" = "Instellingen importeren…";
@@ -203,7 +190,6 @@
 "Photos" = "Foto’s";
 "Pick a machine to deactivate so you can activate here." = "Kies een apparaat om te deactiveren zodat je hier kunt activeren.";
 "Please drag AltTab into the Applications folder manually." = "Sleep AltTab handmatig naar de map Programma's.";
-"Please fill in the form" = "Vul het formulier in";
 "press" = "drukken";
 "Press %@" = "Druk op %@";
 "Press %@ any time" = "Druk op elk moment op %@";
@@ -225,9 +211,6 @@
 "Red badge" = "Rode badge";
 "Red badge with number %@" = "Rode badge met het getal %@";
 "Reliable, fast window switching with high-quality thumbnails" = "Betrouwbaar, snel schakelen tussen vensters met miniaturen van hoge kwaliteit";
-"Remember my choice" = "Onthoud mijn keuze";
-"Report a bug" = "Een bug melden";
-"Report on current version" = "Rapporteren over huidige versie";
 "Reset settings and restart" = "Instellingen herstellen en herstarten";
 "Restart Now" = "Herstart nu";
 "Safari — Food" = "Safari — Eten";
@@ -245,10 +228,6 @@
 "Select windows on mouse hover" = "Vensters selecteren bij aanwijzen met muis";
 "Select windows using arrow keys" = "Vensters selecteren met pijltjestoetsen";
 "Select windows using vim keys" = "Vensters selecteren met Vim-toetsen";
-"Send" = "Verstuur";
-"Send a crash report?" = "Crashrapport versturen?";
-"Send feedback" = "Feedback versturen";
-"Sending…" = "Versturen…";
 "Settings imported" = "Instellingen geïmporteerd";
 "Settings…" = "Instellingen…";
 "Shopping" = "Boodschappen";
@@ -283,7 +262,6 @@
 "Start" = "Start";
 "Start at login" = "Starten bij inloggen";
 "Styles" = "Stijlen";
-"Suggest a change" = "Een wijziging voorstellen";
 "Support this project" = "Steun dit project";
 "Switch between 3 different styles. You can customize them." = "Schakel tussen 3 verschillende stijlen. Je kunt ze aanpassen.";
 "Sync with global value" = "Synchroniseren met globale waarde";
@@ -292,7 +270,6 @@
 "That's it" = "Dat was het";
 "The application needs to restart to apply the imported settings." = "De app moet opnieuw worden gestart om de geïmporteerde instellingen toe te passen.";
 "The application needs to restart to apply the language change." = "De app moet opnieuw worden gestart om de taalwijziging toe te passen.";
-"The server didn't accept the submission. Check your internet connection and try again — your draft is preserved." = "De server heeft de inzending niet geaccepteerd. Controleer je internetverbinding en probeer opnieuw — je concept blijft bewaard.";
 "Theme" = "Thema";
 "This license is already activated elsewhere" = "Deze licentie is al elders geactiveerd";
 "This license is already activated on the maximum number of machines. Deactivate one to continue." = "Deze licentie is al geactiveerd op het maximale aantal apparaten. Deactiveer er een om door te gaan.";
@@ -320,13 +297,11 @@
 "Unlock the App Icons style with Pro" = "Ontgrendel de stijl App-symbolen met Pro";
 "Unlock the Titles style with Pro" = "Ontgrendel de stijl Titels met Pro";
 "Up to 9 shortcuts" = "Tot 9 sneltoetsen";
-"Update now" = "Nu bijwerken";
 "Updates policy" = "Updatebeleid";
 "Usage" = "Gebruik";
 "Use App Icons" = "App-symbolen gebruiken";
 "Use Titles" = "Titels gebruiken";
 "Version" = "Versie";
-"View existing discussions" = "Bekijk bestaande discussies";
 "Vim keys" = "Vim-toetsen";
 "Vim keys already assigned to other actions:\n%@" = "Vim-toetsen zijn al toegewezen aan andere acties:\n%@";
 "Visible Spaces" = "Zichtbare Spaces";
@@ -334,9 +309,6 @@
 "Weekend" = "Weekend";
 "Weekend recipes" = "Weekendrecepten";
 "Welcome to %@" = "Welkom bij %@";
-"What did you expect? What happened? Steps to reproduce…" = "Wat verwachtte je? Wat gebeurde er? Stappen om te reproduceren…";
-"What happened, and what did you expect?" = "Wat gebeurde er en wat verwachtte je?";
-"What would make AltTab more useful for you?" = "Wat zou AltTab nuttiger voor je maken?";
 "When disabled, avoids the macOS purple screen-recording indicator, and avoids flickers when playing DRM video. Thumbnails will be less up-to-date." = "Wanneer uitgeschakeld voorkomt dit de paarse schermopname-indicator van macOS en flikkeringen bij het afspelen van DRM-video. Miniaturen zijn minder actueel.";
 "When fullscreen" = "In volledig scherm";
 "When no open window" = "Bij geen open venster";
@@ -356,9 +328,7 @@
 "You can’t undo this action." = "Je kunt deze actie niet ongedaan maken.";
 "You may need to disable some conflicting system gestures" = "Mogelijk moet je enkele conflicterende systeemgebaren uitschakelen";
 "You reached for AltTab Pro this week" = "Je greep deze week naar AltTab Pro";
-"You're running v%1$@. v%2$@ is available. The bug you're seeing may already be fixed — please update first and check before reporting." = "Je gebruikt v%1$@. v%2$@ is beschikbaar. De bug die je ziet is mogelijk al verholpen — werk eerst bij en controleer voordat je rapporteert.";
 "Your AltTab Pro trial has ended" = "Je proefperiode van AltTab Pro is afgelopen";
-"Your feedback will be submitted as a public GitHub issue." = "Je feedback wordt ingediend als openbare GitHub-issue.";
 "Your Pro trial starts when AltTab is ready" = "Je Pro-proefperiode begint zodra AltTab klaar is";
 "Your settings reset every time AltTab restarts." = "Je instellingen worden bij elke herstart van AltTab teruggezet.";
 
