@@ -95,6 +95,12 @@
 "Alphabetical Order" = "Alphabetical Order";
 
 /* No comment provided by engineer. */
+"AltTab couldn’t access the keyboard or mouse. You can try again or quit AltTab." = "AltTab couldn’t access the keyboard or mouse. You can try again or quit AltTab.";
+
+/* No comment provided by engineer. */
+"AltTab couldn’t start." = "AltTab couldn’t start.";
+
+/* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed";
 
 /* Onboarding popover */
@@ -111,6 +117,9 @@
 
 /* No comment provided by engineer. */
 "AltTab Pro" = "AltTab Pro";
+
+/* No comment provided by engineer. */
+"AltTab Pro is still here" = "AltTab Pro is still here";
 
 /* Permissions window title */
 "AltTab requires some permissions" = "AltTab requires some permissions";
@@ -290,7 +299,7 @@
 "Deactivation was rejected by the server." = "Deactivation was rejected by the server.";
 
 /* Menubar option */
-"Debug tools" = "Debug tools";
+"Debug Logs" = "Debug Logs";
 
 /* Name of the Accessibility permission since macOS 27: the first half of \"Device Control and Data Access\", as System Settings shows it */
 "Device Control" = "Device Control";
@@ -572,6 +581,9 @@
 /* No comment provided by engineer. */
 "Non-visible Spaces" = "Non-visible Spaces";
 
+/* Dismiss the one-time late Pro reminder */
+"Not now" = "Not now";
+
 /* Illustration: app.notes, window.checklist */
 "Notes" = "Notes";
 
@@ -718,6 +730,9 @@
 
 /* No comment provided by engineer. */
 "Search — find a window by typing" = "Search — find a window by typing";
+
+/* No comment provided by engineer. */
+"Search, extra shortcuts and App Icons are a one-time purchase away." = "Search, extra shortcuts and App Icons are a one-time purchase away.";
 
 /* No comment provided by engineer. */
 "Searches started during your trial: %@" = "Searches started during your trial: %@";
@@ -936,6 +951,9 @@
 "Try a different window style" = "Try a different window style";
 
 /* No comment provided by engineer. */
+"Try again" = "Try again";
+
+/* No comment provided by engineer. */
 "Try all four Pro features." = "Try all four Pro features.";
 
 /* Onboarding popover */
@@ -1075,6 +1093,9 @@
 
 /* No comment provided by engineer. */
 "You're running v%1$@. v%2$@ is available. The bug you're seeing may already be fixed — please update first and check before reporting." = "You're running v%1$@. v%2$@ is available. The bug you're seeing may already be fixed — please update first and check before reporting.";
+
+/* Usage count, then rounded number of 30-day months (2 to 12). Counts shortcut uses, not completed switches. */
+"You've used AltTab %@ times over the last %d months." = "You've used AltTab %1$@ times over the last %2$d months.";
 
 /* No comment provided by engineer. */
 "Your AltTab Pro trial has ended" = "Your AltTab Pro trial has ended";

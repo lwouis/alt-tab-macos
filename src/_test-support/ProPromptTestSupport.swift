@@ -6,6 +6,7 @@ import Cocoa
 class ProTransitionState {
     static let suite = "com.lwouis.alt-tab-macos.tests.ProPromptFlow"
     static let defaults = UserDefaults(suiteName: suite)!
+    static let isFreshInstall = false
     var value = ProTransitionManagerTestable.State.fresh()
     var onboardingInProgress = false
     var rememberedAppearanceStyle: Int?
@@ -33,6 +34,7 @@ class ProTransitionState {
 }
 
 extension App {
+    static let name = "AltTab"
     static var hideUiCount = 0
     static func hideUi() {
         hideUiCount += 1
@@ -57,9 +59,12 @@ enum QaLifecycle {
     static var actions = [String]()
 }
 
+enum StartupRecovery { static var isRecovering = false }
+
 enum ScreenLockEvents { static var isScreenLocked = false }
 enum ContextMenuEvents { static var isMenuOpen = false }
 enum Menubar {
+    static var isInitialized = true
     static var statusItem: NSStatusItem?
     static func menubarIconCallback(_ sender: Any?) {}
 }
@@ -75,10 +80,6 @@ class SearchDiscoveryHint {
 }
 class PermissionsWindow: NSWindow {}
 class FeedbackWindow: NSWindow {}
-enum Day1WelcomeLetterPopover {
-    static func show() {}
-    static func close() {}
-}
 class Day15FullUpgradeWindow: ProPromptWindow {
     static var shared: Day15FullUpgradeWindow?
     static func show(for reason: HardGateReason?) {}
@@ -88,6 +89,12 @@ class Day35FinalWindow: ProPromptWindow {
     static func show() {}
 }
 enum Day4TourPopover { static func show() {} }
+
+enum UsageStats {
+    static func loadLateReminderUsage(months: Int, now: Date, completion: @escaping (LateReminderExperiment.Usage) -> Void) {
+        completion(.init(months: months, count: nil))
+    }
+}
 
 extension Array {
     subscript(safe index: Int) -> Element? { indices.contains(index) ? self[index] : nil }

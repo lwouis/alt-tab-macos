@@ -95,7 +95,7 @@
 "Deactivate license on this machine" = "Deactivate license on this machine";
 "Deactivation failed" = "Deactivation failed";
 "Deactivation was rejected by the server." = "Deactivation was rejected by the server.";
-"Debug tools" = "Debug tools";
+"Debug Logs" = "Debug Logs";
 "Device Control" = "Device Control";
 "Dinner" = "Dinner";
 "Disabled" = "Disabled";
@@ -361,3 +361,16 @@
 "Your feedback will be submitted as a public GitHub issue." = "Your feedback will be submitted as a public GitHub issue.";
 "Your Pro trial starts when AltTab is ready" = "Your Pro trial starts when AltTab is ready";
 "Your settings reset every time AltTab restarts." = "Your settings reset every time AltTab restarts.";
+
+/* Startup recovery */
+"AltTab couldn’t start." = "AltTab couldn’t start.";
+
+/* Startup recovery */
+"AltTab couldn’t access the keyboard or mouse. You can try again or quit AltTab." = "AltTab couldn’t access the keyboard or mouse. You can try again or quit AltTab.";
+
+/* Startup recovery */
+"Try again" = "Try again";
+"AltTab Pro is still here" = "AltTab Pro is still here";
+"Not now" = "Not now";
+"Search, extra shortcuts and App Icons are a one-time purchase away." = "Search, extra shortcuts and App Icons are a one-time purchase away.";
+"You've used AltTab %@ times over the last %d months." = "You've used AltTab %@ times over the last %d months.";

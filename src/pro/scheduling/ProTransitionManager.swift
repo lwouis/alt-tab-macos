@@ -70,6 +70,7 @@ enum PendingDismissAction {
     case showFullUpgrade(HardGateReason?)
     case showDay4Tour
     case showDay35Final
+    case showLateReminder
 }
 
 /// Presentation requests handled by `ProPromptHost`.
@@ -79,7 +80,8 @@ enum ProPromptAction {
     case showDay15FullUpgrade(HardGateReason?)            // [C] Day 15 full upgrade
     case showDay15HardGatePopover(HardGateReason?)        // [E] post-[C] hard-gate popover
     case showDay35Final                                   // [G] Day 35
-    case dismissAllProWindows                             // on upgrade-to-pro
+    case showLateReminder
+    case dismissAllProWindows                             // on upgrade-to-pro or input recovery
     case refreshBadge                                     // menubar badge dot
 }
 
@@ -100,11 +102,15 @@ class ProTransitionManager {
     var onAction: ((ProPromptAction) -> Void)?
 
     private let makeLicenseManager: () -> LicenseManager
+    private let canPresentProactively: () -> Bool
     private lazy var licenseManager = makeLicenseManager()
     let state = ProTransitionState()
+    let lateReminder = LateReminderExperiment(defaults: ProTransitionState.defaults)
 
-    init(licenseManager: @escaping () -> LicenseManager = { LicenseManager.shared }) {
+    init(licenseManager: @escaping () -> LicenseManager = { LicenseManager.shared },
+         canPresentProactively: @escaping () -> Bool = { ProPromptHost.canPresentProactively }) {
         makeLicenseManager = licenseManager
+        self.canPresentProactively = canPresentProactively
     }
     private lazy var scheduler: ProTransitionScheduler = .init(
         defaults: ProTransitionState.defaults,
@@ -184,6 +190,11 @@ class ProTransitionManager {
         pendingDismissAction = nil
     }
 
+    func suspendForRecovery() {
+        cancelPendingPrompts()
+        emit(.dismissAllProWindows)
+    }
+
     func activeSpaceDidChange() {
         guard ProTransitionManagerTestable.spaceChangeCancelsPendingPrompt(
             switcherIsShown: switcherIsShown, awaitingDismissalDelay: deferredPrompt != nil) else { return }
@@ -194,9 +205,15 @@ class ProTransitionManager {
 
     private var launchCompleted = false
 
-    func onAppLaunchComplete() {
+    func onAppLaunchComplete(didUpdate: Bool = false) {
+        let firstCompletion = !launchCompleted
         launchCompleted = true
         scheduler.onAppLaunchComplete()
+        guard firstCompletion, didUpdate else { return }
+        lateReminder.recordActivity(lateReminderContext())
+        guard !hasPendingPrompt, lateReminder.canOffer(lateReminderContext()) else { return }
+        pendingDismissAction = .showLateReminder
+        scheduleDeferredPrompt(after: 0)
     }
 
     func onLicenseStateChanged() {
@@ -220,16 +237,24 @@ class ProTransitionManager {
     // MARK: - Hard-gate flow
 
     /// Called from App.hideUi() when the switcher panel is dismissed.
-    func onSwitcherDismissed() {
+    func onSwitcherDismissed(didSwitchWindow: Bool = false) {
         switcherIsShown = false
         // End any active free-pass session — the next switcher open should see the free-tier read.
         isFreePassSessionActive = false
+        if didSwitchWindow, pendingDismissAction == nil, lateReminder.canOffer(lateReminderContext()) {
+            pendingDismissAction = .showLateReminder
+        }
+        scheduleDeferredPrompt(after: 1)
+    }
+
+    private func scheduleDeferredPrompt(after delay: TimeInterval) {
         deferredPrompt?.cancel()
+        deferredPrompt = nil
         guard pendingDismissAction != nil else { return }
         // Delay so the focused window has time to come to front before our window appears above it.
         let item = DispatchWorkItem { [weak self] in self?.showDeferredPrompt() }
         deferredPrompt = item
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: item)
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: item)
     }
 
     func refreshAfterSwitcherDismissal() {
@@ -256,7 +281,7 @@ class ProTransitionManager {
         case .showFullUpgrade(.some(.feature)): userInitiated = true
         default: userInitiated = false
         }
-        guard userInitiated ? ProPromptHost.sessionIsAvailable : ProPromptHost.canPresentProactively else {
+        guard userInitiated ? ProPromptHost.sessionIsAvailable : canPresentProactively() else {
             if case .showDay4Tour = action { state.day4TourDeferred = true }
             return
         }
@@ -270,6 +295,9 @@ class ProTransitionManager {
         case .showDay35Final:
             guard ProTransitionManagerTestable.evaluateSwitcherOpen(currentState()) == .showDay35Final else { return }
             emit(.showDay35Final)
+        case .showLateReminder:
+            guard lateReminder.canOffer(lateReminderContext()) else { return }
+            emit(.showLateReminder)
         }
     }
 
@@ -279,10 +307,12 @@ class ProTransitionManager {
         guard !switcherIsShown else { return }
         refreshFreePassPreferencesIfNeeded()
         switcherIsShown = true
+        lateReminder.recordActivity(lateReminderContext())
         ProPromptHost.windowPresentation.cancel()
         ProPromptPopover.cancelPendingPresentations()
         deferredPrompt?.cancel()
         deferredPrompt = nil
+        if case .showLateReminder = pendingDismissAction { pendingDismissAction = nil }
         let snapshot = currentState()
         let action = ProTransitionManagerTestable.evaluateSwitcherOpen(snapshot)
         if snapshot.daysSinceTrialStart == 3 && !snapshot.hasSeenDay4Tour {
@@ -368,11 +398,10 @@ class ProTransitionManager {
         emit(.refreshBadge)
         guard !switcherIsShown else { return }
         if licenseManager.trialEndedSinceLastRefresh { licenseManager.refreshState() }
-        guard !hasPendingPrompt, ProPromptHost.canPresentProactively else { return }
+        guard !hasPendingPrompt, canPresentProactively() else { return }
         let action = ProTransitionManagerTestable.evaluateTimedAction(currentState())
         switch action {
         case .showWelcome:
-            state.hasSeenWelcome = true
             emit(.showWelcome)
         case .showDay35Final:
             emit(.showDay35Final)
@@ -393,13 +422,26 @@ class ProTransitionManager {
 
     // MARK: - Checkout helper
 
+    func lateReminderContext() -> LateReminderExperiment.Context {
+        LateReminderExperiment.Context(now: licenseManager.clock.now, trialStart: licenseManager.trialStartDate,
+            isFree: licenseManager.state == .trialExpired, optedOut: userOptedOut,
+            lastMessage: ProTransitionState.defaults.object(forKey: "proJourney.lastMessageAt") as? Date)
+    }
+
     static func openCheckout(from origin: CheckoutOrigin) {
-        NSWorkspace.shared.open(Endpoints.checkoutUrl(from: origin, trialDay: LicenseManager.shared.trialDay))
+        shared.lateReminder.checkoutArm(context: shared.lateReminderContext) { arm in
+            NSWorkspace.shared.open(Endpoints.checkoutUrl(from: origin, trialDay: LicenseManager.shared.trialDay, arm: arm))
+        }
     }
 
     // MARK: - QA / Debug
 
     #if DEBUG
+    func rescheduleForQa() {
+        scheduler.invalidateTimerForQa()
+        onAppLaunchComplete()
+    }
+
     func clearSessionForQa() {
         ProPromptHost.windowPresentation.cancel()
         scheduler.cancel()

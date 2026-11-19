@@ -64,6 +64,8 @@ class App: AppCenterApplication {
         // we use -n to open a new instance, to avoid calling applicationShouldHandleReopen
         // we use Bundle.main.bundlePath in case of multiple AltTab versions on the machine
         printStackTrace()
+        // A successor can register its command port before this process finishes terminating.
+        CliEvents.stop()
         var arguments = ["-n", Bundle.main.bundlePath]
         #if DEBUG
         if QaLifecycle.enabled { arguments += ["--args"] + QaLifecycle.restartArguments }
@@ -102,12 +104,12 @@ class App: AppCenterApplication {
     }
 
     /// Reset session state now; AppKit cleanup waits until the panel has given the keyboard back.
-    private static func endHideUi() {
+    private static func endHideUi(didSwitchWindow: Bool = false) {
         MainThreadStall.step()
         UsageStats.resetSession()
         ContextMenuEvents.toggle(false)
         TrackpadEvents.reset()
-        ProTransitionManager.shared.onSwitcherDismissed()
+        ProTransitionManager.shared.onSwitcherDismissed(didSwitchWindow: didSwitchWindow)
         OnboardingPopover.switcherWasDismissed()
         TilesPanel.shared.whenOrderedOut(finishHideUi)
     }
@@ -172,13 +174,13 @@ class App: AppCenterApplication {
         showSecondaryWindow(FeedbackWindow.shared!)
     }
 
-    @objc static func showDebugWindow() {
-        initializeDebugWindowIfNeeded()
-        showSecondaryWindow(DebugWindow.shared!)
+    @objc static func showDebugLogsWindow() {
+        initializeDebugLogsWindowIfNeeded()
+        showSecondaryWindow(DebugLogsWindow.shared!)
     }
 
     @objc static func showSettingsWindow() {
-        guard Menubar.statusItem != nil else {
+        guard Menubar.isInitialized else {
             pendingShowSettingsWindow = true
             return
         }
@@ -227,8 +229,8 @@ class App: AppCenterApplication {
         if FeedbackWindow.shared == nil { _ = FeedbackWindow() }
     }
 
-    private static func initializeDebugWindowIfNeeded() {
-        if DebugWindow.shared == nil { _ = DebugWindow() }
+    private static func initializeDebugLogsWindowIfNeeded() {
+        if DebugLogsWindow.shared == nil { _ = DebugLogsWindow() }
     }
 
     private static func initializePermissionsWindowIfNeeded() {
@@ -341,7 +343,7 @@ class App: AppCenterApplication {
             Preferences.cursorFollowFocus == .differentScreen && (Spaces.screenSpacesMap.first { $0.value.contains { space in window.spaceIds.contains(space) } })?.key != NSScreen.active()?.cachedUuid()) {
             moveCursorToSelectedWindow(window)
         }
-        endHideUi()
+        endHideUi(didSwitchWindow: window != nil)
     }
 
     static func moveCursorToSelectedWindow(_ window: Window) {
@@ -386,6 +388,7 @@ class App: AppCenterApplication {
     }
 
     static func showUiOrCycleSelection(_ shortcutIndex: Int, _ forceDoNothingOnRelease_: Bool) {
+        guard !StartupRecovery.isRecovering else { return }
         MainThreadStall.step()
         if !SwitcherSession.isActive { DismissalInput.cancel() }
         OnboardingPopover.switcherWasSummoned()
@@ -425,12 +428,10 @@ class App: AppCenterApplication {
             }
             if !Windows.updatesBeforeShowing() { hideUi(); return }
             Windows.setInitialSelectedAndHoveredWindowIndex()
-            // The very first summon of a launch can beat the launch inventory: AltTab has been alive for a
-            // few hundred milliseconds, nothing has been discovered yet, and the panel opens EMPTY and fills
-            // itself under the user's eyes a beat later. Nobody is served by that frame. Ask for the scan
-            // now and let the panel wait for it — capped, because a desktop that genuinely has no window
-            // still has to be told so, and measured against the ~280ms an inventory takes to land.
-            let awaitingLaunchInventory = isLaunchSummon && Windows.list.isEmpty
+            // Discovery lands one window at a time: a nonempty list can still omit the front app. C-01
+            // caught TextEdit arriving 13ms before Finder and bypassing the empty-list grace. Wait for a
+            // pending inventory too, capped so an unavailable app cannot hold the first summon forever.
+            let awaitingLaunchInventory = isLaunchSummon && (Windows.list.isEmpty || WindowSurfaceInventory.isDiscoveryPending)
             if awaitingLaunchInventory { Applications.manuallyRefreshAllWindows() }
             let displayDelay = awaitingLaunchInventory
                 ? DispatchTimeInterval.milliseconds(max(Preferences.windowDisplayDelayInMs, launchInventoryGraceInMs))
@@ -519,7 +520,7 @@ class App: AppCenterApplication {
     /// sources, so both threads get every event), and the gesture state in `TrackpadEvents` is unlocked on
     /// the grounds that one thread reaches it. Two of them segfault in `GestureTracker.prune`.
     static func continueAppLaunchAfterPermissionsAreGranted() {
-        guard !didContinueAppLaunch else {
+        guard !didContinueAppLaunch, !StartupRecovery.isRecovering else {
             Logger.warning { "launch continuation asked for twice; ignoring" }
             return
         }
@@ -558,6 +559,7 @@ class App: AppCenterApplication {
             Applications.manuallyRefreshAllWindows()
         }
         KeyboardEvents.addEventHandlers()
+        guard !StartupRecovery.isRecovering else { return }
         // Evaluate the "ignore shortcuts" exception for whatever app is already frontmost at launch (#5842):
         // no didActivateApplication fires for it, so without this an app blacklisted with ignore=.always keeps
         // AltTab's shortcut registered after an auto-update relaunch until the user switches away and back.
@@ -565,7 +567,9 @@ class App: AppCenterApplication {
             checkIfShortcutsShouldBeDisabled(frontmostApp.focusedWindow, frontmostApp)
         }
         CursorEvents.observe()
+        guard !StartupRecovery.isRecovering else { return }
         TrackpadEvents.observe()
+        guard !StartupRecovery.isRecovering else { return }
         // With the other taps, not with `WindowServerEvents`: it needs Accessibility (`tapCreate` returns nil
         // without it) and the input-devices runloop, neither of which exists before this point.
         WindowAttentionEvents.observe()
@@ -601,10 +605,11 @@ class App: AppCenterApplication {
         // Created now rather than on the first prompt: its observers cancel prompts queued before that.
         let promptHost = ProPromptHost.shared
         ProTransitionManager.shared.onAction = { promptHost.dispatch($0) }
-        ProTransitionManager.shared.onAppLaunchComplete()
+        ProTransitionManager.shared.onAppLaunchComplete(didUpdate: PreferencesMigrations.didUpdate)
         #if DEBUG
         if QaLifecycle.enabled { QaLifecycle.finishedLaunching = true; QaLifecycle.launchCount += 1 }
         #endif
+        StartupRecovery.becameReady()
         Logger.info { "Finished launching AltTab" }
     }
 }

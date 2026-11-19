@@ -77,28 +77,24 @@ class SystemPermissions {
     }
 
     private static func checkPermissionsPreStartup() {
-        if PermissionFlow.isComplete(accessibility: AccessibilityPermission.status, screenRecording: ScreenRecordingPermission.status) {
-            DispatchQueue.main.async {
-                guard !preStartupPermissionsPassed else { return }
-                guard PermissionFlow.isComplete(accessibility: AccessibilityPermission.status, screenRecording: ScreenRecordingPermission.status) else {
-                    checkPermissionsSoon()
-                    return
-                }
+        PermissionStartup(
+            isComplete: { PermissionFlow.isComplete(accessibility: AccessibilityPermission.status, screenRecording: ScreenRecordingPermission.status) },
+            hasStarted: { preStartupPermissionsPassed },
+            enqueue: { DispatchQueue.main.async(execute: $0) },
+            start: {
                 preStartupPermissionsPassed = true
                 PermissionsWindow.shared?.close()
                 App.continueAppLaunchAfterPermissionsAreGranted()
-            }
-        } else {
-            DispatchQueue.main.async {
-                App.showPermissionsWindow()
-            }
-        }
+            },
+            showWindow: { App.showPermissionsWindow() },
+            checkAgain: { checkPermissionsSoon() }
+        ).check()
     }
 
     private static func checkPermissionsPostStartup() {
         if AccessibilityPermission.status == .notGranted {
-            Logger.error { "Accessibility permission revoked while AltTab was running; restarting" }
-            DispatchQueue.main.async { App.restart() }
+            Logger.error { "Accessibility permission revoked while AltTab was running" }
+            DispatchQueue.main.async { StartupRecovery.failed("accessibility revoked") }
         }
     }
 

@@ -95,7 +95,7 @@
 "Deactivate license on this machine" = "ปิดใช้งานสิทธิ์บนเครื่องนี้";
 "Deactivation failed" = "การปิดใช้งานล้มเหลว";
 "Deactivation was rejected by the server." = "เซิร์ฟเวอร์ปฏิเสธการปิดใช้งาน";
-"Debug tools" = "เครื่องมือแก้ไขข้อบกพร่อง";
+"Debug Logs" = "บันทึกการแก้ไขข้อบกพร่อง";
 "Device Control" = "การควบคุมอุปกรณ์";
 "Dinner" = "มื้อเย็น";
 "Disabled" = "ปิดใช้งาน";
@@ -361,3 +361,16 @@
 "Your feedback will be submitted as a public GitHub issue." = "คำติชมของคุณจะถูกส่งเป็นปัญหาสาธารณะบน GitHub";
 "Your Pro trial starts when AltTab is ready" = "ช่วงทดลองใช้ Pro จะเริ่มเมื่อ AltTab พร้อมใช้งาน";
 "Your settings reset every time AltTab restarts." = "การตั้งค่าของคุณจะถูกรีเซ็ตทุกครั้งที่ AltTab เริ่มทำงานใหม่";
+
+/* Startup recovery */
+"AltTab couldn’t start." = "ไม่สามารถเริ่ม AltTab ได้";
+
+/* Startup recovery */
+"AltTab couldn’t access the keyboard or mouse. You can try again or quit AltTab." = "AltTab ไม่สามารถเข้าถึงแป้นพิมพ์หรือเมาส์ได้ คุณสามารถลองอีกครั้งหรือออกจาก AltTab";
+
+/* Startup recovery */
+"Try again" = "ลองอีกครั้ง";
+"AltTab Pro is still here" = "AltTab Pro ยังพร้อมให้คุณใช้งาน";
+"Not now" = "ไม่ใช่ตอนนี้";
+"Search, extra shortcuts and App Icons are a one-time purchase away." = "การค้นหา ปุ่มลัดเพิ่มเติม และไอคอนแอป พร้อมให้ใช้งานด้วยการซื้อเพียงครั้งเดียว";
+"You've used AltTab %@ times over the last %d months." = "คุณใช้ AltTab %1$@ ครั้งในช่วง %2$d เดือนที่ผ่านมา";

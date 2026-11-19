@@ -7,7 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A11420261114000000000005 /* StatusItemLifecycleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11420261114000000000001 /* StatusItemLifecycleTests.swift */; };
+		A11420261114000000000004 /* StatusItemLifecycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11420261114000000000000 /* StatusItemLifecycle.swift */; };
+		A11420261114000000000003 /* StatusItemLifecycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11420261114000000000000 /* StatusItemLifecycle.swift */; };
+		A11320261113000000000012 /* LateReminderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11320261113000000000002 /* LateReminderTests.swift */; };
+		A11320261113000000000021 /* LateReminderPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11320261113000000000001 /* LateReminderPopover.swift */; };
+		A11320261113000000000011 /* LateReminderPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11320261113000000000001 /* LateReminderPopover.swift */; };
+		A11320261113000000000020 /* LateReminderExperiment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11320261113000000000000 /* LateReminderExperiment.swift */; };
+		A11320261113000000000010 /* LateReminderExperiment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11320261113000000000000 /* LateReminderExperiment.swift */; };
+		AA6116000000000000000003 /* PermissionStartup.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6116000000000000000001 /* PermissionStartup.swift */; };
+		AA6116000000000000000004 /* PermissionStartup.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6116000000000000000001 /* PermissionStartup.swift */; };
+		AA6116000000000000000005 /* PermissionStartupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6116000000000000000002 /* PermissionStartupTests.swift */; };
+		614700000000000000000002 /* WindowEventReducerDiscoveryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614700000000000000000001 /* WindowEventReducerDiscoveryTests.swift */; };
+		A02720261027000000000202 /* WindowFocusEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02720261027000000000102 /* WindowFocusEvent.swift */; };
+		A02720261027000000000203 /* WindowFocusEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02720261027000000000102 /* WindowFocusEvent.swift */; };
+		A02720261027000000000201 /* WindowFocusEventTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02720261027000000000101 /* WindowFocusEventTests.swift */; };
 		A02020261020000000000001 /* ProFeatureCopy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA001000000000000000010 /* ProFeatureCopy.swift */; };
+		A01520261115000000000001 /* Day1WelcomeLetterPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA001000000000000000002 /* Day1WelcomeLetterPopover.swift */; };
+		A01520261115000000000002 /* ProPromptHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA001000000000000000021 /* ProPromptHeader.swift */; };
 		A01920261019000000020001 /* ProPromptTestSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01920261019000000010001 /* ProPromptTestSupport.swift */; };
 		A01920261019000000020000 /* ProPromptFlowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01920261019000000010000 /* ProPromptFlowTests.swift */; };
 		A01920261019000000000006 /* Day15HardGatePopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA001000000000000000006 /* Day15HardGatePopover.swift */; };
@@ -325,7 +342,7 @@
 		D04BA2A6FF9DDDC5A1A68E36 /* Applications.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA282BB16C1554595A968 /* Applications.swift */; };
 		D04BA2D8099594E1593EC8EF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BA88EDDDD6CB3FBE71FC5 /* InfoPlist.strings */; };
 		D04BA2E64C59D96F6EB27D9D /* FeedbackWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA26C75F76C277653C932 /* FeedbackWindow.swift */; };
-		D04BA2F0A1B2C3D4E5F60003 /* DebugWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA2F0A1B2C3D4E5F60004 /* DebugWindow.swift */; };
+		D04BA2F0A1B2C3D4E5F60003 /* DebugLogsWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA2F0A1B2C3D4E5F60004 /* DebugLogsWindow.swift */; };
 		D04BA34AC850A273AB288B1E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BA3B51D05213404938366 /* Localizable.strings */; };
 		D04BA3744F48116DF4252B19 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BA02355EB28D639F854DF /* Localizable.strings */; };
 		D04BA3C24F4F644EA91DE38C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BA717693DA18CB74BAED1 /* Localizable.strings */; };
@@ -472,6 +489,10 @@
 		A01720261017000000000003 /* ProPromptPresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01720261017000000000001 /* ProPromptPresentation.swift */; };
 		A01720261017000000000004 /* ProPromptPresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01720261017000000000001 /* ProPromptPresentation.swift */; };
 		A01720261017000000000005 /* ProPromptPresentationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01720261017000000000002 /* ProPromptPresentationTests.swift */; };
+		AA0200000000000000000004 /* StartupRecoveryPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0200000000000000000001 /* StartupRecoveryPolicy.swift */; };
+		AA0200000000000000000007 /* StartupRecoveryPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0200000000000000000001 /* StartupRecoveryPolicy.swift */; };
+		AA0200000000000000000005 /* StartupRecovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0200000000000000000002 /* StartupRecovery.swift */; };
+		AA0200000000000000000009 /* StartupRecoveryPolicyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0200000000000000000003 /* StartupRecoveryPolicyTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -489,6 +510,17 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A11420261114000000000002 /* StatusItemLifecycleSpecs.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = StatusItemLifecycleSpecs.md; sourceTree = "<group>"; };
+		A11420261114000000000001 /* StatusItemLifecycleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusItemLifecycleTests.swift; sourceTree = "<group>"; };
+		A11420261114000000000000 /* StatusItemLifecycle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusItemLifecycle.swift; sourceTree = "<group>"; };
+		A11320261113000000000002 /* LateReminderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LateReminderTests.swift; sourceTree = "<group>"; };
+		A11320261113000000000001 /* LateReminderPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LateReminderPopover.swift; sourceTree = "<group>"; };
+		A11320261113000000000000 /* LateReminderExperiment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LateReminderExperiment.swift; sourceTree = "<group>"; };
+		AA6116000000000000000001 /* PermissionStartup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionStartup.swift; sourceTree = "<group>"; };
+		AA6116000000000000000002 /* PermissionStartupTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionStartupTests.swift; sourceTree = "<group>"; };
+		614700000000000000000001 /* WindowEventReducerDiscoveryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowEventReducerDiscoveryTests.swift; sourceTree = "<group>"; };
+		A02720261027000000000102 /* WindowFocusEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowFocusEvent.swift; sourceTree = "<group>"; };
+		A02720261027000000000101 /* WindowFocusEventTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowFocusEventTests.swift; sourceTree = "<group>"; };
 		A01920261019000000010001 /* ProPromptTestSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = src/_test-support/ProPromptTestSupport.swift; sourceTree = SOURCE_ROOT; };
 		A01920261019000000010000 /* ProPromptFlowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = src/pro/ui/ProPromptFlowTests.swift; sourceTree = SOURCE_ROOT; };
 		F01700000000000000000001 /* IllustrationDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IllustrationDrawer.swift; sourceTree = "<group>"; };
@@ -785,7 +817,7 @@
 		D04BA2A68FFD585C3A64434A /* zh-CN */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = InfoPlist.strings; sourceTree = "<group>"; };
 		D04BA2E723062A1DAC58618F /* setup_ci_pr.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = setup_ci_pr.sh; sourceTree = "<group>"; };
 		D04BA2E8D5D5CC23456BC8F7 /* tr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = tr; path = Localizable.strings; sourceTree = "<group>"; };
-		D04BA2F0A1B2C3D4E5F60004 /* DebugWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugWindow.swift; sourceTree = "<group>"; };
+		D04BA2F0A1B2C3D4E5F60004 /* DebugLogsWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugLogsWindow.swift; sourceTree = "<group>"; };
 		D04BA3EF6656955B0B29C2CD /* other.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = other.md; sourceTree = "<group>"; };
 		D04BA4135D97F9E784709DA8 /* ko */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ko; path = InfoPlist.strings; sourceTree = "<group>"; };
 		D04BA4336B6004A0A99849AD /* package.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = package.json; sourceTree = "<group>"; };
@@ -931,6 +963,10 @@
 		C07100000000000000000003 /* pro-rabbit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "resources/pro-rabbit.png"; sourceTree = SOURCE_ROOT; };
 		A01720261017000000000001 /* ProPromptPresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProPromptPresentation.swift; sourceTree = "<group>"; };
 		A01720261017000000000002 /* ProPromptPresentationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProPromptPresentationTests.swift; sourceTree = "<group>"; };
+		AA0200000000000000000001 /* StartupRecoveryPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartupRecoveryPolicy.swift; sourceTree = "<group>"; };
+		AA0200000000000000000002 /* StartupRecovery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartupRecovery.swift; sourceTree = "<group>"; };
+		AA0200000000000000000003 /* StartupRecoveryPolicyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartupRecoveryPolicyTests.swift; sourceTree = "<group>"; };
+		AA020000000000000000000C /* StartupRecoverySpecs.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = StartupRecoverySpecs.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -957,6 +993,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A11420261114000000000006 /* menubar */ = {
+			isa = PBXGroup;
+			children = (
+				A11420261114000000000000 /* StatusItemLifecycle.swift */,
+				A11420261114000000000001 /* StatusItemLifecycleTests.swift */,
+				A11420261114000000000002 /* StatusItemLifecycleSpecs.md */,
+			);
+			path = menubar;
+			sourceTree = "<group>";
+		};
 		1C961B4542D84D5B6E937B15 /* workflows */ = {
 			isa = PBXGroup;
 			children = (
@@ -1006,7 +1052,7 @@
 			children = (
 				D04BA26C75F76C277653C932 /* FeedbackWindow.swift */,
 				BF0C80F8FAA00FF3D9682F26 /* DebugMenu.swift */,
-				D04BA2F0A1B2C3D4E5F60004 /* DebugWindow.swift */,
+				D04BA2F0A1B2C3D4E5F60004 /* DebugLogsWindow.swift */,
 				D04BACABD048E62EBE4576CC /* DebugProfile.swift */,
 				D04BA1C271F0DA573345B860 /* permission-window */,
 			);
@@ -1213,6 +1259,7 @@
 				5F5849B000000000000000C1 /* WindowEventReducerSpaceTests.swift */,
 				5F5849B100000000000000B1 /* WindowEventReducerFocusTests.swift */,
 				5F5849B100000000000000C1 /* WindowEventReducerMinimizeTests.swift */,
+				614700000000000000000001 /* WindowEventReducerDiscoveryTests.swift */,
 				5F117E40000000000000F101 /* WindowFilterResolverTests.swift */,
 				5F117E40000000000000E101 /* TabReadPolicyTests.swift */,
 				5F117E41000000000000F101 /* PhantomWindowDetectorTests.swift */,
@@ -1490,6 +1537,8 @@
 				5FEEAA060000000000000001 /* ConfettiBurst.swift */,
 				5FEEAA020000000000000001 /* PermissionIllustrationView.swift */,
 				5FEEAA010000000000000001 /* PermissionFlow.swift */,
+				AA6116000000000000000001 /* PermissionStartup.swift */,
+				AA6116000000000000000002 /* PermissionStartupTests.swift */,
 			);
 			path = "permission-window";
 			sourceTree = "<group>";
@@ -1603,6 +1652,8 @@
 				BF0C83EE9730BCFA41D840A9 /* README.md */,
 				BF0C8C5C0FF5D567BF190DE5 /* ApplicationServices.HIServices.framework.swift */,
 				BF0C8B94D7994AB9007F6391 /* SkyLight.framework.swift */,
+				A02720261027000000000102 /* WindowFocusEvent.swift */,
+				A02720261027000000000101 /* WindowFocusEventTests.swift */,
 				5FC5980000000000000C0001 /* CGSSymbolicHotKey.swift */,
 			);
 			path = "api-wrappers";
@@ -1638,6 +1689,7 @@
 		D04BA6251F309645757C6000 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				A11420261114000000000006 /* menubar */,
 				D04BA70746DEEC3D30B43F81 /* main.swift */,
 				CC00000000000000000C0003 /* macos */,
 				D04BA2CBF267F267225CA671 /* kit */,
@@ -1647,6 +1699,7 @@
 				CC00000000000000000C0001 /* pro */,
 				CC00000000000000000C0010 /* switcher */,
 				CC00000000000000000C0011 /* preferences */,
+				AA020000000000000000000B /* startup */,
 				71FD1536EE94015DF0B9D6E7 /* vendors */,
 				22F7376E535079E83916A3CD /* util */,
 				5230A54090E2067083AB1CD6 /* events */,
@@ -1915,6 +1968,9 @@
 				5FA001000000000000000009 /* Day4TourPopover.swift */,
 				5FA001000000000000000004 /* Day15FullUpgradeWindow.swift */,
 				5FA001000000000000000006 /* Day15HardGatePopover.swift */,
+				A11320261113000000000000 /* LateReminderExperiment.swift */,
+				A11320261113000000000001 /* LateReminderPopover.swift */,
+				A11320261113000000000002 /* LateReminderTests.swift */,
 				5FA001000000000000000008 /* Day35FinalWindow.swift */,
 			);
 			path = scheduling;
@@ -1931,6 +1987,17 @@
 				4C8B3930635A963ACF1016A9 /* SearchDiscoverySpecs.md */,
 			);
 			path = "search-discovery";
+			sourceTree = "<group>";
+		};
+		AA020000000000000000000B /* startup */ = {
+			isa = PBXGroup;
+			children = (
+				AA0200000000000000000001 /* StartupRecoveryPolicy.swift */,
+				AA0200000000000000000002 /* StartupRecovery.swift */,
+				AA0200000000000000000003 /* StartupRecoveryPolicyTests.swift */,
+				AA020000000000000000000C /* StartupRecoverySpecs.md */,
+			);
+			path = startup;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2206,6 +2273,7 @@
 				5F5849B000000000000000C2 /* WindowEventReducerSpaceTests.swift in Sources */,
 				5F5849B100000000000000B2 /* WindowEventReducerFocusTests.swift in Sources */,
 				5F5849B100000000000000C2 /* WindowEventReducerMinimizeTests.swift in Sources */,
+				614700000000000000000002 /* WindowEventReducerDiscoveryTests.swift in Sources */,
 				5E5EA12E0000000000000003 /* KeyRepeatTimerTestable.swift in Sources */,
 				5E5EA12E0000000000000102 /* KeyRepeatTimerTests.swift in Sources */,
 				5F117E40000000000000F003 /* WindowFilterResolver.swift in Sources */,
@@ -2219,11 +2287,15 @@
 				5F117E41000000000000F003 /* PhantomWindowDetector.swift in Sources */,
 				5F117E41000000000000F102 /* PhantomWindowDetectorTests.swift in Sources */,
 				5F5790DE7EC7000000000A03 /* PreferencesPersistenceProbe.swift in Sources */,
+				AA0200000000000000000009 /* StartupRecoveryPolicyTests.swift in Sources */,
+				AA0200000000000000000007 /* StartupRecoveryPolicy.swift in Sources */,
 				5F5790DE7EC7000000000C02 /* PreferencesPersistenceProbeTests.swift in Sources */,
 				5F117E40000000000000F203 /* PermissionCalloutResolver.swift in Sources */,
 				5F117E40000000000000F212 /* PermissionCalloutResolverTests.swift in Sources */,
 				5FEEAA050000000000000003 /* PermissionFlowTests.swift in Sources */,
 				5FEEAA010000000000000003 /* PermissionFlow.swift in Sources */,
+				AA6116000000000000000004 /* PermissionStartup.swift in Sources */,
+				AA6116000000000000000005 /* PermissionStartupTests.swift in Sources */,
 				5E7C0F70000000000000E003 /* ExceptionMatcher.swift in Sources */,
 				5E7C0F70000000000000E102 /* ExceptionMatcherTests.swift in Sources */,
 				5E0DE2A0000000000000D003 /* WindowOrderResolver.swift in Sources */,
@@ -2233,11 +2305,15 @@
 				5EC0DE00000000000000A102 /* RealWorldScenariosTests.swift in Sources */,
 				5EF0C000000000000000F103 /* FocusIntentPolicy.swift in Sources */,
 				5EF0C000000000000000F202 /* FocusIntentPolicyTests.swift in Sources */,
+				A02720261027000000000201 /* WindowFocusEventTests.swift in Sources */,
+				A02720261027000000000203 /* WindowFocusEvent.swift in Sources */,
 				AA2026092800000000000003 /* PermissionCheckRetry.swift in Sources */,
 				AA2026092800000000000013 /* AnchoredPopover.swift in Sources */,
 				AA2026092800000000000015 /* AnchoredPopoverTests.swift in Sources */,
 				A01720261017000000000004 /* ProPromptPresentation.swift in Sources */,
 				A01720261017000000000005 /* ProPromptPresentationTests.swift in Sources */,
+				A01520261115000000000001 /* Day1WelcomeLetterPopover.swift in Sources */,
+				A01520261115000000000002 /* ProPromptHeader.swift in Sources */,
 				A01920261019000000020001 /* ProPromptTestSupport.swift in Sources */,
 				A02020261020000000000001 /* ProFeatureCopy.swift in Sources */,
 				A01920261019000000020000 /* ProPromptFlowTests.swift in Sources */,
@@ -2247,6 +2323,11 @@
 				A01920261019000000000003 /* ProPromptHost.swift in Sources */,
 				A01920261019000000000002 /* ProFeature.swift in Sources */,
 				A01920261019000000000001 /* ProTransitionScheduler.swift in Sources */,
+				A11320261113000000000010 /* LateReminderExperiment.swift in Sources */,
+				A11420261114000000000004 /* StatusItemLifecycle.swift in Sources */,
+				A11420261114000000000005 /* StatusItemLifecycleTests.swift in Sources */,
+				A11320261113000000000011 /* LateReminderPopover.swift in Sources */,
+				A11320261113000000000012 /* LateReminderTests.swift in Sources */,
 				A01920261019000000000000 /* ProTransitionManager.swift in Sources */,
 				AA2026092800000000000005 /* PermissionCheckRetryTests.swift in Sources */,
 				5E2A571E000000000000A003 /* WindowState.swift in Sources */,
@@ -2344,6 +2425,8 @@
 				5A220000000000000000B002 /* WindowSurfaceInventory.swift in Sources */,
 				5F117E41000000000000F002 /* PhantomWindowDetector.swift in Sources */,
 				5F5790DE7EC7000000000A02 /* PreferencesPersistenceProbe.swift in Sources */,
+				AA0200000000000000000005 /* StartupRecovery.swift in Sources */,
+				AA0200000000000000000004 /* StartupRecoveryPolicy.swift in Sources */,
 				5F5790DE7EC7000000000B02 /* PreferencesPersistenceCheck.swift in Sources */,
 				5E7C0F70000000000000E002 /* ExceptionMatcher.swift in Sources */,
 				5E0DE2A0000000000000D002 /* WindowOrderResolver.swift in Sources */,
@@ -2382,7 +2465,7 @@
 				D04BA15A1B0C4871EA7CB899 /* GeneralTab.swift in Sources */,
 				D04BAD451966B43720120D2E /* Menubar.swift in Sources */,
 				D04BA2E64C59D96F6EB27D9D /* FeedbackWindow.swift in Sources */,
-				D04BA2F0A1B2C3D4E5F60003 /* DebugWindow.swift in Sources */,
+				D04BA2F0A1B2C3D4E5F60003 /* DebugLogsWindow.swift in Sources */,
 				D04BA76A74267B1346D23687 /* GridView.swift in Sources */,
 				D04BAB4EB890853B5B9B2C61 /* BoldLabel.swift in Sources */,
 				D04BA0000000000000DCFFF2 /* DynamicColorTextField.swift in Sources */,
@@ -2421,6 +2504,9 @@
 				5FA002000000000000000009 /* Day4TourPopover.swift in Sources */,
 				5FA002000000000000000004 /* Day15FullUpgradeWindow.swift in Sources */,
 				5FA002000000000000000006 /* Day15HardGatePopover.swift in Sources */,
+				A11320261113000000000020 /* LateReminderExperiment.swift in Sources */,
+				A11420261114000000000003 /* StatusItemLifecycle.swift in Sources */,
+				A11320261113000000000021 /* LateReminderPopover.swift in Sources */,
 				5FA002000000000000000008 /* Day35FinalWindow.swift in Sources */,
 				5FA002000000000000000010 /* ProFeatureCopy.swift in Sources */,
 				D04BA1637E125D38546C26E2 /* StackView.swift in Sources */,
@@ -2454,6 +2540,7 @@
 				5FEEAA060000000000000002 /* ConfettiBurst.swift in Sources */,
 				5FEEAA020000000000000002 /* PermissionIllustrationView.swift in Sources */,
 				5FEEAA010000000000000002 /* PermissionFlow.swift in Sources */,
+				AA6116000000000000000003 /* PermissionStartup.swift in Sources */,
 				D04BA7E39FA539DD8316447A /* PermissionView.swift in Sources */,
 				D04BA446D702C5E252AF2319 /* TitleLabel.swift in Sources */,
 				D04BAFF30A98CF287F85DA1E /* ExceptionsTab.swift in Sources */,
@@ -2512,6 +2599,7 @@
 				BF0C8A49891371E4027E0641 /* MacroPreferences.swift in Sources */,
 				BF0C8E366BC25171C0A3881C /* ApplicationServices.HIServices.framework.swift in Sources */,
 				BF0C803A13C409E7F01FBCAB /* SkyLight.framework.swift in Sources */,
+				A02720261027000000000202 /* WindowFocusEvent.swift in Sources */,
 				5FC5980000000000000C0002 /* CGSSymbolicHotKey.swift in Sources */,
 				BF0C80C69EFEF93C18539925 /* PreferencesMigrations.swift in Sources */,
 				BF0C8A2F6E4C85A7D9B63B12 /* Throttler.swift in Sources */,

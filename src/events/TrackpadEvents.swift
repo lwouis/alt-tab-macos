@@ -2,6 +2,12 @@ import Cocoa
 
 // TODO: underlying content scrolls if both Mission Control and App Expose use 4-finger swipes or are off in Trackpad settings. It doesn't scroll if any of them use 3-finger swipe though.
 class TrackpadEvents {
+    static func stopForRecovery() {
+        shouldBeEnabled = false
+        if let absorbTap { CFMachPortInvalidate(absorbTap) }
+        if let detectTap { CFMachPortInvalidate(detectTap) }
+    }
+
     /// Detection. LISTEN-ONLY on purpose: an active tap on `cghidEventTap` makes the WindowServer wait for
     /// our callback on EVERY gesture event before it processes anything queued behind it — including the
     /// mouse-moves that carry the cursor. Gesture events flow the whole time a finger is on the trackpad,
@@ -30,6 +36,7 @@ class TrackpadEvents {
 
     static func observe() {
         observe_()
+        guard !StartupRecovery.isRecovering else { return }
         TrackpadEvents.toggle(Preferences.nextWindowGesture != .disabled)
         ScrollwheelEvents.observe()
     }
@@ -76,21 +83,17 @@ class TrackpadEvents {
         // the detecting tap writes, so detection has to run first — i.e. be created LAST. Created the
         // other way round, `absorbGestures` was always one event stale, which would leak precisely the
         // event that fires the trigger.
-        absorbTap = CGEvent.tapCreate(
+        absorbTap = CGEvent.createInputTap(control: "trackpad",
             tap: .cghidEventTap,
-            place: .headInsertEventTap,
             options: .defaultTap,
             eventsOfInterest: NSEvent.EventTypeMask.gesture.rawValue,
-            callback: absorbEvent,
-            userInfo: nil)
-        detectTap = CGEvent.tapCreate(
+            callback: absorbEvent)
+        detectTap = CGEvent.createInputTap(control: "trackpad-detect",
             tap: .cghidEventTap, // we need raw data
-            place: .headInsertEventTap,
             options: .listenOnly, // see `detectTap`: an active tap here gates the cursor on us (#5911)
             eventsOfInterest: NSEvent.EventTypeMask.gesture.rawValue,
-            callback: handleEvent,
-            userInfo: nil)
-        guard let detectTap, let absorbTap else { App.restart(); return }
+            callback: handleEvent)
+        guard let detectTap, let absorbTap else { StartupRecovery.failed("trackpad"); return }
         CGEvent.tapEnable(tap: absorbTap, enable: false)
         for tap in [absorbTap, detectTap] {
             let runLoopSource = CFMachPortCreateRunLoopSource(nil, tap, 0)

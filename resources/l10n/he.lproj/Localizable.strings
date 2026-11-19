@@ -95,7 +95,7 @@
 "Deactivate license on this machine" = "בטל הפעלת רישיון במכשיר זה";
 "Deactivation failed" = "ביטול ההפעלה נכשל";
 "Deactivation was rejected by the server." = "ביטול ההפעלה נדחה על ידי השרת.";
-"Debug tools" = "כלי איתור באגים";
+"Debug Logs" = "יומני איתור באגים";
 "Device Control" = "שליטה במכשיר";
 "Dinner" = "ארוחת ערב";
 "Disabled" = "מושבת";
@@ -361,3 +361,16 @@
 "Your feedback will be submitted as a public GitHub issue." = "המשוב שלך יוגש כ-issue ציבורי ב-GitHub.";
 "Your Pro trial starts when AltTab is ready" = "תקופת הניסיון של Pro מתחילה כאשר AltTab מוכן";
 "Your settings reset every time AltTab restarts." = "ההגדרות שלך מתאפסות בכל פעם ש‑AltTab מופעל מחדש.";
+
+/* Startup recovery */
+"AltTab couldn’t start." = "לא ניתן היה להפעיל את AltTab.";
+
+/* Startup recovery */
+"AltTab couldn’t access the keyboard or mouse. You can try again or quit AltTab." = "ל-AltTab לא הייתה גישה למקלדת או לעכבר. אפשר לנסות שוב או לצאת מ-AltTab.";
+
+/* Startup recovery */
+"Try again" = "ניסיון נוסף";
+"AltTab Pro is still here" = "AltTab Pro עדיין כאן";
+"Not now" = "לא עכשיו";
+"Search, extra shortcuts and App Icons are a one-time purchase away." = "חיפוש, קיצורים נוספים ואייקוני יישומים זמינים ברכישה חד־פעמית.";
+"You've used AltTab %@ times over the last %d months." = "השתמשת ב־AltTab %1$@ פעמים במהלך %2$d החודשים האחרונים.";

@@ -38,3 +38,5 @@ Mirrors `WsEventRoutingTests.swift` 1:1.
 - **testSemanticEdgePreventsGeometryFromCrossingIt** — focus, order, lifecycle and Space events split the
   coalescing segment, preserving the exact sequence on both sides.
 - **testDrainResetsTheCoalescingSegment** — a drained batch cannot absorb a later event.
+- **testMoveAfterResizeRetainsResizeEvidenceAndLatestPayload** — a coalesced batch retains the resize
+  classification with the last payload/time, so a following move cannot hide the discovery bypass.

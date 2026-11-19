@@ -70,3 +70,35 @@ cue, and the window's only exit was the red close button — which quit the app 
 
 The completed Screen Recording badge uses the same orange as “Skipped” when waived;
 allowed permissions retain green checkmarks.
+
+## Deferred permission window
+
+An automatically queued permissions window rechecks current permissions and startup completion
+when its main-thread callback executes. It must not appear after permissions are resolved (including
+waived Screen Recording), or after startup has completed. Explicitly opening Check permissions
+from the menu remains available after startup.
+
+`PermissionStartup` runs this decision in both the app and the regular unit-test target. Tests
+control its main-queue actions and permission-check retries without sleeps or macOS prompts.
+The start action sets the startup latch before closing the window and continuing launch.
+
+`PermissionStartupTests` covers:
+
+- Missing mandatory or optional permissions still produce a window.
+- A grant or waiver before presentation suppresses the old window and eventually starts.
+- Grant → revoke → grant with several queued checks starts exactly once.
+- Either permission revoked before queued startup requests a fresh check and leaves a window;
+  a later grant closes it and starts once.
+- Regrant before a pending retry, and a retry after a different check already completed startup.
+- Separate permission updates and undoing a Screen Recording waiver before startup.
+- An old presentation cannot reopen the startup window after startup, including after revocation;
+  post-startup recovery remains a separate path.
+- All 216 sequences of three results from the six supported permission combinations. For each,
+  explore every runnable next action: the next result, the oldest main-queue callback, or a
+  coalesced permission-check retry. This covers 1,616 complete schedules without timers. Once
+  queues settle, startup has occurred at most once; otherwise a required permission window is
+  visible. Longer grant/revoke bursts and result changes before a notification have focused tests.
+
+These tests enumerate logical callback orderings, not simultaneous memory reads/writes, actual
+macOS notification delivery, or every possible length of event sequence. The live permissions
+journey covers the app wiring, manual reopening, post-startup revocation, and onboarding.

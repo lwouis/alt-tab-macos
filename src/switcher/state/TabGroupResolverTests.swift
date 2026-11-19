@@ -661,6 +661,67 @@ final class TabGroupResolverTests: XCTestCase {
         XCTAssertEqual(m.matchedWids, [])
     }
 
+    func testSpacelessTabIsNotFiledUnderASameFrameWindowOnAnotherSpace() {
+        // #6146, AltTab launched over two tabbed windows sharing one frame, one per Space (window rig in a VM).
+        // Tab 95 had been looked for on 96's behalf, yet geometry handed it to 89, the Space 1 window: nothing
+        // in a frame or a Space says whose a Space-less tab is when two windows share both.
+        let size = CGSize(width: 900, height: 600), pos = CGPoint(x: 60, y: 172)
+        let home = tw(wid: 89, size: size, position: pos, spaceIds: [1], tabbedSiblingWids: [89, 88],
+                      isOrderedIn: true, lastFocusOrder: 0, tabCount: 3)
+        let homeTab = tw(wid: 88, size: size, position: pos, spaceIds: [], isTabbed: true,
+                         tabbedSiblingWids: [89, 88], lastFocusOrder: 3)
+        let twin = tw(wid: 96, size: size, position: pos, spaceIds: [14], isOrderedIn: true, lastFocusOrder: 1,
+                      tabCount: 3)
+        let unclaimed = tw(wid: 95, size: size, position: pos, spaceIds: [], lastFocusOrder: 2)
+        let groups = TabGroupResolver.geometryGroups([home, homeTab, twin, unclaimed])
+        XCTAssertFalse(groups.contains { $0.backgroundWids.contains(95) }, "groups were \(groups)")
+    }
+
+    func testSharedTitleDoesNotClaimTabsOfASameFrameWindowOnAnotherSpace() {
+        // #6146 with Ghostty in a VM: every tab of both same-frame windows reads "~". The Space 2 window's read
+        // claimed two of the Space 1 window's tabs, the other window claimed the rest, and selecting any of them
+        // later fused both windows. Four unlinked "~" tabs for two "~" slots name nobody.
+        let frame = (size: CGSize(width: 888, height: 584), pos: CGPoint(x: 0, y: 70))
+        let active = tw(wid: 133, size: frame.size, position: frame.pos, spaceIds: [14], title: "~",
+                        isOrderedIn: true, tabCount: 3, tabGroupToken: 83)
+        let twin = tw(wid: 124, size: frame.size, position: frame.pos, spaceIds: [1], title: "~",
+                      isOrderedIn: true, tabCount: 3, tabGroupToken: 54)
+        let tabs = [117, 122, 129, 131].map {
+            tw(wid: CGWindowID($0), size: frame.size, position: frame.pos, spaceIds: [], title: "~")
+        }
+        let m = TabGroupResolver.matchSiblings(active: active, axTitles: ["~", "~", "~"],
+            sameAppWindows: [active, twin] + tabs)
+        XCTAssertEqual(m.matchedWids, [])
+        // a title only this window lists still names its tab
+        let named = tw(wid: 140, size: frame.size, position: frame.pos, spaceIds: [], title: "vim")
+        let n = TabGroupResolver.matchSiblings(active: active, axTitles: ["~", "vim"],
+            sameAppWindows: [active, twin, named] + tabs)
+        XCTAssertEqual(n.matchedWids, [140])
+    }
+
+    func testStabilityDoesNotKeepMembersReadInAnotherTabGroup() {
+        // #6146, from the window rig in a VM: two same-frame tabbed windows on two Spaces. Launch geometry filed
+        // tab 153 of the Space 2 window under the Space 1 window (147 and its tabs, all read with token 49).
+        // Selecting 153 reads token 65 and names only its own window's tabs, yet the stability rule kept every
+        // linked member, so both windows became one group and each Space showed nothing.
+        let active = tw(wid: 153, spaceIds: [2], title: "Window Lab 5", tabbedSiblingWids: [147, 146, 139, 153],
+                        isOrderedIn: true, lastFocusOrder: 0, tabCount: 3, tabGroupToken: 65)
+        let ownTab = tw(wid: 154, spaceIds: [], title: "Window Lab 6", isTabbed: true,
+                        tabbedSiblingWids: [152, 154], lastFocusOrder: 3, tabGroupToken: 65)
+        let otherWindow = tw(wid: 147, spaceIds: [1], title: "Window Lab 3",
+                             tabbedSiblingWids: [147, 146, 139, 153], isOrderedIn: true, lastFocusOrder: 1,
+                             tabCount: 3, tabGroupToken: 49)
+        let otherTabs = [139, 146].map { wid in
+            tw(wid: CGWindowID(wid), spaceIds: [], title: "Window Lab \(wid == 139 ? 1 : 2)", isTabbed: true,
+               tabbedSiblingWids: [147, 146, 139, 153], lastFocusOrder: 2, tabGroupToken: 49)
+        }
+        let m = TabGroupResolver.matchSiblings(active: active,
+            axTitles: ["Window Lab 4", "Window Lab 6", "Window Lab 5"],
+            sameAppWindows: [active, ownTab, otherWindow] + otherTabs)
+        XCTAssertEqual(m.matchedWids, [154])
+        XCTAssertEqual(Set(m.toUntabWids), [139, 146, 147])
+    }
+
     // MARK: - C. positionsCompatible
 
     func testExistingLinkBeatsFarPosition() {

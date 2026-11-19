@@ -95,7 +95,7 @@
 "Deactivate license on this machine" = "이 기기에서 라이선스 비활성화";
 "Deactivation failed" = "비활성화 실패";
 "Deactivation was rejected by the server." = "서버에서 비활성화가 거부되었습니다.";
-"Debug tools" = "디버그 도구";
+"Debug Logs" = "디버그 로그";
 "Device Control" = "기기 제어";
 "Dinner" = "저녁";
 "Disabled" = "비활성화됨";
@@ -361,3 +361,16 @@
 "Your feedback will be submitted as a public GitHub issue." = "피드백은 공개 GitHub 이슈로 제출됩니다.";
 "Your Pro trial starts when AltTab is ready" = "AltTab을 사용할 준비가 되면 Pro 체험이 시작됩니다";
 "Your settings reset every time AltTab restarts." = "AltTab을 다시 시작할 때마다 설정이 초기화됩니다.";
+
+/* Startup recovery */
+"AltTab couldn’t start." = "AltTab을 시작할 수 없습니다.";
+
+/* Startup recovery */
+"AltTab couldn’t access the keyboard or mouse. You can try again or quit AltTab." = "AltTab이 키보드 또는 마우스에 접근할 수 없습니다. 다시 시도하거나 AltTab을 종료할 수 있습니다.";
+
+/* Startup recovery */
+"Try again" = "다시 시도";
+"AltTab Pro is still here" = "AltTab Pro는 언제든 이용할 수 있어요";
+"Not now" = "나중에";
+"Search, extra shortcuts and App Icons are a one-time purchase away." = "한 번 구매하면 검색, 추가 단축키 및 앱 아이콘을 사용할 수 있습니다.";
+"You've used AltTab %@ times over the last %d months." = "지난 %2$d개월 동안 AltTab을 %1$@번 사용했습니다.";

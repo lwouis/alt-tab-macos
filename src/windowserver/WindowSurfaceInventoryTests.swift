@@ -15,6 +15,35 @@ final class WindowSurfaceInventoryTests: XCTestCase {
         replace([])
     }
 
+    func testLaunchDiscoveryWaitsForTheRestOfAPartiallyCompletedInventory() {
+        replace([raw(1, pid: 10), raw(2, pid: 20), raw(3, pid: 20)])
+        WindowSurfaceInventory.beginAcquisitions([1, 2, 3])
+        WindowSurfaceInventory.finishAcquisition(1)
+        XCTAssertTrue(WindowSurfaceInventory.isDiscoveryPending, "TextEdit arriving must not open the first frame before Finder")
+        WindowSurfaceInventory.finishAcquisition(2)
+        XCTAssertTrue(WindowSurfaceInventory.isDiscoveryPending, "A second window can still be awaiting its description")
+        WindowSurfaceInventory.finishAcquisition(3)
+        XCTAssertFalse(WindowSurfaceInventory.isDiscoveryPending, "A completed inventory must not delay a later first summon")
+    }
+
+    func testDisappearingWindowsAndExitingAppsReleasePendingDiscovery() {
+        replace([raw(1, pid: 10), raw(2, pid: 20), raw(3, pid: 30)])
+        WindowSurfaceInventory.beginAcquisitions([1, 2, 3])
+        WindowSurfaceInventory.remove(1)
+        WindowSurfaceInventory.remove(pid: 20)
+        XCTAssertTrue(WindowSurfaceInventory.isDiscoveryPending)
+        replace([])
+        XCTAssertFalse(WindowSurfaceInventory.isDiscoveryPending)
+    }
+
+    func testRepeatedAcquisitionRequestsDoNotKeepAResolvedWindowPending() {
+        replace([raw(1)])
+        WindowSurfaceInventory.beginAcquisitions([1])
+        WindowSurfaceInventory.beginAcquisitions([1])
+        WindowSurfaceInventory.finishAcquisition(1)
+        XCTAssertFalse(WindowSurfaceInventory.isDiscoveryPending)
+    }
+
     func testChildAndSheetResolveToDocumentRoot() {
         replace([raw(1), raw(2, parent: 1), raw(3, parent: 2)])
         XCTAssertEqual(WindowSurfaceInventory.representativeWid(3), 1)

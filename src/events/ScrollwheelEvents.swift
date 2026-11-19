@@ -1,11 +1,16 @@
 import Cocoa
 
 class ScrollwheelEvents {
+    static func stopForRecovery() {
+        shouldBeEnabled = false
+        if let eventTap { CFMachPortInvalidate(eventTap) }
+    }
+
     static var shouldBeEnabled: Bool!
     private static var eventTap: CFMachPort!
 
     static func observe() {
-        eventTap = CGEvent.createTapOrRestart(
+        eventTap = CGEvent.createRequiredTap(control: "scroll",
             tap: .cghidEventTap, // we need raw data
             options: .defaultTap,
             eventsOfInterest: NSEvent.EventTypeMask.scrollWheel.rawValue,

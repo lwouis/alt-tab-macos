@@ -47,3 +47,9 @@ candidates; their parent and visibility are re-read from the WindowServer when t
 - **testChildOfAChildIsInTheCaptureArea**
 - **testOtherWindowsAndTheirChildrenAreNotInTheCaptureArea**
 - **testCrossProcessOrCyclicChainsAreNotInTheCaptureArea**
+
+## First summon during discovery
+
+The first summon retains the existing bounded launch grace while the initial full inventory is absent or any requested surface description is still pending. One early window does not establish that the inventory is complete: TextEdit can arrive before the frontmost Finder tab group. Successful descriptions and failed acquisitions release their pending entry; removed surfaces and exited processes cannot retain it. Once all requested descriptions have landed, the first summon keeps its ordinary display delay. Subsequent summons do not use this startup gate.
+
+`WindowSurfaceInventoryTests` covers a partially completed multi-process inventory, duplicate acquisition requests, window removal, process exit, and snapshot pruning. Golden Gate C-01 exercises the real first frame against a pre-existing Finder tab group.

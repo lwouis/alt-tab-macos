@@ -174,10 +174,13 @@ class Application: NSObject {
     }
 
     @discardableResult
-    func addWindowlessWindowIfNeeded() -> Window? {
+    func addWindowlessWindowIfNeeded(replacing removed: [TrackedWindow] = []) -> Window? {
         guard canShowWindowlessPlaceholder() else { return nil }
         let window = Window(self)
         Windows.appendWindow(window)
+        var state = TrackedWindowStateBridge.snapshot()
+        state.inheritWindowlessFocus(window.id, replacing: removed)
+        TrackedWindowStateBridge.apply(state)
         focusedWindow = nil
         // The add/remove pair is logged because the placeholder's LIFECYCLE was the #5849 bug: it is added
         // while an app's only window looks phantom, and one un-phantom path forgot to remove it, so the app

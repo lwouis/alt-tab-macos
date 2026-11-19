@@ -43,6 +43,7 @@ enum WindowEventReducer {
     static func reduce(_ state: inout TrackedWindowState, _ input: ReducerInput) -> [ReducerEffect] {
         switch input {
         case .windowCreated(let wid, let now, let inSpaceTransition):
+            state.carried.moveDiscoveryAt.removeValue(forKey: wid)
             // Space switches emit storms of transient animation/snapshot windows; ignore create/destroy
             // briefly around a Space transition so they aren't mistaken for real windows.
             guard !inSpaceTransition else { return [] }
@@ -58,6 +59,7 @@ enum WindowEventReducer {
             // picked up by the next switcher-show full rescan.
             return [.discoverWindow(wid: wid)]
         case .windowDestroyed(let wid):
+            state.carried.moveDiscoveryAt.removeValue(forKey: wid)
             state.pendingFocusPromotion.removeValue(forKey: wid)
             state.recentlyCreated.remove(wid)
             state.carried.pendingHandoverEdge.removeValue(forKey: wid)
@@ -75,9 +77,12 @@ enum WindowEventReducer {
                     + refrontAfterFocusedWindowBecomesUnavailable(&state, wid: wid)
             }
             return []
-        case .windowMovedOrResized(let wid, let inSpaceTransition):
+        case .windowMovedOrResized(let wid, let resized, let inSpaceTransition):
+            guard shouldDiscoverAfterGeometry(&state, wid: wid, resized: resized,
+                inSpaceTransition: inSpaceTransition) else { return [] }
             return movedResizedOrOrderedIn(&state, wid: wid, orderedIn: false, now: 0, inSpaceTransition: inSpaceTransition)
         case .windowOrderedIn(let wid, let now, let inSpaceTransition):
+            state.carried.moveDiscoveryAt.removeValue(forKey: wid)
             return movedResizedOrOrderedIn(&state, wid: wid, orderedIn: true, now: now, inSpaceTransition: inSpaceTransition)
         case .windowOrderedOut(let wid, let inSpaceTransition):
             // Recorded BEFORE the transition guard below, and for untracked wids too: the order-outs this set
@@ -119,11 +124,13 @@ enum WindowEventReducer {
             return orderedOutEffects + [.probeWindowLiveness(wid), .queryWindowServerState(wids: [wid]),
                     .readTitleAndTabs(wid: wid, readTabs: false)]
         case .windowFocused(let wid, _):
+            state.carried.moveDiscoveryAt.removeValue(forKey: wid)
             return windowFocused(&state, wid: wid)
         case .spaceMembershipChanged(let wid, let spaceId, let added, let now, let inSpaceTransition):
             return spaceMembershipChanged(&state, wid: wid, spaceId: spaceId, added: added, now: now,
                 inSpaceTransition: inSpaceTransition)
         case .spaceTransitionStarted:
+            state.carried.moveDiscoveryAt.removeAll()
             return spaceTransitionStarted(&state)
         case .spaceChangeSettled:
             return spaceChangeSettled(&state)
@@ -211,13 +218,35 @@ enum WindowEventReducer {
         return appHasRealWindow(state, pid: pid) ? [] : [.addWindowlessPlaceholder(pid: pid)]
     }
 
+    /// A rejected popup can move every display frame (#6147). Reserve the leading attempt before async
+    /// discovery, so both in-flight and completed rejections share the cap. No timer or permanent verdict:
+    /// later movement can observe changed semantics; resize and explicit lifecycle/focus signals bypass it.
+    private static func shouldDiscoverAfterGeometry(_ state: inout TrackedWindowState, wid: CGWindowID,
+                                                    resized: Bool, inSpaceTransition: Bool) -> Bool {
+        guard state.window(wid) == nil else { return true }
+        guard !inSpaceTransition else { return false }
+        if resized {
+            state.carried.moveDiscoveryAt.removeValue(forKey: wid)
+            return true
+        }
+        if let previous = state.carried.moveDiscoveryAt[wid], state.now - previous < 1 { return false }
+        state.carried.moveDiscoveryAt = state.carried.moveDiscoveryAt.filter { state.now - $0.value < 1 }
+        // Some surfaces never emit a destroy. Expiration is lazy; the hard cap also bounds a burst of new wids.
+        if state.carried.moveDiscoveryAt.count >= 256,
+           let oldest = state.carried.moveDiscoveryAt.min(by: { $0.value < $1.value })?.key {
+            state.carried.moveDiscoveryAt.removeValue(forKey: oldest)
+        }
+        state.carried.moveDiscoveryAt[wid] = state.now
+        return true
+    }
+
     /// moved/resized/ordered-in. Tracked → refresh just that window's WindowServer facts (geometry,
     /// fullscreen) from a WS query, NOT an AX read; one active query plus a batched follow-up.
     /// An order-in also re-reads kAXMinimized (de-minimize has no dedicated WS event) but does
     /// NOT reconcile tabs: an order-in during a fullscreen or Space transition reports the AXTabGroup
     /// inconsistently, and a transient empty read would dissolve the group and strand its inactive tabs as
     /// phantoms (the fullscreen-tab disappearance). Untracked → mutable physical or semantic evidence may
-    /// now make the surface admissible, so discover it again (coalesced; idempotent). Standard and main
+    /// now make the surface admissible, so discover it again (moves are rate-limited above). Standard and main
     /// windows do not wait for non-zero geometry.
     private static func movedResizedOrOrderedIn(_ state: inout TrackedWindowState, wid: CGWindowID, orderedIn: Bool,
                                                 now: TimeInterval, inSpaceTransition: Bool) -> [ReducerEffect] {
@@ -876,7 +905,9 @@ enum WindowEventReducer {
     /// already on its way because AltTab asked this app for the switch, and then it waits for that one.
     private static func appActivated(_ state: inout TrackedWindowState, pid: pid_t) -> [ReducerEffect] {
         state.frontmostPid = pid
-        return []
+        guard let changed = state.noteWindowlessFocus(pid, at: state.now) else { return [] }
+        return [.log("mru windowless pid=\(pid) by=activation"),
+                .refreshUi(wids: changed, onlyWhileSwitcherOpen: true)]
     }
 
     // MARK: - async read results landing
@@ -906,6 +937,7 @@ enum WindowEventReducer {
                                         newlyTracked: Bool, adoptedAsInactiveTab: Bool,
                                         spaceMembership: SpaceMembershipObservation, isOrderedIn: Bool,
                                         tabGroup: TabGroupObservation) -> [ReducerEffect] {
+        if accepted { state.carried.moveDiscoveryAt.removeValue(forKey: wid) }
         let queriedSpaceIds = spaceMembership.spaceIds
         let tabTitles = tabGroup.titles
         let tabGroupToken = tabGroup.token

@@ -1,18 +1,20 @@
 import Foundation
 
-/// Owns the single timed wake-up for Welcome, the trial's badge days and the end of the trial. Other prompts
-/// follow switcher dismissal. The coordinator rechecks eligibility when this scheduler fires.
+/// Owns the single timed wake-up for Welcome and the trial deadlines.
+/// The coordinator rechecks eligibility when this scheduler fires.
 class ProTransitionScheduler {
     private let defaults: UserDefaults
     private let licenseManager: LicenseManager
     private let state: ProTransitionState
     private let onFire: () -> Void
     private var workItem: DispatchWorkItem?
+    private var scheduledDate: Date?
     private var attemptedWelcome = false
 
     private static let nextScheduledDateKey = "proTransition.nextScheduledDate"
 
-    init(defaults: UserDefaults, licenseManager: LicenseManager, state: ProTransitionState, onFire: @escaping () -> Void) {
+    init(defaults: UserDefaults, licenseManager: LicenseManager, state: ProTransitionState,
+         onFire: @escaping () -> Void) {
         self.defaults = defaults
         self.licenseManager = licenseManager
         self.state = state
@@ -34,19 +36,28 @@ class ProTransitionScheduler {
         defaults.removeObject(forKey: Self.nextScheduledDateKey)
         workItem?.cancel()
         workItem = nil
+        scheduledDate = nil
     }
 
     /// Compute the next fire date and arm a single `DispatchWorkItem`. Reschedules itself after firing.
     func scheduleNext() {
+        let next = computeNextFireDate()
+        if next == scheduledDate, workItem != nil { return }
         workItem?.cancel()
-        guard let fireDate = computeNextFireDate() else {
-            defaults.removeObject(forKey: Self.nextScheduledDateKey)
+        workItem = nil
+        scheduledDate = next
+        guard let fireDate = next else {
+            if defaults.object(forKey: Self.nextScheduledDateKey) != nil {
+                defaults.removeObject(forKey: Self.nextScheduledDateKey)
+            }
             return
         }
         defaults.set(fireDate.timeIntervalSince1970, forKey: Self.nextScheduledDateKey)
         let delay = max(0, fireDate.timeIntervalSince(licenseManager.clock.now))
         let item = DispatchWorkItem { [weak self] in
             guard let self else { return }
+            workItem = nil
+            scheduledDate = nil
             fire()
             scheduleNext()
         }
@@ -75,6 +86,14 @@ class ProTransitionScheduler {
     }
 
     #if DEBUG
+    /// QA time jumps do not move GCD's wall clock. Preserve the saved deadline, but discard
+    /// its old real-time delay before the next explicit QA scheduling request.
+    func invalidateTimerForQa() {
+        workItem?.cancel()
+        workItem = nil
+        scheduledDate = nil
+    }
+
     func resetForQa() {
         attemptedWelcome = false
     }

@@ -95,7 +95,7 @@
 "Deactivate license on this machine" = "Bu makinedeki lisansı devre dışı bırak";
 "Deactivation failed" = "Devre dışı bırakma başarısız";
 "Deactivation was rejected by the server." = "Devre dışı bırakma sunucu tarafından reddedildi.";
-"Debug tools" = "Hata ayıklama araçları";
+"Debug Logs" = "Hata ayıklama günlükleri";
 "Device Control" = "Aygıt Denetimi";
 "Dinner" = "Akşam yemeği";
 "Disabled" = "Devre dışı";
@@ -361,3 +361,16 @@
 "Your feedback will be submitted as a public GitHub issue." = "Geri bildiriminiz herkese açık bir GitHub konusu olarak gönderilecek.";
 "Your Pro trial starts when AltTab is ready" = "Pro denemeniz AltTab hazır olduğunda başlar";
 "Your settings reset every time AltTab restarts." = "Ayarların her AltTab yeniden başlatıldığında sıfırlanıyor.";
+
+/* Startup recovery */
+"AltTab couldn’t start." = "AltTab başlatılamadı.";
+
+/* Startup recovery */
+"AltTab couldn’t access the keyboard or mouse. You can try again or quit AltTab." = "AltTab klavyeye veya fareye erişemedi. Yeniden deneyebilir veya AltTab’dan çıkabilirsiniz.";
+
+/* Startup recovery */
+"Try again" = "Yeniden dene";
+"AltTab Pro is still here" = "AltTab Pro hâlâ burada";
+"Not now" = "Şimdi değil";
+"Search, extra shortcuts and App Icons are a one-time purchase away." = "Arama, ek kısayollar ve Uygulama Simgeleri tek seferlik satın alımla kullanılabilir.";
+"You've used AltTab %@ times over the last %d months." = "Son %2$d ayda AltTab’ı %1$@ kez kullandınız.";

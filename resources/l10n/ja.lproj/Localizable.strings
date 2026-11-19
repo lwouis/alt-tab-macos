@@ -95,7 +95,7 @@
 "Deactivate license on this machine" = "このマシンのライセンスを非アクティブ化";
 "Deactivation failed" = "非アクティブ化に失敗しました";
 "Deactivation was rejected by the server." = "サーバーが非アクティブ化を拒否しました。";
-"Debug tools" = "デバッグツール";
+"Debug Logs" = "デバッグログ";
 "Device Control" = "デバイスの制御";
 "Dinner" = "夕食";
 "Disabled" = "無効";
@@ -361,3 +361,16 @@
 "Your feedback will be submitted as a public GitHub issue." = "フィードバックは公開の GitHub Issue として送信されます。";
 "Your Pro trial starts when AltTab is ready" = "AltTabが使えるようになるとProの試用期間が始まります";
 "Your settings reset every time AltTab restarts." = "AltTab を再起動するたびに設定がリセットされます。";
+
+/* Startup recovery */
+"AltTab couldn’t start." = "AltTabを起動できませんでした。";
+
+/* Startup recovery */
+"AltTab couldn’t access the keyboard or mouse. You can try again or quit AltTab." = "AltTabがキーボードまたはマウスにアクセスできませんでした。再試行するか、AltTabを終了してください。";
+
+/* Startup recovery */
+"Try again" = "再試行";
+"AltTab Pro is still here" = "AltTab Pro はいつでも利用できます";
+"Not now" = "今はしない";
+"Search, extra shortcuts and App Icons are a one-time purchase away." = "検索、追加のショートカット、アプリアイコンは、買い切りで利用できます。";
+"You've used AltTab %@ times over the last %d months." = "過去%2$dか月間に AltTab を%1$@回使用しました。";

@@ -95,7 +95,7 @@
 "Deactivate license on this machine" = "在此機器上停用授權";
 "Deactivation failed" = "停用失敗";
 "Deactivation was rejected by the server." = "伺服器拒絕了停用要求。";
-"Debug tools" = "除錯工具";
+"Debug Logs" = "除錯記錄";
 "Device Control" = "裝置控制";
 "Dinner" = "晚餐";
 "Disabled" = "已停用";
@@ -361,3 +361,16 @@
 "Your feedback will be submitted as a public GitHub issue." = "您的意見將會以公開的 GitHub issue 形式提交。";
 "Your Pro trial starts when AltTab is ready" = "AltTab 準備就緒後，Pro 試用期即開始";
 "Your settings reset every time AltTab restarts." = "每次重新啟動 AltTab 時，你的設定都會重設。";
+
+/* Startup recovery */
+"AltTab couldn’t start." = "AltTab 無法啟動。";
+
+/* Startup recovery */
+"AltTab couldn’t access the keyboard or mouse. You can try again or quit AltTab." = "AltTab 無法存取鍵盤或滑鼠。你可以重試或結束 AltTab。";
+
+/* Startup recovery */
+"Try again" = "重試";
+"AltTab Pro is still here" = "AltTab Pro 隨時為你準備";
+"Not now" = "暫時不用";
+"Search, extra shortcuts and App Icons are a one-time purchase away." = "只需一次購買，即可使用搜尋、更多快捷鍵和 App 圖像。";
+"You've used AltTab %@ times over the last %d months." = "過去 %2$d 個月，你使用了 AltTab %1$@ 次。";

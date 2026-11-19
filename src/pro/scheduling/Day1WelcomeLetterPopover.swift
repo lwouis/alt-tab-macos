@@ -10,23 +10,27 @@ enum Day1WelcomeLetterPopover {
         return (object as AnyObject?) === popover
     }
 
-    /// Not rechecked against the prompt rules at anchor time: the scheduler already did, and marked the
-    /// letter as seen before asking for it.
-    static func show(forceFreshInstall: Bool? = nil) {
-        LicenseManager.shared.refreshState()
-        guard case .trial = LicenseManager.shared.state else { return }
+    static func show(forceFreshInstall: Bool? = nil, licenseManager: LicenseManager = .shared,
+                     state: ProTransitionState = ProTransitionManager.shared.state,
+                     makePopover: () -> AnchoredPopover = { ProPromptPopover.make() }) {
+        licenseManager.refreshState()
+        guard case .trial = licenseManager.state else { return }
         close()
-        let popover = ProPromptPopover.make()
+        let popover = makePopover()
         self.popover = popover
-        popover.present(makeContent(isFresh: forceFreshInstall ?? ProTransitionState.isFreshInstall, closing: popover),
-            from: Menubar.statusItem)
+        popover.present(makeContent(isFresh: forceFreshInstall ?? ProTransitionState.isFreshInstall,
+            trialEnd: licenseManager.trialEndDate, closing: popover), from: Menubar.statusItem, canPresent: {
+                licenseManager.refreshState()
+                if case .trial = licenseManager.state { return true }
+                return false
+            }, onShown: { state.hasSeenWelcome = true })
     }
 
     static func close() {
         popover?.close()
     }
 
-    private static func makeContent(isFresh: Bool, closing popover: AnchoredPopover) -> NSView {
+    private static func makeContent(isFresh: Bool, trialEnd: Date?, closing popover: AnchoredPopover) -> NSView {
         let container = NSView()
         container.translatesAutoresizingMaskIntoConstraints = false
 
@@ -35,7 +39,7 @@ enum Day1WelcomeLetterPopover {
             : NSLocalizedString("%@ now has a Pro tier", comment: "")
         let header = ProPromptHeader(title: String(format: titleFormat, App.name), size: .large)
 
-        let messageText = [LicenseManager.shared.trialEndDate.map(ProFeatureCopy.includedUntil)
+        let messageText = [trialEnd.map(ProFeatureCopy.includedUntil)
             ?? ProFeatureCopy.trialSetup, ProFeatureCopy.trialPromise].joined(separator: "\n\n")
         let message = NSTextField(wrappingLabelWithString: messageText)
         message.font = .systemFont(ofSize: 14)
@@ -52,7 +56,10 @@ enum Day1WelcomeLetterPopover {
         button.bezelStyle = .rounded
         button.keyEquivalent = "\r"
         button.controlSize = .large
-        button.onAction = { [weak popover] _ in popover?.close() }
+        button.onAction = { [weak popover] _ in
+            popover?.acknowledgePresentation()
+            popover?.close()
+        }
 
         container.addSubview(header)
         container.addSubview(message)

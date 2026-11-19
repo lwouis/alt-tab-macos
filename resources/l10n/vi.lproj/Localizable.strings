@@ -95,7 +95,7 @@
 "Deactivate license on this machine" = "Hủy kích hoạt giấy phép trên máy này";
 "Deactivation failed" = "Hủy kích hoạt thất bại";
 "Deactivation was rejected by the server." = "Máy chủ đã từ chối hủy kích hoạt.";
-"Debug tools" = "Công cụ gỡ lỗi";
+"Debug Logs" = "Nhật ký gỡ lỗi";
 "Device Control" = "Điều khiển thiết bị";
 "Dinner" = "Bữa tối";
 "Disabled" = "Đã tắt";
@@ -361,3 +361,16 @@
 "Your feedback will be submitted as a public GitHub issue." = "Phản hồi của bạn sẽ được gửi dưới dạng GitHub Issue công khai.";
 "Your Pro trial starts when AltTab is ready" = "Bản dùng thử Pro bắt đầu khi AltTab sẵn sàng";
 "Your settings reset every time AltTab restarts." = "Cài đặt của bạn bị đặt lại mỗi khi AltTab khởi động lại.";
+
+/* Startup recovery */
+"AltTab couldn’t start." = "Không thể khởi động AltTab.";
+
+/* Startup recovery */
+"AltTab couldn’t access the keyboard or mouse. You can try again or quit AltTab." = "AltTab không thể truy cập bàn phím hoặc chuột. Bạn có thể thử lại hoặc thoát AltTab.";
+
+/* Startup recovery */
+"Try again" = "Thử lại";
+"AltTab Pro is still here" = "AltTab Pro vẫn luôn sẵn sàng";
+"Not now" = "Để sau";
+"Search, extra shortcuts and App Icons are a one-time purchase away." = "Tìm kiếm, phím tắt bổ sung và Biểu tượng ứng dụng có sẵn chỉ với một lần mua.";
+"You've used AltTab %@ times over the last %d months." = "Bạn đã dùng AltTab %1$@ lần trong %2$d tháng qua.";

@@ -95,7 +95,7 @@
 "Deactivate license on this machine" = "Licentie deactiveren op dit apparaat";
 "Deactivation failed" = "Deactivering mislukt";
 "Deactivation was rejected by the server." = "De deactivering is door de server geweigerd.";
-"Debug tools" = "Foutopsporingstools";
+"Debug Logs" = "Foutopsporingslogboeken";
 "Device Control" = "Apparaatbeheer";
 "Dinner" = "Avondeten";
 "Disabled" = "Uitgeschakeld";
@@ -361,3 +361,16 @@
 "Your feedback will be submitted as a public GitHub issue." = "Je feedback wordt ingediend als openbare GitHub-issue.";
 "Your Pro trial starts when AltTab is ready" = "Je Pro-proefperiode begint zodra AltTab klaar is";
 "Your settings reset every time AltTab restarts." = "Je instellingen worden bij elke herstart van AltTab teruggezet.";
+
+/* Startup recovery */
+"AltTab couldn’t start." = "AltTab kon niet starten.";
+
+/* Startup recovery */
+"AltTab couldn’t access the keyboard or mouse. You can try again or quit AltTab." = "AltTab kon geen toegang krijgen tot het toetsenbord of de muis. Je kunt het opnieuw proberen of AltTab afsluiten.";
+
+/* Startup recovery */
+"Try again" = "Opnieuw proberen";
+"AltTab Pro is still here" = "AltTab Pro is er nog steeds";
+"Not now" = "Niet nu";
+"Search, extra shortcuts and App Icons are a one-time purchase away." = "Zoeken, extra sneltoetsen en appiconen zijn beschikbaar met een eenmalige aankoop.";
+"You've used AltTab %@ times over the last %d months." = "Je hebt AltTab de afgelopen %2$d maanden %1$@ keer gebruikt.";

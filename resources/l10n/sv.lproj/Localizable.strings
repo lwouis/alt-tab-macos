@@ -95,7 +95,7 @@
 "Deactivate license on this machine" = "Inaktivera licens på den här datorn";
 "Deactivation failed" = "Inaktiveringen misslyckades";
 "Deactivation was rejected by the server." = "Inaktiveringen avvisades av servern.";
-"Debug tools" = "Felsökningsverktyg";
+"Debug Logs" = "Felsökningsloggar";
 "Device Control" = "Enhetskontroll";
 "Dinner" = "Middag";
 "Disabled" = "Inaktiverad";
@@ -361,3 +361,16 @@
 "Your feedback will be submitted as a public GitHub issue." = "Din feedback skickas in som ett offentligt GitHub-ärende.";
 "Your Pro trial starts when AltTab is ready" = "Din Pro-provperiod börjar när AltTab är redo";
 "Your settings reset every time AltTab restarts." = "Dina inställningar återställs varje gång AltTab startas om.";
+
+/* Startup recovery */
+"AltTab couldn’t start." = "AltTab kunde inte starta.";
+
+/* Startup recovery */
+"AltTab couldn’t access the keyboard or mouse. You can try again or quit AltTab." = "AltTab kunde inte komma åt tangentbordet eller musen. Du kan försöka igen eller avsluta AltTab.";
+
+/* Startup recovery */
+"Try again" = "Försök igen";
+"AltTab Pro is still here" = "AltTab Pro finns fortfarande här";
+"Not now" = "Inte nu";
+"Search, extra shortcuts and App Icons are a one-time purchase away." = "Sökning, extra kortkommandon och appikoner är tillgängliga med ett engångsköp.";
+"You've used AltTab %@ times over the last %d months." = "Du har använt AltTab %1$@ gånger under de senaste %2$d månaderna.";

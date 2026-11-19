@@ -46,7 +46,7 @@ class ProPromptHost {
     }
 
     static var sessionIsAvailable: Bool {
-        guard !ScreenLockEvents.isScreenLocked,
+        guard !StartupRecovery.isRecovering, !ScreenLockEvents.isScreenLocked,
               let session = CGSessionCopyCurrentDictionary() as? [String: Any] else { return false }
         return session[kCGSessionOnConsoleKey as String] as? Bool == true
     }
@@ -80,7 +80,9 @@ class ProPromptHost {
     func dispatch(_ action: ProPromptAction) {
         switch action {
         case .refreshBadge, .dismissAllProWindows: break
-        default: SearchDiscoveryHint.shared.cancel()
+        default:
+            guard !StartupRecovery.isRecovering else { return }
+            SearchDiscoveryHint.shared.cancel()
         }
         switch action {
         case .showWelcome:
@@ -95,6 +97,8 @@ class ProPromptHost {
             }
         case .showDay35Final:
             Day35FinalWindow.show()
+        case .showLateReminder:
+            LateReminderPopover.shared.show()
         case .dismissAllProWindows:
             Self.windowPresentation.cancel()
             SearchDiscoveryHint.shared.cancel()

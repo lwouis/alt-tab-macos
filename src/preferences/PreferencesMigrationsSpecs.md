@@ -10,6 +10,8 @@
 
 ## Behavior & edge cases
 
+- `didUpdate` records a strictly increasing numeric version before `preferencesVersion` is overwritten. The late reminder reads it once at usable startup. Fresh installs, equal versions, downgrades, empty saved versions and `#VERSION#` development placeholders return false. `testUpdateDetectionRequiresAnExistingOlderRelease` covers these boundaries.
+
 - **Version gating (`shouldRun`)** uses `String.compare(_, options: .numeric)`. A migration with threshold `T` runs iff the stored version is **≤ T** (i.e. compare is *not* `.orderedDescending`). The `.numeric` option is load-bearing: lexically `"9" > "10"`, but numerically `9 < 10`, so a user on `9.x` still gets a `10.x` migration.
 - **Order matters**: `updateToNewPreferences` runs migrations newest-threshold-first; some depend on keys earlier ones leave behind. The per-migration tests isolate each, but the registration list in `updateToNewPreferences` is the integration contract.
 - **Idempotency**: `migrateExceptionsTitleArray` must be safe to re-run — already-migrated (array-form) data fails to decode into the legacy (`String?`) shape, triggering an early return that leaves data untouched.

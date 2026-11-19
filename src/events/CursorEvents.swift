@@ -2,6 +2,11 @@ import Cocoa
 import Carbon.HIToolbox.Events
 
 class CursorEvents {
+    static func stopForRecovery() {
+        shouldBeEnabled = false
+        if let eventTap { CFMachPortInvalidate(eventTap) }
+    }
+
     private static var eventTap: CFMachPort!
     private static var shouldBeEnabled: Bool!
     private static var mouseDownTarget: AnyObject?
@@ -36,7 +41,7 @@ class CursorEvents {
 
     static func observe() {
         let eventMask = [CGEventType.leftMouseDown, CGEventType.leftMouseUp, CGEventType.rightMouseDown, CGEventType.rightMouseUp, CGEventType.otherMouseDown, CGEventType.otherMouseUp, CGEventType.mouseMoved].reduce(CGEventMask(0), { $0 | (1 << $1.rawValue) })
-        eventTap = CGEvent.createTapOrRestart(
+        eventTap = CGEvent.createRequiredTap(control: "mouse",
             tap: .cgSessionEventTap,
             options: .defaultTap,
             eventsOfInterest: eventMask,

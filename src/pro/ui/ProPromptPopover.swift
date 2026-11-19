@@ -1,9 +1,7 @@
 import Cocoa
 
-/// Shared plumbing for the Pro-transition menubar-anchored popovers ([A] Day 1 Welcome,
-/// [E] Day 15 Hard Gate, [H] Day 4 Tour). Centralises construction (optional fixed content size),
-/// presentation below the menubar icon, and the
-/// content layout both share: a fixed-width column of rows inset by `padding`, ending in a button row.
+/// Shared construction, menu-bar anchoring and fixed-width content columns for the Pro popovers:
+/// Welcome, blocked features, the style tour and the late reminder.
 enum ProPromptPopover {
     static let padding = CGFloat(16)
     private static let popovers = NSHashTable<AnchoredPopover>.weakObjects()

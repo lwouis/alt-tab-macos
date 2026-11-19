@@ -2,7 +2,6 @@ import Cocoa
 
 /// Icon-left, title-right header used by every Pro-transition window. Provides app-icon branding
 /// so each window reads as "AltTab is talking to you" without relying on a chrome titlebar.
-/// Popovers don't use this — their menubar anchor already signals app context.
 ///
 /// The "Pro" substring (last occurrence) in the title is auto-replaced with the gradient text
 /// attachment from `ProGradient`. Translators must keep "Pro" verbatim in localized titles for

@@ -40,13 +40,13 @@
       <g opacity=".55"><circle cx="9" cy="8" r="4.6"/><path d="M0 25a9 9 0 0 1 18 0z"/><circle cx="35" cy="8" r="4.6"/><path d="M26 25a9 9 0 0 1 18 0z"/></g>
       <g stroke="#251d28" stroke-width="2.4"><circle cx="22" cy="7.5" r="5.8"/><path d="M10.5 26a11.5 11.5 0 0 1 23 0z"/></g>
     </svg>
-    <text x="284" y="384" font-size="29" font-weight="700" letter-spacing="-.6"><!--downloads-->9.4M</text>
+    <text x="284" y="384" font-size="29" font-weight="700" letter-spacing="-.6"><!--downloads-->9.7M</text>
     <svg x="397" y="358" width="29" height="29" viewBox="0 0 22 22" fill="#f7b733" aria-hidden="true">
       <path d="m12 3.5 2.6 5.4 5.9.8-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.8z" transform="translate(-2 8.6) scale(.62)"/>
       <path d="m12 3.5 2.6 5.4 5.9.8-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.8z" transform="translate(8.6 8.6) scale(.62)"/>
       <path d="m12 3.5 2.6 5.4 5.9.8-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.8z" transform="translate(2.3 -1.8) scale(.7)" stroke="#251d28" stroke-width="2.2" paint-order="stroke"/>
     </svg>
-    <text x="435" y="384" font-size="29" font-weight="700" letter-spacing="-.6"><!--stars-->16K</text>
+    <text x="435" y="384" font-size="29" font-weight="700" letter-spacing="-.6"><!--stars-->17K</text>
     <g text-anchor="middle" font-size="11" letter-spacing="1" fill="#c9c4cf">
       <text x="293" y="405">DOWNLOADS</text>
       <text x="443" y="405">GITHUB STARS</text>

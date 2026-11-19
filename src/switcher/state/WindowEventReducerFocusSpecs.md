@@ -41,6 +41,33 @@ already-frontmost app emits nothing at all.
 
 Mirrors `WindowEventReducerFocusTests.swift` 1:1.
 
+### Windowless app continuity (#6154)
+
+With `Show apps with no open window: Show`, the running-app entry keeps the most recent position of the
+windows it replaces. This transfers the existing focus time, never the time the close was processed.
+The shell passes the removed records before discarding them; the same kernel handles a placeholder
+created while all remaining windows are phantom. A confirmed activation of an app represented only by
+that entry updates its focus time and refreshes an open switcher. Display filtering still owns `Hide`
+and `Show at the end`; preserving focus history does not bypass those preferences.
+
+- **testLastWindowTransfersItsFocusHistoryToTheAppEntry** — closing the most recent window keeps the
+  app first; later focus elsewhere moves it behind that window.
+- **testDelayedCloseCannotPromoteTheAppAheadOfANewerFocus** — a close processed after switching away
+  retains the earlier focus time.
+- **testWindowlessEntryKeepsSeededRankThroughBatchRemoval** — cold-start ranks remain dense and preserve
+  relative position, including a different app removed earlier in the same batch.
+- **testClosingSeveralWindowsKeepsTheAppsMostRecentPosition** — the most recent of the removed windows
+  supplies the app entry's history, regardless of removal-array order.
+- **testBulkClosePreservesTheRelativeOrderOfWindowlessApps** — replacing several apps keeps their
+  original relative order regardless of which placeholder is created first.
+- **testPhantomWindowTransfersItsFocusHistoryToTheAppEntry** — a retained phantom supplies continuity
+  without duplicating a rank.
+- **testNewWindowlessAppCannotInheritAnotherAppsFocus** — an app without its own history stays at the end.
+- **testActivatingWindowlessAppUpdatesItsRecentPosition** — activating the running app moves its entry
+  first and requests a repaint; a subsequent real-window focus still moves ahead.
+- **testStaleWindowlessEntryCannotClaimFocusForAnAppWithARealWindow** — a leftover placeholder cannot
+  turn a process-only activation into a claim about which real window is focused.
+
 ### A. The front of the MRU after a removal (#5346)
 
 - **testRemovingTheFocusedWindowPromotesTheFrontmostAppsNextWindow** — another app holds slot 1; the

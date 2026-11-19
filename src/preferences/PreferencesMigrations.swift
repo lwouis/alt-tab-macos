@@ -4,6 +4,7 @@ class PreferencesMigrations {
     /// Injectable so tests can run migrations against an isolated `UserDefaults` suite.
     /// Production keeps `.standard`; behavior is unchanged.
     static var defaults = UserDefaults.standard
+    private(set) static var didUpdate = false
 
     static func removeCorruptedPreferences() {
         // from v5.1.0+, there are crash reports of users somehow having their hold shortcuts set to ""
@@ -17,6 +18,7 @@ class PreferencesMigrations {
     static func migratePreferences() {
         let preferencesKey = "preferencesVersion"
         let existingVersion = Self.defaults.string(forKey: preferencesKey)
+        didUpdate = isVersionUpgrade(from: existingVersion, to: App.version)
         ProTransitionState.markFreshInstallIfUnknown(existingVersion == nil)
         if let versionInPlist = existingVersion {
             if versionInPlist != "#VERSION#" && versionInPlist.compare(App.version, options: .numeric) != .orderedDescending {
@@ -24,6 +26,11 @@ class PreferencesMigrations {
             }
         }
         Self.defaults.set(App.version, forKey: preferencesKey)
+    }
+
+    static func isVersionUpgrade(from previous: String?, to current: String) -> Bool {
+        guard let previous, !previous.isEmpty, previous != "#VERSION#", current != "#VERSION#" else { return false }
+        return previous.compare(current, options: .numeric) == .orderedAscending
     }
 
     static func updateToNewPreferences(_ versionInPlist: String) {

@@ -95,7 +95,7 @@
 "Deactivate license on this machine" = "Lizenz auf diesem Computer deaktivieren";
 "Deactivation failed" = "Deaktivierung fehlgeschlagen";
 "Deactivation was rejected by the server." = "Die Deaktivierung wurde vom Server abgelehnt.";
-"Debug tools" = "Debug-Tools";
+"Debug Logs" = "Debug-Protokolle";
 "Device Control" = "Gerätesteuerung";
 "Dinner" = "Abendessen";
 "Disabled" = "Deaktiviert";
@@ -361,3 +361,16 @@
 "Your feedback will be submitted as a public GitHub issue." = "Ihr Feedback wird als öffentliches GitHub-Issue eingereicht.";
 "Your Pro trial starts when AltTab is ready" = "Dein Pro-Testzeitraum beginnt, sobald AltTab bereit ist";
 "Your settings reset every time AltTab restarts." = "Deine Einstellungen werden bei jedem Neustart von AltTab zurückgesetzt.";
+
+/* Startup recovery */
+"AltTab couldn’t start." = "AltTab konnte nicht gestartet werden.";
+
+/* Startup recovery */
+"AltTab couldn’t access the keyboard or mouse. You can try again or quit AltTab." = "AltTab konnte nicht auf die Tastatur oder Maus zugreifen. Du kannst es erneut versuchen oder AltTab beenden.";
+
+/* Startup recovery */
+"Try again" = "Erneut versuchen";
+"AltTab Pro is still here" = "AltTab Pro ist weiterhin für dich da";
+"Not now" = "Nicht jetzt";
+"Search, extra shortcuts and App Icons are a one-time purchase away." = "Suche, zusätzliche Kurzbefehle und App-Symbole erhältst du mit einem einmaligen Kauf.";
+"You've used AltTab %@ times over the last %d months." = "Du hast AltTab in den letzten %2$d Monaten %1$@ Mal verwendet.";

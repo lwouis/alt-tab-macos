@@ -54,6 +54,16 @@ final class WsEventRoutingTests: XCTestCase {
         XCTAssertEqual(drain.coalescedGeometryEvents, 1)
     }
 
+    func testMoveAfterResizeRetainsResizeEvidenceAndLatestPayload() {
+        var ingress = WsEventIngress()
+        ingress.append(event(.windowResized, wid: 7, at: 1))
+        ingress.append(event(.windowMoved, wid: 7, at: 2))
+        ingress.append(event(.windowMoved, wid: 7, at: 3))
+        XCTAssertEqual(ingress.drain().events, [event(.windowResized, wid: 7, at: 3)])
+        ingress.append(event(.windowMoved, wid: 7, at: 4))
+        XCTAssertEqual(ingress.drain().events, [event(.windowMoved, wid: 7, at: 4)])
+    }
+
     func testSemanticEdgePreventsGeometryFromCrossingIt() {
         var ingress = WsEventIngress()
         ingress.append(event(.windowMoved, wid: 7, at: 1))

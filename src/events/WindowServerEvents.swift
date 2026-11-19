@@ -194,7 +194,8 @@ class WindowServerEvents {
             } else if n == .windowOrderedIn {
                 TrackedWindowStateBridge.dispatch(.windowOrderedIn(wid: w0, now: now, inSpaceTransition: inSpaceTransition))
             } else {
-                TrackedWindowStateBridge.dispatch(.windowMovedOrResized(wid: w0, inSpaceTransition: inSpaceTransition))
+                TrackedWindowStateBridge.dispatch(.windowMovedOrResized(wid: w0, resized: n == .windowResized,
+                    inSpaceTransition: inSpaceTransition))
             }
         case .updateSpaceMembership:
             guard !isOwnWindow(widInSpace) else { return }

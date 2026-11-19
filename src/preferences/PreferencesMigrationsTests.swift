@@ -32,6 +32,15 @@ final class PreferencesMigrationsTests: XCTestCase {
 
     // MARK: - A. Version gating (shouldRun)
 
+    func testUpdateDetectionRequiresAnExistingOlderRelease() {
+        for previous in [nil, "", "#VERSION#", "11.10.0", "11.11.0"] {
+            XCTAssertFalse(PreferencesMigrations.isVersionUpgrade(from: previous, to: "11.10.0"))
+        }
+        XCTAssertTrue(PreferencesMigrations.isVersionUpgrade(from: "11.9.0", to: "11.10.0"))
+        XCTAssertTrue(PreferencesMigrations.isVersionUpgrade(from: "7.0.0", to: "11.10.0"))
+        XCTAssertFalse(PreferencesMigrations.isVersionUpgrade(from: "11.9.0", to: "#VERSION#"))
+    }
+
     func testVersionGatingRunsForOlderStoredVersion() {
         XCTAssertTrue(PreferencesMigrations.shouldRun("6.0.0", "10.13.0"))
     }

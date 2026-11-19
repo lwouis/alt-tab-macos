@@ -49,9 +49,13 @@ one-window-per-app representation consume this statement. Unknown is never inter
   boundary below rather than an exception to it.
 - **a structural repair** — the front window closed and something has to take its place, or a tab group
   changed which member it draws. Not a claim about the user at all.
+- **a windowless app activation** — the confirmed front process names the app entry directly. This
+  applies only when a placeholder exists and no non-phantom window remains; it cannot guess a real window.
 
-Nothing else. `WindowEventReducer.applyFocusAndBump` is the only function that writes `focusedAt`, and it
-takes an `AttentionWriteSource` naming which of the two entitled it. In particular the WindowServer's order
+For real-window attention, `WindowEventReducer.applyFocusAndBump` writes `focusedAt` and takes an
+`AttentionWriteSource` naming which source entitled it. A windowless entry inherits its last window's
+focus time and relative rank when created, and `noteWindowlessFocus` records confirmed app activations.
+Closing a background window cannot promote its app ahead of a newer focus. In particular the WindowServer's order
 and focus family (808/815/816) cannot move the order: measured across twelve scenarios, it never names a
 window accessibility had not already named, it always names it later, and on an activation it fires once per
 on-Space window, which is a set rather than an answer.

@@ -3,6 +3,16 @@ import Carbon.HIToolbox.Events
 import ShortcutRecorder
 
 class KeyboardEvents {
+    /// Keep invalidated ports retained until exit: a callback already in flight may still read them.
+    static func stopForRecovery() {
+        if let eventTap { CFMachPortInvalidate(eventTap) }
+        if let escapeEventTap { CFMachPortInvalidate(escapeEventTap) }
+        if let localEventMonitor { NSEvent.removeMonitor(localEventMonitor) }
+        localEventMonitor = nil
+        for ref in eventHotKeyRefs.values { if let ref { UnregisterEventHotKey(ref) } }
+        eventHotKeyRefs.removeAll()
+    }
+
     private static let signature = "altt".utf16.reduce(0) { ($0 << 8) + OSType($1) }
     // GetEventMonitorTarget/GetApplicationEventTarget also work, but require Accessibility Permission
     private static let shortcutEventTarget = GetEventDispatcherTarget()
@@ -186,6 +196,7 @@ class KeyboardEvents {
     }
 
     private static func registerHotKeyIfNeeded(_ controlId: String, _ shortcut: Shortcut) {
+        guard !StartupRecovery.isRecovering else { return }
         if shortcut.keyCode != .none {
             guard let id = KeyboardEventsTestable.globalShortcutsIds[controlId] else { return }
             let hotkeyId = EventHotKeyID(signature: signature, id: UInt32(id))
@@ -226,24 +237,20 @@ class KeyboardEvents {
         // handles or suppresses typing. The Esc tap is cghid + defaultTap (the only way to swallow Esc ahead
         // of macOS 26 Game Overlay, #5585); it is disabled outside a switcher session, keeping the active HID
         // path out of normal typing for #5766.
-        eventTap = CGEvent.tapCreate(
+        eventTap = CGEvent.createInputTap(control: "keyboard",
             tap: .cgSessionEventTap,
-            place: .headInsertEventTap,
             options: .listenOnly,
             eventsOfInterest: [CGEventType.flagsChanged, .keyDown]
                 .reduce(CGEventMask(0)) { $0 | (1 << $1.rawValue) },
-            callback: inputEventHandler,
-            userInfo: nil)
-        guard let eventTap else { App.restart(); return }
+            callback: inputEventHandler)
+        guard let eventTap else { StartupRecovery.failed("keyboard"); return }
         addToKeyboardRunLoop(eventTap)
-        escapeEventTap = CGEvent.tapCreate(
+        escapeEventTap = CGEvent.createInputTap(control: "escape",
             tap: .cghidEventTap,
-            place: .headInsertEventTap,
             options: .defaultTap,
             eventsOfInterest: CGEventMask(1 << CGEventType.keyDown.rawValue),
-            callback: escapeEventHandler,
-            userInfo: nil)
-        guard let escapeEventTap else { App.restart(); return }
+            callback: escapeEventHandler)
+        guard let escapeEventTap else { StartupRecovery.failed("escape"); return }
         CGEvent.tapEnable(tap: escapeEventTap, enable: false)
         addToKeyboardRunLoop(escapeEventTap)
         updateEscapeAbsorptionTap()

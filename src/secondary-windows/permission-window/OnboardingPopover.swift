@@ -18,7 +18,7 @@ enum OnboardingPopover {
 
     /// Either beat on demand: `show` skips the first one once the shortcut has been used.
     static func showForQa(completion: Bool) {
-        guard Menubar.statusItem != nil else { return }
+        guard Menubar.isInitialized else { return }
         close()
         announcesTrial = true
         if completion {
@@ -41,7 +41,7 @@ enum OnboardingPopover {
     /// Returns false before the menubar exists, so the caller can fall back. A hidden or unplaced icon is not a
     /// reason to: the popover then shows under the menu bar (`StatusItemAnchor`).
     static func show(announcesTrial: Bool) -> Bool {
-        guard Menubar.statusItem != nil else {
+        guard Menubar.isInitialized else {
             Logger.debug { "no menubar yet" }
             return false
         }
@@ -119,8 +119,8 @@ enum OnboardingPopover {
     }
 
     private static func present(_ content: NSView, onShown: (() -> Void)? = nil) {
-        guard let popover, let item = Menubar.statusItem else { return }
-        popover.present(content, from: item, onShown: onShown)
+        guard let popover else { return }
+        popover.present(content, from: Menubar.statusItem, onShown: onShown)
     }
 
     /// The check mark springs in and throws confetti, past the popover's edges.

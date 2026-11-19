@@ -95,7 +95,7 @@
 "Deactivate license on this machine" = "Деактивировать лицензию на этом компьютере";
 "Deactivation failed" = "Не удалось деактивировать";
 "Deactivation was rejected by the server." = "Сервер отклонил деактивацию.";
-"Debug tools" = "Инструменты отладки";
+"Debug Logs" = "Журналы отладки";
 "Device Control" = "Управление устройством";
 "Dinner" = "Ужин";
 "Disabled" = "Отключено";
@@ -361,3 +361,16 @@
 "Your feedback will be submitted as a public GitHub issue." = "Ваш отзыв будет отправлен как публичный issue на GitHub.";
 "Your Pro trial starts when AltTab is ready" = "Пробный период Pro начнётся, когда AltTab будет готов к работе";
 "Your settings reset every time AltTab restarts." = "Ваши настройки сбрасываются при каждом перезапуске AltTab.";
+
+/* Startup recovery */
+"AltTab couldn’t start." = "Не удалось запустить AltTab.";
+
+/* Startup recovery */
+"AltTab couldn’t access the keyboard or mouse. You can try again or quit AltTab." = "AltTab не удалось получить доступ к клавиатуре или мыши. Вы можете повторить попытку или выйти из AltTab.";
+
+/* Startup recovery */
+"Try again" = "Повторить попытку";
+"AltTab Pro is still here" = "AltTab Pro по-прежнему доступен";
+"Not now" = "Не сейчас";
+"Search, extra shortcuts and App Icons are a one-time purchase away." = "Поиск, дополнительные сочетания клавиш и значки приложений доступны после разовой покупки.";
+"You've used AltTab %@ times over the last %d months." = "За последние %2$d мес. вы использовали AltTab %1$@ раз.";
