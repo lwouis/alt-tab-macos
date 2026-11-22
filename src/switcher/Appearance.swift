@@ -185,7 +185,7 @@ class Appearance {
 
     private static func updateFont() {
         if #available(macOS 26.0, *) {
-            font = geistFont(ofSize: fontHeight, weight: currentStyle == .appIcons ? .semibold : .medium)
+            font = geistFont(ofSize: fontHeight, weight: currentStyle == .appIcons ? .semibold : .regular)
         } else {
             font = geistFont(ofSize: fontHeight, weight: .regular)
         }
