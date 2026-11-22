@@ -10,7 +10,7 @@ cd ~/Developer/alt-tab-nathan && ./personal-build.sh
 
 About 85 seconds. It stops at the first problem and prints `FAIL: <reason>`. In order, it:
 
-1. Checks the Mac: Xcode 26, the "Local Self-Signed" certificate, a clean `personal` branch, the repo outside `~/Documents`, and at most one AltTab running (from `/Applications`).
+1. Checks the Mac: Xcode 26 or later, the "Local Self-Signed" certificate, a clean `personal` branch, the repo outside `~/Documents`, and at most one AltTab running (from `/Applications`).
 2. Merges `upstream/master`. On a conflict it lists the files, aborts the merge, and stops.
 3. Reads the version from the latest upstream `v*` tag and checks that the Pro switch is still in `LicenseManager.computeState()`.
 4. Runs the unit tests (`ai/test.sh`, Debug).

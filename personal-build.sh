@@ -22,7 +22,8 @@ check_running() {
 [[ $(uname) == Darwin ]] || fail "not macOS"
 # Capture before grepping: `cmd | grep -q` SIGPIPEs cmd on the first match, and pipefail turns that into a failure.
 xcode=$(xcodebuild -version)
-grep -q '^Xcode 26\.' <<<"$xcode" || fail "Xcode 26.x required"
+xcode_major=$(sed -n 's/^Xcode \([0-9]*\).*/\1/p' <<<"$xcode")
+[[ ${xcode_major:-0} -ge 26 ]] || fail "Xcode 26 or later required"
 ids=$(security find-identity -v -p codesigning)
 grep -q '"Local Self-Signed"' <<<"$ids" || fail "Local Self-Signed signing identity missing"
 python3 --version >/dev/null || fail "python3 missing"
