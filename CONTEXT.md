@@ -47,3 +47,7 @@ _Avoid_: Default glass, frosted (frosted is the pre-macOS 26 blur)
 **Clear glass**:
 The more see-through Liquid Glass of the system ⌘Tab switcher, with no panel shadow. Upstream uses it only for the App Icons style; the Fork also uses it for Titles.
 _Avoid_: Transparent mode, private look
+
+**Tint**:
+A neutral wash over Clear glass that pushes what's behind the panel away from the title color, so titles stay readable over bright or busy windows.
+_Avoid_: Overlay, filter, dim (unless it's a separate layer)

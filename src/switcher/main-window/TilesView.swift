@@ -191,6 +191,7 @@ class TilesView {
 
     private static func configureSearchField() {
         searchField.applySearchStyle()
+        searchField.font = Appearance.geistFont(ofSize: searchField.font!.pointSize, weight: .regular)
         searchField.usesSingleLineMode = true
         searchField.target = Self.self
         searchField.action = #selector(Self.searchFieldChanged(_:))

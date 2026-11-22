@@ -18,6 +18,16 @@ extension NSGlassEffectView: EffectView {
         // glass shape on macOS 27 (#5757). Set here, not there: cached views are reused across style
         // and size changes.
         layer!.cornerRadius = cornerRadius
+        applyClearGlassTint()
+    }
+
+    /// The Tint is drawn by the content host, not `tintColor`: on the private clear variant, even an opaque
+    /// red `tintColor` only lightened the glass to gray (probed on macOS 26.7.3). Re-applied on reuse
+    /// because the theme can change between summons.
+    private func applyClearGlassTint() {
+        guard style == .clear else { return }
+        contentView!.wantsLayer = true
+        contentView!.layer!.backgroundColor = Appearance.clearGlassTintColor.cgColor
     }
 
     var hostView: NSView { contentView! }
