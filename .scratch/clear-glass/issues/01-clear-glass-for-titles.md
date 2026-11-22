@@ -8,7 +8,7 @@ Decisions already made (don't reopen): Titles only, not every style. Committed s
 
 **Blocked by:** None (can start immediately).
 
-**Status:** ready-for-agent
+**Status:** resolved
 
 - [ ] In the Titles style on macOS 26+, the panel uses Clear glass and has no shadow; with the private look unavailable, it uses Regular glass with a shadow, like App Icons
 - [ ] Thumbnails still uses Regular glass with a shadow; App Icons is unchanged

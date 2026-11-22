@@ -59,7 +59,7 @@ class FrostedGlassEffectView: NSVisualEffectView, EffectView {
     }
 }
 
-/// The App Icons style uses the private `set_variant:` on `NSGlassEffectView` to get the macOS
+/// The App Icons and Titles styles use the private `set_variant:` on `NSGlassEffectView` to get the macOS
 /// Cmd-Tab-like clear glass look. `style = .clear` alone renders nearly fully transparent, so the
 /// variant is what makes the panel visible. Lives here as a free helper (no NSGlassEffectView subclass).
 enum LiquidGlass {
@@ -89,7 +89,9 @@ enum EffectViewKind {
 
 func requiredEffectViewKind() -> EffectViewKind {
     if #available(macOS 26.0, *) {
-        if Preferences.effectiveAppearanceStyle(SwitcherSession.activeShortcutIndex) == .appIcons,
+        // App Icons and Titles get clear glass
+        let style = Preferences.effectiveAppearanceStyle(SwitcherSession.activeShortcutIndex)
+        if style == .appIcons || style == .titles,
            LiquidGlass.canUsePrivateLook {
             return .liquidGlassClear
         }

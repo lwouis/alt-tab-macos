@@ -29,6 +29,7 @@ After it finishes, empty the Trash. LaunchServices keeps every trashed AltTab re
 | Debug builds use the in-memory Pro mock | `src/App.swift` |
 | Update feed points at `https://updates.invalid/appcast.xml`, so the stock updater can never replace this build | `src/api/Endpoints.swift` |
 | The Debug-only QA test panel is not created | `src/App.swift` |
+| Titles style uses Clear glass with no panel shadow, like App Icons | `src/switcher/main-window/TilesPanelBackgroundView.swift`, `src/switcher/Appearance.swift` |
 | Build, install and backup script | `personal-build.sh` |
 
 Not changed on purpose: no features or fallbacks were removed, so merge conflicts are rare (only the patches above can conflict). Set the update policy to "manual" in AltTab Settings; the app's default is "check automatically", which only reaches the dead update address. Crash reporting has no app secret, so with "manual" nothing calls the network automatically.
