@@ -39,3 +39,11 @@ _Avoid_: Update (the in-app updater is a different, disabled thing)
 **One-shot run**:
 A single Claude Code prompt that completes the Personal build without asking questions, and stops with a clear report if a precondition fails.
 _Avoid_: Automation, pipeline
+
+**Regular glass**:
+The standard macOS Liquid Glass behind the switcher, which Upstream uses for the Thumbnails and Titles styles.
+_Avoid_: Default glass, frosted (frosted is the pre-macOS 26 blur)
+
+**Clear glass**:
+The more see-through Liquid Glass of the system ⌘Tab switcher, with no panel shadow. Upstream uses it only for the App Icons style; the Fork also uses it for Titles.
+_Avoid_: Transparent mode, private look
