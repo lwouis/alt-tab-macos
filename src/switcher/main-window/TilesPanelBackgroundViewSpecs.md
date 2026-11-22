@@ -17,6 +17,11 @@ varies with style or size has to be re-applied there rather than at construction
   repeatedly, switch between those styles (23pt and 43pt corners), and change App Icons sizes
   (50pt, 55pt, 75pt corners). Inspect all four corners in light and dark appearances, including against
   contrasting backgrounds. Selection, scrolling and search stay usable.
+- **Titles uses clear glass, Thumbnails keeps regular glass** — on macOS 26+, summon Titles and the
+  panel shows the clear-glass look (as App Icons does); switch to Thumbnails and it shows regular glass.
+  With the private clear-glass look unavailable, Titles shows regular glass like App Icons.
+- **No panel shadow under clear glass** — Titles and App Icons show no shadow around the panel;
+  Thumbnails keeps its shadow. Switch between the styles and confirm the shadow follows the style.
 - **Recheck on later macOS builds** — this works around a rendering bug rather than identifying it.
   Disabling the window shadow, allowing glass layout, and clipping to a rectangle all failed to fix it.
   Confirm the artifact is still there before keeping the rounded clip.
