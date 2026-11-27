@@ -51,6 +51,11 @@ enum ExceptionMatcher {
             case .windowTitleContains:
                 guard let patterns = e.windowTitleContains, !patterns.isEmpty else { return false }
                 return patterns.contains { !$0.isEmpty && s.title.contains($0) }
+            case .windowTitleDoesNotContain:
+                guard let patterns = e.windowTitleContains else { return false }
+                let nonEmptyPatterns = patterns.filter { !$0.isEmpty }
+                guard !nonEmptyPatterns.isEmpty else { return false }
+                return !nonEmptyPatterns.contains { s.title.contains($0) }
         }
     }
 

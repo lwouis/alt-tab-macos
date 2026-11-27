@@ -364,7 +364,7 @@ class ExceptionEditorView: NSView {
     }
 
     private func updatePatternsVisibility() {
-        let show = entry.hide == .windowTitleContains
+        let show = entry.hide == .windowTitleContains || entry.hide == .windowTitleDoesNotContain
         patternsRow?.isHidden = !show
     }
 

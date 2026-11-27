@@ -408,6 +408,7 @@ enum ExceptionHidePreference: String/* required for jsonEncode */, CaseIterable,
     case always = "1"
     case whenNoOpenWindow = "2"
     case windowTitleContains = "3"
+    case windowTitleDoesNotContain = "4"
 
     var localizedString: LocalizedString {
         switch self {
@@ -415,6 +416,7 @@ enum ExceptionHidePreference: String/* required for jsonEncode */, CaseIterable,
             case .always: return NSLocalizedString("Always", comment: "")
             case .whenNoOpenWindow: return NSLocalizedString("When no open window", comment: "")
             case .windowTitleContains: return NSLocalizedString("Window title contains", comment: "")
+            case .windowTitleDoesNotContain: return NSLocalizedString("Window title does NOT contain", comment: "")
         }
     }
 }

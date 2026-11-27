@@ -53,6 +53,17 @@ final class ExceptionMatcherTests: XCTestCase {
         XCTAssertFalse(ExceptionMatcher.hideMatches(entry("x", hide: .windowTitleContains, titles: [""]), ws(title: "Main")))
     }
 
+    func testHideWindowTitleDoesNotContain() {
+        XCTAssertTrue(ExceptionMatcher.hideMatches(entry("x", hide: .windowTitleDoesNotContain, titles: ["Inspector"]), ws(title: "Main Window")))
+        XCTAssertFalse(ExceptionMatcher.hideMatches(entry("x", hide: .windowTitleDoesNotContain, titles: ["Inspector"]), ws(title: "Web Inspector")))
+    }
+
+    func testHideWindowTitleDoesNotContainNilOrEmptyPatterns() {
+        XCTAssertFalse(ExceptionMatcher.hideMatches(entry("x", hide: .windowTitleDoesNotContain, titles: nil), ws(title: "Main")))
+        XCTAssertFalse(ExceptionMatcher.hideMatches(entry("x", hide: .windowTitleDoesNotContain, titles: []), ws(title: "Main")))
+        XCTAssertFalse(ExceptionMatcher.hideMatches(entry("x", hide: .windowTitleDoesNotContain, titles: [""]), ws(title: "Main")))
+    }
+
     func testHideAlwaysIgnoredWithActiveAppOverride() {
         XCTAssertFalse(ExceptionMatcher.hideMatches(entry("x", hide: .always), ws(title: "t"), activeAppOverride: true))
     }
